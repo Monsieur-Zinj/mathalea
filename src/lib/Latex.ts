@@ -1,13 +1,10 @@
 import genericPreamble from '../lib/latex/preambule.tex?raw'
+import { loadFonts, loadPackagesFromContent, loadPreambule, logPDF } from '../lib/latex/preambuleTex'
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
 // import { printPrettier } from 'prettier-plugin-latex/standalone.js'
-
-const logPDF = (str: string) => {
-  console.log('PACKAGETEST:' + str)
-}
 
 export interface Exo {
   content?: string
@@ -80,20 +77,7 @@ class Latex {
     if (latexFileInfos.style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
     let content = ''
     let contentCorr = ''
-    for (const exercice of this.exercices) {
-      if (exercice.typeExercice === 'statique') continue
-      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
-      if (exercice != null) {
-        const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
-        exercice.seed = seed
-        if (exercice.typeExercice === 'simple') {
-          mathaleaHandleExerciceSimple(exercice, false)
-        } else {
-          seedrandom(seed, { global: true })
-          if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
-        }
-      }
-    }
+    this.loadExercicesWithVersion(indiceVersion)
     if (latexFileInfos.style === 'Can') {
       content += '\\begin{TableauCan}\n'
       contentCorr += '\n\\begin{enumerate}'
@@ -169,20 +153,24 @@ class Latex {
     return { content, contentCorr }
   }
 
-  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
-    let content = ''
+  loadExercicesWithVersion (indiceVersion: number = 1) {
     for (const exercice of this.exercices) {
       if (exercice.typeExercice === 'statique') continue
+      if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
       if (exercice.typeExercice === 'simple') {
         mathaleaHandleExerciceSimple(exercice, false)
-      }
-      seedrandom(seed, { global: true })
-      if (exercice.typeExercice !== 'simple') {
+      } else {
+        seedrandom(seed, { global: true })
         if (typeof exercice.nouvelleVersionWrapper === 'function') exercice.nouvelleVersionWrapper()
       }
     }
+  }
+
+  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
+    this.loadExercicesWithVersion(indiceVersion)
+    let content = ''
     for (const exercice of this.exercices) {
       content += `\n% @see : ${getUrlFromExercice(exercice)}`
       if (exercice.typeExercice === 'statique') {
@@ -216,16 +204,9 @@ Correction
 Correction
 \\end{wrapfigure}\\ `
         }
-        // if (withQrcode) content += '\n\\begin{minipage}{0.75\\linewidth}'
         content += writeIntroduction(exercice.introduction)
         content += '\n' + format(exercice.consigne)
         content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
-        // if (withQrcode) {
-        //   content += '\n\\end{minipage}'
-        //   content += '\n\\begin{minipage}{0.20\\linewidth}'
-        //   content += `\n\\qrcode{${getUrlFromExercice(exercice)}&v=eleve&es=0211}`
-        //   content += '\n\\end{minipage}'
-        // }
         content += '\n\\end{exercice}\n'
         content += '\n\\begin{Solution}'
         content += writeInCols(writeQuestions(exercice.listeCorrections, exercice.spacingCorr, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbColsCorr))
@@ -258,52 +239,76 @@ Correction
         }
       }
       if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted3 in getContents of Latex.ts', 'AbortError') }
-      contents.preamble = `% @see : ${window.location.href}`
-      contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
-      if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-          contents.content.includes('\\Propor[') || // exo : 6P15
-          contents.content.includes('\\Fraction[') || // exo : can4-2024-Q15
-          contents.content.includes('\\Reperage[')) { // exo 5R12-1
-        // à mettre avant ProfMaquette
-        logPDF(`usepackage{ProfCollege} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{ProfCollege}'
+      this.loadPreambuleFromContents(contents, latexFileInfos)
+      contents.intro += '\n\\begin{document}'
+    } else {
+      for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
+        if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+        const contentVersion = this.getContentsForAVersion(latexFileInfos, i)
+        if (i > 1) {
+          contents.content += '\n\\clearpage'
+          contents.content += '\n\\setcounter{ExoMA}{0}'
+          contents.contentCorr += '\n\\clearpage'
+          contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
+        }
+        if (latexFileInfos.nbVersions > 1) {
+          contents.content += `\n\\version{${i}}`
+          contents.contentCorr += `\n\\version{${i}}`
+          if (i > 1 && latexFileInfos.style === 'Can') {
+            contents.content += '\n\\setcounter{nbEx}{1}'
+            contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
+          }
+        }
+        contents.content += contentVersion.content
+        contents.contentCorr += contentVersion.contentCorr
       }
-      contents.preamble += '\n\\usepackage{ProfMaquette}'
-      contents.preamble += `\n\\usepackage{etoolbox}
-\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}
-\\newbool{dys}
-\\setbool{dys}{${latexFileInfos.fontOption === 'DysFont' ? 'true' : 'false'}}          
-\\ifbool{dys}{
-% POLICE DYS
-\\usepackage{unicode-math}
-\\usepackage{fontspec}
-\\setmainfont{TeX Gyre Schola}
-\\setmathfont{TeX Gyre Schola Math}
-\\usepackage[fontsize=14]{scrextend}
-\\usepackage{setspace}
-\\setstretch{1.7}
-}{
-% POLICE STANDARD
-\\usepackage{fontenc}
-\\usepackage[scaled=1]{helvet}
-\\usepackage[fontsize=12]{scrextend}
-}`
-      contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
-      contents.preamble += '\n\\usepackage[luatex]{hyperref}'
-      contents.preamble += '\n\\usepackage{tikz}'
-      contents.preamble += '\n\\usetikzlibrary{calc}'
-      contents.preamble += '\n\\usepackage{fancyhdr}'
-      contents.preamble += '\n\\pagestyle{fancy}'
-      contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
-      contents.preamble += '\n\\setlength{\\headheight}{18pt}'
-      contents.preamble += '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
-      contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
-      contents.preamble += `\n\\fancyfoot[R]{%
+      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
+      if (latexFileInfos.style === 'Can') {
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
+        contents.intro += '\n\\begin{document}'
+        contents.intro += '\n\\setcounter{nbEx}{1}'
+        contents.intro += '\n\\pageDeGardeCan{nbEx}'
+        contents.intro += '\n\\clearpage'
+      } else {
+        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(latexFileInfos, contents)}\n\n`
+        contents.preamble += `\\Theme[${latexFileInfos.style}]{nombres}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
+        contents.intro += '\n\\begin{document}\n'
+      }
+    }
+    return contents
+  }
+
+  private loadPreambuleFromContents (contents: contentsType, latexFileInfos: LatexFileInfos) {
+    contents.preamble = `% @see : ${window.location.href}`
+    contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
+    if (contents.content.includes('\\Engrenages[') || // exo : 3A12
+      contents.content.includes('\\Propor[') || // exo : 6P15
+      contents.content.includes('\\Fraction[') || // exo : can4-2024-Q15
+      contents.content.includes('\\Reperage[')) { // exo 5R12-1
+      // à mettre avant ProfMaquette
+      logPDF(`usepackage{ProfCollege} : ${window.location.href}`)
+      contents.preamble += '\n\\usepackage{ProfCollege}'
+    }
+    contents.preamble += '\n\\usepackage{ProfMaquette}'
+    contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
+    contents.preamble += loadFonts(latexFileInfos)
+    contents.preamble += '\n\\usepackage[left=1.5cm,right=1.5cm,top=2cm,bottom=2cm]{geometry}'
+    contents.preamble += '\n\\usepackage[luatex]{hyperref}'
+    contents.preamble += '\n\\usepackage{tikz}'
+    contents.preamble += '\n\\usetikzlibrary{calc}'
+    contents.preamble += '\n\\usepackage{fancyhdr}'
+    contents.preamble += '\n\\pagestyle{fancy}'
+    contents.preamble += '\n\\renewcommand\\headrulewidth{0pt}'
+    contents.preamble += '\n\\setlength{\\headheight}{18pt}'
+    contents.preamble += '\n\\fancyhead[R]{\\href{https://coopmaths.fr/alea}{Mathaléa}}'
+    contents.preamble += '\n\\fancyfoot[C]{\\thepage}'
+    contents.preamble += `\n\\fancyfoot[R]{%
 \\begin{tikzpicture}[remember picture,overlay]
   \\node[anchor=south east] at ($(current page.south east)+(-2,0.25cm)$) {\\scriptsize {\\bfseries \\href{https://coopmaths.fr/}{Coopmaths.fr} -- \\href{http://creativecommons.fr/licences/}{CC-BY-SA}}};
 \\end{tikzpicture}
 }`
-      contents.preamble += `\n\\fancyhead[L]{
+    contents.preamble += `\n\\fancyhead[L]{
 \\begin{tikzpicture}[y=0.8, x=0.8, yscale=-0.04, xscale=0.04,remember picture, overlay,fill=orange!50,transform canvas={xshift=-1cm,yshift=1cm}]
 %%%% Arc supérieur gauche%%%%
 \\path[fill](523,1424)..controls(474,1413)and(404,1372)..(362,1333)..controls(322,1295)and(313,1272)..(331,1254)..controls(348,1236)and(369,1245)..(410,1283)..controls(458,1328)and(517,1356)..(575,1362)..controls(635,1368)and(646,1375)..(643,1404)..controls(641,1428)and(641,1428)..(596,1430)..controls(571,1431)and(538,1428)..(523,1424)--cycle;
@@ -339,349 +344,24 @@ Correction
     % pdftitle={Puissance Quatre},% On définit un titre pour le document pdf
     % pdfpagemode=FullScreen,% On fixe l'affichage par défaut à plein écran
 }`
-      contents.preamble += '\n\\usepackage{qrcode}'
-      contents.preamble += '\n\\usepackage{mathrsfs}'
-      contents.preamble += '\n\\usepackage{enumitem}'
-      contents.preamble += '\n\\usepackage[french]{babel}'
-      contents.preamble += '\n\\setlength{\\parindent}{0cm}'
-      if (contents.content.includes('pspicture') || contents.content.includes('\\rput') || contents.content.includes('\\pscurve') || contents.content.includes('\\psset') || contents.content.includes('\\psframe')) {
-        contents.preamble += '\n\\usepackage{pstricks}'
-        logPDF(`usepackage{pspicture} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\pstext')) {
-        if (!contents.preamble.includes('pst-text')) contents.preamble += '\n\\usepackage{pst-text}'
-        logPDF(`usepackage{pst-text} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\pstGeonode') || contents.content.includes('\\pstLine')) {
-        if (!contents.preamble.includes('pst-eucl')) contents.preamble += '\n\\usepackage{pst-eucl}'
-        logPDF(`usepackage{pst-eucl} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\psaxes') || contents.content.includes('\\psline') || contents.content.includes('\\pspolygon') || contents.content.includes('\\psplot')) {
-        if (!contents.preamble.includes('pst-plot')) contents.preamble += '\n\\usepackage{pst-plot}'
-        logPDF(`usepackage{pst-plot} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\multido')) {
-        if (!contents.preamble.includes('multido')) contents.preamble += '\n\\usepackage{multido}'
-        logPDF(`usepackage{multido} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\gradangle{') || contents.content.includes('fillstyle=gradient')) {
-        logPDF(`usepackage{pst-grad} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('pst-grad'))contents.preamble += '\n\\usepackage{pst-grad}'
-      }
-      if (contents.content.includes('\\pstree{') || contents.content.includes('\\pstree[')) {
-        logPDF(`usepackage{pst-tree} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('pst-tree'))contents.preamble += '\n\\usepackage{pst-tree}'
-      }
-      if (contents.content.includes('\\pnode') || contents.content.includes('\\ncline') || contents.content.includes('\\nccurve') || contents.content.includes('\\ncarc')) {
-        if (!contents.preamble.includes('pnode ncline nccurve ncarc')) contents.preamble += '\n\\usepackage{pst-node}'
-        logPDF(`usepackage{pst-node} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\red') || contents.content.includes('\\blue') || contents.content.includes('\\white')) {
-        // gestion des couleurs pour les sujets DNB : 2023
-        logPDF(`usepackage{pst-fun}: ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{pst-fun}'
-      }
-      if (contents.content.includes('\\euro')) {
-        contents.preamble += '\n\\usepackage[gen]{eurosym}'
-        logPDF(`usepackage{eurosym} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\tkzTabInit')) {
-        contents.preamble += '\n\\usepackage{tkz-tab}'
-        logPDF(`usepackage{tkz-tab} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\begin{tabularx}') || contents.content.includes('\\begin{tabular}') || contents.content.includes('{tabularx}')) {
-        contents.preamble += '\n\\usepackage{tabularx}'
-        logPDF(`usepackage{tabularx} : ${window.location.href}`)
-      }
-      if (contents.content.includes('\\ang') || contents.content.includes('\\num{')) {
-        logPDF(`usepackage{siunitx} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{siunitx}'
-      }
-      if (contents.content.includes('\\begin{multicols}')) {
-        logPDF(`usepackage{multicols} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{multicol}'
-      }
-      if (contents.content.includes('\\cancel{')) {
-        logPDF(`usepackage{multicols} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{cancel}'
-      }
-      if (contents.content.includes('\\draw[color={')) {
-        logPDF(`usepackage{xcolor} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage[svgnames,dvipsnames]{xcolor}'
-      }
-      if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
-        logPDF(`usepackage{numprint} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
-      }
-      if (contents.content.includes('\\fcolorbox{nombres}')) {
-        logPDF(`definecolor{nombres} : ${window.location.href}`)
-        contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
-      }
-      if (contents.content.includes('\\begin{bclogo}')) {
-        logPDF(`definecolor{nombres} : ${window.location.href}`)
-        if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{bclogo}'
-        if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
-      }
-      if (contents.content.includes('\\begin{tikzpicture}')) {
-        logPDF(`usepackage{tikz} : ${window.location.href}`)
-        if (!contents.preamble.includes('tikz')) contents.preamble += '\n\\usepackage{tikz}'
-      }
-      if (contents.content.includes('\\vect')) {
-        // DBN 2019 juillet polynésie
-        logPDF(`\\vect: ${window.location.href}`)
-        contents.preamble += '\n\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}'
-      }
-      if (contents.content.includes('\\begin{axis}')) {
-        logPDF(`usepackage{pgfplots} : ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{pgfplots}'
-      }
-      if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
-        logPDF(`usetikzlibrary{decorations.pathmorphing: ${window.location.href}`)
-        contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
-      }
-      if (contents.content.includes('\\tkzText')) {
-        logPDF(`usepackage{tkz-fct}: ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{tkz-fct}'
-      }
-      if (contents.content.includes('\\begin{wrapfigure}')) {
-        logPDF(`usepackage{wrapfig}: ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{wrapfig}'
-      }
-      if (contents.content.includes('\\begin{scratch}')) {
-        logPDF(`usepackage{scratch3}: ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{scratch3}'
-      }
-      if (contents.content.includes('\\degre') ||
-          contents.content.includes('\\og') ||
-          contents.content.includes('\\up{') ||
-          contents.content.includes('\\ieme{') ||
-          contents.content.includes('\\no')) {
-        // gestion des commandes pour les sujets DNB : 2023-2022
-        logPDF(`[french]{babel}: ${window.location.href}`)
-        if (!contents.preamble.includes('[french]{babel}')) contents.preamble += '\n\\usepackage[french]{babel}'
-      }
-      if (contents.content.includes('\\multirow{')) {
-        // gestion pour les sujets DNB : 2021
-        logPDF(`usepackage{multirow}: ${window.location.href}`)
-        contents.preamble += '\n\\usepackage{multirow}'
-      }
-      if (contents.content.includes('\\ovalbox{') || contents.content.includes('\\txtbox{')) {
-        // gestion pour les sujets DNB : 2021
-        contents.preamble += '\n\\usepackage{fancybox}'
-        logPDF(`usepackage{fancybox}: ${window.location.href}`)
-        if (contents.content.includes('\\txtbox{')) {
-          logPDF(`\\newcommand{\\txtbox}{\\ovalnum}: ${window.location.href}`)
-          contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
-        }
-      }
-      if (contents.content.includes('\\begin{figure}')) {
-        logPDF(`begin{figure}': ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : dnb_2019_09_polynesie_6; dnb_2022_06_etrangers_5
-        contents.preamble += `\n% supprime les figures flottantes du DNB
-\\makeatletter
-\\def\\provideenvironment{\\@star@or@long\\provide@environment}
-\\def\\provide@environment#1{%
-  \\@ifundefined{#1}%
-    {\\def\\reserved@a{\\newenvironment{#1}}}%
-    {\\def\\reserved@a{\\renewenvironment{dummy@environ}}}%
-  \\reserved@a
-}
-\\def\\dummy@environ{}
-\\makeatother
-\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`
-      }
-      if (contents.content.includes('\\selectarrownum')) {
-        logPDF(`\\selectarrownum : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : dnb_2018_06_ameriquenord_4
-        contents.preamble += '\n\\newcommand*\\selectarrownum{% le petit triangle vers le bas à côté d\'un _nombre_'
-        contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
-        contents.preamble += '\n}'
-      }
-      if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
-        logPDF(`\\mathbb{R} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-        contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
-        contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
-      }
-      if (contents.content.includes('\\ldots') || contents.content.includes('\\cdots') || contents.content.includes('\\dots')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        logPDF(`usepackage{amsmath} : ${window.location.href}`)
-        if (!contents.preamble.includes('amsmath')) contents.preamble += '\n\\usepackage{amsmath}'
-      }
-      if (contents.content.includes('\\makebox') || contents.content.includes('\\framebox') || contents.content.includes('\\framebox') || contents.content.includes('\\parbox')) {
-        // gestion des commandes pour les sujets DNB : 2023
-        logPDF(`usepackage{amsfonts} : ${window.location.href}`)
-        if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-      }
-      if (contents.content.includes('\\mbox') || contents.content.includes('\\fbox') || contents.content.includes('\\sbox') || contents.content.includes('\\pbox')) {
-        logPDF(`usepackage{amsfonts} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-      }
-      if (contents.content.includes('\\leadsto') || contents.content.includes('\\square') || contents.content.includes('\\blacktriangleright') || contents.content.includes('\\mathbb') || contents.content.includes('\\geqslant') || contents.content.includes('\\blacktriangleleft') || contents.content.includes('\\leqslant') || contents.content.includes('\\curvearrowleft')) {
-        logPDF(`usepackage{amssymb} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('amssymb')) contents.preamble += '\n\\usepackage{amssymb}'
-      }
-      if (contents.content.includes('\\columncolor{') || contents.content.includes('\\cellcolor') || contents.content.includes('\\rowcolor')) {
-        logPDF(`usepackage{colortbl} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('colortbl')) contents.preamble += '\n\\usepackage{colortbl}'
-      }
-      if (contents.content.includes('\\ovalnum{\\ovalnum')) {
-        logPDF(`definecolor{scrmovedddd} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\definecolor{scrmovedddd}    {HTML}{3373cc}'
-      }
-      if (contents.content.includes('\\ding{') || contents.content.includes('\\textding') || contents.content.includes('\\decoone')) {
-        // pour les sujets DNB : 2023 / 2021
-        logPDF(`usepackage{pifont} : ${window.location.href}`)
-        if (!contents.preamble.includes('pifont'))contents.preamble += '\n\\usepackage{pifont}'
-        if (contents.content.includes('\\decoone')) contents.preamble += '\n\\newcommand{\\decoone}{\\ding{87}}'
-        if (contents.content.includes('\\textding')) contents.preamble += '\n\\newcommand{\\textding}[1]{\\text{\\Large \\ding{#1}}}'
-      }
-      if (contents.content.includes('\\starredbullet')) {
-        logPDF(`uusepackage{MnSymbol} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{MnSymbol}'
-        contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
-      }
-      if (contents.content.includes('\\decosix')) {
-        logPDF(`\\providecommand\\decosix{} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2021
-        contents.preamble += '\n\\providecommand\\decosix{}'
-        contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
-      }
-      if (contents.content.includes('\\toprule') || contents.content.includes('\\midrule') || contents.content.includes('\\bottomrule')) {
-        logPDF(`\\usepackage{booktabs} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('booktabs')) contents.preamble += '\n\\usepackage{booktabs}'
-      }
-      if (contents.content.includes('\\backslashbox')) {
-        logPDF(`\\usepackage{slashbox} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{slashbox}'
-      }
-      if (contents.content.includes('\\ds')) {
-        logPDF(`\\newcommand{\\ds}{\\displaystyle} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
-      }
-      if (contents.content.includes('\\diagbox{')) {
-        logPDF(`usepackage{diagbox} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\usepackage{diagbox}'
-      }
-      if (contents.content.includes('\\EUR{')) {
-        logPDF(`usepackage{marvosym} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('marvosym'))contents.preamble += '\n\\usepackage{marvosym}'
-      }
-      if (contents.content.includes('pattern')) {
-        logPDF(`usetikzlibrary{patterns} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('usetikzlibrary{patterns}'))contents.preamble += '\n\\usetikzlibrary{patterns}'
-      }
-      if (contents.content.includes('framed')) {
-        logPDF(`usetikzlibrary{backgrounds} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('usetikzlibrary{backgrounds}'))contents.preamble += '\n\\usetikzlibrary{backgrounds}'
-      }
-      if (contents.content.includes('single arrow')) {
-        logPDF(`usetikzlibrary{shapes} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('usetikzlibrary{shapes}'))contents.preamble += '\n\\usetikzlibrary{shapes}'
-      }
-      if (contents.content.includes('>=triangle 45')) {
-        logPDF(`usetikzlibrary{arrows} : ${window.location.href}`)
-        if (!contents.preamble.includes('usetikzlibrary{arrows}'))contents.preamble += '\n\\usetikzlibrary{arrows}'
-      }
-      if (contents.content.includes('\\getprime{') || contents.content.includes('\\primedecomp{')) {
-        logPDF(`decompNombresPremiersDNB : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += `\n${decompDNB()}`
-      }
-      if (contents.content.includes('\\widearc{') || contents.content.includes('\\eurologo')) {
-        logPDF(`usepackage{fourier} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('fourier')) contents.preamble += '\n\\usepackage{fourier}'
-      }
-      if (contents.content.includes('\\tkzDefPoints') || contents.content.includes('\\tkzDefPointBy') || contents.content.includes('\\tkzLabelPoint') || contents.content.includes('\\tkzDrawSegments')) {
-        logPDF(`usepackage{tkz-euclide} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        if (!contents.preamble.includes('tkz-euclide')) contents.preamble += '\n\\usepackage{tkz-euclide}'
-      }
-      if (contents.content.includes('\\pstEllipse[linewidth=')) {
-        logPDF(`\\pstEllipse : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += '\n\\providecommand\\pstEllipse{}'
-        contents.preamble += `\n\\renewcommand{\\pstEllipse}[5][]{%
-\\psset{#1}
-\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}
-}`
-      }
-      if (contents.content.includes('\\begin{forest}')) {
-        logPDF(`usepackage{forest} : ${window.location.href}`)
-        // gestion des commandes pour les sujets DNB : 2023
-        contents.preamble += `\n\\usetikzlibrary{trees} % arbre en proba
-\\usepackage{forest} % arbre en proba
-\\usetikzlibrary{positioning}
-  % Structure servant à avoir l'événement et la probabilité.
-\\def\\getEvene#1/#2\\endget{$#1$}
-\\def\\getProba#1/#2\\endget{$#2$}`
-      }
-      const [latexCmds, latexPackages] = this.getContentLatex()
-      for (const pack of latexPackages) {
-        logPDF(`pack: ${pack} : ${window.location.href}`)
-        if (pack === 'bclogo') {
-          if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
-        } else {
-          contents.preamble += '\n\\usepackage{' + pack + '}'
-        }
-      }
-      for (const cmd of latexCmds) {
-        contents.preamble += '\n' + cmd.replace('cmd', '')
-      }
-      contents.intro += '\n\\begin{document}'
-    } else {
-      for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
-        if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
-        const contentVersion = this.getContentsForAVersion(latexFileInfos, i)
-        if (i > 1) {
-          contents.content += '\n\\clearpage'
-          contents.content += '\n\\setcounter{ExoMA}{0}'
-          contents.contentCorr += '\n\\clearpage'
-          contents.contentCorr += '\n\\setcounter{ExoMA}{0}'
-        }
-        if (latexFileInfos.nbVersions > 1) {
-          contents.content += `\n\\version{${i}}`
-          contents.contentCorr += `\n\\version{${i}}`
-          if (i > 1 && latexFileInfos.style === 'Can') {
-            contents.content += '\n\\setcounter{nbEx}{1}'
-            contents.content += '\n\\pageDeGardeCan{nbEx}\n\\clearpage'
-          }
-        }
-        contents.content += contentVersion.content
-        contents.contentCorr += contentVersion.contentCorr
-      }
-      if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
-      if (latexFileInfos.style === 'Can') {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
-        contents.preamble += '\n\\Theme[CAN]{}{}{}{}'
-        contents.intro += '\n\\begin{document}'
-        contents.intro += '\n\\setcounter{nbEx}{1}'
-        contents.intro += '\n\\pageDeGardeCan{nbEx}'
-        contents.intro += '\n\\clearpage'
+    contents.preamble += '\n\\usepackage{qrcode}'
+    contents.preamble += '\n\\usepackage{mathrsfs}'
+    contents.preamble += '\n\\usepackage{enumitem}'
+    contents.preamble += '\n\\usepackage[french]{babel}'
+    contents.preamble += '\n\\setlength{\\parindent}{0cm}'
+    loadPackagesFromContent(contents)
+    const [latexCmds, latexPackages] = this.getContentLatex()
+    for (const pack of latexPackages) {
+      logPDF(`pack: ${pack} : ${window.location.href}`)
+      if (pack === 'bclogo') {
+        if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{' + pack + '}'
       } else {
-        contents.preamble += `\\documentclass[a4paper,11pt,fleqn]{article}\n\n${addPackages(contents.content)}\n\n`
-        contents.preamble += `\\Theme[${latexFileInfos.style}]{nombres}{${latexFileInfos.title}}{${latexFileInfos.reference}}{${latexFileInfos.subtitle}}`
-        contents.intro += '\n\\begin{document}\n'
+        contents.preamble += '\n\\usepackage{' + pack + '}'
       }
     }
-    return contents
+    for (const cmd of latexCmds) {
+      contents.preamble += '\n' + cmd.replace('cmd', '')
+    }
   }
 
   async getFile (latexFileInfos : LatexFileInfos): Promise<latexFileType> {
@@ -835,8 +515,10 @@ export function getPicsNames (exosContentList: ExoContent[]) {
       if (exo.contentCorr) content.push(...exo.contentCorr.matchAll(regDeleteCommentaires))
       content.forEach((list) => {
         // on recherche sur les lignes restantes si une image ou plusieurs images sont présentes
-        const matchIm = list[0].matchAll(regExpImage)
-        if (matchIm !== undefined) pics.push(...matchIm)
+        const matchIm = Array.from(list[0].matchAll(regExpImage))
+        if (matchIm !== null && matchIm.length > 0) {
+          pics.push(...matchIm)
+        }
       })
       picsList.push(pics)
     } else {
@@ -867,8 +549,12 @@ export function getPicsNames (exosContentList: ExoContent[]) {
  * Détecter si le code LaTeX contient des images
  */
 export function doesLatexNeedsPics (contents: { content: string, contentCorr: string }) {
-  const includegraphicsMatches = contents.content.match('includegraphics')
-  return includegraphicsMatches !== null
+  const exos: ExoContent = {
+    content: contents.content,
+    contentCorr: contents.content
+  }
+  const imas = getPicsNames([exos])
+  return imas.some(e => e.length > 0)
 }
 
 export function makeImageFilesUrls (exercices: TypeExercice[]) {
@@ -910,119 +596,14 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.interactif) url.searchParams.append('i', '1')
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')
   if (ex.nbCols !== undefined) url.searchParams.append('cols', ex.nbCols.toString())
-  return url
+  return url.href.replaceAll('%', '\\%')
 }
 
-function addPackages (content: string, isFullPackages = false) {
-  let packages = genericPreamble
-  if (isFullPackages || content.includes('\\euro')) {
-    packages += '\n\\usepackage[gen]{eurosym}'
-  }
-  if (isFullPackages || content.includes('\\ang')) {
-    packages += '\n\\usepackage{siunitx}'
-  }
-  return packages
-}
-
-function decompDNB() {
-  return `%%% Table des nombres premiers  %%%%
-\\newcount\\primeindex
-\\newcount\\tryindex
-\\newif\\ifprime
-\\newif\\ifagain
-\\newcommand\\getprime[1]{%
-\\opcopy{2}{P0}%
-\\opcopy{3}{P1}%
-\\opcopy{5}{try}
-\\primeindex=2
-\\loop
-\\ifnum\\primeindex<#1\\relax
-\\testprimality
-\\ifprime
-\\opcopy{try}{P\\the\\primeindex}%
-\\advance\\primeindex by1
-\\fi
-\\opadd*{try}{2}{try}%
-\\ifnum\\primeindex<#1\\relax
-\\testprimality
-\\ifprime
-\\opcopy{try}{P\\the\\primeindex}%
-\\advance\\primeindex by1
-\\fi
-\\opadd*{try}{4}{try}%
-\\fi
-\\repeat
-}
-
-\\newcommand\\testprimality{%
-\\begingroup
-\\againtrue
-\\global\\primetrue
-\\tryindex=0
-\\loop
-\\opidiv*{try}{P\\the\\tryindex}{q}{r}%
-\\opcmp{r}{0}%
-\\ifopeq \\global\\primefalse \\againfalse \\fi
-\\opcmp{q}{P\\the\\tryindex}%
-\\ifoplt \\againfalse \\fi
-\\advance\\tryindex by1
-\\ifagain
-\\repeat
-\\endgroup
-}
-
-%%% Décomposition en nombres premiers %%%
-
-\\newcommand\\primedecomp[2][nil]{%
-\\begingroup
-\\opset{#1}%
-\\opcopy{#2}{NbtoDecompose}%
-\\opabs{NbtoDecompose}{NbtoDecompose}%
-\\opinteger{NbtoDecompose}{NbtoDecompose}%
-\\opcmp{NbtoDecompose}{0}%
-\\ifopeq
-Je refuse de décomposer zéro.
-\\else
-\\setbox1=\\hbox{\\opdisplay{operandstyle.1}%
-{NbtoDecompose}}%
-{\\setbox2=\\box2{}}%
-\\count255=1
-\\primeindex=0
-\\loop
-\\opcmp{NbtoDecompose}{1}\\ifopneq
-\\opidiv*{NbtoDecompose}{P\\the\\primeindex}{q}{r}%
-\\opcmp{0}{r}\\ifopeq
-\\ifvoid2
-\\setbox2=\\hbox{%
-\\opdisplay{intermediarystyle.\\the\\count255}%
-{P\\the\\primeindex}}%
-\\else
-\\setbox2=\\vtop{%
-\\hbox{\\box2}
-\\hbox{%
-\\opdisplay{intermediarystyle.\\the\\count255}%
-{P\\the\\primeindex}}}
-\\fi
-\\opcopy{q}{NbtoDecompose}%
-\\advance\\count255 by1
-\\setbox1=\\vtop{%
-\\hbox{\\box1}
-\\hbox{%
-\\opdisplay{operandstyle.\\the\\count255}%
-{NbtoDecompose}}
-}%
-\\else
-\\advance\\primeindex by1
-\\fi
-\\repeat
-\\hbox{\\box1
-\\kern0.5\\opcolumnwidth
-\\opvline(0,0.75){\\the\\count255.25}
-\\kern0.5\\opcolumnwidth
-\\box2}%
-\\fi
-\\endgroup
-}`
+function addPackages (latexFileInfos : LatexFileInfos, contents: contentsType) {
+  contents.preamble += genericPreamble
+  contents.preamble += loadFonts(latexFileInfos)
+  loadPreambule(latexFileInfos, contents)
+  return contents.preamble
 }
 
 export default Latex
