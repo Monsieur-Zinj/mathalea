@@ -154,8 +154,7 @@ export default class Representerfonctionaffine extends Exercice {
             // @ts-expect-error mathalea2d n'est pas typé
             texteCorr += mathalea2d(cadreFenetreSvg,
               lA, lB, monRepere, droiteAB, tA, tB, textO) }
-          texteCorr += `<br>${texteGras('Remarque')} : pour tracer la droite, on peut aussi utiliser le coefficient directeur de la droite ($${a}$) et son ordonnée à l'origine ($${b}$).<br>`
-          break
+                    break
 
         case 2: // cas du coefficient directeur fractionnaire
           { a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
