@@ -47,11 +47,10 @@ export default function CalculDAngle () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.debug = false
+  this.spacing = 2
   if (context.isHtml) {
-    this.spacing = 2
     this.spacingCorr = 3
   } else {
-    this.spacing = 2
     this.spacingCorr = 2
   }
 
@@ -96,7 +95,7 @@ export default function CalculDAngle () {
           ac = randint(40, 100) / 10
           angleABC = Math.round(Math.atan(ac / ab) * 180 / Math.PI)
           bc = ab / Math.cos(Math.atan(ac / ab))
-          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ est tel que $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
+          texte += `Le triangle $${nom}$ est rectangle en $${nom[0]}$ tel que $${nom[0] + nom[1]}=${texNombre2(ab)}$ cm et  $${nom[0] + nom[2]}=${texNombre2(ac)}$ cm.<br>`
           break
       }
 
