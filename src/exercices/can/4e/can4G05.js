@@ -64,7 +64,7 @@ export default class DiagonaleCarre extends Exercice {
 
           this.correction = ` En utilisant le théorème de Pythagore dans un carré de côté $c=\\sqrt{${a}}$
        et de diagonale $d$, on a :<br>`
-          if (c2 === 16 || c2 === 36 || c2 === 64 || c2 === 100) {
+          if (c2 === 4 || c2 === 16 || c2 === 36 || c2 === 64 || c2 === 100) {
             this.correction += `
        $\\begin{aligned}
        c^2+c^2&=d^2\\\\
