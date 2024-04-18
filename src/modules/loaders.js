@@ -172,7 +172,7 @@ export async function loadMathLive () {
         }
         style +=
           ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (
+        if (!mf.classList.contains('fillInTheBlanks') &&
           !mf.classList.contains('largeur01') &&
           !mf.classList.contains('largeur10') &&
           !mf.classList.contains('largeur25') &&

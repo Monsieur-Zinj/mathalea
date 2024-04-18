@@ -43,7 +43,7 @@ export default function ExerciceConversionsAires () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.nbQuestions = 1
-  this.listePackages = ['arydshln', 'cmd\\dashlinedash=1pt', 'cmd\\newcommand\\dotfills[1][3cm]{\\makebox[#1]{\\dotfill}}'] // pour les lignes en pointillés
+  this.listePackages = ['arydshln', 'cmd\\dashlinedash=1pt'] // pour les lignes en pointillés
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'

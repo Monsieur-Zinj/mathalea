@@ -31,7 +31,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = false // avec le tableau
   this.spacing = 2
-  this.listePackages = ['cmd\\newcommand\\dotfills[1][3cm]{\\makebox[#1]{\\dotfill}}']
 
   this.nouvelleVersion = function () {
     this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
