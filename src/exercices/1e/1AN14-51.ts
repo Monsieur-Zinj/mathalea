@@ -7,6 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { compareArrays } from '../../lib/outils/arrayOutils'
+import { fraction } from '../../modules/fractions'
 export const titre = 'Dérivation de fonction composées V1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,7 +27,7 @@ class DerivationFonctionRationnelles extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : k/(ax+b)\n2 : (ax+b)/(cx+d)\n3 : ax²/(ax+b)\n4 : (ax²+bx+c)/(dx+e)\n5 : Mélange']
-    this.sup = 1
+    this.sup = 5
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }
@@ -41,7 +42,7 @@ class DerivationFonctionRationnelles extends Exercice {
           do {
             laFonctionNum = new Polynome({ rand: true, deg: 1, coeffs: [] })
             laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
-          } while (compareArrays(laFonctionNum.monomes, laFonctionDen))
+          } while (compareArrays(laFonctionNum.monomes, laFonctionDen.monomes))
           break
         case 3:
           laFonctionNum = new Polynome({ rand: false, deg: 2, coeffs: [0, 0, randint(-6, 6)] })
@@ -57,12 +58,14 @@ class DerivationFonctionRationnelles extends Exercice {
           laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
           break
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const valeurInterdite = fraction(-laFonctionDen.monomes[0], laFonctionDen.monomes[1]).simplifie().texFSD
+      const df = `\\R\\backslash\\{${valeurInterdite}\\}`
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       const laDeriveeNum = laFonctionNum.derivee().multiply(laFonctionDen).add((laFonctionNum.multiply(-1).multiply(laFonctionDen.derivee())))
-      const laDeriveeDen = laFonctionDen.multiply(laFonctionDen)
-      const reponse = `\\dfrac{${laDeriveeNum.toLatex()}}{${laDeriveeDen.toLatex()}}`
-      let texteCorr = `L'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$ est :<br>`
-      texteCorr += `$f'(x)=${miseEnEvidence(reponse)}$.`
+      let numDeriv = laDeriveeNum.toLatex()
+      if (numDeriv.startsWith('+')) numDeriv = numDeriv.substring(1)
+      const reponse = `\\dfrac{${numDeriv}}{(${laFonctionDen.toLatex()})^2}`
+      let texteCorr = ''
       if (this.correctionDetaillee) {
         const derivNum = laFonctionNum.derivee().toLatex()
         const derivDen = laFonctionDen.derivee().toLatex()
@@ -78,6 +81,8 @@ class DerivationFonctionRationnelles extends Exercice {
         texteCorr += `Au numérateur : $${uPrime} \\times ${v}  - ${u} \\times ${vPrime}$.<br>`
         texteCorr += `Au dénominateur : $${v}^2$.`
       }
+      texteCorr = `L'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$ est :<br>`
+      texteCorr += `$f'(x)=${miseEnEvidence(reponse)}$.`
 
       if (this.questionJamaisPosee(i, laFonctionNum.toLatex(), laFonctionDen.toLatex())) {
         this.listeQuestions.push(texte)

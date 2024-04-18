@@ -27,7 +27,7 @@ class DerivationSommesSimples extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : polynome et inverse\n2 : polynome et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
-    this.sup = 1
+    this.sup = 5
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }
@@ -43,6 +43,7 @@ class DerivationSommesSimples extends Exercice {
           [0, randint(-5, 5, [-1, 0, 1]), randint(-5, 5, [-1, 0, 1])],
           [randint(-5, 5, [-1, 0, 1]), randint(-5, 5, [-1, 0, 1]), randint(-5, 5, [-1, 0, 1])]]
       )
+      let df: string
       switch (Number(listeTypeDeQuestion[i])) {
         case 2:{
           const laFonction1 = new Polynome({ rand: false, deg: 2, coeffs: [a, b, c] })
@@ -51,6 +52,7 @@ class DerivationSommesSimples extends Exercice {
             { fonction: laFonction1.toLatex(), derivee: laFonction1.derivee().toLatex() },
             { fonction: `${rienSi1(k)}\\sqrt{x}`, derivee: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{2\\sqrt{x}}` }
           )
+          df = '\\R_+'
         }
           break
         case 3:{
@@ -60,6 +62,7 @@ class DerivationSommesSimples extends Exercice {
             { fonction: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x}`, derivee: `${k > 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x^2}` },
             { fonction: `${rienSi1(k2)}\\sqrt{x}`, derivee: `${k2 < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k2))}}{2\\sqrt{x}}` }
           )
+          df = '\\R_+^{*}'
         }
           break
         case 4:{
@@ -71,6 +74,7 @@ class DerivationSommesSimples extends Exercice {
             { fonction: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x}`, derivee: `${k > 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x^2}` },
             { fonction: `${rienSi1(k2)}\\sqrt{x}`, derivee: `${k2 < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k2))}}{2\\sqrt{x}}` }
           )
+          df = '\\R_+^{*}'
         }
           break
         case 1:
@@ -81,6 +85,7 @@ class DerivationSommesSimples extends Exercice {
             { fonction: laFonction1.toLatex(), derivee: laFonction1.derivee().toLatex() },
             { fonction: `${k < 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x}`, derivee: `${k > 0 ? '-' : ''}\\dfrac{${String(Math.abs(k))}}{x^2}` }
           )
+          df = '\\R^{*}'
         }
           break
       }
@@ -101,16 +106,15 @@ class DerivationSommesSimples extends Exercice {
         }
         laDerivee += f.derivee
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction}$<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
-      let texteCorr = `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction}$ est :<br>`
-      const deriveeSimplifiee = engine.parse(laDerivee.replaceAll('dfrac', 'frac')).simplify().latex
-      texteCorr += `$f'(x)=${miseEnEvidence(deriveeSimplifiee.replaceAll('\\frac', '\\dfrac'))}$.<br>`
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      let texteCorr = ''
       if (this.correctionDetaillee) {
-        texteCorr += 'En effet, <br>'
         for (const f of fonctionsMelangees) {
           texteCorr += `$(${f.fonction})^\\prime=${f.derivee}$<br>`
         }
       }
+      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction}$ est :<br>`
+      texteCorr += `$f'(x)=${miseEnEvidence(laDerivee)}$.<br>`
 
       if (this.questionJamaisPosee(i, laFonction)) {
         this.listeQuestions.push(texte)
