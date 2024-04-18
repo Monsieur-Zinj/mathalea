@@ -97,15 +97,12 @@ export default function ConstructionsParallelogrammes () {
       const result2 = dansLaCibleCarree(D.x, D.y, 5, 0.5, cellule2)
       const result3 = dansLaCibleCarree(B.x, B.y, 5, 0.5, cellule3)
 
-      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : '', taille: 0.5, color: 'gray' })
-      cible.opacite = 0.7
-      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.5, color: 'gray' })
-      cible2.opacite = 0.7
-      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.5, color: 'gray' })
-      cible3.opacite = 0.7
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : '', taille: 0.7, color: 'gray', opacite: 0.7 })
+      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.7, color: 'gray', opacite: 0.7 })
+      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.7, color: 'gray', opacite: 0.7 })
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
-      const yMin = Math.min(A.y, B.y, C.y, D.y) - 3
-      const xMax = Math.max(A.x, B.x, C.x, D.x) + 3
+      const yMin = Math.min(A.y, B.y, C.y, D.y) - 4
+      const xMax = Math.max(A.x, B.x, C.x, D.x) + 4
       const yMax = Math.max(A.y, B.y, C.y, D.y) + 3
 
       let P
@@ -166,7 +163,7 @@ export default function ConstructionsParallelogrammes () {
         case 3: // deux sommets consécutifs plus le centre
           texte = `Construire le parallélogramme $${nom}$ de centre $${noms[4]}$`
           texte += ' et le coder afin de faire comprendre par quelle méthode ce parallélogramme a été construit.'
-          texteCorr += `O est le centre de symétrie du parallélogramme $${nom}$.<br>`
+          texteCorr = `O est le centre de symétrie du parallélogramme $${nom}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr += `Le point $${noms[3]}$ est le symétrique du point $${noms[1]}$ par rapport à $${noms[4]}$.<br>`
             texteCorr += `Le point $${noms[2]}$ est le symétrique du point $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
@@ -183,6 +180,7 @@ export default function ConstructionsParallelogrammes () {
           texte = `Construire le parallélogramme $${nom}$ de centre ${noms[4]}`
           texte += ' et le coder afin de faire comprendre par quelle méthode ce parallélogramme a été construit.'
           texte += ` Le point $${noms[3]}$ est sur la demi-droite $[${noms[0]}x)$ et le point $${noms[1]}$ est sur la demi-droite $[${noms[0]}y)$.<br>`
+          texteCorr = ''
           if (this.correctionDetaillee) {
             texteCorr += `Le point $${noms[2]}$ est le symétrique du point $${noms[0]}$ par rapport à $${noms[4]}$.<br>`
             texteCorr += `La symétrique de la droite $(${noms[0] + noms[1]})$ par rapport à $${noms[4]}$ est la droite passant par $${noms[2]}$ parallèle à $(${noms[0] + noms[1]})$.<br>`
@@ -190,6 +188,7 @@ export default function ConstructionsParallelogrammes () {
           }
           texteCorr += `Le point $${noms[2]}$ se trouve dans la case ${cellule} de la cible 1.<br>`
           texteCorr += `Le point $${noms[3]}$ se trouve dans la case ${cellule2} de la cible 2.<br>`
+          texteCorr += `Le point $${noms[1]}$ se trouve dans la case ${cellule3} de la cible 3.<br>`
           animIEP.regleZoom(200)
           animIEP.equerreZoom(200)
           animIEP.parallelogrammeAngleCentre(D, A, B, O)
@@ -273,12 +272,42 @@ export default function ConstructionsParallelogrammes () {
             {
               type: 'qcmMono',
               propositions: propositionsQcm3,
-              enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 2' : '')
+              enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible 2'
             },
             {
               type: 'qcmMono',
               propositions: propositionsQcm4,
-              enonce: 'Chiffre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 2' : '')
+              enonce: 'Chiffre de la case du sommet construit, dans la cible 2'
+            }
+          )
+        }
+        if (listeTypeQuestions[i] === 4) {
+          const propositionsQcm5 = []
+          for (let ee = 0; ee < 5; ee++) {
+            propositionsQcm5.push({
+              texte: reponseLettres[ee],
+              statut: cellule3[0] === reponseLettres[ee]
+            })
+          }
+
+          const propositionsQcm6 = []
+          for (let ee = 0; ee < 5; ee++) {
+            propositionsQcm6.push({
+              texte: ee + 1,
+              statut: cellule3[1] === reponseChiffres[ee]
+            })
+          }
+
+          this.autoCorrection[i].propositions.push(
+            {
+              type: 'qcmMono',
+              propositions: propositionsQcm5,
+              enonce: '\\vspace{1cm}' + numAlpha(2) + 'Pour la cible 3 : <br>Lettre de la case du sommet construit, dans la cible 3'
+            },
+            {
+              type: 'qcmMono',
+              propositions: propositionsQcm6,
+              enonce: 'Chiffre de la case du sommet construit, dans la cible 3'
             }
           )
         }
