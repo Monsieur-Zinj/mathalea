@@ -31,8 +31,6 @@ export const dateDeModifImportante = '16/04/2023'
  * - 3 valeurs entières et 13%, 28%...;
  * - 4 valeurs décimale comme 13,5%...;
  * @author Laurence CANDILLE (Rajout de 25% et 50% par Eric Elter)
- * Référence 6P13
- * Date de Publication : 23/07/2021
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '064ce'
@@ -43,15 +41,12 @@ export const refs = {
 }
 export default function AugmenterEtReduireDunPourcentage () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 2
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.sup2 = 2
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
-  this.interactifType = 'mathLive'
   this.listePackages = 'bclogo'
   function nombreDecimales (prMin, prMax, n) {
     let pourcent
@@ -190,7 +185,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                   {
                     texte: texteCorr,
                     reponse: {
-                      texte: enonceAMC,
+                      texte: enonceInit + '<br>' + enonceAMC,
                       valeur: [montantReduction],
                       param: {
                         digits: 5,
@@ -233,10 +228,10 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${prixIntial}~€ \\times ${pourcent} \\div 100${egalOuApprox(montantReduction, 2)}`
-          texteCorr += miseEnEvidence(`${texPrix(montantReduction)}~€`) + '$.<br>'
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} : $${prixIntial}~€-${texPrix(montantReduction)}~€=`
-          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}~€`) + '$.'
+          texteCorr = `${numAlpha(0)} Le montant de la réduction est : $${prixIntial}${sp()}€ \\times ${pourcent} \\div 100${egalOuApprox(montantReduction, 2)}`
+          texteCorr += miseEnEvidence(`${texPrix(montantReduction)}${sp()}€`) + '$.<br>'
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} : $${prixIntial}${sp()}€-${texPrix(montantReduction)}${sp()}€=`
+          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}€`) + '$.'
         }
           break
         case 'augmentation': {
@@ -246,7 +241,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           const montantAugmentation = pourcent * prixIntial / 100
           prixFinal = prixIntial + montantAugmentation
 
-          enonceInit = `${situation.quoi} ${prenom2} coûte $${prixIntial}~€$. Au 1er janvier, ${situation.verbe} de $${texNombre(pourcent, 1)}~\\%$.`
+          enonceInit = `${situation.quoi} ${prenom2} coûte $${prixIntial}$${sp()}€. Au 1er janvier, ${situation.verbe} de $${texNombre(pourcent, 1)}${sp()}\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
           texte = enonceInit + '<br>' + enonceAMC
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' })
@@ -261,7 +256,7 @@ export default function AugmenterEtReduireDunPourcentage () {
                   {
                     texte: texteCorr,
                     reponse: {
-                      texte: enonceAMC,
+                      texte: enonceInit + '<br>' + enonceAMC,
                       valeur: [montantAugmentation],
                       param: {
                         digits: 5,
@@ -304,10 +299,10 @@ export default function AugmenterEtReduireDunPourcentage () {
               }
             )
           }
-          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${prixIntial}~€ \\times ${texNombre(pourcent, 1)} \\div 100${egalOuApprox(montantAugmentation, 2)}`
-          texteCorr += miseEnEvidence(`${texPrix(montantAugmentation)}~€`) + '$.<br>'
-          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera ${situation.quoiReponse} : $${prixIntial}~€+${texPrix(montantAugmentation)}~€ =`
-          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}~€`) + '$.'
+          texteCorr = `${numAlpha(0)} Le montant de l'augmentation est :     $${prixIntial}${sp()}€ \\times ${texNombre(pourcent, 1)} \\div 100${egalOuApprox(montantAugmentation, 2)}`
+          texteCorr += miseEnEvidence(`${texPrix(montantAugmentation)}${sp()}€`) + '$.<br>'
+          texteCorr += `${numAlpha(1)} Finalement, ${prenom2} paiera ${situation.quoiReponse} : $${prixIntial}${sp()}€+${texPrix(montantAugmentation)}${sp()}€ =`
+          texteCorr += miseEnEvidence(`${texPrix(prixFinal)}${sp()}€`) + '$.'
         }
           break
       }
@@ -315,7 +310,7 @@ export default function AugmenterEtReduireDunPourcentage () {
         // Si la question n'a jamais été posée, on en crée une autre
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: enonceInit,
+            enonce: '',
             options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
             propositions: propositionsAMC
           }

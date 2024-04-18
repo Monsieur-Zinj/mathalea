@@ -136,29 +136,47 @@ export default function CalculerCoeffPropo () {
       const ligne2 = [{ texte: 'Grandeur B' }].concat(deuxiemeLigne.map(elt => {
         return elt.visible ? { texte: stringNombre(elt.nombre), math: true } : { texte: '...' }
       }))
-      const monTableau = listeTypesDeCoefficient[i] === 'Fraction'
-        ? new Tableau({
-          largeurTitre: 6,
-          largeur: 3,
-          hauteur: 2,
-          nbColonnes: 4,
-          ligne1,
-          ligne2,
-          flecheDroite: { texte: '\\times \\ldots', latex: true },
-          flecheDroiteSens: 'bas',
-          flecheGauche: { texte: '\\times \\ldots', latex: true },
-          flecheGaucheSens: 'haut'
-        })
-        : new Tableau({
-          largeurTitre: 6,
-          largeur: 3,
-          hauteur: 2,
-          nbColonnes: 4,
-          ligne1,
-          ligne2,
-          flecheDroite: { texte: '×...' },
-          flecheDroiteSens: 'bas'
-        })
+      const monTableau = context.isAmc // EE : En AMC, les flèches ne passent pas. Je les supprime en attendant de trouver une solution.
+        ? (listeTypesDeCoefficient[i] === 'Fraction'
+            ? new Tableau({
+              largeurTitre: 6,
+              largeur: 3,
+              hauteur: 2,
+              nbColonnes: 4,
+              ligne1,
+              ligne2
+            })
+            : new Tableau({
+              largeurTitre: 6,
+              largeur: 3,
+              hauteur: 2,
+              nbColonnes: 4,
+              ligne1,
+              ligne2
+            }))
+        : (listeTypesDeCoefficient[i] === 'Fraction'
+            ? new Tableau({
+              largeurTitre: 6,
+              largeur: 3,
+              hauteur: 2,
+              nbColonnes: 4,
+              ligne1,
+              ligne2,
+              flecheDroite: { texte: '\\times \\ldots', latex: true },
+              flecheDroiteSens: 'bas',
+              flecheGauche: { texte: '\\times \\ldots', latex: true },
+              flecheGaucheSens: 'haut'
+            })
+            : new Tableau({
+              largeurTitre: 6,
+              largeur: 3,
+              hauteur: 2,
+              nbColonnes: 4,
+              ligne1,
+              ligne2,
+              flecheDroite: { texte: '×...' },
+              flecheDroiteSens: 'bas'
+            }))
       const ligne1Corr = [{ texte: 'Grandeur A' }].concat(premiereLigne.map(elt => {
         return { texte: stringNombre(elt.nombre), math: true }
       }))
@@ -232,7 +250,7 @@ export default function CalculerCoeffPropo () {
         texte += '\n\\FlechesPD{1}{2}{$\\times$\\ldots}\n'
         if (context.isAmc) {
           this.autoCorrection[i] = {
-            enonce: texte,
+            enonce: '',
             options: { multicols: true, barreseparation: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
             propositions: [
               {
@@ -241,7 +259,7 @@ export default function CalculerCoeffPropo () {
                   texte: '',
                   statut: '',
                   reponse: { // coefficient
-                    texte: 'valeur du coefficient',
+                    texte: texte + 'valeur du coefficient',
                     valeur: [coefficient],
                     param: coefficientDecimal
                       ? {

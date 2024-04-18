@@ -48,11 +48,11 @@ export default function ExerciceInformationsProblemes () {
     const chaqueCe = ['chaque', 'ce']
     const affirmatifNegatif = ['servent', 'ne servent pas']
     this.consigne = 'Dans '
-    this.consigne += this.nbQuestions === 1 ? chaqueCe[1] : chaqueCe[0]
+    this.consigne += this.nbQuestions === 1 || context.isAmc ? chaqueCe[1] : chaqueCe[0]
     this.consigne += ' problème, '
     this.consigne += context.vue === 'diap' ? cocheIndique[1] : cocheIndique[0]
     this.consigne += ' les informations qui '
-    this.consigne += this.sup !== 1 ? affirmatifNegatif[1] : affirmatifNegatif[0]
+    this.consigne += texteGras(this.sup !== 1 ? affirmatifNegatif[1] : affirmatifNegatif[0])
     this.consigne += ' à sa résolution.'
     // Fin de l'ébauche de la consigne en fonction des possibilités
     const listeDesProblemes = gestionnaireFormulaireTexte({
@@ -100,7 +100,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += 'La solution du problème est donnée par : '
                 texteCorr += texteGras(nb1) + `$${sp()}\\times${sp()}$` + texteGras(nb4 + ' livres') + '.'
               }
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} élèves`,
@@ -137,7 +137,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += 'La solution du problème est donnée par : '
                 texteCorr += texteGras(nb5 + ' g') + `$${sp()}\\times${sp()}$` + texteGras(nb4) + '.'
               }
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} élèves`,
@@ -172,7 +172,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' g') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} élèves`,
@@ -224,7 +224,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb4) + `$${sp()}\\times${sp()}$` + texteGras(nb5 + ' €') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} barquettes`,
@@ -262,7 +261,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb1) + `$${sp()}\\times${sp()}$` + texteGras(nb3 + ' €') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} barquettes`,
@@ -296,7 +294,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' €') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} barquettes`,
@@ -349,7 +347,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb1 + ' habitants') + `$${sp()}-${sp()}$` + texteGras(nb5 + ' habitants') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} habitants`,
@@ -387,7 +384,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb2 + ' m') + `$${sp()}+${sp()}$` + texteGras(nb4 + ' m') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} habitants`,
@@ -421,7 +417,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' habitants') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} habitants`,
@@ -474,7 +470,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb3 + ' cases') + `$${sp()}\\times${sp()}$` + texteGras(nb5) + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -512,7 +507,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb4 + ' €') + `$${sp()}-${sp()}$` + texteGras(nb2 + ' €') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -546,7 +540,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' pages') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -605,7 +599,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb3) + `$${sp()}-${sp()}$` + texteGras(nb2) + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -643,7 +636,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb4) + `$${sp()}+${sp()}$` + texteGras(nb5 + ' minutes') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -677,7 +669,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb1) + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1}`,
@@ -731,7 +723,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb2 + ' €') + `$${sp()}\\div${sp()}$` + texteGras(nb5) + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} vitesses`,
@@ -769,7 +760,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb4 + ' €') + `$${sp()}+${sp()}$` + texteGras(nb2 + ' €') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} vitesses`,
@@ -803,7 +793,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' fois') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} vitesses`,
@@ -856,7 +846,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb3 + ' ans') + `$${sp()}+${sp()}$` + texteGras(nb1 + 2 + ' ans ') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1 + 2} ans`,
@@ -894,7 +883,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb4 + ' m') + `$${sp()}+${sp()}$` + texteGras(nb5 + ' cm') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1 + 2} ans`,
@@ -928,7 +916,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' cm') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1 + 2} ans`,
@@ -980,7 +968,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb2) + `$${sp()}\\times${sp()}$` + texteGras(nb4 + ' € ') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} ans`,
@@ -1018,7 +1005,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb3) + `$${sp()}+${sp()}$` + texteGras(nb5 + ' min') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} ans`,
@@ -1052,7 +1038,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' min') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} ans`,
@@ -1105,7 +1091,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteEnCouleurEtGras(nb5 + ' km') + `$${sp()}-${sp()}$` + texteEnCouleurEtGras(nb3 + ' km ') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} colis`,
@@ -1143,7 +1128,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb1 + ' colis') + `$${sp()}-${sp()}$` + texteGras(nb2 + ' colis') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} colis`,
@@ -1177,7 +1161,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' km') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} colis`,
@@ -1231,7 +1215,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb5 + ' tonnes') + `$${sp()}\\div${sp()}$` + texteGras(nb4) + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} m`,
@@ -1269,7 +1252,6 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += texteGras(nb2) + `$${sp()}\\times${sp()}$` + texteGras(nb3 + ' tonnes') + '.'
               }
 
-              this.autoCorrection[i].enonce = `${texte}\n`
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} m`,
@@ -1303,7 +1285,7 @@ export default function ExerciceInformationsProblemes () {
                 texteCorr += ' et ' + texteEnCouleurEtGras(nb5 + ' tonnes') + ' ne sont pas utiles pour la résolution du problème.<br>'
               }
               texteCorr += 'On ne peut pas répondre à ce problème. Il manque des informations.'
-              this.autoCorrection[i].enonce = `${texte}\n`
+
               this.autoCorrection[i].propositions = [
                 {
                   texte: `${nb1} m`,
@@ -1330,6 +1312,7 @@ export default function ExerciceInformationsProblemes () {
           }
           break
       }
+      this.autoCorrection[i].enonce = this.consigne + '<br>' + texte
       this.autoCorrection[i].options = {
         ordered: false,
         lastChoice: 5 // A creuser pour supprimer ou mettre nbquestions
