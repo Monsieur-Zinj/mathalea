@@ -19,15 +19,18 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { arrondi } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { context } from '../../modules/context.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
-export const dateDeModifImportante = '02/09/2023'
+export const dateDeModifImportante = '18/04/2024'
 export const dateDePublication = '03/02/2020'
+export const amcReady = true
+export const amcType = 'AMCHybride'
 /**
  * Construction de quadrilatères avec dispositif d'auto-correction aléatoire
  * @author Jean-Claude Lhote
@@ -44,7 +47,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.sup = 1
+  this.sup = 8
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
@@ -64,19 +67,21 @@ export default function ConstructionsParallelogrammesParticuliers () {
     const objetsEnonce = []; const objetsCorrection = []
     let typesDeQuestionsDisponibles
     let xm, ym, xM, yM
-    if (this.sup === 1) typesDeQuestionsDisponibles = [1, 2, 3]
-    else if (this.sup === 2) typesDeQuestionsDisponibles = [4, 5, 6, 7]
-    else typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]
-    typesDeQuestionsDisponibles = [7, 7]
+    if (this.sup < 8) typesDeQuestionsDisponibles = [this.sup]
+    else if (this.sup === 8) typesDeQuestionsDisponibles = [randint(1, 3)]
+    else if (this.sup === 9) typesDeQuestionsDisponibles = [randint(4, 7)]
+    else typesDeQuestionsDisponibles = [randint(1, 7)]
+
     const typeDeQuestion = choice(typesDeQuestionsDisponibles)
     switch (typeDeQuestion) {
       case 1:
         A = point(0, 0, noms[0])
-        c1 = randint(20, 25) * 2 // AB
-        c4 = calculANePlusJamaisUtiliser(randint(20, 30, c1 / 2) / 5) // AD
-        c1 = calculANePlusJamaisUtiliser(c1 / 10)
-        d1 = 5 * (Math.abs(c4 - c1) + 2)
-        d2 = 5 * (c1 + c4 - 3)
+        c1 = randint(20, 25) // 2 AB
+        c4 = randint(20, 30, c1) // 5 AD
+        d1 = Math.abs(c4 - c1) + 10
+        d2 = c1 + c4 - 15
+        c1 = calculANePlusJamaisUtiliser(c1 / 5)
+        c4 = calculANePlusJamaisUtiliser(c4 / 5)
         d1 = calculANePlusJamaisUtiliser(randint(Math.min(d1, d2), Math.max(d1, d2)) / 5) // BD
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3])
@@ -308,7 +313,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
         yM = Math.max(A.y, B.y, C.y) + 0.8
         break
     }
+    let texteAMC = texte + `Construire le parallélogramme $${nom}$<br><br>`
     texte += `Construire le parallélogramme $${nom}$ et préciser si c'est un paraléllogramme particulier.<br>`
+    texteAMC += 'Les sommets manquants devraient se trouver respectivement dans les cibles ci-dessous.'
+    texteAMC += '<br>Une fois la construction terminée et afin de vérifier votre soin, noircir, ci-contre, pour chacune des cibles,'
+    texteAMC += ' la lettre et le chiffre correspondants à la case dans laquelle se trouve le sommet construit.'
 
     const p = polygoneAvecNom(A, B, C, D)
 
@@ -323,13 +332,13 @@ export default function ConstructionsParallelogrammesParticuliers () {
     const result1 = dansLaCibleCarree(B.x, B.y, 5, 0.3, cellule3)
     const result2 = dansLaCibleCarree(C.x, C.y, 5, 0.3, cellule1)
     const result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2)
-    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
+    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: typeDeQuestion === 7 ? 2 : 3, taille: 0.4, color: 'gray' })
     cible1.taille = 0.3
     cible1.opacite = 0.7
-    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
+    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.4, color: 'gray' })
     cible2.taille = 0.3
     cible2.opacite = 0.7
-    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: '', taille: 0.4, color: 'gray' })
+    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 1, taille: 0.4, color: 'gray' })
     cible3.taille = 0.3
     cible3.opacite = 0.7
     dd1 = segment(O, A)
@@ -345,9 +354,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
         objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
         break
       case 2:
-        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
+        // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
+        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
         objetsEnonce.push(cible3, cible2, cible1)
-        objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
+        // objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, D))
+        objetsCorrection.push(p[0], p[1], afficheLongueurSegment(O, D))
         objetsCorrection.push(cible3, cible2, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'))
 
         break
@@ -372,7 +383,8 @@ export default function ConstructionsParallelogrammesParticuliers () {
 
         break
       case 6:
-        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2, t5) + '<br>'
+        // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2, t5) + '<br>'
+        if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2) + '<br>'
         objetsEnonce.push(cible3, cible2)
         objetsCorrection.push(p[0], p[1], t3, t4)
         objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
@@ -385,12 +397,122 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
     }
     texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)
+    texteAMC += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)
     texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsCorrection)
+
+    if (context.isAmc) {
+      // Construction des QCM valables en AMC
+      const reponseLettres = ['A', 'B', 'C', 'D', 'E']
+      const reponseChiffres = ['1', '2', '3', '4', '5']
+
+      const propositionsQcm1 = []
+      for (let ee = 0; ee < 5; ee++) {
+        propositionsQcm1.push({
+          texte: reponseLettres[ee],
+          statut: cellule3[0] === reponseLettres[ee]
+        })
+      }
+
+      const propositionsQcm2 = []
+      for (let ee = 0; ee < 5; ee++) {
+        propositionsQcm2.push({
+          texte: ee + 1,
+          statut: cellule3[1] === reponseChiffres[ee]
+        })
+      }
+
+      const propositionsQcm3 = []
+      for (let ee = 0; ee < 5; ee++) {
+        propositionsQcm3.push({
+          texte: reponseLettres[ee],
+          statut: typeDeQuestion === 7 ? cellule1[0] === reponseLettres[ee] : cellule2[0] === reponseLettres[ee]
+        })
+      }
+
+      const propositionsQcm4 = []
+      for (let ee = 0; ee < 5; ee++) {
+        propositionsQcm4.push({
+          texte: ee + 1,
+          statut: typeDeQuestion === 7 ? cellule1[1] === reponseChiffres[ee] : cellule2[1] === reponseChiffres[ee]
+        })
+      }
+
+      this.autoCorrection[0] = {}
+      this.autoCorrection[0].options = {
+        ordered: true, barreseparation: true, multicolsAll: true
+      }
+      this.autoCorrection[0].enonce = ''// texte
+      this.autoCorrection[0].propositions =
+         [
+           {
+             type: 'AMCOpen',
+             propositions: [{
+               texte: texteCorr,
+               enonce: texteAMC,
+               statut: 0,
+               sanscadre: true
+             }]
+           },
+           {
+             type: 'qcmMono',
+             propositions: propositionsQcm1,
+             enonce: numAlpha(0) + 'Pour la cible 1 : <br>Lettre de la case du sommet construit, dans la cible 1'
+           },
+           {
+             type: 'qcmMono',
+             propositions: propositionsQcm2,
+             enonce: 'Chiffre de la case du sommet construit, dans la cible 1'
+           },
+           {
+             type: 'qcmMono',
+             propositions: propositionsQcm3,
+             enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible 2'
+           },
+           {
+             type: 'qcmMono',
+             propositions: propositionsQcm4,
+             enonce: 'Chiffre de la case du sommet construit, dans la cible 2'
+           }]
+
+      if (typeDeQuestion === 2) {
+        const propositionsQcm5 = []
+        for (let ee = 0; ee < 5; ee++) {
+          propositionsQcm5.push({
+            texte: reponseLettres[ee],
+            statut: cellule1[0] === reponseLettres[ee]
+          })
+        }
+
+        const propositionsQcm6 = []
+        for (let ee = 0; ee < 5; ee++) {
+          propositionsQcm6.push({
+            texte: ee + 1,
+            statut: cellule1[1] === reponseChiffres[ee]
+          })
+        }
+
+        this.autoCorrection[0].propositions.push(
+          {
+            type: 'qcmMono',
+            propositions: propositionsQcm3,
+            enonce: '\\vspace{1cm}' + numAlpha(2) + 'Pour la cible 3 : <br>Lettre de la case du sommet construit, dans la cible 3'
+          },
+          {
+            type: 'qcmMono',
+            propositions: propositionsQcm4,
+            enonce: 'Chiffre de la case du sommet construit, dans la cible 3'
+          }
+        )
+      }
+    }
 
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de diffculté', 3, '1 : Figures faciles\n2 : Figures plus difficiles\n3 : Mélange']
-  // this.besoinFormulaire2CaseACocher = ["Avec des points de part et d'autre"];
+  this.besoinFormulaireNumerique = [
+    'Choix des questions',
+    4,
+    '1 : Figure facile 1\n2 : Figure facile 2 (3 sommets à placer)\n3 : Figure facile 3 \n4 : Figure moins facile 1\n5 : Figure moins facile 2\n6 : Figure moins facile 3\n7 : Figure moins facile 4\n8 : Une des figures faciles choisie au hasard\n9 : Une des figures moins faciles choisie au hasard\n10 : Une de toutes ces figures choisie au hasard'
+  ]
 }
