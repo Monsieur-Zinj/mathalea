@@ -1,5 +1,5 @@
 import genericPreamble from '../lib/latex/preambule.tex?raw'
-import { loadFonts, loadPackagesFromContent, loadPreambule, logPDF } from '../lib/latex/preambuleTex'
+import { loadFonts, loadPackagesFromContent, loadPreambule, loadProfCollegeIfNeed, logPDF } from '../lib/latex/preambuleTex'
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
@@ -282,14 +282,7 @@ Correction
   private loadPreambuleFromContents (contents: contentsType, latexFileInfos: LatexFileInfos) {
     contents.preamble = `% @see : ${window.location.href}`
     contents.preamble += '\n\\documentclass[a4paper,11pt,fleqn]{article}'
-    if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-      contents.content.includes('\\Propor[') || // exo : 6P15
-      contents.content.includes('\\Fraction[') || // exo : can4-2024-Q15
-      contents.content.includes('\\Reperage[')) { // exo 5R12-1
-      // à mettre avant ProfMaquette
-      logPDF(`usepackage{ProfCollege} : ${window.location.href}`)
-      contents.preamble += '\n\\usepackage{ProfCollege}'
-    }
+    loadProfCollegeIfNeed(contents) // avant profmaquette sinon ça plante
     contents.preamble += '\n\\usepackage{ProfMaquette}'
     contents.preamble += `\n\\setKVdefault[Boulot]{CorrigeFin=${latexFileInfos.correctionOption === 'AvecCorrection' ? 'true' : 'false'}}`
     contents.preamble += loadFonts(latexFileInfos)

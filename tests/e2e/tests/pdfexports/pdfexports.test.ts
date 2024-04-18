@@ -49,7 +49,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
   await page.goto(urlExercice)
   // await page.reload()
-  await page.click('input#Style2') // style maquette
+  // await page.click('input#Style2') // style maquette
 
   await new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -106,14 +106,14 @@ async function getLatexFile (page: Page, urlExercice: string) {
   const file = Array.from(unzipfiles.keys()).find(ele => ele === 'main.tex' || ele === 'test.tex')
 
   const controller = new AbortController()
-  const { signal } = controller
+  const signal = controller.signal
 
   const trace : string[] = []
   const launch = new Promise((resolve, reject) => {
     log(folder + '/' + file)
     const xelatex = spawn('lualatex', ['--halt-on-error', '' + file], { cwd: folder + '/', signal })
 
-    const timer = setTimeout(() => { controller.abort() }, 5 * 60 * 1000)
+    const timer = setTimeout(() => { controller.abort() }, 10 * 60 * 1000)
     xelatex.stdout.on('data', function (result) {
       const out = Buffer.from(result, 'utf-8').toString()
       trace.push(out.replaceAll('\r\n', ''))
@@ -232,8 +232,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   log(filter)
   testRunAllLots(filter)
 } else {
-  testRunAllLots('dnb_2021_06_etrangers_2')
-  testRunAllLots('dnb_2021_12_caledonie_8')
   // testRunAllLots('dnb_2013')
   // testRunAllLots('dnb_2014')
   // testRunAllLots('dnb_2015')
@@ -253,4 +251,14 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('6e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
+
+  testRunAllLots('4e/4C22-2.')
+  testRunAllLots('4e/4A11-2.')
+  testRunAllLots('4e/4C22.')
+  testRunAllLots('4e/4C23-1.')
+  testRunAllLots('4e/4C24.')
+  testRunAllLots('4e/4C30.')
+  testRunAllLots('4e/4C33-1.')
+  testRunAllLots('4e/4F12.')
+  testRunAllLots('4e/4G30.')
 }

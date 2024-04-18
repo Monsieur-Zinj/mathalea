@@ -65,8 +65,13 @@ async function testCanView (page: Page) {
   await page1.locator('.bxs-chevron-right').click()
   await page1.locator('.key--6').click()
   await page1.locator('.bxs-chevron-right').click()
-  await page1.locator('.key--9').click()
-  await page1.locator('.key--9').click()
+  // QCM : obliger de ragarder les labels
+  const label = await page1.locator('#labelEx0Q13R0').innerText()
+  if (label.includes('99')) {
+    await page1.locator('#checkEx0Q13R0').click()
+  } else {
+    await page1.locator('#checkEx0Q13R1').click()
+  }
   await page1.locator('.bxs-chevron-right').click()
   await page1.locator('.key--1').click()
   await page1.locator('.key--0').click()
@@ -169,9 +174,13 @@ async function testEleveView (page: Page) {
   await page1.locator('.key--6').click()
   await page1.locator('#champTexteEx0Q12').focus()
   await page1.locator('.key--6').click()
-  await page1.locator('#champTexteEx0Q13').focus()
-  await page1.locator('.key--9').click()
-  await page1.locator('.key--9').click()
+  // QCM : obliger de ragarder les labels
+  const label = await page1.locator('#labelEx0Q13R0').innerText()
+  if (label.includes('99')) {
+    await page1.locator('#checkEx0Q13R0').click()
+  } else {
+    await page1.locator('#checkEx0Q13R1').click()
+  }
   await page1.locator('#champTexteEx0Q14').focus()
   await page1.locator('.key--1').click()
   await page1.locator('.key--0').click()
@@ -303,9 +312,13 @@ async function testEleveViewPre2 (page: Page) {
   await page1.locator('#exercice0Q12 > div > button').click()
   await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q12').first().innerText())
 
-  await page1.locator('#champTexteEx0Q13').focus()
-  await page1.locator('.key--9').click()
-  await page1.locator('.key--9').click()
+  // QCM : obliger de ragarder les labels
+  const label = await page1.locator('#labelEx0Q13R0').innerText()
+  if (label.includes('99')) {
+    await page1.locator('#checkEx0Q13R0').click()
+  } else {
+    await page1.locator('#checkEx0Q13R1').click()
+  }
   await page1.locator('#exercice0Q13 > div > button').click()
   await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q13').first().innerText())
 
@@ -482,9 +495,13 @@ async function testEleveViewPre3 (page: Page) {
   await page1.locator('#exercice0Q12 > div > div:last-child > button').click()
   await page1.locator('#questionTitleID212 > div > .bg-coopmaths-warn').isVisible()
   await page1.locator('#questionTitleID213').click()
-  await page1.locator('#champTexteEx0Q13').focus()
-  await page1.locator('.key--9').click()
-  await page1.locator('.key--9').click()
+  // QCM : obliger de ragarder les labels
+  const label = await page1.locator('#labelEx0Q13R0').innerText()
+  if (label.includes('99')) {
+    await page1.locator('#checkEx0Q13R0').click()
+  } else {
+    await page1.locator('#checkEx0Q13R1').click()
+  }
   await page1.locator('#exercice0Q13 > div > div:last-child > button').click()
   await page1.locator('#questionTitleID213 > div > .bg-coopmaths-warn').isVisible()
   await page1.locator('#questionTitleID214').click()
@@ -584,9 +601,9 @@ if (process.env.CI) {
   runTest(testEleveViewPre2, import.meta.url, { pauseOnError: false })
   runTest(testEleveViewPre3, import.meta.url, { pauseOnError: false })
 } else {
-  prefs.headless = true
-  // runTest(testCanView, import.meta.url, { pauseOnError: true })
+  // prefs.headless = true
+  runTest(testCanView, import.meta.url, { pauseOnError: true })
   runTest(testEleveView, import.meta.url, { pauseOnError: true })
-  // runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
-  // runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
+  runTest(testEleveViewPre2, import.meta.url, { pauseOnError: true })
+  runTest(testEleveViewPre3, import.meta.url, { pauseOnError: true })
 }

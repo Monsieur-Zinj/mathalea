@@ -142,8 +142,19 @@ export const logPDF = (str: string) => {
   if (debug) console.log('PACKAGETEST:' + str)
 }
 
+export function loadProfCollegeIfNeed (contents: contentsType) {
+  if (contents.content.includes('\\Engrenages[') || // exo : 3A12
+    contents.content.includes('\\Propor[') || // exo : 6P15
+    contents.content.includes('\\Fraction[') || // exo : can4-2024-Q15
+    contents.content.includes('\\Reperage[')) { // exo 5R12-1
+    // à mettre avant ProfMaquette
+    logPDF(`usepackage{ProfCollege} : ${window.location.href}`)
+    if (!contents.preamble.includes('ProfCollege')) contents.preamble += '\n\\usepackage{ProfCollege}'
+  }
+}
+
 export function loadPackagesFromContent (contents: contentsType) {
-  contents.preamble += '% loadPackagesFromContent'
+  loadProfCollegeIfNeed(contents)
   if (contents.content.includes('pspicture') || contents.content.includes('\\rput') || contents.content.includes('\\pscurve') || contents.content.includes('\\psset') || contents.content.includes('\\psframe') ||
       contents.contentCorr.includes('pspicture') || contents.contentCorr.includes('\\rput') || contents.contentCorr.includes('\\pscurve') || contents.contentCorr.includes('\\psset') || contents.contentCorr.includes('\\psframe')
   ) {
@@ -197,17 +208,22 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n\\usepackage{tabularx}'
     logPDF(`usepackage{tabularx} : ${window.location.href}`)
   }
-  if (contents.content.includes('\\ang') || contents.content.includes('\\num{')) {
+  if (contents.content.includes('\\ang') || contents.content.includes('\\num{') || contents.contentCorr.includes('\\ang') || contents.contentCorr.includes('\\num{')) {
     logPDF(`usepackage{siunitx} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{siunitx}'
+    if (!contents.preamble.includes('siunitx')) contents.preamble += '\n\\usepackage{siunitx}'
   }
   if (contents.content.includes('\\begin{multicols}')) {
     logPDF(`usepackage{multicols} : ${window.location.href}`)
     contents.preamble += '\n\\usepackage{multicol}'
   }
-  if (contents.content.includes('\\cancel{')) {
-    logPDF(`usepackage{multicols} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{cancel}'
+  if (contents.content.includes('\\opadd') || contents.content.includes('\\opsub') || contents.content.includes('\\opmul') || contents.content.includes('\\opdiv') || contents.content.includes('\\opidiv') ||
+      contents.contentCorr.includes('\\opadd') || contents.contentCorr.includes('\\opsub') || contents.contentCorr.includes('\\opmul') || contents.contentCorr.includes('\\opdiv') || contents.contentCorr.includes('\\opidiv')) {
+    logPDF(`usepackage{xlop} : ${window.location.href}`)
+    if (!contents.preamble.includes('xlop')) contents.preamble += '\n\\usepackage{xlop}'
+  }
+  if (contents.content.includes('\\cancel')) {
+    logPDF(`usepackage{cancel} : ${window.location.href}`)
+    if (!contents.preamble.includes('cancel')) contents.preamble += '\n\\usepackage{cancel}'
   }
   if (contents.content.includes('\\draw[color={')) {
     logPDF(`usepackage{xcolor} : ${window.location.href}`)
@@ -216,6 +232,10 @@ export function loadPackagesFromContent (contents: contentsType) {
   if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
     logPDF(`usepackage{numprint} : ${window.location.href}`)
     contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
+  }
+  if (contents.content.includes('\\mathscr') || contents.contentCorr.includes('\\mathscr')) {
+    logPDF(`usepackage{mathrsfs} : ${window.location.href}`)
+    if (!contents.preamble.includes('mathrsfs')) contents.preamble += '\n\\usepackage{mathrsfs}'
   }
   if (contents.content.includes('\\fcolorbox{nombres}')) {
     logPDF(`definecolor{nombres} : ${window.location.href}`)
@@ -242,6 +262,10 @@ export function loadPackagesFromContent (contents: contentsType) {
   if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
     logPDF(`usetikzlibrary{decorations.pathmorphing: ${window.location.href}`)
     contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
+  }
+  if (contents.content.includes('decoration=brace') || contents.content.includes('decoration={brace}')) {
+    logPDF(`usetikzlibrary{decorations.pathreplacing: ${window.location.href}`)
+    contents.preamble += '\n\\usetikzlibrary {decorations.pathreplacing}'
   }
   if (contents.content.includes('\\tkzText')) {
     logPDF(`usepackage{tkz-fct}: ${window.location.href}`)
@@ -313,23 +337,20 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
   }
   if (contents.content.includes('\\ldots') || contents.content.includes('\\cdots') || contents.content.includes('\\dots')) {
-    // gestion des commandes pour les sujets DNB : 2023
     logPDF(`usepackage{amsmath} : ${window.location.href}`)
     if (!contents.preamble.includes('amsmath')) contents.preamble += '\n\\usepackage{amsmath}'
   }
   if (contents.content.includes('\\makebox') || contents.content.includes('\\framebox') || contents.content.includes('\\framebox') || contents.content.includes('\\parbox')) {
-    // gestion des commandes pour les sujets DNB : 2023
     logPDF(`usepackage{amsfonts} : ${window.location.href}`)
     if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
   }
   if (contents.content.includes('\\mbox') || contents.content.includes('\\fbox') || contents.content.includes('\\sbox') || contents.content.includes('\\pbox')) {
     logPDF(`usepackage{amsfonts} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
     if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
   }
-  if (contents.content.includes('\\leadsto') || contents.content.includes('\\square') || contents.content.includes('\\blacktriangleright') || contents.content.includes('\\mathbb') || contents.content.includes('\\geqslant') || contents.content.includes('\\blacktriangleleft') || contents.content.includes('\\leqslant') || contents.content.includes('\\curvearrowleft')) {
+  if (contents.content.includes('\\leadsto') || contents.content.includes('\\square') || contents.content.includes('\\blacktriangleright') || contents.content.includes('\\mathbb') || contents.content.includes('\\geqslant') || contents.content.includes('\\blacktriangleleft') || contents.content.includes('\\leqslant') || contents.content.includes('\\curvearrowleft') ||
+      contents.contentCorr.includes('\\leadsto') || contents.contentCorr.includes('\\square') || contents.contentCorr.includes('\\blacktriangleright') || contents.contentCorr.includes('\\mathbb') || contents.contentCorr.includes('\\geqslant') || contents.contentCorr.includes('\\blacktriangleleft') || contents.contentCorr.includes('\\leqslant') || contents.contentCorr.includes('\\curvearrowleft')) {
     logPDF(`usepackage{amssymb} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
     if (!contents.preamble.includes('amssymb')) contents.preamble += '\n\\usepackage{amssymb}'
   }
   if (contents.content.includes('\\columncolor{') || contents.content.includes('\\cellcolor') || contents.content.includes('\\rowcolor')) {
@@ -366,20 +387,19 @@ export function loadPackagesFromContent (contents: contentsType) {
     // gestion des commandes pour les sujets DNB : 2023
     if (!contents.preamble.includes('booktabs')) contents.preamble += '\n\\usepackage{booktabs}'
   }
-  if (contents.content.includes('\\backslashbox')) {
-    logPDF(`\\usepackage{slashbox} : ${window.location.href}`)
+  if (contents.content.includes('\\backslashbox') || contents.content.includes('\\diagbox{')) {
+    logPDF(`\\usepackage{diagbox} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\usepackage{slashbox}'
+    contents.preamble += '\n\\usepackage{diagbox}'
+  }
+  if (contents.content.includes('\\cancel') || contents.contentCorr.includes('\\cancel')) {
+    logPDF(`\\usepackage{cancel} : ${window.location.href}`)
+    if (!contents.preamble.includes('cancel')) contents.preamble += '\n\\usepackage{cancel}'
   }
   if (contents.content.includes('\\ds')) {
     logPDF(`\\newcommand{\\ds}{\\displaystyle} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023
     contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
-  }
-  if (contents.content.includes('\\diagbox{')) {
-    logPDF(`usepackage{diagbox} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\usepackage{diagbox}'
   }
   if (contents.content.includes('\\EUR{')) {
     logPDF(`usepackage{marvosym} : ${window.location.href}`)
