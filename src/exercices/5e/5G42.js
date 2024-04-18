@@ -10,7 +10,13 @@ import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Déterminer la nature de parallélogrammes'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  *
@@ -26,7 +32,6 @@ export default function DemonstrationsParallelogrammes () {
   this.nbQuestions = 7
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -122,12 +127,38 @@ export default function DemonstrationsParallelogrammes () {
           break
       }
       texte = `${nom} est un parallélogramme tel que ${def}.<br>`
-      texte += `Déterminer la nature de ${nom} en justifiant la réponse.`
+      texte += `Déterminer la nature de ${nom}`
+      texte += this.interactif ? '.' : ' en justifiant la réponse.'
       texteCorr = 'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
       texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.3 }, objets) + '<br>'
       texteCorr += `On sait que ${prop2}.<br>`
       texteCorr += `Si un parallélogramme ${prop1}, alors c'est un ${type}.<br>`
       texteCorr += `${nom} est donc un ${type}.`
+      const propositionsDuQCM = [
+        {
+          texte: 'losange',
+          statut: type === 'losange'
+        },
+        {
+          texte: 'carré',
+          statut: type === 'carré'
+        },
+        {
+          texte: 'rectangle',
+          statut: type === 'rectangle'
+        },
+        {
+          texte: 'parallélogramme non particulier',
+          statut: false
+        }
+      ]
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: false }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = propositionsDuQCM
+        texte += propositionsQcm(this, i).texte
+      }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -139,5 +170,4 @@ export default function DemonstrationsParallelogrammes () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }

@@ -10,9 +10,15 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context.js'
+import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 export const dateDePublication = '05/04/2021'
-export const dateDeModifImportante = '31/08/2023'
+export const dateDeModifImportante = '18/04/2024'
 /**
  * On doit justifier qu'un quadrilatère est un parallélogramme en citant la bonne propriété
  * @author Rémi Angot
@@ -26,7 +32,6 @@ export const refs = {
 }
 export default function ParallelogrammeAPartirDUneFigure () {
   Exercice.call(this)
-  this.titre = titre
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
@@ -54,8 +59,8 @@ export default function ParallelogrammeAPartirDUneFigure () {
     sBD.pointilles = 5
     const sABcodage = codageSegment(A, B, 'X', 'blue', 1.5)
     const sCDcodage = codageSegment(C, D, 'X', 'blue', 1.5)
-    const sADcodage = codageSegment(A, D, '▼', 'blue', 1.5)
-    const sBCcodage = codageSegment(B, C, '▼', 'blue', 1.5)
+    const sADcodage = codageSegment(A, D, 'O', 'blue', 1.5)
+    const sBCcodage = codageSegment(B, C, 'O', 'blue', 1.5)
     const sAOcodage = codageSegment(A, O, '|', 'blue', 1.5)
     const sCOcodage = codageSegment(O, C, '|', 'blue', 1.5)
     const sBOcodage = codageSegment(B, O, '||', 'blue', 1.5)
@@ -94,6 +99,12 @@ export default function ParallelogrammeAPartirDUneFigure () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
+      let estUnParallegramme = false
+      estUnParallegramme ||= listeTypeQuestions[i] === 'cotesOpposesMemeLongueur'
+      estUnParallegramme ||= listeTypeQuestions[i] === 'diagonalesMemeLongueur'
+      estUnParallegramme ||= listeTypeQuestions[i] === '2cotesOpposesMemeLongueurEtParallele'
+      estUnParallegramme ||= listeTypeQuestions[i] === '2cotesOpposesMemeLongueurEtParallelev2'
+      estUnParallegramme ||= listeTypeQuestions[i] === 'anglesOpposesEgaux'
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cotesOpposesMemeLongueur':
           gestionNom(i)
@@ -114,8 +125,8 @@ export default function ParallelogrammeAPartirDUneFigure () {
           p1 = polygone(M1, N1, O1, P1)
           s1 = codageSegment(M1, N1, 'X', 'blue')
           s2 = codageSegment(M1, P1, 'X', 'blue')
-          s3 = codageSegment(O1, P1, '▼', 'blue')
-          s4 = codageSegment(O1, N1, '▼', 'blue')
+          s3 = codageSegment(O1, P1, 'O', 'blue')
+          s4 = codageSegment(O1, N1, 'O', 'blue')
           texteCorr += '<br>' + mathalea2d({ xmin: -1.5, ymin: -6.5, xmax: 1.5, ymax: 0.5, pixelsParCm: 20, scale: 1 }, [nommePolygone(p1, nom), p1, s1, s2, s3, s4])
           break
         case 'diagonalesMemeLongueur':
@@ -149,8 +160,8 @@ export default function ParallelogrammeAPartirDUneFigure () {
           O1 = point(6, -4)
           P1 = point(-1, -4)
           p1 = polygone(M1, N1, O1, P1)
-          s1 = codageSegment(O1, N1, '▼', 'blue')
-          s2 = codageSegment(M1, P1, '▼', 'blue')
+          s1 = codageSegment(O1, N1, 'O', 'blue')
+          s2 = codageSegment(M1, P1, 'O', 'blue')
           texteCorr = `Seulement deux côtés opposés sont de même longueur, $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('n\'est donc pas forcément un parallélogramme')} comme le montre le contre-exemple suivant.`
           texteCorr += '<br>' + mathalea2d(Object.assign(fixeBordures([nommePolygone(p1, nom), p1, s1, s2])), [nommePolygone(p1, nom), p1, s1, s2])
           break
@@ -191,6 +202,22 @@ export default function ParallelogrammeAPartirDUneFigure () {
           texteCorr += '<br>Or, « si un quadrilatère a ses angles opposés égaux, alors c\'est un parallélogramme ».'
           texteCorr += `<br>Donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est un parallélogramme')}.`
           break
+      }
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'Il s\'agit d\'un parallélogramme',
+            statut: estUnParallegramme
+          },
+          {
+            texte: 'Il ne s\'agit pas d\'un parallélogramme',
+            statut: !estUnParallegramme
+          }
+        ]
+        texte += propositionsQcm(this, i).texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
