@@ -199,9 +199,9 @@ export default function ConstructionsParallelogrammes () {
           break
       }
       let texteAMC = texte + '<br><br>'
-      texteAMC += listeTypeQuestions[i] > 2 ? 'Les sommets manquants devraient se trouver respectivement dans les grilles ci-dessous.' : 'Le sommet manquant devrait se trouver dans la grille ci-dessous.'
+      texteAMC += listeTypeQuestions[i] > 2 ? 'Les sommets manquants devraient se trouver respectivement dans les cibles ci-dessous.' : 'Le sommet manquant devrait se trouver dans la cible ci-dessous.'
       texteAMC += '<br>Une fois la construction terminée et afin de vérifier votre soin, noircir, ci-contre,'
-      texteAMC += listeTypeQuestions[i] > 2 ? ' pour chacune des grilles,' : ''
+      texteAMC += listeTypeQuestions[i] > 2 ? ' pour chacune des cibles,' : ''
       texteAMC += ' la lettre et le chiffre correspondants à la case dans laquelle se trouve le sommet construit.'
       texte += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
       texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection)
@@ -244,7 +244,7 @@ export default function ConstructionsParallelogrammes () {
            {
              type: 'qcmMono',
              propositions: propositionsQcm1,
-             enonce: (listeTypeQuestions[i] > 2 ? numAlpha(0) + 'Pour la grille 1 : <br>' : '') + 'Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 1' : '')
+             enonce: (listeTypeQuestions[i] > 2 ? numAlpha(0) + 'Pour la cible 1 : <br>' : '') + 'Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 1' : '')
            },
            {
              type: 'qcmMono',
@@ -273,7 +273,7 @@ export default function ConstructionsParallelogrammes () {
             {
               type: 'qcmMono',
               propositions: propositionsQcm3,
-              enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la grille 2 : <br>Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 2' : '')
+              enonce: '\\vspace{1cm}' + numAlpha(1) + 'Pour la cible 2 : <br>Lettre de la case du sommet construit, dans la cible' + (listeTypeQuestions[i] > 2 ? ' 2' : '')
             },
             {
               type: 'qcmMono',
