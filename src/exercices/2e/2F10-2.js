@@ -12,9 +12,11 @@ import { abs } from '../../lib/outils/nombres'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
 export const interactifReady = true
@@ -143,8 +145,8 @@ export default function Lecturefonctionaffine () {
               ]
             }
           } else if (this.interactif) {
-            texte += '<br>$f(x) =$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-            setReponse(this, i, `${reduireAxPlusB(a, b)}`)
+            handleAnswers(this, i, { champ1: { value: { fonction: `${reduireAxPlusB(a, b)}`, variable: 'x' }, compare: functionCompare } })
+            texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
           }
           texteCorr = 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
           if (a === 0) {
@@ -324,8 +326,8 @@ export default function Lecturefonctionaffine () {
               ]
             }
           } else if (this.interactif && !context.isAmc) {
-            texte += '<br>$f(x)=$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-            setReponse(this, i, `${texFractionReduite(a, d)}x${ecritureAlgebrique(b)}`)
+            handleAnswers(this, i, { champ1: { value: { fonction: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, variable: 'x' }, compare: functionCompare } })
+            texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
           }
           if (a > 0) {
             if (b > 2) {
