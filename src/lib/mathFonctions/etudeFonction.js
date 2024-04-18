@@ -11,6 +11,7 @@ import { translation } from '../2d/transformations.js'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { matriceCarree } from './MatriceCarree.js'
+import engine from '../interactif/comparisonFunctions'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -1158,4 +1159,14 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
     lgt: 3 // taille de la première colonne en cm
   })
+}
+
+/**
+ * retourne la dérivée partielle de la fonction de la variable
+ * @param {string} fonction
+ * @param {string} variable
+ */
+export function derivee (fonction, variable) {
+  const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
+  const laDerivee = engine.box(['D', laFonction, variable]).evaluate().latex
 }
