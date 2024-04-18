@@ -77,34 +77,35 @@ export default function ImageFonctionsRefs () {
           nombre = randint(-10, 10, [0, 1])
           solution = nombre * nombre
           solution = new FractionEtendue(solution, 1)
-          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(solution, 0))}$`
+          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^2 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(nombre * nombre, 0))}$`
           break
         case 'cube':
           nombre = randint(-5, 5, [0, 1])
           solution = nombre * nombre * nombre
           solution = new FractionEtendue(solution, 1)
-          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(solution, 0))}$`
+          texteCorr = `$${nom}(${nombre}) = ${ecritureParentheseSiNegatif(nombre)}^3 = ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${ecritureParentheseSiNegatif(nombre * nombre)} \\times ${ecritureParentheseSiNegatif(nombre)} = ${miseEnEvidence(texNombre(nombre ** 3, 0))}$`
           break
         case 'racine carrée':
           solution = randint(1, 10)
           solution = new FractionEtendue(solution, 1)
           nombre = solution * solution
-          texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution)} $ car $ ${ecritureParentheseSiNegatif(solution)}^2 = ${texNombre(nombre, 0)} $`
+          texteCorr = `$${nom}(${nombre}) = ${miseEnEvidence(`\\sqrt{${nombre}}`)} = ${miseEnEvidence(solution.texFraction)} $ car $ ${ecritureParentheseSiNegatif(solution.valeurDecimale)}^2 = ${texNombre(nombre, 0)} $`
           break
         case 'inverse':
           if (this.can) {
-            nombre = choice([1, 2, 4, 5, 10])
+            nombre = choice([2, 4, 5, 10])
           } else {
-            nombre = this.can ? choice([1, 2, 4, 5, 10]) : Math.pow(2, randint(0, 5)) * Math.pow(5, randint(0, 5))
+            const expo1 = randint(0, 5)
+            nombre = this.can ? choice([2, 4, 5, 10]) : Math.pow(2, expo1) * Math.pow(5, expo1 === 0 ? randint(1, 5) : randint(0, 5))
           }
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
           solution = new FractionEtendue(1, nombre)
-          texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(deprecatedTexFraction(1, nombre))} = ${miseEnEvidence(texNombre(solution, 6))}$`
+          texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(deprecatedTexFraction(1, nombre))} = ${miseEnEvidence(solution.valeurDecimale)}$`
           break
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre, 6)})$` : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`
-      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(texNombre(solution, 6))}$.`)
+      listePhrases[i] && (texteCorr += `<br>L'image de $${texNombre(nombre, 0)}$ par la fonction $${nom}$ est donc $${miseEnEvidence(solution.texFractionSimplifiee)}$.`)
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
       
       Calculer ${phrase}.`
@@ -115,7 +116,7 @@ export default function ImageFonctionsRefs () {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         // setReponse(this, i, solution, { digits: 6, decimals: listeTypeQuestions[i] === 'inverse' ? 6 : 0, signe: true })
-        handleAnswers(this, i, { reponse: { value: solution, compare: equalFractionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: solution.texFraction, compare: equalFractionCompare } }, { formatInteractif: 'mathlive' })
         i++
       }
       cpt++
