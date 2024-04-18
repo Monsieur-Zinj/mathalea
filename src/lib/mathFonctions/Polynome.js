@@ -253,7 +253,6 @@ export class Polynome {
       }
       break
     }
-    console.log(this.toLatex(), coeffDerivee)
     if (coeffDerivee.length === 0) return new Polynome({ deg: 0, coeffs: [0] })
     return new Polynome({ coeffs: coeffDerivee })
   }

@@ -25,8 +25,9 @@ export const dateDePublication = '17/04/2024'
 class DerivationSimple extends Exercice {
   constructor () {
     super()
+    this.titre = titre
     this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : Fonctions affines\n2 : Polynomes de degré 2\n3 : Polynomes de degré 3\n4 : Monomes de degré quelconque\n5 : Mélange']
-    this.sup = 1
+    this.sup = 5
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }
@@ -39,36 +40,39 @@ class DerivationSimple extends Exercice {
     // Boucle principale pour fabriquer les question
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let laFonction
+      let df
       // on définit la fonction en fonction du choix effectué
       switch (Number(listeTypeDeQuestion[i])) {
         case 2:
           laFonction = new Polynome({ rand: true, deg: 2, coeffs: [] })
+          df = '\\R'
           break
         case 3:
           laFonction = new Polynome({ rand: true, deg: 3, coeffs: [] })
+          df = '\\R'
           break
         case 4:{
           const deg = randint(3, 15)
           const coeffs = new Array(deg).fill(0)
           coeffs[coeffs.length - 1] = randint(-5, 5, 0)
           laFonction = new Polynome({ rand: false, coeffs, deg })
+          df = '\\R'
         }
           break
         case 1:
         default: // il faut toujours un default dans un switch, ça évite de sortir du switch bredouille
           laFonction = new Polynome({ rand: true, deg: 1, coeffs: [] })
+          df = '\\R'
           break
       }
       // Une seule consigne @todo à améliorer ?
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction.toLatex()}$<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction.toLatex()}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       // Pratique : les 'Polynome' on leur méthode derivee() !
       const laDerivee = laFonction.derivee()
       // La correction commune
-      let texteCorr = `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonction.toLatex()}$ est :<br>`
-      texteCorr += `$f'(x)=${miseEnEvidence(laDerivee.toLatex())}$.`
+      let texteCorr = ''
       // C'est fini... sauf pour la correction détaillée ci-dessous.
       if (this.correctionDetaillee) {
-        texteCorr += '<br>En effet, '
         if (listeTypeDeQuestion[i] !== 4) { // cas des polynomes de degré 1 à 3
           texteCorr += 'La fonction $f$ est une fonction polynomiale formée de termes de la forme $a\\times x^n$.<br>'
           texteCorr += 'Nous appliquons donc la règle suivante : "La dérivée d\'une somme est la somme des dérivées".<br>'
@@ -88,6 +92,7 @@ class DerivationSimple extends Exercice {
           texteCorr += `$(${monome})^\\prime = ${monomeD}$<br>`
         }
       }
+      texteCorr += `L'expression de la dérivée de la fonction $f$ est :<br> $f^\\prime(x) =${miseEnEvidence(laFonction.toLatex())}$<br>`
       // On vérifie qu'on n'a pas deux fois la même fonction
       if (this.questionJamaisPosee(i, laFonction.toLatex())) {
         this.listeQuestions.push(texte)
