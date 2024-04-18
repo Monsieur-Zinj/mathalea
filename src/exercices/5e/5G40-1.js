@@ -89,7 +89,7 @@ export default function ProprietesDesParallelogrammes () {
       }
       if (this.interactif || context.isAmc) {
         this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: false }
+        this.autoCorrection[i].options = context.isAmc ? { ordered: false } : { ordered: false, vertical: true }
         this.autoCorrection[i].enonce = `${texte}\n`
         if (listeTypeQuestions[i] < 5) {
           this.autoCorrection[i].propositions = [

@@ -14,6 +14,8 @@ export const refs = {
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMult'
 
 /**
  * QCM sur les parallélogrammes particuliers
@@ -56,7 +58,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
       this.autoCorrection[i] = {}
       switch (listeTypeQuestions[i]) {
         case 'par1':
-          texte = 'Si un quadrilatère est un parallélogramme alors...'
+          texte = 'Si un quadrilatère est un parallélogramme, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses côtés opposés sont de même longueur.',
@@ -92,7 +94,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un parallélogramme a ses côtés opposés de même longueur et parallèles.'
           break
         case 'par2':
-          texte = 'Si un quadrilatère est un parallélogramme alors...'
+          texte = 'Si un quadrilatère est un parallélogramme, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses diagonales se coupent en leur milieu.',
@@ -113,7 +115,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un parallélogramme a ses diagonales qui se coupent en leur milieu.'
           break
         case 'par3':
-          texte = 'Si un quadrilatère est un parallélogramme alors...'
+          texte = 'Si un quadrilatère est un parallélogramme, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses angles opposés sont de même mesure.',
@@ -144,7 +146,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un parallélogramme a ses angles opposés de même mesure et ses angles consécutifs supplémentaires.'
           break
         case 'par4':
-          texte = 'Si un quadrilatère est un parallélogramme alors...'
+          texte = 'Si un quadrilatère est un parallélogramme, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales.',
@@ -170,7 +172,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un parallélogramme a un centre de symétrie qui est le point d\'intersection de ses diagonales.'
           break
         case 'par5':
-          texte = 'Si un quadrilatère est un parallélogramme alors...'
+          texte = 'Si un quadrilatère est un parallélogramme, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un rectangle.',
@@ -191,7 +193,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les rectangles, losanges et carrés sont des parallélogrammes mais l\'inverse n\'est pas vrai !'
           break
         case 'rect1':
-          texte = 'Si un quadrilatère est un rectangle alors...'
+          texte = 'Si un quadrilatère est un rectangle, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses côtés opposés sont de même longueur.',
@@ -227,7 +229,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les rectangles ont leurs côtés opposés de même longueur et parallèles et leurs côtés consécutifs perpendiculaires.'
           break
         case 'rect2':
-          texte = 'Si un quadrilatère est un rectangle alors...'
+          texte = 'Si un quadrilatère est un rectangle, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses diagonales se coupent en leur milieu.',
@@ -248,7 +250,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les rectangles ont des diagonales qui se coupent en leur milieu et qui sont de même longueur.'
           break
         case 'rect3':
-          texte = 'Si un quadrilatère est un rectangle alors...'
+          texte = 'Si un quadrilatère est un rectangle, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses angles opposés sont de même mesure.',
@@ -279,7 +281,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un rectangle a ses angles opposés et ses angles consécutifs de même mesure et supplémentaires car ils mesurent tous 90°.'
           break
         case 'rect4':
-          texte = 'Si un quadrilatère est un rectangle alors...'
+          texte = 'Si un quadrilatère est un rectangle, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales.',
@@ -305,7 +307,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un rectangle a un centre de symétrie qui est le point d\'intersection de ses diagonales et deux axes de symétrie qui sont les médiatrices de ses côtés.'
           break
         case 'rect5':
-          texte = 'Si un quadrilatère est un rectangle alors...'
+          texte = 'Si un quadrilatère est un rectangle, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -326,7 +328,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les rectangles sont des parallélogrammes car ses côtés opposés sont parallèles. Certains rectangles particuliers peuvent aussi être des losanges ou des carrés mais ce n\'est pas toujours vrai.'
           break
         case 'losange1':
-          texte = 'Si un quadrilatère est un losange alors...'
+          texte = 'Si un quadrilatère est un losange, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses côtés opposés sont de même longueur.',
@@ -362,7 +364,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les losanges ont leurs côtés opposés parallèles et tous leurs côtés de même longueur.'
           break
         case 'losange2':
-          texte = 'Si un quadrilatère est un losange alors...'
+          texte = 'Si un quadrilatère est un losange, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses diagonales se coupent en leur milieu.',
@@ -383,7 +385,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les losanges ont des diagonales qui se coupent en leur milieu et qui sont perpendiculaires.'
           break
         case 'losange3':
-          texte = 'Si un quadrilatère est un losange alors...'
+          texte = 'Si un quadrilatère est un losange, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses angles opposés sont de même mesure.',
@@ -414,7 +416,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un losange a ses angles opposés de même mesure et ses angles consécutifs supplémentaires comme pour tous les parallélogrammes.'
           break
         case 'losange4':
-          texte = 'Si un quadrilatère est un losange alors...'
+          texte = 'Si un quadrilatère est un losange, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales.',
@@ -440,7 +442,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un losange a un centre de symétrie qui est le point d\'intersection de ses diagonales et deux axes de symétrie qui sont ses diagonales.'
           break
         case 'losange5':
-          texte = 'Si un quadrilatère est un losange alors...'
+          texte = 'Si un quadrilatère est un losange, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -461,7 +463,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les losanges sont des parallélogrammes car ses côtés opposés sont parallèles. Certains losanges particuliers peuvent aussi être des carrés mais ce n\'est pas toujours vrai.'
           break
         case 'carre1':
-          texte = 'Si un quadrilatère est un carré alors...'
+          texte = 'Si un quadrilatère est un carré, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses côtés opposés sont de même longueur.',
@@ -497,7 +499,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les carrés ont leurs côtés opposés parallèles, tous leurs côtés de même longueur et leurs côtés consécutifs perpendiculaire.'
           break
         case 'carre2':
-          texte = 'Si un quadrilatère est un carré alors...'
+          texte = 'Si un quadrilatère est un carré, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses diagonales se coupent en leur milieu.',
@@ -518,7 +520,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Les carrés ont des diagonales qui se coupent en leur milieu, de même longueur (car ce sont des rectangles particuliers) et qui sont perpendiculaires (car ce sont des losanges particuliers).'
           break
         case 'carre3':
-          texte = 'Si un quadrilatère est un carré alors...'
+          texte = 'Si un quadrilatère est un carré, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'ses angles opposés sont de même mesure.',
@@ -549,7 +551,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un carré a ses angles opposés et supplémentaires de même mesure et ses angles consécutifs supplémentaires.'
           break
         case 'carre4':
-          texte = 'Si un quadrilatère est un carré alors...'
+          texte = 'Si un quadrilatère est un carré, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales.',
@@ -575,7 +577,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Un carré a un centre de symétrie qui est le point d\'intersection de ses diagonales et quatre axes de symétrie qui sont ses diagonales ainsi que les médiatrices de ses côtés.'
           break
         case 'carre5':
-          texte = 'Si un quadrilatère est un carré alors...'
+          texte = 'Si un quadrilatère est un carré, alors...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -596,7 +598,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les carrés sont des parallélogrammes, des losanges et des rectangles.'
           break
         case 'reciproque1':
-          texte = 'Si un quadrilatère non croisé a deux côtés opposés parallèles alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés opposés parallèles, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -619,10 +621,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés parallèles alors c\'est un trapèze.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés parallèles, alors c\'est un trapèze.'
           break
         case 'reciproque2':
-          texte = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -645,10 +647,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés opposés de même longueur, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque3':
-          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -671,10 +673,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque4':
-          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -697,10 +699,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs de même longueur, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque5':
-          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires et de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -723,10 +725,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a deux côtés consécutifs perpendiculaires de même longueur, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque6':
-          texte = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires alors on est sûr que...'
+          texte = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -749,10 +751,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires alors on est sûr que c\'est un rectangle.'
+          texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires, alors on est sûr que c\'est un rectangle.'
           break
         case 'reciproque7':
-          texte = 'Si un parallélogramme a deux côtés consécutifs de même longueur alors on est sûr que...'
+          texte = 'Si un parallélogramme a deux côtés consécutifs de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -775,10 +777,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a deux côtés consécutifs de même longueur alors on est sûr que c\'est un losange.'
+          texteCorr = 'Si un parallélogramme a deux côtés consécutifs de même longueur, alors on est sûr que c\'est un losange.'
           break
         case 'reciproque8':
-          texte = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -798,13 +800,13 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
             {
               texte: 'c\'est un carré.',
               statut: true,
-              feedback: 'Comme c\'est un rectangle et un losange, alors c\'est un carré.'
+              feedback: 'Comme c\'est un rectangle et un losange,, alors c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur alors on est sûr que c\'est un rectangle, un losange et donc un carré.'
+          texteCorr = 'Si un parallélogramme a deux côtés consécutifs perpendiculaires et de même longueur, alors on est sûr que c\'est un rectangle, un losange et donc un carré.'
           break
         case 'reciproque9':
-          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -827,10 +829,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque10':
-          texte = 'Si un quadrilatère non croisé a ses diagonales de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -853,10 +855,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un quadrilatère non croisé a ses diagonales de même longueur alors cela peut être un quadrilatère quelconque.'
+          texteCorr = 'Si un quadrilatère non croisé a ses diagonales de même longueur, alors cela peut être un quadrilatère quelconque.'
           break
         case 'reciproque11':
-          texte = 'Si un parallélogramme a ses diagonales perpendiculaires alors on est sûr que...'
+          texte = 'Si un parallélogramme a ses diagonales perpendiculaires, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -879,10 +881,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires alors c\'est un losange.'
+          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires, alors c\'est un losange.'
           break
         case 'reciproque12':
-          texte = 'Si un parallélogramme a ses diagonales de même longueur alors on est sûr que...'
+          texte = 'Si un parallélogramme a ses diagonales de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -905,10 +907,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il nous faudrait d\'autres informations pour être certain que c\'est un carré.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a ses diagonales de même longueur alors c\'est un rectangle.'
+          texteCorr = 'Si un parallélogramme a ses diagonales de même longueur, alors c\'est un rectangle.'
           break
         case 'reciproque13':
-          texte = 'Si un quadrilatère non croisé a ses angles opposés de même mesure alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses angles opposés de même mesure, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -934,7 +936,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les parallélogrammes ont leurs angles opposés de même mesure donc cela ne nous suffit pas pour en déduire que c\'est un parallélogramme particulier.'
           break
         case 'reciproque14':
-          texte = 'Si un quadrilatère non croisé a ses angles consécutifs supplémentaires alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses angles consécutifs supplémentaires, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -960,7 +962,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
           texteCorr = 'Tous les parallélogrammes ont leurs angles consécutifs supplémentaires donc cela ne nous suffit pas pour en déduire que c\'est un parallélogramme particulier.'
           break
         case 'reciproque15':
-          texte = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -983,10 +985,10 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Car c\'est un rectangle et un losange.'
             }
           ]
-          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur alors c\'est un rectangle et un losange donc c\'est un carré.'
+          texteCorr = 'Si un parallélogramme a ses diagonales perpendiculaires et de même longueur, alors c\'est un rectangle et un losange donc c\'est un carré.'
           break
         case 'reciproque16':
-          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires et de même longueur alors on est sûr que...'
+          texte = 'Si un quadrilatère non croisé a ses diagonales perpendiculaires et de même longueur, alors on est sûr que...'
           this.autoCorrection[i].propositions = [
             {
               texte: 'c\'est un parallélogramme.',
@@ -1009,13 +1011,12 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
               feedback: 'Ce n\'est pas suffisant, il faudrait que les diagonales se coupent en leur milieu, soient perpendiculaires et soient de même longueur pour être certain que c\'est un losange.'
             }
           ]
-          texteCorr = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur alors cela peut être un quadrilatère quelconque (il faudrait en plus que les diagonales se coupent en leur milieu pour que ce soit un carré).'
+          texteCorr = 'Si un quadrilatère a ses diagonales perpendiculaires et de même longueur, alors cela peut être un quadrilatère quelconque (il faudrait en plus que les diagonales se coupent en leur milieu pour que ce soit un carré).'
           break
       }
       this.autoCorrection[i].options = {
         ordered: true,
-        vertical: true,
-        nbCols: 1
+        vertical: true
       }
       const qcm = propositionsQcm(this, i)
       texte += qcm.texte
@@ -1036,7 +1037,7 @@ export default class QcmProprietesParallelogrammesParticuliers extends Exercice 
     }
 
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-    this.besoinFormulaireNumerique = ['Type de questions', 3, '1: Si un quadrilatère est un ... alors ...\n2: Si un parallélogramme a ... alors c\'est un ...\n3: Mélange des deux cas précédents']
+    this.besoinFormulaireNumerique = ['Type de questions', 3, '1: Si un quadrilatère est un ..., alors ...\n2: Si un parallélogramme a ..., alors c\'est un ...\n3: Mélange des deux cas précédents']
     this.besoinFormulaire2CaseACocher = ['Préciser « non croisé »']
   }
 }
