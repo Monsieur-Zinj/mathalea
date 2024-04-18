@@ -225,27 +225,27 @@ class FractionEtendue {
     const [num, den] = normalizeFraction(n, d)
     if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
     const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
-    const numIrred = num / pgcd
-    const denIrred = den / pgcd
+    const prodNumDen = num * den
+    const signe = prodNumDen === 0 ? 0 : prodNumDen < 0 ? -1 : 1
+    const numIrred = signe * Math.abs(num / pgcd)
+    const denIrred = Math.abs(den / pgcd)
     this.num = num
     this.den = den
     this.n = Math.abs(num / pgcd)
     this.d = Math.abs(den / pgcd)
-    const prodNumDen = num * den
     /**
      * le signe de la  FractionMathjs  : -1 pour négatif , 0 ou 1 pour positif
      * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
-    const signe = prodNumDen === 0 ? 0 : prodNumDen < 0 ? -1 : 1
     this.s = signe// pour compatibilité avec les Fraction de mathjs
     this.signe = signe
     this.sign = signe // Pour le cas où on utilise signe en anglais
     this.type = 'FractionEtendue'
 
-    this.numIrred = num / pgcd
+    this.numIrred = this.signe * Math.abs(num / pgcd)
 
-    this.denIrred = den / pgcd
+    this.denIrred = Math.abs(den / pgcd)
 
     this.pourcentage = arrondi(num * 100 / den, 2)
 
