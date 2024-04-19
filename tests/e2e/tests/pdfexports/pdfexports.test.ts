@@ -113,7 +113,11 @@ async function getLatexFile (page: Page, urlExercice: string) {
     log(folder + '/' + file)
     const xelatex = spawn('lualatex', ['--halt-on-error', '' + file], { cwd: folder + '/', signal })
 
+<<<<<<< HEAD
+    const timer = setTimeout(() => { controller.abort() }, 3 * 60 * 1000)
+=======
     const timer = setTimeout(() => { controller.abort() }, 10 * 60 * 1000)
+>>>>>>> origin/main
     xelatex.stdout.on('data', function (result) {
       const out = Buffer.from(result, 'utf-8').toString()
       trace.push(out.replaceAll('\r\n', ''))
@@ -251,6 +255,9 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('6e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
+<<<<<<< HEAD
+  testRunAllLots('3e/3L11-6')
+=======
 
   testRunAllLots('4e/4C22-2.')
   testRunAllLots('4e/4A11-2.')
@@ -261,4 +268,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   testRunAllLots('4e/4C33-1.')
   testRunAllLots('4e/4F12.')
   testRunAllLots('4e/4G30.')
+>>>>>>> origin/main
 }

@@ -47,7 +47,7 @@ export default function RecompositionDecimale () {
     this.consigne = 'Voici un cube représentant une unité, une plaque représentant $\\dfrac{1}{10}$, une barre représentant $\\dfrac{1}{100}$ et un petit cube représentant $\\dfrac{1}{1000}$.<br>'
     let objets = []
     objets.push(...cubeUnite.c2d, ...plaque3d(9, 0, 0, 0.5, 10, 10).c2d, ...barre3d(9, 0, 3, 0.5, 10).c2d, ...cube3d(12, 0, 5, 0.5).c2d)
-    this.consigne += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    this.introduction = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     for (let q = 0, cpt = 0, e, d, c, m, texte, texteCorr, xDecal; q < this.nbQuestions && cpt < 50;) {
       e = choice([0, 1])
       d = choice([0, randint(0, 5), randint(0, 7)])

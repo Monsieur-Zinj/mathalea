@@ -143,160 +143,58 @@ export const logPDF = (str: string) => {
 }
 
 export function loadProfCollegeIfNeed (contents: contentsType) {
-  if (contents.content.includes('\\Engrenages[') || // exo : 3A12
-    contents.content.includes('\\Propor[') || // exo : 6P15
-    contents.content.includes('\\Fraction[') || // exo : can4-2024-Q15
-    contents.content.includes('\\Reperage[')) { // exo 5R12-1
-    // à mettre avant ProfMaquette
-    logPDF(`usepackage{ProfCollege} : ${window.location.href}`)
-    if (!contents.preamble.includes('ProfCollege')) contents.preamble += '\n\\usepackage{ProfCollege}'
+  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage['], '\\usepackage{ProfCollege}', contents)
+}
+
+function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
+  for (const value of values) {
+    if (contents.content.includes(value) || contents.contentCorr.includes(value)) {
+      if (!contents.preamble.includes(valueToPut)) contents.preamble += `\n${valueToPut}`
+      logPDF(`${display === undefined ? valueToPut : display}: ${window.location.href}`)
+    }
   }
 }
 
 export function loadPackagesFromContent (contents: contentsType) {
+  contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
-  if (contents.content.includes('pspicture') || contents.content.includes('\\rput') || contents.content.includes('\\pscurve') || contents.content.includes('\\psset') || contents.content.includes('\\psframe') ||
-      contents.contentCorr.includes('pspicture') || contents.contentCorr.includes('\\rput') || contents.contentCorr.includes('\\pscurve') || contents.contentCorr.includes('\\psset') || contents.contentCorr.includes('\\psframe')
-  ) {
-    contents.preamble += '\n\\usepackage{pstricks}'
-    logPDF(`usepackage{pspicture} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\pstext')) {
-    if (!contents.preamble.includes('pst-text')) contents.preamble += '\n\\usepackage{pst-text}'
-    logPDF(`usepackage{pst-text} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\pstGeonode') || contents.content.includes('\\pstLine')) {
-    if (!contents.preamble.includes('pst-eucl')) contents.preamble += '\n\\usepackage{pst-eucl}'
-    logPDF(`usepackage{pst-eucl} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\psaxes') || contents.content.includes('\\psline') || contents.content.includes('\\pspolygon') || contents.content.includes('\\psplot')) {
-    if (!contents.preamble.includes('pst-plot')) contents.preamble += '\n\\usepackage{pst-plot}'
-    logPDF(`usepackage{pst-plot} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\multido')) {
-    if (!contents.preamble.includes('multido')) contents.preamble += '\n\\usepackage{multido}'
-    logPDF(`usepackage{multido} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\gradangle{') || contents.content.includes('fillstyle=gradient')) {
-    logPDF(`usepackage{pst-grad} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('pst-grad')) contents.preamble += '\n\\usepackage{pst-grad}'
-  }
-  if (contents.content.includes('\\pstree{') || contents.content.includes('\\pstree[')) {
-    logPDF(`usepackage{pst-tree} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('pst-tree')) contents.preamble += '\n\\usepackage{pst-tree}'
-  }
-  if (contents.content.includes('\\pnode') || contents.content.includes('\\ncline') || contents.content.includes('\\nccurve') || contents.content.includes('\\ncarc')) {
-    if (!contents.preamble.includes('pnode ncline nccurve ncarc')) contents.preamble += '\n\\usepackage{pst-node}'
-    logPDF(`usepackage{pst-node} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\red') || contents.content.includes('\\blue') || contents.content.includes('\\white')) {
-    // gestion des couleurs pour les sujets DNB : 2023
-    logPDF(`usepackage{pst-fun}: ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{pst-fun}'
-  }
-  if (contents.content.includes('\\euro') || contents.contentCorr.includes('\\euro')) {
-    contents.preamble += '\n\\usepackage[gen]{eurosym}'
-    logPDF(`usepackage{eurosym} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\tkzTabInit')) {
-    contents.preamble += '\n\\usepackage{tkz-tab}'
-    logPDF(`usepackage{tkz-tab} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\begin{tabularx}') || contents.content.includes('\\begin{tabular}') || contents.content.includes('{tabularx}')) {
-    contents.preamble += '\n\\usepackage{tabularx}'
-    logPDF(`usepackage{tabularx} : ${window.location.href}`)
-  }
-  if (contents.content.includes('\\ang') || contents.content.includes('\\num{') || contents.contentCorr.includes('\\ang') || contents.contentCorr.includes('\\num{')) {
-    logPDF(`usepackage{siunitx} : ${window.location.href}`)
-    if (!contents.preamble.includes('siunitx')) contents.preamble += '\n\\usepackage{siunitx}'
-  }
-  if (contents.content.includes('\\begin{multicols}')) {
-    logPDF(`usepackage{multicols} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{multicol}'
-  }
-  if (contents.content.includes('\\opadd') || contents.content.includes('\\opsub') || contents.content.includes('\\opmul') || contents.content.includes('\\opdiv') || contents.content.includes('\\opidiv') ||
-      contents.contentCorr.includes('\\opadd') || contents.contentCorr.includes('\\opsub') || contents.contentCorr.includes('\\opmul') || contents.contentCorr.includes('\\opdiv') || contents.contentCorr.includes('\\opidiv')) {
-    logPDF(`usepackage{xlop} : ${window.location.href}`)
-    if (!contents.preamble.includes('xlop')) contents.preamble += '\n\\usepackage{xlop}'
-  }
-  if (contents.content.includes('\\cancel')) {
-    logPDF(`usepackage{cancel} : ${window.location.href}`)
-    if (!contents.preamble.includes('cancel')) contents.preamble += '\n\\usepackage{cancel}'
-  }
-  if (contents.content.includes('\\draw[color={')) {
-    logPDF(`usepackage{xcolor} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage[svgnames,dvipsnames]{xcolor}'
-  }
-  if (contents.content.includes('\\np{') || contents.content.includes('\\np[') || contents.content.includes('\\numprint{')) {
-    logPDF(`usepackage{numprint} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage[autolanguage,np]{numprint}'
-  }
-  if (contents.content.includes('\\mathscr') || contents.contentCorr.includes('\\mathscr')) {
-    logPDF(`usepackage{mathrsfs} : ${window.location.href}`)
-    if (!contents.preamble.includes('mathrsfs')) contents.preamble += '\n\\usepackage{mathrsfs}'
-  }
-  if (contents.content.includes('\\fcolorbox{nombres}')) {
-    logPDF(`definecolor{nombres} : ${window.location.href}`)
-    contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
-  }
+  testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
+  testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)
+  testIfLoaded(['\\pstGeonode', '\\pstLine'], '\\usepackage{pst-eucl}', contents)
+  testIfLoaded(['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'], '\\usepackage{pst-plot}', contents)
+  testIfLoaded(['\\multido'], '\\usepackage{multido}', contents)
+  testIfLoaded(['\\gradangle{', 'fillstyle=gradient'], '\\usepackage{pst-grad}', contents)
+  testIfLoaded(['\\pstree{', '\\pstree['], '\\usepackage{pst-tree}', contents)
+  testIfLoaded(['\\pnode', '\\ncline', '\\nccurve', '\\ncarc'], '\\usepackage{pst-node}', contents)
+  testIfLoaded(['\\red', '\\blue', '\\white'], '\\usepackage{pst-fun}', contents)
+  testIfLoaded(['\\euro'], '\\usepackage[gen]{eurosym}', contents)
+  testIfLoaded(['\\tkzTabInit'], '\\usepackage{tkz-tab}', contents)
+  testIfLoaded(['{tabularx}', '{tabular}'], '\\usepackage{tabularx}', contents)
+  testIfLoaded(['\\ang', '\\num{'], '\\usepackage{siunitx}', contents)
+  testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
+  testIfLoaded(['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'], '\\usepackage{xlop}', contents)
+  testIfLoaded(['\\cancel'], '\\usepackage{cancel}', contents)
+  testIfLoaded(['\\draw[color={'], '\\usepackage[svgnames,dvipsnames]{xcolor}', contents)
+  testIfLoaded(['\\np{', '\\np[', '\\numprint{'], '\\usepackage[autolanguage,np]{numprint}', contents)
+  testIfLoaded(['\\mathscr'], '\\usepackage{mathrsfs}', contents)
+  testIfLoaded(['\\fcolorbox{nombres}'], '\\definecolor{nombres}{cmyk}{0,.8,.95,0}', contents)
+  testIfLoaded(['\\begin{tikzpicture}'], '\\usepackage{tikz}', contents)
+  testIfLoaded(['\\vect'], '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
+  testIfLoaded(['\\begin{bclogo}'], '\\usepackage[tikz]{bclogo}', contents)
   if (contents.content.includes('\\begin{bclogo}')) {
     logPDF(`definecolor{nombres} : ${window.location.href}`)
-    if (!contents.preamble.includes('bclogo')) contents.preamble += '\n\\usepackage[tikz]{bclogo}'
     if (!contents.preamble.includes('definecolor{nombres}')) contents.preamble += '\n\\definecolor{nombres}{cmyk}{0,.8,.95,0}'
   }
-  if (contents.content.includes('\\begin{tikzpicture}')) {
-    logPDF(`usepackage{tikz} : ${window.location.href}`)
-    if (!contents.preamble.includes('tikz')) contents.preamble += '\n\\usepackage{tikz}'
-  }
-  if (contents.content.includes('\\vect')) {
-    // DBN 2019 juillet polynésie
-    logPDF(`\\vect: ${window.location.href}`)
-    contents.preamble += '\n\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}'
-  }
-  if (contents.content.includes('\\begin{axis}')) {
-    logPDF(`usepackage{pgfplots} : ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{pgfplots}'
-  }
-  if (contents.content.includes('decorate,decoration=') || (contents.content.includes('decorate, decoration='))) {
-    logPDF(`usetikzlibrary{decorations.pathmorphing: ${window.location.href}`)
-    contents.preamble += '\n\\usetikzlibrary{decorations.pathmorphing}'
-  }
-  if (contents.content.includes('decoration=brace') || contents.content.includes('decoration={brace}')) {
-    logPDF(`usetikzlibrary{decorations.pathreplacing: ${window.location.href}`)
-    contents.preamble += '\n\\usetikzlibrary {decorations.pathreplacing}'
-  }
-  if (contents.content.includes('\\tkzText')) {
-    logPDF(`usepackage{tkz-fct}: ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{tkz-fct}'
-  }
-  if (contents.content.includes('\\begin{wrapfigure}')) {
-    logPDF(`usepackage{wrapfig}: ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{wrapfig}'
-  }
-  if (contents.content.includes('\\begin{scratch}')) {
-    logPDF(`usepackage{scratch3}: ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{scratch3}'
-  }
-  if (contents.content.includes('\\degre') ||
-    contents.content.includes('\\og') ||
-    contents.content.includes('\\up{') ||
-    contents.content.includes('\\ieme{') ||
-    contents.content.includes('\\no')) {
-    // gestion des commandes pour les sujets DNB : 2023-2022
-    logPDF(`[french]{babel}: ${window.location.href}`)
-    if (!contents.preamble.includes('[french]{babel}')) contents.preamble += '\n\\usepackage[french]{babel}'
-  }
-  if (contents.content.includes('\\multirow{')) {
-    // gestion pour les sujets DNB : 2021
-    logPDF(`usepackage{multirow}: ${window.location.href}`)
-    contents.preamble += '\n\\usepackage{multirow}'
-  }
-  if (contents.content.includes('\\dotfills')) {
-    logPDF(`dotfills: ${window.location.href}`)
-    contents.preamble += '\n\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}'
-  }
+  testIfLoaded(['\\begin{axis}'], '\\usepackage{pgfplots}', contents)
+  testIfLoaded(['decorate,decoration=', 'decorate, decoration='], '\\usetikzlibrary{decorations.pathmorphing}', contents)
+  testIfLoaded(['decoration=brace', 'decoration={brace}'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
+  testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
+  testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
+  testIfLoaded(['\\begin{scratch}'], '\\usepackage{scratch3}', contents)
+  testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
+  testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
+  testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
+
   if (contents.content.includes('\\ovalbox{') || contents.content.includes('\\txtbox{')) {
     // gestion pour les sujets DNB : 2021
     contents.preamble += '\n\\usepackage{fancybox}'
@@ -329,126 +227,30 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
     contents.preamble += '\n}'
   }
-  if (contents.content.includes('\\R') || contents.content.includes('\\N')) {
-    logPDF(`\\mathbb{R} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-    contents.preamble += '\n\\newcommand\\R{\\mathbb{R}}'
-    contents.preamble += '\n\\newcommand\\N{\\mathbb{N}}'
-  }
-  if (contents.content.includes('\\ldots') || contents.content.includes('\\cdots') || contents.content.includes('\\dots')) {
-    logPDF(`usepackage{amsmath} : ${window.location.href}`)
-    if (!contents.preamble.includes('amsmath')) contents.preamble += '\n\\usepackage{amsmath}'
-  }
-  if (contents.content.includes('\\makebox') || contents.content.includes('\\framebox') || contents.content.includes('\\framebox') || contents.content.includes('\\parbox')) {
-    logPDF(`usepackage{amsfonts} : ${window.location.href}`)
-    if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-  }
-  if (contents.content.includes('\\mbox') || contents.content.includes('\\fbox') || contents.content.includes('\\sbox') || contents.content.includes('\\pbox')) {
-    logPDF(`usepackage{amsfonts} : ${window.location.href}`)
-    if (!contents.preamble.includes('amsfonts')) contents.preamble += '\n\\usepackage{amsfonts}'
-  }
-  if (contents.content.includes('\\leadsto') || contents.content.includes('\\square') || contents.content.includes('\\blacktriangleright') || contents.content.includes('\\mathbb') || contents.content.includes('\\geqslant') || contents.content.includes('\\blacktriangleleft') || contents.content.includes('\\leqslant') || contents.content.includes('\\curvearrowleft') ||
-      contents.contentCorr.includes('\\leadsto') || contents.contentCorr.includes('\\square') || contents.contentCorr.includes('\\blacktriangleright') || contents.contentCorr.includes('\\mathbb') || contents.contentCorr.includes('\\geqslant') || contents.contentCorr.includes('\\blacktriangleleft') || contents.contentCorr.includes('\\leqslant') || contents.contentCorr.includes('\\curvearrowleft')) {
-    logPDF(`usepackage{amssymb} : ${window.location.href}`)
-    if (!contents.preamble.includes('amssymb')) contents.preamble += '\n\\usepackage{amssymb}'
-  }
-  if (contents.content.includes('\\columncolor{') || contents.content.includes('\\cellcolor') || contents.content.includes('\\rowcolor')) {
-    logPDF(`usepackage{colortbl} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('colortbl')) contents.preamble += '\n\\usepackage{colortbl}'
-  }
-  if (contents.content.includes('\\ovalnum{\\ovalnum')) {
-    logPDF(`definecolor{scrmovedddd} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\definecolor{scrmovedddd}    {HTML}{3373cc}'
-  }
-  if (contents.content.includes('\\ding{') || contents.content.includes('\\textding') || contents.content.includes('\\decoone')) {
-    // pour les sujets DNB : 2023 / 2021
-    logPDF(`usepackage{pifont} : ${window.location.href}`)
-    if (!contents.preamble.includes('pifont')) contents.preamble += '\n\\usepackage{pifont}'
-    if (contents.content.includes('\\decoone')) contents.preamble += '\n\\newcommand{\\decoone}{\\ding{87}}'
-    if (contents.content.includes('\\textding')) contents.preamble += '\n\\newcommand{\\textding}[1]{\\text{\\Large \\ding{#1}}}'
-  }
-  if (contents.content.includes('\\starredbullet')) {
-    logPDF(`uusepackage{MnSymbol} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\usepackage{MnSymbol}'
-    contents.preamble += '\n\\newcommand\\starredbullet{\\medstar}'
-  }
-  if (contents.content.includes('\\decosix')) {
-    logPDF(`\\providecommand\\decosix{} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2021
-    contents.preamble += '\n\\providecommand\\decosix{}'
-    contents.preamble += '\n\\renewcommand\\decosix{$\\bullet$}'
-  }
-  if (contents.content.includes('\\toprule') || contents.content.includes('\\midrule') || contents.content.includes('\\bottomrule')) {
-    logPDF(`\\usepackage{booktabs} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('booktabs')) contents.preamble += '\n\\usepackage{booktabs}'
-  }
-  if (contents.content.includes('\\backslashbox') || contents.content.includes('\\diagbox{')) {
-    logPDF(`\\usepackage{diagbox} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\usepackage{diagbox}'
-  }
-  if (contents.content.includes('\\cancel') || contents.contentCorr.includes('\\cancel')) {
-    logPDF(`\\usepackage{cancel} : ${window.location.href}`)
-    if (!contents.preamble.includes('cancel')) contents.preamble += '\n\\usepackage{cancel}'
-  }
-  if (contents.content.includes('\\ds')) {
-    logPDF(`\\newcommand{\\ds}{\\displaystyle} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\\newcommand{\\ds}{\\displaystyle}'
-  }
-  if (contents.content.includes('\\EUR{')) {
-    logPDF(`usepackage{marvosym} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('marvosym')) contents.preamble += '\n\\usepackage{marvosym}'
-  }
-  if (contents.content.includes('pattern')) {
-    logPDF(`usetikzlibrary{patterns} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('usetikzlibrary{patterns}')) contents.preamble += '\n\\usetikzlibrary{patterns}'
-  }
-  if (contents.content.includes('framed')) {
-    logPDF(`usetikzlibrary{backgrounds} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('usetikzlibrary{backgrounds}')) contents.preamble += '\n\\usetikzlibrary{backgrounds}'
-  }
-  if (contents.content.includes('single arrow')) {
-    logPDF(`usetikzlibrary{shapes} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('usetikzlibrary{shapes}')) contents.preamble += '\n\\usetikzlibrary{shapes}'
-  }
-  if (contents.content.includes('>=triangle 45')) {
-    logPDF(`usetikzlibrary{arrows} : ${window.location.href}`)
-    if (!contents.preamble.includes('usetikzlibrary{arrows}')) contents.preamble += '\n\\usetikzlibrary{arrows}'
-  }
-  if (contents.content.includes('\\getprime{') || contents.content.includes('\\primedecomp{')) {
-    logPDF(`decompNombresPremiersDNB : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += `\n${decompDNB()}`
-  }
-  if (contents.content.includes('\\widearc{') || contents.content.includes('\\eurologo')) {
-    logPDF(`usepackage{fourier} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('fourier')) contents.preamble += '\n\\usepackage{fourier}'
-  }
-  if (contents.content.includes('\\tkzDefPoints') || contents.content.includes('\\tkzDefPointBy') || contents.content.includes('\\tkzLabelPoint') || contents.content.includes('\\tkzDrawSegments')) {
-    logPDF(`usepackage{tkz-euclide} : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    if (!contents.preamble.includes('tkz-euclide')) contents.preamble += '\n\\usepackage{tkz-euclide}'
-  }
-  if (contents.content.includes('\\pstEllipse[linewidth=')) {
-    logPDF(`\\pstEllipse : ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : 2023
-    contents.preamble += '\n\\providecommand\\pstEllipse{}'
-    contents.preamble += `\n\\renewcommand{\\pstEllipse}[5][]{%
-\\psset{#1}
-\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}
-}`
-  }
+  testIfLoaded(['\\R ', '\\R{', '\\N ', '\\N{'], '\\usepackage{amsfonts}', contents)
+  testIfLoaded(['\\R ', '\\R{'], '\\newcommand\\R{\\mathbb{R}}', contents)
+  testIfLoaded(['\\N ', '\\N{'], '\\newcommand\\N{\\mathbb{N}}', contents)
+  testIfLoaded(['\\ldots', '\\cdots', '\\dots', '\\makebox', '\\framebox', '\\parbox', '\\mbox', '\\fbox', '\\sbox', '\\pbox'], '\\usepackage{amsmath}', contents)
+  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft'], '\\usepackage{amssymb}', contents)
+  testIfLoaded(['\\columncolor{', '\\cellcolor', '\\rowcolor'], '\\usepackage{colortbl}', contents)
+  testIfLoaded(['\\ovalnum{\\ovalnum'], '\\definecolor{scrmovedddd}    {HTML}{3373cc}', contents)
+  testIfLoaded(['\\ding{', '\\textding', '\\decoone'], '\\usepackage{pifont}', contents)
+  testIfLoaded(['\\decoone'], '\\newcommand{\\decoone}{\\ding{87}}', contents)
+  testIfLoaded(['\\textding'], '\\newcommand{\\textding}[1]{\\text{\\Large \\ding{#1}}}', contents)
+  testIfLoaded(['\\starredbullet'], '\\usepackage{MnSymbol}\n\\newcommand\\starredbullet{\\medstar}', contents)
+  testIfLoaded(['\\decosix'], '\\providecommand\\decosix{}\n\\renewcommand\\decosix{$\\bullet$}', contents)
+  testIfLoaded(['\\toprule', '\\midrule', '\\bottomrule'], '\\usepackage{booktabs}', contents)
+  testIfLoaded(['\\backslashbox', '\\diagbox{'], '\\usepackage{diagbox}', contents)
+  testIfLoaded(['\\ds'], '\\newcommand{\\ds}{\\displaystyle}', contents)
+  testIfLoaded(['\\EUR{'], '\\usepackage{marvosym}', contents)
+  testIfLoaded(['pattern'], '\\usetikzlibrary{patterns}', contents)
+  testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
+  testIfLoaded(['single arrow'], '\\usetikzlibrary{shapes}', contents)
+  testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
+  testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
+  testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
+  testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments'], '\\usepackage{tkz-euclide}', contents)
+  testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
   if (contents.content.includes('\\begin{forest}')) {
     logPDF(`usepackage{forest} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023
