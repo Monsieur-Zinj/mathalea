@@ -59,7 +59,7 @@ class DerivationFonctionRationnelles extends Exercice {
           break
       }
       const valeurInterdite = fraction(-laFonctionDen.monomes[0], laFonctionDen.monomes[1]).simplifie().texFSD
-      const df = `\\R\\backslash\\{${valeurInterdite}\\}`
+      const df = `\\R\\backslash\\left\\{${valeurInterdite.replace('dfrac', 'frac')}\\right\\}`
       const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       const laDeriveeNum = laFonctionNum.derivee().multiply(laFonctionDen).add((laFonctionNum.multiply(-1).multiply(laFonctionDen.derivee())))
       let numDeriv = laDeriveeNum.toLatex()
