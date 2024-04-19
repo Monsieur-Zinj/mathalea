@@ -11,7 +11,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import { context } from '../../modules/context.js'
@@ -39,11 +39,13 @@ export default function ConstructionsParallelogrammes () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 5
+  this.sup2 = 2
   this.spacingCorr = 2
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.typeExercice = 'IEP'
   this.nouvelleVersion = function (numeroExercice) {
+    const tailleGrille = 0.2 + this.sup2 * 0.2
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -76,7 +78,7 @@ export default function ConstructionsParallelogrammes () {
       const O = point(0, 0, noms[4])
       const A = rotation(pointAdistance(O, calculANePlusJamaisUtiliser(randint(50, 70) / 10)), O, randint(0, 179) * choice([-1, 1]), noms[0])
       const C = rotation(A, O, 180, noms[2])
-      const B = similitude(A, O, randint(40, 80) * choice([-1, 1]), randint(4, 7, 5) * choice([-1, 1]) / 5, noms[1])
+      const B = similitude(A, O, randint(50, 80) * choice([-1, 1]), randint(6, 7) * choice([-1, 1]) / 5, noms[1])
       const D = rotation(B, O, 180, noms[3])
       const p = polygoneAvecNom(A, B, C, D)
       const d1 = segment(O, A)
@@ -93,13 +95,13 @@ export default function ConstructionsParallelogrammes () {
       const cellule2 = celluleAlea(5)
       const cellule3 = celluleAlea(5)
 
-      const result = dansLaCibleCarree(C.x, C.y, 5, 0.5, cellule)
-      const result2 = dansLaCibleCarree(D.x, D.y, 5, 0.5, cellule2)
-      const result3 = dansLaCibleCarree(B.x, B.y, 5, 0.5, cellule3)
+      const result = dansLaCibleCarree(C.x, C.y, 5, tailleGrille, cellule)
+      const result2 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule2)
+      const result3 = dansLaCibleCarree(B.x, B.y, 5, tailleGrille, cellule3)
 
-      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : '', taille: 0.7, color: 'gray', opacite: 0.7 })
-      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.7, color: 'gray', opacite: 0.7 })
-      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: 0.7, color: 'gray', opacite: 0.7 })
+      const cible = cibleCarree({ x: result[0], y: result[1], rang: 5, num: listeTypeQuestions[i] > 2 ? 1 : '', taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: tailleGrille, color: 'gray', opacite: 0.7 })
+      const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 3, taille: tailleGrille, color: 'gray', opacite: 0.7 })
       const xMin = Math.min(A.x, B.x, C.x, D.x) - 3
       const yMin = Math.min(A.y, B.y, C.y, D.y) - 4
       const xMax = Math.max(A.x, B.x, C.x, D.x) + 4
@@ -202,8 +204,8 @@ export default function ConstructionsParallelogrammes () {
       texteAMC += '<br>Une fois la construction terminée et afin de vérifier votre soin, noircir, ci-contre,'
       texteAMC += listeTypeQuestions[i] > 2 ? ' pour chacune des cibles,' : ''
       texteAMC += ' la lettre et le chiffre correspondants à la case dans laquelle se trouve le sommet construit.'
-      texte += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsEnonce)
-      texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 20, scale: 0.5 }, objetsCorrection)
+      texte += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objetsEnonce)), objetsEnonce)
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objetsCorrection)), objetsCorrection)
       texteCorr += animIEP.htmlBouton(numeroExercice, i)
 
       if (context.isAmc) {
@@ -325,4 +327,5 @@ export default function ConstructionsParallelogrammes () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Deux côtés consécutifs\n2 : Trois sommets consécutifs\n3 : Deux sommets consécutifs et le centre\n4 : Un angle et le centre\n5 : Mélange']
+  this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
 }

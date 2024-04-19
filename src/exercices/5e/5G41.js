@@ -1,4 +1,5 @@
 import { codageAngleDroit } from '../../lib/2d/angles.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { cercle, cercleCentrePoint, traceCompas } from '../../lib/2d/cercle.js'
 import { cibleCarree, dansLaCibleCarree } from '../../lib/2d/cibles.js'
 import { afficheLongueurSegment, afficheMesureAngle, codageSegments } from '../../lib/2d/codages.js'
@@ -22,8 +23,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 
 export const titre = 'Construire des quadrilatères particuliers'
@@ -48,9 +48,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 8
+  this.sup2 = 2
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
+    const tailleGrille = 0.2 + this.sup2 * 0.2
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -76,13 +78,13 @@ export default function ConstructionsParallelogrammesParticuliers () {
     switch (typeDeQuestion) {
       case 1:
         A = point(0, 0, noms[0])
-        c1 = randint(20, 25) // 2 AB
-        c4 = randint(20, 30, c1) // 5 AD
-        d1 = Math.abs(c4 - c1) + 10
+        c1 = randint(35, 45) // 2 AB
+        c4 = randint(30, 40, c1) // 5 AD
+        d1 = Math.abs(c4 - c1) + 15
         d2 = c1 + c4 - 15
-        c1 = calculANePlusJamaisUtiliser(c1 / 5)
-        c4 = calculANePlusJamaisUtiliser(c4 / 5)
-        d1 = calculANePlusJamaisUtiliser(randint(Math.min(d1, d2), Math.max(d1, d2)) / 5) // BD
+        c1 = c1 / 5
+        c4 = c4 / 5
+        d1 = randint(Math.min(d1, d2), Math.max(d1, d2)) / 5 // BD
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = pointIntersectionCC(cercle(A, c4), cercle(B, d1), noms[3])
         O = milieu(B, D, noms[4])
@@ -113,12 +115,12 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 2:
         O = point(0, 0, noms[4])
-        c1 = randint(25, 35) * 2 // AC
-        c4 = calculANePlusJamaisUtiliser(randint((c1 + 4) / 2, 45) / 5) // BD
-        c1 = calculANePlusJamaisUtiliser(c1 / 10)
-        alpha = randint(100, 130)
+        c1 = randint(35, 45) * 2 // AC
+        c4 = randint((c1 + 20) / 2, 70) / 5 // BD
+        c1 = c1 / 10
+        alpha = randint(80, 100, [90, 89, 91])
 
-        A = pointAdistance(O, c1 / 2, randint(-30, 30), noms[0])
+        A = pointAdistance(O, c1 / 2, randint(30, 60), noms[0])
         B = similitude(A, O, alpha, c4 / c1, noms[1])
         D = rotation(B, O, 180, noms[3])
         C = rotation(A, O, 180, noms[2])
@@ -140,11 +142,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 3:
         A = point(0, 0, noms[0])
-        c1 = randint(26, 40) * 2 // AB
-        c4 = calculANePlusJamaisUtiliser(randint(15, 25) / 5) // AD
-        c1 = calculANePlusJamaisUtiliser(c1 / 10)
+        c1 = randint(35, 45) * 2 // AB
+        c4 = randint(25, 34) / 5 // AD
+        c1 = c1 / 10
 
-        B = pointAdistance(A, c1, randint(-30, 30), noms[1])
+        B = pointAdistance(A, c1, randint(0, 30), noms[1])
         D = similitude(B, A, 90, c4 / c1, noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
@@ -171,11 +173,11 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 4:
         A = point(0, 0, noms[0])
-        c1 = randint(15, 30) // AB
-        c4 = calculANePlusJamaisUtiliser(randint(15, 20, c1) / 5) // BD
-        c1 = calculANePlusJamaisUtiliser(c1 / 5)
+        c1 = randint(35, 50) // AB
+        c1 = c1 / 5
+        c4 = (1.2 + (randint(0, 8) / 20)) * c1// BD
 
-        B = pointAdistance(A, c1, randint(-30, 30), noms[1])
+        B = pointAdistance(A, c1, randint(0, 30), noms[1])
         D = pointIntersectionCC(cercle(A, c1), cercle(B, c4), noms[3])
         O = milieu(B, D, noms[4])
         C = rotation(A, O, 180, noms[2])
@@ -202,9 +204,9 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 5:
         A = point(0, 0, noms[0])
-        c1 = randint(20, 35) * 2 // AC
-        c4 = calculANePlusJamaisUtiliser(randint((c1 - 4) / 2, 35) / 5) // AD
-        c1 = calculANePlusJamaisUtiliser(c1 / 10)
+        c1 = randint(35, 45) * 2 // AC
+        c4 = randint((c1 - 4) / 2, 35) / 5 // AD
+        c1 = c1 / 10
         alpha = randint(95, 120)
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         D = similitude(B, A, alpha, c4 / c1, noms[3])
@@ -232,12 +234,12 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 6:
         A = point(0, 0, noms[0])
-        c1 = randint(20, 35) * 2 // AC
+        c1 = randint(35, 45) * 2 // AC
         c2 = randint(15, 20) * 2 // AO
-        c3 = calculANePlusJamaisUtiliser(c1 + randint(5, 10) * 2) - c2 // BO
-        c1 = calculANePlusJamaisUtiliser(c1 / 10)
-        c2 = calculANePlusJamaisUtiliser(c2 / 10)
-        c3 = calculANePlusJamaisUtiliser(c3 / 10)
+        c3 = c1 + randint(7, 10) * 2 - c2 // BO
+        c1 = c1 / 10
+        c2 = c2 / 10
+        c3 = c3 / 10
 
         B = pointAdistance(A, c1, randint(-30, 30), noms[1])
         O = pointIntersectionCC(cercle(A, c2), cercle(B, c3), noms[4])
@@ -274,7 +276,7 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 7:
         A = point(0, 0, noms[0])
-        c1 = calculANePlusJamaisUtiliser(randint(30, 40) / 5) // AC
+        c1 = randint(50, 60) / 5 // AC
         c2 = randint(25, 40)// angle OAB
         c3 = randint(30, 45, c2) // angle OCB
 
@@ -314,33 +316,22 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
     }
     let texteAMC = texte + `Construire le parallélogramme $${nom}$<br><br>`
-    texte += `Construire le parallélogramme $${nom}$ et préciser si c'est un paraléllogramme particulier.<br>`
+    texte += `Préciser si c'est un paraléllogramme particulier puis construire le parallélogramme $${nom}$.<br>`
     texteAMC += 'Les sommets manquants devraient se trouver respectivement dans les cibles ci-dessous.'
     texteAMC += '<br>Une fois la construction terminée et afin de vérifier votre soin, noircir, ci-contre, pour chacune des cibles,'
     texteAMC += ' la lettre et le chiffre correspondants à la case dans laquelle se trouve le sommet construit.'
 
     const p = polygoneAvecNom(A, B, C, D)
 
-    const xMin = Math.min(A.x, B.x, C.x, D.x) - 2
-    const yMin = Math.min(A.y, B.y, C.y, D.y) - 2
-    const xMax = Math.max(A.x, B.x, C.x, D.x) + 2
-    const yMax = Math.max(A.y, B.y, C.y, D.y) + 2
-
     const cellule1 = celluleAlea(5)
     const cellule2 = celluleAlea(5)
     const cellule3 = celluleAlea(5)
-    const result1 = dansLaCibleCarree(B.x, B.y, 5, 0.3, cellule3)
-    const result2 = dansLaCibleCarree(C.x, C.y, 5, 0.3, cellule1)
-    const result3 = dansLaCibleCarree(D.x, D.y, 5, 0.3, cellule2)
-    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: typeDeQuestion === 7 ? 2 : 3, taille: 0.4, color: 'gray' })
-    cible1.taille = 0.3
-    cible1.opacite = 0.7
-    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: 0.4, color: 'gray' })
-    cible2.taille = 0.3
-    cible2.opacite = 0.7
-    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 1, taille: 0.4, color: 'gray' })
-    cible3.taille = 0.3
-    cible3.opacite = 0.7
+    const result3 = dansLaCibleCarree(B.x, B.y, 5, tailleGrille, cellule3)
+    const result2 = dansLaCibleCarree(C.x, C.y, 5, tailleGrille, cellule2)
+    const result1 = dansLaCibleCarree(D.x, D.y, 5, tailleGrille, cellule1)
+    const cible1 = cibleCarree({ x: result1[0], y: result1[1], rang: 5, num: typeDeQuestion === 7 ? 2 : 3, taille: tailleGrille, color: 'gray' })
+    const cible2 = cibleCarree({ x: result2[0], y: result2[1], rang: 5, num: 2, taille: tailleGrille, color: 'gray' })
+    const cible3 = cibleCarree({ x: result3[0], y: result3[1], rang: 5, num: 1, taille: tailleGrille, color: 'gray' })
     dd1 = segment(O, A)
     dd2 = segment(O, B)
     const dd3 = segment(O, C)
@@ -349,9 +340,9 @@ export default function ConstructionsParallelogrammesParticuliers () {
     switch (typeDeQuestion) {
       case 1:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, t1, t2, tri[0], tri[1], afficheLongueurSegment(D, B)) + '<br>'
-        objetsEnonce.push(cible3, cible2)
+        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
+        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheLongueurSegment(O, B))
         break
       case 2:
         // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, codageSegments('||', 'red', A, O, O, C), t3, dd1, dd3, dd2, afficheMesureAngle(A, O, B, 'black', 1, alpha + '^\\circ'), tracePoint(A, O, C), labelPoint(A, O, C), texteParPosition('x', B.x - 0.5, B.y), afficheLongueurSegment(A, O), afficheLongueurSegment(O, C)) + '<br>'
@@ -364,30 +355,30 @@ export default function ConstructionsParallelogrammesParticuliers () {
         break
       case 3:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], codageAngleDroit(D, A, B)) + '<br>'
-        objetsEnonce.push(cible3, cible2)
+        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t1, t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('||', 'red', B, O, O, D))
+        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('||', 'red', B, O, O, D))
 
         break
       case 4:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(D, B), t2, traceCompas(A, B, 60), traceCompas(A, D, 60)) + '<br>'
-        objetsEnonce.push(cible3, cible2)
+        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3, afficheLongueurSegment(O, B))
-        objetsCorrection.push(codageAngleDroit(A, O, D), cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+        objetsCorrection.push(codageAngleDroit(A, O, D), cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
         break
       case 5:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, tri[0], tri[1], demiDroite(A, B), demiDroite(A, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(A, B), afficheLongueurSegment(A, D)) + '<br>'
-        objetsEnonce.push(cible3, cible2)
+        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
+        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(B, A, D, 'black', 1, alpha + '^\\circ'), afficheLongueurSegment(B, A), afficheLongueurSegment(A, D), afficheLongueurSegment(C, B), afficheLongueurSegment(D, C))
 
         break
       case 6:
         // if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2, t5) + '<br>'
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(B, A), afficheLongueurSegment(O, B), afficheLongueurSegment(A, O), t1, t2) + '<br>'
-        objetsEnonce.push(cible3, cible2)
+        objetsEnonce.push(cible1, cible2)
         objetsCorrection.push(p[0], p[1], t3, t4)
-        objetsCorrection.push(cible3, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
+        objetsCorrection.push(cible1, cible2, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D))
         break
       case 7:
         if (this.correctionDetaillee) texteCorr += mathalea2d({ xmin: xm, ymin: ym, xmax: xM, ymax: yM, pixelsParCm: 25, scale: 1 }, objetsCorrection, tri[0], tri[1], afficheLongueurSegment(C, O), afficheLongueurSegment(O, A), labelPoint(O), t5, codageSegments('||', 'red', A, O, O, C)) + '<br>'
@@ -396,9 +387,9 @@ export default function ConstructionsParallelogrammesParticuliers () {
         objetsCorrection.push(cible3, t1, t2, t3, cible1, dd1, dd2, dd3, dd4, labelPoint(O), codageSegments('||', 'red', A, O, O, C), codageSegments('|||', 'blue', B, O, O, D), afficheMesureAngle(O, A, D, 'red', 1, texNombre(c3) + '^\\circ'), afficheMesureAngle(O, C, D, 'blue', 1, texNombre(c2) + '^\\circ'))
         break
     }
-    texte += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)
-    texteAMC += '<br>' + mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsEnonce)
-    texteCorr += mathalea2d({ xmin: xMin, ymin: yMin, xmax: xMax, ymax: yMax, pixelsParCm: 25, scale: 1 }, objetsCorrection)
+    texte += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce)
+    texteAMC += '<br>' + mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce)
+    texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.7 }, fixeBordures(objetsCorrection)), objetsCorrection)
 
     if (context.isAmc) {
       // Construction des QCM valables en AMC
@@ -515,4 +506,5 @@ export default function ConstructionsParallelogrammesParticuliers () {
     4,
     '1 : Figure facile 1\n2 : Figure facile 2 (3 sommets à placer)\n3 : Figure facile 3 \n4 : Figure moins facile 1\n5 : Figure moins facile 2\n6 : Figure moins facile 3\n7 : Figure moins facile 4\n8 : Une des figures faciles choisie au hasard\n9 : Une des figures moins faciles choisie au hasard\n10 : Une de toutes ces figures choisie au hasard'
   ]
+  this.besoinFormulaire2Numerique = ['Taille des cases de la grille', 3, '1 : taille 0,4cm\n2 : taille 0,6 cm\n3 : taille 0,8cm']
 }
