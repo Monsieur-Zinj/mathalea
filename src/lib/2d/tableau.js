@@ -79,7 +79,9 @@ function flecheV (D, A, texte, h = 1, flip = false) {
   const math = texte.math ?? false
   if (texte) {
     if (texte.latex) {
-      t = latexParCoordonnees(texte.texte, M.x + h, M.y - 0.6, color, 50, 20, '', 10)
+      // t = latexParCoordonnees(texte.texte, M.x + h, M.y - 0.6, color, 50, 20, '', 10)
+      // EE : Changement 19/04/2024 pour 5P13 et tenir compte de grands coefficients de proportionnalité
+      t = latexParCoordonnees(texte.texte, M.x + texte.texte.length / 10 + h / 2, M.y, color, 50, 20, '', 10)
     } else {
       t = texteParPosition(texte.texte, M.x + h, M.y - 0.6, 0, color, 1, flip ? 'droite' : 0, math)
       t.gras = texte.gras ?? false
@@ -147,7 +149,7 @@ export class Tableau {
       objets.push(segment(point(x, A.y), point(x, C.y)))
       if (ligne1[i + 1]) {
         if (ligne1[i + 1].latex) { // on utilise latexParCoordonnees() tant pis pour le zoom qui devient impossible !
-          objets.push(latexParCoordonnees(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+          objets.push(latexParCoordonnees(ligne1[i + 1].texte ?? '', x + largeur / 2, A.y + 1.4 * hauteur, ligne1[i + 1].color || 'black', largeur * 8, 20, '', 10))
         } else {
           const color = ligne1[i + 1].color ?? 'black'
           const math = ligne1[i + 1].math ?? false
@@ -158,7 +160,7 @@ export class Tableau {
       }
       if (ligne2[i + 1]) {
         if (ligne2[i + 1].latex) {
-          objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, 'black', largeur * 8, 20, '', 10))
+          objets.push(latexParCoordonnees(ligne2[i + 1].texte ?? '', x + largeur / 2, A.y + 0.4 * hauteur, ligne2[i + 1].color || 'black', largeur * 8, 20, '', 10))
         } else {
           const color = ligne2[i + 1].color ?? 'black'
           const math = ligne2[i + 1].math ?? false
