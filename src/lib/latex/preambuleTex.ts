@@ -204,10 +204,7 @@ export function loadPackagesFromContent (contents: contentsType) {
       contents.preamble += '\n\\newcommand{\\txtbox}{\\ovalnum}'
     }
   }
-  if (contents.content.includes('\\begin{figure}')) {
-    logPDF(`begin{figure}': ${window.location.href}`)
-    // gestion des commandes pour les sujets DNB : dnb_2019_09_polynesie_6; dnb_2022_06_etrangers_5
-    contents.preamble += `\n% supprime les figures flottantes du DNB
+  testIfLoaded(['\\begin{figure}'], `\n% supprime les figures flottantes du DNB
 \\makeatletter
 \\def\\provideenvironment{\\@star@or@long\\provide@environment}
 \\def\\provide@environment#1{%
@@ -218,8 +215,7 @@ export function loadPackagesFromContent (contents: contentsType) {
 }
 \\def\\dummy@environ{}
 \\makeatother
-\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`
-  }
+\\provideenvironment{figure}{}{}\\renewenvironment{figure}{}{}`, contents, 'begin{figure}')
   if (contents.content.includes('\\selectarrownum')) {
     logPDF(`\\selectarrownum : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : dnb_2018_06_ameriquenord_4
@@ -227,11 +223,11 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
     contents.preamble += '\n}'
   }
-  testIfLoaded(['\\R ', '\\R{', '\\N ', '\\N{'], '\\usepackage{amsfonts}', contents)
-  testIfLoaded(['\\R ', '\\R{'], '\\newcommand\\R{\\mathbb{R}}', contents)
-  testIfLoaded(['\\N ', '\\N{'], '\\newcommand\\N{\\mathbb{N}}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\N ', '\\N{', '\\N$', '\\R$'], '\\usepackage{amsfonts}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\R$'], '\\newcommand\\R{\\mathbb{R}}', contents)
+  testIfLoaded(['\\N ', '\\N{', '\\N$'], '\\newcommand\\N{\\mathbb{N}}', contents)
   testIfLoaded(['\\ldots', '\\cdots', '\\dots', '\\makebox', '\\framebox', '\\parbox', '\\mbox', '\\fbox', '\\sbox', '\\pbox'], '\\usepackage{amsmath}', contents)
-  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft'], '\\usepackage{amssymb}', contents)
+  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\blacktriangleleft', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft', '\\Box'], '\\usepackage{amssymb}', contents)
   testIfLoaded(['\\columncolor{', '\\cellcolor', '\\rowcolor'], '\\usepackage{colortbl}', contents)
   testIfLoaded(['\\ovalnum{\\ovalnum'], '\\definecolor{scrmovedddd}    {HTML}{3373cc}', contents)
   testIfLoaded(['\\ding{', '\\textding', '\\decoone'], '\\usepackage{pifont}', contents)
@@ -251,7 +247,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
   testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments'], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
-  if (contents.content.includes('\\begin{forest}')) {
+  if (contents.content.includes('\\begin{forest}') || contents.contentCorr.includes('\\begin{forest}')) {
     logPDF(`usepackage{forest} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023
     contents.preamble += `\n\\usetikzlibrary{trees} % arbre en proba
@@ -265,6 +261,7 @@ export function loadPackagesFromContent (contents: contentsType) {
 
 function decompDNB () {
   return `%%% Table des nombres premiers  %%%%
+\\usepackage{xlop}
 \\newcount\\primeindex
 \\newcount\\tryindex
 \\newif\\ifprime

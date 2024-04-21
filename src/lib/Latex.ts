@@ -136,7 +136,7 @@ class Latex {
           }
 
           for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item ${format(correction)}`
+            contentCorr += `\n\\item \\vbox{${format(correction)}}`
           }
           contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
@@ -421,7 +421,7 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '')
+      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\vbox{') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '}')
     }
     content += '\n\\end{enumerate}'
   } else {

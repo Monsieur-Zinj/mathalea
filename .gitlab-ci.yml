@@ -13,12 +13,12 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- playwright-pdf
 - test
 - build-projet
 - playwright-testCanEleve
 - playwright-test
 - playwright-pdf
+- playwright-pdfDNB
 
 sast:
   stage: test
@@ -146,6 +146,7 @@ testDNB20132015PDF:
   extends: 
     - .testCIPDF
     - .install_dependenciesPDFDNB
+  stage: playwright-pdfDNB
   script:
     - NIV=dnb_2013^dnb_2014^dnb_2015 pnpm test:e2e:pdfexports
 
@@ -153,6 +154,7 @@ testDNB20162019PDF:
   extends: 
     - .testCIPDF
     - .install_dependenciesPDFDNB
+  stage: playwright-pdfDNB
   script:
     - NIV=dnb_2016^dnb_2017^dnb_2018^dnb_2019 pnpm test:e2e:pdfexports
 
@@ -160,6 +162,7 @@ testDNB20202024PDF:
   extends: 
     - .testCIPDF
     - .install_dependenciesPDFDNB
+  stage: playwright-pdfDNB
   script:
     - NIV=dnb_2020^dnb_2021^dnb_2022^dnb_2023 pnpm test:e2e:pdfexports
 

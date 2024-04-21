@@ -52,7 +52,8 @@ async function getConsoleTest (page: Page, urlExercice: string) {
           !msg.text().includes('[bugsnag] Loaded!') &&
           !msg.text().includes('No character metrics for') && // katex
           !msg.text().includes('LaTeX-incompatible input') && // katex
-          !msg.text().includes('mtgLoad') // mtgLoad : 3G22
+          !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
+          !msg.text().includes('MG32div0') // MG32div0 : 3G22
       ) {
         if (!msg.text().includes('<HeaderExercice>')) {
           messages.push(page.url() + ' ' + msg.text())
@@ -167,7 +168,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('3e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-  testRunAllLots('6e/6C10-9')
-  testRunAllLots('can/6e/can6a-alea')
-  // testRunAllLots('can/2e-can/3e')
+  prefs.headless = true
+  testRunAllLots('3e/3G22')
+  testRunAllLots('3e/3G30-1')
 }

@@ -261,8 +261,12 @@
 
   async function checkQuestion (i: number) {
     // ToFix exercices custom avec pointsCliquable
-    const type = exercices[indiceExercice[i]].interactifType
-    if (type === 'mathLive') {
+    const exercice = exercices[indiceExercice[i]]
+    let type = exercice.autoCorrection[indiceQuestionInExercice[i]].reponse?.param?.formatInteractif
+    if (type ===undefined || type === null){
+      type = exercice.interactifType
+    }
+    if (type.toLowerCase() === 'mathlive') {
       resultsByQuestion[i] =
         verifQuestionMathLive(
           exercices[indiceExercice[i]],

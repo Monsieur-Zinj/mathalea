@@ -59,6 +59,8 @@ export default class MetaExercice extends Exercice {
             window.notify('Erreur avec cette question de type fillInTheBlank qui contient une reponse au format inconnu', { reponse: Question.reponse })
           }
         } else if (Question.formatInteractif === 'qcm') {
+          Question.question.replaceAll('labelEx0Q0', `labelEx0Q${indexQuestion}`)
+          Question.question.replaceAll('resultatCheckEx0', `resultatCheckEx${indexQuestion}`)
           this.listeQuestions[indexQuestion] = consigne + Question.question
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else {
