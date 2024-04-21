@@ -1,12 +1,12 @@
-import { choice, shuffle } from '../../lib/outils/arrayOutils.js'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { prenomF } from '../../lib/outils/Personne.js'
-import Exercice from '../Exercice.js'
+import { prenomF } from '../../lib/outils/Personne'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 import { fraction, listeFractions } from '../../modules/fractions.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre.js'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 
 export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilisant des fractions'
 
