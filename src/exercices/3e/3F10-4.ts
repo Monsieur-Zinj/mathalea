@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import Figure from 'apigeom'
-import { egal, randint } from '../../modules/outils.js'
+import { randint } from '../../modules/outils.js'
 import { context } from '../../modules/context'
 import figureApigeom from '../../lib/figureApigeom'
 import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
@@ -10,10 +10,11 @@ import { mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { MathfieldElement } from 'mathlive'
 import type Point from 'apigeom/src/elements/points/Point'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { toutAUnPoint } from '../../lib/interactif/mathLive'
+import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -175,9 +176,10 @@ class LireImageParApiGeom extends Exercice {
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
-        reponses.push([`L1C${i + 1}`, { value: this.Y[i] }])
+        reponses.push([`L1C${i + 1}`, { value: this.Y[i], compare: numberCompare }])
       }
-      setReponse(this, 0, Object.fromEntries(reponses), { formatInteractif: 'tableauMathlive' })
+      reponses.push(['bareme', toutAUnPoint])
+      handleAnswers(this, 0, Object.fromEntries(reponses), { formatInteractif: 'mathlive' })
     } else {
       this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) +
         '\\\\' +
@@ -186,31 +188,6 @@ class LireImageParApiGeom extends Exercice {
         tabValeurTex
       this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
     }
-  }
-
-  correctionInteractive = () => {
-    this.answers = {}
-    const tableId = `tabMathliveEx${this.numeroExercice}Q${0}`
-    const tableau = document.querySelector(`table#${tableId}`)
-    if (tableau == null) throw Error('La correction de 3F10-4 n\'a pas trouvé le tableau interactif.')
-    const result: string[] = []
-    for (let k = 0; k < this.nbImages; k++) {
-      const answer: MathfieldElement = tableau.querySelector(`math-field#champTexteEx${this.numeroExercice}Q0L1C${k + 1}`) as MathfieldElement
-      if (answer == null) throw Error(`Il n'y a pas de math-field d'id champTexteEx${this.numeroExercice}QOL1C${k + 1} dans ce tableau !`)
-      const valeur = Number(answer.value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1'))
-      if (valeur) this.answers[`Ex${this.numeroExercice}Q0L1C${k + 1}`] = String(valeur)
-      const spanResultat = tableau.querySelector(`span#resultatCheckEx${this.numeroExercice}Q0L1C${k + 1}`)
-      if (spanResultat) {
-        if (egal(valeur, this.Y[k], 0.1)) {
-          spanResultat.innerHTML = spanResultat.innerHTML += '😎'
-          result.push('OK')
-        } else {
-          spanResultat.innerHTML += '☹️'
-          result.push('KO')
-        }
-      }
-    }
-    return result
   }
 }
 

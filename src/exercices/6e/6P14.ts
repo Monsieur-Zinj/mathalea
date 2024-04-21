@@ -60,7 +60,7 @@ class AgrandirReduireFigure extends Exercice {
     this.spacing = 2
   }
 
-  nouvelleVersion = function (): void {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({
@@ -91,7 +91,7 @@ class AgrandirReduireFigure extends Exercice {
         const absB = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9]) : 2 * randint(4, 7)
         // On en a besoin pour this.qusetionJamaisPosee()
         absBFinal = absB
-        coeffFinal = coefAgrandissement
+        coeffFinal = coefAgrandissement[choixAgrandissementOuReduction]
 
         switch (listeTypeQuestions[i]) {
           case 1: { // Triangle équilatéral
