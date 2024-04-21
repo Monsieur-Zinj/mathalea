@@ -25,14 +25,51 @@ export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   } else {
     return `\\begin{multicols}{2}
     ${cont1.replaceAll('<br>', '\\\\\n')}
-    \\end{multicols}
-    \\begin{multicols}{2}
+
     ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{multicols}
     `
   }
 }
 
+/**
+ * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
+ * @author Nathan Scheinmann
+ * @param {string} cont1 - Contenu de la première colonne
+ * @param {string} cont2 - Contenu de la deuxième colonne
+ * @param {string} cont3 - Contenu de la deuxième colonne
+ * @param {number} [largeur1=33] Largeur de la première colonne
+ * @param {number} [largeur2=33] Largeur de la première colonne
+ * @return {string}
+ */
+export function troisColonnes (cont1, cont2, cont3, largeur1 = 33, largeur2 = 33) {
+  if (context.isHtml) {
+    return `
+    <div>
+      <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 10px;">
+        ${cont1}
+      </div>
+      <div style="float:left; max-width: ${largeur2}%;margin-right: 10px;">
+        ${cont2}
+      </div>
+      <div style="float:left; max-width: ${100 - largeur1 - largeur2}%;margin-right: 10px;">
+        ${cont3}
+      </div>
+      <div style="clear:both"></div>
+      <div class="ui hidden divider"></div>
+    </div>
+    `
+  } else {
+    return `\\begin{multicols}{3}
+    ${cont1.replaceAll('<br>', '\\\\\n')}
+
+    ${cont2.replaceAll('<br>', '\\\\\n')}
+
+    ${cont3.replaceAll('<br>', '\\\\\n')}
+    \\end{multicols}
+    `
+  }
+}
 /**
  * Renvoie le html ou le latex qui met les 2 chaines de caractères fournies sur 2 colonnes différentes
  * Si en sortie html, il n'y a pas assez de places alors on passe en momocolonne !
