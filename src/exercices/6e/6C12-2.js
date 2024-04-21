@@ -65,17 +65,17 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = diviseur * quotient + reste
           texte = `Un paysagiste dispose de ${dividende} fleurs et souhaite réaliser des bouquets avec ${diviseur}.`
           texte += `<br> ${numAlpha(0)} Combien de bouquets peut-il confectionner ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)} Combien manque-t-il de fleurs pour en réaliser un de plus ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Le paysagiste peut faire ${texteEnCouleurEtGras(quotient)} bouquets et il lui reste ${texteEnCouleurEtGras(reste, 'blue')} fleurs.`
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} fleurs et il en faut ${diviseur} pour un bouquet.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
           texteCorr += `<br> Il manque donc ${texteEnCouleurEtGras(diviseur - reste)} fleurs pour faire un bouquet de plus.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         case 2:
@@ -86,17 +86,17 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = diviseur * quotient + reste
           texte = `Un fermier ramasse ${dividende} oeufs et souhaite les ranger dans des boîtes de ${diviseur}.`
           texte += `<br> ${numAlpha(0)} Combien de boîtes remplies entièrement faudra-il ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)} Combien manque-t-il d'oeufs pour en remplir une de plus ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de ${dividende} par ${diviseur}. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Il lui faudra ${texteEnCouleurEtGras(quotient)} boîtes et il restera ${texteEnCouleurEtGras(reste, 'blue')} oeufs.`
           texteCorr += `<br>${numAlpha(1)} Il reste ${reste} oeufs et il en faut ${diviseur} pour une boîte.`
           texteCorr += `<br>$${diviseur} - ${reste} = ${diviseur - reste}$`
           texteCorr += `<br>Il lui manquera ${texteEnCouleurEtGras(diviseur - reste)} oeufs pour en remplir une de plus.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: diviseur - reste } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         case 3:
@@ -107,15 +107,15 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = diviseur * quotient + reste
           texte = `$${diviseur}$ pirates veulent se partager équitablement le trésor comprenant $${texNombre(dividende)}$ pièces d'or.`
           texte += ` <br>${numAlpha(0)} Combien de pièces chaque pirate aura-t-il ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += ` <br>${numAlpha(1)} Combien restera-t-il de pièces ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(quotient)}+ ${texNombre(reste)}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura ${texteEnCouleurEtGras(quotient)} pièces.`
           texteCorr += `<br>${numAlpha(1)}  Il restera ${texteEnCouleurEtGras(reste)} pièces d'or.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: quotient } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         case 4: {
@@ -161,17 +161,17 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = prixHotelTotal + prixForfaitTotal
           texte = `${nbAmis} amis partent ${nbJour} jours au ski. Ils dépensent $${texNombre(prixHotelTotal)}$ € d'hôtels et $${texNombre(prixForfaitTotal)}$ € pour les remontées mécaniques.`
           texte += `<br>${numAlpha(0)} Quel est le prix total depensé ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)} Quel est le prix dépensé par personne ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `Effectuons l'addition de ${prixForfait} et ${prixHotel}. <br>`
           texteCorr += Operation({ operande1: prixHotelTotal, operande2: prixForfaitTotal, type: 'addition' })
           texteCorr += `<br>Ces ${nbAmis} amis ont dépensé au total $${miseEnEvidence(texNombre(prixHotelTotal + prixForfaitTotal))}$ €.<br>`
           texteCorr += `<br>${numAlpha(1)} Posons la division euclidienne de $${texNombre(prixHotelTotal + prixForfaitTotal)}$ par $${nbAmis}$. <br>`
           texteCorr += Operation({ operande1: prixHotelTotal + prixForfaitTotal, operande2: nbAmis, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(prixHotelTotal + prixForfaitTotal)}=${nbAmis}\\times${texNombre((prixHotel + prixForfait) * nbJour)}`, 'blue')}$`
           texteCorr += `<br>Chaque personne a dépensé  $${miseEnEvidence(texNombre((prixHotel + prixForfait) * nbJour))}$ €.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: prixHotelTotal + prixForfaitTotal } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: (prixHotel + prixForfait) * nbJour } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: prixHotelTotal + prixForfaitTotal } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: (prixHotel + prixForfait) * nbJour } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         }
@@ -185,9 +185,9 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles
           texte = `Dans un cinéma, il y a ${nbPetiteSalles + nbGrandeSalles} salles dont ${nbGrandeSalles} grandes salles et ${nbPetiteSalles} petites salles. Il y a ${nb} fois moins de places assises dans les petites salles que les grandes salles. Au total, dans ce cinéma, il y a $${texNombre(nbPlacesPetiteSalles * nbPetiteSalles + nbGrandeSalles * nb * nbPlacesPetiteSalles)}$ places`
           texte += `<br>${numAlpha(0)} Quel est le nombre de places dans une petite salle ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)} Quel est le nombre de places dans une grande salle ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Puisqu'il y a ${nb} fois moins de places assises dans les petites salles que les grandes salles, alors $1$ grande salle correspond à $${nb}$ petites salles. <br>`
           texteCorr += `Et ainsi, ${nbGrandeSalles} grandes salles correspondent à ${nbGrandeSalles * nb} petites salles car $${nbGrandeSalles} \\times ${nb} = ${nbGrandeSalles * nb}$ .<br>`
           texteCorr += `Donc, c'est comme si le cinéma contenait $${nbGrandeSalles * nb}$ petites salles + $${nbPetiteSalles}$ petites salles, soit $${nbGrandeSalles * nb + nbPetiteSalles}$ petites salles.<br>`
@@ -196,8 +196,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br>Il y a ${texteEnCouleurEtGras(nbPlacesPetiteSalles)} places dans une petite salle.`
           texteCorr += `<br>${numAlpha(1)} $${nbPlacesPetiteSalles} \\times ${nb} = ${nbPlacesPetiteSalles * nb}$ places`
           texteCorr += `<br>Il y a ${texteEnCouleurEtGras(nbPlacesPetiteSalles * nb)} places dans une grande salle.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: nbPlacesPetiteSalles } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: nbPlacesPetiteSalles * nb } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlacesPetiteSalles } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlacesPetiteSalles * nb } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         }
@@ -215,11 +215,11 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = nbPerlesJauneTotal
           texte = `Un bijoutier fabrique des colliers avec des perles. Il décide de mettre ${nbPerlesJaune} perles jaunes et ${nbPerlesRouge} perles rouges par collier. Il possède ${nbPerlesRougeTotal} perles rouges et ${nbPerlesJauneTotal} perles jaunes.`
           texte += `<br>${numAlpha(0)} Combien pourra-t-il fabriquer de colliers ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)} Combien lui restera-t-il de perles jaunes ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(2)} Combien lui restera-t-il de perles rouges ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 2, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPerlesJauneTotal)}$ par $${nbPerlesJaune}$. <br>`
           texteCorr += Operation({ operande1: nbPerlesJauneTotal, operande2: nbPerlesJaune, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPerlesJauneTotal)}=${nbPerlesJaune}\\times${texNombre(nbColliersJaune)}${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune === 0 ? '' : `+ ${nbPerlesJauneTotal - nbPerlesJaune * nbColliersJaune}`}`, 'blue')}$`
           texteCorr += `<br>Il peut faire $${miseEnEvidence(texNombre(nbColliersJaune), 'blue')}$ colliers avec les perles jaunes.`
@@ -235,9 +235,9 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) === 0
             ? '<br>Il ne restera aucune perle rouge.'
             : `<br>Il restera $${miseEnEvidence(nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune))}$  perles rouges.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 2, { reponse: { value: nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPerlesJauneTotal - nbPerlesJaune * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 2, { reponse: { value: nbPerlesRougeTotal - nbPerlesRouge * Math.min(nbColliersRouge, nbColliersJaune) } }, { formatInteractif: 'calcul' })
           indiceInteractif += 3
           break
         }
@@ -251,15 +251,15 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = nbTimbres
           texte = `Dans sa collection, ${prenomM()} possède ${nbTimbres} timbres et souhaite les ranger dans un album qui peut contenir ${nbTimbresParPage} timbres par page.`
           texte += `<br>${numAlpha(0)}  De combien de pages aura-t-il besoin pour ranger tous ses timbres ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)}  Combien de timbres y aura-t-il sur la dernière page ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbTimbres)}$ par $${nbTimbresParPage}$. <br>`
           texteCorr += Operation({ operande1: nbTimbres, operande2: nbTimbresParPage, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbTimbres)}=${nbTimbresParPage}\\times${texNombre(nbPages)}${nbTimbres - nbTimbresParPage * nbPages === 0 ? '' : `+ ${nbTimbres - nbTimbresParPage * nbPages}`}`, 'blue')}$`
           texteCorr += `<br>Il y aura $${miseEnEvidence(texNombre(nbPages), 'blue')}$ pages remplies et une page avec $${miseEnEvidence(texNombre(reste), 'blue')}$ timbres. Donc au total, il faudra $${miseEnEvidence(texNombre(nbPages + 1))}$ pages.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, il y aura $${miseEnEvidence(texNombre(reste))}$ timbres sur la dernière page.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: nbPages + 1 } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPages + 1 } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         }
@@ -273,15 +273,15 @@ export default function QuestionsDivisionsEuclidiennes () {
           texte = `Une bande de ${nbPirates} pirates et leur capitaine doivent se partager un trésor de ${dividende} pièces d’or. Le capitaine dit à ses hommes : « Vous avez bien travaillé, partagez-vous le trésor, je me contenterai
           du reste. » <br> Le capitaine est-il vraiment généreux ?`
           texte += `<br>${numAlpha(0)}  Combien de pièces aura chaque pirate ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)}  Combien de pièces aura le capitaine ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(dividende)}$ par $${diviseur}$. <br>`
           texteCorr += Operation({ operande1: dividende, operande2: diviseur, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(dividende)}=${diviseur}\\times${texNombre(nbPiecesParPirate)} +  ${reste}`, 'blue')}$`
           texteCorr += `<br>Chaque pirate aura $${miseEnEvidence(texNombre(nbPiecesParPirate))}$ pièces.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, le capitaine aura $${miseEnEvidence(texNombre(reste))}$ pièces et il aura le plus de pièces.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: nbPiecesParPirate } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPiecesParPirate } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: reste } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         }
@@ -301,9 +301,9 @@ export default function QuestionsDivisionsEuclidiennes () {
           dividende = nbPersonnes
           texte = `Pour un spectacle, les organisateurs doivent accueillir ${nbPersonnes} personnes. Ils hésitent sur la disposition de la salle : soit mettre ${nbPlaces1ParRangée} places par rangée, soit  ${nbPlaces2ParRangée} places par rangée. Ils décident de choisir la configuration où il y aura le moins de places vides.`
           texte += `<br>${numAlpha(0)}  Combien de places vont-ils choisir par rangée ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texte += `<br> ${numAlpha(1)}  Combien de rangées vont-ils prévoir  ?`
-          texte += ajouteChampTexteMathLive(this, 2 * indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers)
           texteCorr = `${numAlpha(0)} Posons la division euclidienne de $${texNombre(nbPersonnes)}$ par $${nbPlaces1ParRangée}$. <br>`
           texteCorr += Operation({ operande1: nbPersonnes, operande2: nbPlaces1ParRangée, type: 'divisionE' }) + `$${miseEnEvidence(`${texNombre(nbPersonnes)}=${nbPlaces1ParRangée}\\times${texNombre(nbRangée1)} +  ${reste1}`, 'blue')}$`
           texteCorr += `<br> Avec ${nbPlaces1ParRangée} places par rangée, il y aura ${nbRangée1} rangées remplies et une dernière avec ${reste1} places occupées et ${texteEnCouleurEtGras(nbPlaces1ParRangée - reste1, 'blue')} places libres.`
@@ -313,8 +313,8 @@ export default function QuestionsDivisionsEuclidiennes () {
           texteCorr += `<br> <br> Comme $${Math.min(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)} < ${Math.max(nbPlaces2ParRangée - reste2, nbPlaces1ParRangée - reste1)}$,
            alors pour avoir le moins de places libres, les organisateurs vont préférer $${miseEnEvidence(nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée)}$ places par rangée.`
           texteCorr += `<br>${numAlpha(1)} Comme l'indique la division euclidienne ci-dessus, il y aura ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 : nbRangée1} rangées remplies et $1$ rangée avec ${nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? reste2 : reste1} places occupées, soit $${miseEnEvidence(nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1)}$ rangées au total.`
-          handleAnswers(this, 2 * indiceInteractif, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée } }, { formatInteractif: 'calcul' })
-          handleAnswers(this, 2 * indiceInteractif + 1, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1 } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbPlaces2ParRangée : nbPlaces1ParRangée } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, indiceInteractif + 1, { reponse: { value: nbPlaces2ParRangée - reste2 < nbPlaces1ParRangée - reste1 ? nbRangée2 + 1 : nbRangée1 + 1 } }, { formatInteractif: 'calcul' })
           indiceInteractif += 2
           break
         }

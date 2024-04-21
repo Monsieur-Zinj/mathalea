@@ -61,7 +61,6 @@ export default function TracerTriangle2Angles () {
       if (listeTypesDeQuestions[i] === 1) {
         angBAC = randint(20, 80)
         const borneMax = arrondi(10 * loAC / Math.cos(angBAC * Math.PI / 180.0), 0)
-        console.log(borneMax)
         loAB = (randint(Math.min(arrondi(borneMax * 0.8, 0), 40), borneMax) / 10)
       } else {
         angBAC = randint(90, 140)
@@ -69,9 +68,6 @@ export default function TracerTriangle2Angles () {
       }
       const loBC = (Math.sqrt(loAB * loAB + loAC * loAC - 2 * loAB * loAC * Math.cos(angBAC * Math.PI / 180.0)))
       const angACB = arrondi(180 * Math.acos((loAB * loAB - loBC * loBC - loAC * loAC) / (-2 * loBC * loAC)) / Math.PI, 0)
-      if (angACB > 90) {
-        console.log('warning')
-      }
       let angle1, angle2
       if (randint(0, 1) === 0) {
         angle1 = angBAC
