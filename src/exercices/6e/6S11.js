@@ -4,7 +4,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Organiser des données dans un tableau'
 
 /**
@@ -38,7 +38,7 @@ export default function OrganiserDonneesDepuisTexte () {
     this.autoCorrection = []
 
     const nbAmis = 4; let texte; let texteCorr; let m; let S // min = 2
-    const nbFruits = parseInt(this.sup2) // min = 2
+    const nbFruits = contraindreValeur(2, 9, this.sup2, 4) // min = 2
     const lstPrenomExo = []
     while (lstPrenomExo.length < nbAmis) {
       const p = prenom()
@@ -117,7 +117,7 @@ export default function OrganiserDonneesDepuisTexte () {
     texte += '\\hline\n'
     texte += ' '
     for (let j = 0; j < nbFruits; j++) {
-      texte += ' & \\textbf{\\text{' + premiereLettreEnMajuscule(lstFruitExo[j]) + '}}'
+      if (lstFruitExo[j] != null) texte += ' & \\textbf{\\text{' + premiereLettreEnMajuscule(lstFruitExo[j]) + '}}'
     }
     texte += '& \\textbf{TOTAL}'
     texte += '\\\\\\hline\n'

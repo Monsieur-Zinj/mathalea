@@ -1,7 +1,12 @@
 import { calculCompare } from './comparisonFunctions'
 
+// Un barème qui ne met qu'un point si tout est juste
 export function toutPourUnPoint (listePoints) {
   return [Math.min(...listePoints), 1]
+}
+// le barème par défaut un point pour chaque réponse
+export function toutAUnPoint (listePoints) {
+  return [listePoints.reduce((prev, current) => prev + current), listePoints.length]
 }
 
 /**

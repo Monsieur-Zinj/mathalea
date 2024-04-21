@@ -132,7 +132,8 @@ export function insertCharInString (string, index, char) {
  * @author Rémi Angot
  */
 export function premiereLettreEnMajuscule (text) {
-  return (text + '').charAt(0).toUpperCase() + text.substr(1)
+  if (typeof text === 'string' && text.length > 0) return (text + '').charAt(0).toUpperCase() + text.substring(1)
+  else return ''
 }
 
 /**
