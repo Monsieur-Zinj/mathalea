@@ -4,6 +4,8 @@ import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 
 const engine = new ComputeEngine()
+export default engine
+
 export type RecursivePartial<T> = {
   [P in keyof T]?: T[P] extends (infer U)[]
       ? RecursivePartial<U>[]
@@ -627,8 +629,6 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
   }
   return { isOk: false }
 }
-
-export default engine
 
 /**
  * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}

@@ -1,0 +1,81 @@
+// xcas version=1.9.0 fontsize=14 font=0 currentlevel=5 pixon=1
+// fltk 7Fl_Tile 11 -110 854 88 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 -110 854 31 14 0
+36 1 ,
+simplify((ax+b)(cx+d)+(ex+f)(gx+h));,
+// fltk N4xcas10Log_OutputE 11 -79 854 38 14 0
+Attention, évaluation de (ax+b)(cx+d) as a function not as a productAttention, évaluation de (ex+f)(gx+h) as a function not as a product
+,
+// fltk N4xcas8EquationE 11 -41 854 19 14 0 1
+ax(cx+d)+b(cx+d)+ex(gx+h)+f(gx+h)
+]
+,
+// fltk 7Fl_Tile 11 -20 854 51 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 -20 854 31 14 0
+46 1 ,
+simplify(a*x(cx+d)+b(cx+d)+e*x(gx+h)+f(gx+h));,
+// fltk N4xcas10Log_OutputE 11 11 854 1 14 0
+
+,
+// fltk N4xcas8EquationE 11 12 854 19 14 0 1
+ax(cx+d)+b(cx+d)+ex(gx+h)+f(gx+h)
+]
+,
+// fltk 7Fl_Tile 11 33 854 52 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 33 854 31 14 0
+13 1 ,
+normal(2*x*2),
+// fltk N4xcas10Log_OutputE 11 64 854 1 14 0
+
+,
+// fltk N4xcas8EquationE 11 65 854 20 14 0 1
+4*x
+]
+,
+// fltk 7Fl_Tile 11 87 854 60 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 87 854 31 14 0
+51 1 ,
+normal(a*x*(c*x+d)+b*(c*x+d)+k*x*(g*x+h)+f*(g*x+h)),
+// fltk N4xcas10Log_OutputE 11 118 854 1 14 0
+
+,
+// fltk N4xcas8EquationE 11 119 854 28 14 0 1
+a*c*x**2+a*d*x+b*c*x+b*d+f*g*x+f*h+g*k*x**2+h*k*x
+]
+,
+// fltk 7Fl_Tile 11 149 854 58 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 149 854 31 14 0
+62 1 ,
+reorder(a*c*x**2+a*d*x+b*c*x+b*d+f*g*x+f*h+g*k*x**2+h*k*x,[x]),
+// fltk N4xcas10Log_OutputE 11 180 854 1 14 0
+
+,
+// fltk N4xcas8EquationE 11 181 854 26 14 0 1
+a*c*x**2+a*d*x+b*c*x+b*d+f*g*x+f*h+g*k*x**2+h*k*x
+]
+,
+// fltk 7Fl_Tile 11 209 854 79 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 209 854 31 14 0
+71 1 ,
+simplifier(texpand((x**2*a*c+x**2*g*k+x*a*d+x*c*b+x*f*g+x*h*k+d*b+f*h)),
+// fltk N4xcas10Log_OutputE 11 240 854 20 14 0
+Warning adding 1 ) at end of input
+,
+// fltk N4xcas8EquationE 11 260 854 28 14 0 1
+a*c*x**2+a*d*x+b*c*x+b*d+f*g*x+f*h+g*k*x**2+h*k*x
+]
+,
+// fltk 7Fl_Tile 11 290 854 199 14 0
+[
+// fltk N4xcas16Xcas_Text_EditorE 11 290 854 198 14 0
+0 1 ,
+,
+// fltk N4xcas10Log_OutputE 11 488 854 1 14 0
+
+]
