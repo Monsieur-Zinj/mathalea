@@ -62,13 +62,13 @@ export function numberFormat (nb: number) {
  * Avec comme avantage immédiat pour le format Decimal : precision est illimité.
  * Sinon, renvoie un nombre dans le format français (avec une virgule et des espaces pour séparer les classes dans la partie entière et la partie décimale)
  * @author Guillaume Valmont
- * @param {number|Decimal} nb nombre qu'on veut afficher
+ * @param {number|Decimal|FractionEtendue} nb nombre qu'on veut afficher
  * @param {number} precision nombre de décimales demandé
  * @param {boolean} completerZeros si true, le nombre de décimale en precision est imposé (ajout de zéros inutiles éventuels)
  * @param {boolean} aussiCompleterEntiers si true ajoute des zéros inutiles aux entiers si compléterZeros est true aussi
  * @returns string avec le nombre dans le format français à mettre entre des $ $
  */
-export function texNombre (nb: number | Decimal, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
+export function texNombre (nb: number | Decimal | FractionEtendue, precision = 8, completerZeros = false, aussiCompleterEntiers = false) {
   // if (precision == null) window.notifyLocal('Il faut 2 arguments à texNombre ! La précision attendue est obligatoire !', { nombre: nb, precision })
   if (typeof nb === 'string') {
     window.notify('texNombre appelé avec un string à la place d\'un nombre', { nombre: nb })
