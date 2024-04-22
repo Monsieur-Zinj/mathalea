@@ -9,6 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { aleaExpression } from '../../modules/outilsMathjs'
 import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import { regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
@@ -136,11 +137,9 @@ export default function DevelopperReduireExprComplexe () {
       const expression2 = factsProd2Diff
         ? printlatex(aleaExpression(`(e*${choixLettre}+(f))*(g*${choixLettre}+(h))`, { e, f, g, h })).replaceAll(' ', '')
         : printlatex(aleaExpression(`(e*${choixLettre}+(f))^2`, { e, f })).replaceAll(' ', '')
-      console.log(expression1, expression2)
       const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1)]).evaluate().latex
       const devExpr2 = engine.box(['ExpandAll', engine.parse(expression2)]).evaluate().latex
       const expression = `${expression1}${ope}${expression2}`
-      let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       const coeffX2 = ope === '-' ? a * c - e * g : a * c + e * g
       const coeffX = ope === '-' ? a * d + b * c - e * h - f * g : a * d + b * c + e * h + f * g
       const coeffConst = ope === '-' ? b * d - f * h : b * d + f * h
@@ -151,10 +150,17 @@ export default function DevelopperReduireExprComplexe () {
           coeffConst,
           choixLettre
       )}`
+      // ici on va rédiger la correction détaillée
+      const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: true })
+      const expressionOrdonnee = regroupeTermesMemeDegre(sansParentheses, choixLettre, { color: true })
+      let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
+      // La correction dans le texte pour tester
+      texte += `<br>$(${devExpr1})${ope}(${devExpr2})$`
+      texte += `<br>$${sansParentheses}$`
+      texte += `<br>$${expressionOrdonnee}$`
+      // La correction pour de vrai
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
       texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
-      // ici on va rédiger la correction détaillée
-
       texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })

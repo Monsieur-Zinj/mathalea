@@ -5,6 +5,7 @@ import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'
+import { miseEnEvidence, texcolors } from '../outils/embellissements'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -216,4 +217,104 @@ export function rationnalise (x) {
   }
   // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
   return new FractionEtendue(x.n * x.s, x.d)
+}
+
+export const miseEnForme = (str, n, color) => color ? miseEnEvidence(str, texcolors(n)) : str
+
+/**
+ * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
+ * l'intérieur des parenthèses pour l'instant de peut contenir que des entiers, des lettres et des + ou -
+ * Les parenthèses doivent être de vraies parenthèses (pas des \left( ou des \lparen) donc on convertira ici avant de les supprimer
+ * Non testé sur des expressions comme (5x+3)(4x+3) car c'est pas fait pour !
+ * @param {string} exp
+ * @param {string} lettre
+ * @param {{color: boolean}} options
+ */
+export function suppressionParentheses (exp, lettre, options) {
+  const deg = (term) => term.includes('^')
+    ? term.match(/\^(\d)/)[0].match(/\d/)[0]
+    : term.includes(lettre)
+      ? 1
+      : 0
+  exp = exp.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
+  exp = exp.replaceAll('\\left(', '(').replaceAll('\\right)', ')')
+  const parts = exp.match(/[-+]?\([\da-z+^-]*\)/g)
+  let expressionFinale = ''
+  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
+  const regX = new RegExp(regString, 'g')
+  for (const part of parts) {
+    if (typeof part === 'string') {
+      if (part.startsWith('(')) {
+        const interior = part.substring(1, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          expressionFinale += miseEnForme(term, d, options?.color)
+        }
+      } else if (part.startsWith('-')) {
+        const interior = part.substring(2, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          if (term.startsWith('-')) {
+            expressionFinale += miseEnForme('+' + term.substring(1), d, options?.color)
+          } else if (term.startsWith('+')) {
+            expressionFinale += miseEnForme('-' + term.substring(1), d, options?.color)
+          } else {
+            expressionFinale += miseEnForme('-' + term, d, options?.color)
+          }
+        }
+      } else if (part.startsWith('+')) {
+        const interior = part.substring(2, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          const premierChar = term.charAt(0)
+          if (['+', '-'].includes(premierChar)) expressionFinale += miseEnForme(term, d, options?.color)
+          else expressionFinale += miseEnForme('+' + term, d, options?.color)
+        }
+      }
+    }
+  }
+  return expressionFinale
+}
+
+/**
+ *
+ * @param {string} exp
+ * @param {string} lettre
+ */
+export function regroupeTermesMemeDegre (exp, lettre, options) {
+  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
+  const regX = new RegExp(regString, 'g')
+  const parts = exp.match(regX).filter(el => el !== '')
+  const allTheTerms = []
+  if (parts != null) {
+    for (const part of parts) {
+      const deg = part.includes('^')
+        ? part.match(/\^(\d)/)[0].match(/\d/)[0]
+        : part.includes(lettre)
+          ? 1
+          : 0
+      if (allTheTerms[deg] == null) allTheTerms[deg] = []
+      allTheTerms[deg].push(part)
+    }
+  }
+  const expressionFinale = []
+  for (let i = allTheTerms.length; i > 0; i--) {
+    const listOfTerm = allTheTerms[i - 1]
+    if (listOfTerm.length > 0) {
+      let parcel = ''
+      for (let term of listOfTerm) {
+        if (term.startsWith('+') && parcel === '') term = term.substring(1)
+        parcel += term
+      }
+      expressionFinale.push(`(${miseEnForme(parcel, i - 1, options?.color)})`)
+    }
+  }
+  return expressionFinale.join('+')
+}
+
+export function developpe (expr, options) {
+
 }
