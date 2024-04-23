@@ -7,7 +7,6 @@ import { labelPoint, texteParPosition } from '../../lib/2d/textes'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import { texteGras } from '../../lib/format/style'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -154,7 +153,7 @@ export default class Representerfonctionaffine extends Exercice {
             // @ts-expect-error mathalea2d n'est pas typé
             texteCorr += mathalea2d(cadreFenetreSvg,
               lA, lB, monRepere, droiteAB, tA, tB, textO) }
-                    break
+          break
 
         case 2: // cas du coefficient directeur fractionnaire
           { a = randint(-5, 5, [0]) // numérateur coefficient directeur non nul
