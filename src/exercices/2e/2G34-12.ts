@@ -10,7 +10,7 @@ import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions.j
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
+export const titre = 'Déterminer le point d\'intersection de deux droites données par des points'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2024'

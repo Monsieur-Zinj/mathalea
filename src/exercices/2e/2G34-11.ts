@@ -13,7 +13,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rienSi1, ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../lib/outils/ecritures.js'
 import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions.js'
-export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
+export const titre = 'Déterminer le point d\'intersection de deux droites données graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '20/04/2024'
@@ -214,7 +214,7 @@ export default class IntersectionDroites extends Exercice {
             pAproxInt13 = pointIntersectionDD(c, c3)
             pAproxInt23 = pointIntersectionDD(c2, c3)
           }
-          while ((a2 / d2 === a / d) || (a3 / d3 === a / d) || (a2 / d2 === a3 / d3) || (inGraph(pAproxInt12) && inGraph(pAproxInt13) && inGraph(pAproxInt23)) || coordEntieres(pAproxInt12) || coordEntieres(pAproxInt13) || coordEntieres(pAproxInt23))
+          while ((a2 / d2 === a / d) || (a3 / d3 === a / d) || (a2 / d2 === a3 / d3) || (inGraph(pAproxInt12)) || coordEntieres(pAproxInt12) || coordEntieres(pAproxInt13) || coordEntieres(pAproxInt23))
           break
       }
       const droite1 = droiteAvecNomLatex(c, 'd_1', 'red')

@@ -157,7 +157,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
       texte = texte + `La droite $d_${String(droite1)}$ d'équation $${eqToLatex(eqInt1, listeVar, false)}$ et la droite $d_${String(droite2)}$ d'équation $${eqToLatex(eqInt2, listeVar, false)}$. `
       const listeVarPoint = ['x_a', 'x_B', '', 'x_A', 'x_B', '']
       if (this.correctionDetaillee) {
-        texteCorr = texteCorr + 'S\'il existe, on note $(x_A; x_B)$ le point d\'intersection des deux droites. On obtient le système suivant qu\'on résout par comparaison :'
+        texteCorr = texteCorr + 'S\'il existe, on note $(x_A; x_B)$ le point d\'intersection des deux droites. On obtient le système suivant qu\'on résout par substitution : '
         texteCorr = texteCorr + `\\[${printSystem(eqToLatex(eqFinale1, listeVarPoint, true), eqToLatex(eqFinale2, listeVarPoint, true))}\\]`
         texteCorr = texteCorr + `On égalise les membres de droite des deux équations pour obtenir l'équation à une inconnue \\[${eqToLatex([eqInt1[3], eqInt1[4], eqInt1[5], eqInt2[3], eqInt2[4], eqInt2[5]], listeVarPoint, false)}\\]`
         texteCorr = texteCorr + `On résout l'équation et on obtient $${listeVarPoint[(valComp + 1) % 2]}=${texNombre([solX, solY][(valComp + 1) % 2], 0)}$. `
