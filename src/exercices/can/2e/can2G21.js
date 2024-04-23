@@ -65,7 +65,7 @@ export default function LectureCoordonnees () {
     const traceA = tracePoint(A, 'red') // Variable qui trace les points avec une croix
     traceA.taille = 3
     traceA.epaisseur = 2
-    this.question = `Donner les coordonnées du point.<br><br>`
+    this.question = 'Donner les coordonnées du point.<br><br>'
     this.question += mathalea2d({ xmin: -3, xmax: 3, ymin: -2, ymax: 2, scale: 1, pixelsParCm: 50, style: 'margin: auto' }, r, o, traceA)
     this.optionsChampTexte = { texteAvant: '<br>Respecter les notations :' }
     this.correction = 'L\'abscisse du point se lit sur l\'axe horizontal.<br>'

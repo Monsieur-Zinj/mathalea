@@ -97,7 +97,7 @@ export default function CoeffDirDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = `Donner le coefficient directeur $m$ de la droite.<br><br>`
+        this.question = 'Donner le coefficient directeur $m$ de la droite.<br><br>'
         this.question += `${objet}<br>`
         this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {
@@ -168,7 +168,7 @@ export default function CoeffDirDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = `Donner le coefficient directeur $m$ de la droite.<br><br>`
+        this.question = 'Donner le coefficient directeur $m$ de la droite.<br><br>'
         this.question += `${objet}<br>`
         this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {

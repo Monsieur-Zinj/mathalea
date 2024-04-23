@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import {  ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
+import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 export const titre = 'Calculer un produit scalaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'

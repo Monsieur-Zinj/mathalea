@@ -27,9 +27,9 @@ export default function VecteurDirEqCart () {
   this.formatChampTexte = 'largeur10 inline'
   this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
-    let a = randint(-9, 9, 0)
-    let b = randint(-9, 9, 0)
-    let c = randint(-5, 5, 0)
+    const a = randint(-9, 9, 0)
+    const b = randint(-9, 9, 0)
+    const c = randint(-5, 5, 0)
 
     this.question = `Dans un repère, la droite $d$ a pour équation :
       $${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$<br>

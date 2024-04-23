@@ -43,7 +43,7 @@ export default class AireTrapezeRectangle extends Exercice {
       grandeBase = randint(2 + hauteur, 6 + hauteur)
       petiteBase = Math.random() < 0.5 ? grandeBase - (hauteur / 2) : grandeBase - hauteur
     }
-    
+
     const grille = new Grille(0, 0, grandeBase + 2, hauteur + 2, 'gray', 1, 1)
     const A = new Point(1, 1)
     const B = new Point(1 + grandeBase, 1)

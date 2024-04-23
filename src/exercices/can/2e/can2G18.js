@@ -83,11 +83,11 @@ export default function LectureGraphiqueVecteurRepere () {
         grilleSecondaireXMax: xmax
       })
 
-      texte = `Lire les coordonnées du vecteur $\\vec{u}$.<br><br>`
+      texte = 'Lire les coordonnées du vecteur $\\vec{u}$.<br><br>'
       texte += mathalea2d({ xmin, xmax, ymin, ymax, style: 'margin: auto', pixelsParCm: 30, scale: 0.75 },
         r1, o, AB, nomvAB
       )
-      texte += ``
+      texte += ''
 
       if (this.interactif) {
         texte += '<br>$\\vec{u}\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline')

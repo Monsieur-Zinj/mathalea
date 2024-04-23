@@ -392,7 +392,7 @@ export default function ConstructibiliteDesTriangles () {
           break
         }
       }
-      if (this.questionJamaisPosee(i,triangle.getNom())) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, triangle.getNom())) { // Si la question n'a jamais été posée, on en créé une autre
         const propositionsDuQcm = [
           {
             texte: `Le triangle ${triangle.getNom()} est constructible`,

@@ -30,9 +30,8 @@ export default class DivisionParQuatreCM2 extends Exercice {
     if (this.canOfficielle) {
       dividende = 120
       diviseur = 4
-
     } else {
-      dividende = randint(16, 39, [22,20] ) * 4
+      dividende = randint(16, 39, [22, 20]) * 4
       diviseur = 4
     }
     this.question = `$${texNombre(dividende, 0)}\\div ${texNombre(diviseur, 0)}`
