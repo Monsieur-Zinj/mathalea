@@ -76,7 +76,7 @@
     "docdash": "^2.0.2",
     "earcut": "^2.2.4",
     "file-saver": "^2.0.5",
-    "instrumenpoche": "git+https://git.sesamath.net/sesamath/instrumenpoche.git",
+    "instrumenpoche": "git+https://forge.apps.education.fr/coopmaths/instrumenpoche.git",
     "jsdoc": "^4.0.2",
     "jszip": "^3.10.1",
     "jszip-utils": "^0.1.0",
