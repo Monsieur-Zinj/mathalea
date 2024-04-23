@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  deprecatedTexFraction,
+  texFractionFromString,
   obtenirListeFractionsIrreductibles,
   obtenirListeFractionsIrreductiblesFaciles,
   produitDeDeuxFractions,
@@ -149,20 +149,20 @@ export default function ExerciceAdditionnerFractionProduit () {
             d = b
           }
 
-          texte += `$${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)}$`
+          texte += `$${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)}$`
 
-          texteCorr = `$${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)}$`
+          texteCorr = `$${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)}$`
           if (!operation2) { // Si il y a division, multiplier par l'inverse du diviseur
             [e, f] = [f, e]
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c, d)} \\times ${deprecatedTexFraction(e, f)}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c, d)} \\times ${texFractionFromString(e, f)}$`
           }
           produit = produitDeDeuxFractions(c, d, e, f)
           if (this.correctionDetaillee) {
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))}$`
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction(c * e, d * f)}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString(c * e, d * f)}$`
           } else {
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${produit[1]}$`
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${produit[0]}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${produit[1]}$`
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${produit[0]}$`
           }
 
           // faut-il simplifier c×e⁄d×f ?
@@ -171,7 +171,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${deprecatedTexFraction(a, b)} ${texteOperation1} ${deprecatedTexFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
+            texteCorr += `$=${texFractionFromString(a, b)} ${texteOperation1} ${texFractionFromString((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}'
                         )}$`
             c = (e * c) / p
             d = (f * d) / p
@@ -183,24 +183,24 @@ export default function ExerciceAdditionnerFractionProduit () {
           k1 = p / b
           k2 = p / d
           if (k1 !== 1) {
-            texteCorr += `$=${deprecatedTexFraction(a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
+            texteCorr += `$=${texFractionFromString(a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)), b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)))}$`
           } else {
             if (k2 !== 1) {
-              texteCorr += `$=${deprecatedTexFraction(a, b)}$`
+              texteCorr += `$=${texFractionFromString(a, b)}$`
             }
           }
           if (k2 !== 1) {
-            texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
+            texteCorr += `$ ${texteOperation1} ${texFractionFromString(c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)), d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)))}$`
           } else {
             if (k1 !== 1) {
-              texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(c, d)}$`
+              texteCorr += `$ ${texteOperation1} ${texFractionFromString(c, d)}$`
             }
           }
 
-          texteCorr += `$=${deprecatedTexFraction(a * k1, p)} ${texteOperation1} ${deprecatedTexFraction(c * k2, p)}$`
+          texteCorr += `$=${texFractionFromString(a * k1, p)} ${texteOperation1} ${texFractionFromString(c * k2, p)}$`
           e = operation1 ? a * k1 + c * k2 : a * k1 - c * k2
           f = p
-          texteCorr += `$=${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
+          texteCorr += `$=${texFractionFromString(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
           reponse = fraction(e, f).simplifie()
           break
 
@@ -208,22 +208,22 @@ export default function ExerciceAdditionnerFractionProduit () {
           if (piegeObligatoire) {
             f = b
           }
-          texte += `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+          texte += `$${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
 
-          texteCorr = `$${deprecatedTexFraction(c, d)} ${texteOperation2} ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+          texteCorr = `$${texFractionFromString(c, d)} ${texteOperation2} ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
           if (!operation2) { // S'il y a division, multiplier par l'inverse du diviseur
             [e, f] = [f, e]
-            texteCorr += `$=${deprecatedTexFraction(c, d)} \\times ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+            texteCorr += `$=${texFractionFromString(c, d)} \\times ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
           }
 
           produit = produitDeDeuxFractions(c, d, e, f)
-          // texteCorr += `$=${deprecatedTexFraction(c, d)}\\times ${deprecatedTexFraction(e, f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+          // texteCorr += `$=${texFractionFromString(c, d)}\\times ${texFractionFromString(e, f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
           if (this.correctionDetaillee) {
-            texteCorr += `$=${deprecatedTexFraction(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
-            texteCorr += `$=${deprecatedTexFraction(c * e, d * f)} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+            texteCorr += `$=${texFractionFromString(c + '\\times' + ecritureParentheseSiNegatif(e), d + '\\times' + ecritureParentheseSiNegatif(f))} ${texteOperation1} ${texFractionFromString(a, b)}$`
+            texteCorr += `$=${texFractionFromString(c * e, d * f)} ${texteOperation1} ${texFractionFromString(a, b)}$`
           } else {
-            texteCorr += `$=${produit[1]} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
-            texteCorr += `$=${produit[0]} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+            texteCorr += `$=${produit[1]} ${texteOperation1} ${texFractionFromString(a, b)}$`
+            texteCorr += `$=${produit[0]} ${texteOperation1} ${texFractionFromString(a, b)}$`
           }
 
           // faut-il simplifier c×e⁄d×f ?
@@ -232,7 +232,7 @@ export default function ExerciceAdditionnerFractionProduit () {
           }
           p = pgcd(c * e, d * f)
           if (p !== 1 && ppcm(b, d * f) > ppcm(b, (d * f) / p)) {
-            texteCorr += `$=${deprecatedTexFraction((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')} ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+            texteCorr += `$=${texFractionFromString((e * c) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}', (f * d) / p + '\\times\\cancel{' + ecritureParentheseSiNegatif(p) + '}')} ${texteOperation1} ${texFractionFromString(a, b)}$`
             c = (e * c) / p
             d = (f * d) / p
           } else {
@@ -243,34 +243,34 @@ export default function ExerciceAdditionnerFractionProduit () {
           k1 = p / b
           k2 = p / d
           if (k2 !== 1) {
-            texteCorr += `$=${deprecatedTexFraction(
+            texteCorr += `$=${texFractionFromString(
                             c + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2)),
                             d + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k2))
                         )}$`
           } else {
             if (k1 !== 1) {
-              texteCorr += `$=${deprecatedTexFraction(c, d)}$`
+              texteCorr += `$=${texFractionFromString(c, d)}$`
             }
           }
 
           if (k1 !== 1) {
-            texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(
+            texteCorr += `$ ${texteOperation1} ${texFractionFromString(
                             a + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1)),
                             b + miseEnEvidence('\\times' + ecritureParentheseSiNegatif(k1))
                         )}$`
           } else {
             if (k2 !== 1) {
-              texteCorr += `$ ${texteOperation1} ${deprecatedTexFraction(a, b)}$`
+              texteCorr += `$ ${texteOperation1} ${texFractionFromString(a, b)}$`
             }
           }
 
           if (this.correctionDetaillee) {
-            texteCorr += `$=${deprecatedTexFraction(c * k2, p)} ${texteOperation1} ${deprecatedTexFraction(a * k1, p)}$`
+            texteCorr += `$=${texFractionFromString(c * k2, p)} ${texteOperation1} ${texFractionFromString(a * k1, p)}$`
           }
           e = operation1 ? c * k2 + a * k1 : c * k2 - a * k1
           f = p
 
-          texteCorr += `$=${deprecatedTexFraction(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
+          texteCorr += `$=${texFractionFromString(e, f)}${simplificationDeFractionAvecEtapes(e, f)}$`
           reponse = fraction(e, f).simplifie()
           break
       }

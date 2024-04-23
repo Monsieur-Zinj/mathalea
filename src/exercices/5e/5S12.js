@@ -7,7 +7,7 @@ import { segment, vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../lib/2d/textes.ts'
 import { rotation, translation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { texcolors } from '../../lib/format/style'
 import { rangeMinMax } from '../../lib/outils/nombres'
@@ -135,11 +135,11 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}^\\circ`)
+          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 360 ${egalOuApprox(lstNombresAnimaux[i] * 360 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 360 / effectiftotal)}^\\circ`)
         }
         contenutableau.push('360^\\circ')
 
@@ -189,11 +189,11 @@ export default function ConstruireUnDiagramme () {
         }
         contenutableau.push(effectiftotal)
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
+          contenutableau.push(texFractionFromString(lstNombresAnimaux[i], effectiftotal) + egalOuApprox(lstNombresAnimaux[i] / effectiftotal, 2) + texNombre(lstNombresAnimaux[i] / effectiftotal, 2))
         }
         contenutableau.push('1')
         for (let i = 0; i < nbAnimaux; i++) {
-          contenutableau.push(`${deprecatedTexFraction(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}^\\circ`)
+          contenutableau.push(`${texFractionFromString(lstNombresAnimaux[i], effectiftotal)} \\times 180 ${egalOuApprox(lstNombresAnimaux[i] * 180 / effectiftotal, 0)} ${Math.round(lstNombresAnimaux[i] * 180 / effectiftotal)}^\\circ`)
         }
         contenutableau.push('180^\\circ')
 

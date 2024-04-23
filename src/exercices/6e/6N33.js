@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -89,19 +89,19 @@ export default function FractionDUnNombre () {
       if (this.sup || context.isAmc) n = b * k
       else if (randint(0, 1) === 0) n = b * k
       else n = randint(10, b * 11)
-      texte = `$${deprecatedTexFraction(a, b)}\\times${n}$`
+      texte = `$${texFractionFromString(a, b)}\\times${n}$`
       texteCorr = ''
       if (a === 1) {
         // Si n * 1/b
         if (calculANePlusJamaisUtiliser(n / b - arrondi(n / b, 4)) === 0) {
-          texteCorr += `$${deprecatedTexFraction(
+          texteCorr += `$${texFractionFromString(
                         a,
                         miseEnEvidence(b, 'blue')
                     )}\\times${n}=${n}\\div${miseEnEvidence(b, 'blue')}=${texNombre(
                         calculANePlusJamaisUtiliser(n / b)
                     )}$`
         } else { // si résultat décimal
-          texteCorr += `$${deprecatedTexFraction(a, b)}\\times${n}=${deprecatedTexFraction(
+          texteCorr += `$${texFractionFromString(a, b)}\\times${n}=${texFractionFromString(
                         n,
                         b
                     )}${simplificationDeFractionAvecEtapes(n, b)}$`
@@ -109,7 +109,7 @@ export default function FractionDUnNombre () {
       } else {
         if (calculANePlusJamaisUtiliser(n / b - arrondi(n / b, 4)) === 0) {
           // si n/b décimal calcul (n/b)*a
-          texteCorr += `$${deprecatedTexFraction(
+          texteCorr += `$${texFractionFromString(
                         a,
                         miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${n}\\div${miseEnEvidence(
@@ -120,7 +120,7 @@ export default function FractionDUnNombre () {
         } else {
           if (calculANePlusJamaisUtiliser((n * a) / b - arrondi((n * a) / b, 4)) === 0) {
             // si n/b non décimal, alors on se rabat sur (n*a)/b
-            texteCorr += ` $${deprecatedTexFraction(
+            texteCorr += ` $${texFractionFromString(
                             a,
                             miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -130,14 +130,14 @@ export default function FractionDUnNombre () {
                         )}=${texNombre(calculANePlusJamaisUtiliser((n / b) * a))}$<br>`
           } else {
             // si autre méthode et résultat fractionnaire calcul (n*a)/b
-            texteCorr += ` $${deprecatedTexFraction(
+            texteCorr += ` $${texFractionFromString(
                             a,
                             miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
                             b, 'blue'
                         )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(
                             b, 'blue'
-                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b, 'blue'))}$<br>`
+                        )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
           j = true
         }
@@ -147,7 +147,7 @@ export default function FractionDUnNombre () {
                     !j
         ) {
           // Si autres méthodes et si (a*n)/b décimal calcul (n*a)/b
-          texteCorr += ` $${deprecatedTexFraction(
+          texteCorr += ` $${texFractionFromString(
                         a,
                         miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
@@ -158,19 +158,19 @@ export default function FractionDUnNombre () {
         } else {
           // si autre méthode et résultat fractionnaire calcul (n*a)/b
           if (this.sup2 && !j) {
-            texteCorr += ` $${deprecatedTexFraction(
+            texteCorr += ` $${texFractionFromString(
                             a,
                             miseEnEvidence(b, 'blue')
                         )}\\times${n}=(${n}\\times${a})\\div${miseEnEvidence(
                             b, 'blue'
                         )}=${calculANePlusJamaisUtiliser(n * a)}\\div${miseEnEvidence(
                             b, 'blue'
-                        )}=${deprecatedTexFraction(n * a, miseEnEvidence(b, 'blue'))}$<br>`
+                        )}=${texFractionFromString(n * a, miseEnEvidence(b, 'blue'))}$<br>`
           }
         }
         // si autre méthode et a/b décimal calcul (a/b)*n
         if ((b === 2 || b === 4 || b === 5 || b === 8 || b === 10) && this.sup2) {
-          texteCorr += ` $${deprecatedTexFraction(
+          texteCorr += ` $${texFractionFromString(
                         a,
                         miseEnEvidence(b, 'blue')
                     )}\\times${n}=(${a}\\div${miseEnEvidence(
@@ -183,7 +183,7 @@ export default function FractionDUnNombre () {
 
       setReponse(this, i, calculANePlusJamaisUtiliser(n * a / b))
       if (n * a % b !== 0 && !context.isAmc) {
-        setReponse(this, i, [calculANePlusJamaisUtiliser(n * a / b), deprecatedTexFraction(n * a, b)])
+        setReponse(this, i, [calculANePlusJamaisUtiliser(n * a / b), texFractionFromString(n * a, b)])
       }
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       if (context.isAmc) {

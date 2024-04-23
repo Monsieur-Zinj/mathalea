@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre, texNombre2 } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
@@ -78,7 +78,7 @@ export default function PlacerLaVirgule () {
       if (!this.interactif) {
         texte += `$~~ = ~~\\phantom{......}${texNombre2(nombreentier)}$<br>`
       }
-      texteCorr = `Quand on multiplie par $${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}=${deprecatedTexFraction(1, calculANePlusJamaisUtiliser(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
+      texteCorr = `Quand on multiplie par $${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}=${texFractionFromString(1, calculANePlusJamaisUtiliser(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre(10 ** (-coef))}$ fois plus petite.<br>`
       texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
       texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))} = ${texNombre2(resultat)}$`// ${texNombre(Math.floor(resultat))}${miseEnEvidence(',')}${texNombre(resultat-Math.floor(resultat)).replace('0,','')}$`
 

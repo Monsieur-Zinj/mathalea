@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -73,9 +73,9 @@ export default function DevelopperIdentitesRemarquables3 () {
         fraction = choice(Fractions)
         ns = fraction[0]
         ds = fraction[1]
-        texte = `$${lettreDepuisChiffre(i + 1)} = \\left(${deprecatedTexFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}+${a}\\right)$` // b>1
-        texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${deprecatedTexFraction(ns, ds)}${choixLettre}-${a}\\right)\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}+${a}\\right)=\\left(${deprecatedTexFraction(ns, ds)}${choixLettre}\\right)^2-${a}^2=${deprecatedTexFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}$`
-        reponse = `${deprecatedTexFraction(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
+        texte = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFractionFromString(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFractionFromString(ns, ds)}${choixLettre}+${a}\\right)$` // b>1
+        texteCorr = `$${lettreDepuisChiffre(i + 1)} = \\left(${texFractionFromString(ns, ds)}${choixLettre}-${a}\\right)\\left(${texFractionFromString(ns, ds)}${choixLettre}+${a}\\right)=\\left(${texFractionFromString(ns, ds)}${choixLettre}\\right)^2-${a}^2=${texFractionFromString(ns * ns, ds * ds)}${choixLettre}^2-${a * a}$`
+        reponse = `${texFractionFromString(ns * ns, ds * ds)}${choixLettre}^2-${a * a}`
         reponse1 = new FractionEtendue(ns * ns, ds * ds)
       }
       if (this.sup2) {

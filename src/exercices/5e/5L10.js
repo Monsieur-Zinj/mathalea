@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
@@ -134,7 +134,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 3: // x/2
           texte = `Exprimer la moitié de $${x}$ en fonction de $${x}$.`
-          texteCorr = `La moitié de $${x}$  peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(x, 2)}`)}$ ou $${miseEnEvidence(`${x}\\div 2`)}$ ou $${miseEnEvidence(`0,5${x}`)}$.`
+          texteCorr = `La moitié de $${x}$  peut se noter : $${miseEnEvidence(`${texFractionFromString(x, 2)}`)}$ ou $${miseEnEvidence(`${x}\\div 2`)}$ ou $${miseEnEvidence(`0,5${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 2$`,
@@ -170,7 +170,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 4: // x/4
           texte = `Exprimer le quart de $${x}$  en fonction de $${x}$.`
-          texteCorr = `Le quart de $${x}$  peut se noter :  $${miseEnEvidence(`${deprecatedTexFraction(x, 4)}`)}$ ou $${miseEnEvidence(`${x}\\div 4`)}$ ou $${miseEnEvidence(`0,25${x}`)}$.`
+          texteCorr = `Le quart de $${x}$  peut se noter :  $${miseEnEvidence(`${texFractionFromString(x, 4)}`)}$ ou $${miseEnEvidence(`${x}\\div 4`)}$ ou $${miseEnEvidence(`0,25${x}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div 4$`,
@@ -386,7 +386,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 10: // 1/x
           texte = `Exprimer l'inverse de $${x}$  en fonction de $${x}$.`
-          texteCorr = `L'inverse de $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(1, x)}`)}$.`
+          texteCorr = `L'inverse de $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(1, x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$\\dfrac{1}{${x}}$`,
@@ -494,7 +494,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 15: // x/k
           texte = `Exprimer le quotient de $${x}$ par ${k} en fonction de $${x}$.`
-          texteCorr = `Le quotient de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(x, k)}`)}$.`
+          texteCorr = `Le quotient de $${x}$ par ${k} peut se noter : $${miseEnEvidence(`${texFractionFromString(x, k)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${x}\\div ${k}$`,
@@ -530,7 +530,7 @@ export default function ÉcrireUneExpressionLitterale () {
           break
         case 14: // k/x
           texte = `Exprimer le quotient de ${k} par $${x}$ en fonction de $${x}$.`
-          texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${deprecatedTexFraction(k, x)}`)}$.`
+          texteCorr = `Le quotient de ${k} par $${x}$ peut se noter : $${miseEnEvidence(`${texFractionFromString(k, x)}`)}$.`
           this.autoCorrection[i].propositions = [
             {
               texte: `$${k}\\div ${x}$`,

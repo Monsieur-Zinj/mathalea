@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -178,24 +178,24 @@ export default function RelationRec () {
           }
 
           if (T === 'la moitié') {
-            setReponse(this, 2 * i, ['0,5', `${deprecatedTexFraction(1, 2)}`])
+            setReponse(this, 2 * i, ['0,5', `${texFractionFromString(1, 2)}`])
             setReponse(this, 2 * i + 1, b)
           }
 
           if (T === 'le quart') {
-            setReponse(this, 2 * i, ['0,75', `${deprecatedTexFraction(3, 4)}`])
+            setReponse(this, 2 * i, ['0,75', `${texFractionFromString(3, 4)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le tiers') {
-            setReponse(this, 2 * i, [`${deprecatedTexFraction(2, 3)}`])
+            setReponse(this, 2 * i, [`${texFractionFromString(2, 3)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le cinquième') {
-            setReponse(this, 2 * i, ['0,8', `${deprecatedTexFraction(4, 5)}`])
+            setReponse(this, 2 * i, ['0,8', `${texFractionFromString(4, 5)}`])
             setReponse(this, 2 * i + 1, b)
           }
           if (T === 'le dixième') {
-            setReponse(this, 2 * i, ['0,9', `${deprecatedTexFraction(9, 10)}`])
+            setReponse(this, 2 * i, ['0,9', `${texFractionFromString(9, 10)}`])
             setReponse(this, 2 * i + 1, b)
           }
 

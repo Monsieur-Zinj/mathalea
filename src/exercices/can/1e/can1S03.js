@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -98,7 +98,7 @@ export default function CalculTermeSuiteRec2 () {
         d1 = fraction1[1]
         a = randint(1, 2) * choice([-1, 1])
         u = calculANePlusJamaisUtiliser(a * d1 * d1)
-        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
+        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFractionFromString(n1, d1)}u_n $.`
 
         if (!this.interactif) {
           this.question += `<br>
@@ -108,8 +108,8 @@ export default function CalculTermeSuiteRec2 () {
 
         this.correction = `On calcule successivement les termes jusqu'à obtenir $u_{${k}}$ :`
         for (let indice = 0; indice < k; indice++) {
-          this.correction += `<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
-          ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(u, arcenciel(indice, true)))}  = ${miseEnEvidence(u * n1 / d1, arcenciel(indice + 1, true))}$`
+          this.correction += `<br> $u_{${indice + 1}} = ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+          ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence(ecritureParentheseSiNegatif(u, arcenciel(indice, true)))}  = ${miseEnEvidence(u * n1 / d1, arcenciel(indice + 1, true))}$`
           u = n1 * a * d1
         }
         this.reponse = n1 * n1 * a

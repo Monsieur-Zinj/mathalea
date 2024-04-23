@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { texNombre, texRacineCarree } from '../../lib/outils/texNombre'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
@@ -143,12 +143,12 @@ export default function EquationAvecUnLogarithme () {
         } else { // a.x = b avec a non nul
           x1 = fractionSimplifiee(a[1], a[0])
           x2 = a[1] / a[0] // valeur approchée
-          texteCorr += `<br>Vérifions si la solution $x=${deprecatedTexFraction(x1[0], x1[1])}$ est bien dans le domaine de définition de l'équation : `
+          texteCorr += `<br>Vérifions si la solution $x=${texFractionFromString(x1[0], x1[1])}$ est bien dans le domaine de définition de l'équation : `
           faux = false
           // On va vérifier si la solution convient
           for (let j = 0; j < 2; j++) {
             const resultat = c[2 * j] * x2 + c[2 * j + 1]
-            texteCorr += `<br>$${c[2 * j]}\\times${deprecatedTexFraction(x1[0], x1[1])}${ecritureAlgebrique(c[2 * j + 1])}${EgalEnviron(resultat)}`
+            texteCorr += `<br>$${c[2 * j]}\\times${texFractionFromString(x1[0], x1[1])}${ecritureAlgebrique(c[2 * j + 1])}${EgalEnviron(resultat)}`
             if (c[2 * j] * x2 + c[2 * j + 1] > 0) {
               texteCorr += '> 0$'
             } else {

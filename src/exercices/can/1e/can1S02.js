@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { arcenciel } from '../../../lib/format/style'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -101,24 +101,24 @@ export default function CalculTermeSuiteRec () {
         d1 = fraction1[1]
         a = randint(1, 10) * choice([-1, 1])
         u = calculANePlusJamaisUtiliser(a * d1)
-        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
+        this.question = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFractionFromString(n1, d1)}u_n $.`
 
         if (!this.interactif) {
           this.question += `<br>
           Calculer $u_{${k}}$.`
-          this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${deprecatedTexFraction(n1, d1)}u_n $.`
+          this.canEnonce = `Soit $(u_n)$ une suite définie par $u_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $u_{n+1} = ${texFractionFromString(n1, d1)}u_n $.`
           this.canReponseACompleter = `$u_{${k}}=\\ldots$`
         } else { this.question += `<br> $u_{${k}}=$` }
 
         if (u < 0) {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
-          ${deprecatedTexFraction(n1, d1)}\\times (${miseEnEvidence(u, arcenciel(indice, true))})  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+          ${texFractionFromString(n1, d1)}\\times (${miseEnEvidence(u, arcenciel(indice, true))})  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
           }
         } else {
           for (let indice = 0; indice < k; indice++) {
-            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
-    ${deprecatedTexFraction(n1, d1)}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
+            this.correction = `En utilisant la relation de récurrence pour $n=0$, on obtient :<br> $u_{${indice + 1}} = ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence('u_{' + indice + '}', arcenciel(indice, true))}  =
+    ${texFractionFromString(n1, d1)}\\times ${miseEnEvidence(u, arcenciel(indice, true))}  = ${miseEnEvidence(n1 * a, arcenciel(indice + 1, true))}$`
           }
         }
         this.reponse = calculANePlusJamaisUtiliser(n1 * a)

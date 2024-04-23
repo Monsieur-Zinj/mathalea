@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
@@ -128,12 +128,12 @@ export default function ExerciceInequation1 () {
         if (a < 0) {
           texteCorr += `$${a}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a) +
             texSymbole(symboleInegaliteOppose))}${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${deprecatedTexFraction(c - b, a)}$`
+          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${texFractionFromString(c - b, a)}$`
           texteCorr += `<br>$x${texSymbole(symboleInegaliteOppose)}${texFractionReduite(c - b, a)}$`
         } else {
           texteCorr += `$${a}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}
             ${texSymbole(symboleInegalite)}${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegalite)}${deprecatedTexFraction(c - b, a)}$`
+          texteCorr += `$x${texSymbole(symboleInegalite)}${texFractionFromString(c - b, a)}$`
           if (pgcd(abs(a), abs(c - b)) > 1) {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(c - b, a)}$`
           }
@@ -188,12 +188,12 @@ export default function ExerciceInequation1 () {
         if (a < 0) {
           texteCorr += `$${a}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a) +
             texSymbole(symboleInegaliteOppose))}${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${deprecatedTexFraction(b, a)}$`
+          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${texFractionFromString(b, a)}$`
           texteCorr += `<br>$x${texSymbole(symboleInegaliteOppose)}${texFractionReduite(b, a)}$`
         } else {
           texteCorr += `$${a}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}
             ${texSymbole(symboleInegalite)}${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegalite)}${deprecatedTexFraction(b, a)}$`
+          texteCorr += `$x${texSymbole(symboleInegalite)}${texFractionFromString(b, a)}$`
           if (pgcd(abs(a), abs(b)) > 1 || a < 0) {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(b, a)}$`
           }
@@ -252,12 +252,12 @@ export default function ExerciceInequation1 () {
         if (a - c < 0) {
           texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c) +
             texSymbole(symboleInegaliteOppose))}${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${deprecatedTexFraction(d - b, a - c)}$`
+          texteCorr += `$x${texSymbole(symboleInegaliteOppose)}${texFractionFromString(d - b, a - c)}$`
           texteCorr += `<br>$x${texSymbole(symboleInegaliteOppose)}${texFractionReduite(d - b, a - c)}$`
         } else {
           texteCorr += `$${rienSi1(a - c)}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}
             ${texSymbole(symboleInegalite)}${d - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-          texteCorr += `$x${texSymbole(symboleInegalite)}${deprecatedTexFraction(d - b, a - c)}$`
+          texteCorr += `$x${texSymbole(symboleInegalite)}${texFractionFromString(d - b, a - c)}$`
           if (pgcd(abs(d - b), abs(a - c)) > 1 || a - c < 0) {
             texteCorr += `<br>$x${texSymbole(symboleInegalite)}${texFractionReduite(d - b, a - c)}$`
           }

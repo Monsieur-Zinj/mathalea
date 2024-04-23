@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -101,7 +101,7 @@ export default function ImageFonctionsRefs () {
           Math.random() < 0.25 && (nombre = arrondi(1 / nombre, 6))
           Math.random() < 0.5 && (nombre *= -1)
           solution = new FractionEtendue(1, nombre)
-          texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(deprecatedTexFraction(1, nombre))} = ${miseEnEvidence(solution.valeurDecimale)}$`
+          texteCorr = `$${nom}(${texNombre(nombre, 0)}) = ${miseEnEvidence(texFractionFromString(1, nombre))} = ${miseEnEvidence(solution.valeurDecimale)}$`
           break
       }
       const phrase = listePhrases[i] ? `$${nom}(${texNombre(nombre, 6)})$` : `l'image de $${texNombre(nombre, 6)}$ par la fonction $${nom}$`

@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi, rangeMinMax } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
@@ -155,7 +155,7 @@ export default function EchellesProblemes () {
                   gras: true
                 }
               ],
-              flecheDroite: { texte: '\\times' + deprecatedTexFraction(new Decimal(nb1Unite1).mul(echelleQ[0]), nb1Unite1), latex: true, color: 'blue', gras: true },
+              flecheDroite: { texte: '\\times' + texFractionFromString(new Decimal(nb1Unite1).mul(echelleQ[0]), nb1Unite1), latex: true, color: 'blue', gras: true },
               flecheHaut: [[2, 1, {
                 texte: '\\div' + texNombre(nb1Unite1, 2),
                 math: true,
@@ -182,7 +182,7 @@ export default function EchellesProblemes () {
             texteCorr += `Pour trouver l'échelle, il faut, d'abord, mettre ces deux distances dans la même unité.<br>Choisissons la plus petite des deux, soit le ${unite1}, et ainsi $${texNombre(nb2Unite2, 2)}$ ${unite2} = $${texNombre(nb2Unite1)}$ ${unite1}.<br>`
             texteCorr += `$${texNombre(nb1Unite1, 2)}$ ${unite1} sur le plan représente alors $${texNombre(nb2Unite1, 2)}$ ${unite1} dans la réalité et l'échelle du plan est donc, de $${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}.$<br>`
             texteCorr += 'Cette réponse est acceptée mais on a l\'habitude de trouver une fraction avec numérateur et dénominateur entiers et si possible, dont l\'un des deux est égal à 1.<br>'
-            texteCorr += `Or, $${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}=${deprecatedTexFraction(texNombre(nb1Unite1) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1), 'blue'), texNombre(nb2Unite1, 2) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1, 2), 'blue'))}=${reponse.simplifie().texFraction}$. `
+            texteCorr += `Or, $${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}=${texFractionFromString(texNombre(nb1Unite1) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1), 'blue'), texNombre(nb2Unite1, 2) + sp(2) + miseEnEvidence('\\div ' + sp(2) + texNombre(nb1Unite1, 2), 'blue'))}=${reponse.simplifie().texFraction}$. `
           }
           texteCorr += `Donc, l'échelle du plan ${echelleQ[1]}  ${quidam[2]} ${quidam[0]} de ${quidam2} est de : $${miseEnEvidence(reponse.simplifie().texFSP)}$.<br>`
           texteCorr += `Remarque : cela signifie que, sur le plan ${echelleQ[1]}  ${quidam[2]} ${quidam[0]} de ${quidam2}, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den)}$ ${unite1} en réalité, et donc, $1$ ${unite1} représente $${texNombre(reponse.simplifie().den / Math.pow(10, min(Math.floor(Math.log10(reponse.simplifie().den)), 6)), 2)}$ ${unite2} en réalité.`
@@ -372,7 +372,7 @@ export default function EchellesProblemes () {
           } else {
             texteCorr = `Une échelle de $${new FractionEtendue(1, echelleQ[0]).texFSD}$ signifie que $1$ ${unite1} sur le plan représente $${texNombre(echelleQ[0])}$ ${unite1} en réalité, soit $${texNombre(echelleQUnite2, 2)}$ ${unite2}.<br>`
             texteCorr += `Cherchons par combien multiplier $${texNombre(echelleQUnite2, 2)}$ ${unite2} pour obtenir $${texNombre(nb2Unite2, 3)}$ ${unite2}. $${sp(10)} ${texNombre(nb2Unite2, 2)}\\div${texNombre(echelleQUnite2, 2)}=${texNombre(nb1Unite1)}$<br>`
-            texteCorr += `$${new FractionEtendue(1, echelleQ[0]).texFSD}=${deprecatedTexFraction(1 + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'), texNombre(echelleQ[0]) + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'))}=${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}$ et donc, une distance de $${texNombre(nb2Unite1)}$ ${unite1} ($${texNombre(nb2Unite2)}$ ${unite2}) est représentée par un segment de $${texNombre(nb1Unite1)}$ ${unite1}.<br>`
+            texteCorr += `$${new FractionEtendue(1, echelleQ[0]).texFSD}=${texFractionFromString(1 + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'), texNombre(echelleQ[0]) + miseEnEvidence('\\times' + texNombre(nb1Unite1), 'blue'))}=${new FractionEtendue(nb1Unite1, nb2Unite1).texFSD}$ et donc, une distance de $${texNombre(nb2Unite1)}$ ${unite1} ($${texNombre(nb2Unite2)}$ ${unite2}) est représentée par un segment de $${texNombre(nb1Unite1)}$ ${unite1}.<br>`
           }
           texteCorr += `Le segment représentant $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité, tracé par ${quidam2}, sur le plan ${echelleQ[1]} de ${quidam[1]} ${quidam[0]}, mesure ${texteEnCouleurEtGras(stringNombre(reponse))} ${texteEnCouleurEtGras(unite1)}.`
 

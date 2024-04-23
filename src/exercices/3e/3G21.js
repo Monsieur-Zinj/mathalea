@@ -5,7 +5,7 @@ import { texteParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { creerBoutonMathalea2d } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -380,13 +380,13 @@ export default function ReciproqueThales () {
         // correction
         texteCorr += `D'une part on a $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
                     s15
-                )}}{${s14}\\times${miseEnEvidence(s15)}}=${deprecatedTexFraction(
+                )}}{${s14}\\times${miseEnEvidence(s15)}}=${texFractionFromString(
                     texNombre(dist12 * dist15, 3),
                     texNombre(dist14 * dist15, 4)
                 )}$.`
         texteCorr += `<br>D'autre part on a $\\dfrac{${s1 + s3}}{${s1 + s5}}=\\dfrac{${s13}}{${s15}}=\\dfrac{${s13}\\times${miseEnEvidence(
                     s14
-                )}}{${s15}\\times${miseEnEvidence(s14)}}=${deprecatedTexFraction(
+                )}}{${s15}\\times${miseEnEvidence(s14)}}=${texFractionFromString(
                     texNombre(dist13 * dist14, 3),
                     texNombre(dist14 * dist15, 4)
                 )}$.`

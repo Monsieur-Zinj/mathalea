@@ -1,6 +1,6 @@
 import { point } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -63,7 +63,7 @@ export default class NomExercice extends Exercice {
         couleur2: 'blue',
         cliquable: false
       })
-      texte = `Colorie $${deprecatedTexFraction(n, d)}$. ${mathalea2d({
+      texte = `Colorie $${texFractionFromString(n, d)}$. ${mathalea2d({
                 xmin: -0.5,
                 xmax: 18,
                 ymin,

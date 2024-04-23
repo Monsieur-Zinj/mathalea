@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois, nomDuMois } from '../../lib/outils/dateEtHoraires'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -107,7 +107,7 @@ export default function CalculerDesFrequences () {
 
         texte += '<br><br> Calculer la fréquence de la valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$.`
         texteCorr = 'La valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$ apparaît ` + `$${tirages[indexValeur][1]}$ fois.<br>Le nombre total de lancers est $${texNombre(nombreTirages)}$.<br>`
-        texteCorr += 'La fréquence de la valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$` + ' est ' + `$${miseEnEvidence(deprecatedTexFraction(tirages[indexValeur][1], texNombre(nombreTirages)))}=${miseEnEvidence(texNombre(calculANePlusJamaisUtiliser(tirages[indexValeur][1] / nombreTirages)))}$, `
+        texteCorr += 'La fréquence de la valeur ' + `$${calculANePlusJamaisUtiliser(nombreDes + indexValeur)}$` + ' est ' + `$${miseEnEvidence(texFractionFromString(tirages[indexValeur][1], texNombre(nombreTirages)))}=${miseEnEvidence(texNombre(calculANePlusJamaisUtiliser(tirages[indexValeur][1] / nombreTirages)))}$, `
         texteCorr += 'soit ' + `$${texNombre(calculANePlusJamaisUtiliser(tirages[indexValeur][1] * 100 / nombreTirages))}\\thickspace\\%$.`
         reponse = new FractionEtendue(tirages[indexValeur][1], nombreTirages)
       } else if (this.sup === 2) { // ici on trie des notes
@@ -129,7 +129,7 @@ export default function CalculerDesFrequences () {
 
         texte += `<br><br>Calculer la fréquence de la note $${notes[indexValeur]}$.`
         texteCorr = `La note $${notes[indexValeur]}$ a été obtenue $${frequence}$ fois.<br> Il y a $${nombreNotes}$ notes.<br>`
-        texteCorr += `Donc la fréquence de la note $${notes[indexValeur]}$ est : ` + `$${miseEnEvidence(deprecatedTexFraction(texNombre(frequence), texNombre(nombreNotes)))}$`
+        texteCorr += `Donc la fréquence de la note $${notes[indexValeur]}$ est : ` + `$${miseEnEvidence(texFractionFromString(texNombre(frequence), texNombre(nombreNotes)))}$`
         reponse = new FractionEtendue(frequence, nombreNotes)
         if (arrondi(frequence / nombreNotes, 3) === frequence / nombreNotes) { // valeurs exactes
           texteCorr += `$=${miseEnEvidence(texNombre(frequence / nombreNotes, 3))}$, ` // fréquence à 3 chiffres significatifs
@@ -185,7 +185,7 @@ export default function CalculerDesFrequences () {
         texte += '<br><br>Calculer la fréquence de la température ' + `$${temperatures[indexValeur]}^\\circ\\text{C}$.`
         texteCorr = `En ${nomDuMois(mois)} ${annee}, à ${choice(['Moscou', 'Berlin', 'Paris', 'Bruxelles', 'Rome', 'Belgrade'])}, la température $${temperatures[indexValeur]}^\\circ\\text{C}$ a été relevée $${frequence}$ fois.<br>`
         texteCorr += `Il y a $${joursParMois(mois, annee)}$ jours ce mois-ci.<br> La fréquence de la température $${temperatures[indexValeur]}^\\circ\\text{C}$ est : `
-        texteCorr += `$${miseEnEvidence(deprecatedTexFraction(texNombre(frequence), texNombre(joursParMois(mois, annee))))}$`
+        texteCorr += `$${miseEnEvidence(texFractionFromString(texNombre(frequence), texNombre(joursParMois(mois, annee))))}$`
         reponse = new FractionEtendue(frequence, joursParMois(mois, annee))
         if (arrondi(frequence / nombreTemperatures, 3) === frequence / nombreTemperatures) { // valeurs exactes
           texteCorr += `$=${miseEnEvidence(texNombre(frequence / nombreTemperatures, 3))}$, `

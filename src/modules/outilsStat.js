@@ -1,6 +1,6 @@
 import { choice } from '../lib/outils/arrayOutils'
 import { nomDuMois } from '../lib/outils/dateEtHoraires'
-import { deprecatedTexFraction } from '../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../lib/outils/ecritures'
 import { lampeMessage } from '../lib/format/message.js'
 import { arrondi } from '../lib/outils/nombres'
@@ -195,7 +195,7 @@ function computeMoyenne (notes) {
     somme += notes[j]
   }
 
-  return [deprecatedTexFraction(somme, notes.length), somme]
+  return [texFractionFromString(somme, notes.length), somme]
 }
 
 function computeMediane (notes) {
@@ -228,7 +228,7 @@ function computeMoyenneTirages2D (tirages) {
     somme += tirages[k][0] * tirages[k][1]
     effectif += tirages[k][1]
   }
-  return [deprecatedTexFraction(somme, effectif), somme, effectif]
+  return [texFractionFromString(somme, effectif), somme, effectif]
 }
 
 function computeMedianeTirages2D (nombreTirages, tirages) {

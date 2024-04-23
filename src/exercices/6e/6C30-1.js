@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -128,10 +128,10 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${deprecatedTexFraction(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
-          texteCorr = `$${deprecatedTexFraction(a, den)} \\times ${texNombre(
+          texte = `$${texFractionFromString(a, den)}\\times${texNombre(b)}= ${this.interactif ? '' : '\\ldots'}$`
+          texteCorr = `$${texFractionFromString(a, den)} \\times ${texNombre(
                         b
-                    )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
+                    )} = ${texFractionFromString(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
           reponse = calculANePlusJamaisUtiliser(a * b / den)
           break
         case 4: // 10 × abcd/10
@@ -145,11 +145,11 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texNombre(b)}\\times${deprecatedTexFraction(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
-          texteCorr = `$${texNombre(b)} \\times ${deprecatedTexFraction(
+          texte = `$${texNombre(b)}\\times${texFractionFromString(a, den)}= ${this.interactif ? '' : '\\ldots'}$`
+          texteCorr = `$${texNombre(b)} \\times ${texFractionFromString(
                         a,
                         den
-                    )} = ${deprecatedTexFraction(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
+                    )} = ${texFractionFromString(a * b, den)} = ${miseEnEvidence(texNombre((a / den) * b))}$`
           reponse = calculANePlusJamaisUtiliser(a * b / den)
           break
         case 5: // .... × 10 = a,abcd
@@ -195,12 +195,12 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${deprecatedTexFraction(a, den)}\\times \\ldots = ${texNombre(
+          texte = `$${texFractionFromString(a, den)}\\times \\ldots = ${texNombre(
                         (a / den) * b
                     )}$`
-          texteCorr = `$${deprecatedTexFraction(a, den)} \\times ${miseEnEvidence(
+          texteCorr = `$${texFractionFromString(a, den)} \\times ${miseEnEvidence(
                         texNombre(b)
-                    )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
+                    )} = ${texFractionFromString(a * b, den)} = ${texNombre((a / den) * b)}$`
           reponse = b
           break
         case 8: // case 4 avec un trou sur l'entier
@@ -214,12 +214,12 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$ \\ldots \\times${deprecatedTexFraction(a, den)}= ${texNombre(
+          texte = `$ \\ldots \\times${texFractionFromString(a, den)}= ${texNombre(
                         (a / den) * b
                     )}$`
           texteCorr = `$${miseEnEvidence(
                         texNombre(b)
-                    )} \\times ${deprecatedTexFraction(a, den)} = ${deprecatedTexFraction(
+                    )} \\times ${texFractionFromString(a, den)} = ${texFractionFromString(
                         a * b,
                         den
                     )} = ${texNombre((a / den) * b)}$`
@@ -236,13 +236,13 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${deprecatedTexFraction(a, '\\ldots')}\\times${texNombre(
+          texte = `$${texFractionFromString(a, '\\ldots')}\\times${texNombre(
                         b
                     )} = ${texNombre((a / den) * b)}$`
-          texteCorr = `$${deprecatedTexFraction(
+          texteCorr = `$${texFractionFromString(
                         a,
                         miseEnEvidence(texNombre(den))
-                    )} \\times ${texNombre(b)} = ${deprecatedTexFraction(
+                    )} \\times ${texNombre(b)} = ${texFractionFromString(
                         a * b,
                         den
                     )} = ${texNombre((a / den) * b)}$`
@@ -259,14 +259,14 @@ export default function MultiplierDecimauxPar101001000 () {
           } else {
             den = choice([10, 100, 1000])
           }
-          texte = `$${texNombre(b)}\\times${deprecatedTexFraction(
+          texte = `$${texNombre(b)}\\times${texFractionFromString(
                         a,
                         '\\ldots'
                     )} = ${texNombre((a / den) * b)}$`
-          texteCorr = `$${texNombre(b)} \\times ${deprecatedTexFraction(
+          texteCorr = `$${texNombre(b)} \\times ${texFractionFromString(
                         a,
                         miseEnEvidence(texNombre(den))
-                    )} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b)}$`
+                    )} = ${texFractionFromString(a * b, den)} = ${texNombre((a / den) * b)}$`
           reponse = den
           break
       }

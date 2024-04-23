@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
@@ -61,7 +61,7 @@ export default function CoefficientDirecteurDeDroite () {
           texteCorr += "<br>La droite $(AB)$ n'est donc pas verticale."
           texteCorr += '<br>On peut donc calculer le coefficient directeur $m$ de la droite.'
           texteCorr += "<br>On sait d'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$."
-          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n, d)}`
+          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFractionFromString(n, d)}`
           if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
             texteCorr += `=${texFractionReduite(n, d)}`
           }

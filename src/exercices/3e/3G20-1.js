@@ -5,7 +5,7 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPoint } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -146,9 +146,9 @@ export default function ProblemesThales () {
         }, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels)
 
         texteCorr = `Dans le triangle $${nomA + nomB + nomD}$, $M$ est un point de $[${nomA + nomB}]$, $N$ est un point de $[${nomA + nomD}]$ et $(MN)$ est parallèle à $(${nomB + nomD})$ donc d'après le théorème de Thalès on a : `
-        texteCorr += `<br><br> $${deprecatedTexFraction(nomA + 'M', nomA + nomB)}=${deprecatedTexFraction(nomA + 'N', nomA + nomD)}=${deprecatedTexFraction('MN', nomB + nomD)}$`
-        texteCorr += `<br><br> $${deprecatedTexFraction(nomA + 'M', nomA + nomB)}=${deprecatedTexFraction(nomA + 'N', BC)}=${deprecatedTexFraction(texNombre(MN, 1), BD)}$`
-        texteCorr += `<br><br> $${nomA}N = ${deprecatedTexFraction(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}$ cm`
+        texteCorr += `<br><br> $${texFractionFromString(nomA + 'M', nomA + nomB)}=${texFractionFromString(nomA + 'N', nomA + nomD)}=${texFractionFromString('MN', nomB + nomD)}$`
+        texteCorr += `<br><br> $${texFractionFromString(nomA + 'M', nomA + nomB)}=${texFractionFromString(nomA + 'N', BC)}=${texFractionFromString(texNombre(MN, 1), BD)}$`
+        texteCorr += `<br><br> $${nomA}N = ${texFractionFromString(BC + '\\times' + stringNombre(MN), BD)}=${texNombre(MN.mul(BC).div(BD), 1)}$ cm`
         texteCorr += `<br><br> Les points $${nomA}$, $N$ et $${nomD}$ sont alignés dans cet ordre donc $N${nomD}=${nomA + nomD}-${nomA}N= ${BC}-${texNombre(MN.mul(BC).div(BD), 1)}=${texNombre(MN.mul(-BC).div(BD).plus(BC), 1)}$ cm.`
         break
     }

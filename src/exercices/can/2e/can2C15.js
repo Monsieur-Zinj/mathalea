@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, obtenirListeFractionsIrreductibles } from '../../../lib/outils/deprecatedFractions.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -40,18 +40,18 @@ export default function NombreInverse () {
     if (choice([true, false])) {
       this.reponse = new FractionEtendue(a * c + b, c).inverse()
       this.question = `Calculer $${Nom}$  sachant que : <br>
-     $\\dfrac{1}{${Nom}}=${a}+${deprecatedTexFraction(b, c)}$`
-      this.correction = `$\\dfrac{1}{${Nom}}=${a}+${deprecatedTexFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$<br><br>
+     $\\dfrac{1}{${Nom}}=${a}+${texFractionFromString(b, c)}$`
+      this.correction = `$\\dfrac{1}{${Nom}}=${a}+${texFractionFromString(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} + \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} + \\dfrac{${b}}{${c}}  =${d.texFraction}$<br><br>
     Ainsi $${Nom}=${miseEnEvidence(`${d.inverse().texFraction}`)}$.`
-      this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}+${deprecatedTexFraction(b, c)}$`// 'Compléter'
+      this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}+${texFractionFromString(b, c)}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
     } else {
       this.reponse = new FractionEtendue(a * c - b, c).inverse()
       this.question = `Calculer $${Nom}$  sachant que : <br>
-         $\\dfrac{1}{${Nom}}=${a}-${deprecatedTexFraction(b, c)}$`
-      this.correction = `$\\dfrac{1}{${Nom}}=${a}-${deprecatedTexFraction(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${e.texFraction}$<br><br>
+         $\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$`
+      this.correction = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)} = \\dfrac{${a} \\times ${c}}{${c}} - \\dfrac{${b}}{${c}} = \\dfrac{${a * c}}{${c}} - \\dfrac{${b}}{${c}}  =${e.texFraction}$<br><br>
         Ainsi $${Nom}=${miseEnEvidence(`${e.inverse().texFraction}`)}$.`
-      this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}-${deprecatedTexFraction(b, c)}$`// 'Compléter'
+      this.canEnonce = `$\\dfrac{1}{${Nom}}=${a}-${texFractionFromString(b, c)}$`// 'Compléter'
       this.canReponseACompleter = `$${Nom}=\\ldots$`
     }
   }

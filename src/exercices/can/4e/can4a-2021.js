@@ -6,7 +6,7 @@ import { labelPoint, texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice, combinaisonListes, shuffle } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import {
-  deprecatedTexFraction,
+  texFractionFromString,
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../../lib/outils/deprecatedFractions.js'
@@ -607,7 +607,7 @@ export default function SujetCAN20214ieme () {
           r = (new FractionEtendue(-fraction2[0], fraction2[1])).simplifie()
           texte = `$A=${a.texFraction} -${b.texFraction}$<br>
            Donne la valeur de $A$ sous la forme d'une fraction simplifiée au maximum ou d'un nombre entier.`
-          texteCorr = ` $A=${a.texFraction} -${b.texFraction}=${deprecatedTexFraction(2 * fraction2[0], 2 * fraction2[1])}-${b.texFraction}=${deprecatedTexFraction(-2 * fraction2[0], 2 * fraction2[1])}=${miseEnEvidence(texFractionReduite(-2 * fraction2[0], 2 * fraction2[1]))}$.
+          texteCorr = ` $A=${a.texFraction} -${b.texFraction}=${texFractionFromString(2 * fraction2[0], 2 * fraction2[1])}-${b.texFraction}=${texFractionFromString(-2 * fraction2[0], 2 * fraction2[1])}=${miseEnEvidence(texFractionReduite(-2 * fraction2[0], 2 * fraction2[1]))}$.
            <br>
           `
 

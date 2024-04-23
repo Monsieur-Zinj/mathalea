@@ -1,7 +1,7 @@
 import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { shuffle } from '../../lib/outils/arrayOutils'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import {
   nombreDeChiffresDansLaPartieDecimale,
   nombreDeChiffresDansLaPartieEntiere,
@@ -132,8 +132,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 10), 10)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x2 - Math.floor(x2))), 10)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFractionFromString(calculANePlusJamaisUtiliser(x3 * 10), 10)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1, { formatInteractif: 'calcul' })
           setReponse(this, 1, Math.floor(x2), { formatInteractif: 'calcul' })
@@ -277,8 +277,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de $${noms[0]}$ est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 100), 100)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de $${noms[1]}$ est : $${texNombre(Math.floor(x2))} + ${texFractionFromString(calculANePlusJamaisUtiliser(100 * (x2 - Math.floor(x2))), 100)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de $${noms[2]}$ est : $${texFractionFromString(calculANePlusJamaisUtiliser(x3 * 100), 100)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))
@@ -426,8 +426,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
         texte3 = `${numAlpha(1)} ` + texte3
         texteCorr = `${numAlpha(0)} L'abscisse de ${noms[0]} est : $${texNombre(x1)}$.<br>`
-        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${deprecatedTexFraction(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
-        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${deprecatedTexFraction(calculANePlusJamaisUtiliser(x3 * 1000), 1000)}$.`
+        texteCorr += `${numAlpha(1)} L'abscisse de ${noms[1]} est : $${texNombre(Math.floor(x2))} + ${texFractionFromString(calculANePlusJamaisUtiliser(1000 * (x2 - Math.floor(x2))), 1000)}$.<br>`
+        texteCorr += `${numAlpha(2)} L'abscisse de ${noms[2]} est : $${texFractionFromString(calculANePlusJamaisUtiliser(x3 * 1000), 1000)}$.`
         if (!context.isAmc) {
           setReponse(this, 0, x1)
           setReponse(this, 1, Math.floor(x2))

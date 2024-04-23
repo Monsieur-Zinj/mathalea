@@ -1,6 +1,6 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -72,7 +72,7 @@ export default function MultiplierPar001 () {
       switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
           texte = `$${texNombre2(nombre)} \\times ${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}${sp(2)}=${sp(2)}\\ldots\\ldots\\ldots\\ldots$`
-          texteCorr = `Quand on multiplie par $${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}=${deprecatedTexFraction(1, calculANePlusJamaisUtiliser(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre2(calculANePlusJamaisUtiliser(10 ** (-coef)))}$ fois plus petite.<br>`
+          texteCorr = `Quand on multiplie par $${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}=${texFractionFromString(1, calculANePlusJamaisUtiliser(10 ** (-coef)))}$, chaque chiffre prend une valeur $${texNombre2(calculANePlusJamaisUtiliser(10 ** (-coef)))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${texNombre2(nombre)} \\times ${texNombre2(calculANePlusJamaisUtiliser(10 ** coef))}${sp(2)}=${sp(2)}${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
@@ -104,7 +104,7 @@ export default function MultiplierPar001 () {
 
         case 2:
           texte = `$${texNombre2(nombre)} \\times \\ldots\\ldots\\ldots${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${deprecatedTexFraction(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${texNombre2(nombre)} \\times ${miseEnEvidence(texNombre2(10 ** coef), 'blue')}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}
@@ -135,7 +135,7 @@ export default function MultiplierPar001 () {
 
         case 3:
           texte = `$\\ldots\\ldots\\ldots\\ldots \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
-          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${deprecatedTexFraction(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
+          texteCorr = `Quand on multiplie par $${texNombre2(10 ** coef)}=${texFractionFromString(1, 10 ** (-coef))}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
           texteCorr += `$${miseEnEvidence(texNombre2(nombre), 'blue')} \\times ${texNombre2(10 ** coef)}${sp(2)}=${sp(2)}${texNombre2(resultat)}$`
           this.autoCorrection[i] = {}

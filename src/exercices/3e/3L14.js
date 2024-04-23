@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
@@ -114,7 +114,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + texte
           texteCorr += '<br> Soit ' + (choix === 0 ? `$x+${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x+${b}=0$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=-${deprecatedTexFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${deprecatedTexFraction(d, c)}$` : `$x=${-b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=-${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${-b}$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
           if (-b * c === -d) {
             setReponse(this, i, `${-b}`)
@@ -138,7 +138,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + texte
           texteCorr += '<br> Soit ' + (choix === 0 ? `$x-${b}=0$` : `$${c}x+${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x+${d}=0$` : `$x-${b}=0$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=-${deprecatedTexFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${deprecatedTexFraction(d, c)}$` : `$x=${b}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=-${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${b}$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${b}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${b};${-d / c}`, `${-d / c};${b}`])
@@ -156,7 +156,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
           texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${-d}$`
-          texteCorr += '<br> Donc ' + `$x=-${deprecatedTexFraction(b, a)}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${deprecatedTexFraction(d, c)}$`
+          texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFractionFromString(d, c)}$`
           texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${-d / c}$`
           if (-b * c === -d * a) {
             setReponse(this, i, `${-b / a}`)
@@ -180,7 +180,7 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + texte
           texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${-b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${-b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${deprecatedTexFraction(b, a)}$` : `$x=${deprecatedTexFraction(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${deprecatedTexFraction(d, c)}$` : `$x=-${deprecatedTexFraction(b, a)}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFractionFromString(b, a)}$` : `$x=${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFractionFromString(d, c)}$` : `$x=-${texFractionFromString(b, a)}$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b / a}$` : `$x=${d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${d / c}$` : `$x=${-b / a}$`)
           // il ne peut y avoir de solution double, il y a un positif et un négatif
           setReponse(this, i, [`${-b / a};${d / c}`, `${d / c};${-b / a}`])
@@ -198,12 +198,12 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr += '<br> Soit ' + `$${a}x+${b}=0$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x+${d}=0$`
           texteCorr += '<br> Donc ' + `$${a}x=${0 - b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${0 - d}$`
-          texteCorr += '<br> Donc ' + `$x=-${deprecatedTexFraction(b, a)}$`
-          if (deprecatedTexFraction(b, a) !== texFractionReduite(b, a)) {
+          texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$`
+          if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
             texteCorr += `$=-${texFractionReduite(b, a)}$`
           }
-          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${deprecatedTexFraction(d, c)}$`
-          if (deprecatedTexFraction(d, c) !== texFractionReduite(d, c)) {
+          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFractionFromString(d, c)}$`
+          if (texFractionFromString(d, c) !== texFractionReduite(d, c)) {
             texteCorr += `$=-${texFractionReduite(d, c)}$`
           }
           if (b * c === d * a) {
@@ -232,23 +232,23 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br>' + texte
           texteCorr += '<br> Soit ' + (choix === 0 ? `$${a}x+${b}=0$` : `$${c}x-${d}=0$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x-${d}=0$` : `$${a}x+${b}=0$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$${a}x=${0 - b}$` : `$${c}x=${d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${d}$` : `$${a}x=${0 - b}$`)
-          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${deprecatedTexFraction(b, a)}$` : `$x=${deprecatedTexFraction(d, c)}$`)
+          texteCorr += '<br> Donc ' + (choix === 0 ? `$x=-${texFractionFromString(b, a)}$` : `$x=${texFractionFromString(d, c)}$`)
           if (choix === 0) {
-            if (deprecatedTexFraction(b, a) !== texFractionReduite(b, a)) {
+            if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
               texteCorr += `$=-${texFractionReduite(b, a)}$`
             }
           } else {
-            if (deprecatedTexFraction(d, c) !== texFractionReduite(d, c)) {
+            if (texFractionFromString(d, c) !== texFractionReduite(d, c)) {
               texteCorr += `$=${texFractionReduite(d, c)}$`
             }
           }
-          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${deprecatedTexFraction(d, c)}$` : `$x=-${deprecatedTexFraction(b, a)}$`)
+          texteCorr += ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${texFractionFromString(d, c)}$` : `$x=-${texFractionFromString(b, a)}$`)
           if (choix === 1) {
-            if (deprecatedTexFraction(b, a) !== texFractionReduite(b, a)) {
+            if (texFractionFromString(b, a) !== texFractionReduite(b, a)) {
               texteCorr += `$=-${texFractionReduite(b, a)}$`
             }
           } else {
-            if (deprecatedTexFraction(d, c) !== texFractionReduite(d, c)) {
+            if (texFractionFromString(d, c) !== texFractionReduite(d, c)) {
               texteCorr += `$=${texFractionReduite(d, c)}$`
             }
           }

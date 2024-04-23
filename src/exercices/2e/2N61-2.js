@@ -4,7 +4,7 @@ import { texSymbole, texteGras } from '../../lib/format/style'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
@@ -150,12 +150,12 @@ export default function ExerciceInequationProduit () {
             texteCorr += miseEnEvidence(symbolePlusPetit)
           }
           texteCorr += `${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${symbolePlusPetit}${deprecatedTexFraction(-var2, var1)}$`
+          texteCorr += `$x${symbolePlusPetit}${texFractionFromString(-var2, var1)}$`
           texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusPetit} ${texFractionReduite(-var2, var1)}$`
         } else { // sinon elle ne change pas de sens
           texteCorr += `$${var1}x${miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}
             ${symbolePlusGrand}${-var2 + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(var1))}$<br>`
-          texteCorr += `$x${symbolePlusGrand} ${deprecatedTexFraction(-var2, var1)}$`
+          texteCorr += `$x${symbolePlusGrand} ${texFractionFromString(-var2, var1)}$`
           texteCorr += `<br>Donc $${var1}x${ecritureAlgebrique(var2)}${symbolePlusGrand}0$ si et seulement si $x${symbolePlusGrand}${texFractionReduite(-var2, var1)}$`
         }
       }
