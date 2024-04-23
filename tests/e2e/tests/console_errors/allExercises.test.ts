@@ -169,6 +169,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('2e')
   // testRunAllLots('1e')
   prefs.headless = true
-  testRunAllLots('3e/3G22')
-  testRunAllLots('3e/3G30-1')
+  // testRunAllLots('3e/3G22')
+  testRunAllLots('4e/4C25-1')
 }
