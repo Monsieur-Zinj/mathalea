@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texPrix } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -61,7 +61,7 @@ export default function VariationEnPourcentages () {
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
         }
 
-        texteCorr = `$\\text{Diminution : }${deprecatedTexFraction(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
+        texteCorr = `$\\text{Diminution : }${texFractionFromString(taux, 100)}\\times  ${texPrix(prix)} = ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}-${texPrix(prix * taux / 100)}=${texPrix(prix - prix * taux / 100)}$ €`
       } else {
@@ -75,7 +75,7 @@ export default function VariationEnPourcentages () {
         } else { // partie latex
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\, \\%$.<br><br>`
         }
-        texteCorr = `$\\text{Augmentation : }${deprecatedTexFraction(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
+        texteCorr = `$\\text{Augmentation : }${texFractionFromString(taux, 100)}\\times  ${texPrix(prix)}= ${texPrix(prix * taux)}\\div 100=${texPrix(prix * taux / 100)}$ €`
         texteCorr += '<br>'
         texteCorr += `$\\text{Nouveau prix : }${texPrix(prix)}+${texPrix(prix * taux / 100)}=${texPrix(prix * (1 + taux / 100))}$ €`
       }

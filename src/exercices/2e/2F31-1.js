@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -90,44 +90,44 @@ export default function ComparerAvecFctRef () {
             d3 = d1 * d2
             n3 = n1 * d2
             n4 = n2 * d1
-            texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$ et $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$.`
+            texte = `En utilisant le sens de variation d'une fonction de référence, comparer $\\left(${texFractionFromString(n1, d1)}\\right)^2$ et $\\left(${texFractionFromString(n2, d2)}\\right)^2$.`
             texteCorr = `On doit comparer les carrés de deux nombres. On utilise donc la fonction carré.<br>
             La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
             if (n1 === n2) {
-              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
+              texteCorr += `<br>On commence par comparer les fractions $${texFractionFromString(n1, d1)}$ et $${texFractionFromString(n2, d2)}$. <br>
             Les fractions ont le même numérateur. La plus grande est celle qui a le plus petit dénominateur. <br>
             `
               if (d1 < d2) {
-                texteCorr += `On a $${d1}<${d2}$, donc $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
-                <br>Comme $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${d1}<${d2}$, donc $${texFractionFromString(n2, d2)}<${texFractionFromString(n1, d1)}$.<br>
+                <br>Comme $${texFractionFromString(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n1, d1)}$, alors $\\left(${texFractionFromString(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFractionFromString(n1, d1)}\\right)^2$`
               } else {
-                texteCorr += `On a $${d2}<${d1}$, donc $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
-                <br> Comme,  $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${d2}<${d1}$, donc $${texFractionFromString(n1, d1)}<${texFractionFromString(n2, d2)}$.<br>
+                <br> Comme,  $${texFractionFromString(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n2, d2)}$, alors $\\left(${texFractionFromString(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFractionFromString(n2, d2)}\\right)^2$`
               }
             }
             if (d1 === d2) {
-              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
+              texteCorr += `<br>On commence par comparer les fractions $${texFractionFromString(n1, d1)}$ et $${texFractionFromString(n2, d2)}$. <br>
             Les fractions ont le même dénomérateur. La plus grande est celle qui a le plus grand numérateur. <br>
             `
               if (n2 < n1) {
-                texteCorr += `On a $${n2}<${n1}$, donc $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
-                <br>Comme $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('<', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${n2}<${n1}$, donc $${texFractionFromString(n2, d2)}<${texFractionFromString(n1, d1)}$.<br>
+                <br>Comme $${texFractionFromString(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n1, d1)}$, alors $\\left(${texFractionFromString(n2, d2)}\\right)^2${miseEnEvidence('<', 'blue')}\\left(${texFractionFromString(n1, d1)}\\right)^2$`
               } else {
-                texteCorr += `On a $${n1}<${n2}$, donc $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
-                <br>Comme,  $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${n1}<${n2}$, donc $${texFractionFromString(n1, d1)}<${texFractionFromString(n2, d2)}$.<br>
+                <br>Comme,  $${texFractionFromString(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n2, d2)}$, alors $\\left(${texFractionFromString(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFractionFromString(n2, d2)}\\right)^2$`
               }
             }
             if (n1 !== n2 && d1 !== d2) {
-              texteCorr += `<br>On commence par comparer les fractions $${deprecatedTexFraction(n1, d1)}$ et $${deprecatedTexFraction(n2, d2)}$. <br>
-          Pour cela on les met au même dénominateur : $${deprecatedTexFraction(n1, d1)}= ${deprecatedTexFraction(n3, d3)}$ et $${deprecatedTexFraction(n2, d2)}= ${deprecatedTexFraction(n4, d3)}$<br>
+              texteCorr += `<br>On commence par comparer les fractions $${texFractionFromString(n1, d1)}$ et $${texFractionFromString(n2, d2)}$. <br>
+          Pour cela on les met au même dénominateur : $${texFractionFromString(n1, d1)}= ${texFractionFromString(n3, d3)}$ et $${texFractionFromString(n2, d2)}= ${texFractionFromString(n4, d3)}$<br>
           `
               if (n3 < n4) {
-                texteCorr += `On a $${n3}<${n4}$, donc $${deprecatedTexFraction(n3, d3)}<${deprecatedTexFraction(n4, d3)}$, soit $${deprecatedTexFraction(n1, d1)}<${deprecatedTexFraction(n2, d2)}$.<br>
-                <br>Comme $${deprecatedTexFraction(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n2, d2)}$, alors $\\left(${deprecatedTexFraction(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n2, d2)}\\right)^2$`
+                texteCorr += `On a $${n3}<${n4}$, donc $${texFractionFromString(n3, d3)}<${texFractionFromString(n4, d3)}$, soit $${texFractionFromString(n1, d1)}<${texFractionFromString(n2, d2)}$.<br>
+                <br>Comme $${texFractionFromString(n1, d1)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n2, d2)}$, alors $\\left(${texFractionFromString(n1, d1)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFractionFromString(n2, d2)}\\right)^2$`
               } else {
-                texteCorr += `On a $${n4}<${n3}$, donc $${deprecatedTexFraction(n4, d3)}<${deprecatedTexFraction(n3, d3)}$ , soit $${deprecatedTexFraction(n2, d2)}<${deprecatedTexFraction(n1, d1)}$.<br>
-                <br>Comme,  $${deprecatedTexFraction(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${deprecatedTexFraction(n1, d1)}$, alors $\\left(${deprecatedTexFraction(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${deprecatedTexFraction(n1, d1)}\\right)^2$`
+                texteCorr += `On a $${n4}<${n3}$, donc $${texFractionFromString(n4, d3)}<${texFractionFromString(n3, d3)}$ , soit $${texFractionFromString(n2, d2)}<${texFractionFromString(n1, d1)}$.<br>
+                <br>Comme,  $${texFractionFromString(n2, d2)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texFractionFromString(n1, d1)}$, alors $\\left(${texFractionFromString(n2, d2)}\\right)^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\left(${texFractionFromString(n1, d1)}\\right)^2$`
               }
             }
           }

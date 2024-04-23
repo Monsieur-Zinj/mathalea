@@ -77,13 +77,13 @@ export default function MilieuEntre1EtFraction () {
       style: 'margin: auto'
     }, objets)
     /* Avant
-    // this.correction = `On calcule la moyenne de $1$ et $${deprecatedTexFraction(n, d)}$ :<br>
-    $x_I=\\dfrac{1+${deprecatedTexFraction(n, d)}}{2}=
-    \\dfrac{${deprecatedTexFraction(d, d)}+${deprecatedTexFraction(n, d)}}{2}=
-    ${deprecatedTexFraction(n + d, d)}\\times \\dfrac{1}{2}=
-      ${deprecatedTexFraction(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}$ <br><br>`
+    // this.correction = `On calcule la moyenne de $1$ et $${texFractionFromString(n, d)}$ :<br>
+    $x_I=\\dfrac{1+${texFractionFromString(n, d)}}{2}=
+    \\dfrac{${texFractionFromString(d, d)}+${texFractionFromString(n, d)}}{2}=
+    ${texFractionFromString(n + d, d)}\\times \\dfrac{1}{2}=
+      ${texFractionFromString(d + n, 2 * d)} ${simplificationDeFractionAvecEtapes(d + n, 2 * d)}$ <br><br>`
     this.correction += texteEnCouleur(` Mentalement : <br>
-      On calcule d'abord  $1+${deprecatedTexFraction(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
+      On calcule d'abord  $1+${texFractionFromString(n, d)}$ en n'oubliant pas que $1=\\dfrac{${d}}{${d}}$, puis on multiplie le résultat par $\\dfrac{1}{2}$. `)
 
       this.reponse = texFractionReduite(d + n, 2 * d)
       */

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { choice, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -106,9 +106,9 @@ export default function Exercice_fractions_simplifier (max = 11) {
                 '$ ' +
                 fractionInitale +
                 ' = ' +
-                deprecatedTexFraction('\\phantom{00000000000000}', '') +
+                texFractionFromString('\\phantom{00000000000000}', '') +
                 ' = ' +
-                deprecatedTexFraction('\\phantom{0000}', '') +
+                texFractionFromString('\\phantom{0000}', '') +
                 ' $'
       }
       texteCorr = ''
@@ -116,7 +116,7 @@ export default function Exercice_fractions_simplifier (max = 11) {
         texteCorr += '$ ' +
                 fractionInitale +
                 ' = ' +
-                deprecatedTexFraction(new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(b).mul(tabDiviseursDek[ee])) +
+                texFractionFromString(new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(k).div(tabDiviseursDek[ee]) + ' \\times ' + new Decimal(b).mul(tabDiviseursDek[ee])) +
                 ' = ' +
                 (!this.sup2 || ee === 0 // On met tout en couleur qd on veut toutes les simplifications ou seulement la dernière si simplification maximale
                   ? miseEnEvidence(new FractionEtendue(new Decimal(a).mul(tabDiviseursDek[ee]), new Decimal(b).mul(tabDiviseursDek[ee])).texFraction)

@@ -3,7 +3,7 @@ import { repere } from '../../../lib/2d/reperes.js'
 import { segment } from '../../../lib/2d/segmentsVecteurs.js'
 import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -53,7 +53,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>
     On a  $b=${b}$ et :`
-    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=${deprecatedTexFraction(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
+    this.correction += texteCentre(`$a=\\dfrac{\\text{Dénivelé vertical}}{\\text{Déplacement horizontal}}=${texFractionFromString(miseEnEvidence(a, 'red'), miseEnEvidence(1, 'green'))}=${a}$`)
     this.correction += `On en déduit que la fonction $f$ est définie par $f(x)=${reduireAxPlusB(a, b)}$.<br>`
     if (a > 0) {
       s1 = segment(0, b, 1, b, 'green')

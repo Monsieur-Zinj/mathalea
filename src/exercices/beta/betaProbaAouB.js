@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import Exercice from '../deprecatedExercice.js'
@@ -72,14 +72,14 @@ export default function CalculDeProbabilitesAvecDeuxEnsemblesAetB () {
       texteCorr += `L'$\\textbf{\\text{événement}}$ $A$ = "Obtenir un résultat ${a[0][1]} ${a[0][2] === 2 ? a[1] : ''}" est constitué de l'${nbA > 1 ? `ensemble des $${nbA}$ ` : ''}issue${nbA > 1 ? 's' : ''} : $${resA.toString()}$<br>`
       texteCorr += `L'$\\textbf{\\text{événement}}$ $B$ = "Obtenir un résultat ${b[0][1]} ${b[0][2] === 2 ? b[1] : ''}" est constitué de l'${nbB > 1 ? `ensemble des $${nbB}$ ` : ''}issue${nbB > 1 ? 's' : ''} : $${resB.toString()}$<br>`
       texteCorr += `Comme $A=\\{${resA.toString()}\\}$ et $B=\\{${resB.toString()}\\}$, on en déduit que :<br>`
-      texteCorr += `$P(A) = ${nbA} \\times ${deprecatedTexFraction(1, n)} = ${texFractionReduite(nbA, n)}$<br>`
-      texteCorr += `$P(B) = ${nbB} \\times ${deprecatedTexFraction(1, n)} = ${texFractionReduite(nbB, n)}$<br>`
+      texteCorr += `$P(A) = ${nbA} \\times ${texFractionFromString(1, n)} = ${texFractionReduite(nbA, n)}$<br>`
+      texteCorr += `$P(B) = ${nbB} \\times ${texFractionFromString(1, n)} = ${texFractionReduite(nbB, n)}$<br>`
       texteCorr += '$A\\cap B$ est l\'intersection des événements $A$ et $B$, c\'est-à-dire les issues appartenant à la fois à $A$ et à $B$<br>'
       if (nbAEtB === 0) {
         texteCorr += 'Il n\'y en a aucune (on dit que $A$ et $B$ sont $\\textbf{\\text{incompatibles}}$). Donc $P(A\\cap B) = 0$<br>'
       } else {
         texteCorr += `Il y a ${nbAEtB > 1 ? `${nbAEtB} issues` : 'une seule issue'} : $A\\cap B=\\{${resAEtB.toString()}\\}$<br>`
-        texteCorr += `Donc $P(A\\cap B) = ${nbAEtB} \\times ${deprecatedTexFraction(1, n)} = ${texFractionReduite(nbAEtB, n)}$<br>`
+        texteCorr += `Donc $P(A\\cap B) = ${nbAEtB} \\times ${texFractionFromString(1, n)} = ${texFractionReduite(nbAEtB, n)}$<br>`
       }
       texteCorr += 'Comme $P(A\\cup B) = P(A) + P(B) - P(A\\cap B)$, on en déduit que :<br>'
       texteCorr += `$P(A\\cup B) = ${texFractionReduite(nbA, n)} + ${texFractionReduite(nbB, n)} - ${texFractionReduite(nbAEtB, n)} = ${texFractionReduite(nbAOuB, n)}$`

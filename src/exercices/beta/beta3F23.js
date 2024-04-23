@@ -1,5 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
@@ -65,9 +65,9 @@ export default function AntecedentParCalcul () {
           texteCorr += `${a}x ${ecritureAlgebrique(b)} &= ${m} \\\\ `
           texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-b)} \\\\ `
           if (pgcd(m - b, a) === 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
-            texteCorr += `x &= ${deprecatedTexFraction(m - b, a)} \\\\`
+            texteCorr += `x &= ${texFractionFromString(m - b, a)} \\\\`
           } else {
-            texteCorr += `x &= ${deprecatedTexFraction(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\ `
+            texteCorr += `x &= ${texFractionFromString(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\ `
           }
           texteCorr += '\\end{aligned}$'
           break
@@ -85,9 +85,9 @@ export default function AntecedentParCalcul () {
           texteCorr += ` ${a}x ${ecritureAlgebrique(b)}&= ${m} \\\\ `
           texteCorr += ` ${a}x &= ${m} ${ecritureAlgebrique(-b)}\\\\ `
           if (pgcd(m - b, a) === 1 && m - b > 0 && a > 0) { // teste si la fraction est simplifiable
-            texteCorr += `x &= ${deprecatedTexFraction(m - b, a)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - b, a)}\\\\`
           } else {
-            texteCorr += `x &= ${deprecatedTexFraction(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - b, a)} = ${texFractionReduite(m - b, a)}\\\\`
           }
           texteCorr += '\\end{aligned}$'
           break
@@ -109,9 +109,9 @@ export default function AntecedentParCalcul () {
           texteCorr += `${a}x ${ecritureAlgebrique(a * b + c)} &= ${m}\\\\`
           texteCorr += `${a}x &= ${m} ${ecritureAlgebrique(-a * b - c)}\\\\`
           if (pgcd(m - a * b - c, a) === 1 && m - a * b - c > 0 && a > 0) { // teste si la fraction est simplifiable
-            texteCorr += `x &= ${deprecatedTexFraction(m - a * b - c, a)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - a * b - c, a)}\\\\`
           } else {
-            texteCorr += `x &= ${deprecatedTexFraction(m - a * b - c, a)} = ${texFractionReduite(m - a * b - c, a)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - a * b - c, a)} = ${texFractionReduite(m - a * b - c, a)}\\\\`
           }
           texteCorr += '\\end{aligned}$'
           break
@@ -136,9 +136,9 @@ export default function AntecedentParCalcul () {
           texteCorr += `${a * b + d}x  &= ${m}${ecritureAlgebrique(-a * c - e)}\\\\`
           texteCorr += `${a * b + d}x &= ${m - a * c - e}\\\\`
           if (pgcd(m - a * c - e, a * b + d) === 1 && m - a * c - e > 0 && a * b + d > 0) { // teste si la fraction est simplifiable
-            texteCorr += `x &= ${deprecatedTexFraction(m - a * c - e, a * b + d)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - a * c - e, a * b + d)}\\\\`
           } else {
-            texteCorr += `x &= ${deprecatedTexFraction(m - a * c - e, a * b + d)} = ${texFractionReduite(m - a * c - e, a * b + d)}\\\\`
+            texteCorr += `x &= ${texFractionFromString(m - a * c - e, a * b + d)} = ${texFractionReduite(m - a * c - e, a * b + d)}\\\\`
           }
           texteCorr += '\\end{aligned}$'
 

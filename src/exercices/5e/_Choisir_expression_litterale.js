@@ -1,4 +1,4 @@
-import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
@@ -63,7 +63,7 @@ export default function ChoisirExpressionLitterale (nbOperations, decimal, val1 
           expf = `Le quotient de $${l1}$ par $${nombreAvecEspace(b)}$`
           expl = `$${l1}\\div ${texNombre(b)}$`
           if (estentier(val1 / b * 1000)) expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)} = ${texNombre(val1 / b)}$`
-          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${deprecatedTexFraction(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
+          else expc = `$${l1}\\div ${texNombre(b)} = ${val1}\\div ${texNombre(b)}=${texFractionFromString(val1, texNombre(b))}${Number.isInteger(b) ? simplificationDeFractionAvecEtapes(val1, b) : ''}$`
           lastOp = 'division'
           break
       }

@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
@@ -100,32 +100,32 @@ export default function ExerciceAdditionnerDesFractions () {
         a = a * choice([-1, 1])
         c = c * choice([-1, 1])
       }
-      texte = `$${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(c, d)}=$`
-      texteCorr = `$${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(c, d)}`
+      texte = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}=$`
+      texteCorr = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}`
 
       // a/b+c/d = num/den (résultat non simplifié)
       if (typesDeQuestions === 'ppcm' || typesDeQuestions === 'premiers_entre_eux') {
-        texteCorr += `=${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${deprecatedTexFraction(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
+        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k1), b + miseEnEvidence('\\times ' + k1))}+${texFractionFromString(c + miseEnEvidence('\\times ' + k2), d + miseEnEvidence('\\times ' + k2))}`
         // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
         num = a * k1 + c * k2
         den = b * k1
-        texteCorr += `=${deprecatedTexFraction(a * k1 + '+' + ecritureParentheseSiNegatif(c * k2), den)}`
+        texteCorr += `=${texFractionFromString(a * k1 + '+' + ecritureParentheseSiNegatif(c * k2), den)}`
       }
 
       if (typesDeQuestions === 'd_multiple_de_b') {
-        texteCorr += `=${deprecatedTexFraction(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${deprecatedTexFraction(c, d)}`
+        texteCorr += `=${texFractionFromString(a + miseEnEvidence('\\times ' + k), b + miseEnEvidence('\\times ' + k))}+${texFractionFromString(c, d)}`
         // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
         num = a * k + c
         den = b * k
-        texteCorr += `=${deprecatedTexFraction(a * k + '+' + ecritureParentheseSiNegatif(c), den)}`
+        texteCorr += `=${texFractionFromString(a * k + '+' + ecritureParentheseSiNegatif(c), den)}`
       }
 
       if (typesDeQuestions === 'b_multiple_de_d') {
-        texteCorr += `=${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
+        texteCorr += `=${texFractionFromString(a, b)}+${texFractionFromString(c + miseEnEvidence('\\times ' + k), d + miseEnEvidence('\\times ' + k))}`
         // texteCorr += `=${texFraction(a*k1,b*k1)}+${texFraction(c*k2,d*k2)}`;
         num = a + c * k
         den = b
-        texteCorr += `=${deprecatedTexFraction(a + '+' + ecritureParentheseSiNegatif(c * k), den)}`
+        texteCorr += `=${texFractionFromString(a + '+' + ecritureParentheseSiNegatif(c * k), den)}`
       }
 
       if (typesDeQuestions === 'entier') {
@@ -137,20 +137,20 @@ export default function ExerciceAdditionnerDesFractions () {
           n = n * choice([-1, 1])
         }
         if (choice([true, false])) {
-          texte = `$${n}+${deprecatedTexFraction(a, b)}=$`
+          texte = `$${n}+${texFractionFromString(a, b)}=$`
           texteCorr = texte
-          texteCorr += `$${deprecatedTexFraction(n + '\\times ' + b, b)}+${deprecatedTexFraction(a, b)}`
-          texteCorr += `=${deprecatedTexFraction(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`
+          texteCorr += `$${texFractionFromString(n + '\\times ' + b, b)}+${texFractionFromString(a, b)}`
+          texteCorr += `=${texFractionFromString(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`
         } else {
-          texte = `$${deprecatedTexFraction(a, b)}+${ecritureParentheseSiNegatif(n)}=$`
+          texte = `$${texFractionFromString(a, b)}+${ecritureParentheseSiNegatif(n)}=$`
           texteCorr = texte
-          texteCorr += `$${deprecatedTexFraction(a, b)}+${deprecatedTexFraction(n + '\\times ' + b, b)}`
-          texteCorr += `=${deprecatedTexFraction(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
+          texteCorr += `$${texFractionFromString(a, b)}+${texFractionFromString(n + '\\times ' + b, b)}`
+          texteCorr += `=${texFractionFromString(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
         }
         num = n * b + a
         den = b
       }
-      texteCorr += `=${deprecatedTexFraction(num, den)}`
+      texteCorr += `=${texFractionFromString(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')

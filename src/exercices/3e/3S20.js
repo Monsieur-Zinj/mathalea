@@ -1,6 +1,6 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import {
-  deprecatedTexFraction, fractionSimplifiee,
+  texFractionFromString, fractionSimplifiee,
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../lib/outils/deprecatedFractions.js'
@@ -88,17 +88,17 @@ export default function FonctionsProbabilite2 () {
           } else {
             texteCorr += numAlpha(1) + ` Comme le nombre de yaourts est différent d'un parfum à l'autre, ${quidame} n'a pas la même probabilité de choisir n'importe quel parfum. On en déduit qu'il est impossible que les issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) aient la même probabilité.<br>`
           }
-          texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${deprecatedTexFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`
-          texteCorr += `Ensuite, il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${deprecatedTexFraction(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
-          texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${deprecatedTexFraction(n[p], somme1)}\\times${deprecatedTexFraction(n[p] - 1, somme1 - 1)}=${deprecatedTexFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += numAlpha(2) + ` Il y a ${n[p]} yaourts ${qualites[0][p]}, et ${somme1} yaourts en tout, la probabilité que ${quidame} choisisse un yaourt ${qualites[0][p]} est : $${texFractionFromString(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$.<br>`
+          texteCorr += `Ensuite, il reste ${n[p] - 1} yaourts ${qualites[0][p]} pour ${quidam} sur un total de ${somme1 - 1} yaourts.<br> La probabilité qu'il choisisse à son tour et dans ces conditions ce parfum est : $${texFractionFromString(n[p] - 1, somme1 - 1)}${simplificationDeFractionAvecEtapes(n[p] - 1, somme1 - 1)}$.<br>`
+          texteCorr += `La probabilité de l'issue (${Initiale[p]},${Initiale[p]}) est le produit de ces deux probabilités, donc : $${texFractionFromString(n[p], somme1)}\\times${texFractionFromString(n[p] - 1, somme1 - 1)}=${texFractionFromString(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += numAlpha(3) + ` Les probabilités des issues (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}) peuvent être respectivement calculées de la même façon qu'à la question c) :<br>`
-          texteCorr += `$${deprecatedTexFraction(n[q], somme1)}\\times${deprecatedTexFraction(n[q] - 1, somme1 - 1)}=${deprecatedTexFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$,<br>`
-          texteCorr += `$${deprecatedTexFraction(n[r], somme1)}\\times${deprecatedTexFraction(n[r] - 1, somme1 - 1)}=${deprecatedTexFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += `$${texFractionFromString(n[q], somme1)}\\times${texFractionFromString(n[q] - 1, somme1 - 1)}=${texFractionFromString(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}$,<br>`
+          texteCorr += `$${texFractionFromString(n[r], somme1)}\\times${texFractionFromString(n[r] - 1, somme1 - 1)}=${texFractionFromString(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += `La probabilité qu'ils choisissent le même parfum est la somme des probabilités des issues (${Initiale[p]},${Initiale[p]}), (${Initiale[q]},${Initiale[q]}) et (${Initiale[r]},${Initiale[r]}), soit :<br>`
-          texteCorr += `$${deprecatedTexFraction(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${deprecatedTexFraction(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${deprecatedTexFraction(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${deprecatedTexFraction(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
+          texteCorr += `$${texFractionFromString(n[p] * (n[p] - 1), somme1 * (somme1 - 1))}+${texFractionFromString(n[q] * (n[q] - 1), somme1 * (somme1 - 1))}+${texFractionFromString(n[r] * (n[r] - 1), somme1 * (somme1 - 1))}=${texFractionFromString(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}${simplificationDeFractionAvecEtapes(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))}$.<br>`
           texteCorr += numAlpha(4) + ' Choisir des parfums différents est l\'événement contraire de l\'événement dont on a calculé la probabilité à la question d).<br>'
           fra1 = fractionSimplifiee(n[p] * (n[p] - 1) + n[q] * (n[q] - 1) + n[r] * (n[r] - 1), somme1 * (somme1 - 1))
-          texteCorr += `La probabilité de cet événement est donc : $1-${deprecatedTexFraction(fra1[0], fra1[1])}=${deprecatedTexFraction(fra1[1], fra1[1])}-${deprecatedTexFraction(fra1[0], fra1[1])}=${deprecatedTexFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.`
+          texteCorr += `La probabilité de cet événement est donc : $1-${texFractionFromString(fra1[0], fra1[1])}=${texFractionFromString(fra1[1], fra1[1])}-${texFractionFromString(fra1[0], fra1[1])}=${texFractionFromString(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.`
           break
         case 1:
           p = randint(0, 3)
@@ -117,33 +117,33 @@ export default function FonctionsProbabilite2 () {
           texte += '    Reprendre les 3 questions de la partie 1 dans cette nouvelle expérience.'
           texteCorr = 'Partie 1.<br>    '
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a deux couleurs (rouge et noire) et le nombre de cartes rouges est le même que le nombre de cartes noires : ${q / 2}.<br>`
-          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${deprecatedTexFraction(q / 2, q)}=${deprecatedTexFraction(1, 2)}$.<br>`
+          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFractionFromString(q / 2, q)}=${texFractionFromString(1, 2)}$.<br>`
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${deprecatedTexFraction(4, q)}=${texFractionReduite(4, q)}$.<br>`
+          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFractionFromString(4, q)}=${texFractionReduite(4, q)}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première), la probabilité de tirer un ${Initiale[r]} est la même pour cette carte.<br>`
           texteCorr += `    La probabilité de tirer 2 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(4, q)}=${texFractionReduite(16, q * q)}$.<br>`
-          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${deprecatedTexFraction(q / 4, q)}=${deprecatedTexFraction(1, 4)}$.<br>`
+          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFractionFromString(q / 4, q)}=${texFractionFromString(1, 4)}$.<br>`
           texteCorr += `    Comme la deuxième carte est tirée dans le jeu complet (après remise de la première) la probabilité de tirer un ${qualites[1][p]} est la même pour cette carte.<br>`
-          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${deprecatedTexFraction(1, 4)}\\times${deprecatedTexFraction(1, 4)}=${deprecatedTexFraction(1, 16)}$.<br>`
+          texteCorr += `    La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionFromString(1, 4)}=${texFractionFromString(1, 16)}$.<br>`
           texteCorr += 'Partie 2.<br>'
           texteCorr += numAlpha(0) + ` On ne s'intéresse ici qu'au tirage de la deuxième carte. En effet, pour réaliser l'événement, il faudra que cette carte soit de la même couleur que la première. Il y a maintenant une carte en moins dans la couleur désirée, soit  ${q / 2 - 1}, et il y a une carte en moins dans le jeu, soit ${q - 1}.<br>`
-          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${deprecatedTexFraction(q / 2 - 1, q - 1)}$.<br>`
+          texteCorr += `    La probabilité que la deuxième carte soit de la même couleur que la première est donc : $${texFractionFromString(q / 2 - 1, q - 1)}$.<br>`
           texteCorr += numAlpha(1) + ` Il y a 4 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
-          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${deprecatedTexFraction(4, q)}=${texFractionReduite(4, q)}$.<br>`
+          texteCorr += ` dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${Initiale[r]} est donc de $${texFractionFromString(4, q)}=${texFractionReduite(4, q)}$.<br>`
           texteCorr += `    Pour que l'événement se réalise la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${Initiale[r]}.<br>`
-          texteCorr += `    La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${deprecatedTexFraction(3, q - 1)}$.`
-          if (q === 52) { texteCorr += `$=${deprecatedTexFraction(1, 17)}$.` }
+          texteCorr += `    La probabilité de tirer un deuxième ${Initiale[r]} est donc : $${texFractionFromString(3, q - 1)}$.`
+          if (q === 52) { texteCorr += `$=${texFractionFromString(1, 17)}$.` }
           texteCorr += `<br> La probabilité de tirer 2 ${Initiale[r]}`
           if (Initiale[r] === 'valet' || Initiale[r] === 'roi') { texteCorr += 's' }
           texteCorr += ` est donc : $${texFractionReduite(4, q)}\\times${texFractionReduite(3, q - 1)}=${texFractionReduite(12, q * (q - 1))}$.<br>`
-          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${deprecatedTexFraction(q / 4, q)}=${deprecatedTexFraction(1, 4)}$.<br>`
+          texteCorr += numAlpha(2) + ` Il y a ${q / 4} cartes de ${qualites[1][p]} dans le jeu sur ${q} cartes possibles. La probabilité de tirer un ${qualites[1][p]} est donc de $${texFractionFromString(q / 4, q)}=${texFractionFromString(1, 4)}$.<br>`
           texteCorr += `    Pour que l'événement se réalise, la deuxième carte est tirée dans les ${q - 1} cartes restantes dans lesquelles il manque un ${qualites[1][p]}.<br>`
-          texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${deprecatedTexFraction(q / 4 - 1, q - 1)}$.`
-          if (q === 52) { texteCorr += `$=${deprecatedTexFraction(4, 17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${deprecatedTexFraction(1, 4)}\\times${deprecatedTexFraction(4, 17)}=${deprecatedTexFraction(1, 17)}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${deprecatedTexFraction(1, 4)}\\times${texFractionReduite(7, 31)}=${deprecatedTexFraction(7, 124)}$.` }
+          texteCorr += `    La probabilité de tirer un deuxième ${qualites[1][p]} est donc : $${texFractionFromString(q / 4 - 1, q - 1)}$.`
+          if (q === 52) { texteCorr += `$=${texFractionFromString(4, 17)}$<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionFromString(4, 17)}=${texFractionFromString(1, 17)}$.` } else { texteCorr += `<br>La probabilité de tirer 2 ${qualites[1][p]}${qualites[1][p] === 'carreau' ? 'x' : 's'} est donc $${texFractionFromString(1, 4)}\\times${texFractionReduite(7, 31)}=${texFractionFromString(7, 124)}$.` }
           break
         case 2:
           n[0] = randint(2, 5); m[0] = randint(2, 5)
@@ -171,44 +171,44 @@ export default function FonctionsProbabilite2 () {
           texte += numAlpha(1) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de la même couleur ?<br>`
           texte += numAlpha(2) + ` Quelle est la probabilité que ${quidam} ait choisi des chaussettes et un T-shirt de couleurs différentes ?`
           texteCorr = numAlpha(0) + ` Il y a ${n[r]} paires de chaussettes ${qualites[2][r]} et il y a ${somme1} paires de chaussettes possibles. `
-          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][r]} est : $${deprecatedTexFraction(n[r], somme1)}${simplificationDeFractionAvecEtapes(n[r], somme1)}$.<br>`
+          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][r]} est : $${texFractionFromString(n[r], somme1)}${simplificationDeFractionAvecEtapes(n[r], somme1)}$.<br>`
           texteCorr += `Il y a ${m[r]} T-shirt ${qualites[5][r]} et il y a ${somme2} T-shirt possibles. `
-          texteCorr += `La probabilité de choisir un des T-shirt ${qualites[5][r]} est : $${deprecatedTexFraction(m[r], somme2)}${simplificationDeFractionAvecEtapes(m[r], somme2)}$.<br>`
+          texteCorr += `La probabilité de choisir un des T-shirt ${qualites[5][r]} est : $${texFractionFromString(m[r], somme2)}${simplificationDeFractionAvecEtapes(m[r], somme2)}$.<br>`
           texteCorr += `${quidam} a donc $${texFractionReduite(m[r], somme2)}$ de `
           fra1 = fractionSimplifiee(n[r], somme1)
           fra2 = fractionSimplifiee(m[r], somme2)
           if (fra1[0] === 1) { texteCorr += 'une chance ' } else { texteCorr += `$${fra1[0]}$ chances ` }
           texteCorr += `sur $${fra1[1]}$ de choisir des chaussettes et un T-shirt ${qualites[5][r]}.<br>`
-          texteCorr += `Soit $${texFractionReduite(m[r], somme2)}\\times${texFractionReduite(n[r], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${deprecatedTexFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
+          texteCorr += `Soit $${texFractionReduite(m[r], somme2)}\\times${texFractionReduite(n[r], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
           p1 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
           fra1 = fractionSimplifiee(n[p], somme1)
           fra2 = fractionSimplifiee(m[p], somme2)
-          texteCorr += numAlpha(1) + ` La probabilité de choisir une paire de chaussettes ${qualites[2][p]} est : $${deprecatedTexFraction(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$ et `
-          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${deprecatedTexFraction(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`
-          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][p]} est : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${deprecatedTexFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
+          texteCorr += numAlpha(1) + ` La probabilité de choisir une paire de chaussettes ${qualites[2][p]} est : $${texFractionFromString(n[p], somme1)}${simplificationDeFractionAvecEtapes(n[p], somme1)}$ et `
+          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][p]} est : $${texFractionFromString(m[p], somme2)}${simplificationDeFractionAvecEtapes(m[p], somme2)}$.<br>`
+          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][p]} est : $${texFractionReduite(m[p], somme2)}\\times${texFractionReduite(n[p], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
           p2 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
           fra1 = fractionSimplifiee(n[q], somme1)
           fra2 = fractionSimplifiee(m[q], somme2)
-          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][q]} est : $${deprecatedTexFraction(n[q], somme1)}${simplificationDeFractionAvecEtapes(n[q], somme1)}$ et `
-          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][q]} est : $${deprecatedTexFraction(m[q], somme2)}${simplificationDeFractionAvecEtapes(m[q], somme2)}$.<br>`
-          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][q]} est : $${texFractionReduite(m[q], somme2)}\\times${texFractionReduite(n[q], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${deprecatedTexFraction(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
+          texteCorr += `La probabilité de choisir une paire de chaussettes ${qualites[2][q]} est : $${texFractionFromString(n[q], somme1)}${simplificationDeFractionAvecEtapes(n[q], somme1)}$ et `
+          texteCorr += `la probabilité de choisir l'un des T-shirt ${qualites[5][q]} est : $${texFractionFromString(m[q], somme2)}${simplificationDeFractionAvecEtapes(m[q], somme2)}$.<br>`
+          texteCorr += `Donc la probabilité de choisir des chaussettes et un T-shirt ${qualites[5][q]} est : $${texFractionReduite(m[q], somme2)}\\times${texFractionReduite(n[q], somme1)}=\\dfrac{${fra2[0]}\\times${fra1[0]}}{${fra2[1]}\\times${fra1[1]}}=${texFractionFromString(fra1[0] * fra2[0], fra1[1] * fra2[1])}${simplificationDeFractionAvecEtapes(fra1[0] * fra2[0], fra1[1] * fra2[1])}$.<br>`
           p3 = fractionSimplifiee(fra1[0] * fra2[0], fra1[1] * fra2[1])
           texteCorr += 'On en déduit que la probabilité de choisir des chaussettes et un T-shirt de la même couleur est :<br>'
-          texteCorr += `$${deprecatedTexFraction(p1[0], p1[1])}+${deprecatedTexFraction(p2[0], p2[1])}+${deprecatedTexFraction(p3[0], p3[1])}=`
+          texteCorr += `$${texFractionFromString(p1[0], p1[1])}+${texFractionFromString(p2[0], p2[1])}+${texFractionFromString(p3[0], p3[1])}=`
           if (p1[1] === p2[1] && p2[1] === p3[1]) {
-            texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${deprecatedTexFraction(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$`
+            texteCorr += `\\dfrac{${p1[0]}+${p2[0]}+${p3[0]}}{${p1[1]}}=${texFractionFromString(p1[0] + p2[0] + p3[0], p1[1])}${simplificationDeFractionAvecEtapes(p1[0] + p2[0] + p3[0], p1[1])}$`
             fra1 = fractionSimplifiee(p1[0] + p2[0] + p3[0], p1[1])
           } else {
             den = ppcm(p1[1], ppcm(p2[1], p3[1]))
             e = den / p1[1]
             f = den / p2[1]
             g = den / p3[1]
-            texteCorr += `${deprecatedTexFraction(p1[0] * e, den)}+${deprecatedTexFraction(p2[0] * f, den)}+${deprecatedTexFraction(p3[0] * g, den)}=${deprecatedTexFraction(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$`
+            texteCorr += `${texFractionFromString(p1[0] * e, den)}+${texFractionFromString(p2[0] * f, den)}+${texFractionFromString(p3[0] * g, den)}=${texFractionFromString(p1[0] * e + p2[0] * f + p3[0] * g, den)}${simplificationDeFractionAvecEtapes(p1[0] * e + p2[0] * f + p3[0] * g, den)}$`
             fra1 = fractionSimplifiee(p1[0] * e + p2[0] * f + p3[0] * g, den)
           }
           texteCorr += '.<br>'
           texteCorr += numAlpha(2) + ' L\'événement "choisir des chaussettes et un T-shirt de couleurs différentes" est l\'événement contraire de l\'événement "choisir des chaussettes et un T-shirt de même couleur".<br>'
-          texteCorr += `Donc sa probabilité est : $1-${deprecatedTexFraction(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${deprecatedTexFraction(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.<br>`
+          texteCorr += `Donc sa probabilité est : $1-${texFractionFromString(fra1[0], fra1[1])}=\\dfrac{${fra1[1]}-${fra1[0]}}{${fra1[1]}}=${texFractionFromString(fra1[1] - fra1[0], fra1[1])}${simplificationDeFractionAvecEtapes(fra1[1] - fra1[0], fra1[1])}$.<br>`
           break
         case 3:
           quidam = prenomM()
@@ -286,15 +286,15 @@ export default function FonctionsProbabilite2 () {
           for (let j = 2; j <= somme2; j++) { texteCorr += `& \\textcolor {${Couleurs[j % 10]}}` + `{\\dfrac{${fra2[j - 2]}}{${p1[1]}}}` }
           texteCorr += '\\\\\\hline\\end{array}$<br>'
 
-          texteCorr += `La probabilité qu'a ${quidame} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${deprecatedTexFraction(fra2[n[0] - 1], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[n[0] - 1], p1[1])}$.<br>`
-          texteCorr += `La probabilité qu'a ${quidam} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${deprecatedTexFraction(fra1[n[0] - 1], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[n[0] - 1], p1[0])}$.<br>`
+          texteCorr += `La probabilité qu'a ${quidame} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFractionFromString(fra2[n[0] - 1], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[n[0] - 1], p1[1])}$.<br>`
+          texteCorr += `La probabilité qu'a ${quidam} de faire ${n[0] + 1} est : $\\textcolor {${Couleurs[(n[0] + 1) % 10]}}{${texFractionFromString(fra1[n[0] - 1], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[n[0] - 1], p1[0])}$.<br>`
           if (p2[n[0] - 1] > 0) { // Si quidame a plus de chance de gagner avec le choix de quidam
             texteCorr += `${quidam} se trompe en croyant avoir plus de chances de gagner car $${texFractionReduite(fra2[n[0] - 1], p1[1])}>${texFractionReduite(fra1[n[0] - 1], p1[0])}$.<br>`
             // choix du nombre cible qui favorise quidam
             trouve = false
             for (let j = r - 2; j >= 0; j--) {
               if (p2[j] < 0) {
-                texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
+                texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                 trouve = true
               }
               if (trouve) { break }
@@ -309,7 +309,7 @@ export default function FonctionsProbabilite2 () {
               trouve = false
               for (let j = r - 2; j >= 0; j--) {
                 if (p2[j] > 0) {
-                  texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${deprecatedTexFraction(fra2[j], p1[1])}$.<br>`
+                  texteCorr += numAlpha(2) + ` ${quidame} devrait choisir ${j + 2} comme nombre cible.<br>Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>Celle de ${quidam} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et $${texFractionReduite(fra1[j], p1[0])}<${texFractionFromString(fra2[j], p1[1])}$.<br>`
                   trouve = true
                 }
                 if (trouve) { break }
@@ -323,7 +323,7 @@ export default function FonctionsProbabilite2 () {
               trouve = false
               for (let j = r - 2; j >= 0; j--) {
                 if (p2[j] < 0) {
-                  texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
+                  texteCorr += numAlpha(2) + ` ${quidam} aurait du choisir ${j + 2} comme nombre cible.<br> Sa probabilité de réussir serait alors de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ et celle de ${quidame} serait de $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                   trouve = true
                 }
                 if (trouve) { break }
@@ -339,7 +339,7 @@ export default function FonctionsProbabilite2 () {
             for (let j = r - 2; j >= 0; j--) {
               if (p2[j] === 0) {
                 texteCorr += numAlpha(3) + ` En choisissant ${j + 2} comme cible, ${quidam} et ${quidame} ont la même probabilité de gagner.<br>
-                                Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${deprecatedTexFraction(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
+                                Pour ${quidam} la probabilité est : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra1[j], p1[0])}}${simplificationDeFractionAvecEtapes(fra1[j], p1[0])}$ tout comme pour ${quidame} : $\\textcolor {${Couleurs[(j + 2) % 10]}}{${texFractionFromString(fra2[j], p1[1])}}${simplificationDeFractionAvecEtapes(fra2[j], p1[1])}$.<br>`
                 trouve = true
               }
               if (trouve) { break }
@@ -347,9 +347,9 @@ export default function FonctionsProbabilite2 () {
             if (trouve === false) {
               texteCorr += numAlpha(3) + ` Il n'existe pas de choix qui permettent à ${quidam} et à ${quidame} d'avoir la même probabilité de gagner car : <br>`
               for (let j = 2; j < r / 2; j++) {
-                texteCorr += `$\\textcolor {${Couleurs[(j) % 10]}}{${deprecatedTexFraction(fra1[j - 2], p1[0])}}\\ne \\textcolor {${Couleurs[(j) % 10]}}{${deprecatedTexFraction(fra2[j - 2], p1[1])}}$ ; `
+                texteCorr += `$\\textcolor {${Couleurs[(j) % 10]}}{${texFractionFromString(fra1[j - 2], p1[0])}}\\ne \\textcolor {${Couleurs[(j) % 10]}}{${texFractionFromString(fra2[j - 2], p1[1])}}$ ; `
               }
-              texteCorr += `$\\textcolor {${Couleurs[(r / 2) % 10]}}{${deprecatedTexFraction(fra1[r / 2], p1[0])}}\\ne \\textcolor {${Couleurs[(r / 2) % 10]}}{${deprecatedTexFraction(fra2[r / 2], p1[1])}}$.`
+              texteCorr += `$\\textcolor {${Couleurs[(r / 2) % 10]}}{${texFractionFromString(fra1[r / 2], p1[0])}}\\ne \\textcolor {${Couleurs[(r / 2) % 10]}}{${texFractionFromString(fra2[r / 2], p1[1])}}$.`
             }
           }
           break

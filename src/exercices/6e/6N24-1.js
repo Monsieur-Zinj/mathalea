@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
@@ -47,10 +47,10 @@ export default function ExerciceMultiplierOuDiviserUnNombreEntierPar101001000 ()
       b = choice([10, 100, 1000])
       if (choice([true, false])) {
         texte =
-          '$ ' + deprecatedTexFraction(texNombre(a), texNombre(b)) + ' =  $'
+          '$ ' + texFractionFromString(texNombre(a), texNombre(b)) + ' =  $'
         texteCorr =
           '$ ' +
-          deprecatedTexFraction(texNombre(a), texNombre(b)) +
+          texFractionFromString(texNombre(a), texNombre(b)) +
           ' = ' +
           texNombre(calculANePlusJamaisUtiliser(a / b)) +
           ' $'

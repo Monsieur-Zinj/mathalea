@@ -1,6 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import {
-  deprecatedTexFraction,
+  texFractionFromString,
   simplificationDeFractionAvecEtapes,
   texFractionReduite
 } from '../../../lib/outils/deprecatedFractions.js'
@@ -48,7 +48,7 @@ export default function CalculsProbabilite2 () {
         $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
         La probabilité est donc donnée par : <br>
         $\\dfrac{\\text{Nombre de boules ${choix ? 'noire' : 'blanche'}s}}{\\text{Nombre total de boules}}
-             =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
+             =${choix ? texFractionFromString(a, a + b) : texFractionFromString(b, a + b)}  ${choix ? simplificationDeFractionAvecEtapes(a, a + b) : simplificationDeFractionAvecEtapes(b, a + b)}$
         `
         this.reponse = choix ? texFractionReduite(a, a + b) : texFractionReduite(b, a + b)
         break
@@ -68,7 +68,7 @@ export default function CalculsProbabilite2 () {
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
           La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
-               =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)} =${choix ? texNombre(a / 10) : texNombre(b / 10)}$
+               =${choix ? texFractionFromString(a, a + b) : texFractionFromString(b, a + b)} =${choix ? texNombre(a / 10) : texNombre(b / 10)}$
           `
           this.reponse = choix ? a / 10 : b / 10
         } else {
@@ -86,7 +86,7 @@ export default function CalculsProbabilite2 () {
           $\\dfrac{\\text{Nombre d'issues favorables}}{\\text{Nombre total d'issue}}$. <br>
           La probabilité est donc donnée par : <br>
           $\\dfrac{\\text{Nombre de boules ${choix ? 'bleue' : 'rouge'}s}}{\\text{Nombre total de boules}}
-               =${choix ? deprecatedTexFraction(a, a + b) : deprecatedTexFraction(b, a + b)} =${choix ? texNombre(a / 100) : texNombre(b / 100)}$
+               =${choix ? texFractionFromString(a, a + b) : texFractionFromString(b, a + b)} =${choix ? texNombre(a / 100) : texNombre(b / 100)}$
           `
           this.reponse = choix ? a / 100 : b / 100
         }

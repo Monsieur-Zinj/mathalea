@@ -1,4 +1,4 @@
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
@@ -56,7 +56,7 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
         texteCorr += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${deprecatedTexFraction(n, d)}`
+        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFractionFromString(n, d)}`
         if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
           texteCorr += `=${texFractionReduite(n, d)}`
         }
@@ -68,7 +68,7 @@ export default function EquationReduiteDeDroites () {
           // eslint-disable-next-line no-empty
           if (n === 0) {
           } else {
-            texteCorr += `${deprecatedTexFraction(n, d)}x`
+            texteCorr += `${texFractionFromString(n, d)}x`
           }
         }
         texteCorr += '+p$.<br>'
@@ -155,7 +155,7 @@ export default function EquationReduiteDeDroites () {
           // eslint-disable-next-line no-empty
           if (n === 0) {
           } else {
-            texteCorr += `${deprecatedTexFraction(n, d)}x`
+            texteCorr += `${texFractionFromString(n, d)}x`
           }
         }
         texteCorr += '+p$.<br>'
@@ -168,7 +168,7 @@ export default function EquationReduiteDeDroites () {
           texteCorr += `$${texFractionReduite(n, d)}x$`
         } else {
           if (n !== 0) {
-            texteCorr += `$${deprecatedTexFraction(n, d)}x$`
+            texteCorr += `$${texFractionFromString(n, d)}x$`
           }
         }
         if (d * d * yA - n * xA * d > 0) {

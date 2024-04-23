@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -330,7 +330,7 @@ export default function SensVariationSuite () {
             fraction1 = choice(listeFractions1)
             n1 = fraction1[0]
             d1 = fraction1[1]
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${deprecatedTexFraction(n1, d1)}\\right)^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${texFractionFromString(n1, d1)}\\right)^n$.<br>
             
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -355,7 +355,7 @@ export default function SensVariationSuite () {
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${deprecatedTexFraction(n1, d1)}$ et de premier terme $${s}_0=1$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(n1, d1)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $ 0 < q < 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  décroissante. `
           }
           if (choix === 2) { // suite géométrique (a/b)^n avec a/b>1
@@ -365,7 +365,7 @@ export default function SensVariationSuite () {
             fraction1 = choice(listeFractions1)
             n1 = fraction1[0]
             d1 = fraction1[1]
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${deprecatedTexFraction(d1, n1)}\\right)^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\left(${texFractionFromString(d1, n1)}\\right)^n$.<br>
             
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -390,7 +390,7 @@ export default function SensVariationSuite () {
             monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
 
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${deprecatedTexFraction(d1, n1)}$ et de premier terme $${s}_0=1$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(d1, n1)}$ et de premier terme $${s}_0=1$. <br>`
             texteCorr += `Comme $q>1$ et que le premier terme est positif, la suite $(${s}_{n})$ est  croissante. `
           }
           if (choix === 3) { // suite géométrique a*q^n avec q>1 ou q<0  et a>0
@@ -570,7 +570,7 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             a = randint(2, 10)
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times \\left(${deprecatedTexFraction(n1, d1)}\\right)^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}\\times \\left(${texFractionFromString(n1, d1)}\\right)^n$.<br>
            
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -606,7 +606,7 @@ export default function SensVariationSuite () {
             n1 = fraction1[0]
             d1 = fraction1[1]
             a = randint(-10, 10, [-1, 0, 1])
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${ecritureParentheseSiNegatif(a)}\\times \\left(${deprecatedTexFraction(d1, n1)}\\right)^n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${ecritureParentheseSiNegatif(a)}\\times \\left(${texFractionFromString(d1, n1)}\\right)^n$.<br>
           
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -653,7 +653,7 @@ export default function SensVariationSuite () {
               monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
             }
-            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${deprecatedTexFraction(d1, n1)}$ et de premier terme $${s}_{0}=${a}$. <br>`
+            texteCorr = `On reconnaît la forme explicite d'une suite géométrique de raison $q=${texFractionFromString(d1, n1)}$ et de premier terme $${s}_{0}=${a}$. <br>`
             if (a > 0) { texteCorr += `Comme $q > 1$ et que le premier terme est positif, la suite $(${s}_{n})$ est strictement croissante. ` } else { texteCorr += `Comme $q > 1$ et que le premier terme est négatif, la suite $(${s}_{n})$ est strictement décroissante. ` }
           }
           break
@@ -950,7 +950,7 @@ export default function SensVariationSuite () {
             fraction1 = choice(listeFractions1)
             n1 = fraction1[0]
             d1 = fraction1[1]
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${deprecatedTexFraction(n1, d1)}${s}_n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texFractionFromString(n1, d1)}${s}_n$.<br>
         
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -997,8 +997,8 @@ export default function SensVariationSuite () {
               monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
             }
-            texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${deprecatedTexFraction(n1, d1)}$.<br>`
-            if (a > 0) { texteCorr += `Comme $ 0< ${deprecatedTexFraction(n1, d1)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${deprecatedTexFraction(n1, d1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
+            texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFractionFromString(n1, d1)}$.<br>`
+            if (a > 0) { texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est décroissante. ` } else { texteCorr += `Comme $ 0< ${texFractionFromString(n1, d1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est croissante. ` }
           }
 
           if (choix === 8) { // suite recurrente u(n+1)=q*u(n) avec q>1 fraction
@@ -1009,7 +1009,7 @@ export default function SensVariationSuite () {
             fraction1 = choice(listeFractions1)
             n1 = fraction1[0]
             d1 = fraction1[1]
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${deprecatedTexFraction(d1, n1)}${s}_n$.<br>
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_{0}=${a}$ pour tout  $n\\in\\mathbb{N}$ : $${s}_{n+1} =${texFractionFromString(d1, n1)}${s}_n$.<br>
          
             Alors, $(${s}_n)$ est une suite ...`
             this.canEnonce = texte
@@ -1056,8 +1056,8 @@ export default function SensVariationSuite () {
               monQcm = propositionsQcm(this, i)
               texte += monQcm.texte
             }
-            texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${deprecatedTexFraction(d1, n1)}$.<br>`
-            if (a > 0) { texteCorr += `Comme $  ${deprecatedTexFraction(d1, n1)} >1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $ 0< ${deprecatedTexFraction(d1, n1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` }
+            texteCorr = `On reconnaît la relation de récurrence d'une suite géométrique de raison $${texFractionFromString(d1, n1)}$.<br>`
+            if (a > 0) { texteCorr += `Comme $  ${texFractionFromString(d1, n1)} >1$ et que le premier terme est positif, alors la suite $(${s}_n)$ est croissante. ` } else { texteCorr += `Comme $ 0< ${texFractionFromString(d1, n1)} <1$ et que le premier terme est négatif, alors la suite $(${s}_n)$ est décroissante. ` }
           }
           break
       }

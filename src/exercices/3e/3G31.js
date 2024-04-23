@@ -5,7 +5,7 @@ import { longueur, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParPoint } from '../../lib/2d/textes.ts'
 import { homothetie, rotation, similitude } from '../../lib/2d/transformations.js'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { texNombre2 } from '../../lib/outils/texNombre'
@@ -264,23 +264,23 @@ export default function CalculDAngle () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(texNombre2(ab), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${deprecatedTexFraction(texNombre2(ab), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
+          texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ab), texNombre2(bc))}$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${texFractionFromString(texNombre2(ab), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
           break
         case 'Asin':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(texNombre2(ac), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arcsin\\left(${deprecatedTexFraction(texNombre2(ac), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
+          texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ac), texNombre2(bc))}$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arcsin\\left(${texFractionFromString(texNombre2(ac), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
 
           break
         case 'Atan':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
+          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(texNombre2(ac), texNombre2(ab))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${deprecatedTexFraction(texNombre2(ac), texNombre2(ab))}\\right) \\approx ${angleABC} ^\\circ $ <br>`
+          texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ac), texNombre2(ab))}$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${texFractionFromString(texNombre2(ac), texNombre2(ab))}\\right) \\approx ${angleABC} ^\\circ $ <br>`
           break
       }
       if (this.correctionDetaillee && !context.isHtml) texteCorr += '\n\\end{minipage}\n'

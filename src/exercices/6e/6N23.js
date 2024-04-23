@@ -1,5 +1,5 @@
 import { choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -58,11 +58,11 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       this.autoCorrection[i].reponse.param.digits = 6
       this.autoCorrection[i].reponse.param.decimals = 3
       texte = context.isAmc ? 'Donner l\'écriture décimale de ' : ''
-      texte += `$${deprecatedTexFraction(texNombre(a), texNombre(b))}$`
+      texte += `$${texFractionFromString(texNombre(a), texNombre(b))}$`
       texte += context.isAmc ? '.' : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
       texteCorr =
                 '$ ' +
-                deprecatedTexFraction(texNombre(a), texNombre(b)) +
+                texFractionFromString(texNombre(a), texNombre(b)) +
                 ' = ' +
                 texNombre(calculANePlusJamaisUtiliser(a / b)) +
                 ' $'

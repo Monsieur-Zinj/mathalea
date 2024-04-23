@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -110,19 +110,19 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /** ***************** Choix des réponses du QCM ***********************************/
         this.autoCorrection[i].propositions = [
           {
-            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * facteur + numerateur2, denominateur2)}$` : `$${deprecatedTexFraction(numerateur1 * facteur + numerateur2, denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * facteur + numerateur2, denominateur2)}$` : `$${texFractionFromString(numerateur1 * facteur + numerateur2, denominateur2)}$`,
             statut: true
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(numerateur1 + numerateur2, denominateur2)}$` : `$${deprecatedTexFraction(numerateur1 + numerateur2, denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(numerateur1 + numerateur2, denominateur2)}$` : `$${texFractionFromString(numerateur1 + numerateur2, denominateur2)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(numerateur1 + numerateur2, denominateur1 + denominateur2)}$` : `$${deprecatedTexFraction(numerateur1 + numerateur2, denominateur1 + denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(numerateur1 + numerateur2, denominateur1 + denominateur2)}$` : `$${texFractionFromString(numerateur1 + numerateur2, denominateur1 + denominateur2)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * numerateur2, denominateur2)}$` : `$${deprecatedTexFraction(numerateur1 * numerateur2, denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * numerateur2, denominateur2)}$` : `$${texFractionFromString(numerateur1 * numerateur2, denominateur2)}$`,
             statut: false
           }
         ]
@@ -133,7 +133,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (denominateur1=denominateur2)
-          this.autoCorrection[i].propositions[0].texte = `$${deprecatedTexFraction(numerateur1 + numerateur2, denominateur1)}$`
+          this.autoCorrection[i].propositions[0].texte = `$${texFractionFromString(numerateur1 + numerateur2, denominateur1)}$`
         }
         /** ****************** AMC question/questionmult ********************************/
         this.autoCorrection[i].enonce = `${texte}\n`
@@ -153,19 +153,19 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /** ***************** Choix des réponses du QCM ***********************************/
         this.autoCorrection[i].propositions = [
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 * facteur - numerateur2), Math.abs(denominateur2))}$` : `$${deprecatedTexFraction(Math.abs(numerateur1 * facteur - numerateur2), Math.abs(denominateur2))}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 * facteur - numerateur2), Math.abs(denominateur2))}$` : `$${texFractionFromString(Math.abs(numerateur1 * facteur - numerateur2), Math.abs(denominateur2))}$`,
             statut: true
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 - numerateur2), Math.abs(denominateur1 - denominateur2))}$` : `$${deprecatedTexFraction(Math.abs(numerateur1 - numerateur2), Math.abs(denominateur1 - denominateur2))}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 - numerateur2), Math.abs(denominateur1 - denominateur2))}$` : `$${texFractionFromString(Math.abs(numerateur1 - numerateur2), Math.abs(denominateur1 - denominateur2))}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 - numerateur2), denominateur2)}$` : `$${deprecatedTexFraction(Math.abs(numerateur1 - numerateur2), denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(Math.abs(numerateur1 - numerateur2), denominateur2)}$` : `$${texFractionFromString(Math.abs(numerateur1 - numerateur2), denominateur2)}$`,
             statut: false
           },
           {
-            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * numerateur2, denominateur2)}$` : `$${deprecatedTexFraction(numerateur1 * numerateur2, denominateur2)}$`,
+            texte: this.sup3 ? `$${texFractionReduite(numerateur1 * numerateur2, denominateur2)}$` : `$${texFractionFromString(numerateur1 * numerateur2, denominateur2)}$`,
             statut: false
           }
         ]
@@ -176,7 +176,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (denominateur1=denominateur2)
-          this.autoCorrection[i].propositions[0].texte = `$${deprecatedTexFraction(Math.abs(numerateur1 - numerateur2), denominateur1)}$`
+          this.autoCorrection[i].propositions[0].texte = `$${texFractionFromString(Math.abs(numerateur1 - numerateur2), denominateur1)}$`
         }
 
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {

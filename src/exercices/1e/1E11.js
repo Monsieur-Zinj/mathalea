@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction, texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -83,7 +83,7 @@ export default function ResoudreEquationDegre2 () {
         }
         texteCorr += '<br> Si on ne voit pas cette factorisation, on peut utiliser le discriminant.'
         texteCorr += `<br>$\\Delta = ${ecritureParentheseSiNegatif(b)}^2-4\\times${ecritureParentheseSiNegatif(a)}\\times${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}$`
-        texteCorr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${deprecatedTexFraction('-b', '2a')} = ${texFractionReduite(-b, 2 * a)}$`
+        texteCorr += `<br>$\\Delta=0$ donc l'équation admet une unique solution : $${texFractionFromString('-b', '2a')} = ${texFractionReduite(-b, 2 * a)}$`
         if (b % (2 * a) === 0) {
           texteCorr += `<br>L'ensemble des solutions de cette équation est : $\\mathcal{S}=\\left\\{${-b / (2 * a)}\\right\\}$.`
         } else {

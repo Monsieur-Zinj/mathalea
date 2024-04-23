@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { arrondi } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -55,9 +55,9 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
         den = choice([10, 100, 1000])
         b = choice([10, 100, 1000])
         resultat = arrondi(a * b / den, 3)
-        this.question = `Calculer $${deprecatedTexFraction(a, den)}\\times${texNombre(b)}$.`
-        this.correction = `$${deprecatedTexFraction(a, den)} \\times ${texNombre(
-                b)} = ${deprecatedTexFraction(a * b, den)} = ${texNombre((a / den) * b, 3)}$`
+        this.question = `Calculer $${texFractionFromString(a, den)}\\times${texNombre(b)}$.`
+        this.correction = `$${texFractionFromString(a, den)} \\times ${texNombre(
+                b)} = ${texFractionFromString(a * b, den)} = ${texNombre((a / den) * b, 3)}$`
         this.reponse = resultat
         break
     }

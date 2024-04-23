@@ -8,7 +8,7 @@ import { homothetie, rotation } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { quatriemeProportionnelle } from '../../lib/outils/calculs'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { creerNomDePolygone, numAlpha } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -256,7 +256,7 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[1], bc)}$<br>`
+          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[1], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\cos\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`
@@ -272,9 +272,9 @@ export default function CalculDeLongueur () {
           break
         case 'sinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], bc)}$<br>`
+          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], bc)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', bc, `\\sin\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
@@ -290,9 +290,9 @@ export default function CalculDeLongueur () {
           break
         case 'tangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
+          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(nom[0] + nom[2], ab)}$<br>`
+          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(nom[0] + nom[2], ab)}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[2]}=${quatriemeProportionnelle('\\color{red}{1}', ab, `\\tan\\left(${angleABC}^\\circ\\right)`)}$`
           texteCorr += `soit $${nom[0] + nom[2]}\\approx${texNombre(ac, 1)}$ ${unite}.`
@@ -310,7 +310,7 @@ export default function CalculDeLongueur () {
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le cosinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ab, nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\dfrac{\\cos\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ab, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\cos\\left(${angleABC}^\\circ\\right)`, ab, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
@@ -326,9 +326,9 @@ export default function CalculDeLongueur () {
           break
         case 'invSinus':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[1] + nom[2])}$<br>`
+          texteCorr += `$\\dfrac{\\sin\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[1] + nom[2])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[1] + nom[2]}=${quatriemeProportionnelle(`\\sin\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[1] + nom[2]}\\approx${texNombre(bc, 1)}$ ${unite}.`
@@ -344,9 +344,9 @@ export default function CalculDeLongueur () {
           break
         case 'invTangente':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$,<br> la tangente de l'angle $\\widehat{${nom}}$ est défini par :<br>`
-          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${deprecatedTexFraction(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
+          texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
-          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${deprecatedTexFraction(ac, nom[0] + nom[1])}$<br>`
+          texteCorr += `$\\dfrac{\\tan\\left(${angleABC}^\\circ\\right)}{\\color{red}{1}}=${texFractionFromString(ac, nom[0] + nom[1])}$<br>`
           texteCorr += `${texteEnCouleurEtGras('Les produits en croix sont égaux, donc : ', 'red')}<br>`
           texteCorr += `$${nom[0] + nom[1]}=${quatriemeProportionnelle(`\\tan\\left(${angleABC}^\\circ\\right)`, ac, '\\color{red}{1}')}$`
           texteCorr += `soit $${nom[0] + nom[1]}\\approx${texNombre(ab, 1)}$ ${unite}.`

@@ -4,7 +4,7 @@ import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 import { texteGras } from '../../lib/format/style'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 import { arrondi } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
@@ -126,7 +126,7 @@ export default function ProbabilitesConditionnelles () {
           texteCorr += `<br> $P(A \\cap V)=${texProba(av / 100, this.sup)}$`
           texteCorr += `<br>On peut alors construire cet arbre de probabilités${sp(1)}: <br>`
           texteCorr += mathalea2d({ xmin: -5, ymin: -1, xmax: 18, ymax: 10 }, objets)
-          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${texProba(av / 100, this.sup)}}{${texProba(a / 100, this.sup)}}=${deprecatedTexFraction(av, a)} $.`
+          texteCorr += `<br>On a donc $P_{A}(V)=\\dfrac{P(A \\cap V)}{P(A)}=\\dfrac{${texProba(av / 100, this.sup)}}{${texProba(a / 100, this.sup)}}=${texFractionFromString(av, a)} $.`
           texteCorr += `<br><br>${texteGras('2.')} Comme $A$ et $\\bar A$ forment une partition de l'univers, on peut appliquer la loi des probabilités totales${sp()}:`
           texteCorr += ' <br>$P(V)=P(A \\cap V)+P(\\bar{A} \\cap V). $'
 
@@ -134,10 +134,10 @@ export default function ProbabilitesConditionnelles () {
           texteCorr += `<br>Donc $P(V)=${texProba(av / 100, this.sup)}+${texProba((1 - a / 100) * v / 100, this.sup)}=${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}$.`
           texteCorr += `<br><br>${texteGras('3.')} On a $P_{\\bar{V}}(A)=\\dfrac{P(\\bar{V} \\cap A)}{P(\\bar{V})}=\\dfrac{P(A \\cap \\bar{V})}{P(\\bar{V})}=\\dfrac{P(A) \\times P_A(\\bar{V})}{P(\\bar{V})}$.`
           texteCorr += `<br>Or, d'après la question précédente${sp(1)}:${sp(1)}$P(\\bar{V})=1-P(V)=1-${texProba(av / 100 + (1 - a / 100) * v / 100, this.sup)}=${texProba(1 - (av / 100 + (1 - a / 100) * v / 100), this.sup)}$`
-          texteCorr += `<br>et d'après la question $1: P_{A}(\\bar{V})=1-P_{A}(V)=1-${deprecatedTexFraction(av, a)}=${deprecatedTexFraction(a - av, a)}$.`
+          texteCorr += `<br>et d'après la question $1: P_{A}(\\bar{V})=1-P_{A}(V)=1-${texFractionFromString(av, a)}=${texFractionFromString(a - av, a)}$.`
           k1 = (a - av) / a
           k2 = 1 - (av / 100 + (1 - a / 100) * v / 100)
-          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${texProba(a / 100, this.sup)} \\times ${deprecatedTexFraction(a - av, a)}}{${texProba(k2, this.sup)}} ${egalOuApprox((a / 100) * k1 / k2, 3)}${texProba(((a / 100) * k1) / k2, false)}$.`
+          texteCorr += `<br>Donc $P_{\\bar{V}}(A)=\\dfrac{${texProba(a / 100, this.sup)} \\times ${texFractionFromString(a - av, a)}}{${texProba(k2, this.sup)}} ${egalOuApprox((a / 100) * k1 / k2, 3)}${texProba(((a / 100) * k1) / k2, false)}$.`
           texteCorr += `<br><br>${texteGras('4.')} On a vu que $P(\\bar{V})=1-${texProba(k2, this.sup)}=${texProba(1 - k2, this.sup)}$.`
           texteCorr += '<br>Comme les deux événements sont indépendants, en les appelant $\\bar {V_1}$ et $\\bar{V_2}$, on a : $P(\\bar{V_1}\\cap\\bar{V_2})=P(\\bar{V_1})\\times P(\\bar{V_2})$'
           texteCorr += `<br>La probabilité cherchée est donc égale à $P(\\bar{V_1}\\cap\\bar{V_2})=${texProba(1 - k2, this.sup)} \\times ${texProba(1 - k2, this.sup)}\\approx${texProba((1 - k2) ** 2, false)}$.`

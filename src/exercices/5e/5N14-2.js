@@ -1,6 +1,6 @@
 import { choice, combinaisonListes, enleveElement, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { compareFractions, deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { compareFractions, texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -76,9 +76,9 @@ export default function ExerciceComparerQuatreFractions () {
       n3 *= positifOuNegatif[2]
       n4 *= positifOuNegatif[3]
       const tableauFractions = [[n1, d1, `$${new FractionEtendue(n1, d1).texFSD}$`, `$${new FractionEtendue(n1, d1).texFSD}$`]]
-      tableauFractions.push([n2, d2, `$${new FractionEtendue(n2, d2).texFSD} = ${deprecatedTexFraction(n2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)), d2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)))}=${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`])
-      tableauFractions.push([n3, d3, `$${new FractionEtendue(n3, d3).texFSD} = ${deprecatedTexFraction(n3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)), d3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)))}=${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`])
-      tableauFractions.push([n4, d4, `$${new FractionEtendue(n4, d4).texFSD} = ${deprecatedTexFraction(n4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)), d4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)))}=${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`])
+      tableauFractions.push([n2, d2, `$${new FractionEtendue(n2, d2).texFSD} = ${texFractionFromString(n2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)), d2 + miseEnEvidence('\\times ' + new Decimal(d1).div(d2)))}=${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n2 * d1).div(d2), d1).texFSD}$`])
+      tableauFractions.push([n3, d3, `$${new FractionEtendue(n3, d3).texFSD} = ${texFractionFromString(n3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)), d3 + miseEnEvidence('\\times ' + new Decimal(d1).div(d3)))}=${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n3 * d1).div(d3), d1).texFSD}$`])
+      tableauFractions.push([n4, d4, `$${new FractionEtendue(n4, d4).texFSD} = ${texFractionFromString(n4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)), d4 + miseEnEvidence('\\times ' + new Decimal(d1).div(d4)))}=${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`, `$${new FractionEtendue(new Decimal(n4 * d1).div(d4), d1).texFSD}$`])
       tableauFractions.push([k, 1, `$${k} = ${new FractionEtendue(d1 * k, d1).texFSD}$`, `$${new FractionEtendue(k * d1, d1).texFSD}$`])
       tableauFractions.sort(compareFractions)
       const tableauFractionsEnonce = shuffle(tableauFractions)

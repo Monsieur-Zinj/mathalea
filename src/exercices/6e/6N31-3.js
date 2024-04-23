@@ -1,7 +1,7 @@
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { degCos } from '../../lib/mathFonctions/trigo.js'
 import { choice, combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
@@ -99,7 +99,7 @@ export default function ArrondirUneValeur () {
           den = choice([7, 9, 11, 13])
           num = randint(1, 50, [7, 9, 11, 13, 14, 18, 21, 22, 26, 27, 28, 33, 35, 36, 39, 42, 44, 45, 49])
           n = num / den
-          nb = deprecatedTexFraction(num, den)
+          nb = texFractionFromString(num, den)
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))

@@ -1,5 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -207,44 +207,44 @@ export default function NatureSuiteRec () {
           b = choice([-1, 1])
           if (this.interactif) {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `géométrique de raison $${deprecatedTexFraction(d1 - n1, d1)}$`,
+                    texte: `géométrique de raison $${texFractionFromString(d1 - n1, d1)}$`,
                     statut: true
                   },
                   {
-                    texte: `géométrique de raison $${deprecatedTexFraction(n1, d1)}$`,
+                    texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
                     statut: false
                   },
                   {
-                    texte: `arithmétique de raison $-${deprecatedTexFraction(n1, d1)}$`,
+                    texte: `arithmétique de raison $-${texFractionFromString(n1, d1)}$`,
                     statut: false
                   }
                 ]
               }
               texte += propositionsQcm(this, i).texte
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: `géométrique de raison $${deprecatedTexFraction(d1 + n1, d1)}$`,
+                    texte: `géométrique de raison $${texFractionFromString(d1 + n1, d1)}$`,
                     statut: true
                   },
                   {
-                    texte: `géométrique de raison $${deprecatedTexFraction(n1, d1)}$`,
+                    texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
                     statut: false
                   },
                   {
-                    texte: `arithmétique de raison $${deprecatedTexFraction(n1, d1)}$`,
+                    texte: `arithmétique de raison $${texFractionFromString(n1, d1)}$`,
                     statut: false
                   }
                 ]
@@ -253,13 +253,13 @@ export default function NatureSuiteRec () {
             }
           } else {
             if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}$.<br>
               
               Quelle est la nature de cette suite ? <br>
               
               Donner sa raison.`
             } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}$.<br>
+              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}$.<br>
              
               Quelle est la nature de cette suite ?<br>
               
@@ -268,13 +268,13 @@ export default function NatureSuiteRec () {
           }
 
           if (b < 0) {
-            texteCorr = `$${s}_{n+1} =${s}_{n} -${deprecatedTexFraction(n1, d1)}${s}_{n}=\\left(1-${deprecatedTexFraction(n1, d1)}\\right)${s}_{n}=${deprecatedTexFraction(d1 - n1, d1)}${s}_{n}$.<br>
-                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${deprecatedTexFraction(d1 - n1, d1)}$.<br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${deprecatedTexFraction(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
+            texteCorr = `$${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}=\\left(1-${texFractionFromString(n1, d1)}\\right)${s}_{n}=${texFractionFromString(d1 - n1, d1)}${s}_{n}$.<br>
+                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFractionFromString(d1 - n1, d1)}$.<br>
+        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractionFromString(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
           } else {
-            texteCorr = `$${s}_{n+1} =${s}_{n} +${deprecatedTexFraction(n1, d1)}${s}_{n}=\\left(1+${deprecatedTexFraction(n1, d1)}\\right)${s}_{n}=${deprecatedTexFraction(d1 + n1, d1)}${s}_{n}$.<br>
-            La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${deprecatedTexFraction(d1 + n1, d1)}$.<br>
-On en déduit que $(${s}_n)$ est une suite géométrique de raison $${deprecatedTexFraction(d1 + n1, d1)}$ et de premier terme $${s}_0=${u}$.`
+            texteCorr = `$${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}=\\left(1+${texFractionFromString(n1, d1)}\\right)${s}_{n}=${texFractionFromString(d1 + n1, d1)}${s}_{n}$.<br>
+            La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFractionFromString(d1 + n1, d1)}$.<br>
+On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractionFromString(d1 + n1, d1)}$ et de premier terme $${s}_0=${u}$.`
           }
           break
       }

@@ -1,4 +1,4 @@
-import { deprecatedTexFraction } from '../../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -37,7 +37,7 @@ export default function EquationAXPlusBEgalZero () {
      $\\begin{aligned}
      ${a}x${ecritureAlgebrique(b)}&=0\\\\
     ${a}x&=${ecritureAlgebrique(-b)}\\\\
-    x&=${deprecatedTexFraction(-b, a)}\\\\
+    x&=${texFractionFromString(-b, a)}\\\\
     x&=${this.reponse}
     \\end{aligned}$
    `

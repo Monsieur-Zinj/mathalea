@@ -1,6 +1,6 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
 import { abs, signe } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
@@ -116,7 +116,7 @@ export default function ExerciceEquationASolutionEntiere () {
             texteCorr += `$${a}x${miseEnEvidence(
                             '\\div' + ecritureParentheseSiNegatif(a)
                         )}=${c - b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-            texteCorr += `$x=${deprecatedTexFraction(c - b, a)}=${reponse}$`
+            texteCorr += `$x=${texFractionFromString(c - b, a)}=${reponse}$`
             texteCorr += `<br> La solution est $${reponse}$.`
           } while (b === 0)
           break
@@ -159,7 +159,7 @@ export default function ExerciceEquationASolutionEntiere () {
           texteCorr += `$${a}x${miseEnEvidence(
                         '\\div' + ecritureParentheseSiNegatif(a)
                     )}=${b + miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a))}$<br>`
-          texteCorr += `$x=${deprecatedTexFraction(b, a)}=${reponse}$`
+          texteCorr += `$x=${texFractionFromString(b, a)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
         case 'ax+b=cx+d':
@@ -221,7 +221,7 @@ export default function ExerciceEquationASolutionEntiere () {
                     )}=${d -
                     b +
                     miseEnEvidence('\\div' + ecritureParentheseSiNegatif(a - c))}$<br>`
-          texteCorr += `$x=${deprecatedTexFraction(d - b, a - c)}=${reponse}$`
+          texteCorr += `$x=${texFractionFromString(d - b, a - c)}=${reponse}$`
           texteCorr += `<br> La solution est $${reponse}$.`
           break
       }

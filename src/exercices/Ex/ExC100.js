@@ -1,5 +1,5 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { deprecatedTexFraction, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString, fractionSimplifiee } from '../../lib/outils/deprecatedFractions.js'
 import { abs } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
@@ -53,11 +53,11 @@ export default function EquationDuPremierDegreDansC () {
       texteCorr += `<br>$(${z1})z=${z2n}$`
       texteCorr += `<br>Ce qui donne : $z = \\dfrac{${z2n}}{${z1}}$`
       texteCorr += `<br>Pour faire disparaître le $i$ du dénominateur, utilisons le conjugué $\\overline{${z1}}=${z1c}$ du dénominateur :`
-      texteCorr += `<br>$z = ${deprecatedTexFraction(z2n, z1)}\\times ${miseEnEvidence(deprecatedTexFraction(z1c, z1c))}$`
+      texteCorr += `<br>$z = ${texFractionFromString(z2n, z1)}\\times ${miseEnEvidence(texFractionFromString(z1c, z1c))}$`
       texteCorr += `<br>Or $(${z1})(${z1c})=${z1m}$ `
       texteCorr += `et $(${z2n})(${z1c})=${z2m}$`
       texteCorr += '<br>On en déduit que :'
-      texteCorr += `<br>$z = ${deprecatedTexFraction(z2m, z1m)} = ${deprecatedTexFraction(fr[0], fr[1])}${'-+'[+(fi[0] > 0)]}${deprecatedTexFraction(abs(fi[0]), fi[1])}\\times i$`
+      texteCorr += `<br>$z = ${texFractionFromString(z2m, z1m)} = ${texFractionFromString(fr[0], fr[1])}${'-+'[+(fi[0] > 0)]}${texFractionFromString(abs(fi[0]), fi[1])}\\times i$`
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -1,5 +1,5 @@
 import { combinaisonListes, choice } from '../../lib/outils/arrayOutils'
-import { deprecatedTexFraction } from '../../lib/outils/deprecatedFractions.js'
+import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -276,12 +276,12 @@ export default function CalculDeVolumes () {
             }
             if (piApprox) {
               texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
-              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
-                r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${deprecatedTexFraction(
+              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texFractionFromString(
+                r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${texFractionFromString(
                   r * r * h, 3)}\\times 3 \\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
             } else {
               texteCorr = (diametre ? `$R = diametre \\div 2 = ${2 * r}${listeUnites[j][0]} \\div 2 = ${r}${listeUnites[j][0]}$<br>` : '')
-              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(
+              texteCorr += `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${h}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texFractionFromString(
                             r * r * h, 3)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
             }
           } else {
@@ -292,7 +292,7 @@ export default function CalculDeVolumes () {
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += `, arrondi au $${listeUnites[j][1]}$ près, ` // Il faut toujours arrondir à cause de la présence de Pi
             texte += `d'un cône de $${r}${listeUnites[j][0]}$ de rayon et de $${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}$ de hauteur.`
-            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${deprecatedTexFraction(r * r * h, 3)}\\pi\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+            texteCorr = `$\\mathcal{V}=\\dfrac{1}{3} \\times \\mathcal{B} \\times h=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h / 10, 1)}${listeUnites[j - 1][0]}=\\dfrac{1}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^2\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=${texFractionFromString(r * r * h, 3)}\\pi\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
           }
           resultat = volume.round()
           resultat2 = volume.mul(4).round()
@@ -344,7 +344,7 @@ export default function CalculDeVolumes () {
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
           texte += `, arrondi au $${listeUnites[j][1]}$ près,`
           texte += ` d'une boule de $${r}${listeUnites[j][0]}$ de rayon.`
-          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^3=${deprecatedTexFraction(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
+          texteCorr = `$\\mathcal{V}=\\dfrac{4}{3} \\times \\pi \\times R^3=\\dfrac{4}{3}\\times\\pi\\times\\left(${r}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\right)^3=${texFractionFromString(4 * r * r * r, 3)}\\pi${listeUnites[j][1]}\\approx${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
           resultat = volume.round()
           resultat2 = volume.mul(3).round()
           resultat3 = volume.mul(3).div(4).round()

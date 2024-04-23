@@ -77,7 +77,7 @@ export function produitDeDeuxFractions (num1, den1, num2, den2) {
     den = den1 * den2
     texProduit = `\\dfrac{${num1}\\times ${ecritureParentheseSiNegatif(num2)}}{${den1}\\times${ecritureParentheseSiNegatif(den2)}}`
   }
-  return [deprecatedTexFraction(num, den), texProduit, [num1, den1, num2, den2]]
+  return [texFractionFromString(num, den), texProduit, [num1, den1, num2, den2]]
 }
 
 /**
@@ -100,7 +100,7 @@ export function simplificationDeFractionAvecEtapes (num, den) {
     if (numAbs % denAbs === 0) { // si le résultat est entier
       result += `${num / den}`
     } else {
-      result += `${signe}${deprecatedTexFraction(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
+      result += `${signe}${texFractionFromString(numAbs / s + miseEnEvidence('\\times' + s), denAbs / s + miseEnEvidence('\\times' + s))}=${texFractionSigne(num / s, den / s)}`
     }
   } else if (num < 0 || den < 0) {
     result += `${texFractionSigne(num, den)}`
@@ -147,13 +147,13 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 }
 
 /**
- * @deprecated : Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
+ * Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
  * EE : En fait, elle est deprecated quand numérateur et dénominateur sont des nombres au profit souvent de new FractionEtendue(a,b).texFSD.
- * EE : Quand le numérateur et/ou le dénominateur contien(nen)t du LaTeX, alors deprecatedTexFraction() est celle qui affiche le mieux la fraction que l'on veut.
+ * EE : Quand le numérateur et/ou le dénominateur contien(nen)t du LaTeX, alors texFractionFromString() est celle qui affiche le mieux la fraction que l'on veut.
  * Retourne le code LaTeX d'une fraction a/b
  * @author Rémi Angot
  */
-export function deprecatedTexFraction (a, b) {
+export function texFractionFromString (a, b) {
   if (b !== 1) {
     return `\\dfrac{${typeof a === 'number' ? texNombre(a) : a}}{${typeof b === 'number' ? texNombre(b) : b}}`
   } else {
