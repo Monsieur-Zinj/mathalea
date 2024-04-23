@@ -130,7 +130,7 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
   }
   if (equal(a, 1)) return '+'
   else if (equal(a, -1)) return '-'
-  else if (typeof a === 'number') return ecritureAlgebrique(a)
+  else if (typeof a === 'number' || a instanceof Decimal) return ecritureAlgebrique(a)
   else window.notify('ecritureAlgebriqueSauf1 : type de valeur non prise en compte', {})
 }
 
@@ -250,9 +250,11 @@ export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: 
  * @author Jean-Claude Lhote
  * @param {number} a
  * @param {number} b
- * @param {string} inconnue 'x' par défaut, mais on peut préciser autre chose.
+ * @param {string} [inconnue = 'x'] 'x' par défaut, mais on peut préciser autre chose.
+ * @param {boolean} [avecZero = true] Permet de ne rien afficher lorsque a et b sont nuls. Par défaut, affiche O. (EE : rajout de cette option le 23/04/2024 pour décoquillage 2G30-4)
+ * @param {boolean} [signeFinalFacultatif = true] Permet d'afficher le signe (positif ou négatif) de b lorsque a est nul. Par défaut, affiche que le signe négatif. (EE : rajout de cette option le 23/04/2024 pour décoquillage 2G30-4)
  */
-export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue = 'x') {
+export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue: string = 'x', avecZero = true, signeFinalFacultatif = true) {
   if (!(a instanceof Decimal)) a = new Decimal(a)
   if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
@@ -262,9 +264,9 @@ export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconn
     else result = `${texNombre(a, 7)}${inconnue}`
   }
   if (!b.isZero()) {
-    if (!a.isZero()) result += `${ecritureAlgebrique(b)}`
-    else result = texNombre(b, 7)
-  } else if (a.isZero()) result = '0'
+    if (a.isZero() && signeFinalFacultatif) result = texNombre(b, 7)
+    else result += `${ecritureAlgebriqueSauf1(b)}`
+  } else if (a.isZero() && avecZero) result = '0'
   return result
 }
 
