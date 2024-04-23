@@ -8,8 +8,9 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { powerCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
@@ -356,8 +357,9 @@ export default function PuissancesDunRelatif1 () {
           exposantInteractif = exp
           break
       }
+
       if (this.interactif && !context.isAmc) {
-        setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: powerCompare } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
