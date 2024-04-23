@@ -43,7 +43,7 @@ export default function DeterminantVecteur () {
       $det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=\\begin{vmatrix}x&x'\\\\y&y'\\end{vmatrix}=xy'-x'y$.<br><br>
       En appliquant à l'énoncé :<br><br>
       $det\\left(\\vec{u}\\,;\\,\\vec{v}\\right)=\\begin{vmatrix}${ux}&${vx}\\\\${uy}&${vy}\\end{vmatrix}=${ux}\\times ${ecritureParentheseSiNegatif(vy)}-${ecritureParentheseSiNegatif(vx)}\\times${ecritureParentheseSiNegatif(vy)}=${miseEnEvidence(`${ux * vy - vx * uy}`)}$.<br>`
-    this.reponse = `${ux * vy - vx * uy}`
+    this.reponse = `${det}`
 
     this.canEnonce = this.question // 'Compléter'
     this.canReponseACompleter = ''

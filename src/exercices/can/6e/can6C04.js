@@ -1,5 +1,5 @@
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
+import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Ajouter $10n + 9$'

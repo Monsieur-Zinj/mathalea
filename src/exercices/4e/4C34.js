@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { nombreDeChiffresDansLaPartieEntiere, nombreDeChiffresDe, range1 } from '../../lib/outils/nombres'
+import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'

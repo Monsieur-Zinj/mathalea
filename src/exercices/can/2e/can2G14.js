@@ -34,9 +34,6 @@ export default function TranslationVecteur () {
     const yA = randint(-5, 5)
     const ux = randint(-5, 5, 0)
     const uy = randint(-5, 5)
-    const xB = xA + ux
-
-    const yB = yA + uy
 
     this.question = `Dans un repère orthonormé, on donne un point $A$ de coordonnées $A\\left(${xA}${sp(1)} ; ${sp(1)}${yA}\\right)$ et un vecteur $\\vec{u}$ de coordonnées $\\vec{u}\\begin{pmatrix}${ux} \\\\ ${uy}\\end{pmatrix}$.<br>
     Donner les coordonnées du point $B$ image du point $A$ par la translation de vecteur $\\vec{u}$.<br><br>`

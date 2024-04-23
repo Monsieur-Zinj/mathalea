@@ -25,11 +25,11 @@ export default class SommeTermesSG extends Exercice {
 
   nouvelleVersion () {
     const n = this.canOfficielle ? 16 : randint(12, 25)
-    const choix = choice([true, false])
     let premierTerme = choice(['1', 'q'])
     if (this.canOfficielle) {
       premierTerme = '1'
     } else {
+      // ToDo sujet non officiel
     }
     this.correction = `Il s'agit de la somme des termes d'une suite géométrique de raison $q$ et de premier terme ${premierTerme === '1' ? '$1$ ' : '$q$ '}.<br>
    Comme cette somme se calcule par $\\dfrac{1-q^{\\text{nombre de termes}}}{1-q}$, 

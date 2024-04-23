@@ -53,7 +53,7 @@ function longueurAlternative (longueur) {
   return longueur.slice(1) + longueur.slice(0, 1)
 }
 
-const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde']
+// const mots = ['un diamètre', 'le diamètre', 'un rayon', 'le rayon', 'une corde']
 // @todo relire la définition de cette fonction et la déplacer
 function segmentAlternatif (reponses) {
   if (reponses[0] != null) {

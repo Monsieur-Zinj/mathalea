@@ -28,7 +28,7 @@ export default function NormeVecteur () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur10 inline'
   this.nouvelleVersion = function () {
-    let a, b, nom, reduction
+    let a, b, nom
     switch (choice(['a'])) {
       case 'a':
         a = randint(-9, 9)
