@@ -569,7 +569,7 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
   let formatOK: boolean = false
   let formatKO: boolean = false
   const nombreSaisi = clean(input).split('^')
-  const mantisseSaisie = nombreSaisi[0].replace(/[()]/g, '')
+  const mantisseSaisie = nombreSaisi[0].replace(/\\lparen(.*?)\\rparen/g, '$1')
   // const mantisseS = Number(mantisseSaisie)
   const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
   // const expoS = Number(expoSaisi)
