@@ -13,7 +13,7 @@
       url: string
     }
   }
-  let notes: TypeNote[] = []
+  const notes: TypeNote[] = []
   let exercices: TypeExercice[]
 
   let chargement = true
@@ -38,14 +38,14 @@
         }
       }
       paramUrl = paramUrl.slice(0, -1)
-     
+
       notes.push({
-          "deckName": "MathALÉA",
-          "modelName": "MathALEA",
-          "fields": {
-              "Titre": exercices[i].titre,
-              "url": "https://coopmaths.fr/alea/?" + paramUrl
-          }
+        deckName: 'MathALÉA',
+        modelName: 'MathALEA',
+        fields: {
+          Titre: exercices[i].titre,
+          url: 'https://coopmaths.fr/alea/?' + paramUrl
+        }
       })
       i++
     }
@@ -56,91 +56,88 @@
 
   let logs = ''
 
-  const ANKI_API_URL = new URL('http://127.0.0.1:8765');
+  const ANKI_API_URL = new URL('http://127.0.0.1:8765')
   // hostname // port
 
-  function ankiConnect(action: string, params = {}) {
-      console.log('ankiConnect:', action, '...')
-      return fetch(ANKI_API_URL, {
-          method: "POST",
-          body: JSON.stringify({
-              action: action,
-              version: 6,
-              params: params
-          })
+  function ankiConnect (action: string, params = {}) {
+    console.log('ankiConnect:', action, '...')
+    return fetch(ANKI_API_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action,
+        version: 6,
+        params
       })
-          .then(r => r.json())
-          .then(r => {
-              if (r.error) {
-                  throw new Error(r.error);
-              }
-              console.log('ankiConnect:', action, '... réussi !')
-              return r.result;
-          })
-          .catch(e => {
-              console.error('ankiConnect:', action, '... échoué !')
-              throw e;
-          })
+    })
+      .then(r => r.json())
+      .then(r => {
+        if (r.error) {
+          throw new Error(r.error)
+        }
+        console.log('ankiConnect:', action, '... réussi !')
+        return r.result
+      })
+      .catch(e => {
+        console.error('ankiConnect:', action, '... échoué !')
+        throw e
+      })
   }
 
-  function importer() {
-
+  function importer () {
     logs = ''
 
     ankiConnect('requestPermission')
-    .then(r => {
-      if (r.permission === 'granted') {
-              return ankiConnect('modelNames')
-          } else {
-            throw new Error('Permission not granted');
-          }
+      .then(r => {
+        if (r.permission === 'granted') {
+          return ankiConnect('modelNames')
+        } else {
+          throw new Error('Permission not granted')
+        }
       })
       .then(r => {
         logs += 'Connexion à Anki réussie\n'
         if (!r.includes('MathALEA')) {
           logs += 'Création du model MathALEA\n'
           return ankiConnect('createModel', {
-                  "modelName": "MathALEA",
-                  "inOrderFields": ["Titre", "url"],
-                  "css": "/*\n  Author: Guillaume Valmont\n  Date : November 5, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n*/\n\n.loader-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 75vh;\n}\n\n.loader {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  max-width: 15rem;\n}\n\n.loading-text {\n  position: absolute;\n  color: #f15929;\n  font-size: 1.5rem;\n}\n\n.loader:before,\n.loader:after {\n  content: \"\";\n  position: absolute;\n  border-radius: 50%;\n  animation: pulsOut 1.8s ease-in-out infinite;\n  filter: drop-shadow(0 0 1rem rgba(241, 89, 41, 0.75));\n  backface-visibility: hidden;\n}\n\n.loader:before {\n  width: 100%;\n  padding-bottom: 100%;\n  box-shadow: inset 0 0 0 1rem #f15929;\n  animation-name: pulsIn;\n}\n\n.loader:after {\n  width: calc(100% - 2rem);\n  padding-bottom: calc(100% - 2rem);\n  box-shadow: 0 0 0 0 #f15929;\n}\n\n@keyframes pulsIn {\n  0% {\n    box-shadow: inset 0 0 0 1rem #f15929;\n    opacity: 1;\n  }\n  50%, 100% {\n    box-shadow: inset 0 0 0 0 #f15929;\n    opacity: 0;\n  }\n}\n\n@keyframes pulsOut {\n  0%, 50% {\n    box-shadow: 0 0 0 0 #f15929;\n    opacity: 0;\n  }\n  100% {\n    box-shadow: 0 0 0 1rem #f15929;\n    opacity: 1;\n  }\n}\n",
-                  //"isCloze": false,
-                  "cardTemplates": [
-                      {
-                          "Name": "Card 1",
-                          "Front": `\x3C!-- \n  Author: Guillaume Valmont\n  Date : November 15, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n-->\n\n<link rel="stylesheet" href="https://coopmaths.fr/alea/anki/mathalea-anki-style.css">\n\n<div id='recto-iframe-container'>\n  <div class="loader-container">\n    <div class="loader">\n      <span class="loading-text">Chargement</span>\n    </div>\n  </div>\n</div>\n\n\x3Cscript src="https://coopmaths.fr/alea/anki/mathalea-anki-script.js" onload="executeIframeUpdate()">\x3C/script>\n\n\x3Cscript>\n  function executeIframeUpdate() {\n    rectoIframeUpdate((function () {/* {{url}} */ }).toString())\n  }\n\x3C/script>\n`,
-                          "Back": `\x3C!-- \n  Author: Guillaume Valmont\n  Date : November 15, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n-->\n\n<link rel="stylesheet" href="https://coopmaths.fr/alea/anki/mathalea-anki-style.css">\n\n<div id='verso-iframe-container'>\n  <div class="loader-container">\n    <div class="loader">\n      <span class="loading-text">Chargement</span>\n    </div>\n  </div>\n</div>\n\n\x3Cscript src="https://coopmaths.fr/alea/anki/mathalea-anki-script.js" onload="executeIframeUpdate()">\x3C/script>\n\n\x3Cscript>\n  function executeIframeUpdate() {\n    versoIframeUpdate((function () {/* {{url}} */ }).toString())\n  }\n\x3C/script>\n`
-                      }
-                  ]
-              })
-          }
-          return
+            modelName: 'MathALEA',
+            inOrderFields: ['Titre', 'url'],
+            css: '/*\n  Author: Guillaume Valmont\n  Date : November 5, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n*/\n\n.loader-container {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 75vh;\n}\n\n.loader {\n  position: relative;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 100%;\n  max-width: 15rem;\n}\n\n.loading-text {\n  position: absolute;\n  color: #f15929;\n  font-size: 1.5rem;\n}\n\n.loader:before,\n.loader:after {\n  content: "";\n  position: absolute;\n  border-radius: 50%;\n  animation: pulsOut 1.8s ease-in-out infinite;\n  filter: drop-shadow(0 0 1rem rgba(241, 89, 41, 0.75));\n  backface-visibility: hidden;\n}\n\n.loader:before {\n  width: 100%;\n  padding-bottom: 100%;\n  box-shadow: inset 0 0 0 1rem #f15929;\n  animation-name: pulsIn;\n}\n\n.loader:after {\n  width: calc(100% - 2rem);\n  padding-bottom: calc(100% - 2rem);\n  box-shadow: 0 0 0 0 #f15929;\n}\n\n@keyframes pulsIn {\n  0% {\n    box-shadow: inset 0 0 0 1rem #f15929;\n    opacity: 1;\n  }\n  50%, 100% {\n    box-shadow: inset 0 0 0 0 #f15929;\n    opacity: 0;\n  }\n}\n\n@keyframes pulsOut {\n  0%, 50% {\n    box-shadow: 0 0 0 0 #f15929;\n    opacity: 0;\n  }\n  100% {\n    box-shadow: 0 0 0 1rem #f15929;\n    opacity: 1;\n  }\n}\n',
+            // "isCloze": false,
+            cardTemplates: [
+              {
+                Name: 'Card 1',
+                Front: '\x3C!-- \n  Author: Guillaume Valmont\n  Date : November 15, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n-->\n\n<link rel="stylesheet" href="https://coopmaths.fr/alea/anki/mathalea-anki-style.css">\n\n<div id=\'recto-iframe-container\'>\n  <div class="loader-container">\n    <div class="loader">\n      <span class="loading-text">Chargement</span>\n    </div>\n  </div>\n</div>\n\n\x3Cscript src="https://coopmaths.fr/alea/anki/mathalea-anki-script.js" onload="executeIframeUpdate()">\x3C/script>\n\n\x3Cscript>\n  function executeIframeUpdate() {\n    rectoIframeUpdate((function () {/* {{url}} */ }).toString())\n  }\n\x3C/script>\n',
+                Back: '\x3C!-- \n  Author: Guillaume Valmont\n  Date : November 15, 2023\n  Licence: CC-BY-SA 4.0\n  https://forge.apps.education.fr/anki-templates/mathalea\n-->\n\n<link rel="stylesheet" href="https://coopmaths.fr/alea/anki/mathalea-anki-style.css">\n\n<div id=\'verso-iframe-container\'>\n  <div class="loader-container">\n    <div class="loader">\n      <span class="loading-text">Chargement</span>\n    </div>\n  </div>\n</div>\n\n\x3Cscript src="https://coopmaths.fr/alea/anki/mathalea-anki-script.js" onload="executeIframeUpdate()">\x3C/script>\n\n\x3Cscript>\n  function executeIframeUpdate() {\n    versoIframeUpdate((function () {/* {{url}} */ }).toString())\n  }\n\x3C/script>\n'
+              }
+            ]
+          })
+        }
       })
       .then(
-          () => { // Le deck ne sera créé que s'il n'existe pas
-              return ankiConnect('createDeck', {
-                "deck": "MathALÉA"
-              })
-          }
-        )
-        .then(
-          () => {
-              return ankiConnect('addNotes', {
-                  "notes": notes
-              })
-          }
-        ).then((r) => {
-            const nbExos = r.length
-            const nbExosDejaPresent = r.filter(x => x == null).length
-            logs += `${nbExos} ${nbExos > 1 ? 'exercices importés' : 'exercice importé'} ${nbExosDejaPresent ? `(dont ${nbExosDejaPresent} déjà présent${nbExosDejaPresent>1 ? 's' : ''}) ` : ''}dans Anki avec succès !\n`
-   
-        }).catch(e => {
-          logs += 'ERREUR, L\'IMPORTATION N\'A PAS RÉUSSI :\n\t' + e + '\n'
-          logs += 'Veuillez vérifier que :\n'
-          logs += '- Anki est bien installé sur votre ordinateur\n'
-          logs += '- Le plugin AnkiConnect est bien installé et activé\n'
-          logs += '- Anki est bien actuellement lancé\n'
-        })
-    }
+        () => { // Le deck ne sera créé que s'il n'existe pas
+          return ankiConnect('createDeck', {
+            deck: 'MathALÉA'
+          })
+        }
+      )
+      .then(
+        () => {
+          return ankiConnect('addNotes', {
+            notes
+          })
+        }
+      ).then((r) => {
+        const nbExos = r.length
+        const nbExosDejaPresent = r.filter(x => x == null).length
+        logs += `${nbExos} ${nbExos > 1 ? 'exercices importés' : 'exercice importé'} ${nbExosDejaPresent ? `(dont ${nbExosDejaPresent} déjà présent${nbExosDejaPresent > 1 ? 's' : ''}) ` : ''}dans Anki avec succès !\n`
+      }).catch(e => {
+        logs += 'ERREUR, L\'IMPORTATION N\'A PAS RÉUSSI :\n\t' + e + '\n'
+        logs += 'Veuillez vérifier que :\n'
+        logs += '- Anki est bien installé sur votre ordinateur\n'
+        logs += '- Le plugin AnkiConnect est bien installé et activé\n'
+        logs += '- Anki est bien actuellement lancé\n'
+      })
+  }
 
     </script>
 

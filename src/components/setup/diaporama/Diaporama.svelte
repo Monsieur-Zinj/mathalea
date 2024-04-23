@@ -152,7 +152,7 @@
           seedrandom(exercice.seed, { global: true })
           exercice.nouvelleVersionWrapper?.()
         }
-        
+
         let consigne: string = ''
         if ($selectedExercises.indexes.includes(k)) {
           if (exercice.introduction) {
@@ -486,7 +486,7 @@
    */
   async function setSize () {
     const zoomByVues = Array.apply(null, Array(nbOfVues)).map(Number.prototype.valueOf, 0)
-    for (let kk = 0; kk < 2 ; kk++) {
+    for (let kk = 0; kk < 2; kk++) {
       // premiere passe : on selectionne le meilleur zoom par vue (size)
       // deuxième passe : on applique le zoom minimum des différentes vues
       const zoomMin = Math.min(...zoomByVues)
@@ -635,7 +635,7 @@
                 correctionWidth = 0
               }
             } while (
-              size > 6 /* pour éviter la boucle infinie */ && kk === 0 && 
+              size > 6 /* pour éviter la boucle infinie */ && kk === 0 &&
               (questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
                 correctionWidth > textcellWidth ||

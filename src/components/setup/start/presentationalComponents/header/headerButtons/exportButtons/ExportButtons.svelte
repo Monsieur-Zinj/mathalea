@@ -87,7 +87,7 @@
         new URL(location.href),
         'mathAlea',
         false,
-        false,
+        false
       )}
     message="Le téléchargement va début dans quelques instants."
     messageError="Impossible de télécharger le fichier !"

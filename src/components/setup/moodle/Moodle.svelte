@@ -6,7 +6,6 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
 
-
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
     if (preElt) {
@@ -41,7 +40,7 @@
   let exercices: TypeExercice[]
 
   async function initExercices () {
-    content = '';
+    content = ''
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     let i = 0
@@ -63,7 +62,7 @@
         }
       }
       paramUrl = paramUrl.slice(0, -1)
-      let graine = useAlea ? '' : `graine\\="${param['alea']}" `
+      const graine = useAlea ? '' : `graine\\="${param.alea}" `
       content += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
       content += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
       content += `<mathalea-moodle url\\="${paramUrl}" ${graine}/>\n`
@@ -75,7 +74,7 @@
       i++
     }
   }
-  let useAlea = true;
+  let useAlea = true
   $: {
     useAlea
     initExercices()

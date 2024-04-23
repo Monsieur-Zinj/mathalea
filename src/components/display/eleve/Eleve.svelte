@@ -263,7 +263,7 @@
     // ToFix exercices custom avec pointsCliquable
     const exercice = exercices[indiceExercice[i]]
     let type = exercice.autoCorrection[indiceQuestionInExercice[i]].reponse?.param?.formatInteractif
-    if (type ===undefined || type === null){
+    if (type === undefined || type === null) {
       type = exercice.interactifType
     }
     if (type.toLowerCase() === 'mathlive') {

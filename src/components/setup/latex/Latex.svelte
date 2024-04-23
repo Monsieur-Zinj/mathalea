@@ -41,7 +41,7 @@ import {
    * qui adaptent la sortie PDF
    */
   const latexFileInfos : LatexFileInfos = {
-    title : '',
+    title: '',
     reference: '',
     subtitle: '',
     style: 'Coopmaths',
@@ -86,7 +86,6 @@ import {
     messageForCopyPasteModal = buildMessageForCopyPaste(picsWanted)
   }
 
-
   async function updateLatexWithAbortController () {
     const clone = UpdateController.update()
     if (clone.signal?.aborted) {
@@ -102,7 +101,7 @@ import {
       }
       clone.signal?.addEventListener('abort', rej)
       // Something fake async
-      await updateLatex(clone).then(()=> {
+      await updateLatex(clone).then(() => {
         clone.signal?.removeEventListener('abort', rej)
         log('Promise resolu')
         resolve()
@@ -112,14 +111,14 @@ import {
     })
   }
 
-  async function updateLatex (clone : LatexFileInfos ) {
+  async function updateLatex (clone : LatexFileInfos) {
     try {
       log('updateLatex')
       // await new Promise((resolve) => setTimeout(resolve, 10000))
-      latexFile = await latex.getFile(clone)    
+      latexFile = await latex.getFile(clone)
       log('fin updateLatex')
     } catch (error) {
-      if ( error instanceof DOMException && error.name === 'AbortError'){
+      if (error instanceof DOMException && error.name === 'AbortError') {
         // nouvelle demande de fichier LATEX demandée
         throw error
       }
@@ -130,7 +129,7 @@ import {
 
   class UpdateController {
     static controller : AbortController | undefined
-    static update(){
+    static update () {
       if (UpdateController.controller === undefined) {
         UpdateController.controller = new AbortController()
       } else {
@@ -140,19 +139,19 @@ import {
       const clone = structuredClone(latexFileInfos)
       clone.signal = UpdateController.controller.signal
       return clone
-    } 
+    }
   }
 
-  let debug = false
+  const debug = false
   function log (str : string) {
     if (debug) {
       console.log(str)
     }
   }
-  
+
   $: {
-    if (latex.exercices.length > 0 ) {
-      log('update')      
+    if (latex.exercices.length > 0) {
+      log('update')
       latexFileInfos.title = latexFileInfos.title
       latexFileInfos.reference = latexFileInfos.reference
       latexFileInfos.subtitle = latexFileInfos.subtitle
@@ -163,30 +162,29 @@ import {
       latexFileInfos.qrcodeOption = latexFileInfos.qrcodeOption
       promise = updateLatexWithAbortController().catch(err => {
         if (err.name === 'AbortError') {
-          log('Promise Aborted');
+          log('Promise Aborted')
         } else {
-          log('Promise Rejected');
+          log('Promise Rejected')
         }
       })
     }
   }
 
-
   async function forceUpdate () {
     log('forceUpdate')
     latexFileInfos.title = latexFileInfos.title
   }
-  
+
   onMount(async () => {
     initTE({ Carousel })
     // console.log('onMount')
-    promise = initExercices().then(()=> updateLatexWithAbortController()).catch(err => {
-        if (err.name === 'AbortError') {
-          log('Promise Aborted');
-        } else {
-          log('Promise Rejected');
-        }
-      })
+    promise = initExercices().then(() => updateLatexWithAbortController()).catch(err => {
+      if (err.name === 'AbortError') {
+        log('Promise Aborted')
+      } else {
+        log('Promise Rejected')
+      }
+    })
     downloadPicsModal = document.getElementById(
       'downloadPicsModal'
     ) as HTMLElement
@@ -195,7 +193,7 @@ import {
     // console.log('fin onMount')
   })
 
-  onDestroy(async() => {
+  onDestroy(async () => {
     document.removeEventListener('updateAsyncEx', forceUpdate)
   })
 
@@ -337,7 +335,7 @@ import {
               }
             ]}
           />
-          {#if latexFileInfos.style==='ProfMaquette'}
+          {#if latexFileInfos.style === 'ProfMaquette'}
           <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
           >
@@ -516,7 +514,7 @@ import {
               <ButtonCompileLatexToPDF
                 class="flex w-full flex-col justify-center"
                 {latex}
-                {latexFileInfos}          
+                {latexFileInfos}
               />
               {/await}
             </div>
@@ -557,7 +555,7 @@ import {
           </SimpleCard>
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
-            <div slot="button1">            
+            <div slot="button1">
               <Button
                 class="px-2 py-1 rounded-md"
                 idLabel="downloadFullArchive"
@@ -566,7 +564,7 @@ import {
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
                 title="Archive complète"
-              />              
+              />
             </div>
             <div slot="button2">
               {#await promise}

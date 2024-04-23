@@ -38,7 +38,6 @@
 
 {/if}
 
-
 <style>
   .customgap {
     gap: calc(var(--gapsize) * 1px);
