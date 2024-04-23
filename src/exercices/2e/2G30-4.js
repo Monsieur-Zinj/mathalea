@@ -28,7 +28,6 @@ export default function Equationcartesienne () {
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.sup = 1 // Niveau de difficulté
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -42,8 +41,10 @@ export default function Equationcartesienne () {
         case 'cartesienne1':
           xA = randint(-5, 5)
           yA = randint(-5, 5)
-          xu = randint(-5, 5)
-          yu = randint(-5, 5)
+          do {
+            xu = randint(-5, 5)
+            yu = randint(-5, 5)
+          } while (xu === 0 && yu === 0) // EE : Pour éviter le cas du vecteur nul
           texte = `La droite $(d)$ passe par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
           if (this.sup === 1) {
             texte += '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
@@ -57,15 +58,7 @@ export default function Equationcartesienne () {
             texteCorr += ` <br>$\\iff ${yu} \\times ${ecritureParentheseSiNegatif(xA)} ${ecritureAlgebrique(-xu)} \\times ${ecritureParentheseSiNegatif(yA)}+ c=0$ `
             texteCorr += ` <br>$\\iff  ${yu * xA} ${ecritureAlgebrique(-xu * yA)} + c=0$ `
             texteCorr += ` <br>$\\iff  c= ${-xA * yu + yA * xu}$ `
-            texteCorr += ' <br>Une équation cartésienne de la droite $(d)$ est donc de la forme : '
-            if (xu === 0) { texteCorr += `$${reduireAxPlusB(yu, 0)} ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` } else {
-              if (xu === 1) { texteCorr += `$${reduireAxPlusB(yu, 0)}-y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu !== 0) { texteCorr += `$${reduireAxPlusB(yu, 0)}+y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu === -1 & yu === 0) { texteCorr += `$y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$ ` }
-              if (xu !== 0 & xu !== 1 & xu !== -1) { texteCorr += `$${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebrique(-xA * yu + yA * xu)}=0$.` }
-            }
-          }
-          if (this.sup === 2) {
+          } else {
             texte += '<br><i>On demande une démonstration n\'utilisant pas de résultat de cours.</i>'
 
             texteCorr = context.isHtml ? '<br>' : '' + 'Soit $M(x;y)$ un point du plan distinct de $A$.'
@@ -77,10 +70,14 @@ export default function Equationcartesienne () {
             texteCorr += `<br>$\\iff \\begin{vmatrix}x-${ecritureParentheseSiNegatif(xA)}&${xu}\\\\y-${ecritureParentheseSiNegatif(yA)}&${yu}\\end{vmatrix}=0$<br>`
             texteCorr += `<br>$\\iff (x-${ecritureParentheseSiNegatif(xA)})\\times ${yu}-( y-${ecritureParentheseSiNegatif(yA)}) \\times ${ecritureParentheseSiNegatif(xu)}=0$`
             texteCorr += `<br>$\\iff ${yu} x ${ecritureAlgebriqueSauf1(-xu)} y -${ecritureParentheseSiNegatif(xA)} \\times ${yu} ${ecritureAlgebrique(yA)} \\times ${ecritureParentheseSiNegatif(xu)}=0$`
-            texteCorr += ` <br>Après réduction, une équation cartésienne de la droite $(d)$ est de la forme : $${reduireAxPlusB(yu, -xu)}y ${ecritureAlgebriqueSauf1(-xA * yu + yA * xu)}=0$.`
           }
+          texteCorr += this.sup === 2 ? ' <br>Après réduction, une ' : ' <br>Une '
+          texteCorr += 'équation cartésienne de la droite $(d)$ est donc de la forme : '
+          texteCorr += `$${reduireAxPlusB(yu, -xu) === '1' ? '' : reduireAxPlusB(yu, -xu)}${xu === 0 ? '' : 'y'} ${reduireAxPlusB(0, -xA * yu + yA * xu, 'x', false, false)}=0$.`
+
           break
       }
+
       if (this.questionJamaisPosee(i, xA, yA, xu, yu)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
