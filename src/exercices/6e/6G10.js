@@ -42,8 +42,8 @@ export default function NotationSegmentDroiteDemiDroite () {
       const p = creerNomDePolygone(3, listeDeNomsDePolygones)
       listeDeNomsDePolygones.push(p)
       const A = point(0, 0, p[0], 'above left')
-      const B = point(1, 1.2, p[1], 'above')
-      const C = point(2.2, -0.3, p[2], 'above right')
+      const B = point(2, 2.2, p[1], 'above')
+      const C = point(4.2, -0.6, p[2], 'above right')
       const creerDroiteDemiSegment = (A, B, type) => {
         let trait, notation
         switch (type) {
@@ -69,12 +69,12 @@ export default function NotationSegmentDroiteDemiDroite () {
       const [dAB, dABCorr] = creerDroiteDemiSegment(A, B, listeDesTypesDeQuestions[3 * i])
       const [dAC, dACCorr] = creerDroiteDemiSegment(A, C, listeDesTypesDeQuestions[3 * i + 1])
       const [dBC, dBCCorr] = creerDroiteDemiSegment(B, C, listeDesTypesDeQuestions[3 * i + 2])
-      context.pixelsParCm = 40
+      context.pixelsParCm = 20
       const labels = labelPoint(A, B, C)
 
       texte = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer... <br><br>`
       figure = mathalea2d(
-        { xmin: -1, ymin: -1, xmax: 3, ymax: 2.5, pixelsParCm: 40, scale: 1, zoom: 1.5 },
+        { xmin: -1, ymin: -1, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 1, zoom: 1.5 },
         dAB,
         dBC,
         dAC,

@@ -47,6 +47,7 @@ export default function CliqueFigure () {
       const B = point(4, randint(-1, 3, 0))
       A.nom = lettreDepuisChiffre(numeroLettre)
       B.nom = lettreDepuisChiffre(numeroLettre + 1)
+      context.pixelsParCm = 10
       const labels = labelPoint(A, B)
       this.figures[i] = [{ id: `figure0Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `figure1Ex${this.numeroExercice}Q${i}`, solution: false },
@@ -124,7 +125,7 @@ export default function CliqueFigure () {
         texte += '<br>'
         texteCorr = texte + mathalea2d({ xmin: -4, xmax: 6, ymin: -2, style: '', scale: 0.4, id: `figure3Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B), figCorr)
         const figures = shuffle([figSegment, figDroite, figDemiDroite, figDemiDroite2])
-        texte += figures.join('')
+        texte += figures.join('<br>')
         if (this.interactif && context.isHtml) {
           texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
         }

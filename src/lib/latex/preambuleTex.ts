@@ -190,6 +190,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['decoration=brace', 'decoration={brace}'], '\\usetikzlibrary {decorations.pathreplacing}', contents)
   testIfLoaded(['\\tkzText'], '\\usepackage{tkz-fct}', contents)
   testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
+  testIfLoaded(['needspace'], '\\usepackage{needspace}', contents)
   testIfLoaded(['\\begin{scratch}'], '\\usepackage{scratch3}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)

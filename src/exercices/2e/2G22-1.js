@@ -4,7 +4,7 @@ import { longueur, nomVecteurParPosition, segment, vecteur } from '../../lib/2d/
 import { labelPoint, latexParPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
@@ -20,13 +20,18 @@ export const refs = {
   'fr-fr': ['2G22-1'],
   'fr-ch': []
 }
-export default function RepresenterUnVecteur () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 1 //
-  this.nouvelleVersion = function () {
+
+export default class RepresenterUnVecteur extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 2
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 1 //
+    this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n 2 : Avec un point extrémité']
+  }
+
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
@@ -85,22 +90,22 @@ export default function RepresenterUnVecteur () {
 
         texteCorr = 'On sait qu\'un vecteur mesure un déplacement.'
         texteCorr += `<br> À partir du point $A$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement (en bleu) puis $${uy}$ unités verticalement (en vert) pour arriver au point $B$, extrémité du vecteur $\\vec{u}$.`
-        texteCorr += '<br> Voir les déplacements dans le repère et le tracé en rouge du vecteur $\\vec{u}$.'
+        texteCorr += '<br> Voir les déplacements dans le repère et le tracé en rouge du vecteur $\\vec{u}$.<br>'
       } else {
         texte = ` Dans un repère orthonormé $(O,\\vec i,\\vec j)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour extrémité le point $B\\left(${xB};${yB}\\right)$.`
 
         texteCorr = 'On sait qu\'un vecteur mesure un déplacement.'
         texteCorr += `<br> On cherche donc un point $A$, à partir duquel en traçant le déplacement correspondant à $${ux}$ unités horizontalement (en bleu)  puis $${uy}$ unités verticalement (en vert), on arrive au point $B$.`
-        texteCorr += '<br> Voir le déplacement en bleu dans le repère et le tracé en rouge du vecteur $\\vec{u}$.'
+        texteCorr += '<br> Voir le déplacement en bleu dans le repère et le tracé en rouge du vecteur $\\vec{u}$.<br>'
         //  t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
         l = labelPoint(A, B, 'red')// Variable qui trace les nom s A et B
       }
       texteCorr += mathalea2d({
-        xmin: -9,
-        ymin: -9,
-        xmax: 9,
-        ymax: 9,
+        xmin: -10,
+        ymin: -10,
+        xmax: 10,
+        ymax: 10,
         scale: 0.4
       }, r, l, k, j, s, o, nomi, nomj, nomAB, h1, h2, labelA, labelB
       //, t
@@ -115,5 +120,4 @@ export default function RepresenterUnVecteur () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n 2 : Avec un point extrémité']
 }
