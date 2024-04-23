@@ -136,7 +136,7 @@ class Latex {
           }
 
           for (const correction of exercice.listeCorrections) {
-            contentCorr += `\n\\item \\vbox{${format(correction)}}`
+            contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
           }
           contentCorr += '\n\\end{enumerate}\n'
           if (Number(exercice.nbColsCorr) > 1) {
@@ -177,6 +177,7 @@ class Latex {
         if (exercice.content === '') {
           content += '% Cet exercice n\'est pas disponible au format LaTeX'
         } else {
+          content += '\n\\needspace{10\\baselineskip}'
           content += '\n\\begin{exercice}\n'
           if (withQrcode) {
             content += `\\begin{wrapfigure}{r}{2cm}
@@ -194,6 +195,7 @@ Correction
           content += '\n\\end{Solution}\n'
         }
       } else {
+        content += '\n\\needspace{10\\baselineskip}'
         content += '\n\\begin{exercice}\n'
         if (withQrcode) {
           content += `\\begin{wrapfigure}{r}{2cm}
@@ -330,6 +332,7 @@ Correction
     top=5pt, left=5pt, right=5pt, colback=red!5!white%
   }%
 }%
+${latexFileInfos.qrcodeOption === 'AvecQrcode' ? '\n\\tcbset{\n  tikzfiche/.append style={height=4cm, height plus=25cm}\n}\n' : ''}
 % Parametrages
 \\hypersetup{
     colorlinks=true,% On active la couleur pour les liens. Couleur par défaut rouge
@@ -421,11 +424,11 @@ function writeQuestions (questions: string[], spacing = 1, numbersNeeded: boolea
       content += '[' + specs.join(',') + ']'
     }
     for (const question of questions) {
-      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\vbox{') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '}')
+      content += '\n\t\\item ' + (nbCols > 1 ? '\\begin{minipage}[t]{\\linewidth}' : '\\begin{minipage}[t]{\\linewidth}') + format(question) + (nbCols > 1 ? '\\end{minipage}' : '\\end{minipage}')
     }
     content += '\n\\end{enumerate}'
   } else {
-    content += '\n' + format(questions[0])
+    content += '\n \\begin{minipage}[t]{\\linewidth}' + format(questions[0] + '\\end{minipage}')
   }
   return content
 }
