@@ -14,6 +14,8 @@ export type BlockForKeyboard =
   | 'basicOperationsPlus'
   | 'capacities'
   | 'compare'
+  | 'degre'
+  | 'degreCelsius'
   | 'ensemble'
   | 'fullOperations'
   | 'greek'

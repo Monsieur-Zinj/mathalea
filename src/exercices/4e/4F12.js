@@ -14,6 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { hmsCompare, unitsCompare } from '../../lib/interactif/comparisonFunctions'
 import Grandeur from '../../modules/Grandeur'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -113,7 +114,7 @@ export default function ExploiterRepresentationGraphique () {
           )}~;~0)$.`
         )
         this.listeQuestions.push(
-          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
+          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
@@ -154,7 +155,7 @@ export default function ExploiterRepresentationGraphique () {
             'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
+          'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(t1, 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
@@ -166,7 +167,7 @@ export default function ExploiterRepresentationGraphique () {
         )
 
         this.listeQuestions.push(
-          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesLongueur')
+          'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
@@ -299,7 +300,7 @@ export default function ExploiterRepresentationGraphique () {
           'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
         this.listeQuestions.push(
-          'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
+          'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmin, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++
@@ -307,7 +308,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
 
         this.listeQuestions.push(
-          'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 unitesAngle alphanumeric')
+          'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmax, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
         indiceQuestion++

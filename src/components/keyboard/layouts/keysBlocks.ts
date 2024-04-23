@@ -74,6 +74,16 @@ const compareCaps: CompleteKeysList = {
   block: ['LESS', 'GREAT']
 }
 
+const degreCaps: CompleteKeysList = {
+  inline: ['DEG'],
+  block: ['DEG']
+}
+
+const degreCelsiusCaps: CompleteKeysList = {
+  inline: ['DEGCELSIUS'],
+  block: ['DEGCELSIUS']
+}
+
 const trigoCaps: CompleteKeysList = {
   inline: ['COS', 'SIN', 'TAN', 'ANG'],
   block: ['COS', 'SIN', 'TAN', 'ANG']
@@ -255,6 +265,20 @@ export const compare: KeyboardBlock = {
   isUnits: false
 }
 
+export const degre: KeyboardBlock = {
+  keycaps: degreCaps,
+  cols: 1,
+  title: 'Degré',
+  isUnits: true
+}
+
+export const degreCelsius: KeyboardBlock = {
+  keycaps: degreCelsiusCaps,
+  cols: 1,
+  title: 'Degré Celsius',
+  isUnits: true
+}
+
 export const trigo: KeyboardBlock = {
   keycaps: trigoCaps,
   cols: 1,
@@ -355,6 +379,8 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   basicOperationsPlus,
   capacities,
   compare,
+  degre,
+  degreCelsius,
   ensemble,
   greek,
   fullOperations,

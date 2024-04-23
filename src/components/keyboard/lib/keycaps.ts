@@ -113,6 +113,10 @@ const basicKeys = {
   DEG: {
     display: '°'
   },
+  DEGCELSIUS: {
+    display: '°C',
+    insert: '°C'
+  },
   ANG: {
     display: '$\\widehat{\\square}$',
     insert: '$$\\widehat{#0}$$'
