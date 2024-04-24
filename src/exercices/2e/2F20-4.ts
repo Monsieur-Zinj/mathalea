@@ -22,6 +22,7 @@ import { setsCompare, intervalsCompare } from '../../lib/interactif/comparisonFu
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
 export const dateDePublication = '29/10/2023'
+export const dateDeModifImportante = '24/04/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -159,9 +160,9 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = ['']
     this.autoCorrection = []
-    const aleaF1 = randint(1, 15)
+    const aleaF1 = randint(1, 20, [5, 9, 10, 15]) // EE : J'enlève e, i, j et o.
     const f1 = lettreMinusculeDepuisChiffre(aleaF1)
-    const f2 = lettreMinusculeDepuisChiffre(randint(1, 20, aleaF1))
+    const f2 = lettreMinusculeDepuisChiffre(randint(1, 20, [5, 9, 10, 15, aleaF1]))
     const choixFonctions = this.sup2 < 10 ? this.sup2 : randint(1, 9)
     let integraleDiff: number
     let f1Type: TypesDeFonction
