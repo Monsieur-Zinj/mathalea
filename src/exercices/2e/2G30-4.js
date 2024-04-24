@@ -3,7 +3,7 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
-  reduireAxPlusB
+  reduireAxPlusByPlusC
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -39,12 +39,14 @@ export default function Equationcartesienne () {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'cartesienne1':
+        {
           xA = randint(-5, 5)
           yA = randint(-5, 5)
           do {
             xu = randint(-5, 5)
             yu = randint(-5, 5)
           } while (xu === 0 && yu === 0) // EE : Pour éviter le cas du vecteur nul
+
           texte = `La droite $(d)$ passe par le point $A$ de coordonnées : $A(${xA};${yA})$ et ayant le vecteur $\\vec u \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$ comme vecteur directeur.`
           if (this.sup === 1) {
             texte += '<br><i>On demande une rédaction utilisant un résultat de cours.</i>'
@@ -73,9 +75,13 @@ export default function Equationcartesienne () {
           }
           texteCorr += this.sup === 2 ? ' <br>Après réduction, une ' : ' <br>Une '
           texteCorr += 'équation cartésienne de la droite $(d)$ est donc de la forme : '
-          texteCorr += `$${reduireAxPlusB(yu, -xu) === '1' ? '' : reduireAxPlusB(yu, -xu)}${xu === 0 ? '' : 'y'} ${reduireAxPlusB(0, -xA * yu + yA * xu, 'x', false, false)}=0$.`
-
+          const constante = -xA * yu + yA * xu
+          /* texteCorr += `$${yu === 0 ? '' : yu === 1 ? 'x' : yu === -1 ? '-x' : (yu + 'x')}`
+          texteCorr += `${xu === 0 ? '' : xu === 1 ? '-y' : (xu === -1 && yu === 0) ? 'y' : (xu === -1 && yu !== 0) ? '+y' : yu === 0 ? ((-xu) + 'y') : (ecritureAlgebriqueSauf1(-xu) + 'y')}`
+          texteCorr += `${constante === 0 ? '' : (ecritureAlgebriqueSauf1(constante))}=0$` */
+          texteCorr += `$${reduireAxPlusByPlusC(yu, -xu, constante)}=0$`
           break
+        }
       }
 
       if (this.questionJamaisPosee(i, xA, yA, xu, yu)) {

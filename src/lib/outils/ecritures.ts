@@ -247,15 +247,18 @@ export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: 
 /**
  * renvoie une chaine correspondant à l'écriture réduite d'ax+b selon les valeurs de a et b
  * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
- * @author Jean-Claude Lhote
+ * @author Eric Elter
  * @param {number} a
  * @param {number} b
  * @param {string} [inconnue = 'x'] 'x' par défaut, mais on peut préciser autre chose.
- * @param {boolean} [avecZero = true] Permet de ne rien afficher lorsque a et b sont nuls. Par défaut, affiche O. (EE : rajout de cette option le 23/04/2024 pour décoquillage 2G30-4)
- * @param {boolean} [signeFinalFacultatif = true] Permet d'afficher le signe (positif ou négatif) de b lorsque a est nul. Par défaut, affiche que le signe négatif. (EE : rajout de cette option le 23/04/2024 pour décoquillage 2G30-4)
  */
-export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue: string = 'x', avecZero = true, signeFinalFacultatif = true) {
-  if (!(a instanceof Decimal)) a = new Decimal(a)
+export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue: string = 'x') {
+  return reduireAxPlusByPlusC(a, 0, b, inconnue)
+}
+
+/* Ancienne version de Jean-Claude Lhote
+
+if (!(a instanceof Decimal)) a = new Decimal(a)
   if (!(b instanceof Decimal)) b = new Decimal(b)
   let result = ''
   if (!a.isZero()) {
@@ -264,9 +267,37 @@ export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconn
     else result = `${texNombre(a, 7)}${inconnue}`
   }
   if (!b.isZero()) {
-    if (a.isZero() && signeFinalFacultatif) result = texNombre(b, 7)
+    if (a.isZero()) result = texNombre(b, 7)
     else result += ecritureAlgebrique(b)
-  } else if (a.isZero() && avecZero) result = '0'
+  } else if (a.isZero()) result = '0'
+  return result
+} */
+
+/**
+ * renvoie une chaine correspondant à l'écriture réduite d'ax+by+c selon les valeurs de a, b et c
+ * Les lettres par défaut utilisées sont 'x' et y mais peut être tout autre chose.
+ * @author Eric Elter
+ * @param {number} a
+ * @param {number} b
+ * @param {number} c
+ * @param {string} [inconnueX = 'x'] 'x' par défaut, mais on peut préciser autre chose.
+ * @param {string} [inconnueY = 'y'] 'y' par défaut, mais on peut préciser autre chose.
+ * @example reduireAxPlusByPlusC(3,-4,5) // renvoie 3x-4y+5
+ * @example reduireAxPlusByPlusC(1,-1,0) // renvoie x-y
+ * @example reduireAxPlusByPlusC(0,2,-7) // renvoie 2y-7
+ * @example reduireAxPlusByPlusC(3,0,6) // renvoie 3x+6
+ * @example reduireAxPlusByPlusC(0,0,0) // renvoie 0
+ * @example reduireAxPlusByPlusC(3,-4,5,'a','b') // renvoie 3a-4b+5
+ * @return {string}
+ */
+export function reduireAxPlusByPlusC (a: number | Decimal, b: number | Decimal, c:number|Decimal, inconnueX = 'x', inconnueY = 'y') {
+  if (!(a instanceof Decimal)) a = new Decimal(a)
+  if (!(b instanceof Decimal)) b = new Decimal(b)
+  if (!(c instanceof Decimal)) c = new Decimal(c)
+  let result = ''
+  result += a.isZero() ? '' : ((a.eq(1) ? '' : a.eq(-1) ? '-' : (texNombre(a))) + inconnueX)
+  result += b.isZero() ? '' : ((b.eq(-1) ? '-' : (b.eq(1) && a.isZero()) ? '' : (b.eq(1) && !a.isZero()) ? '+' : a.isZero() ? (texNombre(b)) : (ecritureAlgebrique(b))) + inconnueY)
+  result += (a.isZero() && b.isZero() && c.isZero()) ? 0 : c.isZero() ? '' : (a.isZero() && b.isZero()) ? texNombre(c) : (ecritureAlgebrique(c))
   return result
 }
 
