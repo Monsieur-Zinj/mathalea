@@ -217,9 +217,9 @@ export default class IntersectionDroites extends Exercice {
           while ((a2 / d2 === a / d) || (a3 / d3 === a / d) || (a2 / d2 === a3 / d3) || (inGraph(pAproxInt12)) || coordEntieres(pAproxInt12) || coordEntieres(pAproxInt13) || coordEntieres(pAproxInt23))
           break
       }
-      const droite1 = droiteAvecNomLatex(c, 'd_1', 'red')
-      const droite2 = droiteAvecNomLatex(c2, 'd_2', 'green')
-      const droite3 = droiteAvecNomLatex(c3, 'd_3', 'blue')
+      const droite1 = droiteAvecNomLatex(c, '(d_1)', 'red')
+      const droite2 = droiteAvecNomLatex(c2, '(d_2)', 'green')
+      const droite3 = droiteAvecNomLatex(c3, '(d_3)', 'blue')
       const droiteFrac1 = [new FractionEtendue(a, d), new FractionEtendue(b, 1)]
       const droiteFrac2 = [new FractionEtendue(a2, d2), new FractionEtendue(b2, 1)]
       const droiteFrac3 = [new FractionEtendue(a3, d3), new FractionEtendue(b3, 1)]
@@ -237,6 +237,7 @@ export default class IntersectionDroites extends Exercice {
         yMax: 6,
         yUnite: 1,
         thickHauteur: 0.1,
+        thickEpaisseur: 1,
         xLabelMin: -7,
         xLabelMax: 7,
         yLabelMax: 5,
@@ -244,6 +245,7 @@ export default class IntersectionDroites extends Exercice {
         axeXStyle: '->',
         axeYStyle: '->',
         yLabelDistance: 1,
+        axesEpaisseur: 1,
         yLabelEcart: 0.6,
         grilleSecondaire: true,
         grilleSecondaireYDistance: 1,
