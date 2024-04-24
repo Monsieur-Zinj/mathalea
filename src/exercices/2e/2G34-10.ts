@@ -42,7 +42,6 @@ export default class AssocierGraphiqueSysteme extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    const o = texteParPosition('O', -0.3, -0.3, undefined, 'black', undefined, 'milieu', undefined, 1)
     const listeFractions = [[1, 3], [2, 3], [3, 7], [2, 7], [4, 3], [3, 5], [4, 7], [1, 5], [4, 5], [3, 4], [1, 4], [2, 5], [5, 3], [6, 5], [1, 6], [5, 6], [1, 7]]
     // const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, d, a2, a3, b2, b3, d2, d3, c, c2, c3, a4, b4, c4, d4, a4Frac, a5, b5, c5, d5, a5Frac, a6, b6, c6, d6, a6Frac, r, t1, t2, t3, s1, s2, s3, s4, s5, s6, aFrac, a2Frac, a3Frac, pente1, pente2, pente3, pente4, pente5, pente6, texte, texteCorr, lsys, ss1, ss2, ss3, vari, lass, cpt = 0;
@@ -162,20 +161,24 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         yMin: -6,
         yMax: 6,
         yUnite: 1,
-        thickHauteur: 0.1,
+        thickHauteur: 0.2,
+        thickEpaisseur: 1,
         xLabelMin: -7,
         xLabelMax: 7,
         yLabelMax: 5,
         yLabelMin: -5,
         axeXStyle: '->',
         axeYStyle: '->',
-        yLabelDistance: 1,
+        yLabelDistance: 2,
+        xLabelDistance: 2,
         yLabelEcart: 0.6,
+        axesEpaisseur: 1,
         grilleSecondaire: true,
         grilleSecondaireYDistance: 1,
         grilleSecondaireXDistance: 1,
         grilleSecondaireYMin: -6,
         grilleSecondaireYMax: 6,
+        labelListe: [],
         grilleSecondaireXMin: -8,
         grilleSecondaireXMax: 8
       })
@@ -208,7 +211,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
-      }, r, c, c2, t1, o), mathalea2d({
+      }, r, c, c2, t1), mathalea2d({
         xmin: -8,
         ymin: -6,
         xmax: 8,
@@ -217,7 +220,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
-      }, r, c3, c4, t2, o), mathalea2d({
+      }, r, c3, c4, t2), mathalea2d({
         xmin: -8,
         ymin: -6,
         xmax: 8,
@@ -226,7 +229,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
-      }, r, c5, c6, t3, o))
+      }, r, c5, c6, t3))
       if (this.interactif) {
         texte += '<br> Indiquer pour chaque graphique le système correspondant ($A, B, C$)' + remplisLesBlancs(this, i, '1\\rightarrow %{champ1} \\quad 2\\rightarrow %{champ2} \\quad 3\\rightarrow %{champ3}')
         handleAnswers(this, i, {
