@@ -265,7 +265,7 @@ export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconn
   }
   if (!b.isZero()) {
     if (a.isZero() && signeFinalFacultatif) result = texNombre(b, 7)
-    else result += `${ecritureAlgebriqueSauf1(b)}`
+    else result += ecritureAlgebrique(b)
   } else if (a.isZero() && avecZero) result = '0'
   return result
 }
