@@ -9,7 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { aleaExpression } from '../../modules/outilsMathjs'
 import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
-import { regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
+import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
@@ -152,7 +152,9 @@ export default function DevelopperReduireExprComplexe () {
       )}`
       // ici on va rédiger la correction détaillée
       const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: true })
-      const expressionOrdonnee = regroupeTermesMemeDegre(sansParentheses, choixLettre, { color: true })
+      const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: false })
+      const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, choixLettre, { color: true })
+      const expressionDeveloppee = developpe(expression1, { lettre: choixLettre })
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       // La correction dans le texte pour tester
       texte += `<br>$(${devExpr1})${ope}(${devExpr2})$`

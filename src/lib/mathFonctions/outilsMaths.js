@@ -6,6 +6,7 @@ import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'
 import { miseEnEvidence, texcolors } from '../outils/embellissements'
+import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -316,5 +317,23 @@ export function regroupeTermesMemeDegre (exp, lettre, options) {
 }
 
 export function developpe (expr, options) {
-
+  const lettre = options.lettre
+  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
+  const regX = new RegExp(regString, 'g')
+  const clean = generateCleaner(['parentheses'])
+  expr = clean(expr)
+  const arbre = engine.parse(expr)
+  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) { // On ne développe que les produits où les carrés ici
+    return expr
+  }
+  if (arbre.head === 'Square' || arbre.head === 'Power') { // on est sans doute en présence d'une égalité remarquable ?
+    if (arbre.op2.numericValue !== 2) return expr
+    const facteur1 = arbre.op1.latex
+    const parts = facteur1.match(regX).filter(el => el !== '')
+    console.log(parts.join(' et '))
+  } else { // Ici c'est un produit classique.
+    const facteur1 = arbre.op1.latex
+    const facteur2 = arbre.op2.latex
+    console.log(facteur1, facteur2)
+  }
 }
