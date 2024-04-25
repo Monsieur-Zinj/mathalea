@@ -155,7 +155,14 @@ class Latex {
 
   loadExercicesWithVersion (indiceVersion: number = 1) {
     for (const exercice of this.exercices) {
-      if (exercice.typeExercice === 'statique') continue
+      if (exercice.typeExercice === 'statique') {
+        const serie = exercice?.examen?.toLowerCase()
+        if (serie === 'crpe' && indiceVersion === 1) {
+          exercice.content = exercice.content?.replaceAll('{Images/', '{')
+          exercice.contentCorr = exercice.contentCorr?.replaceAll('{Images/', '{')
+        }
+        continue
+      }
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
@@ -454,7 +461,11 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       const serie = exo?.serie?.toLowerCase()
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
-          imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          if (file.format) {
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          } else {
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`)
+          }
         } else {
           if (file.format) {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)
