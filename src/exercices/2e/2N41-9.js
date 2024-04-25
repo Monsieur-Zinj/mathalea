@@ -39,6 +39,7 @@ export default function DevelopperReduireExprComplexe () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 1
   this.sup = '3'
+  this.sup2 = false
   this.tailleDiaporama = 3
   this.listeAvecNumerotation = false
   this.correctionDetailleeDisponible = true
@@ -68,6 +69,7 @@ export default function DevelopperReduireExprComplexe () {
     )
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      const color = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
       let factsProd1Diff = true // par défaut
@@ -150,20 +152,26 @@ export default function DevelopperReduireExprComplexe () {
           coeffConst,
           choixLettre
       )}`
-      // ici on va rédiger la correction détaillée
-      const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: true })
-      const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: false })
-      const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, choixLettre, { color: true })
-      const expressionDeveloppee = developpe(expression1, { lettre: choixLettre })
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
-      // La correction dans le texte pour tester
-      texte += `<br>$(${devExpr1})${ope}(${devExpr2})$`
-      texte += `<br>$${sansParentheses}$`
-      texte += `<br>$${expressionOrdonnee}$`
-      // La correction pour de vrai
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
-      texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
-      texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
+      // ici on va rédiger la correction détaillée
+      if (this.correctionDetaillee) {
+        const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color })
+        const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: false })
+        const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, choixLettre, { color })
+        const expressionDeveloppee1 = developpe(expression1, { color, colorOffset: 0 })
+        const expressionDeveloppee2 = developpe(expression2, { color, colorOffset: 4 })
+        // La correction dans le texte pour tester
+        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
+        texteCorr += `&=${miseEnEvidence(`(${devExpr1})${ope}(${devExpr2})`, 'black')}\\\\`
+        texteCorr += `&=${sansParentheses}\\\\`
+        texteCorr += `&=${expressionOrdonnee}\\end{aligned}$`
+      } else {
+        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
+        texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
+      }
+
+      // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif
@@ -266,4 +274,5 @@ export default function DevelopperReduireExprComplexe () {
 `]
 
   this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
+  this.besoinFormulaire2CaseACocher = ['Couleur dans la correction', false]
 }

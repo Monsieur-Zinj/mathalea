@@ -317,9 +317,8 @@ export function regroupeTermesMemeDegre (exp, lettre, options) {
 }
 
 export function developpe (expr, options) {
-  const lettre = options.lettre
-  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
-  const regX = new RegExp(regString, 'g')
+  const color = options?.color
+  const colorOffset = options.colorOffset ?? 0
   const clean = generateCleaner(['parentheses'])
   expr = clean(expr)
   const arbre = engine.parse(expr)
@@ -328,12 +327,54 @@ export function developpe (expr, options) {
   }
   if (arbre.head === 'Square' || arbre.head === 'Power') { // on est sans doute en présence d'une égalité remarquable ?
     if (arbre.op2.numericValue !== 2) return expr
-    const facteur1 = arbre.op1.latex
-    const parts = facteur1.match(regX).filter(el => el !== '')
-    console.log(parts.join(' et '))
+    const interior = arbre.op1
+    const somme = interior.head === 'Add'
+    const terme1 = interior.op1
+    const terme2 = interior.op2
+    const carre1 = terme1.isNumber
+      ? terme1.latex.startsWith('-')
+        ? `(${terme1.latex})^2`
+        : `${terme1.latex}^2`
+      : `(${terme1.latex})^2`
+    const carre2 = terme2.isNumber
+      ? terme2.latex.startsWith('-')
+        ? `(${terme2.latex})^2`
+        : `${terme2.latex}^2`
+      : `(${terme2.latex})^2`
+    const dbleProd = `2\\times ${terme1.isNumber
+        ? terme1.latex.startsWith('-')
+            ? `(${terme1.latex})`
+            : `${terme1.latex}`
+        : `${terme1.latex}`}\\times ${terme2.isNumber
+        ? terme2.latex.startsWith('-')
+            ? `(${terme2.latex})`
+            : `${terme2.latex}`
+        : `${terme2.latex}`}`
+    return `${miseEnForme(carre1, colorOffset, color)}${somme ? '+' : '-'}${miseEnForme(dbleProd, colorOffset + 1, color)}+${miseEnForme(carre2, colorOffset + 2, color)}`
   } else { // Ici c'est un produit classique.
-    const facteur1 = arbre.op1.latex
-    const facteur2 = arbre.op2.latex
-    console.log(facteur1, facteur2)
+    const facteur1 = arbre.op1
+    const facteur2 = arbre.op2
+    const terme1 = facteur1.op1
+    const terme2 = facteur1.op2
+    const somme1 = facteur1.head === 'Add'
+    const terme3 = facteur2.op1
+    const terme4 = facteur2.op2
+    const somme2 = facteur2.head === 'Add'
+    const t1 = terme1.isNumber && terme1.latex.startsWith('-')
+      ? `(${terme1.latex})`
+      : terme1.latex
+    const t2 = terme2.isNumber && terme2.latex.startsWith('-')
+      ? `(${terme2.latex})`
+      : terme2.latex
+    const t3 = terme3.isNumber && terme3.latex.startsWith('-')
+      ? `(${terme3.latex})`
+      : terme3.latex
+    const t4 = terme4.isNumber && terme4.latex.startsWith('-')
+      ? `(${terme4.latex})`
+      : terme4.latex
+    return `${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
+    ${somme2 ? '+' : '-'}${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}
+    ${somme1 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
+    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}`
   }
 }
