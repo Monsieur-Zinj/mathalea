@@ -25,15 +25,21 @@ const UPLOAD_FOLDER = 'updatefile'
 const UPLOAD_SUBFOLDER = 'output'
 
 // file parameter retrieved from an input type=file
-async function readZip (file: fs.FileHandle): Promise<Map<string, string>> {
+async function readZip (file: fs.FileHandle): Promise<Map<string, string| ArrayBuffer>> {
   const buffer = await fs.readFile(file)
-  const files : Map<string, string> = new Map<string, string>()
+  const files : Map<string, string | ArrayBuffer> = new Map<string, string | ArrayBuffer>()
   const zipper = new JSZip()
   const unzippedFiles = await zipper.loadAsync(buffer)
   const entries = Object.keys(unzippedFiles.files)
   for (const _filename of entries) {
     if (_filename !== 'images/') {
-      files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+      if (_filename.includes('eps')) {
+        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+      } else if (_filename.includes('png')) {
+        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('arraybuffer'))
+      } else {
+        files.set(_filename.replace('images/', ''), await unzippedFiles.files[_filename].async('string'))
+      }
     }
   }
   return files
@@ -89,7 +95,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
   const zip = await fs.open(UPLOAD_FOLDER + '/' + UPLOAD_SUBFOLDER + '/' + id + (id === uuid ? '_' : '_' + uuid + '_') + download.suggestedFilename())
 
-  const unzipfiles : Map<string, string> = await readZip(zip)
+  const unzipfiles : Map<string, string | ArrayBuffer> = await readZip(zip)
 
   zip.close()
 
@@ -98,8 +104,12 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
   const filesPromise : Promise<unknown>[] = []
   unzipfiles.forEach((value, key) => {
-    // console.log(`m[${key}] = ${value}`);
-    filesPromise.push(fs.writeFile(folder + '/' + key, value))
+    if (value instanceof ArrayBuffer) {
+      const buffer = Buffer.from(value)
+      filesPromise.push(fs.writeFile(folder + '/' + key, buffer))
+    } else {
+      filesPromise.push(fs.writeFile(folder + '/' + key, value))
+    }
   })
   await Promise.all(filesPromise)
 
@@ -188,7 +198,7 @@ async function getLatexFile (page: Page, urlExercice: string) {
 
 async function testRunAllLots (filter: string) {
   // return testAll(page, '6e/6G23')
-  const uuids = filter.includes('dnb') ? await findStatic(filter) : await findUuid(filter)
+  const uuids = filter.includes('dnb') || filter.includes('crpe') || filter.includes('bac') ? await findStatic(filter) : await findUuid(filter)
   for (let i = 0; i < uuids.length && i < 300; i += 10) {
     const ff : ((page: Page) => Promise<boolean>)[] = []
     for (let k = i; k < i + 10 && k < uuids.length; k++) {
@@ -256,6 +266,6 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('dnb_2019_03_caledonie_7')
   // testRunAllLots('dnb_2020_09_metropole_4')
   // testRunAllLots('dnb_2021_06_polynesie_5')
-  testRunAllLots('dnb_2014_12_caledonie_2')
-  testRunAllLots('dnb_2015_09_polynesie_7')
+  // testRunAllLots('dnb_2014_12_caledonie_2')
+  testRunAllLots('bac_2023')
 }

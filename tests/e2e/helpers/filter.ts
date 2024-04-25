@@ -36,11 +36,31 @@ export async function findStatic (filter : string) {
   //   "E3C par specimen - APMEP",
   // ]
   const uuidsDNB = uuids[0][1] // on conserve uniquement les exercices DNB
+  const uuidsBAC = uuids[1][1] // on conserve uniquement les exercices CRPE (2022-2023)
+  const uuidsCRPE = uuids[3][1] // on conserve uniquement les exercices CRPE (2022-2023)
   const uuidsFound : [string, string][] = []
   const filters = filter.split('^')
   filters.forEach(e => {
     Object.entries(uuidsDNB).forEach(([, value]) => {
     // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(e)) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsCRPE).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
+      const values = Object.values(value)
+      values.forEach((val) => {
+        if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(e)) {
+          uuidsFound.push([val.uuid, val.uuid])
+        }
+      })
+    })
+    Object.entries(uuidsBAC).forEach(([, value]) => {
+      // les keys sont les années, elles ne nous intéressent pas ici!
       const values = Object.values(value)
       values.forEach((val) => {
         if (val !== null && typeof val === 'object' && 'uuid' in val && typeof val.uuid === 'string' && val.uuid.startsWith(e)) {
