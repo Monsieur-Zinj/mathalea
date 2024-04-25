@@ -17,8 +17,7 @@ _private/
 tests/e2e/logs
 updatefile
 # Dictionnaires générés
-src/json/referentielStaticCH.json
-src/json/referentielStaticFR.json
+src/json/referentielStatic.json
 
 src/json/exercicesCH.json
 src/json/exercicesFR.json
@@ -35,7 +34,6 @@ src/json/refToUuidFR.json
 src/json/uuidsToUrlCH.json
 src/json/uuidsToUrlFR.json
 
-src/json/referentielGeometrieDynamiqueCH.json
-src/json/referentielGeometrieDynamiqueFR.json
+src/json/referentielGeometrieDynamique.json
 
 screenshots/
