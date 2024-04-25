@@ -9,6 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { aleaExpression } from '../../modules/outilsMathjs'
 import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
@@ -38,6 +39,7 @@ export default function DevelopperReduireExprComplexe () {
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 1
   this.sup = '3'
+  this.sup2 = false
   this.tailleDiaporama = 3
   this.listeAvecNumerotation = false
   this.correctionDetailleeDisponible = true
@@ -67,6 +69,7 @@ export default function DevelopperReduireExprComplexe () {
     )
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      const color = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
       let factsProd1Diff = true // par défaut
@@ -136,11 +139,9 @@ export default function DevelopperReduireExprComplexe () {
       const expression2 = factsProd2Diff
         ? printlatex(aleaExpression(`(e*${choixLettre}+(f))*(g*${choixLettre}+(h))`, { e, f, g, h })).replaceAll(' ', '')
         : printlatex(aleaExpression(`(e*${choixLettre}+(f))^2`, { e, f })).replaceAll(' ', '')
-      console.log(expression1, expression2)
       const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1)]).evaluate().latex
       const devExpr2 = engine.box(['ExpandAll', engine.parse(expression2)]).evaluate().latex
       const expression = `${expression1}${ope}${expression2}`
-      let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       const coeffX2 = ope === '-' ? a * c - e * g : a * c + e * g
       const coeffX = ope === '-' ? a * d + b * c - e * h - f * g : a * d + b * c + e * h + f * g
       const coeffConst = ope === '-' ? b * d - f * h : b * d + f * h
@@ -151,11 +152,26 @@ export default function DevelopperReduireExprComplexe () {
           coeffConst,
           choixLettre
       )}`
+      let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
-      texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
       // ici on va rédiger la correction détaillée
+      if (this.correctionDetaillee) {
+        const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color })
+        const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, choixLettre, { color: false })
+        const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, choixLettre, { color })
+        const expressionDeveloppee1 = developpe(expression1, { color, colorOffset: 0 })
+        const expressionDeveloppee2 = developpe(expression2, { color, colorOffset: 4 })
+        // La correction dans le texte pour tester
+        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
+        texteCorr += `&=${miseEnEvidence(`(${devExpr1})${ope}(${devExpr2})`, 'black')}\\\\`
+        texteCorr += `&=${sansParentheses}\\\\`
+        texteCorr += `&=${expressionOrdonnee}\\end{aligned}$`
+      } else {
+        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
+        texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
+      }
 
-      texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
+      // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif
@@ -258,4 +274,5 @@ export default function DevelopperReduireExprComplexe () {
 `]
 
   this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
+  this.besoinFormulaire2CaseACocher = ['Couleur dans la correction', false]
 }

@@ -5,6 +5,8 @@ import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'
+import { miseEnEvidence, texcolors } from '../outils/embellissements'
+import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 
 /**
  * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
@@ -216,4 +218,163 @@ export function rationnalise (x) {
   }
   // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
   return new FractionEtendue(x.n * x.s, x.d)
+}
+
+export const miseEnForme = (str, n, color) => color ? miseEnEvidence(str, texcolors(n)) : str
+
+/**
+ * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
+ * l'intérieur des parenthèses pour l'instant de peut contenir que des entiers, des lettres et des + ou -
+ * Les parenthèses doivent être de vraies parenthèses (pas des \left( ou des \lparen) donc on convertira ici avant de les supprimer
+ * Non testé sur des expressions comme (5x+3)(4x+3) car c'est pas fait pour !
+ * @param {string} exp
+ * @param {string} lettre
+ * @param {{color: boolean}} options
+ */
+export function suppressionParentheses (exp, lettre, options) {
+  const deg = (term) => term.includes('^')
+    ? term.match(/\^(\d)/)[0].match(/\d/)[0]
+    : term.includes(lettre)
+      ? 1
+      : 0
+  exp = exp.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
+  exp = exp.replaceAll('\\left(', '(').replaceAll('\\right)', ')')
+  const parts = exp.match(/[-+]?\([\da-z+^-]*\)/g)
+  let expressionFinale = ''
+  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
+  const regX = new RegExp(regString, 'g')
+  for (const part of parts) {
+    if (typeof part === 'string') {
+      if (part.startsWith('(')) {
+        const interior = part.substring(1, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          expressionFinale += miseEnForme(term, d, options?.color)
+        }
+      } else if (part.startsWith('-')) {
+        const interior = part.substring(2, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          if (term.startsWith('-')) {
+            expressionFinale += miseEnForme('+' + term.substring(1), d, options?.color)
+          } else if (term.startsWith('+')) {
+            expressionFinale += miseEnForme('-' + term.substring(1), d, options?.color)
+          } else {
+            expressionFinale += miseEnForme('-' + term, d, options?.color)
+          }
+        }
+      } else if (part.startsWith('+')) {
+        const interior = part.substring(2, part.length - 1)
+        const terms = interior.match(regX)
+        for (const term of terms.filter(el => el !== '')) {
+          const d = deg(term)
+          const premierChar = term.charAt(0)
+          if (['+', '-'].includes(premierChar)) expressionFinale += miseEnForme(term, d, options?.color)
+          else expressionFinale += miseEnForme('+' + term, d, options?.color)
+        }
+      }
+    }
+  }
+  return expressionFinale
+}
+
+/**
+ *
+ * @param {string} exp
+ * @param {string} lettre
+ */
+export function regroupeTermesMemeDegre (exp, lettre, options) {
+  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
+  const regX = new RegExp(regString, 'g')
+  const parts = exp.match(regX).filter(el => el !== '')
+  const allTheTerms = []
+  if (parts != null) {
+    for (const part of parts) {
+      const deg = part.includes('^')
+        ? part.match(/\^(\d)/)[0].match(/\d/)[0]
+        : part.includes(lettre)
+          ? 1
+          : 0
+      if (allTheTerms[deg] == null) allTheTerms[deg] = []
+      allTheTerms[deg].push(part)
+    }
+  }
+  const expressionFinale = []
+  for (let i = allTheTerms.length; i > 0; i--) {
+    const listOfTerm = allTheTerms[i - 1]
+    if (listOfTerm.length > 0) {
+      let parcel = ''
+      for (let term of listOfTerm) {
+        if (term.startsWith('+') && parcel === '') term = term.substring(1)
+        parcel += term
+      }
+      expressionFinale.push(`(${miseEnForme(parcel, i - 1, options?.color)})`)
+    }
+  }
+  return expressionFinale.join('+')
+}
+
+export function developpe (expr, options) {
+  const color = options?.color
+  const colorOffset = options.colorOffset ?? 0
+  const clean = generateCleaner(['parentheses'])
+  expr = clean(expr)
+  const arbre = engine.parse(expr)
+  if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) { // On ne développe que les produits où les carrés ici
+    return expr
+  }
+  if (arbre.head === 'Square' || arbre.head === 'Power') { // on est sans doute en présence d'une égalité remarquable ?
+    if (arbre.op2.numericValue !== 2) return expr
+    const interior = arbre.op1
+    const somme = interior.head === 'Add'
+    const terme1 = interior.op1
+    const terme2 = interior.op2
+    const carre1 = terme1.isNumber
+      ? terme1.latex.startsWith('-')
+        ? `(${terme1.latex})^2`
+        : `${terme1.latex}^2`
+      : `(${terme1.latex})^2`
+    const carre2 = terme2.isNumber
+      ? terme2.latex.startsWith('-')
+        ? `(${terme2.latex})^2`
+        : `${terme2.latex}^2`
+      : `(${terme2.latex})^2`
+    const dbleProd = `2\\times ${terme1.isNumber
+        ? terme1.latex.startsWith('-')
+            ? `(${terme1.latex})`
+            : `${terme1.latex}`
+        : `${terme1.latex}`}\\times ${terme2.isNumber
+        ? terme2.latex.startsWith('-')
+            ? `(${terme2.latex})`
+            : `${terme2.latex}`
+        : `${terme2.latex}`}`
+    return `${miseEnForme(carre1, colorOffset, color)}${somme ? '+' : '-'}${miseEnForme(dbleProd, colorOffset + 1, color)}+${miseEnForme(carre2, colorOffset + 2, color)}`
+  } else { // Ici c'est un produit classique.
+    const facteur1 = arbre.op1
+    const facteur2 = arbre.op2
+    const terme1 = facteur1.op1
+    const terme2 = facteur1.op2
+    const somme1 = facteur1.head === 'Add'
+    const terme3 = facteur2.op1
+    const terme4 = facteur2.op2
+    const somme2 = facteur2.head === 'Add'
+    const t1 = terme1.isNumber && terme1.latex.startsWith('-')
+      ? `(${terme1.latex})`
+      : terme1.latex
+    const t2 = terme2.isNumber && terme2.latex.startsWith('-')
+      ? `(${terme2.latex})`
+      : terme2.latex
+    const t3 = terme3.isNumber && terme3.latex.startsWith('-')
+      ? `(${terme3.latex})`
+      : terme3.latex
+    const t4 = terme4.isNumber && terme4.latex.startsWith('-')
+      ? `(${terme4.latex})`
+      : terme4.latex
+    return `${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
+    ${somme2 ? '+' : '-'}${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}
+    ${somme1 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
+    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}`
+  }
 }
