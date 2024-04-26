@@ -267,5 +267,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('dnb_2020_09_metropole_4')
   // testRunAllLots('dnb_2021_06_polynesie_5')
   // testRunAllLots('dnb_2014_12_caledonie_2')
-  testRunAllLots('bac_2023')
+  testRunAllLots('bac_2024')
 }
