@@ -108,8 +108,10 @@ class Latex {
             content += '% Cet exercice n\'est pas disponible au format LaTeX'
           } else {
             if (latexFileInfos.style === 'Coopmaths') {
+              content += `\n% @see : ${getUrlFromExercice(exercice)}`
               content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
             } else if (latexFileInfos.style === 'Classique') {
+              content += `\n% @see : ${getUrlFromExercice(exercice)}`
               content += '\n\\begin{EXO}{}{}\n'
             }
             if (Number(exercice.nbCols) > 1) {
@@ -143,6 +145,7 @@ class Latex {
             contentCorr += '\\end{multicols}\n'
           }
           contentCorr += '\n\\end{EXO}\n'
+          content += `\n% @see : ${getUrlFromExercice(exercice)}`
           content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))

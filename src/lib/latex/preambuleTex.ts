@@ -163,6 +163,9 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)
   testIfLoaded(['\\pstGeonode', '\\pstLine', '\\pstLabelAB'], '\\usepackage{pst-eucl}', contents)
   testIfLoaded(['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'], '\\usepackage{pst-plot}', contents)
+  testIfLoaded(['\\psbcurve'], '\\usepackage{pst-bezier}', contents)
+  testIfLoaded(['\\psBspline'], '\\usepackage{pst-bspline}', contents)
+  testIfLoaded(['\\pstThreeDLine', 'pstThreeDCoor'], '\\usepackage{pst-3dplot}', contents)
   testIfLoaded(['\\multido'], '\\usepackage{multido}', contents)
   testIfLoaded(['\\gradangle{', 'fillstyle=gradient'], '\\usepackage{pst-grad}', contents)
   testIfLoaded(['\\pstree{', '\\pstree['], '\\usepackage{pst-tree}', contents)
@@ -226,11 +229,13 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
     contents.preamble += '\n}'
   }
-  testIfLoaded(['\\R ', '\\R{', '\\R)', '\\R.', '\\R^{', '\\R\\', '\\R$', '\\N ', '\\N*', '\\N,', '\\N{', '\\N^{', '\\N$', '\\N}'], '\\usepackage{amsfonts}', contents)
-  testIfLoaded(['\\R ', '\\R{', '\\R.', '\\R)', '\\R$', '\\R^{', '\\R\\'], '\\newcommand\\R{\\mathbb{R}}', contents)
-  testIfLoaded(['\\N ', '\\N,', '\\N{', '\\N^{', '\\N$', '\\N*', '\\N}'], '\\newcommand\\N{\\mathbb{N}}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\R)', '\\R.', '\\R^', '\\R\\', '\\R$', '\\R_+', '\\in \\R', '\\N ', '\\N*', '\\N^*', '\\N,', '\\N{', '\\N^{', '\\N$', '\\N}'], '\\usepackage{amsfonts}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\R.', '\\R)', '\\R_+', '\\R$', '\\R^', '\\R\\', '\\in \\R'], '\\newcommand\\R{\\mathbb{R}}', contents)
+  testIfLoaded(['\\N ', '\\N,', '\\N^*', '\\N{', '\\N^{', '\\N$', '\\N*', '\\N}'], '\\newcommand\\N{\\mathbb{N}}', contents)
   testIfLoaded(['\\vect', '\\Oij', '\\Oijk', '\\Ouv'], '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
   testIfLoaded(['\\vectt'], '\\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
+  testIfLoaded(['\\vv'], '\\newcommand{\\vv}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
+  testIfLoaded(['\\vvt'], '\\newcommand{\\vvt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
   testIfLoaded(['\\Oij'], '\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}', contents)
   testIfLoaded(['\\Oijk'], '\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}', contents)
   testIfLoaded(['\\Ouv'], '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}', contents)
@@ -254,8 +259,17 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(['single arrow'], '\\usetikzlibrary{shapes}', contents)
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
+  testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
+  testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
   testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
   testIfLoaded(['\\con{'], '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}', contents)
+  testIfLoaded(['\\Coord'], `\\newcommand*{\\Coord}[4]{% 
+\\ensuremath{\\vect{#1}\\, 
+      \\begin{pmatrix} 
+        #2\\\\ 
+        #3\\\\
+        #4
+\\end{pmatrix}}}`, contents, '\\Coord')
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
   testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments', '\\pic['], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
