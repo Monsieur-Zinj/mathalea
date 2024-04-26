@@ -540,7 +540,7 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
       if (engine.parse(`${newFractionAvecDecimal.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
     } else {
       // La saisie n'est pas un décimal, peut-être possède-t-elle une racine carrée... comme dans 2N32-7
-      let newFractionSansDecimal = texFractionFromString(input, 1)
+      let newFractionSansDecimal = texFractionFromString(input, 1) as string
       newFractionSansDecimal = cleaner(newFractionSansDecimal)
       if (engine.parse(newFractionSansDecimal).canonical.isSame(fReponse.canonical)) return { isOk: true }
     }

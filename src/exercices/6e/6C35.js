@@ -24,7 +24,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '24/04/2021'
-export const dateDeModifImportante = '27/03/2024'
+export const dateDeModifImportante = '26/04/2024'
 
 /**
  * Associer huit (ou quatre) problèmes à huit (ou quatre) types de modélisation différents
@@ -533,9 +533,8 @@ export default function ModelisationProblemes () {
     }
 
     // On ne met pas les schéma en mode diaporama
-
     if (presenceSchemas) {
-      this.introduction = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
+      this.introduction = `XXXLes schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
       this.introduction += deuxColonnes(
         deuxColonnes(
           listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n')
@@ -545,11 +544,9 @@ export default function ModelisationProblemes () {
           this.sup2 === 1 ? listeSchemas[2].join(context.isHtml ? '<br>' : '\\\\\n') : listeSchemas[3].join(context.isHtml ? '<br>' : '\\\\\n')
         )
       )
-    }
-    // listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
+    } else this.introduction = ''
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, '1 : Valeurs différentes suivant les exercices\n2 : Valeurs identiques dans tous les exercices']
-  // this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)\n5 : Nombre de problèmes choisi par l\'utilisateur']
   this.besoinFormulaire2Numerique = ['Sélection de problèmes', 4, '1 : 3 problèmes basés sur les mêmes nombres\n2 : 4 problèmes basés sur les mêmes nombres\n3 : 8 problèmes (par groupe de 4, avec distinction de 2 couleurs)\n4 : 8 problèmes mélangés (sans distinction de couleurs)']
   this.besoinFormulaire3Numerique = ['Variante avec les schémas', 4, '1 : Sans schéma\n2 : Schémas dans la correction (non interactif)\n3 : Schémas dans l\'énoncé et la correction']
 }
