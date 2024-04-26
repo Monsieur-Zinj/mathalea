@@ -2,6 +2,7 @@ import { ComputeEngine, type Rule } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
+import { texFractionFromString } from '../outils/deprecatedFractions'
 
 const engine = new ComputeEngine()
 export default engine
@@ -511,19 +512,59 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
+
   const cleaner = generateCleaner(['fractions', 'virgules', 'espaces'])
   goodAnswer = cleaner(goodAnswer)
+  input = cleaner(input)
   const fReponse = engine.parse(goodAnswer)
+
+  /* EE : Suppression de cette partie au profit de la suivante (pour prise en compte des racines carrées dans 2N32-7) - 26/04/2024
   if (!isNaN(parseFloat(cleanStringBeforeParse(input)))) {
-    // La saisie est faite sous forme décimale
+    // La saisie est faite sous forme décimale (non, pas forcément avec des racines carrées)
     const newFraction = new FractionEtendue(parseFloat(cleanStringBeforeParse(input)), 1)
-    // On la convertit en fraction
     if (engine.parse(`${newFraction.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
   } else {
     // La saisie est une fraction
     if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
   }
+*/
+
+  if (input.includes('\\frac')) {
+    // La saisie est une fraction
+    if (engine.parse(input).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
+  } else {
+    // La saisie n'est pas une fraction
+    if (String(parseFloat(input)) === input) {
+      // La saisie est un décimal
+      const newFractionAvecDecimal = new FractionEtendue(parseFloat(input), 1)
+      if (engine.parse(`${newFractionAvecDecimal.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
+    } else {
+      // La saisie n'est pas un décimal, peut-être possède-t-elle une racine carrée... comme dans 2N32-7
+      let newFractionSansDecimal = texFractionFromString(input, 1)
+      newFractionSansDecimal = cleaner(newFractionSansDecimal)
+      if (engine.parse(newFractionSansDecimal).canonical.isSame(fReponse.canonical)) return { isOk: true }
+    }
+  }
+
   return { isOk: false }
+}
+/**
+ * Comparaison de fraction en acceptant toute valeur (y compris la valeur décimale) mais n'acceptant de racine carrée au dénominateur
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ * @return ResultType
+ */
+export function equalFractionCompareSansRadical (input: string, goodAnswer: string): ResultType {
+  const cleaner = generateCleaner(['fractions'])
+  input = cleaner(input)
+
+  // Utilisation d'une expression régulière pour extraire le contenu de la deuxième accolade
+  const contenuDeuxiemeAccolade: string | null = input.match(/\\frac{[^}]*}{(\\sqrt[^}]*)/)?.[1] || null
+
+  if (contenuDeuxiemeAccolade === null) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  else return { isOk: false }
 }
 
 /**
