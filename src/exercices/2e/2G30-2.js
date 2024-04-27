@@ -71,18 +71,18 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>On applique avec les données de l\'énoncé : $m'
       }
 
+      const nomDroite = this.sup === 1 ? 'AB' : 'd'
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$(${nomDroite}) : y=$` })
+
       valeurDecimaleFraction = new FractionEtendue(n, d).valeurDecimale
       reponse = valeurDecimaleFraction === 0 ? '' : valeurDecimaleFraction === 1 ? 'x' : valeurDecimaleFraction === -1 ? '-x' : `${new FractionEtendue(n, d).texFractionSimplifiee}x`
       valeurDecimaleFraction = new FractionEtendue(d * yA - n * xA, d).valeurDecimale
       reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFraction === 0 ? '0' : valeurDecimaleFraction === 0 ? '' : `${new FractionEtendue(d * yA - n * xA, d).simplifie().texFractionSignee}`
       handleAnswers(this, i, { reponse: { value: reponse, compare: operationCompare } }, { formatInteractif: 'calcul' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '<br>$(AB) : y=$' })
-
-      const nomDroite = this.sup === 1 ? 'AB' : 'd'
 
       // Correction commune aux deux this.sup
-      texteCorr += `=\\dfrac{${yu}}{${xu}}`
-      if (pgcd(n, d) !== 1 || d === 1 || d < 0 || n < 0 || n === 0) {
+      texteCorr += `=${new FractionEtendue(n, d).texFraction}`
+      if ((pgcd(n, d) !== 1 || d === 1 || d < 0 || n < 0) && n !== 0) {
         texteCorr += `=${new FractionEtendue(n, d).texFractionSimplifiee}`
       }
       texteCorr += '$.'
