@@ -47,6 +47,11 @@ default:
 
 .install_dependenciesPDF:
   before_script:
+    - apt update
+    - apt install nodejs -yq
+    - apt install npm -yq
+    - npm install -g pnpm@8
+    - pnpm config set store-dir .pnpm-store
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - pnpm exec playwright install --with-deps chromium # dernière version playwright.
     - nohup pnpm start &
@@ -54,6 +59,11 @@ default:
   
 .install_dependenciesPDFDNB:
   before_script:
+    - apt update
+    - apt install nodejs -yq
+    - apt install npm -yq
+    - npm install -g pnpm@8
+    - pnpm config set store-dir .pnpm-store
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - pnpm exec playwright install --with-deps chromium # dernière version playwright.
@@ -62,14 +72,19 @@ default:
 
 .install_dependenciesPDFBAC:
   before_script:
+    - apt update
+    - apt install nodejs -yq
+    - apt install npm -yq
+    - npm install -g pnpm@8
+    - pnpm config set store-dir .pnpm-store
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - pnpm exec playwright install --force --with-deps chromium # dernière version playwright.
     - nohup pnpm start &
     - sleep 60
 
 .testCIPDF:
-  image: guironne/tex-live-nodejs-playwright
+  image: texlive/texlive:latest
   extends: .install_dependenciesPDF
   stage: playwright-pdf
   rules:
