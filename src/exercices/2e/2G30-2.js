@@ -1,21 +1,21 @@
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { operationCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une équation réduite de droite'
-export const dateDeModifImportante = '26/04/2023' // Ajout de l'interactivité et cas de la droite horizontale par Rémi Angot
-
+export const dateDeModifImportante = '27/04/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence 2G30-2, ex 2G50-1
  */
 export const uuid = '0cee9'
 export const ref = '2G30-2'
@@ -25,7 +25,6 @@ export const refs = {
 }
 export default function EquationReduiteDeDroites () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
@@ -39,9 +38,8 @@ export default function EquationReduiteDeDroites () {
     if (this.sup === 1) this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
     else this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 
-    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup === 1) {
-        // case 'A et B':
+    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, reponse, valeurDecimaleFraction, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      if (this.sup === 1) { // case 'A et B':
         xA = randint(-5, 5)
         yA = randint(-5, 5)
         xB = randint(-5, 5, xA)
@@ -56,80 +54,8 @@ export default function EquationReduiteDeDroites () {
         texteCorr += '<br>La droite $(AB)$ a donc une équation du type $y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
         texteCorr += '<br>On sait d\'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$.'
-        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFractionFromString(n, d)}`
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `=${texFractionReduite(n, d)}`
-        }
-        texteCorr += '$'
-        texteCorr += '<br>L\'équation de la droite $(AB)$ est de la forme : $y='
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `${texFractionReduite(n, d)}x`
-        } else {
-          // eslint-disable-next-line no-empty
-          if (n === 0) {
-          } else {
-            texteCorr += `${texFractionFromString(n, d)}x`
-          }
-        }
-        texteCorr += '+p$.<br>'
-        texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
-        texteCorr += `<br>$${yA}=${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)} +p$`
-        texteCorr += `<br>$\\iff p=${yA}-${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)}$`
-        texteCorr += `<br>$\\iff p=${texFractionReduite(d * yA - n * xA, d)} .$`
-        texteCorr += '<br>Au final, $(AB) : y='
-        if (d * yA - n * xA === 0) { // cas où p=0
-          if (n === d) { // cas où m=1 et p=0
-            texteCorr += 'x$'
-          } else if (n === -d) { // cas où m=-1 et p=0
-            texteCorr += '-x$'
-          } else if ((pgcd(n, d) !== 1 || d === 1) && n !== 0) { // m entier  non nul ou fraction réductible
-            texteCorr += `${texFractionReduite(n, d)}x$`
-          } else { // m fraction irréductible
-            if (n !== 0) {
-              texteCorr += `${texFractionReduite(n, d)}x$`
-            }
-          }
-        }
-        // cas ou p!=0 :
-        if (d * yA - n * xA !== 0) {
-          // on gère cas particulier ou m=+/-1
-          if (n === d) { // m =1, on écrit x
-            texteCorr += 'x' // on écrit x
-            if (d * d * yA - n * xA * d > 0) { // p>0
-              texteCorr += '+'
-            }
-          }
-          if (n === -d) { // m=-1
-            texteCorr += '-x' // on écrit -x
-            if (d * d * yA - n * xA * d > 0) { // p>0
-              texteCorr += '+'
-            }
-          }
-          // cas ou m=+/- 1 traités.
-          // cas général :
-          if ((pgcd(n, d) !== 1 || d === 1) && n !== 0 && n / d !== 1 && n / d !== -1) {
-            // m fraction réductible ou entier non nul.
-            texteCorr += `${texFractionReduite(n, d)}x` // on affiche m
-          } else {
-            // m fraction irréductible non nul :
-            if (n !== 0 && n / d !== 1 && n / d !== -1) {
-              texteCorr += `${texFractionReduite(n, d)}x`
-            }
-          }
-          if (d * d * yA - n * xA * d > 0 && n / d !== 1 && n / d !== -1) { // p>0
-            texteCorr += '+'
-          }
-          // tous les cas précédents :
-          texteCorr += `${texFractionReduite(d * yA - n * xA, d)}$.`
-          if (yA === yB) {
-            texteCorr = `On constate que $y_A=y_B=${yA}$, c'est donc une droite horizontale d'équation $y = ${yA}$.`
-          }
-        }
-        setReponse(this, i, `y=${texFractionReduite(n, d)}x+(${texFractionReduite(d * yA - n * xA, d)})`)
-        // break
-      }
-      if (this.sup === 2) {
-        // case 'A et u':
+        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}`
+      } else { // case 'A et u':
         xA = randint(-5, 5)
         yA = randint(-5, 5)
         xu = randint(-5, 5, 0)
@@ -138,47 +64,42 @@ export default function EquationReduiteDeDroites () {
         d = xu
 
         texte = `$A(${xA};${yA})$ et $\\vec {u} \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$`
-        texteCorr = 'On observe que $ \\vec u$ n\'est pas colinéaire au vecteur $\\vec j$, puisque son déplacement horizontal est non-nul.'
-        texteCorr += '<br>La droite $(AB)$ n\'est donc pas verticale. Elle admet donc une équation du type : $(AB) :y=mx+p$.'
-        texteCorr += '<br>On commence par calculer le coefficient directeur $m$ :'
+        texteCorr = 'On observe que $ \\vec u$ n\'est pas colinéaire au vecteur $\\vec j$, puisque son déplacement horizontal est non nul.'
+        texteCorr += '<br>La droite $(d)$ n\'est donc pas verticale. Elle admet donc une équation du type : $(d) :y=mx+p$.'
+        texteCorr += '<br>On commence par calculer le coefficient directeur $m$.'
         texteCorr += '<br>On sait d\'après le cours que si $\\vec u \\begin{pmatrix}a\\\\b\\end{pmatrix}$, alors $m=\\dfrac{b}{a}$.'
-        texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yu}}{${xu}}`
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `=${texFractionReduite(n, d)}`
-        }
-        texteCorr += '$'
-        texteCorr += '<br>L\'équation de la droite $(AB)$ est de la forme : $y='
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          if (n / d === 1) texteCorr += 'x'
-          else texteCorr += `${texFractionReduite(n, d)}x`
-        } else {
-          // eslint-disable-next-line no-empty
-          if (n === 0) {
-          } else {
-            texteCorr += `${texFractionFromString(n, d)}x`
-          }
-        }
-        texteCorr += '+p$.<br>'
-        texteCorr += 'Comme $A \\in (AB)$, les coordonnées du point $A$ vérifient l\'équation, donc :'
-        texteCorr += `<br>$${yA}=${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)} +p$`
-        texteCorr += `<br>$\\iff p=${yA}-${texFractionReduite(n, d)} \\times ${ecritureParentheseSiNegatif(xA)}$`
-        texteCorr += `<br>$\\iff p=${texFractionReduite(d * yA - n * xA, d)} .$`
-        texteCorr += '<br>Au final, $(AB) : y=$'
-        if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-          texteCorr += `$${texFractionReduite(n, d)}x$`
-        } else {
-          if (n !== 0) {
-            texteCorr += `$${texFractionFromString(n, d)}x$`
-          }
-        }
-        if (d * d * yA - n * xA * d > 0) {
-          texteCorr += '$+$'
-        }
-        texteCorr += `$${texFractionReduite(d * yA - n * xA, d)}$.`
-        setReponse(this, i, `y=${texFractionReduite(n, d)}x+(${texFractionReduite(d * yA - n * xA, d)})`)
+        texteCorr += '<br>On applique avec les données de l\'énoncé : $m'
+      }
+
+      valeurDecimaleFraction = new FractionEtendue(n, d).valeurDecimale
+      reponse = valeurDecimaleFraction === 0 ? '' : valeurDecimaleFraction === 1 ? 'x' : valeurDecimaleFraction === -1 ? '-x' : `${new FractionEtendue(n, d).texFractionSimplifiee}x`
+      valeurDecimaleFraction = new FractionEtendue(d * yA - n * xA, d).valeurDecimale
+      reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFraction === 0 ? '0' : valeurDecimaleFraction === 0 ? '' : `${new FractionEtendue(d * yA - n * xA, d).simplifie().texFractionSignee}`
+      handleAnswers(this, i, { reponse: { value: reponse, compare: operationCompare } }, { formatInteractif: 'calcul' })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '<br>$(AB) : y=$' })
+
+      const nomDroite = this.sup === 1 ? 'AB' : 'd'
+
+      // Correction commune aux deux this.sup
+      texteCorr += `=\\dfrac{${yu}}{${xu}}`
+      if (pgcd(n, d) !== 1 || d === 1 || d < 0 || n < 0 || n === 0) {
+        texteCorr += `=${new FractionEtendue(n, d).texFractionSimplifiee}`
+      }
+      texteCorr += '$.'
+
+      texteCorr += `<br><br>L'équation de la droite $(${nomDroite})$ est donc de la forme : $y=`
+      texteCorr += `${new FractionEtendue(n, d).texFractionSimplifiee} \\times x+p$`
+      texteCorr += `<br><br>Comme $A \\in (${nomDroite})$, les coordonnées du point $A$ vérifient l'équation, donc :`
+      texteCorr += `<br>$${yA}=${new FractionEtendue(n, d).texFractionSimplifiee} \\times ${ecritureParentheseSiNegatif(xA)} +p$`
+      texteCorr += `<br>$\\iff p=${yA}${new FractionEtendue(-n, d).simplifie().texFractionSignee} \\times ${ecritureParentheseSiNegatif(xA)}$`
+      texteCorr += `<br>$\\iff p=${new FractionEtendue(d * yA - n * xA, d).texFractionSimplifiee}$`
+      texteCorr += `<br>Au final, $(${nomDroite}) : y = ${miseEnEvidence(reponse)}$.`
+      // if (d * yA - n * xA !== 0) { // cas ou p!=0 :
+      if (this.sup === 1 && yA === yB) {
+        texteCorr = `On constate que $y_A=y_B=${yA}$, c'est donc une droite horizontale d'équation $y = ${miseEnEvidence(yA)}$.`
       }
       // }
-      texte += ajouteChampTexteMathLive(this, i)
+
       if (this.questionJamaisPosee(i, xA, yA, xu, yu)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
