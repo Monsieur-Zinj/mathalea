@@ -147,11 +147,14 @@ export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de 
 }
 
 /**
- * Utiliser la classe FractionEtendue et sa méthode texFSD (ou une autre)
- * EE : En fait, elle est deprecated quand numérateur et dénominateur sont des nombres au profit souvent de new FractionEtendue(a,b).texFSD.
+ * Utiliser plutôt la classe FractionEtendue et sa méthode texFSD (ou une autre)
+ * EE : En fait, texFractionFromString est deprecated quand numérateur et dénominateur sont des nombres au profit souvent de new FractionEtendue(a,b).texFSD.
  * EE : Quand le numérateur et/ou le dénominateur contien(nen)t du LaTeX, alors texFractionFromString() est celle qui affiche le mieux la fraction que l'on veut.
- * Retourne le code LaTeX d'une fraction a/b
+ * Retourne le code LaTeX d'une fraction a/b (deprecated si a et b sont des nombres)
+ * @param {string||number} a
+ * @param {string||number} b
  * @author Rémi Angot
+ * @returns {string}
  */
 export function texFractionFromString (a, b) {
   if (b !== 1) {
