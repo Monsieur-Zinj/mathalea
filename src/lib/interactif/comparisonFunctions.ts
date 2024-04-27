@@ -3,6 +3,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { texFractionFromString } from '../outils/deprecatedFractions'
+import { compareArrays } from '../outils/arrayOutils'
 
 const engine = new ComputeEngine()
 export default engine
@@ -234,14 +235,17 @@ function inputToGrandeur (input: string): Grandeur | false {
 export function operationCompare (input: string, goodAnswer: string):ResultType {
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
   const saisie = clean(input)
-  const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  const answer = engine.parse(goodAnswer, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })
-  // @fixme 64/8 et 32/4 seront considérés comme équivalent ...
+  const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
+  const answer = engine.parse(clean(goodAnswer), { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
+
+  /* Modif EE
   const evaluationAnswer = answer.evaluate()
   const evaluationSaisie = saisieParsed.evaluate()
   const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
   const isOk2 = String(answer.head) === String(saisieParsed.head)
   return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
+  */
+  return { isOk: compareArrays(saisieParsed.json, answer.json) }
 }
 
 /**
@@ -531,7 +535,7 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
 
   if (input.includes('\\frac')) {
     // La saisie est une fraction
-    if (engine.parse(input).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
+    if (engine.parse(input).canonical.isEqual(fReponse.canonical)) return { isOk: true }
   } else {
     // La saisie n'est pas une fraction
     if (String(parseFloat(input)) === input) {
@@ -540,7 +544,7 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
       if (engine.parse(`${newFractionAvecDecimal.toLatex().replace('dfrac', 'frac')}`).canonical.isSame(fReponse.canonical)) return { isOk: true }
     } else {
       // La saisie n'est pas un décimal, peut-être possède-t-elle une racine carrée... comme dans 2N32-7
-      let newFractionSansDecimal = texFractionFromString(input, 1) as string
+      let newFractionSansDecimal = texFractionFromString(input, 1)
       newFractionSansDecimal = cleaner(newFractionSansDecimal)
       if (engine.parse(newFractionSansDecimal).canonical.isSame(fReponse.canonical)) return { isOk: true }
     }
