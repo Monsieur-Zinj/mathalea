@@ -172,8 +172,4 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // prefs.headless = true
   // testRunAllLots('3e/3G22')
   testRunAllLots('3e/3G22.js')
-  testRunAllLots('3e/3G22.js')
-  testRunAllLots('3e/3G22.js')
-  testRunAllLots('3e/3G22.js')
-  testRunAllLots('3e/3G22.js')
 }

@@ -259,6 +259,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(['single arrow'], '\\usetikzlibrary{shapes}', contents)
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
+  testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
   testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
   testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
   testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
