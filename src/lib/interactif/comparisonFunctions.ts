@@ -447,12 +447,12 @@ export function textCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  return { isOk: input === goodAnswer }
+  return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
 }
 
 /**
  * comparaison de textes avec espaces comme son nom l'indique : avec un nettoyage adapté à la situation
- * Utilise String.localeCompare() pour les spécificité du langage local utilisé.
+ * Utilise String.localeCompare() pour les spécificités du langage local utilisé.
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
