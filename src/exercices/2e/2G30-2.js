@@ -1,4 +1,4 @@
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -38,7 +38,7 @@ export default function EquationReduiteDeDroites () {
     if (this.sup === 1) this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
     else this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 
-    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, reponse, valeurDecimaleFraction, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // case 'A et B':
         xA = randint(-5, 5)
         yA = randint(-5, 5)
@@ -74,10 +74,7 @@ export default function EquationReduiteDeDroites () {
       const nomDroite = this.sup === 1 ? 'AB' : 'd'
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$(${nomDroite}) : y=$` })
 
-      valeurDecimaleFraction = new FractionEtendue(n, d).valeurDecimale
-      reponse = valeurDecimaleFraction === 0 ? '' : valeurDecimaleFraction === 1 ? 'x' : valeurDecimaleFraction === -1 ? '-x' : `${new FractionEtendue(n, d).texFractionSimplifiee}x`
-      valeurDecimaleFraction = new FractionEtendue(d * yA - n * xA, d).valeurDecimale
-      reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFraction === 0 ? '0' : valeurDecimaleFraction === 0 ? '' : `${new FractionEtendue(d * yA - n * xA, d).simplifie().texFractionSignee}`
+      reponse = reduireAxPlusB(new FractionEtendue(n, d).simplifie(), new FractionEtendue(d * yA - n * xA, d).simplifie())
       handleAnswers(this, i, { reponse: { value: reponse, compare: operationCompare } }, { formatInteractif: 'calcul' })
 
       // Correction commune aux deux this.sup

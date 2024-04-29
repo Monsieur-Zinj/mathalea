@@ -12,7 +12,9 @@ declare global {
  * @return boolean
  */
 export function compareArrays (array1: unknown[], array2: unknown[]): boolean {
-  if (!(Array.isArray(array1) && Array.isArray(array2)) || array1.length !== array2.length) return false
+  if (!(Array.isArray(array1))) array1 = [array1]
+  if (!(Array.isArray(array2))) array2 = [array2]
+  if (array1.length !== array2.length) return false
   for (let i = 0; i < array1.length; i++) {
     // le test suivant ne fonctionne pas avec des array contenant des objets, car objet1 === objet2 est toujours false.
     // il fonctionne avec des arrays d'array ou de primitives.

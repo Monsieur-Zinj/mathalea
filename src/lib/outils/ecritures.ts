@@ -248,11 +248,11 @@ export function egalOuApprox (a: number | FractionEtendue | Decimal, precision: 
  * renvoie une chaine correspondant à l'écriture réduite d'ax+b selon les valeurs de a et b
  * La lettre par défaut utilisée est 'x' mais peut être tout autre chose.
  * @author Eric Elter
- * @param {number} a
- * @param {number} b
+ * @param {number | Decimal | FractionEtendue} a
+ * @param {number | Decimal | FractionEtendue} b
  * @param {string} [inconnue = 'x'] 'x' par défaut, mais on peut préciser autre chose.
  */
-export function reduireAxPlusB (a: number | Decimal, b: number | Decimal, inconnue: string = 'x') {
+export function reduireAxPlusB (a: number | Decimal | FractionEtendue, b: number | Decimal | FractionEtendue, inconnue: string = 'x') {
   return reduireAxPlusByPlusC(a, 0, b, inconnue)
 }
 
@@ -277,9 +277,9 @@ if (!(a instanceof Decimal)) a = new Decimal(a)
  * renvoie une chaine correspondant à l'écriture réduite d'ax+by+c selon les valeurs de a, b et c
  * Les lettres par défaut utilisées sont 'x' et y mais peut être tout autre chose.
  * @author Eric Elter
- * @param {number} a
- * @param {number} b
- * @param {number} c
+ * @param {number | Decimal | FractionEtendue} a
+ * @param {number | Decimal | FractionEtendue} b
+ * @param {number | Decimal | FractionEtendue} c
  * @param {string} [inconnueX = 'x'] 'x' par défaut, mais on peut préciser autre chose.
  * @param {string} [inconnueY = 'y'] 'y' par défaut, mais on peut préciser autre chose.
  * @example reduireAxPlusByPlusC(3,-4,5) // renvoie 3x-4y+5
@@ -290,17 +290,47 @@ if (!(a instanceof Decimal)) a = new Decimal(a)
  * @example reduireAxPlusByPlusC(3,-4,5,'a','b') // renvoie 3a-4b+5
  * @return {string}
  */
-export function reduireAxPlusByPlusC (a: number | Decimal, b: number | Decimal, c:number|Decimal, inconnueX = 'x', inconnueY = 'y') {
-  if (!(a instanceof Decimal)) a = new Decimal(a)
-  if (!(b instanceof Decimal)) b = new Decimal(b)
-  if (!(c instanceof Decimal)) c = new Decimal(c)
+export function reduireAxPlusByPlusC (a: number | Decimal | FractionEtendue, b: number | Decimal | FractionEtendue, c: number | Decimal | FractionEtendue, inconnueX = 'x', inconnueY = 'y') {
+  if (!(a instanceof Decimal) && !(a instanceof FractionEtendue)) a = new Decimal(a)
+  if (!(b instanceof Decimal) && !(b instanceof FractionEtendue)) b = new Decimal(b)
+  if (!(c instanceof Decimal) && !(c instanceof FractionEtendue)) c = new Decimal(c)
   let result = ''
-  result += a.isZero() ? '' : ((a.eq(1) ? '' : a.eq(-1) ? '-' : (texNombre(a))) + inconnueX)
-  result += b.isZero() ? '' : ((b.eq(-1) ? '-' : (b.eq(1) && a.isZero()) ? '' : (b.eq(1) && !a.isZero()) ? '+' : a.isZero() ? (texNombre(b)) : (ecritureAlgebrique(b))) + inconnueY)
-  result += (a.isZero() && b.isZero() && c.isZero()) ? 0 : c.isZero() ? '' : (a.isZero() && b.isZero()) ? texNombre(c) : (ecritureAlgebrique(c))
+  let valeurDecimaleFraction : number
+  let aEgalZero : boolean
+  let bEgalZero : boolean
+  let cEgalZero : boolean
+  if (a instanceof Decimal) {
+    aEgalZero = a.isZero()
+    result += aEgalZero ? '' : ((a.eq(1) ? '' : a.eq(-1) ? '-' : (texNombre(a))) + inconnueX)
+  } else {
+    valeurDecimaleFraction = a.valeurDecimale
+    aEgalZero = valeurDecimaleFraction === 0
+    result += aEgalZero ? '' : ((valeurDecimaleFraction === 1 ? '' : valeurDecimaleFraction === -1 ? '-' : `${a.texFSD}`) + inconnueX)
+  }
+  if (b instanceof Decimal) {
+    bEgalZero = b.isZero()
+    result += bEgalZero ? '' : ((b.eq(-1) ? '-' : (b.eq(1) && aEgalZero) ? '' : (b.eq(1) && !aEgalZero) ? '+' : aEgalZero ? (texNombre(b)) : (ecritureAlgebrique(b))) + inconnueY)
+  } else {
+    valeurDecimaleFraction = b.valeurDecimale
+    bEgalZero = valeurDecimaleFraction === 0
+    result += bEgalZero ? '' : ((valeurDecimaleFraction === -1 ? '-' : (valeurDecimaleFraction === 1 && aEgalZero) ? '' : (valeurDecimaleFraction === 1 && !aEgalZero) ? '+' : bEgalZero ? `${b.texFSD}` : `${b.texFractionSignee}`) + inconnueY)
+  }
+  if (c instanceof Decimal) {
+    cEgalZero = c.isZero()
+    result += (aEgalZero && bEgalZero && cEgalZero) ? '0' : cEgalZero ? '' : (aEgalZero && bEgalZero) ? texNombre(c) : (ecritureAlgebrique(c))
+  } else {
+    valeurDecimaleFraction = c.valeurDecimale
+    cEgalZero = valeurDecimaleFraction === 0
+    result += (aEgalZero && bEgalZero && cEgalZero) ? '0' : cEgalZero ? '' : (aEgalZero && bEgalZero) ? `${c.texFSD}` : `${c.texFractionSignee}`
+  }
   return result
 }
-
+/*
+valeurDecimaleFraction = new FractionEtendue(n, d).valeurDecimale
+reponse = valeurDecimaleFraction === 0 ? '' : valeurDecimaleFraction === 1 ? 'x' : valeurDecimaleFraction === -1 ? '-x' : `${new FractionEtendue(n, d).texFractionSimplifiee}x`
+valeurDecimaleFraction = new FractionEtendue(d * yA - n * xA, d).valeurDecimale
+reponse += new FractionEtendue(n, d).valeurDecimale === 0 && valeurDecimaleFraction === 0 ? '0' : valeurDecimaleFraction === 0 ? '' : `${new FractionEtendue(d * yA - n * xA, d).simplifie().texFractionSignee}`
+*/
 /**
  * renvoie une chaine correspondant à l'écriture réduite d'ax^3+bx^2+cx+d selon les valeurs de a, b, c et d
  * @author Jean-Claude Lhote
