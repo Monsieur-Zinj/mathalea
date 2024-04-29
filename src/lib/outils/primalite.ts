@@ -1,6 +1,7 @@
 import { gcd, isPrime } from 'mathjs'
 import { egal } from '../../modules/outils.js'
 import { ecritureParentheseSiNegatif } from './ecritures'
+import { abs } from './nombres.js'
 
 /**
  * Renvoie le PGCD de deux nombres
@@ -233,6 +234,7 @@ export function obtenirListeNombresPremiers (n = 300) {
  */
 export function decompositionFacteursPremiers (n: number) {
   let decomposition = ''
+  if (abs(n) === 1) return n // EE : Nécessaire pour 4C22... Vérifier si aucun dommage collatéral ailleurs (29/04/2024)
   const liste = obtenirListeFacteursPremiers(n)
   for (const i in liste) {
     decomposition += ecritureParentheseSiNegatif(liste[i]) + '\\times'
