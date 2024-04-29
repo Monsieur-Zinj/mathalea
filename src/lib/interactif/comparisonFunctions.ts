@@ -238,13 +238,16 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
   const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
   const answer = engine.parse(clean(goodAnswer), { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
 
-  /* Modif EE
+  /* Modif EE car 3+5 est accepté correct pour 2+6
   const evaluationAnswer = answer.evaluate()
   const evaluationSaisie = saisieParsed.evaluate()
   const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
   const isOk2 = String(answer.head) === String(saisieParsed.head)
   return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
   */
+
+  // Rajout EE : Seule cette comparaison ci-dessous suffit (29/04/2024)
+  // Modif de compareArrays en conséquence pour accepter des nombres
   return { isOk: compareArrays(saisieParsed.json, answer.json) }
 }
 
@@ -263,6 +266,13 @@ export function numberCompare (input: string, goodAnswer: string): ResultType {
   }
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
   const inputParsed = engine.parse(clean(input))
+
+  // Rajout EE : Sans cela, toute opération (aboutissant au bon résultat) était considéré correcte. (29/04/2024)
+  if (inputParsed.head !== 'Number' || input.includes('div')) { // Besoin de préciser pour div car sinon c'est pris pour une fraction et c'est accepté or c'est une opération.
+    return { isOk: false, feedback: 'Un nombre (et non une opération) doit être saisi' }
+  }
+  // Fin de rajout EE
+
   if (input.includes('frac') && inputParsed.isInteger) {
     return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))), feedback: `La fraction $${input}$ aurait pu être simplifiée en $${inputParsed.latex}$<br>` }
   } else {
