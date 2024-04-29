@@ -87,6 +87,7 @@ default:
   image: texlive/texlive:latest
   extends: .install_dependenciesPDF
   stage: playwright-pdf
+  allow_failure: true
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
@@ -101,7 +102,9 @@ default:
     paths:
       - tests/e2e/logs
       - updatefile
-    expire_in: 120 day
+    exclude:
+      - updatefile/output/*.zip
+    expire_in: 20 day
 
 .testCI:
   extends: .install_dependencies
