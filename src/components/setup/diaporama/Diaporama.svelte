@@ -35,12 +35,12 @@
   import type { InterfaceParams, NumberRange } from '../../../lib/types'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import FullscreenButton from '../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
+  import { buildMathAleaURL } from '../../../lib/components/urls'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
-  const isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
   let isQuestionVisible = true
@@ -518,7 +518,6 @@
           const textcellWidth = textcellDiv?.clientWidth
           const textcellHeight = textcellDiv?.clientHeight
           // Donner la bonne taille aux figures
-          // console.log('zoom:' + currentZoom)
           if (svgDivs != null && svgDivs.length !== 0 && questionDiv !== null) {
             const nbOfSVG = svgDivs.length
             const optimalSVGWidth = textcellWidth * 0.9
@@ -530,8 +529,6 @@
               const rw = optimalSVGWidth / startingWidth
               const rh = optimalSVGHeigth / startingHeight
               if (startingHeight * rw < optimalSVGHeigth) {
-                // console.log('rh -> height:' + rh)
-                // console.log('rw -> height (win):' + rw)
                 svgDivs[k].setAttribute(
                   'width',
                   (optimalSVGWidth * currentZoom).toString()
@@ -541,8 +538,6 @@
                   (svgDivs[k].clientHeight * rw * currentZoom).toString()
                 )
               } else {
-                // console.log('rw -> height:' + rw)
-                // console.log('rh -> height (win):' + rh)
                 svgDivs[k].setAttribute(
                   'height',
                   (optimalSVGHeigth * currentZoom).toString()
@@ -558,8 +553,6 @@
               const finalHeight = svgDivs[k].clientHeight
               const widthCoef = finalWidth / startingWidth
               const heightCoef = finalHeight / startingHeight
-              // console.log('rw -> widthCoef:' + widthCoef)
-              // console.log('rh -> heightCoef:' + heightCoef)
 
               /** on cherche le parent de la figure SVG */
               const svgContainerDivs = svgDivs[k].closest(
@@ -602,11 +595,9 @@
             /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */
             const delta = i === 0 ? 50 : i === 1 ? 10 : 2
             size = i === 0 ? size : i === 1 ? size + 50 : size + 10
-            size = (kk == 1 ? zoomMin : size)
+            size = (kk === 1 ? zoomMin : size)
             do {
-              // console.log('size:' + size)
               size = size - delta
-              // console.log('size:' + size)
               if (questionDiv !== null) {
                 questionDiv.style.fontSize = size + 'px'
                 questionHeight = questionDiv.clientHeight
@@ -642,7 +633,6 @@
                 questionHeight + consigneHeight + correctionHeight >
                   textcellHeight)
             )
-            // console.log('stop size:' + size)
           }
 
           if (questionDiv !== null) {
@@ -786,19 +776,8 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder () {
-    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
-    // globalOptions.update((l) => {
-    //   console.log('bouton touché, ordre ?')
-    //   console.log($questionsOrder.isQuestionsShuffled)
-    //   l.shuffle = $questionsOrder.isQuestionsShuffled
-    //   return l
-    // })
     $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
-    console.log('avant ordre change :')
-    console.log($questionsOrder.indexes)
     updateExercices()
-    console.log('après ordre change :')
-    console.log($questionsOrder.indexes)
   }
 
   /**
@@ -912,8 +891,6 @@
                     id="diaporama-apercu"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     on:click={() => {
-                      // console.log('indexes des questions :')
-                      // console.log($questionsOrder.indexes)
                       mathaleaHandleComponentChange('diaporama', 'overview')
                     }}
                   >
@@ -1083,7 +1060,7 @@
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
-                on:display={() => copyLinkToClipboard('linkCopiedDialog-1')}
+                on:display={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
                 message="Le lien est copié dans le presse-papier !"
                 dialogId="linkCopiedDialog-1"
                 tooltipMessage="Lien du Diaporama"
@@ -1591,7 +1568,7 @@
           </button>
         </div>
         <ModalActionWithDialog
-          on:display={() => copyLinkToClipboard('linkCopiedDialog-2')}
+          on:display={() => copyLinkToClipboard('linkCopiedDialog-2', buildMathAleaURL('diaporama'))}
           message="Le lien est copié dans le presse-papier !"
           dialogId="linkCopiedDialog-2"
           tooltipMessage="Lien du Diaporama"
