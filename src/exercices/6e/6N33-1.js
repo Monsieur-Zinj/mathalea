@@ -38,7 +38,7 @@ export default function PourcentageDunNombre () {
   this.interactif = false
   this.sup2 = false
   this.sup3 = false
-  this.sup4 = '9'
+  this.sup4 = '10'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -53,14 +53,17 @@ export default function PourcentageDunNombre () {
         defaut: 9,
         melange: 9,
         nbQuestions: this.nbQuestions,
-        listeOfCase: [10, 20, 25, 30, 40, 50, 60, 90]
+        listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
       })
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
       const p = pourcentages[i]
-      const n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2)])
+      let n = choice([randint(2, 9), randint(2, 9) * 10, randint(1, 9) * 10 + randint(1, 2)])
+      if (p === 25 | p === 75) {
+        n = randint(1, 10) * choice([4, 40])
+      }
       texte = `$${p}~\\%~\\text{de }${n}$`
       switch (p) {
         case 50 :
@@ -68,6 +71,8 @@ export default function PourcentageDunNombre () {
           break
         case 25 :
           texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(calculANePlusJamaisUtiliser(n / 4))}$` // calcul de n/4 si p = 25%
+          break
+        case 75 :
           break
         default :
           texteCorr = `$${p}~\\%~\\text{de }${n}=${texFractionFromString(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
@@ -133,6 +138,7 @@ $${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\
 5 : 40%
 6 : 50%
 7 : 60%
-8 : 90%
-9 : Mélange`]
+8 : 75%
+9 : 90%
+10 : Mélange`]
 }
