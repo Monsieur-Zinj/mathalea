@@ -303,7 +303,7 @@
       // si le typ est `custom` on est sûr que `correctionInteractive` existe
       // d'où le ! après `correctionInteractive`
       resultsByQuestion[i] =
-        exercices[indiceExercice[i]].correctionInteractive!(i) === 'OK'
+        exercices[indiceExercice[i]].correctionInteractive!(indiceQuestionInExercice[i]) === 'OK'
     }
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
@@ -436,7 +436,7 @@
           {/each}
         {/if}
         {#if $globalOptions.presMode === 'une_question_par_page' && !$isMenuNeededForQuestions}
-          {#each questions as question, i (question)}
+          {#each questions as question, i (i + '_' + question)}
             <div class="">
               <button
                 class="relative group {currentIndex === i
@@ -546,7 +546,7 @@
             ? 'mt-6'
             : ''} {$globalOptions.twoColumns ? 'md:columns-2' : ''}"
         >
-          {#each questions as question, k (question)}
+          {#each questions as question, k (k + '_' + question)}
             <div
               class="pb-4 flex flex-col items-start justify-start relative break-inside-avoid-column"
               id={`exercice${indiceExercice[k]}Q${k}`}
@@ -631,7 +631,7 @@
           {/each}
         </div>
       {:else if $globalOptions.presMode === 'une_question_par_page'}
-        {#each questions as question, k (question)}
+        {#each questions as question, k (k + '_' + question)}
           <div class="flex flex-col">
             <div class={$isMenuNeededForQuestions ? '' : 'hidden'}>
               <button
@@ -759,7 +759,7 @@
         <div
           class="grid grid-flow-row gri-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 auto-rows-auto gap-6"
         >
-          {#each questions as question, k (question)}
+          {#each questions as question, k (k + '_' + question)}
             <FlipCard>
               <div slot="question">
                   <div class="p-2">
