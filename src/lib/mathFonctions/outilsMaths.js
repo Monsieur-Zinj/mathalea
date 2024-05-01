@@ -5,7 +5,7 @@ import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
 import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'
-import { miseEnEvidence, texcolors } from '../outils/embellissements'
+import { miseEnEvidence } from '../outils/embellissements'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
 
 /**
@@ -207,99 +207,116 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   }
 }
 
+/**
+ * Une fonction pour transformer en FractionEtendue
+ * @param x
+ * @return {FractionEtendue}
+ */
 export function rationnalise (x) {
+  if (x == null) {
+    window.notify('rationnalise est appelé avec une valeur undefined ou nulle', { x })
+    return new FractionEtendue(0, 1)
+  }
   if (x instanceof FractionEtendue) return x
-  if (typeof x === 'number' || x instanceof Decimal) {
-    if (Number.isInteger(x)) {
-      return new FractionEtendue(Number(x), 1)
-    }
-    const f = fraction(x.toFixed(2))
-    return f
+  if (x instanceof Decimal) {
+    const numDen = x.toFraction(10000) // On limite le dénominateur à 10000
+    return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
+  }
+  if (typeof x === 'number') {
+    return fraction(x.toFixed(2) * 10000, 10000).simplifie()
   }
   // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
-  return new FractionEtendue(x.n * x.s, x.d)
+  window.notify('rationnalise est appelé avec un nombre dont le format est inconnu :', { x })
+  return x
 }
 
-export const miseEnForme = (str, n, color) => color ? miseEnEvidence(str, texcolors(n)) : str
+/**
+ * Une fonction utilisée dans les 3 fonctions qui suivent (suppressionParentheses, regroupeTermesMemeDegre et developpe afin de colorier ou pas les termes
+ * @param str
+ * @param color
+ * @param isColored
+ * @return {string|*}
+ */
+const miseEnForme = (str, color, isColored) => isColored ? miseEnEvidence(str, color) : str
+function neg (expr) {
+  if (expr.head !== 'Add') return engine.function('Multiply', [expr, '-1'])
+  return engine.function('Add', expr.ops.map(neg), { canonical: false })
+}
+
+/**
+ * Une fonction pour supprimer les parenthèses et aplatir l'expression (un Add avec une série de termes)
+ * @param expr
+ * @return {*|BoxedExpression}
+ */
+function flattenAdd (expr) {
+  if (expr.head === 'Subtract') { return flattenAdd(engine.function('Add', [expr.op1, neg(expr.op2)], { canonical: false })) }
+
+  if (expr.head !== 'Add') return expr
+
+  const ops = []
+  for (let op of expr.ops) {
+    op = flattenAdd(op)
+    if (op.head === 'Add' || op.head === 'Delimiter') ops.push(...op.ops.map(flattenAdd))
+    else ops.push(op)
+  }
+  return engine.function('Add', ops, { canonical: false })
+}
 
 /**
  * Supprime les parenthèses dans une somme du type (5x+3)-(2x^2-3x+4)+(4x+7-3x^3)
- * l'intérieur des parenthèses pour l'instant de peut contenir que des entiers, des lettres et des + ou -
- * Les parenthèses doivent être de vraies parenthèses (pas des \left( ou des \lparen) donc on convertira ici avant de les supprimer
- * Non testé sur des expressions comme (5x+3)(4x+3) car c'est pas fait pour !
  * @param {string} exp
- * @param {string} lettre
  * @param {{color: boolean}} options
  */
-export function suppressionParentheses (exp, lettre, options) {
-  const deg = (term) => term.includes('^')
-    ? term.match(/\^(\d)/)[0].match(/\d/)[0]
-    : term.includes(lettre)
-      ? 1
-      : 0
-  exp = exp.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
-  exp = exp.replaceAll('\\left(', '(').replaceAll('\\right)', ')')
-  const parts = exp.match(/[-+]?\([\da-z+^-]*\)/g)
+export function suppressionParentheses (exp, options) {
+  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+  const isColored = options?.isColored
+  const clean = generateCleaner(['parentheses', 'espaces', 'virgules', 'fractions'])
+  exp = clean(exp)
+  const arbre = engine.parse(exp, { canonical: false })
+  const sp = flattenAdd(flattenAdd(arbre))
+  const parts = sp.ops
   let expressionFinale = ''
-  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
-  const regX = new RegExp(regString, 'g')
-  for (const part of parts) {
-    if (typeof part === 'string') {
-      if (part.startsWith('(')) {
-        const interior = part.substring(1, part.length - 1)
-        const terms = interior.match(regX)
-        for (const term of terms.filter(el => el !== '')) {
-          const d = deg(term)
-          expressionFinale += miseEnForme(term, d, options?.color)
-        }
-      } else if (part.startsWith('-')) {
-        const interior = part.substring(2, part.length - 1)
-        const terms = interior.match(regX)
-        for (const term of terms.filter(el => el !== '')) {
-          const d = deg(term)
-          if (term.startsWith('-')) {
-            expressionFinale += miseEnForme('+' + term.substring(1), d, options?.color)
-          } else if (term.startsWith('+')) {
-            expressionFinale += miseEnForme('-' + term.substring(1), d, options?.color)
-          } else {
-            expressionFinale += miseEnForme('-' + term, d, options?.color)
-          }
-        }
-      } else if (part.startsWith('+')) {
-        const interior = part.substring(2, part.length - 1)
-        const terms = interior.match(regX)
-        for (const term of terms.filter(el => el !== '')) {
-          const d = deg(term)
-          const premierChar = term.charAt(0)
-          if (['+', '-'].includes(premierChar)) expressionFinale += miseEnForme(term, d, options?.color)
-          else expressionFinale += miseEnForme('+' + term, d, options?.color)
-        }
-      }
-    }
+  for (let index = 0; index < parts.length; index++) {
+    const latex = parts[index].latex.startsWith('-')
+      ? parts[index].latex
+      : index === 0
+        ? parts[index].latex
+        : `+${parts[index].latex}`
+    const deg = parts[index].getSubexpressions('Power')[0]
+      ? parts[index].getSubexpressions('Power')[0].op2
+      : parts[index].isAlgebraic
+        ? 0
+        : 1
+    expressionFinale += miseEnForme(latex, couleurs[Math.max(0, 2 - deg)], isColored)
   }
   return expressionFinale
 }
 
 /**
- *
+ * une fonction pour trier les termes d'une somme algébrique selon l'exposant de la puissance
  * @param {string} exp
- * @param {string} lettre
  */
-export function regroupeTermesMemeDegre (exp, lettre, options) {
-  const regString = '(-?\\+?\\d*' + lettre + '?\\^?\\d?)'
-  const regX = new RegExp(regString, 'g')
-  const parts = exp.match(regX).filter(el => el !== '')
+export function regroupeTermesMemeDegre (exp, options) {
+  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
+  const isColored = options?.isColored
+  const clean = generateCleaner(['parentheses', 'espaces', 'virgules', 'fractions'])
+  exp = clean(exp)
+  const arbre = engine.parse(exp, { canonical: false })
+  const parts = flattenAdd(arbre).ops
   const allTheTerms = []
-  if (parts != null) {
-    for (const part of parts) {
-      const deg = part.includes('^')
-        ? part.match(/\^(\d)/)[0].match(/\d/)[0]
-        : part.includes(lettre)
-          ? 1
-          : 0
-      if (allTheTerms[deg] == null) allTheTerms[deg] = []
-      allTheTerms[deg].push(part)
-    }
+  for (let index = 0; index < parts.length; index++) {
+    const deg = parts[index].getSubexpressions('Power')[0]
+      ? parts[index].getSubexpressions('Power')[0].op2
+      : parts[index].isAlgebraic
+        ? 0
+        : 1
+    const latex = parts[index].latex.startsWith('-')
+      ? parts[index].latex
+      : index === 0
+        ? parts[index].latex
+        : `+${parts[index].latex}`
+    if (allTheTerms[deg] == null) allTheTerms[deg] = []
+    allTheTerms[deg].push(latex)
   }
   const expressionFinale = []
   for (let i = allTheTerms.length; i > 0; i--) {
@@ -310,47 +327,62 @@ export function regroupeTermesMemeDegre (exp, lettre, options) {
         if (term.startsWith('+') && parcel === '') term = term.substring(1)
         parcel += term
       }
-      expressionFinale.push(`(${miseEnForme(parcel, i - 1, options?.color)})`)
+      expressionFinale.push(`(${miseEnForme(parcel, couleurs[Math.max(0, 2 - (i - 1))], isColored)})`)
     }
   }
   return expressionFinale.join('+')
 }
 
+/**
+ *
+ * @param expr
+ * @param {{isColored: boolean, colorOffset: number, level: 0|1}} options
+ * @return {string}
+ */
 export function developpe (expr, options) {
-  const color = options?.color
+  const isColored = options?.isColored
   const colorOffset = options.colorOffset ?? 0
-  const clean = generateCleaner(['parentheses'])
+  const level = options?.level ?? 0
+  const clean = generateCleaner(['parentheses', 'fractions'])
+  const couleurs = options.couleurs ?? ['red', 'blue', 'green', 'black', 'red', 'blue', 'green', 'black']
   expr = clean(expr)
   const arbre = engine.parse(expr)
   if (!['Square', 'Multiply', 'Power'].includes(arbre.head)) { // On ne développe que les produits où les carrés ici
-    return expr
+    return expr.replaceAll('\\frac', '\\dfrac')
   }
   if (arbre.head === 'Square' || arbre.head === 'Power') { // on est sans doute en présence d'une égalité remarquable ?
-    if (arbre.op2.numericValue !== 2) return expr
+    if (arbre.op2.numericValue !== 2) return expr.replaceAll('\\frac', '\\dfrac')
     const interior = arbre.op1
     const somme = interior.head === 'Add'
     const terme1 = interior.op1
     const terme2 = interior.op2
-    const carre1 = terme1.isNumber
+    const carre1 = terme1.isAlgebraic
       ? terme1.latex.startsWith('-')
-        ? `(${terme1.latex})^2`
+        ? `\\lparen ${terme1.latex}\\rparen ^2`
         : `${terme1.latex}^2`
-      : `(${terme1.latex})^2`
-    const carre2 = terme2.isNumber
+      : `\\lparen ${terme1.latex}\\rparen ^2`
+    const carre2 = terme2.isAlgebraic
       ? terme2.latex.startsWith('-')
-        ? `(${terme2.latex})^2`
+        ? `\\lparen ${terme2.latex}\\rparen ^2`
         : `${terme2.latex}^2`
-      : `(${terme2.latex})^2`
-    const dbleProd = `2\\times ${terme1.isNumber
+      : `\\lparen ${terme2.latex}\\rparen ^2`
+    const dbleProd = `2\\times ${terme1.isAlgebraic
         ? terme1.latex.startsWith('-')
-            ? `(${terme1.latex})`
+            ? `\\lparen ${terme1.latex}\\rparen `
             : `${terme1.latex}`
-        : `${terme1.latex}`}\\times ${terme2.isNumber
+        : `\\lparen ${terme1.latex}\\rparen `}\\times ${terme2.isAlgebraic
         ? terme2.latex.startsWith('-')
-            ? `(${terme2.latex})`
+            ? `\\lparen ${terme2.latex}\\rparen `
             : `${terme2.latex}`
         : `${terme2.latex}`}`
-    return `${miseEnForme(carre1, colorOffset, color)}${somme ? '+' : '-'}${miseEnForme(dbleProd, colorOffset + 1, color)}+${miseEnForme(carre2, colorOffset + 2, color)}`
+    if (level === 2) {
+      return `${miseEnForme(carre1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dbleProd, couleurs[colorOffset + 1], isColored)}+${miseEnForme(carre2, couleurs[colorOffset + 2], isColored)}`.replaceAll('\\frac', '\\dfrac')
+    } else {
+      const dp = engine.parse(dbleProd).simplify().latex
+      const c1 = engine.box(['Multiply', terme1, terme1]).evaluate().latex
+      const c2 = engine.box(['Multiply', terme2, terme2]).evaluate().latex
+      return `${miseEnForme(c1, couleurs[colorOffset], isColored)}${somme ? '+' : '-'}${miseEnForme(dp, couleurs[colorOffset + 1], isColored)}+${miseEnForme(c2, couleurs[colorOffset + 2], isColored)}`.replaceAll('\\frac', '\\dfrac')
+    }
   } else { // Ici c'est un produit classique.
     const facteur1 = arbre.op1
     const facteur2 = arbre.op2
@@ -360,21 +392,65 @@ export function developpe (expr, options) {
     const terme3 = facteur2.op1
     const terme4 = facteur2.op2
     const somme2 = facteur2.head === 'Add'
-    const t1 = terme1.isNumber && terme1.latex.startsWith('-')
-      ? `(${terme1.latex})`
+    const t1 = terme1.latex.startsWith('-')
+      ? `\\lparen ${terme1.latex}\\rparen `
       : terme1.latex
-    const t2 = terme2.isNumber && terme2.latex.startsWith('-')
-      ? `(${terme2.latex})`
+    const t2 = terme2.latex.startsWith('-')
+      ? `\\lparen ${terme2.latex}\\rparen `
       : terme2.latex
-    const t3 = terme3.isNumber && terme3.latex.startsWith('-')
-      ? `(${terme3.latex})`
+
+    const t3 = terme3.latex.startsWith('-')
+      ? `\\lparen ${terme3.latex}\\rparen `
       : terme3.latex
-    const t4 = terme4.isNumber && terme4.latex.startsWith('-')
-      ? `(${terme4.latex})`
+    const t4 = terme4.latex.startsWith('-')
+      ? `\\lparen ${terme4.latex}\\rparen `
       : terme4.latex
-    return `${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
-    ${somme2 ? '+' : '-'}${miseEnForme(t1, colorOffset, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}
-    ${somme1 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t3, colorOffset + 2, color)}
-    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, colorOffset + 1, color)}\\times ${miseEnForme(t4, colorOffset + 3, color)}`
+    if (level === 2) {
+      return `${miseEnForme(t1, couleurs[colorOffset], isColored)}\\times ${miseEnForme(t3, couleurs[colorOffset + 2], isColored)}
+    ${somme2 ? '+' : '-'}${miseEnForme(t1, couleurs[colorOffset], isColored)}\\times ${miseEnForme(t4, couleurs[colorOffset + 3], isColored)}
+    ${somme1 ? '+' : '-'}${miseEnForme(t2, couleurs[colorOffset + 1], isColored)}\\times ${miseEnForme(t3, couleurs[colorOffset + 2], isColored)}
+    ${somme1 === somme2 ? '+' : '-'}${miseEnForme(t2, couleurs[colorOffset + 1], isColored)}\\times ${miseEnForme(t4, couleurs[colorOffset + 3], isColored)}`.replaceAll('\\frac', '\\dfrac')
+    } else {
+      const prod1 = engine.box(['Multiply', terme1, terme3]).evaluate().simplify().latex
+      const prod2 = engine.box(['Multiply', terme1, terme4]).evaluate().simplify().latex
+      const prod3 = engine.box(['Multiply', terme2, terme3]).evaluate().simplify().latex
+      const prod4 = engine.box(['Multiply', terme2, terme4]).evaluate().simplify().latex
+      if (level === 1) {
+        const p2 = prod2.startsWith('-') ? `\\lparen ${prod2})` : prod2
+        const p3 = prod3.startsWith('-') ? `\\lparen ${prod3})` : prod3
+        const p4 = prod4.startsWith('-') ? `\\lparen ${prod4})` : prod4
+        return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
+        ${somme2 ? '+' : '-'}${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
+        ${somme1 ? '+' : '-'}${miseEnForme(p3, couleurs[colorOffset + 1], isColored)}
+        ${somme1 === somme2 ? '+' : '-'}${miseEnForme(p4, couleurs[colorOffset + 1], isColored)}`.replaceAll('\\frac', '\\dfrac')
+      } else {
+        const p2 = prod2.startsWith('-')
+          ? somme2
+            ? prod2
+            : `+${prod2.substring(1)}`
+          : somme2
+            ? `+${prod2}`
+            : `-${prod2}`
+        const p3 = prod3.startsWith('-')
+          ? somme1
+            ? prod3
+            : `+${prod3.substring(1)}`
+          : somme1
+            ? `+${prod3}`
+            : `-${prod3}`
+        const p4 = prod4.startsWith('-')
+          ? somme1 === somme2
+            ? prod4
+            : `+${prod4.substring(1)}`
+          : somme1 === somme2
+            ? `+${prod4}`
+            : `-${prod4}`
+
+        return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
+        ${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
+        ${miseEnForme(p3, couleurs[colorOffset + 2], isColored)}
+        ${miseEnForme(p4, couleurs[colorOffset + 3], isColored)}`.replaceAll('\\frac', '\\dfrac')
+      }
+    }
   }
 }

@@ -9,6 +9,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
+import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
@@ -26,12 +27,13 @@ export const amcReady = true
  *
  * @author Matthieu DEVILLERS refactorisé par Jean-Claude Lhote
  */
-export const uuid = '889ef'
+export const uuid = '1f3da'
 /* export const refs = [
   {'fr-fr': ['2N41-9']},
   {'fr-ch': []}
 ]
  */
+
 export default function DevelopperReduireExprComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = context.isHtml ? 3 : 2
@@ -53,7 +55,7 @@ export default function DevelopperReduireExprComplexe () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    const lettresPossibles = ['x', 'y', 'z', 't']
+    const lettresPossibles = ['a', 'b', 'c', 'x', 'y', 'z', 't']
 
     let listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -72,6 +74,7 @@ export default function DevelopperReduireExprComplexe () {
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       const isColored = this.sup4
       const level = this.sup3 - 1
+      const rationnels = true
       const isPositif = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
@@ -113,42 +116,44 @@ export default function DevelopperReduireExprComplexe () {
       }
       // initialisation des coefficients
       let c, d, g, h
-      const a = randint(isPositif ? 1 : -5, 5, 0)
+      const fractions = combinaisonListes(obtenirListeFractionsIrreductiblesFaciles(), 8)
+      const a = fractions[0].multiplieEntier(isPositif ? 1 : choice([1, -1]))
+
       const b = randint(isPositif ? 1 : -5, 5, 0)
       if (prod1Remarquable) {
-        c = a
+        c = a.multiplieEntier(1)
         d = -b
       } else if (!factsProd1Diff) {
-        c = a
+        c = a.multiplieEntier(1)
         d = b
       } else {
-        c = randint(isPositif ? 1 : -5, 5, [0, a])
+        c = fractions[2].multiplieEntier(isPositif ? 1 : choice([1, -1]))
         d = randint(isPositif ? 1 : -5, 5, [0, b])
       }
-      const e = randint(isPositif ? 1 : -5, 5, 0)
+      const e = fractions[4].multiplieEntier(isPositif ? 1 : choice([1, -1]))
       const f = randint(isPositif ? 1 : -5, 5, 0)
       if (!factsProd2Diff) {
-        g = e
+        g = e.multiplieEntier(1)
         h = f
       } else {
-        g = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, e])
+        g = fractions[6].multiplieEntier(isPositif ? 1 : choice([1, -1]))
         h = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, f])
       }
-      const aS = String(a)
+      const aS = `${a.num}/${a.den}`
       const bS = String(b)
-      const cS = String(c)
+      const cS = `${c.num}/${c.den}`
       const dS = String(d)
-      const eS = String(e)
+      const eS = `${e.num}/${e.den}`
       const fS = String(f)
-      const gS = String(g)
+      const gS = `${g.num}/${g.den}`
       const hS = String(h)
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '')
-        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '')
+        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
       const expression2 = factsProd2Diff
-        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '')
-        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '')
+        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
+        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '').replaceAll('\\frac', '\\dfrac')
       const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
       const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
       const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
@@ -159,19 +164,22 @@ export default function DevelopperReduireExprComplexe () {
       const expression = `${expression1}${ope}${expression2}`
       const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, { isColored })
       const coeffX2 = ope === '-'
-        ? a * c - e * g
-        : a * c + e * g
+        ? a.produitFraction(c).differenceFraction(e.produitFraction(g)).simplifie().texFSD
+        : a.produitFraction(c).sommeFraction(e.produitFraction(g)).simplifie().texFSD
       const coeffX = ope === '-'
-        ? a * d + b * c - e * h - f * g
-        : a * d + b * c + e * h + f * g
+        ? a.produitFraction(d).sommeFraction(c.multiplieEntier(b)).differenceFraction(e.produitFraction(h)).differenceFraction(g.multiplieEntier(f)).simplifie().texFSD
+        : a.produitFraction(d).sommeFraction(c.multiplieEntier(b)).sommeFraction(e.produitFraction(h)).sommeFraction(g.multiplieEntier(f)).simplifie().texFSD
       const coeffConst = String(ope === '-' ? b * d - f * h : b * d + f * h)
-      const reponse = `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
+      const reponse = rationnels
+        ? `${coeffX2}${choixLettre}^2${coeffX.startsWith('-') ? coeffX : ('+' + coeffX)}${choixLettre}${coeffConst.startsWith('-') ? coeffConst : ('+' + coeffConst)}`
+        : `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
       // ici on va rédiger la correction détaillée
       if (this.correctionDetaillee) {
         // La correction dans le texte pour tester
         texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
+        // texteCorr += `&=${miseEnEvidence(`(${devExpr1})${ope}(${devExpr2})`, 'black')}\\\\`
         texteCorr += `&=${sansParentheses}\\\\`
         texteCorr += `&=${expressionOrdonnee}\\\\`
       } else {
