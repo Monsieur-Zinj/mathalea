@@ -206,11 +206,11 @@ export default class ClasseCan2023 {
       })
     }
     sortie.reponse = a
-    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ \\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}`
+    sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d({ xmin: -1, ymin: -1, xmax: 15, ymax: 1.5, scale: 0.6, style: 'margin: auto' }, d) + '\n' : `Complète \\\\ {\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
     sortie.canEnonce = 'Complète.'
-    sortie.canReponseACompleter = `\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}`
+    sortie.canReponseACompleter = `{\\Reperage[ValeurOrigine=${valeurOrigine},ValeurUnitex=${valeurUnitex},Pasx=${pas},AffichageAbs=3,AffichageGrad]{${gradLaTeX}/A}}`
     return sortie
   }
 
@@ -575,7 +575,7 @@ export default class ClasseCan2023 {
       labelsPrincipaux: false
     })
     sortie.reponse = a
-    sortie.canReponseACompleter = `\\Reperage[DemiDroite,Pasx=1,Unitex=0.4,ValeurUnitex=${table},AffichageAbs=2]{${facteur}/3*A,10/B}`
+    sortie.canReponseACompleter = `{\\Reperage[DemiDroite,Pasx=1,Unitex=0.4,ValeurUnitex=${table},AffichageAbs=2]{${facteur}/3*A,10/B}}`
     sortie.texte = context.isHtml ? 'Quel est le nombre écrit sous le point d\'interrogation ?<br>\n' + mathalea2d(Object.assign({ scale: 0.6, style: 'margin: auto' }, fixeBordures(d)), d) + '\n' : `Complète \\\\ ${sortie.canReponseACompleter}`
     // texte += context.isHtml ? '' : '\\\\\\smallskip'
     sortie.texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`

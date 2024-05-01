@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte'
+  import { onMount, tick, onDestroy, afterUpdate } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaHandleComponentChange,
@@ -98,8 +98,22 @@
     isSameDurationForAll = true
   }
 
+  onDestroy(() => {
+    document.removeEventListener('updateAsyncEx', forceUpdate)
+    // arrete le timer 
+    pause()
+  })
+
+  async function forceUpdate () {
+    updateExercices()
+  }
+
+  afterUpdate(()=>{
+  })
+
   onMount(async () => {
     context.vue = 'diap'
+    document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
@@ -1070,6 +1084,7 @@
                 classForButton="mr-4 my-2"
                 dialogId="QRCodeModal-1"
                 imageId="QRCodeCanvas-1"
+                url={document.URL}
                 tooltipMessage="QR-code du diaporama"
                 width={QRCodeWidth}
                 format={formatQRCodeIndex}
@@ -1578,6 +1593,7 @@
           dialogId="QRCodeModal-2"
           imageId="QRCodeCanvas-2"
           tooltipMessage="QR-code du diaporama"
+          url={document.URL}
           width={QRCodeWidth}
           format={formatQRCodeIndex}
           buttonSize="text-[100px]"

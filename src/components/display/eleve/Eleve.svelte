@@ -18,7 +18,7 @@
   } from '../../../lib/stores/generalStore'
   import type TypeExercice from '../../../exercices/Exercice'
   import Exercice from '../../shared/exercice/Exercice.svelte'
-  import { onDestroy, onMount, tick } from 'svelte'
+  import { onDestroy, onMount, tick, afterUpdate } from 'svelte'
   // import seedrandom from 'seedrandom'
   import { loadMathLive } from '../../../modules/loaders'
   import Button from '../../shared/forms/Button.svelte'
@@ -153,6 +153,15 @@
       return ''
     }
   }
+
+  afterUpdate(()=>{
+    // Evènement indispensable pour pointCliquable par exemple
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
+    document.dispatchEvent(exercicesAffiches)
+  })
+
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
   let resizeObserver: ResizeObserver
   onMount(async () => {
@@ -262,7 +271,7 @@
   async function checkQuestion (i: number) {
     // ToFix exercices custom avec pointsCliquable
     const exercice = exercices[indiceExercice[i]]
-    let type = exercice.autoCorrection[indiceQuestionInExercice[i]].reponse?.param?.formatInteractif
+    let type = exercice.autoCorrection[indiceQuestionInExercice[i]]?.reponse?.param?.formatInteractif
     if (type === undefined || type === null) {
       type = exercice.interactifType
     }
@@ -299,6 +308,9 @@
     isDisabledButton[i] = true
     isCorrectionVisible[i] = true
     await tick()
+    const feedback = document.querySelector<HTMLElement>(`#feedbackEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)
+    // nécessaire pour le feedback
+    if (feedback !==null && feedback!== undefined) mathaleaRenderDiv(feedback)
     mathaleaRenderDiv(divsCorrection[i])
   }
 
