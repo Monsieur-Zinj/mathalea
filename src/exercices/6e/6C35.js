@@ -17,7 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { operationCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -172,7 +172,8 @@ export default function ModelisationProblemes () {
       th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
+    //  for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
+    for (let i = 0, o, colonne1, texteCorr; i < 1; i++) {
       colonne1 = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
@@ -491,7 +492,8 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: operationCompare } }, { formatInteractif: 'calcul' })
+        correctionSansSchema = '3\\times 5 + 4'
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })
