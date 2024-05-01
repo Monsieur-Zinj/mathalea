@@ -1,11 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
-import { texNombre } from '../../lib/outils/texNombre'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { eqToLatex, printSystem, timesIfNotUn } from '../../lib/outils/systemeEquations'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par comparaison'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +42,6 @@ export default class systemeEquationsPremDegComp extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-
     let typeQuestionsDisponibles: ('lv1' | 'lv2')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['lv1']
@@ -56,10 +56,11 @@ export default class systemeEquationsPremDegComp extends Exercice {
       this.comment = 'Dans cet exercice, un système est donné à résoudre. Les solutions sont entières comprises entre -10 et 10.<br>Le niveau 1 correspond à des inconnues seulement dans les membres de gauche;<br>Le niveau 2 à des inconnues dans les deux membres, mais ordonnées;<br>Le niveau 3 à des inconnues dans le désordre dans les deux membres.'
       let texte = ''
       let texteCorr = ''
-      const solX = randint(-10, 10)
-      const solY = randint(-10, 10, [solX])
-      const eq1 = [1, 0, 0, 0, 0, solX]
-      const eq2 = [0, 1, 0, 0, 0, solY]
+      const solX = new FractionEtendue(randint(-10, 10), 1)
+      const solY = new FractionEtendue(randint(-10, 10, [solX.num]), 1)
+      const eq1 = [1, 0, 0, 0, 0, solX.num]
+      const eq2 = [0, 1, 0, 0, 0, solY.num]
+
       const vectX = [1, 0, 0, 1, 0, 0]
       const vectY = [0, 1, 0, 0, 1, 0]
       const vectConstant = [0, 0, 1, 0, 0, 1]
@@ -81,67 +82,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
         }
         return vectEquiv
       }
-      const eqToLatex = function (vect : Array<number>, nomVal : Array<string>, inSys : boolean) {
-        let expr = ''
-        let checkPreviousNull = true
-        for (let i = 0; i < 3; i++) {
-          if ((vect.slice(0, 3).every(item => item === 0)) && i === 0) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        if (inSys === true) {
-          expr = expr + ' &='
-        } else {
-          expr = expr + '='
-        }
-        checkPreviousNull = true
-        for (let i = 3; i < 6; i++) {
-          if ((vect.slice(3).every(item => item === 0)) && i === 3) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        return expr
-      }
-      const printSystem = function (eq1 : string, eq2 : string) {
-        let expr = ''
-        expr = expr + `\\begin{cases}\\begin{aligned}${eq1}\\\\${eq2}\\end{aligned}\\end{cases}`
-        return expr
-      }
-      const timesIfNotUn = function (valeur : number) {
-        if (valeur === 1 || valeur === -1) {
-          return ''
-        } else {
-          return '\\times'
-        }
-      }
+
       let eqInt1 : Array<number> = []
       let eqInt2 : Array<number> = []
       let eqSimpl1 : Array<number> = []
@@ -194,16 +135,16 @@ export default class systemeEquationsPremDegComp extends Exercice {
       if (this.correctionDetaillee) {
         texteCorr = texteCorr + 'On résout ce système par comparaison car dans les deux équations, nous avons deux termes qui sont égaux. '
         texteCorr = texteCorr + `On égalise les membres de droite des deux équations pour obtenir l'équation à une inconnue \\[${eqToLatex([eqInt1[3], eqInt1[4], eqInt1[5], eqInt2[3], eqInt2[4], eqInt2[5]], listeVar, false)}\\]`
-        texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][(valComp + 1) % 2]}=${texNombre([solX, solY][(valComp + 1) % 2], 0)}$. `
+        texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][(valComp + 1) % 2]}=${[solX, solY][(valComp + 1) % 2].texFractionSimplifiee}$. `
         texteCorr = texteCorr + `On subsitue la valeur obtenue pour $${['x', 'y'][(valComp + 1) % 2]}$ dans la première équation pour déterminer la valeur de $${['x', 'y'][valComp]}\\,:$`
         let eqVarElim = eqInt1
         console.log(['x', 'y'][(valComp + 1) % 2] === 'x')
         if (['x', 'y'][(valComp + 1) % 2] === 'x') {
           listeVar[3] = `${timesIfNotUn(eqVarElim[3])} ${ecritureParentheseSiNegatif(solX)}`
-          eqVarElim = addCombLin(eqVarElim, [0, 0, 0, eqVarElim[3] * solX - eqVarElim[3], 0, 0], 1)
+          eqVarElim = addCombLin(eqVarElim, [0, 0, 0, solX.multiplieEntier(eqVarElim[3]).ajouteEntier(-eqVarElim[3]), 0, 0], 1)
         } else {
           listeVar[4] = `${timesIfNotUn(eqVarElim[3])} ${ecritureParentheseSiNegatif(solY)}`
-          eqVarElim = addCombLin(eqVarElim, [0, 0, 0, eqVarElim[4] * solY - eqVarElim[4], 0, 0], 1)
+          eqVarElim = addCombLin(eqVarElim, [0, 0, 0, solY.multiplieEntier(eqVarElim[4]).ajouteEntier(-eqVarElim[4]), 0, 0], 1)
         }
         const newListeVar = ['x', 'y', '', '', '', '']
         texteCorr = texteCorr + `\\[${eqToLatex(eqInt1, listeVar, false)}`
@@ -212,15 +153,15 @@ export default class systemeEquationsPremDegComp extends Exercice {
         }
         texteCorr = texteCorr + '\\]'
         console.log(listeVar)
-        texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][valComp]}=${texNombre([solX, solY][valComp], 0)}$.`
-        texteCorr = texteCorr + ` La solution du système est $${miseEnEvidence(`S=\\{(${texNombre(solX, 0)};${texNombre(solY, 1)})\\}`)}$.`
+        texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][valComp]}=${[solX, solY][valComp].texFractionSimplifiee}$.`
+        texteCorr = texteCorr + ` La solution du système est $${miseEnEvidence(`S=\\left\\{\\left(${solX.texFractionSimplifiee};${solY.texFractionSimplifiee}\\right)\\right\\}`)}$.`
       }
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i, 'S=\\{(%{champ1};%{champ2})\\}')
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(solX) },
-          champ2: { value: String(solY) }
+          champ1: { value: solX.texFractionSimplifiee },
+          champ2: { value: solY.texFractionSimplifiee }
         },
         { formatInteractif: 'fillInTheBlank' }
         )
