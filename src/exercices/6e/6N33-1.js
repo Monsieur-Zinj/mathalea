@@ -73,6 +73,7 @@ export default function PourcentageDunNombre () {
           texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div${4} = ${texNombre(calculANePlusJamaisUtiliser(n / 4))}$` // calcul de n/4 si p = 25%
           break
         case 75 :
+          texteCorr = `$${p}~\\%~\\text{de }${n}=${n}\\div 4\\times 3 = ${texNombre(n / 4)} \\times 3 = ${texNombre(n / 4 * 3)}$` // calcul de n/4 * 3 si p = 75%
           break
         default :
           texteCorr = `$${p}~\\%~\\text{de }${n}=${texFractionFromString(p, 100)}\\times${n}=(${p}\\times${n})\\div100=${texNombre(p * n)}\\div100=${texNombre(calculANePlusJamaisUtiliser((p * n) / 100))}$`
