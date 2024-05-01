@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { operationCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Développer les identités remarquables avec des racines carrées'
@@ -103,7 +103,7 @@ export default function IdentitesRemarquablesEtRacineCarree () {
       texteCorr += `$\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
       texte = `$${texte}$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: operationCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         this.listeQuestions.push(texte)

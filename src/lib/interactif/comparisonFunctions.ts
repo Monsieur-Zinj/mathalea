@@ -1,4 +1,4 @@
-import { ComputeEngine, type Rule } from '@cortex-js/compute-engine'
+import { ComputeEngine, type BoxedExpression, type Rule } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -229,6 +229,8 @@ function inputToGrandeur (input: string): Grandeur | false {
 
 /**
  * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
+ * @deprecated (EE : je la laisse un peu avant de la supprimer)
+ * Cette fonction est déprécieé au profit de expressionDeveloppeeEtReduiteCompare (qui fait la même avec du calcul littéral)
  * @param {string} input
  * @param {string} goodAnswer
  */
@@ -248,7 +250,9 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
 
   // Rajout EE : Seule cette comparaison ci-dessous suffit (29/04/2024)
   // Modif de compareArrays en conséquence pour accepter des nombres
-  return { isOk: compareArrays(saisieParsed.json, answer.json) }
+  // console.log(saisieParsed.json, answer.json)
+
+  return { isOk: compareArrays([saisieParsed.json], [answer.json]) }
 }
 
 /**
@@ -298,6 +302,8 @@ export function calculCompare (input: string, goodAnswer: string): ResultType {
 
 /**
  * Pour comparer des sommes sans se préoccuper de l'ordre des termes
+ * @deprecated (EE : je la laisse un peu avant de la supprimer)
+ * Cette fonction est déprécieé au profit de expressionDeveloppeeEtReduiteCompare (qui fait la même avec du calcul littéral)
  * @param {string} input
  * @param {string} goodAnswer
  */
@@ -406,6 +412,80 @@ export function expandedFormCompare (input: string, goodAnswer: string): ResultT
   const isOk = reponseParsed.isSame(saisieParsed) && (isSomme || isNumber)
   return { isOk }
 }
+
+// Travail ci-dessous de EE
+
+export function canonicalNumber (expr:BoxedExpression):BoxedExpression {
+  if (expr.ops) return expr.engine.function(expr.head, expr.ops.map(canonicalNumber))
+  return typeof expr.value === 'number' ? engine.box(expr.value) : expr
+}
+
+/*
+Ci-dessous, j'ai créé diverses fonctions de comparaison pour le cas général
+d'une comparaison d'expression réduites.
+Puis en-dessous, j'ai crée des cas particuliers : sans multiplication, sans fraction.
+Cela ne me semble pas être une bonne idée.
+
+/**
+ * comparaison d'expressions developpées ET REDUITES (multiplications acceptées, fractions acceptées)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ */
+export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string) : ResultType {
+  // console.log(input, goodAnswer)
+  goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
+  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
+  input = clean(input)
+  goodAnswer = clean(goodAnswer)
+  // console.log(input, goodAnswer)
+  goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
+  const saisieParsed = canonicalNumber(engine.parse(input))
+  const reponseParsed = canonicalNumber(engine.parse(goodAnswer))
+
+  if (saisieParsed == null || reponseParsed == null) { // JCL a mis cela. Je ne sais pas trop pourquoi. Je laisse en attendant.
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
+    return { isOk: false }
+  }
+  console.log(saisieParsed.json, reponseParsed.json)
+  return { isOk: saisieParsed.isSame(reponseParsed) }
+}
+
+/**
+ * comparaison d'expressions developpées (multiplications NON acceptées, fractions acceptées)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ */
+export function expressionDeveloppeeEtReduiteSansXCompare (input: string, goodAnswer:string) : ResultType {
+  if (goodAnswer.includes('times')) return { isOk: false }
+  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
+}
+
+/**
+ * comparaison d'expressions developpées (multiplications acceptées, fractions NON acceptées)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ */
+export function expressionDeveloppeeEtReduiteSansRacinesCompare (input: string, goodAnswer:string) : ResultType {
+  if (goodAnswer.includes('frac')) return { isOk: false }
+  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
+}
+
+/**
+ * comparaison d'expressions developpées (multiplications acceptées, fractions NON acceptées)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ */
+export function expressionDeveloppeeEtReduiteSansXEtSansRacinesCompare (input: string, goodAnswer:string) : ResultType {
+  if (goodAnswer.includes('times')) return { isOk: false }
+  return expressionDeveloppeeEtReduiteSansRacinesCompare(input, goodAnswer)
+}
+
+// Fin du travail de EE
+
 /**
  * comparaison de nombres décimaux bon, rien de transcendant, on compare les strings nettoyées
  * @param {string} input
