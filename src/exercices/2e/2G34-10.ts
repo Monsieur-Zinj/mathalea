@@ -155,8 +155,8 @@ export default class AssocierGraphiqueSysteme extends Exercice {
       t2 = texteParPosition('2', -7.5, 5.5, undefined, 'black', undefined, 'milieu', undefined, 1)
       t3 = texteParPosition('3', -7.5, 5.5, undefined, 'black', undefined, 'milieu', undefined, 1)
       r = repere({
-        xMin: -8,
-        xMax: 8,
+        xMin: -7,
+        xMax: 7,
         xUnite: 1,
         yMin: -6,
         yMax: 6,
@@ -179,8 +179,8 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         grilleSecondaireYMin: -6,
         grilleSecondaireYMax: 6,
         labelListe: [],
-        grilleSecondaireXMin: -8,
-        grilleSecondaireXMax: 8
+        grilleSecondaireXMin: -7,
+        grilleSecondaireXMax: 7
       })
       pente1 = new FractionEtendue(a, d)
       pente2 = new FractionEtendue(a2, d2)
@@ -203,27 +203,27 @@ export default class AssocierGraphiqueSysteme extends Exercice {
       vari = ['x', 'y', '', 'x', 'y', '']
       texte = `Associer chaque système d'équations avec la représentation graphique qui convient. \\[ A=${printSystem(eqToLatex(ss1[0], vari, true), eqToLatex(ss1[1], vari, true))} \\quad\\quad B=${printSystem(eqToLatex(ss2[0], vari, true), eqToLatex(ss2[1], vari, true))} \\quad\\quad C=${printSystem(eqToLatex(ss3[0], vari, true), eqToLatex(ss3[1], vari, true))}\\]`
       texte += troisColonnes(mathalea2d({
-        xmin: -8,
+        xmin: -7,
         ymin: -6,
-        xmax: 8,
+        xmax: 7,
         ymax: 6,
         pixelsParCm: 12,
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
       }, r, c, c2, t1), mathalea2d({
-        xmin: -8,
+        xmin: -7,
         ymin: -6,
-        xmax: 8,
+        xmax: 7,
         ymax: 6,
         pixelsParCm: 12,
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
       }, r, c3, c4, t2), mathalea2d({
-        xmin: -8,
+        xmin: -7,
         ymin: -6,
-        xmax: 8,
+        xmax: 7,
         ymax: 6,
         pixelsParCm: 12,
         scale: 0.32,

@@ -1,12 +1,15 @@
 import { combinaisonListes, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { addCombLin, eqToLatex, multCoeff, printSystem, timesIfNotUn } from '../../lib/outils/systemeEquations'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par combinaison linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,6 +32,8 @@ export default class systemeEquationsPremDeg extends Exercice {
     this.consigne = ''
     this.nbQuestions = 3
     this.sup = 4
+    this.sup2 = false
+    this.sup3 = false
     this.correctionDetailleeDisponible = true
     this.besoinFormulaireNumerique = ['Type de questions', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
   }
@@ -42,7 +47,7 @@ export default class systemeEquationsPremDeg extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-
+    this.besoinFormulaire2CaseACocher = ['Solution contenant des fractions']
     let typeQuestionsDisponibles: ('lv1' | 'lv2' | 'lv3')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['lv1']
@@ -59,22 +64,31 @@ export default class systemeEquationsPremDeg extends Exercice {
       this.comment = 'Dans cet exercice, un système est donné à résoudre. Les solutions sont entières comprises entre -10 et 10.<br>Le niveau 1 correspond à des inconnues seulement dans les membres de gauche;<br>Le niveau 2 à des inconnues dans les deux membres, mais ordonnées;<br>Le niveau 3 à des inconnues dans le désordre dans les deux membres.'
       let texte = ''
       let texteCorr = ''
-      const solX = randint(-10, 10)
-      const solY = randint(-10, 10, [solX])
-      const eq1 = [1, 0, 0, 0, 0, solX]
-      const eq2 = [0, 1, 0, 0, 0, solY]
+      let solX : FractionEtendue
+      let solY : FractionEtendue
+      let eq1: Array<number> = [0, 0, 0, 0, 0, 0]
+      let eq2: Array<number> = [0, 0, 0, 0, 0, 0]
+      if (this.sup2) {
+        do {
+          solX = new FractionEtendue(randint(-6, 6, [0]), randint(-6, 6, [0, 1]))
+          solY = new FractionEtendue(randint(-6, 6, [0]), randint(-6, 6, [0, 1]))
+        }
+        while (solX.simplifie().den === 1 || solY.simplifie().den === 1)
+        eq1 = [solX.den, 0, 0, 0, 0, solX.num]
+        eq2 = [0, solY.den, 0, 0, 0, solY.num]
+      } else {
+        solX = new FractionEtendue(randint(-10, 10), 1)
+        solY = new FractionEtendue(randint(-10, 10, [solX.num]), 1)
+        eq1 = [1, 0, 0, 0, 0, solX.num]
+        eq2 = [0, 1, 0, 0, 0, solY.num]
+      }
       const vectX = [1, 0, 0, 1, 0, 0]
       const vectY = [0, 1, 0, 0, 1, 0]
       const vectConstant = [0, 0, 1, 0, 0, 1]
-      const multCoeff = function (vect : Array<number>, coeff: number) {
-        return vect.map(function (x: number) { return x * coeff })
-      }
-      const addCombLin = function (vect1: Array<number>, vect2: Array<number>, coeff: number) {
-        return vect1.map(function (x: number, i: number) { return x + vect2[i] * coeff })
-      }
+
       // error http://localhost:5173/alea/?uuid=5179b&n=3&d=10&s=4&alea=u0c8&cd=1
       // http://localhost:5173/alea/?uuid=5179b&n=1&d=10&s=4&alea=PAwM&cd=1
-      const eqEquiv = function (vect1 : Array<number>, niveau : string) {
+      const eqEquiv = function (vect1 : Array<number | FractionEtendue>, niveau : string) {
         let vectEquiv = vect1
         vectEquiv = multCoeff(vectEquiv, randint(-6, 6, [0]))
         if (niveau === 'lv2' || niveau === 'lv3') {
@@ -84,68 +98,8 @@ export default class systemeEquationsPremDeg extends Exercice {
         }
         return vectEquiv
       }
-      const eqToLatex = function (vect : Array<number>, nomVal : Array<string>, inSys : boolean) {
-        let expr = ''
-        let checkPreviousNull = true
-        for (let i = 0; i < 3; i++) {
-          if ((vect.slice(0, 3).every(item => item === 0)) && i === 0) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        if (inSys === true) {
-          expr = expr + ' &='
-        } else {
-          expr = expr + '='
-        }
-        checkPreviousNull = true
-        for (let i = 3; i < 6; i++) {
-          if ((vect.slice(3).every(item => item === 0)) && i === 3) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        return expr
-      }
-      const printSystem = function (eq1 : string, eq2 : string) {
-        let expr = ''
-        expr = expr + `\\begin{cases}\\begin{aligned}${eq1}\\\\${eq2}\\end{aligned}\\end{cases}`
-        return expr
-      }
-      const timesIfNotUn = function (valeur : number) {
-        if (valeur === 1 || valeur === -1) {
-          return ''
-        } else {
-          return '\\times'
-        }
-      }
-      let eqInt1 : Array<number> = []
+
+      let eqInt1 : Array<number > = []
       let eqInt2 : Array<number> = []
       let eqSimpl1 : Array<number> = []
       let eqSimpl2 : Array<number> = []
@@ -289,27 +243,29 @@ export default class systemeEquationsPremDeg extends Exercice {
         }
         texteCorr = texteCorr + `On additionne les deux equations pour élimer l'inconnue $${varElim}$ dans la deuxième équation. `
         texteCorr = texteCorr + `On obtient alors le système équivalent suivant : \\[${printSystem(eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, true), eqToLatex(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1), listeVar, true))}\\]`
-        texteCorr = texteCorr + `On obtient ainsi que $${varPasElim} = ${texNombre(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[5] / addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[indexVarPasElim], 0)}$.<br>`
+        texteCorr = texteCorr + `On obtient que $${varPasElim} = ${new FractionEtendue(addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[5], addCombLin(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), multCoeff(eqSimpl2, -coeffElim / (coeffEq[1])), 1)[indexVarPasElim]).texFractionSimplifiee}$.<br>`
         texteCorr = texteCorr + `On subsitue la valeur obtenue pour $${varPasElim}$ dans l'équation restante pour déterminer la valeur de $${varElim}\\,:$`
         eqVarElim = multCoeff(eqSimpl1, coeffElim / coeffEq[0])
         if (varPasElim === 'x') {
           listeVar[0] = `${timesIfNotUn(eqVarElim[0])} ${ecritureParentheseSiNegatif(solX)}`
-          eqVarElim = addCombLin(eqVarElim, [-eqVarElim[0], 0, eqVarElim[0] * solX, 0, 0, 0], 1)
+          eqVarElim = addCombLin(eqVarElim, [-eqVarElim[0], 0, solX.multiplieEntier(eqVarElim[0]), 0, 0, 0], 1)
         } else {
           listeVar[1] = `${timesIfNotUn(eqVarElim[1])} ${ecritureParentheseSiNegatif(solY)}`
-          eqVarElim = addCombLin(eqVarElim, [0, -eqVarElim[1], eqVarElim[1] * solY, 0, 0, 0], 1)
+          eqVarElim = addCombLin(eqVarElim, [0, -eqVarElim[1], solY.multiplieEntier(eqVarElim[1]), 0, 0, 0], 1)
         }
         texteCorr = texteCorr + `\\[${eqToLatex(multCoeff(eqSimpl1, coeffElim / coeffEq[0]), listeVar, false)}\\implies ${eqToLatex(eqVarElim, listeVar, false)}\\]`
-        texteCorr = texteCorr + `On résout l'équation et on obtient $${varElim}=${texNombre([solX, solY][indexVarElim], 0)}$. `
+        texteCorr = texteCorr + `On résout l'équation et on obtient $${varElim}=${[solX.texFractionSimplifiee, solY.texFractionSimplifiee][indexVarElim]}$. `
       }
 
-      texteCorr = texteCorr + `La solution du système est $${miseEnEvidence(`S=\\{(${texNombre(solX, 0)};${texNombre(solY, 1)})\\}`)}$.`
+      texteCorr = texteCorr + `La solution du système est $${miseEnEvidence(`S=\\left\\{\\left(${solX.texFractionSimplifiee};${solY.texFractionSimplifiee}\\right)\\right\\}`)}$.`
       if (this.interactif) {
         texte += '<br>' + remplisLesBlancs(this, i, 'S=\\{(%{champ1};%{champ2})\\}')
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          champ1: { value: String(solX) },
-          champ2: { value: String(solY) }
+          champ1: { value: solX.texFractionSimplifiee },
+          champ2: { value: solY.texFractionSimplifiee },
+          compare: equalFractionCompare
+
         },
         { formatInteractif: 'fillInTheBlank' }
         )

@@ -159,7 +159,7 @@ export default class IntersectionDroitesPoints extends Exercice {
       eqD1ListeString = [0, 1, 0, droiteFrac1[0], 0, droiteFrac1[1]]
       eqD2ListeString = [0, 1, 0, droiteFrac2[0], 0, droiteFrac2[1]]
       pi12 = pointIntersectionExactDD(droiteFrac1, droiteFrac2)
-      texte = `Soient les points $A(${p1x};${p2y}),\\,B(${p2x};${p2y}), \\;C(${p3x};${p3y})$ et $D(${p4x};${p4y})$. Déterminer, s'il existe, le point d'intersection entre la droite $(AB)$ et la droite $(CD)$.`
+      texte = `Soient les points $A(${p1x};${p1y}),\\,B(${p2x};${p2y}), \\;C(${p3x};${p3y})$ et $D(${p4x};${p4y})$. Déterminer, s'il existe, le point d'intersection entre la droite $(AB)$ et la droite $(CD)$.`
       if (this.interactif) {
         texte += '<br> Le point d\'intersection des droites $(AB)$ et $(CD)$ est le point' + remplisLesBlancs(this, i, '(%{champ1};%{champ2})')
         handleAnswers(this, i, {
