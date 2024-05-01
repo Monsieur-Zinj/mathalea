@@ -84,9 +84,9 @@
   let isDataRandom: boolean = false
   function handleSeed () {
     for (const param of $exercicesParams) {
-      if (!isDataRandom && param.alea === undefined) {
+      if (!isDataRandom && param.alea === undefined ) {
         param.alea = mathaleaGenerateSeed()
-      } else {
+      } else if (isDataRandom) {
         param.alea = undefined
       }
     }

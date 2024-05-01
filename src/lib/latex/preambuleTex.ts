@@ -24,9 +24,9 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 
 export function loadPreambule (latexFileInfos : LatexFileInfos, contents : contentsType) {
   if (latexFileInfos.style === 'Can') {
-    return loadPreambuleCan()
+    contents.preamble += loadPreambuleCan()
   }
-  return loadPackagesFromContent(contents)
+  loadPackagesFromContent(contents)
 }
 
 function loadPreambuleCan () {
@@ -178,7 +178,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
   testIfLoaded(['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'], '\\usepackage{xlop}', contents)
   testIfLoaded(['\\cancel'], '\\usepackage{cancel}', contents)
-  testIfLoaded(['\\draw[color={'], '\\usepackage[svgnames,dvipsnames]{xcolor}', contents)
+  testIfLoaded(['\\draw[color={'], '\\usepackage[table,svgnames]{xcolor}', contents)
   testIfLoaded(['\\np{', '\\np[', '\\numprint{'], '\\usepackage[autolanguage,np]{numprint}', contents)
   testIfLoaded(['\\mathscr'], '\\usepackage{mathrsfs}', contents)
   testIfLoaded(['\\fcolorbox{nombres}'], '\\definecolor{nombres}{cmyk}{0,.8,.95,0}', contents)

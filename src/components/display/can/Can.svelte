@@ -18,6 +18,7 @@
   import { verifQuestionCliqueFigure } from '../../../lib/interactif/cliqueFigure'
   import {
     darkMode,
+    exercicesParams,
     globalOptions,
     resultsByExercice
   } from '../../../lib/stores/generalStore'
@@ -26,6 +27,8 @@
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import type { InterfaceResultExercice } from '../../../lib/types'
   import { context } from '../../../modules/context'
+  import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
+  import { get } from 'svelte/store'
 
   let state: CanState = 'start'
   let exercises: TypeExercice[] = []
@@ -40,8 +43,15 @@
   let recordedTimeFromCapytale: number
   onMount(async () => {
     context.isDiaporama = true
+    // force le mode interactif
+    globalOptions.update((gOpt) => {
+      gOpt.setInteractive = '1'
+      return gOpt
+    })
     // reconstitution des exercices
     exercises = await Promise.all(buildExercisesList())
+    // met à jour la url avec la graine...
+    mathaleaUpdateUrlFromExercicesParams(get(exercicesParams))
     // interactivité
     if ($canOptions.isInteractive) {
       $keyboardState.isVisible = true

@@ -234,7 +234,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('recorder')
   }
-  if (options.v === 'diaporama') {
+  if (options.v === 'diaporama' || options.v === 'overview') {
     if (selectedExexercicesStore) {
       url.searchParams.append(
         'selectedExercises',

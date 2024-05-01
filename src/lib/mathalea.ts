@@ -246,7 +246,7 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
-  if (param.cols > 1) exercice.nbCols = param.cols
+  if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
   if (param.cd !== undefined) exercice.correctionDetaillee = param.cd === '1'
   if (exercice.seed === undefined) {
     exercice.seed = mathaleaGenerateSeed()

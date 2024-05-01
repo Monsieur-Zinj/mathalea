@@ -13,6 +13,7 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
+- playwright-pdfDNB
 - test
 - build-projet
 - playwright-testCanEleve
@@ -59,11 +60,6 @@ default:
   
 .install_dependenciesPDFDNB:
   before_script:
-    - apt update
-    - apt install nodejs -yq
-    - apt install npm -yq
-    - npm install -g pnpm@8
-    - pnpm config set store-dir .pnpm-store
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - pnpm exec playwright install --with-deps chromium # dernière version playwright.
@@ -84,7 +80,7 @@ default:
     - sleep 60
 
 .testCIPDF:
-  image: texlive/texlive:latest
+  image: guironne/tex-live-nodejs-playwright2
   extends: .install_dependenciesPDF
   stage: playwright-pdf
   allow_failure: true
