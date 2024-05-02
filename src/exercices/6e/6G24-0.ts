@@ -245,7 +245,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
 
       if (context.isHtml && this.interactif) {
-        this.figures[i] = new Figure({ xMin: -10, yMin: -10, width: 600, height: 600 })
+        this.figures[i] = new Figure({ xMin: -10, yMin: -10, width: 420, height: 420 })
         this.figures[i].scale = 0.7
         this.figures[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
