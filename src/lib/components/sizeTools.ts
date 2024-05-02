@@ -40,7 +40,7 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
 
-function updateFigures (svgContainer: HTMLDivElement, zoom: number) {
+export function updateFigures (svgContainer: HTMLDivElement, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
     if (svgDiv.clientWidth > 0 && svgDiv instanceof SVGElement) {

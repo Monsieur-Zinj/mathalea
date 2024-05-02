@@ -72,6 +72,8 @@ export default function LireAbscisseDecimaleTroisFormes () {
       let tableau = []
       let xmin
       let xmax
+      let unite
+      console.log('ici')
       if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -94,7 +96,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
         x1 = tableau[0]
         x2 = tableau[1]
         x3 = tableau[2]
-
+        unite = 3
         d1 = droiteGraduee({
           x: 0,
           y: 0,
@@ -103,7 +105,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           Max: xmax,
           thickSec: true,
           thickTer: false,
-          Unite: 3,
+          Unite: unite,
           thickOffset: thickOff,
           thickCouleur: 'black',
           axeCouleur: 'black',
@@ -239,7 +241,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
         x1 = tableau[0]
         x2 = tableau[1]
         x3 = tableau[2]
-
+        unite = 20
         d1 = droiteGraduee({
           x: 0,
           y: 0,
@@ -248,7 +250,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           Max: xmax,
           thickSec: true,
           thickTer: true,
-          Unite: 20,
+          Unite: unite,
           thickOffset: thickOff,
           thickCouleur: 'black',
           axeCouleur: 'black',
@@ -384,6 +386,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
         x1 = tableau[0]
         x2 = tableau[1]
         x3 = tableau[2]
+        unite = 200
         d1 = droiteGraduee({
           x: 0,
           y: 0,
@@ -392,7 +395,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           Max: xmax,
           thickSec: true,
           thickTer: true,
-          Unite: 200,
+          Unite: unite,
           thickOffset: thickOff,
           thickDistance: 0.1,
           thickSecDist: 0.01,
@@ -513,7 +516,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
       }
       const textedroite = '<br>' + mathalea2d({
         xmin: -1.5,
-        xmax: 35,
+        xmax: (xmax - xmin) * unite + 1.5, // la longueur totale de l'axe flèche comprise+ 1,
         ymin: -1.5,
         ymax: 1.5,
         pixelsParCm: 25,
