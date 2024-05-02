@@ -49,9 +49,9 @@ class DerivationGRondF extends Exercice {
       const typeQuestion = Number(listeTypeDeQuestion[i])
       switch (typeQuestion) {
         case 1:
-          fPrimeDetaillee = n === 2 ? `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times\\lparen${u}\\rparen` : `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times \\lparen${u}\\rparen^${n - 1}`
-          fPrime = n === 2 ? `${String(n * a)}\\times\\lparen${u}\\rparen` : `${String(n * a)}\\times \\lparen${u}\\rparen^${n - 1}`
-          laFonctionFEnLatex = `\\lparen${u}\\rparen^${n}`
+          fPrimeDetaillee = n === 2 ? `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times\\lparen ${u} \\rparen` : `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times \\lparen${u}\\rparen^${n - 1}`
+          fPrime = n === 2 ? `${String(n * a)}\\times\\lparen${u}\\rparen` : `${String(n * a)}\\times \\lparen ${u} \\rparen^${n - 1}`
+          laFonctionFEnLatex = `\\lparen ${u}\\rparen^${n}`
           df = '\\R'
           formeGenerale = 'u^n'
           formeGeneraleDerivee = '(u^{n})^\\prime=nu^\\prime u^{n-1}'
@@ -89,10 +89,10 @@ class DerivationGRondF extends Exercice {
       let texteCorr = ''
       if (this.correctionDetaillee) {
         texteCorr += `La fonction $f$ est de la forme $${formeGenerale}$ et donc que la dérivée est de la forme $${formeGeneraleDerivee}$.<br>`
-        texteCorr += `On a $u=${u}$${typeQuestion === 1 ? `, $n=${n}$` : ''} et $u^\\prime=${String(a)}$.<br>`
+        texteCorr += `On a $u(x)=${u}$${typeQuestion === 1 ? `, $n=${n}$` : ''} et $u^\\prime(x)=${String(a)}$.<br>`
         texteCorr += `$f^\\prime(x)=${fPrimeDetaillee}$.<br>`
       }
-      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${fPrime}$ est : `
+      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonctionFEnLatex}$ est : `
       texteCorr += `$f'(x)=${miseEnEvidence(fPrime)}$.`
 
       if (this.questionJamaisPosee(i, laFonctionFEnLatex, fPrime)) {
