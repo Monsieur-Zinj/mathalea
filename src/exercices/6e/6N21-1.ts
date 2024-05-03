@@ -11,6 +11,7 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const dateDePublication = '28/01/2023'
+export const dateDeModifImportante = '03/05/2024'
 export const titre = 'Placer des points d’abscisses fractionnaires (niv 2)'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -119,8 +120,8 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
           if (tableUtilisées[3].length === 2) tableUtilisées[3] = []
           break
       }
-      num = origine * den + randint(1, den * 4, den)
       origine = this.sup > 4 ? randint(-4, 1) : origine // Pour la 2nde
+      num = origine * den + randint(1, den * 4, den)
       let num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
       let num3 = randint(origine * den + 1, (origine + 4) * den, [num, num2, den])
       let den1, den2, den3, num1, coef2:number
@@ -138,7 +139,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
             num1 = coef * num1
             den1 = coef * den
           }
-          if (choice([true, false], [choix])) {
+          if (!choix) {
             num2 = coef * num2
             den2 = coef * den
           }
@@ -305,7 +306,7 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
   stepBis?: number,
   points?: Array<{ x: number, label: string }>
 }): { figure: Figure, latex: string} {
-  const width = 900
+  const width = 750
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
