@@ -373,7 +373,7 @@ export default function SimplifierEcritureLitterale () {
       if (!this.sup2) {
         handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: simplifierCompare } }, { formatInteractif: 'calcul' })
       } else {
-        handleAnswers(this, i, { reponse: { value: { reponse, donnee: resultat }, compare: compliquerCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, donnee: resultat }, compare: compliquerCompare } }, { formatInteractif: 'calcul' })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
