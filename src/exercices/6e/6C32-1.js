@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { max, min } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { numberCompare, upperCaseCompare } from '../../lib/interactif/comparisonFunctions'
+import { numberCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
@@ -116,7 +116,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
             texte += '<br>' + numAlpha(4)
           }
           texte += `${prenomFP} respecte-t-${personnage.pronom} son régime ?`
-          handleAnswers(this, indiceInteractif + 4, { reponse: { value: (calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700) ? 'Oui' : 'Non', compare: upperCaseCompare } })
+          handleAnswers(this, indiceInteractif + 4, { reponse: { value: (calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700) ? 'Oui' : 'Non', compare: texteSansCasseCompare } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           indiceInteractif += 5
@@ -133,7 +133,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
           texte += `Le livreur d'une fromagerie charge $${quaFro1}$ fromages pesant chacun $${texNombre(masseFro1)}$ kg <br>
                                   et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $550$ kg.<br>
                                   Le véhicule est-il en surcharge ?`
-          handleAnswers(this, indiceInteractif, { reponse: { value: (total > 550) ? 'Oui' : 'Non', compare: upperCaseCompare } })
+          handleAnswers(this, indiceInteractif, { reponse: { value: (total > 550) ? 'Oui' : 'Non', compare: texteSansCasseCompare } })
           texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           texte += '<br>Si oui, de combien ? Si non, combien reste-t-il ?'
