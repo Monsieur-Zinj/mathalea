@@ -107,13 +107,8 @@ class Latex {
           if (exercice.content === '') {
             content += '% Cet exercice n\'est pas disponible au format LaTeX'
           } else {
-            if (latexFileInfos.style === 'Coopmaths') {
-              content += `\n% @see : ${getUrlFromExercice(exercice)}`
-              content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            } else if (latexFileInfos.style === 'Classique') {
-              content += `\n% @see : ${getUrlFromExercice(exercice)}`
-              content += '\n\\begin{EXO}{}{}\n'
-            }
+            content += `\n% @see : ${getUrlFromExercice(exercice)}`
+            content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
             if (Number(exercice.nbCols) > 1) {
               content += `\\begin{multicols}{${exercice.nbCols}}\n`
             }
