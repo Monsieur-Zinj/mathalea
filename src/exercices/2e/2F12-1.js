@@ -9,8 +9,8 @@ import Exercice from '../deprecatedExercice.js'
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
-export const titre = 'Résoudre algébriquement une équation f(x)=k avec une fonction de référence'
+import FractionEtendue from '../../modules/FractionEtendue'
+export const titre = 'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
 /**
 *
@@ -227,7 +227,7 @@ export default function EquationsFonctionsRef () {
               b = randint(-10, 10, 0)
               c = randint(-10, 10, 0)
               k = (c - b) / a
-              f1 = fraction(c - b, a)
+              f1 = new FractionEtendue(c - b, a)
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $${a}x^2${ecritureAlgebrique(b)}=${c}$`
               correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
@@ -243,7 +243,7 @@ export default function EquationsFonctionsRef () {
              ${a}x^2${ecritureAlgebrique(b)}&=${c}\\\\
              ${a}x^2${ecritureAlgebrique(b)}+${miseEnEvidence(-b)}&=${c}+${miseEnEvidence(-b)}\\\\
              ${a}x^2&=${c - b}\\\\
-                        x^2&=${texFractionReduite(c - b, a)}
+                        x^2&=${f1.texFractionSimplifiee}
             \\end{aligned}$`
               }
               if (k > 0) {
@@ -254,14 +254,14 @@ export default function EquationsFonctionsRef () {
                 <br> Ainsi, $S=\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}$.`
                 } else {
                   if (((c - b === 4) && a === 9) || ((c - b === 9) && a === 4) || ((c - b === 16) && a === 9) || ((c - b === 9) && a === 16)) {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$.
-                  <br>  Comme $-\\sqrt{${texFractionReduite(c - b, a)}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$.
+                  <br>  Comme $-\\sqrt{${f1.texFractionSimplifiee}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${f1.texFractionSimplifiee}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors
                   les solutions de l'équation peuvent s'écrire plus simplement : $-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$.<br>
                   Ainsi, $S=\\left\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}${sp(1)};${sp(1)}\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\right\\}$`
                   } else {
-                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions :
-                  $-${f1.racineCarree().texFractionSimplifiee}$ et $${f1.racineCarree().texFractionSimplifiee}$. <br>
-                  Ainsi, $S=\\left\\{-${f1.racineCarree().texFractionSimplifiee}${sp(1)};${sp(1)}${f1.racineCarree().texFractionSimplifiee}\\right\\}$`
+                    correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}>0$, alors l'équation a deux solutions :
+                  $-\\sqrt{${f1.texFractionSimplifiee}}$ et $\\sqrt{${f1.texFractionSimplifiee}}$. <br>
+                  Ainsi, $S=\\left\\{-\\sqrt{${f1.texFractionSimplifiee}}${sp(1)};${sp(1)}\\sqrt{${f1.texFractionSimplifiee}}\\right\\}$`
                   }
                 }
               }
@@ -271,7 +271,7 @@ export default function EquationsFonctionsRef () {
               Ainsi, $S=\\{0\\}$. `
               }
               if ((c - b) / a < 0) {
-                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}<0$, alors l'équation n'a pas de solution. <br>
+                correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}<0$, alors l'équation n'a pas de solution. <br>
               Ainsi, $S=\\emptyset$. `
               }
 
