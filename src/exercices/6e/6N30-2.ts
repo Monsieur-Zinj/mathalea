@@ -170,7 +170,6 @@ class PlacerPointsSurAxe extends Exercice {
   }
 
   correctionInteractive = (i?: number) => {
-    console.log('correctionInteractive')
     if (i === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
