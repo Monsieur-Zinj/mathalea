@@ -73,7 +73,6 @@ export default function LireAbscisseDecimaleTroisFormes () {
       let xmin
       let xmax
       let unite
-      console.log('ici')
       if (this.sup === 1) {
         if (this.niveau === 'CM') {
           xmin = 0
