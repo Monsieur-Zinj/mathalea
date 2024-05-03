@@ -113,7 +113,8 @@ export default function Lecturegraphiquedeaetb () {
         texteCorr += '$'
 
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $y=${miseEnEvidence(reduireAxPlusB(coeffDir, b))}$.`
-        handleAnswers(this, i, { reponse: { value: reduireAxPlusB(coeffDir.simplifie(), b), compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
+        handleAnswers(this, i, { reponse: { value: { expr: reponse }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
 
         if (b + a < -8 || b + a > 8) { // Si cela sort du cadre
           s1 = segment(-d, b - a, 0, b - a, 'blue')

@@ -103,7 +103,7 @@ export default function IdentitesRemarquablesEtRacineCarree () {
       texteCorr += `$\\phantom{${texte}}=${miseEnEvidence(reponse)}$`
       texte = `$${texte}$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: { expr: reponse }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
 
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         this.listeQuestions.push(texte)

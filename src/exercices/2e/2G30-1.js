@@ -9,7 +9,7 @@ import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { equalFractionCompare, textCompare } from '../../lib/interactif/comparisonFunctions'
+import { equalFractionCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
@@ -147,7 +147,7 @@ export default function CoefficientDirecteurDeDroite () {
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
           texteCorr += `<br>Elle n'admet donc ${texteEnCouleurEtGras('aucun')} coefficient directeur.`
-          handleAnswers(this, i, { reponse: { value: 'aucun', compare: textCompare } })
+          handleAnswers(this, i, { reponse: { value: 'aucun', compare: texteSansCasseCompare } })
 
           if (context.isAmc) {
             this.autoCorrection[i] = {

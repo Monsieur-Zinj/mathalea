@@ -492,8 +492,7 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        correctionSansSchema = '3\\times 5 + 4'
-        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: { expr: correctionSansSchema }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })

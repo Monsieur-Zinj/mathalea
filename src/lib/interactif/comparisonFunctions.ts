@@ -1,9 +1,11 @@
-import { ComputeEngine, type BoxedExpression, type Rule } from '@cortex-js/compute-engine'
+import { ComputeEngine, type BoxedExpression, type Parser, type Rule, type LatexDictionaryEntry } from '@cortex-js/compute-engine'
 import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 import { texFractionFromString } from '../outils/deprecatedFractions'
-import { compareArrays } from '../outils/arrayOutils'
+import type { Expression } from 'mathlive'
+import type { ParserOptions } from 'svelte/types/compiler/interfaces'
+import Decimal from 'decimal.js'
 
 const engine = new ComputeEngine()
 export default engine
@@ -227,33 +229,28 @@ function inputToGrandeur (input: string): Grandeur | false {
   }
 }
 
+/* N'a plus de raison d'exister : expressionDeveloppeeEtReduiteCompare fait le job
 /**
  * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
  * @deprecated (EE : je la laisse un peu avant de la supprimer)
  * Cette fonction est déprécieé au profit de expressionDeveloppeeEtReduiteCompare (qui fait la même avec du calcul littéral)
  * @param {string} input
  * @param {string} goodAnswer
- */
+
 export function operationCompare (input: string, goodAnswer: string):ResultType {
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'espaces'])
   const saisie = clean(input)
   const saisieParsed = engine.parse(saisie, { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
   const answer = engine.parse(clean(goodAnswer), { canonical: ['InvisibleOperator', 'Multiply', 'Power', 'Number', 'Add', 'Flatten', 'Order'] })
 
-  /* Modif EE car 3+5 est accepté correct pour 2+6
+  // Pb : 3+5 est accepté correct pour 2+6
   const evaluationAnswer = answer.evaluate()
   const evaluationSaisie = saisieParsed.evaluate()
   const isOk1 = evaluationAnswer.isEqual(evaluationSaisie)
   const isOk2 = String(answer.head) === String(saisieParsed.head)
   return { isOk: isOk1 && isOk2 } // Une précaution pour éviter de valider 64/8 à la place de 2*4
-  */
-
-  // Rajout EE : Seule cette comparaison ci-dessous suffit (29/04/2024)
-  // Modif de compareArrays en conséquence pour accepter des nombres
-  // console.log(saisieParsed.json, answer.json)
-
-  return { isOk: compareArrays([saisieParsed.json], [answer.json]) }
 }
+*/
 
 /**
  * comparaison de nombres
@@ -261,8 +258,11 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
  * @param {string} goodAnswer
  * @return ResultType
  */
-export function numberCompare (input: string, goodAnswer: string): ResultType {
-  if (typeof goodAnswer !== 'string') {
+export function numberCompare (input: string, goodAnswer: Decimal|FractionEtendue|number|string): ResultType {
+  // console.log('numberCompare', input, goodAnswer)
+  if (goodAnswer instanceof Decimal) goodAnswer = goodAnswer.toString
+  else if (goodAnswer instanceof FractionEtendue) goodAnswer = goodAnswer.texFraction
+  else if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
   if (input === '') {
@@ -284,12 +284,14 @@ export function numberCompare (input: string, goodAnswer: string): ResultType {
   }
 }
 
+/* Ancienne fonciton au profit de la nouvelle ci-dessous
 /**
- * comparaison d'expressions'
+ * comparaison d'expressions
  * @param {string} input
  * @param {string} goodAnswer
+ * @author Jean-Claude Lhote
  * @return ResultType
- */
+////////////  -> Mettre etoile /
 export function calculCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
@@ -297,24 +299,24 @@ export function calculCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'espaces', 'parentheses', 'puissances', 'fractions'])
   const saisieClean = clean(input)
   const reponseClean = clean(goodAnswer)
+  console.log(engine.parse(saisieClean).json, engine.parse(reponseClean).json)
   return { isOk: engine.parse(saisieClean).isSame(engine.parse(reponseClean)) }
 }
+*/
 
 /**
- * Pour comparer des sommes sans se préoccuper de l'ordre des termes
- * @deprecated (EE : je la laisse un peu avant de la supprimer)
- * Cette fonction est déprécieé au profit de expressionDeveloppeeEtReduiteCompare (qui fait la même avec du calcul littéral)
+ * Couteau suisse de la comparaison. Devrait correspondre à une très grosse majorité des comparaisons.
+ * Comparaison de nombres ou bien d'expressions : c'est la fonction qui choisit.
  * @param {string} input
- * @param {string} goodAnswer
+ * @param {string|number|Decimal|FractionEtendue} goodAnswer
+ * @author Eric Elter
+ * @return ResultType
  */
-export function canonicalAddCompare (input: string, goodAnswer: string): ResultType {
-  if (typeof goodAnswer !== 'string') {
-    goodAnswer = String(goodAnswer)
-  }
-  const clean = generateCleaner(['virgules', 'fractions', 'parentheses', 'puissances'])
-  const saisieClean = clean(input)
-  const reponseClean = clean(goodAnswer)
-  return { isOk: engine.parse(reponseClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] }).isSame(engine.parse(saisieClean, { canonical: ['InvisibleOperator', 'Multiply', 'Number', 'Add', 'Flatten', 'Order'] })) }
+export function calculCompare (input: string, goodAnswer: string|number|Decimal|FractionEtendue): ResultType {
+  // Si goodAnswer est un nombre, alors on utilise la comparaison d'un nombre
+  if (typeof goodAnswer === 'number' || goodAnswer instanceof Decimal || goodAnswer instanceof FractionEtendue) return numberCompare(input, goodAnswer)
+  // Sinon on utilise la comparaison d'une expression non réduite
+  return expressionDeveloppeeEtNonReduiteCompare(input, goodAnswer)
 }
 
 /**
@@ -415,83 +417,96 @@ export function expandedFormCompare (input: string, goodAnswer: string): ResultT
 
 // Travail ci-dessous de EE
 
-export function canonicalNumber (expr:BoxedExpression):BoxedExpression {
-  if (expr.ops) return expr.engine.function(expr.head, expr.ops.map(canonicalNumber))
-  return typeof expr.value === 'number' ? engine.box(expr.value) : expr
-}
+engine.latexDictionary = [
+  ...engine.latexDictionary.filter((x) => x.name !== 'Subtract'),
+  {
+    ...engine.latexDictionary.find((x) => x.name === 'Subtract'),
+    parse: (parser:Parser, lhs:Expression, terminator:ParserOptions) => {
+      // Go back one token: we'll parse the '-' as part of the rhs so we
+      // can keep the expression an 'Add'.
+      parser.index -= 1
+      const rhs = parser.parseExpression({ ...terminator, minPrec: 275 + 3 })
+      return ['Add', lhs, rhs]
+    }
+  } as LatexDictionaryEntry // Pas réussi à faire mieux pour typer.
+]
 
+export function customCanonical (expr:BoxedExpression, { fractionIrreductibleSeulement = false }):BoxedExpression {
+  if (typeof expr.value === 'number') {
+    if ((expr.head === 'Divide' || expr.head === 'Rational') && fractionIrreductibleSeulement) {
+      if (expr.engine.box(['GCD', expr.op1, expr.op2]).value !== 1 || expr.op2.value === 1) return expr
+    }
+    return expr.engine.number(expr.value)
+  }
+  if (expr.ops) return expr.engine.box([expr.head, ...expr.ops.map(customCanonical)], { canonical: ['InvisibleOperator', 'Order'] })
+
+  return expr.canonical
+}
 /*
 Ci-dessous, j'ai créé diverses fonctions de comparaison pour le cas général
 d'une comparaison d'expression réduites.
 Puis en-dessous, j'ai crée des cas particuliers : sans multiplication, sans fraction.
 Cela ne me semble pas être une bonne idée.
+*/
 
 /**
- * comparaison d'expressions developpées ET REDUITES (multiplications acceptées, fractions acceptées)
+ * comparaison d'expressions developpées NON REDUITES
  * @param {string} input
  * @param {string} goodAnswer
+ * @author Eric Elter
  * @return ResultType
  */
-export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string) : ResultType {
-  // console.log(input, goodAnswer)
+export function expressionDeveloppeeEtNonReduiteCompare (input: string, goodAnswer:string) : ResultType {
+  // console.log(input, goodAnswer) // EE : Pour débuugage, laisser ce commentaire
   goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
   const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
   input = clean(input)
-  goodAnswer = clean(goodAnswer)
-  // console.log(input, goodAnswer)
-  goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
-  const saisieParsed = canonicalNumber(engine.parse(input))
-  const reponseParsed = canonicalNumber(engine.parse(goodAnswer))
+  goodAnswer = clean(goodAnswer) // EE : Pour débuugage, laisser ce commentaire
+  const saisieParsed = engine.parse(input)
+  const reponseParsed = engine.parse(goodAnswer)
 
-  if (saisieParsed == null || reponseParsed == null) { // JCL a mis cela. Je ne sais pas trop pourquoi. Je laisse en attendant.
+  if (saisieParsed == null || reponseParsed == null) { // JCL avait mis cette précaution dans la fonction précédente. Je ne sais pas trop pourquoi. Je laisse en attendant.
     window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
     return { isOk: false }
   }
-  console.log(saisieParsed.json, reponseParsed.json)
+  // console.log(saisieParsed.json, reponseParsed.json)
+
+  return { isOk: saisieParsed.isEqual(reponseParsed) }
+}
+/**
+ * comparaison d'expressions developpées ET REDUITES (multiplications acceptées, fractions acceptées... PAS ENCORE AVEC DES FRACTIONS)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ * @return ResultType
+ */
+export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:{expr:string, avecSigneMultiplier:true, avecFractions:true, fractionIrreducibleSeulement:false}) : ResultType {
+  if (!goodAnswer.avecSigneMultiplier && input.includes('times')) return { isOk: false }
+  if (!goodAnswer.avecFractions && input.includes('frac')) return { isOk: false }
+  goodAnswer.expr = String(goodAnswer.expr) // Au cas où string ne serait pas string. Est-ce utile ?
+  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
+  input = clean(input)
+  goodAnswer.expr = clean(goodAnswer.expr) // EE : Pour débuugage, laisser ce commentaire
+  const saisieParsed = customCanonical(engine.parse(input, { canonical: false }), { fractionIrreductibleSeulement: goodAnswer.fractionIrreducibleSeulement })
+  const reponseParsed = customCanonical(engine.parse(goodAnswer.expr, { canonical: false }), { fractionIrreductibleSeulement: goodAnswer.fractionIrreducibleSeulement })
+
+  if (saisieParsed == null || reponseParsed == null) { // JCL avait mis cette précaution dans la fonction précédente. Je ne sais pas trop pourquoi. Je laisse en attendant.
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer.expr })
+    return { isOk: false }
+  }
+
   return { isOk: saisieParsed.isSame(reponseParsed) }
 }
 
-/**
- * comparaison d'expressions developpées (multiplications NON acceptées, fractions acceptées)
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- */
-export function expressionDeveloppeeEtReduiteSansXCompare (input: string, goodAnswer:string) : ResultType {
-  if (goodAnswer.includes('times')) return { isOk: false }
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
-}
-
-/**
- * comparaison d'expressions developpées (multiplications acceptées, fractions NON acceptées)
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- */
-export function expressionDeveloppeeEtReduiteSansRacinesCompare (input: string, goodAnswer:string) : ResultType {
-  if (goodAnswer.includes('frac')) return { isOk: false }
-  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer)
-}
-
-/**
- * comparaison d'expressions developpées (multiplications acceptées, fractions NON acceptées)
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- */
-export function expressionDeveloppeeEtReduiteSansXEtSansRacinesCompare (input: string, goodAnswer:string) : ResultType {
-  if (goodAnswer.includes('times')) return { isOk: false }
-  return expressionDeveloppeeEtReduiteSansRacinesCompare(input, goodAnswer)
-}
-
 // Fin du travail de EE
+
+/* Cette fonction n'a pas lieu d'exister car numberCompare fait tout aussi pour tous les nombres
 
 /**
  * comparaison de nombres décimaux bon, rien de transcendant, on compare les strings nettoyées
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
- */
 export function decimalCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
@@ -501,6 +516,7 @@ export function decimalCompare (input: string, goodAnswer: string): ResultType {
   const reponseClean = clean(goodAnswer)
   return { isOk: saisieClean === reponseClean } // facile ! des Décimaux en string sont égaux si les strings sont égales.
 }
+*/
 
 /**
  * comparaison de nombres en écritures scientifiques @todo à vérifier celle-là, j'suis pas convaincu
@@ -528,16 +544,21 @@ export function scientificCompare (input: string, goodAnswer: string): ResultTyp
  * comparaison de textes... ben parce qu'il en faut une
  * @param {string} input
  * @param {string} goodAnswer
+ * @author Jean-Claude Lhote
  * @return ResultType
  */
-export function textCompare (input: string, goodAnswer: string): ResultType {
+export function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['parentheses', 'mathrm'])
   input = cleaner(input)
   goodAnswer = cleaner(goodAnswer)
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
   }
-  return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
+  // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
+  // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'
+  // mais elle ne le serait plus pour comparer [AB] et [ab] ce qui serait dommage.
+  // return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
+  return { isOk: input === goodAnswer }
 }
 
 /**
@@ -558,12 +579,16 @@ export function textWithSpacesCompare (input: string, goodAnswer: string): Resul
   const result = input.localeCompare(goodAnswer)
   return { isOk: result === 0 }
 }
+/* Cette fonction n'a pas lieu d'exister car elle ne fait pas ce pour quoi elle est prévue.
+Une autre fonction fait ce qu'il faut en dessous.
 /**
  * comparaison de textes sans s'occuper de la casse.
  * @param {string} input
  * @param {string} goodAnswer
+ * @author Jean-Claude Lhote
  * @return ResultType
- */
+
+////////////  -> Mettre etoile /
 export function upperCaseCompare (input: string, goodAnswer: string): ResultType {
   if (typeof goodAnswer !== 'string') {
     goodAnswer = String(goodAnswer)
@@ -571,6 +596,20 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
   // @ToDo supprimer toutes les traces de LaTeX (gestion du - typographique...)
   input = input.replaceAll('\\lparen', '(').replaceAll('\\rparen', ')')
   return { isOk: input.toUpperCase() === goodAnswer.toUpperCase() }
+}
+*/
+
+/**
+ * comparaison de textes sans s'occuper de la casse.
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ * @return ResultType
+*/
+export function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
+  input = input.toLowerCase()
+  goodAnswer = goodAnswer.toLowerCase()
+  return texteAvecCasseCompare(input, goodAnswer)
 }
 
 /**
@@ -1009,6 +1048,7 @@ export function intervalCompare (input: string, goodAnswer: { borneInf: number, 
  * @param {string} entierInf
  * @param {string} entierSup
  * @param {string} valeurInter
+ * @author Jean-Claude Lhote
  * @return ResultType
  */
 export function consecutiveCompare (input: string, goodAnswer: {entierInf: number, entierSup: number, valeurInter?: number}): ResultType {
@@ -1050,11 +1090,11 @@ export function approximatelyCompare (input: string, goodAnswer:{attendu: string
 /**
  * Comparaison de fonction f(x)
  * @param {string} input
- * @param {{fonction: string, variable: string}} goodAnswer
+ * @param {{fonction: string, variable: string, domaine: [number,number]}} goodAnswer
  */
-export function functionCompare (input: string, goodAnswer: {fonction: string, variable: string} = { fonction: '', variable: 'x' }): ResultType {
+export function functionCompare (input: string, goodAnswer: {fonction: string, variable: string, domaine: [number, number]} = { fonction: '', variable: 'x', domaine: [0, 1] }): ResultType {
   if (typeof goodAnswer === 'string') {
-    goodAnswer = { fonction: goodAnswer, variable: 'x' }
+    goodAnswer = { fonction: goodAnswer, variable: 'x', domaine: [0, 1] }
   }
   const clean = generateCleaner(['virgules', 'parentheses', 'fractions', 'divisions'])
 
@@ -1065,8 +1105,12 @@ export function functionCompare (input: string, goodAnswer: {fonction: string, v
   const goodAnswerFn = engine.parse(cleanAnswer).compile()
 
   let isOk = true
+  const min = goodAnswer.domaine[0]
+  const max = goodAnswer.domaine[1]
+  const range = max - min
+  const valAlea = () => min + range * Math.random()
   if (inputFn == null || goodAnswerFn == null) throw Error(`functionCompare : La saisie ou la bonne réponse ne sont pas des fonctions (saisie : ${input} et réponse attendue : ${goodAnswer}`)
-  const [a, b, c] = [Math.random(), Math.random(), Math.random()]
+  const [a, b, c] = [valAlea(), valAlea(), valAlea()]
   for (const x of [a, b, c]) {
     const variable = Object.fromEntries([[goodAnswer.variable, x]])
     const y1 = inputFn(variable)

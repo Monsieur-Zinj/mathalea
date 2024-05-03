@@ -6,8 +6,8 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
-  calculCompare, canonicalAddCompare,
-  decimalCompare, developmentCompare,
+  calculCompare,
+  developmentCompare,
   expandedFormCompare,
   expandedAndReductedCompare,
   fractionCompare,
@@ -19,9 +19,9 @@ import {
   numberCompare,
   powerCompare,
   scientificCompare,
-  textCompare,
   unitsCompare,
-  upperCaseCompare
+  texteAvecCasseCompare,
+  texteSansCasseCompare
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -556,7 +556,8 @@ export function setReponse (exercice, i, valeurs, {
         return handleAnswers(exercice, i, {
           reponse: {
             value: reponses[0].toString(),
-            compare: decimalCompare
+            //  compare: decimalCompare
+            compare: numberCompare
           }
         }, param)
       }
@@ -568,7 +569,8 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: String(reponses[0].replace(',', '.')),
-          compare: decimalCompare
+          // compare: decimalCompare
+          compare: numberCompare
         }
       }, param)
     case 'ecritureScientifique': {
@@ -589,16 +591,17 @@ export function setReponse (exercice, i, valeurs, {
     }
     case 'texte':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: textCompare } }, param)
-    case 'canonicalAdd':
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteAvecCasseCompare } }, param)
+    /* case 'canonicalAdd':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, param)
+    */
     case 'ignorerCasse':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "ignorerCasse" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses.map(el => String(el).toLowerCase()),
-          compare: upperCaseCompare
+          compare: texteSansCasseCompare
         }
       }, param)
     case 'fractionPlusSimple':

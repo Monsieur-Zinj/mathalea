@@ -7,7 +7,7 @@ import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { calculCompare, canonicalAddCompare, developmentCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'
 export const titre = 'Table de double distributivité'
 export const dateDePublication = '23/02/2023'
@@ -77,7 +77,8 @@ export default function TableDoubleDistributivite () {
           L1C1 = 'x^2'
           L1C2 = `${b}x`
           L2C1 = `${d}x`
-          L2C2 = `${b * d}`
+          // L2C2 = `${b * d}`
+          L2C2 = b * d
           break
         case 2: // (ax+b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
@@ -90,7 +91,8 @@ export default function TableDoubleDistributivite () {
           L1C1 = `${a * c}x^2`
           L1C2 = `${b * c}x`
           L2C1 = `${a * d}x`
-          L2C2 = `${b * d}`
+          // L2C2 = `${b * d}`
+          L2C2 = b * d
           break
         case 3: // (ax-b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
@@ -110,7 +112,8 @@ export default function TableDoubleDistributivite () {
           L1C1 = `${a * c}x^2`
           L1C2 = `${-b * c}x`
           L2C1 = `${a * d}x`
-          L2C2 = `${-b * d}`
+          // L2C2 = `${-b * d}`
+          L2C2 = -b * d
           break
         case 4: // (ax-b)(cx-d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
@@ -123,7 +126,8 @@ export default function TableDoubleDistributivite () {
           L1C1 = `${a * c}x^2`
           L1C2 = `${-b * c}x`
           L2C1 = `${-a * d}x`
-          L2C2 = `${b * d}`
+          // L2C2 = `${b * d}`
+          L2C2 = b * d
           break
       }
       texte += context.isHtml ? '<br>' : '\\par\\medskip'
@@ -156,7 +160,7 @@ export default function TableDoubleDistributivite () {
         texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i, false, { L0C0: 'red' })
       }
       texte += context.isHtml ? '<br> Développement : ' : '\\par\\medskip Développement : '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline', { tailleExtensible: true })
+      texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01')
       texte += context.isHtml ? '<br> Développement réduit : ' : '\\par\\medskip Développement réduit: '
       texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline', { tailleExtensible: true })
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
@@ -176,10 +180,11 @@ export default function TableDoubleDistributivite () {
       texteCorr += `Développement : $${lettreDepuisChiffre(i + 1)} = ${developpements.eclate}$`
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip '
       texteCorr += `Développement réduit : $${lettreDepuisChiffre(i + 1)} = ${developpements.reduit}$`
-      // texteCorr += context.isHtml ? '<br>' : '\\par\\bigskip'
-      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: calculCompare }, L1C2: { value: L1C2, compare: calculCompare }, L2C1: { value: L2C1, compare: calculCompare }, L2C2: { value: L2C2, compare: calculCompare } }, { formatInteractif: 'mathlive' })
-      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: developmentCompare } }, { formatInteractif: 'mathlive' })
-      handleAnswers(this, 3 * i + 2, { reponse: { value: developpements.reduit, compare: canonicalAddCompare } }, { formatInteractif: 'mathlive' })
+
+      handleAnswers(this, 3 * i, { bareme: toutPourUnPoint, L1C1: { value: L1C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L1C2: { value: L1C2, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C1: { value: L2C1, compare: expressionDeveloppeeEtNonReduiteCompare }, L2C2: { value: L2C2, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: developpements.eclate, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'mathlive' })
+      const reponse = developpements.reduit
+      handleAnswers(this, 3 * i + 2, { reponse: { value: { expr: reponse }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions[i])) {
         // Si la question n'a jamais été posée, on en créé une autre

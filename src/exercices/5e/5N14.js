@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { textCompare } from '../../lib/interactif/comparisonFunctions'
+import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -97,7 +97,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
           options: { ordered: false }
         }
       } else {
-        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: textCompare } }, { formatInteractif: 'fillInTheBlank' })
+        handleAnswers(this, i, { champ1: { value: ordreDesFractions ? signe : signe2, compare: texteSansCasseCompare } }, { formatInteractif: 'fillInTheBlank' })
       }
 
       if (this.questionJamaisPosee(i, fractionAbsolue.num, fractionAbsolue.den, k)) { // Si la question n'a jamais été posée, on en créé une autre
