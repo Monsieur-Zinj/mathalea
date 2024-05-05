@@ -1403,7 +1403,7 @@ export function Repere ({
         grilleSecondaireYDistance = yThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(0, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance).concat(
+      grilleSecondaireYListe = rangeMinMax(0, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance / yUnite).concat(
         rangeMinMax(0, -grilleSecondaireYMin, grilleYListe, grilleSecondaireYDistance).map(el => -el)
       )
     }
@@ -1432,7 +1432,7 @@ export function Repere ({
         grilleSecondaireXDistance = xThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(0, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance).concat(
+      grilleSecondaireXListe = rangeMinMax(0, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance / xUnite).concat(
         rangeMinMax(0, -grilleSecondaireXMin, grilleXListe, grilleSecondaireXDistance).map(el => -el)
       )
     }
