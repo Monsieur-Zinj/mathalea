@@ -4,9 +4,9 @@ import Exercice from '../deprecatedExercice.js'
 import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 
 export const titre = 'Utiliser la double distributivité'
@@ -28,11 +28,6 @@ export const refs = {
 }
 export default function DoubleDistributivite () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = context.isHtml ? 3 : 2
@@ -135,7 +130,7 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: this.sup3 }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: this.sup3 }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
         texte += ajouteFeedback(this, i)
       } else {

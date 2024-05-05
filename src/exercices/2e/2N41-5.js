@@ -5,8 +5,8 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
-import { developmentCompare } from '../../lib/interactif/comparisonFunctions'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Développer $(a-b)^2$'
@@ -112,7 +112,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(x+${a} \\right)^2=x^2-${2 * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: developmentCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: `x^2-${2 * a}x+${a * a}`, compare: expressionDeveloppeeEtReduiteCompare } })
           break
         case 2:
           texte = `$\\left(${b}x-${a}\\right)^2$` // b>1
@@ -123,7 +123,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr += `$\\left(${b}x+${a}\\right)^2 = ${b * b}x^2-${2 * b * a}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: developmentCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * b * a}x+${a * a}`, compare: expressionDeveloppeeEtReduiteCompare } })
           break
         case 3:
           b = -b
@@ -140,7 +140,7 @@ export default function DevelopperIdentitesRemarquables4 () {
             texteCorr = texte + `$= ${b * b}x^2-${2 * (-b) * a}x+${a * a}$`
           }
 
-          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: developmentCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: `${b * b}x^2-${2 * (-b) * a}x+${a * a}`, compare: expressionDeveloppeeEtReduiteCompare } })
           break
         case 4:
           texte = `$\\left(${dfrac}x-${a}\\right)^2$`
@@ -154,7 +154,7 @@ export default function DevelopperIdentitesRemarquables4 () {
           } else {
             texteCorr = texte + `$= ${dfrac2}x^2-${dbleProdFracRed}x+${a * a}$`
           }
-          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: developmentCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: `${dfrac2}x^2-${dbleProdFrac}x+${a * a}`, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
           break
       }
 

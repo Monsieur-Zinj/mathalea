@@ -76,7 +76,7 @@ export default class nomExercice extends Exercice {
           const rep2 = saisies.champ2
           // on teste consecutifsCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
           // consecutifsCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-          const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, { entierInf: a, entierSup: b, valeurInter: (a + b) / 2 })
+          const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, `${a}<${(a + b) / 2}<${b}`)
           return feedback
         },
         champ1: { value: String(a), compare: numberCompare },

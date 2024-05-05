@@ -9,7 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { getDigitFromNumber } from './_ExerciceConversionsLongueurs.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Convertir des volumes'
 export const amcReady = true

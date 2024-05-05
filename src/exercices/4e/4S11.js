@@ -6,7 +6,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import { OutilsStats } from '../../modules/outilsStat.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Déterminer des médianes'
 export const interactifReady = true

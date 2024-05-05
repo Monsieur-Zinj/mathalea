@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import Decimal from 'decimal.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { calculCompare } from '../../lib/interactif/comparisonFunctions'
 

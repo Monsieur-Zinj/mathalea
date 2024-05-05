@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, ppcm, randint, gestionnaireFormulaireTexte } f
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { engrenages } from '../../lib/2d/engrenage.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'

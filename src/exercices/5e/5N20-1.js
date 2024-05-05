@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { sp } from '../../lib/outils/outilString'
 import { context } from '../../modules/context'
 import { numberCompare, fractionCompare } from '../../lib/interactif/comparisonFunctions'

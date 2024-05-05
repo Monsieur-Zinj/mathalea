@@ -16,7 +16,7 @@ import { max, min } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Nommer un angle'

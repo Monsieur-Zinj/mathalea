@@ -1,5 +1,6 @@
 import FractionEtendue from './FractionEtendue.ts'
 import ListeFraction from './ListeFraction.js'
+import { rationnalise } from '../lib/mathFonctions/outilsMaths'
 
 /**
  * Des fonctions pour manipuler des objets Fraction ou ListeFraction
@@ -74,7 +75,7 @@ export function listeFractions (...fractions) {
 /**
  * Construit et Retourne un objet FractionEtendue(a, b)
  * @param {number} a
- * @param {number} b
+ * @param {number|undefined} b
  * @return {FractionEtendue}
  */
 export function fraction (a, b) {
@@ -84,10 +85,10 @@ export function fraction (a, b) {
       return NaN
     } else {
       if (typeof a === 'number') {
-        const frac = new FractionEtendue(a)
+        const frac = rationnalise(a)
         return frac
       } else if (!isNaN(a)) {
-        const frac = new FractionEtendue(Number(a))
+        const frac = rationnalise(Number(a))
         return frac
       }
       window.notify('fraction de fractions.js : l\'argument est de type inconvenant ', { a })

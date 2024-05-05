@@ -4,7 +4,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modu
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true

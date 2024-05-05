@@ -5,7 +5,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Périmètres de carrés et de rectangles'
 export const interactifReady = true

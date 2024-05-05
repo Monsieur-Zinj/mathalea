@@ -41,7 +41,7 @@ export default class NomExercice extends Exercice {
           [15, 5], [13, 4]]// val1=valeur écrite, val2=nbre de segments de même longueur
     const Valeur = choice(listeValeurs)
     const b = Valeur[1]
-    this.reponse = { reponse: { value: { fonction: `${Valeur[0]}-${Valeur[1]}x`, variable: 'x' }, compare: functionCompare } }
+    this.reponse = { reponse: { value: `${Valeur[0]}-${Valeur[1]}x`, options: { variable: 'x' }, compare: functionCompare } }
     const A = point(0, 0, 'A', 'below')
     const B = point(16, 0, 'B', 'below')
     const A3 = point(0, 1, 'A1', 'below')

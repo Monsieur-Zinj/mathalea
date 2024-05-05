@@ -9,7 +9,7 @@ import { Arbre } from '../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Expérience aléatoire à deux épreuves'

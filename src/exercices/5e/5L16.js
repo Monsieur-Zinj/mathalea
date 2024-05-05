@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
   factorisationCompare, functionCompare,
@@ -18,12 +18,11 @@ export const dateDeModifImportante = '13/11/2023'
 // fonctions de comparaison spécifiques à cet exo
 function simplifierCompare (input, goodAnswer) {
   if (input.includes('\\times')) return { isOk: false, feedback: 'On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse.<br>' }
-  if (goodAnswer.expr.includes('(')) return factorisationCompare(input, goodAnswer.expr)
+  if (goodAnswer.includes('(')) return factorisationCompare(input, goodAnswer.expr)
   return expandedAndReductedCompare(input, goodAnswer)
 }
 function compliquerCompare (input, goodAnswer) {
-  const reponse = goodAnswer.reponse
-  const nbFacteursRep = reponse.split('\\times').length
+  const nbFacteursRep = goodAnswer.split('\\times').length
   const nbFacteursInp = input.split('\\times').length
   if (nbFacteursRep > nbFacteursInp && nbFacteursInp !== 1) return { isOk: false, feedback: 'Il reste au moins une multiplication implicite.<br>' }
   if (nbFacteursInp === 1 && nbFacteursRep !== 1) return { isOk: false, feedback: 'Il y a au moins une multiplication implicite.<br>' }
@@ -59,7 +58,7 @@ function compliquerCompare (input, goodAnswer) {
       isOk = false
     }
   }
-  const test2 = functionCompare(input, { fonction: reponse, variable: 'x' })
+  const test2 = functionCompare(input, { fonction: goodAnswer, variable: 'x' })
   isOk = test2.isOk && isOk
   return { isOk, feedback }
 }
@@ -371,9 +370,9 @@ export default function SimplifierEcritureLitterale () {
         texte += ajouteFeedback(this, i)
       }
       if (!this.sup2) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: simplifierCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: reponse }, compare: simplifierCompare })
       } else {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, donnee: resultat }, compare: compliquerCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: reponse }, compare: compliquerCompare })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)

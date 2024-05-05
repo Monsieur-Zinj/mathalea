@@ -67,11 +67,11 @@ export default class EnFonctionDeAire extends Exercice {
           }, poly, labelPoint(A, B, C, D, M),
           d, e, t, segmentMD, segmentDA)
           if (choice([true, false])) {
-            this.reponse = reduireAxPlusB(b1, 0)
+            this.reponse = { reponse: { value: reduireAxPlusB(b1, 0), options: { variable: 'x' }, compare: functionCompare } }
             this.question += 'L\'aire de la partie non hachurée en fonction de $x$ est : '
-            this.correction = `L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${miseEnEvidence(this.reponse)}$ cm$^2$.`
+            this.correction = `L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${miseEnEvidence(reduireAxPlusB(b1, 0))}$ cm$^2$.`
           } else {
-            this.reponse = reduireAxPlusB(-b1, c * b)
+            this.reponse = { reponse: { value: reduireAxPlusB(-b1, c * b), options: { variable: 'x' }, compare: functionCompare } }
             this.question += 'L\'aire de la partie  hachurée en fonction de $x$ est : '
             this.correction = `$\\bullet$ L'aire du triangle $ADM$ est $\\dfrac{DM\\times AD}{2}=\\dfrac{x\\times ${b}}{2}=${reduireAxPlusB(b1, 0)}$ cm$^2$.<br>
           $\\bullet$ L'aire du rectangle $ABCD$ est $AB\\times BC=${c}\\times ${b} =${c * b}$ cm$^2$.<br>
@@ -120,17 +120,17 @@ export default class EnFonctionDeAire extends Exercice {
           }, poly, poly1, poly2, labelPoint(A, B, C, D, M, N, E, F, G),
           e, t, f)
           if (choice([true, false])) {
-            this.reponse = reduireAxPlusB(-b, b ** 2)
+            this.reponse = { reponse: { value: reduireAxPlusB(-b, b ** 2), options: { variable: 'x' }, compare: functionCompare } }
             this.question += 'L\'aire de la partie non hachurée en fonction de $x$ est : '
             this.correction = `$\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x$ cm$^2$.<br>
             $\\bullet$ L'aire du carré $EBCD$ est $${b}^2 =${b ** 2}$ cm$^2$.<br>
             $\\bullet$ L'aire de la partie non hachurée est donc la différence entre ces deux aires, soit  $${miseEnEvidence(`${b ** 2}-${rienSi1(b)}x`)}$ cm$^2$.`
           } else {
-            this.reponse = reduireAxPlusB(b, a ** 2)
+            this.reponse = { reponse: { value: reduireAxPlusB(b, a ** 2), options: { variable: 'x' }, compare: functionCompare } }
             this.question += 'L\'aire de la partie  hachurée en fonction de $x$ est : '
             this.correction = `$\\bullet$ L'aire du carré $AEFG$ est $${a}^2=${a ** 2}$ cm$^2$.<br>
           $\\bullet$ L'aire du rectangle $EMND$ est $EM\\times MN=x \\times ${b} =${b}x$ cm$^2$.<br>
-          $\\bullet$ L'aire de la partie hachurée est donc la somme de ces deux aires, soit $${miseEnEvidence(this.reponse)}$ cm$^2$.`
+          $\\bullet$ L'aire de la partie hachurée est donc la somme de ces deux aires, soit $${miseEnEvidence(reduireAxPlusB(b, a ** 2))}$ cm$^2$.`
           }
           this.canEnonce = this.question
           this.canReponseACompleter = '$\\ldots$ cm$^2$'

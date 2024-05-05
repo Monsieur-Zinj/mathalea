@@ -87,7 +87,7 @@ class DerivationFonctionRationnelles extends Exercice {
       if (this.questionJamaisPosee(i, laFonctionNum.toLatex(), laFonctionDen.toLatex())) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value: { fonction: reponse, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] }, compare: functionCompare } })
         i++
         cpt--
       }

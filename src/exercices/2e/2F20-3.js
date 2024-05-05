@@ -12,7 +12,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { inferieurouegal, listeQuestionsToContenu, randint, superieurouegal } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Déterminer graphiquement les extremums'
 export const interactifReady = true

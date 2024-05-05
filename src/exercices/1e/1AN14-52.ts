@@ -41,6 +41,7 @@ class DerivationGRondF extends Exercice {
       let formeGenerale: string
       let fPrime: string
       let fPrimeDetaillee: string
+      let domaine // la variable domaine pour la fonction de comparaison
       const a = randint(-10, 10, 0)
       const b = randint(-5, 5, 0)
       const u = reduireAxPlusB(a, b, 'x')
@@ -55,6 +56,7 @@ class DerivationGRondF extends Exercice {
           df = '\\R'
           formeGenerale = 'u^n'
           formeGeneraleDerivee = '(u^{n})^\\prime=nu^\\prime u^{n-1}'
+          domaine = [-10, 10]
           break
         case 2:
           fPrimeDetaillee = `\\dfrac{${String(a)}}{${u}}`
@@ -63,7 +65,7 @@ class DerivationGRondF extends Exercice {
           df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
           formeGenerale = 'ln(u)'
           formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
-
+          domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
           break
         case 3:
           fPrimeDetaillee = `${String(a)}\\times e^{${u}}`
@@ -72,7 +74,7 @@ class DerivationGRondF extends Exercice {
           df = '\\R'
           formeGenerale = 'e^u'
           formeGeneraleDerivee = '(e^u)^\\prime=u^\\prime e^u'
-
+          domaine = [-10, 10]
           break
         case 4:
         default:
@@ -82,7 +84,7 @@ class DerivationGRondF extends Exercice {
           df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
           formeGenerale = '\\sqrt{u}'
           formeGeneraleDerivee = '(\\sqrt{u})^\\prime=\\dfrac{u^\\prime}{2\\sqrt{u}}'
-
+          domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
           break
       }
       const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
@@ -98,7 +100,7 @@ class DerivationGRondF extends Exercice {
       if (this.questionJamaisPosee(i, laFonctionFEnLatex, fPrime)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value: { fonction: fPrime, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: fPrime, options: { variable: 'x', domaine }, compare: functionCompare } })
         i++
         cpt--
       }

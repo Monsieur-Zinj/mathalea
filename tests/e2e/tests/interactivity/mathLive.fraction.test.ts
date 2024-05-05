@@ -1,8 +1,8 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
-import FractionEtendue from '../../../../src/modules/FractionEtendue.js'
 import type { Page } from 'playwright'
 import { clean } from 'helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
+import { fraction } from '../../../../src/modules/fractions'
 
 async function test (page: Page) {
   const urlExercice = 'http://localhost:5173/alea/?uuid=91d72&id=5N10&n=20&d=10&s=3&s2=false&i=1&cd=1'
@@ -30,10 +30,10 @@ async function test (page: Page) {
       if (chunks !== null) {
         const nombre = Number(chunks[0].replace(',', '.'))
         if (nombre != null) { // on fabrique la réponse
-          const fraction = new FractionEtendue(nombre)
+          const laFraction = fraction(nombre, undefined)
           reponse = question.isCorrect
-            ? `${String(fraction.num)}/${String(fraction.den)}`
-            : `${String(fraction.den)}/${String(fraction.num)}`
+            ? `${String(laFraction.num)}/${String(laFraction.den)}`
+            : `${String(laFraction.den)}/${String(laFraction.num)}`
         }
       }
     }

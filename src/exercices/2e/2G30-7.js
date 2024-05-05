@@ -10,7 +10,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { texNombre } from '../../lib/outils/texNombre.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -114,7 +114,7 @@ export default function Lecturegraphiquedeaetb () {
 
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $y=${miseEnEvidence(reduireAxPlusB(coeffDir, b))}$.`
         const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
-        handleAnswers(this, i, { reponse: { value: { expr: reponse }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
 
         if (b + a < -8 || b + a > 8) { // Si cela sort du cadre
           s1 = segment(-d, b - a, 0, b - a, 'blue')

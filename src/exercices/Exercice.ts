@@ -2,6 +2,7 @@
 
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
+import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
 
 /**
  *
@@ -44,7 +45,7 @@ export default class Exercice {
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
-  autoCorrection: object[]
+  autoCorrection: AutoCorrection[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number

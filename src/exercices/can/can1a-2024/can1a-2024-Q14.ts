@@ -86,7 +86,7 @@ export default class EquationReduite extends Exercice {
     const objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, o, d, r1, traceB, traceA, labelPoint(A), labelPoint(B))
     this.question = 'Déterminer l\'équation réduite de la droite $(AB)$.<br>    '
     this.question += `${objet}<br>`
-    this.reponse = { reponse: { value: { membre1: { fonction: 'y', variable: 'y' }, membre2: { fonction: `${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`, variable: 'x' }, strict: false }, compare: equalityCompare } }
+    this.reponse = { reponse: { value: `y=${`${coeffDir.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`}`, options: { membre1Variable: 'y', membre2Variable: 'x', strict: false }, compare: equalityCompare } }
     this.correction = `En utilisant les deux points $A$ et $B$, on détermine le coefficient directeur $m$ de la droite : <br>
     $m=\\dfrac{y_B-y_A}{x_B-x_A}=${coeffDir.texFractionSimplifiee}$.<br>
          L' ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est `

@@ -48,7 +48,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
         `
     this.optionsChampTexte = { texteAvant: '$f(x)=$' }
-    this.reponse = { reponse: { value: { expr: `${reduireAxPlusB(a, b)}`, strict: false }, compare: expandedAndReductedCompare } }
+    this.reponse = { reponse: { value: `${reduireAxPlusB(a, b)}`, options: { strict: false }, compare: expandedAndReductedCompare } }
     this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>

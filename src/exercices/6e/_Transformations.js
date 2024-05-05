@@ -23,7 +23,7 @@ import { assombrirOuEclaircir, colorToLatexOrHTML, mathalea2d } from '../../modu
 import { context } from '../../modules/context.js'
 import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true

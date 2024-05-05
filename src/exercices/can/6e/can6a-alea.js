@@ -1,7 +1,7 @@
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { gestionnaireFormulaireTexte } from '../../../modules/outils.js'
 import { combinaisonListesSansChangerOrdre, enleveElementBis } from '../../../lib/outils/arrayOutils'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Exercice from '../../deprecatedExercice.js'
 import uuidToUrl from '../../../json/uuidsToUrlFR.json'

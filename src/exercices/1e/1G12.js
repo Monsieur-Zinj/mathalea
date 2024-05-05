@@ -4,7 +4,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'cos et sin associés à un réel $x$'
@@ -174,7 +174,7 @@ export default function MesurePrincipale () {
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = listeTypeQuestions[i].texte
-      handleAnswers(this, i, { reponse: { value: { fonction: listeTypeQuestions[i].reponse, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, i, { reponse: { value: listeTypeQuestions[i].reponse, options: { variable: 'x', domaine: [0, 7] }, compare: functionCompare } })
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 

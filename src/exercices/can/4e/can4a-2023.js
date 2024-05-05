@@ -24,7 +24,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import Hms from '../../../modules/Hms'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'CAN 4e sujet 2023'
 export const interactifReady = true

@@ -17,7 +17,7 @@ import { fraction, obtenirListeFractionsIrreductibles, obtenirListeFractionsIrre
 import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'

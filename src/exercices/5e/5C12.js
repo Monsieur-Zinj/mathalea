@@ -5,7 +5,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import Exercice from '../deprecatedExercice.js'
 import choisirExpressionNumerique from './_choisirExpressionNumerique.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

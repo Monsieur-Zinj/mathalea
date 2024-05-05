@@ -13,7 +13,7 @@ import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestion
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Course aux nombres CM1'
 export const interactifReady = true

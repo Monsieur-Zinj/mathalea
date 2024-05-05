@@ -7,7 +7,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printla
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import engine, { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 import { obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions'
 
@@ -190,7 +190,7 @@ export default function DevelopperReduireExprComplexe () {
 
       // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
                     ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')

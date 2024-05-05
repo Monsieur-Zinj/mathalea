@@ -6,7 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Trinome from '../../modules/Trinome.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Calculer le discriminant d\'un polynôme du second degré'
 export const interactifReady = true

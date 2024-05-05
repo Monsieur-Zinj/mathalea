@@ -6,6 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { numerationCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'e116b'
 export const ref = 'c3N10-2'
 export const refs = {
@@ -88,13 +89,13 @@ class Decomp1 extends Exercice {
       } else {
         for (let k = 0; k < items.length; k++) {
           decompo += `${String(items[k].chiffre)}%{champ${k + 1}}+`
-          objetReponses[`champ${k + 1}`] = { value: { value: items[k].classe, nombre: this.sup3 }, compare: numerationCompare }
+          objetReponses[`champ${k + 1}`] = { value: items[k].classe, options: { pluriels: this.sup3 }, compare: numerationCompare }
         }
       }
 
-      handleAnswers(this, i, objetReponses, { formatInteractif: 'fillInTheBlank' })
+      handleAnswers(this, i, objetReponses)
       decompo = decompo.substring(0, decompo.length - 1)
-      const classe = listeTypesDeQuestion[i] === 'chiffre' ? 'college6eme' : 'numeration'
+      const classe = 'numeration'
       let texte = remplisLesBlancs(this, i, texNombre(Number(nombreStr), 0) + '=' + decompo, classe, '\\ldots')
       texte += ajouteFeedback(this, i)
       const morceaux = items.map((el) => `${String(el.chiffre)}\\text{ ${el.classe} }`)

@@ -2,29 +2,80 @@ import { addElement, get, setStyles } from '../html/dom'
 import { verifQuestionMathLive } from './mathLive.js'
 import { verifQuestionQcm } from './qcm'
 import { verifQuestionListeDeroulante } from './questionListeDeroulante'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   calculCompare,
-  developmentCompare,
-  expandedFormCompare,
   expandedAndReductedCompare,
   fractionCompare,
   equalFractionCompare,
   simplerFractionCompare,
   hmsCompare,
   intervalCompare,
-  intervalStrictCompare,
   numberCompare,
   powerCompare,
   scientificCompare,
   unitsCompare,
   texteAvecCasseCompare,
-  texteSansCasseCompare
+  texteSansCasseCompare, expressionDeveloppeeEtNonReduiteCompare, type CompareFunction
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
+import type Exercice from '../../exercices/Exercice'
+export interface ReponseParams {
+digits?: number
+  decimals?: number
+  signe?: boolean
+  exposantNbChiffres?: number
+  exposantSigne?: boolean
+  approx: number
+  aussiCorrect?: number
+  digitsNum?: number
+  digitsDen?: number
+  basePuissance?: number
+  exposantPuissance?: number
+  baseNbChiffres?: number
+  milieuIntervalle?: number
+  formatInteractif?: 'listeDeroulante'|'qcm'|'cliqueFigure'|'mathlive'|string|undefined
+  precision?: number
+}
+
+export type AnswerType = {
+  value: string,
+  compare: CompareFunction,
+  options: Record<string, unknown>
+}
+
+type ResultOfExerciceInteractif = {
+  numberOfPoints: number,
+  numberOfQuestions: number
+}
+
+export interface Valeur {
+  bareme?: (listePoints: number[])=>[number, number]
+  feedback?: ()=>string
+  reponse?: AnswerType
+  champ1?: AnswerType
+  champ2?: AnswerType
+  champ3?: AnswerType
+  champ4?: AnswerType // on va aller jusque 4 pour l'instant, si besoin on en ajoutera
+  L1C1?: AnswerType
+  L1C2?: AnswerType
+  L2C1?: AnswerType
+  L2C2: AnswerType // idem on en ajoutera si besoin
+  callback?: ()=>ResultOfExerciceInteractif
+}
+
+export interface AutoCorrection {
+  reponse: {
+    valeur: Valeur
+    param: ReponseParams
+  }
+}
+
+export type LegacyReponse = string | FractionEtendue | Decimal | number
+export type LegacyReponses = LegacyReponse[]|LegacyReponse
 
 /**
  * Pour positionner le formatInteractif d'une question sur 'cliqueFigure'
@@ -32,7 +83,7 @@ import { context } from '../../modules/context.js'
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setCliqueFigure (objetReponse) {
+export function setCliqueFigure (objetReponse: AutoCorrection) {
   objetReponse.reponse = {}
   objetReponse.reponse.param = {}
   objetReponse.reponse.param.formatInteractif = 'cliqueFigure'
@@ -43,7 +94,7 @@ export function setCliqueFigure (objetReponse) {
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setQcm (objetReponse) {
+export function setQcm (objetReponse: AutoCorrection) {
   objetReponse.reponse = {}
   objetReponse.reponse.param = {}
   objetReponse.reponse.param.formatInteractif = 'qcm'
@@ -54,7 +105,7 @@ export function setQcm (objetReponse) {
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setListeDeroulante (objetReponse) {
+export function setListeDeroulante (objetReponse: AutoCorrection) {
   objetReponse.reponse = {}
   objetReponse.reponse.param = {}
   objetReponse.reponse.param.formatInteractif = 'listeDeroulante'
@@ -67,7 +118,7 @@ export function setListeDeroulante (objetReponse) {
  * @param {HTMLButtonElement} buttonScore
  * @returns {{numberOfPoints: number, numberOfQuestions: number}}
  */
-export function exerciceInteractif (exercice, divScore, buttonScore) {
+export function exerciceInteractif (exercice: Exercice, divScore: HTMLDivElement, buttonScore: HTMLButtonElement): ResultOfExerciceInteractif {
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
   exercice.answers = {}
@@ -228,7 +279,7 @@ function mouseSvgClick () {
   }
 }
 
-export function afficheScore (exercice /** Exercice */, nbBonnesReponses /** number */, nbMauvaisesReponses /** number */, divScore /** HTMLDivElement */, divButton /** HTMLButtonElement */) {
+export function afficheScore (exercice: Exercice, nbBonnesReponses:number, nbMauvaisesReponses:number, divScore:HTMLDivElement, divButton:HTMLButtonElement): ResultOfExerciceInteractif {
   if (divButton != null) {
     divButton.classList.add('cursor-not-allowed', 'opacity-50', 'pointer-events-none')
   }
@@ -249,50 +300,20 @@ export function afficheScore (exercice /** Exercice */, nbBonnesReponses /** num
  * @param {Exercice} exercice = this
  * @param {number} i numéro de la question
  * @param {any} valeurs Attention à ce que vous mettez ici : ça doit être en accord avec le formatInteractif ! pas de texNombre ou de stringNombre !
- * @param {object} options
+ * @param {ReponseParams} params
  * @deprecated Dans la mesure du possible, utiliser handleAnswers après avoir consulter la doc
  * @see https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Rendre-un-exercice-interactif
  */
 
-export function setReponse (exercice, i, valeurs, {
-  digits,
-  decimals,
-  signe,
-  exposantNbChiffres,
-  exposantSigne,
-  approx,
-  aussiCorrect,
-  digitsNum,
-  digitsDen,
-  basePuissance,
-  exposantPuissance,
-  baseNbChiffres,
-  milieuIntervalle,
-  formatInteractif,
-  precision
-} = {}) {
-  const param = {
-    digits,
-    decimals,
-    signe,
-    exposantNbChiffres,
-    exposantSigne,
-    approx,
-    aussiCorrect,
-    digitsNum,
-    digitsDen,
-    basePuissance,
-    exposantPuissance,
-    baseNbChiffres,
-    milieuIntervalle,
-    formatInteractif,
-    precision
-  }
+export function setReponse (exercice: Exercice, i: number, valeurs: LegacyReponses, params?: ReponseParams = {}) {
   const url = new URL(window.location.href)
   // if (Array.isArray(valeurs) && !url.searchParams.has('testCI')) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })
   if (exercice.formatInteractif === 'qcm') return
+  let formatInteractif = params?.formatInteractif
+  let precision = params?.precision
+  let signe = params?.signe
   if (formatInteractif === undefined) formatInteractif = 'calcul'
-  let reponses = []
+  let reponses
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${exercice.numeroExercice + 1} - question ${i + 1} : `, valeurs)
   if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) {
     reponses = valeurs
@@ -317,6 +338,7 @@ export function setReponse (exercice, i, valeurs, {
         signe = valeurs.signe === -1 ? true : Boolean(signe) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
       }
     }
+    params.signe = signe
   }
   // en contexte d'export AMC, on ne touche pas à l'existant
   if (context.isAmc) {
@@ -396,23 +418,7 @@ export function setReponse (exercice, i, valeurs, {
     if (exercice.autoCorrection[i].reponse === undefined) {
       exercice.autoCorrection[i].reponse = {}
     }
-    exercice.autoCorrection[i].reponse.param = {
-      digits,
-      decimals,
-      signe,
-      exposantNbChiffres,
-      exposantSigne,
-      approx,
-      aussiCorrect,
-      digitsNum,
-      digitsDen,
-      basePuissance,
-      exposantPuissance,
-      milieuIntervalle,
-      baseNbChiffres,
-      formatInteractif,
-      precision
-    }
+    exercice.autoCorrection[i].reponse.param = params
     exercice.autoCorrection[i].reponse.valeur = reponses // On n'a rien changé pour AMC, on continue de passer un array dont seule la première valeur est utile
     return // La réponse est prête pour AMC
   }
@@ -420,7 +426,7 @@ export function setReponse (exercice, i, valeurs, {
   // On va transformer le l'objetReponse pour handleAnswers(), il n'y
   let laReponseDemandee
 
-  param.formatInteractif = 'mathlive'
+  params.formatInteractif = 'mathlive'
   switch (formatInteractif) {
     case 'listeDeroulante':
       if (exercice?.autoCorrection == null) exercice.autoCorrection = []
@@ -440,7 +446,7 @@ export function setReponse (exercice, i, valeurs, {
           }
         }
       }
-      return handleAnswers(exercice, i, reponses, param)
+      return handleAnswers(exercice, i, reponses, params)
 
     case 'fillInTheBlank':
       for (const [key, valeur] of Object.entries(reponses).filter(([key]) => !['bareme', 'callback', 'feedback'].includes(key))) {
@@ -448,7 +454,7 @@ export function setReponse (exercice, i, valeurs, {
           reponses[key].value = String(valeur.value)
         }
       }
-      return handleAnswers(exercice, i, reponses, param)
+      return handleAnswers(exercice, i, reponses, params)
 
     case 'Num':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "Num" une fraction est attendue !', { reponses })
@@ -459,7 +465,7 @@ export function setReponse (exercice, i, valeurs, {
           value: String(reponses[0].num),
           compare: numberCompare
         }
-      }, param)
+      }, params)
 
     case 'Den':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "Den" une fraction est attendue !', { reponses })
@@ -469,7 +475,7 @@ export function setReponse (exercice, i, valeurs, {
           value: String(reponses[0].den),
           compare: numberCompare
         }
-      }, param)
+      }, params)
 
     case 'calcul':
       if (reponses.length === 1) {
@@ -483,7 +489,7 @@ export function setReponse (exercice, i, valeurs, {
         } else if (laReponseDemandee instanceof Decimal) {
           laReponseDemandee = laReponseDemandee.toString()
         }
-        return handleAnswers(exercice, i, { reponse: { value: laReponseDemandee, compare: calculCompare } }, param)
+        return handleAnswers(exercice, i, { reponse: { value: laReponseDemandee, compare: calculCompare } }, params)
       } else {
         const value = []
         for (let i = 0; i < reponses.length; i++) {
@@ -499,7 +505,7 @@ export function setReponse (exercice, i, valeurs, {
           }
           value.push(laReponseDemandee)
         }
-        return handleAnswers(exercice, i, { reponse: { value, compare: calculCompare } }, param)
+        return handleAnswers(exercice, i, { reponse: { value, compare: calculCompare } }, params)
       }
 
     case 'hms':
@@ -510,7 +516,7 @@ export function setReponse (exercice, i, valeurs, {
           value: reponses[0].toString(),
           compare: hmsCompare
         }
-      }, param)
+      }, params)
 
     case 'formeDeveloppee':
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format formeDeveloppee, c\'est incohérent !')
@@ -527,9 +533,9 @@ export function setReponse (exercice, i, valeurs, {
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: expandedFormCompare
+          compare: expressionDeveloppeeEtNonReduiteCompare
         }
-      }, param)
+      }, params)
 
     case 'formeDeveloppeeParEE':
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format formeDevelopeeParEE, c\'est incohérent !')
@@ -549,7 +555,7 @@ export function setReponse (exercice, i, valeurs, {
           value: laReponseDemandee,
           compare: expandedAndReductedCompare
         }
-      }, param)
+      }, params)
 
     case 'nombreDecimal':
       if (reponses[0] instanceof Decimal) {
@@ -559,7 +565,7 @@ export function setReponse (exercice, i, valeurs, {
             //  compare: decimalCompare
             compare: numberCompare
           }
-        }, param)
+        }, params)
       }
       if (isNaN(reponses[0])) {
         window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses })
@@ -572,7 +578,7 @@ export function setReponse (exercice, i, valeurs, {
           // compare: decimalCompare
           compare: numberCompare
         }
-      }, param)
+      }, params)
     case 'ecritureScientifique': {
       if (typeof reponses[0] !== 'string') throw Error('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format ecritureScientifique, c\'est incohérent !')
@@ -585,13 +591,13 @@ export function setReponse (exercice, i, valeurs, {
             value: reponses[0].replace(',', '.'),
             compare: scientificCompare
           }
-        }, param)
+        }, params)
       }
       throw Error('setReponse : type "ecritureScientifique" l\'écriture n\'est pas une écriture scientifique !', { reponses })
     }
     case 'texte':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteAvecCasseCompare } }, param)
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteAvecCasseCompare } }, params)
     /* case 'canonicalAdd':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, param)
@@ -603,7 +609,7 @@ export function setReponse (exercice, i, valeurs, {
           value: reponses.map(el => String(el).toLowerCase()),
           compare: texteSansCasseCompare
         }
-      }, param)
+      }, params)
     case 'fractionPlusSimple':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) throw Error('setReponse : La fraction ne convient pas !', { reponses })
@@ -613,7 +619,7 @@ export function setReponse (exercice, i, valeurs, {
           value: reponses[0].texFraction.replace('dfrac', 'frac'),
           compare: simplerFractionCompare
         }
-      }, param)
+      }, params)
     case 'fractionEgale':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "fractionEgale" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) throw Error('setReponse : La fraction ne convient pas !', { reponses })
@@ -623,7 +629,7 @@ export function setReponse (exercice, i, valeurs, {
           value: reponses[0].texFraction.replace('dfrac', 'frac'),
           compare: equalFractionCompare
         }
-      }, param)
+      }, params)
     case 'fraction':
       if (!(reponses[0] instanceof FractionEtendue)) throw Error('setReponse : type "fraction" une fraction est attendue !', { reponses })
       else if (isNaN(reponses[0].num) || isNaN(reponses[0].den)) throw Error('setReponse : La fraction ne convient pas !', { reponses })
@@ -632,33 +638,34 @@ export function setReponse (exercice, i, valeurs, {
           value: reponses.map(el => el.texFSD),
           compare: fractionCompare
         }
-      }, param)
+      }, params)
     case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
       if (precision == null) precision = 0 // Des exercices utilisent le format 'unites' mais ne définissent pas la précision
       if (!(reponses[0] instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !')
       return handleAnswers(exercice, i, {
         reponse: {
-          value: { grandeur: reponses[0], precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
+          value: reponses[0].toString().replace('\u202f', ''),
+          options: { precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
           compare: unitsCompare
         }
-      }, param)
+      }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
       if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) throw Error('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
-          value: { borneInf: reponses[0], borneSup: reponses[1] },
-          compare: intervalStrictCompare
+          value: `]${reponses[0]};${reponses[1]}[`,
+          compare: intervalCompare
         }
-      }, param)
+      }, params)
     case 'intervalle' :
       if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) throw Error('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses })
       return handleAnswers(exercice, i, {
         reponse: {
-          value: { borneInf: reponses[0], borneSup: reponses[1] },
+          value: `[${reponses[0]};${reponses[1]}]`,
           compare: intervalCompare
         }
-      }, param)
+      }, params)
     case 'puissance' :
       if (typeof reponses[0] !== 'string') throw Error('setReponse : type "puissance" la réponse n\'est pas un string !', { reponses })
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format puissance, c\'est incohérent !')
@@ -667,10 +674,12 @@ export function setReponse (exercice, i, valeurs, {
           value: String(reponses[0]),
           compare: powerCompare
         }
-      }, param)
+      }, params)
+      /* EE : N'existe plus. Faudra choisir entre réduite ou non réduite avec les fonctions de comparaisons
     case 'developpements' :
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "developpements" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: developmentCompare } }, param)
+    */
   }
 
   if (exercice.autoCorrection[i] === undefined) {
@@ -679,23 +688,7 @@ export function setReponse (exercice, i, valeurs, {
   if (exercice.autoCorrection[i].reponse === undefined) {
     exercice.autoCorrection[i].reponse = {}
   }
-  exercice.autoCorrection[i].reponse.param = {
-    digits,
-    decimals,
-    signe,
-    exposantNbChiffres,
-    exposantSigne,
-    approx,
-    aussiCorrect,
-    digitsNum,
-    digitsDen,
-    basePuissance,
-    exposantPuissance,
-    milieuIntervalle,
-    baseNbChiffres,
-    formatInteractif,
-    precision
-  }
+  exercice.autoCorrection[i].reponse.param = params
   exercice.autoCorrection[i].reponse.valeur = reponses
 }
 
@@ -703,44 +696,14 @@ export function setReponse (exercice, i, valeurs, {
  * La fonction à privilégier à partir de maintenant.
  * @param {Exercice} exercice
  * @param {number} question
- * @param {Record<string, unknown>} reponses @todo typer ça correctement.
- * @param {object} options
- * @param {number} [options.digits]
- * @param {number} [options.decimals]
- * @param {boolean} [options.signe]
- * @param {number} [options.exposantNbChiffres]
- * @param {boolean} [options.exposantSigne]
- * @param {number} [options.approx]
- * @param {number} [options.aussiCorrect]
- * @param {number} [options.digitsNum]
- * @param {number} [options.digitsDen]
- * @param {number} [options.basePuissance]
- * @param {number} [options.exposantPuissance]
- * @param {number} [options.baseNbChiffres]
- * @param {number} [options.milieuIntervalle]
- * @param {string} [options.formatInteractif]
- * @param {number} [options.precision]
+ * @param {AnswerType} reponses
+ * @param {ReponseParams} params
  */
-export function handleAnswers (exercice, question, reponses, {
-  digits = 0,
-  decimals = 0,
-  signe = false,
-  exposantNbChiffres = 0,
-  exposantSigne = false,
-  approx = 0,
-  aussiCorrect,
-  digitsNum,
-  digitsDen,
-  basePuissance,
-  exposantPuissance,
-  baseNbChiffres,
-  milieuIntervalle,
-  formatInteractif = 'mathlive',
-  precision = null
-} = {}) {
+export function handleAnswers (exercice, question, reponses: AnswerType, params?: ReponseParams = {}) {
   if (context.isAmc) { // handleAnswer ne s'occupe pas de l'export AMC
     return
   }
+  let formatInteractif = params?.formatInteractif ?? exercice.autoCorrection[question]?.reponse?.param?.formatInteractif ?? 'mathlive'
   if (exercice.autoCorrection == null) exercice.autoCorrection = []
   if (!(reponses instanceof Object)) throw Error(`handleAnswer() reponses doit être un objet : ${reponses}`)
   const url = new URL(window.location.href)
@@ -751,25 +714,8 @@ export function handleAnswers (exercice, question, reponses, {
   if (exercice.autoCorrection[question].reponse === undefined) {
     exercice.autoCorrection[question].reponse = {}
   }
-  exercice.autoCorrection[question].reponse.param = {
-    digits,
-    decimals,
-    signe,
-    exposantNbChiffres,
-    exposantSigne,
-    approx,
-    aussiCorrect,
-    digitsNum,
-    digitsDen,
-    basePuissance,
-    exposantPuissance,
-    milieuIntervalle,
-    baseNbChiffres,
-    precision
-  }
-  if (exercice.autoCorrection[question].reponse.param.formatInteractif === 'listeDeroulante') {
-    formatInteractif = 'listeDeroulante'
-  } else if (formatInteractif === undefined) formatInteractif = 'mathlive'
+  exercice.autoCorrection[question].reponse.param = params ?? { formatInteractif }
+  if (formatInteractif === undefined) formatInteractif = 'mathlive'
   exercice.autoCorrection[question].reponse.param.formatInteractif = formatInteractif
   exercice.autoCorrection[question].reponse.valeur = reponses
 }
