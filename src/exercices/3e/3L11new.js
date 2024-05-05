@@ -10,7 +10,8 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { expressionDeveloppeeEtReduiteCompare } from 'src/lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -158,7 +159,7 @@ export default function ExerciceDevelopper () {
           break
       }
       if (this.sup2 === 1) {
-        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
       } else {
         setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppee' })
       }
