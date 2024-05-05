@@ -172,8 +172,7 @@ export default function ModelisationProblemes () {
       th73, th74, th75,
       p8, traitHorizontal8, traitVertical8, tb8, th8, th82
 
-    //  for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
-    for (let i = 0, o, colonne1, texteCorr; i < 1; i++) {
+    for (let i = 0, o, colonne1, texteCorr; i < listeTypeDeQuestions.length; i++) {
       colonne1 = ''
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
@@ -492,7 +491,7 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: expressionDeveloppeeEtReduiteCompare } })
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: expressionDeveloppeeEtReduiteCompare, options: { operationSeulementEtNonCalcul: true } } })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })

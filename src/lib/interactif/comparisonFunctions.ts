@@ -203,10 +203,11 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
  * @param {string} goodAnswer
  * @author  Eric Elter
  * @return ResultType
- */
+
 export function operationCompare (input: string, goodAnswer: string):ResultType {
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, { operationSeulementEtNonCalcul: true })
 }
+*/
 
 /**
  * comparaison de nombres
