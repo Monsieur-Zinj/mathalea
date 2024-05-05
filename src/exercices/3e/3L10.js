@@ -5,8 +5,9 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { expressionDeveloppeeEtReduiteCompare } from 'src/lib/interactif/comparisonFunctions'
 
 export const titre = 'Supprimer les parenthèses puis réduire l\'expression'
 export const interactifReady = true
@@ -165,7 +166,7 @@ export default function OpposeExpression () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        setReponse(this, i, reponse, { formatInteractif: 'canonicalAdd' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
