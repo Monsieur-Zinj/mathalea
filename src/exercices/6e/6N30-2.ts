@@ -12,8 +12,8 @@ import figureApigeom from '../../lib/figureApigeom.js'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Placer un point d\'abscisse décimale'
+export const dateDeModifImportante = '03/05/2024'
 export const interactifReady = true
-// remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
 export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -23,7 +23,6 @@ export const amcType = 'AMCOpen'
  * Relecture : Janvier 2022 par EE
  */
 
-export const dateDeModifImportante = '12/12/2023'
 export const uuid = 'e528e'
 export const ref = '6N30-2'
 export const refs = {
@@ -136,13 +135,13 @@ class PlacerPointsSurAxe extends Exercice {
         }
       }
 
-      const { figure, latex } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step })
+      const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       figure.divFigureAndUserMessage.classList.add(...['overflow-x-auto', 'overflow-y-hidden'])
       this.figures[i] = figure
 
-      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step, points: this.goodAnswers[i] })
+      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: abs1, color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label2, x: abs2, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label3, x: abs3, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })

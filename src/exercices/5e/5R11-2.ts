@@ -17,7 +17,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 
 export const titre = 'Placer un point sur une droite graduée dont l\'abscisse est un nombre relatif'
-export const dateDeModifImportante = '8/12/2023'
+export const dateDeModifImportante = '03/05/2024'
 
 /**
 * Placer un point d'abscisse un nombre relatif
@@ -49,8 +49,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   }
 
   nouvelleVersion () {
-    // if (this.interactif) this.consigne = 'Placer les points sur la droite graduée, puis vérifier la réponse.'
-    // else this.consigne = 'Placer les points sur la droite graduée.'
     let typesDeQuestions
     this.listeQuestions = []
     this.listeCorrections = []
@@ -109,12 +107,12 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
         }
       }
 
-      const { figure, latex } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step })
+      const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
       this.figures[i] = figure
 
-      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0, xMax: abs0 + 7 / step, scale: step, points: this.goodAnswers[i] })
+      const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: abs1, color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label2, x: abs2, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label3, x: abs3, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
