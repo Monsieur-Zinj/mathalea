@@ -859,7 +859,7 @@ export function intervalsCompare (input: string, goodAnswer: string) {
   }
   return { isOk: false, feedback: 'Il faut donner un intervalle ou une réunion d\'intervalles' }
 }
-
+// Fonction devenue inutile
 /**
  * comparaison d'expression développées et réduite pour les tests d'Éric Elter
  * @param {string} input
@@ -867,7 +867,7 @@ export function intervalsCompare (input: string, goodAnswer: string) {
  * @param {{strict: boolean}} [options]
  * @return ResultType
  * @author Jean-Claude Lhote
- */
+
 export function expandedAndReductedCompare (input: string, goodAnswer: string, { strict = true } = { }): ResultType {
   const expr = goodAnswer
   let clean
@@ -886,7 +886,7 @@ export function expandedAndReductedCompare (input: string, goodAnswer: string, {
   const isOk1 = saisie.isSame(answer)
   const isOk2 = saisie.isEqual(answer)
   return { isOk: isOk1 && isOk2, feedback: isOk1 && isOk2 ? feedback : isOk2 ? feedback + 'L\'expression est développée mais pas réduite.<br>' : feedback }
-}
+} */
 /**
  * Comparaison de chaînes (principalement des noms de classes
  * @param {string} input ce que saisit l'élève
