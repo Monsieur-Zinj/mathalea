@@ -10,8 +10,8 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
-import { expressionDeveloppeeEtReduiteCompare } from 'src/lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -159,9 +159,9 @@ export default function ExerciceDevelopper () {
           break
       }
       if (this.sup2 === 1) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       } else {
-        setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppee' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
       }
       if (!context.isAmc) {
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
