@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import { point, Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
@@ -27,7 +27,7 @@ export default class PerimetreRectangle extends Exercice {
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' cm' }
     this.canOfficielle = false
-    this.compare = numberCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {

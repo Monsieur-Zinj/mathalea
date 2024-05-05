@@ -7,7 +7,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const dateDePublication = '05/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,7 +32,7 @@ export default class ResolEquationDerivee extends Exercice {
     this.formatChampTexte = 'largeur01 nospacebefore ' + KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'solution(s)' }
     this.formatInteractif = 'calcul'
-    this.compare = numberCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {

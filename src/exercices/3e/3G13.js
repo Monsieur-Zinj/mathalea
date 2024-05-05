@@ -23,7 +23,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
-import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs liés aux homothéties'
 export const dateDePublication = '28/11/2021'
@@ -309,7 +309,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + frapport.enonce
 
-          handleAnswers(this, i, { reponse: { value: k.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: k.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$ par cette homothétie
@@ -337,7 +337,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + fImage.enonce
 
-          handleAnswers(this, i, { reponse: { value: OhA, compare: numberCompare } })
+          handleAnswers(this, i, { reponse: { value: OhA, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$ par cette homothétie et $${intervallek}$, donc $[${O}${hA}]$ est ${unAgrandissement} de $[${O}${A}]$.
@@ -364,7 +364,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + fAntecedent.enonce
 
-          handleAnswers(this, i, { reponse: { value: OA.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: OA.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$ par cette homothétie et 
@@ -398,7 +398,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + fImage2etapes.enonce
 
-          handleAnswers(this, i, { reponse: { value: OhB, compare: numberCompare } })
+          handleAnswers(this, i, { reponse: { value: OhB, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$
@@ -445,7 +445,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + fAntecedent2etapes.enonce
 
-          handleAnswers(this, i, { reponse: { value: OB.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: OB.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$[${O}${hA}]$ est l'image de $[${O}${A}]$
@@ -485,7 +485,7 @@ export default class CalculsHomothetie extends Exercice {
           else texte += ' (arrondir au $\\text{mm}^2$ près si besoin)'
           texte += '.<br>' + fImage2etapes.enonce
 
-          handleAnswers(this, i, { reponse: { value: hAireArrondie, compare: numberCompare } })
+          handleAnswers(this, i, { reponse: { value: hAireArrondie, compare: expressionDeveloppeeEtReduiteCompare } })
 
           texteCorr = `$${parentheseskAire}^2 \\times ${texNombre(Aire.valeurDecimale)}`
           texteCorr += environ === 'environ' ? ` = ${texNombre(hAire)} \\approx ${miseEnEvidence(texNombre(hAireArrondie))}` : ` = ${miseEnEvidence(texNombre(hAire))}`
@@ -509,7 +509,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.'
 
-          handleAnswers(this, i, { reponse: { value: Aire.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: Aire.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           texteCorr = `$ {\\dfrac{${texNombre(hAire)}}{${parentheseskAire}^2} = ${miseEnEvidence(texNombre(Aire.valeurDecimale))}~\\text{cm}^2}$`
           if (this.correctionDetaillee) {
@@ -535,7 +535,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.'
 
-          handleAnswers(this, i, { reponse: { value: kAire.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: kAire.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `Une homothétie est une transformation qui multiplie toutes les aires par le carré de son rapport. <br>
@@ -563,7 +563,7 @@ export default class CalculsHomothetie extends Exercice {
 
           texte += '.<br>' + frapport2.enonce
 
-          handleAnswers(this, i, { reponse: { value: k.texFSD, compare: equalFractionCompare } })
+          handleAnswers(this, i, { reponse: { value: k.texFSD, compare: expressionDeveloppeeEtReduiteCompare } })
 
           if (this.correctionDetaillee) {
             texteCorr = `$${O}${hA} = ${calculsOhA} = ${texNombre(OhA)}\\text{ cm}$

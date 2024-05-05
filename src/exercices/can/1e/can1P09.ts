@@ -7,7 +7,7 @@ import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { sp } from '../../../lib/outils/outilString'
 import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer une espérance'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,7 +29,7 @@ export default class esperance extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
-    this.compare = numberCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
     this.formatChampTexte = 'largeur01'
   }
 

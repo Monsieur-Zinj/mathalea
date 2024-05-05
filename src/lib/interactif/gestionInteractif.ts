@@ -12,12 +12,13 @@ import {
   simplerFractionCompare,
   hmsCompare,
   intervalCompare,
-  numberCompare,
+  // numberCompare,
   powerCompare,
   scientificCompare,
   unitsCompare,
   texteAvecCasseCompare,
-  texteSansCasseCompare, expressionDeveloppeeEtNonReduiteCompare, type CompareFunction,
+  texteSansCasseCompare,
+  // expressionDeveloppeeEtNonReduiteCompare,
   expressionDeveloppeeEtReduiteCompare
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
@@ -463,7 +464,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: String(reponses[0].num),
-          compare: numberCompare
+          //  compare: numberCompare
+          compare: expressionDeveloppeeEtReduiteCompare
         }
       }, params)
 
@@ -473,7 +475,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: String(reponses[0].den),
-          compare: numberCompare
+          //  compare: numberCompare
+          compare: expressionDeveloppeeEtReduiteCompare
         }
       }, params)
 
@@ -543,7 +546,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
           reponse: {
             value: reponses[0].toString(),
             //  compare: decimalCompare
-            compare: numberCompare
+            //  compare: numberCompare
+            compare: expressionDeveloppeeEtReduiteCompare
           }
         }, params)
       }
@@ -556,7 +560,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         reponse: {
           value: String(reponses[0].replace(',', '.')),
           // compare: decimalCompare
-          compare: numberCompare
+          // compare: numberCompare
+          compare: expressionDeveloppeeEtReduiteCompare
         }
       }, params)
     case 'ecritureScientifique': {
