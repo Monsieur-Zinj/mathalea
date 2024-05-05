@@ -8,7 +8,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
 export const interactifReady = true
@@ -98,9 +98,9 @@ export default function ExerciceLabyrintheFractionsEgales () {
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.interactif) {
         texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 nospacebefore inline clavierDeBase')
-        handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: numberCompare } })
+        handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: expressionDeveloppeeEtReduiteCompare } })
         texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 nospacebefore inline clavierDeBase')
-        handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: numberCompare } })
+        handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: expressionDeveloppeeEtReduiteCompare } })
         texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.`
       }
       if (context.isAmc) {

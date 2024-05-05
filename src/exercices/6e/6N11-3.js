@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Encadrer un entier'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -122,7 +122,7 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
       }
       texte += remplisLesBlancs(this, i, `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`, 'fillInThBlank')
       texteCorr = `$${miseEnEvidence(texNombre(inf, 0))}<${texNombre(nombre, 0)}<${miseEnEvidence(texNombre(sup, 0))}$`
-      handleAnswers(this, i, { champ1: { value: String(inf), compare: numberCompare }, champ2: { value: String(sup), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, i, { champ1: { value: String(inf), compare: expressionDeveloppeeEtReduiteCompare }, champ2: { value: String(sup), compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
 
       if (this.questionJamaisPosee(i, nombre)) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -24,7 +24,7 @@ export default class MultiplierDecimaux1 extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01' + KeyboardType.clavierDeBase
     this.canOfficielle = false
-    this.compare = numberCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {

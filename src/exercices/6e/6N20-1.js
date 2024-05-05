@@ -11,7 +11,7 @@ import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionM
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
-import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { consecutiveCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction entre deux nombres entiers consécutifs'
 export const interactifReady = true
@@ -147,8 +147,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               const { feedback } = consecutiveCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, `${k}<${(2 * k + 1) / 2}<${k + 1}`)
               return feedback
             },
-            champ1: { value: String(k), compare: numberCompare },
-            champ2: { value: String(k + 1), compare: numberCompare }
+            champ1: { value: String(k), compare: expressionDeveloppeeEtReduiteCompare },
+            champ2: { value: String(k + 1), compare: expressionDeveloppeeEtReduiteCompare }
           }, { formatInteractif: 'fillInTheBlank' })
         }
         // Si la question n'a jamais été posée, on en crée une autre

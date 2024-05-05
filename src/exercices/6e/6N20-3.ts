@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { consecutiveCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Encadrer une fraction décimale entre deux nombres entiers'
 export const uuid = '3bdcd'
@@ -79,8 +79,8 @@ export default class nomExercice extends Exercice {
           const { feedback } = consecutiveCompare(`${rep1}<${(num / den).toFixed(4)}<${rep2}`, `${a}<${(a + b) / 2}<${b}`)
           return feedback
         },
-        champ1: { value: String(a), compare: numberCompare },
-        champ2: { value: String(b), compare: numberCompare }
+        champ1: { value: String(a), compare: expressionDeveloppeeEtReduiteCompare },
+        champ2: { value: String(b), compare: expressionDeveloppeeEtReduiteCompare }
       }, { formatInteractif: 'fillInTheBlank' })
       if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions.push(texte)

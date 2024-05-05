@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif
 import { format } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import Decimal from 'decimal.js'
-import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
 export const interactifReady = true
@@ -88,7 +88,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       switch (typesDeQuestions) {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
-          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: expressionDeveloppeeEtReduiteCompare } })
           texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5

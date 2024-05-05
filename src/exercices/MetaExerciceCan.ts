@@ -2,7 +2,7 @@ import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
-import { numberCompare } from '../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -50,7 +50,7 @@ export default class MetaExercice extends Exercice {
             handleAnswers(this, indexQuestion, {
               champ1: {
                 value: Question.reponse,
-                compare: Question.compare ?? numberCompare
+                compare: Question.compare ?? expressionDeveloppeeEtReduiteCompare
               }
             }, { formatInteractif: 'mathlive' })
           } else if (typeof Question.reponse === 'object') {
@@ -114,14 +114,14 @@ export default class MetaExercice extends Exercice {
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
         if (Question.formatInteractif === 'fillInTheBlank') {
-          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse.valeur, { formatInteractif: 'mathlive' })
+          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse.valeur)
         } else if (Question.formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else if (Question.compare == null) {
-          handleAnswers(this, indexQuestion, { reponse: { value: Question.reponse, compare: numberCompare } }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, indexQuestion, { value: Question.reponse, compare: expressionDeveloppeeEtReduiteCompare })
         } else {
           handleAnswers(this, indexQuestion, {
-            reponse: {
+            reponses: {
               value: Question.reponse,
               compare: Question.compare
             }

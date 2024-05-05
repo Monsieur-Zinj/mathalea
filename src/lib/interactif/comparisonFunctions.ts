@@ -209,15 +209,8 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
 }
 */
 
-/**
- * comparaison de nombres
- * @param {string} input
- * @param {string} goodAnswer
- * @author Jean-Claude Lhote et Eric Elter
- * @return ResultType
- */
-
-/// N'a plus lieu d'être, doit être remplacé par expressionDeveloppeeEtReduiteCompare
+// Suppression de numberCompare
+/*
 export function numberCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions'])
   const inputParsed = engine.parse(clean(input))
@@ -234,6 +227,7 @@ export function numberCompare (input: string, goodAnswer: string): ResultType {
     return { isOk: inputParsed.isEqual(engine.parse(clean(goodAnswer))) }
   }
 }
+*/
 
 /* Ancienne fonction au profit de la nouvelle ci-dessous
 /**
@@ -1057,7 +1051,8 @@ export function consecutiveCompare (input: string, goodAnswer: string): ResultTy
     if (!(diff1 != null && diff2 != null && diff1 < 1 && diff1 >= 0 && diff2 < 1 && diff2 >= 0)) { return { isOk: false, feedback: `Les deux nombres entiers sont biens consécutifs mais n'encadrent pas la valeur ${valeurInter}` } }
   }
   const isOk1 = true
-  const isOk2 = numberCompare(String(entierInf), String(goodAnswerEntierInf)).isOk && numberCompare(String(entierSup), String(goodAnswerEntierSup)).isOk
+  // const isOk2 = numberCompare(String(entierInf), String(goodAnswerEntierInf)).isOk && numberCompare(String(entierSup), String(goodAnswerEntierSup)).isOk
+  const isOk2 = expressionDeveloppeeEtReduiteCompare(String(entierInf), String(goodAnswerEntierInf)).isOk && expressionDeveloppeeEtReduiteCompare(String(entierSup), String(goodAnswerEntierSup)).isOk
   return { isOk: isOk1 && isOk2, feedback: '' }
 }
 
