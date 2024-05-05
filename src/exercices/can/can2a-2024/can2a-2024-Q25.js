@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
-import { developmentCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Développer avec une identité remarquable'
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
-    this.compare = developmentCompare
+    this.compare = expressionDeveloppeeEtNonReduiteCompare
   }
 
   nouvelleVersion () {

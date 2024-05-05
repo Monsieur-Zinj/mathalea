@@ -8,7 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 
 import { fraction } from '../../modules/fractions.js'
 import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
 import { consecutiveCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
@@ -144,7 +144,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
               const rep2 = saisies.champ2
               // on teste consecutiveCompare pour le feedback seulement, comme c'est un fillInTheBlank, la comparaison se fait sur les valeurs exactes des bornes entières.
               // consecutiveCompare peut être utilisée pour évaluer des saisies complètes d'encadrements avec les signes < ou >
-              const { feedback } = consecutiveCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, { entierInf: k, entierSup: k + 1, valeurInter: (2 * k + 1) / 2 })
+              const { feedback } = consecutiveCompare(`${rep1}<${(n / d).toFixed(4)}<${rep2}`, `${k}<${(2 * k + 1) / 2}<${k + 1}`)
               return feedback
             },
             champ1: { value: String(k), compare: numberCompare },

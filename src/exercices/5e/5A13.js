@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { sp } from '../../lib/outils/outilString.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

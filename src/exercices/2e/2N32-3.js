@@ -1,7 +1,7 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Écrire une racine carrée sous la forme $\\;a\\sqrt{b}$'
 export const interactifReady = true

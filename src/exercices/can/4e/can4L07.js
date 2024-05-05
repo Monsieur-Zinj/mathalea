@@ -141,7 +141,7 @@ export default function ReduireExp () {
         }
         break
     }
-    this.reponse = { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }
+    this.reponse = { reponse: { value: reponse, options: { strict: false }, compare: expandedAndReductedCompare } }
     this.canEnonce = this.question// 'Compléter'
     this.canReponseACompleter = ''
   }

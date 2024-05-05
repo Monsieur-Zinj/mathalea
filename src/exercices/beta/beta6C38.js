@@ -6,7 +6,7 @@ import { texPrix } from '../../lib/format/style'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { context } from '../../modules/context'
 
 export const titre = 'Augmenter ou diminuer d\'un pourcentage'

@@ -13,7 +13,7 @@ import Exercice from '../deprecatedExercice.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 

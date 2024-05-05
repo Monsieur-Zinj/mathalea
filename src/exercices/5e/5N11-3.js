@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 
 export const titre = 'Écrire une fraction sur 100 puis sous la forme d\'un pourcentage'

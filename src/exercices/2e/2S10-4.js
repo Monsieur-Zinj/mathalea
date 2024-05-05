@@ -5,7 +5,7 @@ import { randint, listeQuestionsToContenuSansNumero } from '../../modules/outils
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../lib/outils/texNombre'

@@ -14,7 +14,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { codageSegments } from '../../lib/2d/codages.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { arrondi } from '../../lib/outils/nombres'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Déterminer la valeur d\'un angle en utilisant la somme des angles dans un triangle'
 export const interactifReady = true

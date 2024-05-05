@@ -21,7 +21,7 @@ import {
 } from '../../../modules/2dLutin.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { roseDesVents, scratchblock } from '../../../modules/scratchblock.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const dateDePublication = '11/04/2021'
 export const titre = 'Noter la couleur (scratch)'

@@ -22,6 +22,7 @@ import {
 import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
+import { rationnalise } from '../lib/mathFonctions/outilsMaths'
 
 type FractionRepresentationType = 'gateau'|'barre'|'segment'
 
@@ -31,10 +32,11 @@ function normalizeFraction (n: number|Decimal, d:number): [number, number] {
   if (d == null) { // un seul argument qui peut être un nombre (décimal ou pas)
     if (n instanceof Decimal) { // Decimal.toFraction() retourne '7, 4' pour 1.75... On récupère ainsi le numérateur et le dénominateur.
       const dec = n as Decimal
-      [num, den] = dec.toString().split(',').map(el => Number(el))
+      [num, den] = dec.toFraction(10000).map(el => el.toNumber())
     } else {
-      num = Number(n.toFixed(4)) // ça c'est pas terrible... et ça peut conduire à des fractions monumentales alors on se limite à 4 décimales
-      den = 1
+      const f = rationnalise(n)
+      num = f.num // ça c'est pas terrible... et ça peut conduire à des fractions monumentales alors on se limite à 4 décimales
+      den = f.den
     }
   } else {
     num = Number(n)

@@ -16,7 +16,7 @@ import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true

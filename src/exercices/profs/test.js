@@ -1,9 +1,9 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions.ts'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { expressionDeveloppeeEtReduiteCompare, numberCompare } from '../../lib/interactif/comparisonFunctions.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-// import { ComputeEngine } from '@cortex-js/compute-engine'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 export const titre = 'Eric fait ses tests interactifs.'
 export const interactifReady = true
@@ -26,12 +26,13 @@ export default function desTestsPourInteractivité () {
       // const reponse = '\\sqrt{2}'
       // const reponse = '6\\sqrt2-7'
       // const reponse = '3\\ln(3x^2-1)'
-      const reponse = '4e^{3x^2-1}'
+      // const reponse = new FractionEtendue(5, 3)
       // const reponse = '\\dfrac{3}{5}'
-      /// const reponse = '3x+2'
+      // const reponse = '3x+2'
+      const reponse = '2+3 '
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
-      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

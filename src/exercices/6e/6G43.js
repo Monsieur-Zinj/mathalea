@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { cube } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { deuxColonnes } from '../../lib/format/miseEnPage.js'
 
 export const dateDePublication = '03/03/2021'

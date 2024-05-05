@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { Decimal } from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true

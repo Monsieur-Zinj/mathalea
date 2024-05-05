@@ -7,7 +7,7 @@ import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { prettyTex } from './1AN14-4.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 const math = { simplify, parse, derivative, fraction }
 export const titre = 'Dérivée d\'un quotient'

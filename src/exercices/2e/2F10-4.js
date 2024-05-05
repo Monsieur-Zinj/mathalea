@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une fonction affine'
@@ -210,7 +210,7 @@ export default function Determinerfonctionaffine () {
           }
           break
       }
-      handleAnswers(this, i, { champ1: { value: { fonction: reponse, variable: 'x' }, compare: functionCompare } })
+      handleAnswers(this, i, { champ1: { value: reponse, options: { variable: 'x' }, compare: functionCompare } })
       if (this.interactif) {
         texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
       }

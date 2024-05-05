@@ -51,7 +51,7 @@ export default class EnFonctionDe extends Exercice {
             [15, 5], [13, 4]]// val1=valeur écrite, val2=nbre de segments de même longueur
           const Valeur = choice(listeValeurs)
           const b = Valeur[1]
-          this.reponse = { reponse: { value: { fonction: `${Valeur[0]}-${Valeur[1]}x`, variable: 'x' }, compare: functionCompare } }
+          this.reponse = { reponse: { value: `${Valeur[0]}-${Valeur[1]}x`, options: { variable: 'x' }, compare: functionCompare } }
           const A3 = point(0, 1, 'A1', 'below')
           const B3 = point(16, 1, 'A1', 'below')
           const B2 = point(7, 0, 'A', 'below')
@@ -100,7 +100,7 @@ export default class EnFonctionDe extends Exercice {
             [15, 5], [9, 4]]// val1=valeur écrite, val2=nbre de segments de même longueur
           const Valeur = choice(listeValeurs)
           const b = Valeur[1]
-          this.reponse = ` ${Valeur[0]}+${Valeur[1]}x`
+          this.reponse = { reponse: { value: `${Valeur[0]}+${Valeur[1]}x`, options: { variable: 'x' }, compare: functionCompare } }
           const A3 = point(7, 1, 'A1', 'below')
           const B3 = point(16, 1, 'A1', 'below')
           const B2 = point(7, 0, 'B2', 'below')
@@ -133,7 +133,7 @@ export default class EnFonctionDe extends Exercice {
             scale: 0.4
           }, objets)
           // this.question += mathalea2d(Object.assign({ scale: 0.45, style: 'margin: auto' }, fixeBordures(objets)), objets)
-          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(this.reponse)}$ cm.`
+          this.correction = `Comme il y a $${b}$ segments de la même longueur $x$, donc  $AB=${miseEnEvidence(`${Valeur[0]}+${Valeur[1]}x`)}$ cm.`
           this.canEnonce = this.question
           this.canReponseACompleter = '$AB=\\ldots$ cm'
           if (!this.interactif) {

@@ -13,7 +13,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { hmsCompare, unitsCompare } from '../../lib/interactif/comparisonFunctions'
-import Grandeur from '../../modules/Grandeur'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
@@ -116,7 +115,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, options: { precision: 0 }, compare: unitsCompare } })
         indiceQuestion++
         this.listeCorrections.push(
           `Le point le plus haut de la courbe a pour abscisse $${texNombre(
@@ -157,7 +156,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(t1, 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${t1}m`, options: { precision: 0 }, compare: unitsCompare } })
         indiceQuestion++
 
         this.listeCorrections.push(
@@ -169,7 +168,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(Math.round(f(t1 / 2)), 'm'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, options: { precision: 0 }, compare: unitsCompare } })
         indiceQuestion++
 
         this.listeCorrections.push(
@@ -302,7 +301,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmin, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmin}°C`, options: { precision: 0 }, compare: unitsCompare } })
         indiceQuestion++
 
         this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
@@ -310,7 +309,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: { grandeur: new Grandeur(tmax, '°C'), precision: 0 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmax}°C`, options: { precision: 0 }, compare: unitsCompare } })
         indiceQuestion++
 
         this.listeCorrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)

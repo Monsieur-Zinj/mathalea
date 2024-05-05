@@ -3,11 +3,11 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { factorisationCompare, expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -89,15 +89,15 @@ export default function ReduireDinstinctionSommeProduit () {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
         if (listeTypeDeQuestions[i] < 2) {
-          handleAnswers(this, 2 * i, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i, { reponse: { value: reponseProduit, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         } else {
-          handleAnswers(this, 2 * i, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i, { reponse: { value: reponseSomme, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         }
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
         if (listeTypeDeQuestions[i] > 1) {
-          handleAnswers(this, 2 * i + 1, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: reponseProduit, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         } else {
-          handleAnswers(this, 2 * i + 1, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: reponseSomme, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         }
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit

@@ -16,7 +16,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { expressionDeveloppeeEtReduiteCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
@@ -492,7 +492,7 @@ export default function ModelisationProblemes () {
       }
 
       if (this.sup3 === 1) {
-        handleAnswers(this, i, { reponse: { value: { expr: correctionSansSchema }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: expressionDeveloppeeEtReduiteCompare } })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
         colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })

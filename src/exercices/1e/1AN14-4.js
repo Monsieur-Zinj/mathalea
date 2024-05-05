@@ -7,7 +7,7 @@ import { signe } from '../../lib/outils/nombres'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 const math = { simplify, parse, derivative }
 export const titre = 'Dérivée d\'un produit'

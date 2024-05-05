@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Calculer des caractéristiques d\'une série'
 export const interactifReady = true

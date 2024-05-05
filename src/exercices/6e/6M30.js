@@ -10,7 +10,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le volume de solides donnés'

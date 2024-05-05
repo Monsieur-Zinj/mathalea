@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { barre3d, cube3d, paveLPH3d, plaque3d } from '../../modules/3d.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Déterminer le volume de pavés droit par dénombrement'
 export const interactifReady = true

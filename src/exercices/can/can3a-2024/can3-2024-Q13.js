@@ -90,7 +90,7 @@ export default class NomExercice extends Exercice {
       }
     }
 
-    this.reponse = { reponse: { value: { expr: reponse, strict: false }, compare: expandedAndReductedCompare } }
+    this.reponse = { reponse: { value: reponse, options: { strict: false }, compare: expandedAndReductedCompare } }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (!this.interactif) {

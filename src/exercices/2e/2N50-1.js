@@ -15,7 +15,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modu
 import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true

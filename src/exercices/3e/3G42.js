@@ -10,7 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import Decimal from 'decimal.js'
 import Grandeur from '../../modules/Grandeur'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
 

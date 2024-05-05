@@ -22,7 +22,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import { arrondi } from '../../lib/outils/nombres'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { equalFractionCompare, numberCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs liés aux homothéties'

@@ -38,7 +38,7 @@ export default class FonctionAffAvec2Images extends Exercice {
           const nomF = choice(nom)
           const m = randint(1, 8)
           const p = randint(-10, 10)
-          this.reponse = reduireAxPlusB(m, p)
+          this.reponse = { reponse: { value: reduireAxPlusB(m, p), options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
           this.question = `$${nomF}$ est une fonction affine vérifiant $${nomF}(0)=${p}$ et $${nomF}(1)=${p + m}$.<br>`
           if (this.interactif) { this.question += `L'expression algébrique de $${nomF}$ est $${nomF}(x)=$` } else { this.question += `Déterminer l'expression algébrique de $${nomF}$.` }
           this.correction = `$${nomF}$ est une fonction affine donc de la forme $${nomF}(x)=mx+p$ avec $p=${nomF}(0)=${p}$.<br>
@@ -62,7 +62,7 @@ soit $${p + m}-${ecritureParentheseSiNegatif(p)}=${m}$.
           const nomF = choice(nom)
           const m = randint(1, 8)
           const p = randint(-10, 10)
-          this.reponse = reduireAxPlusB(m, p)
+          this.reponse = { reponse: { value: reduireAxPlusB(m, p), options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
           this.question = `$${nomF}$ est une fonction affine vérifiant $${nomF}(-1)=${p - m}$ et $${nomF}(0)=${p}$.<br>`
           if (this.interactif) { this.question += `L'expression algébrique de $${nomF}$ est $${nomF}(x)=$` } else { this.question += `Déterminer l'expression algébrique de $${nomF}$.` }
           this.correction = `$${nomF}$ est une fonction affine donc de la forme $${nomF}(x)=mx+p$ avec $p=${nomF}(0)=${p}$.<br>

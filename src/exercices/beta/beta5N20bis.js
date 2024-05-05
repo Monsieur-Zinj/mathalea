@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { calculer } from '../../modules/outilsMathjs.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const amcReady = true
 export const amcType = 'qcmMono'

@@ -13,7 +13,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { context } from '../../modules/context.js'
 import { clone } from 'mathjs'
 export const interactifReady = true

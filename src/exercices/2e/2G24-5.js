@@ -4,7 +4,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
