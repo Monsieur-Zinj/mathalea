@@ -517,7 +517,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
           compare: hmsCompare
         }
       }, params)
-
+      /*
     case 'formeDeveloppee':
       if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format formeDeveloppee, c\'est incohérent !')
       laReponseDemandee = reponses[0]
@@ -536,27 +536,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
           compare: expressionDeveloppeeEtNonReduiteCompare
         }
       }, params)
-
-    case 'formeDeveloppeeParEE':
-      if (reponses.length > 1) window.notify('setReponse a reçu une liste de réponse pour le format formeDevelopeeParEE, c\'est incohérent !')
-
-      laReponseDemandee = reponses[0]
-      if (typeof laReponseDemandee === 'string') {
-        laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac').replace(/\s/g, '').replace(',', '.')
-      } else if (typeof laReponseDemandee === 'number') {
-        laReponseDemandee = String(laReponseDemandee)
-      } else if (laReponseDemandee instanceof FractionEtendue) {
-        laReponseDemandee = laReponseDemandee.texFraction.replaceAll('dfrac', 'frac')
-      } else if (laReponseDemandee instanceof Decimal) {
-        laReponseDemandee = laReponseDemandee.toString()
-      }
-      return handleAnswers(exercice, i, {
-        reponse: {
-          value: laReponseDemandee,
-          compare: expressionDeveloppeeEtReduiteCompare
-        }
-      }, params)
-
+*/
     case 'nombreDecimal':
       if (reponses[0] instanceof Decimal) {
         return handleAnswers(exercice, i, {
