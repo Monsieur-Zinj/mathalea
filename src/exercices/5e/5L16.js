@@ -5,63 +5,15 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
-  factorisationCompare, functionCompare,
-  expandedAndReductedCompare
+  expressionDeveloppeeEtReduiteCompare,
+  expressionDeveloppeeEtNonReduiteCompare
 } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier l\'écriture d\'une expression littérale'
-
 export const dateDePublication = '07/04/2022'
 export const dateDeModifImportante = '13/11/2023'
-// fonctions de comparaison spécifiques à cet exo
-function simplifierCompare (input, goodAnswer) {
-  if (input.includes('\\times')) return { isOk: false, feedback: 'On peut supprimer le signe $\\times$ devant une lettre ou une parenthèse.<br>' }
-  if (goodAnswer.includes('(')) return factorisationCompare(input, goodAnswer.expr)
-  return expandedAndReductedCompare(input, goodAnswer)
-}
-function compliquerCompare (input, goodAnswer) {
-  const nbFacteursRep = goodAnswer.split('\\times').length
-  const nbFacteursInp = input.split('\\times').length
-  if (nbFacteursRep > nbFacteursInp && nbFacteursInp !== 1) return { isOk: false, feedback: 'Il reste au moins une multiplication implicite.<br>' }
-  if (nbFacteursInp === 1 && nbFacteursRep !== 1) return { isOk: false, feedback: 'Il y a au moins une multiplication implicite.<br>' }
-  if (nbFacteursRep !== nbFacteursInp) return { isOk: false, feedback: 'Il y a des signes $\\times$ en trop.<br>' }
-  const inputRangee = rangerFacteurs(input.replace('\\lparen', '(').replace('\\rparen', ')'))
-  let feedback = ''
-  let isOk = true
-  const implicitMulLettre = /(\d+[a-z])/g.exec(inputRangee)
-  if (implicitMulLettre != null) {
-    implicitMulLettre.shift()
-    for (const terme of implicitMulLettre) {
-      const avantLettre = terme.substring(0, terme.length - 1)
-      feedback += `Il faut remettre le signe $\\times$ entre $${avantLettre}$ et ${terme.charAt(terme.length - 1)}.<br>`
-      isOk = false
-    }
-  }
-  const implicitMulParenthese = /(\d+\()/g.exec(inputRangee)
-  if (implicitMulParenthese != null) {
-    implicitMulParenthese.shift()
-    for (const terme of implicitMulParenthese) {
-      const avantPar = terme.substring(0, -1)
-      feedback += `Il faut remettre le signe $\\times$ entre $${avantPar}$ et $($.<br>`
-      isOk = false
-    }
-  }
-  const implicitMulPuissance = /([a-z]\^\d)/g.exec(inputRangee)
-  if (implicitMulPuissance != null) {
-    implicitMulPuissance.shift()
-    for (const terme of implicitMulPuissance) {
-      const lettre = terme.charAt(0)
-      const exposant = terme.charAt(2)
-      feedback += `Il faut écrire $${terme}$ comme un produit de $${exposant}$ facteurs $${lettre}$.<br>`
-      isOk = false
-    }
-  }
-  const test2 = functionCompare(input, { fonction: goodAnswer, variable: 'x' })
-  isOk = test2.isOk && isOk
-  return { isOk, feedback }
-}
 /**
  * @author Guillaume Valmont
  * Ajout du paramètre de procédure inverse par Guillaume Valmont le 18/06/2022
@@ -370,9 +322,9 @@ export default function SimplifierEcritureLitterale () {
         texte += ajouteFeedback(this, i)
       }
       if (!this.sup2) {
-        handleAnswers(this, i, { reponse: { value: reponse }, compare: simplifierCompare })
+        handleAnswers(this, i, { reponse: { value: reponse }, compare: expressionDeveloppeeEtReduiteCompare })
       } else {
-        handleAnswers(this, i, { reponse: { value: reponse }, compare: compliquerCompare })
+        handleAnswers(this, i, { reponse: { value: reponse }, compare: expressionDeveloppeeEtNonReduiteCompare })
       }
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)

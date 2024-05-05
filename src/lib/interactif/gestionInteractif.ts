@@ -7,7 +7,6 @@ import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
   calculCompare,
-  expandedAndReductedCompare,
   fractionCompare,
   equalFractionCompare,
   simplerFractionCompare,
@@ -18,7 +17,8 @@ import {
   scientificCompare,
   unitsCompare,
   texteAvecCasseCompare,
-  texteSansCasseCompare, expressionDeveloppeeEtNonReduiteCompare, type CompareFunction
+  texteSansCasseCompare, expressionDeveloppeeEtNonReduiteCompare, type CompareFunction,
+  expressionDeveloppeeEtReduiteCompare
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -553,7 +553,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: laReponseDemandee,
-          compare: expandedAndReductedCompare
+          compare: expressionDeveloppeeEtReduiteCompare
         }
       }, params)
 
