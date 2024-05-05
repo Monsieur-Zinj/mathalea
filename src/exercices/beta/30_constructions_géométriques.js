@@ -1,13 +1,13 @@
-import { point, pointAdistance, tracePoint } from '../../../lib/2d/points.js'
-import { carre } from '../../../lib/2d/polygones.js'
-import { segmentAvecExtremites } from '../../../lib/2d/segmentsVecteurs.js'
-import { labelPoint } from '../../../lib/2d/textes.js'
-import { rotation } from '../../../lib/2d/transformations.js'
-import { triangle2points2longueurs } from '../../../lib/2d/triangle.js'
-import { combinaisonListes } from '../../../lib/outils/arrayOutils.js'
-import { mathalea2d, fixeBordures } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
+import { point, pointAdistance, tracePoint } from '../../lib/2d/points.js'
+import { carre } from '../../lib/2d/polygones.js'
+import { segmentAvecExtremites } from '../../lib/2d/segmentsVecteurs.js'
+import { labelPoint } from '../../lib/2d/textes'
+import { rotation } from '../../lib/2d/transformations.js'
+import { triangle2points2longueurs } from '../../lib/2d/triangle.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import { mathalea2d, fixeBordures } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
 
 export const titre = 'Nom de l\'exercice'
 
@@ -23,11 +23,8 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.consigne = 'consigne'
     this.nbQuestions = 1 // Ici le nombre de questions
-    this.nbCols = 1 // Le nombre de colonnes dans l'énoncé LaTeX
-    this.nbColsCorr = 1 // Le nombre de colonne pour la correction LaTeX
   }
 
   nouvelleVersion () {

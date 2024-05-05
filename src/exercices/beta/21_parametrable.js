@@ -1,10 +1,8 @@
-import Exercice from '../../Exercice'
-import { randint, listeQuestionsToContenu } from '../../../modules/outils'
+import Exercice from '../Exercice'
+import { randint, listeQuestionsToContenu } from '../../modules/outils'
 export const titre = 'Nom de l\'exercice'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '4/5/2024'
 
 /**
  * Description didactique de l'exercice
@@ -14,7 +12,6 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.consigne = 'Calcule'
     this.nbQuestions = 10
 
@@ -22,11 +19,6 @@ export default class nomExercice extends Exercice {
     this.sup = 2 // Valeur du paramètre par défaut
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
     //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
-
-    this.nbCols = 2
-    this.nbColsCorr = 2
-    this.tailleDiaporama = 3
-    this.video = ''
   }
 
   nouvelleVersion () {
@@ -41,13 +33,14 @@ export default class nomExercice extends Exercice {
         NombreAAjouter = 1
       } else if (this.sup === 2) {
         NombreAAjouter = 5
+      } else {
+        NombreAAjouter = 100
       }
       texte = `$${a} + ${NombreAAjouter} $`
       texteCorr = `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
 
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        // Supprime b, c et d dans la ligne ci-dessus et remplace les par NombreAAjouter !
+      if (this.questionJamaisPosee(i, a, NombreAAjouter)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

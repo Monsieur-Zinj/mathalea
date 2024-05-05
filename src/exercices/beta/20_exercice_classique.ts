@@ -4,7 +4,6 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Titre de l\'exercice'
 export const dateDePublication = '14/12/2023'
-// export const dateDeModifImportante = '24/10/2021'
 
 /**
  * Description didactique de l'exercice
