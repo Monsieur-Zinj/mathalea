@@ -5,6 +5,7 @@
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
   import type TypeExercice from '../../../exercices/Exercice'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
@@ -83,7 +84,7 @@
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBar subtitle="Moodle" subtitleType="export" />
+  <NavBar subtitle="Moodle" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>

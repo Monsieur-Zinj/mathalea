@@ -20,7 +20,10 @@
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../../../lib/mathalea'
   import Settings from './presentationalComponents/Settings.svelte'
-  import { exercisesUuidRanking, uuidCount } from '../../../../../lib/components/counts'
+  import {
+    exercisesUuidRanking,
+    uuidCount
+  } from '../../../../../lib/components/counts'
   import Exercice from '../../../../../exercices/Exercice'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
@@ -28,6 +31,9 @@
   import { scratchZoomUpdate } from '../../../../../lib/renderScratch'
   import type { InterfaceParams } from '../../../../../lib/types'
   import { get } from 'svelte/store'
+  import { uuidToLocaleRef } from '../../../../../lib/components/languagesUtils'
+  import { referentielLocale } from '../../../../../lib/stores/languagesStore'
+  import type { Language } from '../../../../../lib/types/languages'
 
   export let exercise: Exercice
   export let exerciseIndex: number
@@ -37,11 +43,29 @@
   let divExercice: HTMLDivElement
   let divScore: HTMLDivElement
   let buttonScore: HTMLButtonElement
-  let interfaceParams : InterfaceParams = get(exercicesParams)[exerciseIndex]
-  let exercicesNumber : number = get(exercicesParams).length
+  let interfaceParams: InterfaceParams = get(exercicesParams)[exerciseIndex]
+  let exercicesNumber: number = get(exercicesParams).length
 
-  const subscribeExercicesParamsStore = exercicesParams.subscribe(value => {
-    if (JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)) {
+  // Pour une raison que je n'ai pas su identifier, interfaceParams?.id
+  // est parfois undefined : donc le code qui suit renvoie parfois une chaîne vide
+  //
+  // let id: string = interfaceParams?.id
+  //   ? exercise.id
+  //     ? exercise.id.replace('.js', '').replace('.ts', '')
+  //     : '<foo>'
+  //   : '<bar>'
+  //
+  // Avec la fonction uuidToLocaleRef, on va chercher dans le référentiel de la locale
+  // (ou dans le référentiel français si on ne trouver pas dans le local)
+  // la référence correspondant à l'uuid qui elle ne semble pas undefined
+  // (si c'est le cas, on aura une chaîne vide)
+  const locale: Language = get(referentielLocale)
+  let id: string = uuidToLocaleRef(interfaceParams.uuid, locale)
+
+  const subscribeExercicesParamsStore = exercicesParams.subscribe((value) => {
+    if (
+      JSON.stringify(value[exerciseIndex]) !== JSON.stringify(interfaceParams)
+    ) {
       interfaceParams = value[exerciseIndex]
     }
     if (exercicesNumber !== value.length) {
@@ -55,29 +79,29 @@
   let isSettingsVisible = true
   let isInteractif = exercise.interactif
   const interactifReady = exercise.interactifReady
-  const exerciceHasNoSettings = !exercise.nbQuestionsModifiable &&
-         !exercise.besoinFormulaireCaseACocher &&
-         !exercise.besoinFormulaireNumerique &&
-         !exercise.besoinFormulaireTexte &&
-         !exercise.besoinFormulaire2CaseACocher &&
-          !exercise.besoinFormulaire2Numerique &&
-          !exercise.besoinFormulaire2Texte &&
-          !exercise.besoinFormulaire3CaseACocher &&
-          !exercise.besoinFormulaire3Numerique &&
-          !exercise.besoinFormulaire3Texte &&
-          !exercise.besoinFormulaire4CaseACocher &&
-          !exercise.besoinFormulaire4Numerique &&
-          !exercise.besoinFormulaire4Texte
+  const exerciceHasNoSettings =
+    !exercise.nbQuestionsModifiable &&
+    !exercise.besoinFormulaireCaseACocher &&
+    !exercise.besoinFormulaireNumerique &&
+    !exercise.besoinFormulaireTexte &&
+    !exercise.besoinFormulaire2CaseACocher &&
+    !exercise.besoinFormulaire2Numerique &&
+    !exercise.besoinFormulaire2Texte &&
+    !exercise.besoinFormulaire3CaseACocher &&
+    !exercise.besoinFormulaire3Numerique &&
+    !exercise.besoinFormulaire3Texte &&
+    !exercise.besoinFormulaire4CaseACocher &&
+    !exercise.besoinFormulaire4Numerique &&
+    !exercise.besoinFormulaire4Texte
   let isExerciceChecked = false
-  const id: string = interfaceParams?.id
-    ? exercise.id
-      ? exercise.id.replace('.js', '').replace('.ts', '')
-      : ''
-    : ''
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking(get(exercicesParams))
     const counts = uuidCount(get(exercicesParams))
-    if (interfaceParams && interfaceParams.uuid && counts[interfaceParams.uuid] > 1) {
+    if (
+      interfaceParams &&
+      interfaceParams.uuid &&
+      counts[interfaceParams.uuid] > 1
+    ) {
       return '|' + ranks[exerciseIndex]
     } else {
       return ''
@@ -115,6 +139,7 @@
       headerProps.isDeletable = true
       headerProps.isHidable = true
     }
+    headerProps.id = id
     headerProps.isInteractif = isInteractif
     headerProps.correctionExists = exercise.listeCorrections.length > 0
     headerProps.title = exercise.titre + generateTitleAddendum()
@@ -139,6 +164,60 @@
     headerProps.title = exercise.titre + generateTitleAddendum()
   })
 
+  async function forceUpdate () {
+    if (exercise == null) return
+    exercise.numeroExercice = exerciseIndex
+    await adjustMathalea2dFiguresWidth()
+  }
+
+  function log (str: string) {
+    const debug = false
+    if (debug) {
+      console.log(exerciseIndex)
+      console.log(str)
+    }
+  }
+
+  beforeUpdate(() => {
+    log('beforeUpdate:' + exercise.id)
+    if (
+      JSON.stringify(get(exercicesParams)[exerciseIndex]) !==
+      JSON.stringify(interfaceParams)
+    ) {
+      // interface à changer car un exercice a été supprimé au dessus...
+      interfaceParams = get(exercicesParams)[exerciseIndex]
+    }
+  })
+
+  /**
+   * Fonction appelée lorsque le listener détecte `languageHasChanged`.
+   * Elle change la variable `interfaceParams` et surtout met à jour `id`
+   * qui est succeptible de changer avec la langue.
+   * @author sylvain
+   */
+  const updateExerciceAfterLanguageChange = () => {
+    if ($exercicesParams.length !== 0) {
+      interfaceParams = get(exercicesParams)[exerciseIndex]
+      id = get(exercicesParams)[exerciseIndex].id || ''
+    }
+  }
+
+  onMount(async () => {
+    log('onMount:' + exercise.id)
+    document.addEventListener('newDataForAll', newData)
+    document.addEventListener('setAllInteractif', setAllInteractif)
+    document.addEventListener('removeAllInteractif', removeAllInteractif)
+    document.addEventListener('updateAsyncEx', forceUpdate)
+    document.addEventListener(
+      'languageHasChanged',
+      updateExerciceAfterLanguageChange
+    )
+
+    await updateDisplay()
+    await tick()
+    await countMathField()
+  })
+
   onDestroy(() => {
     log('ondestroy' + exercise.id)
     // Détruit l'objet exercice pour libérer la mémoire
@@ -149,41 +228,12 @@
     document.removeEventListener('setAllInteractif', setAllInteractif)
     document.removeEventListener('removeAllInteractif', removeAllInteractif)
     document.removeEventListener('updateAsyncEx', forceUpdate)
+    document.removeEventListener(
+      'languageHasChanged',
+      updateExerciceAfterLanguageChange
+    )
     unsubscribeToChangesStore()
     subscribeExercicesParamsStore()
-  })
-
-  async function forceUpdate () {
-    if (exercise == null) return
-    exercise.numeroExercice = exerciseIndex
-    await adjustMathalea2dFiguresWidth()
-  }
-
-  function log (str : string) {
-    const debug = false
-    if (debug) {
-      console.log(exerciseIndex)
-      console.log(str)
-    }
-  }
-
-  beforeUpdate(() => {
-    log('beforeUpdate:' + exercise.id)
-    if (JSON.stringify(get(exercicesParams)[exerciseIndex]) !== JSON.stringify(interfaceParams)) {
-      // interface à changer car un exercice a été supprimé au dessus...
-      interfaceParams = get(exercicesParams)[exerciseIndex]
-    }
-  })
-
-  onMount(async () => {
-    log('onMount:' + exercise.id)
-    document.addEventListener('newDataForAll', newData)
-    document.addEventListener('setAllInteractif', setAllInteractif)
-    document.addEventListener('removeAllInteractif', removeAllInteractif)
-    document.addEventListener('updateAsyncEx', forceUpdate)
-    await updateDisplay()
-    await tick()
-    await countMathField()
   })
 
   afterUpdate(async () => {
@@ -208,8 +258,7 @@
         }
       }
       mathaleaRenderDiv(divExercice, -1)
-      if (exerciceHasNoSettings
-      ) {
+      if (exerciceHasNoSettings) {
         isSettingsVisible = false
         // headerProps.settingsReady = false
       }
@@ -287,11 +336,9 @@
     }
     if (event.detail.correctionDetaillee !== undefined) {
       exercise.correctionDetaillee = event.detail.correctionDetaillee
-      interfaceParams.cd = exercise.correctionDetaillee
-        ? '1'
-        : '0'
+      interfaceParams.cd = exercise.correctionDetaillee ? '1' : '0'
     }
-    exercicesParams.update(list => {
+    exercicesParams.update((list) => {
       list[exerciseIndex] = interfaceParams
       return list
     })
@@ -320,14 +367,14 @@
     exercise.interactif = isInteractif
     if (interfaceParams.alea !== exercise.seed && exercise.seed !== undefined) {
       // on met à jour le storer seulement si besoin
-      exercicesParams.update(list => {
+      exercicesParams.update((list) => {
         list[exerciseIndex].alea = exercise.seed
         return list
       })
     }
     if (interfaceParams.interactif !== (isInteractif ? '1' : '0')) {
       // on met à jour le storer seulement si besoin
-      exercicesParams.update(list => {
+      exercicesParams.update((list) => {
         list[exerciseIndex].interactif = isInteractif ? '1' : '0'
         return list
       })
@@ -335,12 +382,12 @@
     if (interfaceParams.cols !== columnsCount) {
       // on met à jour le storer seulement si besoin
       if (columnsCount === 1 && interfaceParams.cols !== undefined) {
-        exercicesParams.update(list => {
+        exercicesParams.update((list) => {
           list[exerciseIndex].cols = undefined
           return list
         })
       } else if (columnsCount > 1 && interfaceParams.cols !== columnsCount) {
-        exercicesParams.update(list => {
+        exercicesParams.update((list) => {
           list[exerciseIndex].cols = columnsCount
           return list
         })
@@ -416,20 +463,37 @@
    * @param {boolean} initialDimensionsAreNeeded si `true`, les valeurs initiales sont rechargées ()`false` par défaut)
    * @author sylvain
    */
-  async function adjustMathalea2dFiguresWidth (initialDimensionsAreNeeded: boolean = false) {   
-    await tick()  
-    const mathalea2dFigures = document?.querySelectorAll<SVGElement>('.mathalea2d')
-    if (mathalea2dFigures !== null && mathalea2dFigures !== undefined && mathalea2dFigures.length !== 0) {       
-      for (let k = 0; k < mathalea2dFigures.length; k++) {        
+  async function adjustMathalea2dFiguresWidth (
+    initialDimensionsAreNeeded: boolean = false
+  ) {
+    await tick()
+    const mathalea2dFigures =
+      document?.querySelectorAll<SVGElement>('.mathalea2d')
+    if (
+      mathalea2dFigures !== null &&
+      mathalea2dFigures !== undefined &&
+      mathalea2dFigures.length !== 0
+    ) {
+      for (let k = 0; k < mathalea2dFigures.length; k++) {
         if (initialDimensionsAreNeeded) {
           // réinitialisation
-          const initialWidth = mathalea2dFigures[k].getAttribute('data-width-initiale')
-          const initialHeight = mathalea2dFigures[k].getAttribute('data-height-initiale')
+          const initialWidth = mathalea2dFigures[k].getAttribute(
+            'data-width-initiale'
+          )
+          const initialHeight = mathalea2dFigures[k].getAttribute(
+            'data-height-initiale'
+          )
           mathalea2dFigures[k].setAttribute('width', initialWidth ?? '0')
           mathalea2dFigures[k].setAttribute('height', initialHeight ?? '0')
           // les éléments Katex des figures SVG
-          if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement != null) {
-            const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
+          if (
+            mathalea2dFigures[k] != null &&
+            mathalea2dFigures[k].parentElement != null
+          ) {
+            const eltsInFigures =
+              mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>(
+                'div.divLatex'
+              ) || []
             for (const elt of eltsInFigures) {
               const e = elt
               e.style.setProperty('top', e.dataset.top + 'px')
@@ -438,23 +502,50 @@
           }
         }
         const consigneDiv = mathalea2dFigures[k].closest('[id^="consigne"]')
-        if (consigneDiv && mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth) {
-          const coef = (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
+        if (
+          consigneDiv &&
+          mathalea2dFigures[k].clientWidth > consigneDiv.clientWidth
+        ) {
+          const coef =
+            (consigneDiv.clientWidth * 0.95) / mathalea2dFigures[k].clientWidth
           const width = mathalea2dFigures[k].getAttribute('width')
           const height = mathalea2dFigures[k].getAttribute('height')
-          if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) mathalea2dFigures[k].dataset.widthInitiale = width
-          if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) mathalea2dFigures[k].dataset.heightInitiale = height
-          mathalea2dFigures[k].setAttribute('height', (Number(mathalea2dFigures[k].dataset.heightInitiale) * coef).toString())
-          mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale)  * coef).toString())
+          if (!mathalea2dFigures[k].dataset.widthInitiale && width != null) {
+            mathalea2dFigures[k].dataset.widthInitiale = width
+          }
+          if (!mathalea2dFigures[k].dataset.heightInitiale && height != null) {
+            mathalea2dFigures[k].dataset.heightInitiale = height
+          }
+          mathalea2dFigures[k].setAttribute(
+            'height',
+            (
+              Number(mathalea2dFigures[k].dataset.heightInitiale) * coef
+            ).toString()
+          )
+          mathalea2dFigures[k].setAttribute(
+            'width',
+            (
+              Number(mathalea2dFigures[k].dataset.widthInitiale) * coef
+            ).toString()
+          )
 
-          if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) {
-            const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
+          if (
+            mathalea2dFigures[k] != null &&
+            mathalea2dFigures[k].parentElement !== null
+          ) {
+            const eltsInFigures =
+              mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>(
+                'div.divLatex'
+              ) || []
             for (const elt of eltsInFigures) {
               const e = elt
               const initialTop = Number(e.dataset.top) ?? 0
               const initialLeft = Number(e.dataset.left) ?? 0
               e.style.setProperty('top', (initialTop * coef).toString() + 'px')
-              e.style.setProperty('left', (initialLeft * coef).toString() + 'px')
+              e.style.setProperty(
+                'left',
+                (initialLeft * coef).toString() + 'px'
+              )
             }
           }
         }
@@ -579,7 +670,6 @@
                 ? 'list-none'
                 : 'list-decimal'} w-full list-inside mb-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:marker:text-coopmathsdark-struct marker:font-bold"
             >
-
               {#each exercise.listeQuestions as item, i (i + '_' + (exercise.seed || ''))}
                 <div
                   style="break-inside:avoid"
@@ -592,7 +682,6 @@
                   >
                     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                     {@html mathaleaFormatExercice(item)}
-
                   </li>
                   {#if isCorrectionVisible}
                     <div

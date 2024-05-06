@@ -5,6 +5,7 @@
     globalOptions
   } from '../../../lib/stores/generalStore'
   import { canOptions } from '../../../lib/stores/canStore'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
   import {
     mathaleaGenerateSeed,
     mathaleaUpdateUrlFromExercicesParams
@@ -105,7 +106,7 @@
     ? 'dark'
     : ''} mb-auto flex flex-col min-h-screen justify-start bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
-  <NavBar subtitle="La page Élève" subtitleType="export" />
+  <NavBar subtitle="La page Élève" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale}/>
   <div
     class="flex flex-col h-full w-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
   >

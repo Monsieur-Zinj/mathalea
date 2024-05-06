@@ -1,4 +1,5 @@
 import type { CanOptions, CanSolutionsMode } from './types/can'
+import type { Language } from './types/languages'
 
 /*
 Code inspiré de Sylvain, merci!
@@ -53,6 +54,7 @@ export interface InterfaceGlobalOptions {
   canSA?: boolean
   canSM?: CanSolutionsMode
   canI?: boolean
+  lang: Language
 }
 
 export interface InterfaceParams extends Partial<Record<string, string| number>> {

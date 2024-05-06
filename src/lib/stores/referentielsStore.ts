@@ -1,5 +1,6 @@
 // Ce store est dédié au stockage des référentiels et des outils de leur évolution
 import referentielAlea from '../../json/referentiel2022FR.json'
+import referentielAleaCH from '../../json/referentiel2022CH.json'
 import referentielExams from '../../json/referentielStatic.json'
 import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
@@ -23,8 +24,16 @@ import {
   sortArrayOfResourcesBasedOnYearAndMonth
 } from '../components/sorting'
 const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
-const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
+
+/**
+ * Constitutions des référentiels français
+ */
+// on trie les examens dans l'ordre inverse des années/mois
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
+let examens = getAllEndings(examsReferentiel)
+examens = [...sortArrayOfResourcesBasedOnYearAndMonth(examens, 'desc')]
+const orderedExamsReferentiel = buildReferentiel(examens)
+const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
 const biblioReferentiel: JSONReferentielObject = { ...referentielBibliotheque }
@@ -34,16 +43,12 @@ const newExercises: ResourceAndItsPath[] = getRecentExercices(baseReferentiel)
 const newExercisesReferentiel: JSONReferentielObject = {}
 for (const item of newExercises) {
   newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] =
-    { ...item.resource }
+  { ...item.resource }
 }
 const baseAndNewsReferentiel: JSONReferentielObject = {
   Nouveautés: { ...newExercisesReferentiel },
   ...baseReferentiel
 }
-// on trie les examens dans l'ordre inverse des années/mois
-let examens = getAllEndings(examsReferentiel)
-examens = [...sortArrayOfResourcesBasedOnYearAndMonth(examens, 'desc')]
-const orderedExamsReferentiel = buildReferentiel(examens)
 // on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
 let exercices = getAllEndings(baseAndNewsReferentiel)
 exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
@@ -95,8 +100,60 @@ for (const ref of allReferentielsInMenus) {
     activatedReferentielsInMenu.push(ref)
   }
 }
-
 export const originalReferentiels = [...activatedReferentielsInMenu]
+
+/**
+ * Constitutions des référentiels suisses
+ */
+const baseReferentielCH: JSONReferentielObject = { ...referentielAleaCH }
+const newExercisesCH: ResourceAndItsPath[] = getRecentExercices(baseReferentielCH)
+const newExercisesReferentielCH: JSONReferentielObject = {}
+for (const item of newExercisesCH) {
+  newExercisesReferentielCH[item.pathToResource[item.pathToResource.length - 1]] =
+    { ...item.resource }
+}
+const baseAndNewsReferentielCH: JSONReferentielObject = {
+  Nouveautés: { ...newExercisesReferentielCH },
+  ...baseReferentielCH
+}
+// on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
+let exercicesCH = getAllEndings(baseAndNewsReferentielCH)
+exercicesCH = [...sortArrayOfResourcesBasedOnProp(exercicesCH, 'id')]
+const aleaReferentielCH = buildReferentiel(exercicesCH)
+const allReferentielsInMenusCH: ReferentielInMenu[] = [
+  {
+    title: 'Exercices aléatoires',
+    name: 'aleatoires',
+    searchable: true,
+    referentiel: aleaReferentielCH
+  },
+  {
+    title: 'Géométrie dynamique',
+    name: 'geometrieDynamique',
+    searchable: false,
+    referentiel: geometrieDynamiqueReferentiel
+  },
+  {
+    title: 'Outils',
+    name: 'outils',
+    searchable: false,
+    referentiel: referentielOutils
+  },
+  {
+    title: 'Vos ressources',
+    name: 'ressources',
+    searchable: false,
+    referentiel: referentielHtml
+  }
+]
+const activatedReferentielsInMenuCH: ReferentielInMenu[] = []
+for (const ref of allReferentielsInMenusCH) {
+  if (activations[ref.name]) {
+    activatedReferentielsInMenuCH.push(ref)
+  }
+}
+export const originalReferentielsCH = [...activatedReferentielsInMenuCH]
+
 /**
  * Fabrique une liste de _vraies_ copies d'objets représentant les référentiels dans le menu.
  * Ces objet sont passés en paramètres sous la forme d'un tableau.

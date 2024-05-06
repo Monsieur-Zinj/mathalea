@@ -14,13 +14,18 @@
   import SideMenuApps from './SideMenuApps.svelte'
   import {
     originalReferentiels,
-    deepReferentielInMenuCopy
+    originalReferentielsCH,
+    deepReferentielInMenuCopy,
+    referentiels
   } from '../../../../../lib/stores/referentielsStore'
   import codeToLevelList from '../../../../../json/codeToLevelList.json'
-  import { onMount } from 'svelte'
+  import { onDestroy, onMount } from 'svelte'
   import { applyFilters } from './filtersStore'
+  import { referentielLocale } from '../../../../../lib/stores/languagesStore'
 
   import type { SvelteComponent } from 'svelte'
+  import type { Language } from '../../../../../lib/types/languages'
+  import { get } from 'svelte/store'
   interface SearchBlockType extends SvelteComponent {
     triggerUpdateFromSearchBlock: () => void
   }
@@ -30,15 +35,52 @@
 
   let searchBlock: SearchBlockType
 
-  let referentiels: ReferentielInMenu[] = []
+  let referentielsForMenu: ReferentielInMenu[] = []
+  /**
+   * En fonction de la locale, on choisit le bon référentiel (français par défaut)
+   * @param {Language} value
+   */
+  const setCurrentReferentiels = (value: Language) => {
+    let current: ReferentielInMenu[]
+    switch (value) {
+      case 'fr-FR':
+        current = originalReferentiels
+        break
+      case 'fr-CH':
+        current = originalReferentielsCH
+        break
+      default:
+        current = originalReferentiels
+        break
+    }
+    return current
+  }
+  let currentReferentiels: ReferentielInMenu[] = setCurrentReferentiels(get(referentielLocale))
+
+  /**
+   * Souscription aux changements de langues.
+   * À chaque changement, on doit :
+   * -> changement du référentiel courant (celui qui sert de référence)
+   * -> changement du référentiel dans le store
+   * -> mise à jour des entrées du menu
+   */
+  const unsubscribeToReferentielLocale = referentielLocale.subscribe((value) => {
+    currentReferentiels = setCurrentReferentiels(value)
+    referentiels.set(deepReferentielInMenuCopy(currentReferentiels))
+    updateRepositories()
+  })
+
   onMount(() => {
     updateRepositories()
+  })
+  onDestroy(() => {
+    unsubscribeToReferentielLocale()
   })
 
   function updateRepositories () {
     const updatedRepositories: ReferentielInMenu[] = []
     const repositoriesInMenu: ReferentielInMenu[] = deepReferentielInMenuCopy(
-      originalReferentiels
+      currentReferentiels
     ).filter((e) => {
       return !excludedReferentiels.includes(e.name)
     })
@@ -56,7 +98,7 @@
         updatedRepositories.push(repositoryInMenu)
       }
     }
-    referentiels = updatedRepositories
+    referentielsForMenu = updatedRepositories
   }
 
   function buildFilteredRepository (repositoryInMenu: ReferentielInMenu) {
@@ -96,7 +138,7 @@
   <SearchBlock
     bind:this={searchBlock}
     class="w-full flex flex-col justify-start pt-0 sm:"
-    resourcesSet={buildResourcesSet(referentiels)}
+    resourcesSet={buildResourcesSet(referentielsForMenu)}
     on:filters-change={() => {
       updateRepositories()
       searchBlock.triggerUpdateFromSearchBlock()
@@ -105,7 +147,7 @@
   />
   <div class="mt-4 w-full">
     <!-- Affichage de tous les référentiels -->
-    {#each referentiels as item, i}
+    {#each referentielsForMenu as item, i}
       <ReferentielNode
         bind:subset={item.referentiel}
         indexBase={i + 1}

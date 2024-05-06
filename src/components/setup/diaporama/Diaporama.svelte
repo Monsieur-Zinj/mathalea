@@ -36,7 +36,8 @@
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import FullscreenButton from '../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
   import { buildMathAleaURL } from '../../../lib/components/urls'
-  import { updateFigures } from '../../../lib/components/sizeTools';
+  import { updateFigures } from '../../../lib/components/sizeTools'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
@@ -101,7 +102,7 @@
 
   onDestroy(() => {
     document.removeEventListener('updateAsyncEx', forceUpdate)
-    // arrete le timer 
+    // arrete le timer
     pause()
   })
 
@@ -109,7 +110,7 @@
     updateExercices()
   }
 
-  afterUpdate(()=>{
+  afterUpdate(() => {
   })
 
   onMount(async () => {
@@ -506,7 +507,7 @@
       // deuxième passe : on applique le zoom minimum des différentes vues
       // troisième passe : on applique le zoom de l'utilisateur
       const zoomMin = Math.min(...zoomByVues)
-      if (force) { kk =2; }
+      if (force) { kk = 2 }
       for (let i = 0; i < nbOfVues; i++) {
         if (typeof divQuestion[i] !== 'undefined') {
           mathaleaRenderDiv(divQuestion[i], -1)
@@ -538,14 +539,14 @@
             questionWidth,
             consigneWidth,
             correctionWidth: number
-          
-          let zoom = kk===0 ? 10 : kk ===1 ? zoomMin : userZoom * currentZoom
-          if (kk === 1 ) currentZoom = zoomMin
+
+          let zoom = kk === 0 ? 10 : kk === 1 ? zoomMin : userZoom * currentZoom
+          if (kk === 1) currentZoom = zoomMin
           const svgContainers = textcellDiv.getElementsByClassName('svgContainer')
           const textcellWidth = textcellDiv.clientWidth
           const textcellHeight = textcellDiv.clientHeight
           do {
-             console.log('zoom:' + zoom)
+            console.log('zoom:' + zoom)
             if (svgContainers.length > 0) {
               for (const svgContainer of svgContainers) {
                 svgContainer.classList.add('flex')
@@ -583,28 +584,26 @@
             if ((questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
                 correctionWidth > textcellWidth ||
-                questionHeight + consigneHeight + correctionHeight > textcellHeight)){
-                  zoom -= (zoom > 5 ? 0.5 : 0.2)
-                }
+                questionHeight + consigneHeight + correctionHeight > textcellHeight)) {
+              zoom -= (zoom > 5 ? 0.5 : 0.2)
+            }
 
-            console.log('questionWidth:'+questionWidth)
-            console.log('questionHeight:'+questionHeight)
-            console.log('consigneWidth:'+consigneWidth)
-            console.log('consigneHeight:'+consigneHeight)
-            console.log('correctionWidth:'+correctionWidth)
-            console.log('consigneHeight:'+consigneHeight)
-
+            console.log('questionWidth:' + questionWidth)
+            console.log('questionHeight:' + questionHeight)
+            console.log('consigneWidth:' + consigneWidth)
+            console.log('consigneHeight:' + consigneHeight)
+            console.log('correctionWidth:' + correctionWidth)
+            console.log('consigneHeight:' + consigneHeight)
           } while (zoom > 0.6 && kk === 0 &&
               (questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
                 correctionWidth > textcellWidth ||
                 questionHeight + consigneHeight + correctionHeight > textcellHeight)
-            )
-            zoomByVues[i] = zoom
+          )
+          zoomByVues[i] = zoom
         }
       }
     }
-    
   }
 
   function zoomPlus () {
@@ -818,7 +817,7 @@
           />
         </button>
       </div> -->
-      <NavBar subtitle="Réglages du diaporama" subtitleType="export" />
+      <NavBar subtitle="Réglages du diaporama" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
       <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
