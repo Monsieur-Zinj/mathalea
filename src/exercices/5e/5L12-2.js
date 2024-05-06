@@ -13,7 +13,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
-export const titre = 'Réduire une expression littérale (somme et produit)'
+export const titre = 'Réduire et simplifier une expression littérale (somme et produit)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -53,7 +53,7 @@ export default function ReduireUneExpressionLitterale () {
   this.sup3 = '6-7-8-9' // Type de question
 
   this.nouvelleVersion = function () {
-    this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante' : 'Réduire les expressions suivantes'
+    this.consigne = this.nbQuestions === 1 ? 'Réduire et simplifier l\'expression suivante' : 'Réduire et simplifier les expressions suivantes'
     this.consigne += ', si c\'est possible.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -130,8 +130,13 @@ export default function ReduireUneExpressionLitterale () {
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 2)}${inc}`
           break
       }
+      /* EE : Pour tests identiques seulement
+      texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(3, 1)}${'y'}\\times${texNombre(2, 2)}$`
+      reponse = `${texNombre(2 * 3, 3)}${'y'}`
+      texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(3, 1)}${'y'}\\times${texNombre(2, 2)}`
+      */
       texteCorr += `=${miseEnEvidence(reponse)}$`
-      handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: expressionDeveloppeeEtReduiteCompare } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '= ' })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
