@@ -28,11 +28,10 @@ export const amcReady = true
  * @author Matthieu DEVILLERS refactorisé par Jean-Claude Lhote
  */
 export const uuid = '1f3da'
-/* export const refs = [
-  {'fr-fr': ['2N41-9']},
-  {'fr-ch': []}
-]
- */
+export const refs = {
+  'fr-fr': ['2N41-9b'],
+  'fr-ch': []
+}
 
 export default function DevelopperReduireExprComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()

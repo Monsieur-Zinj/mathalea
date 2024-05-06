@@ -448,7 +448,7 @@ export function texteParPosition (texte:string, x:number, y:number, orientation:
   if (ancrageDeRotation === 'middle') ancrageDeRotation = 'milieu'
   if (!['milieu', 'droite', 'gauche'].includes(ancrageDeRotation)) ancrageDeRotation = 'milieu'
   if (texte[0] === '$') {
-    return latexParCoordonnees(texte.substring(1, texte.length - 1), x, y, color, 50, 20, 'white', 8 * scale)
+    return latex2d(texte.substring(1, texte.length - 1), x, y, { color, backgroundColor: 'white', letterSize: 'tiny' })
   } else {
     return new TexteParPoint(texte, point(x, y, ''), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
   }
@@ -781,11 +781,11 @@ export class Latex2d extends ObjetMathalea2D {
  * @param options.opacity l'opacité du texte // @fixme non encore implémenté
  *
  */
-export function latex2d (latex: string, x: number, y: number, options: {color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number}) {
-  const color = options.color ?? 'black'
-  const backgroundColor = options.backgroundColor == null || options.backgroundColor === '' || options.backgroundColor === 'none' ? 'none' : options.backgroundColor
-  const letterSize = options.letterSize ?? 'normalsize'
-  const orientation = options.orientation ?? 0
-  const opacity = options.opacity ?? 1
+export function latex2d (latex: string, x: number, y: number, { color, backgroundColor, letterSize, orientation, opacity }:{ color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number }) {
+  color = color ?? 'black'
+  backgroundColor = backgroundColor == null || backgroundColor === '' || backgroundColor === 'none' ? 'none' : backgroundColor
+  letterSize = letterSize ?? 'normalsize'
+  orientation = orientation ?? 0
+  opacity = opacity ?? 1
   return new Latex2d(latex, x, y, { color, backgroundColor, letterSize, orientation, opacity })
 }
