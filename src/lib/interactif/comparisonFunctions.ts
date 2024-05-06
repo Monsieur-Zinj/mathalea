@@ -63,9 +63,9 @@ function cleanDoubleSpaces (str: string): string {
  * @param {string} str
  */
 function cleanParenthses (str: string): string {
-  return str.replaceAll(/\\lparen(\+?-?\d+,?\.?\d*)\\rparen/g, '$1')
-    .replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '$1')
-    .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '$1')
+  return str.replaceAll(/\\lparen(\+?-?\d+,?\.?\d*)\\rparen/g, '($1)')
+    .replaceAll(/\\left\((\+?-?\d+)\\right\)/g, '($1)')
+    .replaceAll(/\\lparen(\+?-?\d+)\\rparen/g, '($1)')
     .replaceAll('\\lparen', '(')
     .replaceAll('\\rparen', ')')
     .replaceAll('\\left\\lbrack', '[')
@@ -411,7 +411,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
  * @author Eric Elter (aidé par ArnoG)
  * @return BoxedExpression
  */
-export function customCanonical (expr:BoxedExpression, { fractionIrreductibleSeulement = false, operationSeulementEtNonCalcul = false } = {}):BoxedExpression {
+export function customCanonical (expr:BoxedExpression, { expressionsForcementReduites = true, fractionIrreductibleSeulement = false, operationSeulementEtNonCalcul = false } = {}):BoxedExpression {
   if (!operationSeulementEtNonCalcul) { // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
     if (typeof expr.value === 'number') {
       if ((expr.head === 'Divide' || expr.head === 'Rational') && fractionIrreductibleSeulement) {
@@ -419,7 +419,8 @@ export function customCanonical (expr:BoxedExpression, { fractionIrreductibleSeu
       }
       return expr.engine.number(expr.value)
     }
-  } else { // Ci-dessous, on accepte que l'enchaînement proposé et pas le résultat. Ici, si 4+2 est attendu, alors4+2!=6 et 4+2!=5+1
+  } else if (expressionsForcementReduites) { // Ici, le traitement n'est fait que pour des expressions forcément réduites
+    // Ci-dessous, on accepte que l'enchaînement proposé et pas le résultat. Ici, si 4+2 est attendu, alors4+2!=6 et 4+2!=5+1
     if (
       (expr.head === 'Divide' || expr.head === 'Rational') &&
     typeof expr.value === 'number'
@@ -436,7 +437,7 @@ export function customCanonical (expr:BoxedExpression, { fractionIrreductibleSeu
   if (expr.ops) { // Pour ne pas accepter les +0 ou les \\times1
     return expr.engine.box([expr.head,
       ...expr.ops.map((x) =>
-        customCanonical(x, { fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
+        customCanonical(x, { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
       )], { canonical: ['InvisibleOperator', 'Order'] })
   }
   return expr.canonical
@@ -458,6 +459,7 @@ export function customCanonical (expr:BoxedExpression, { fractionIrreductibleSeu
  */
 export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   {
+    expressionsForcementReduites = true,
     avecSigneMultiplier = true,
     avecFractions = true,
     fractionIrreductibleSeulement = false,
@@ -470,9 +472,8 @@ export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:
   const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
   input = clean(input)
   goodAnswer = clean(goodAnswer)
-  const saisieParsed = customCanonical(engine.parse(input, { canonical: false }), { fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
-  const reponseParsed = customCanonical(engine.parse(goodAnswer, { canonical: false }), { fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
-
+  const saisieParsed = customCanonical(engine.parse(input, { canonical: false }), { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
+  const reponseParsed = customCanonical(engine.parse(goodAnswer, { canonical: false }), { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
   return { isOk: saisieParsed.isSame(reponseParsed) }
 }
 
@@ -484,7 +485,8 @@ export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:
  * @return ResultType
  */
 export function expressionDeveloppeeEtNonReduiteCompare (input: string, goodAnswer:string) : ResultType {
-  goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
+  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, { expressionsForcementReduites: false })
+  /* goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
   const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
   input = clean(input)
   goodAnswer = clean(goodAnswer)
@@ -495,7 +497,7 @@ export function expressionDeveloppeeEtNonReduiteCompare (input: string, goodAnsw
     window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
     return { isOk: false }
   }
-  return { isOk: saisieParsed.isEqual(reponseParsed) }
+  return { isOk: saisieParsed.isEqual(reponseParsed) } */
 }
 
 // Fin du travail de EE
