@@ -11,7 +11,9 @@
   import codeToLevelList from '../../../../../../json/codeToLevelList.json'
   import { toMap } from '../../../../../../lib/components/toMap'
   import themesList from '../../../../../../json/levelsThemesList.json'
+  import themesListCH from '../../../../../../json/levelsThemesListCH.json'
   const themes = toMap(themesList)
+  const themesCH = toMap(themesListCH)
   import ReferentielEnding from './ReferentielEnding.svelte'
   import StaticEnding from './StaticEnding.svelte'
   import { onMount } from 'svelte'
@@ -43,6 +45,8 @@
   function themeTitle (themeCode: string) {
     if (themes.has(themeCode)) {
       return [' : ', themes.get(themeCode).get('titre')].join('')
+    } else if (themesCH.has(themeCode)) {
+      return [' : ', themesCH.get(themeCode).get('titre')].join('')
     } else {
       return ''
     }

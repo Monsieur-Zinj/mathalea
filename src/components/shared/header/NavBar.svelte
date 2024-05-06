@@ -1,12 +1,21 @@
 <script lang="ts">
-  import { globalOptions, darkMode, callerComponent } from '../../../lib/stores/generalStore'
+  import {
+    globalOptions,
+    darkMode,
+    callerComponent
+  } from '../../../lib/stores/generalStore'
   import Button from '../forms/Button.svelte'
   import { mathaleaHandleComponentChange } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
+  import { VUES_WITH_LANG_STATUS_ONLY, type Language } from '../../../lib/types/languages'
+  import LanguageStatus from '../ui/LanguageStatus.svelte'
+  import LanguageDropdown from '../ui/LanguageDropdown.svelte'
 
   export let title: string = 'MathALÉA'
   export let subtitle: string = ''
   export let subtitleType: 'export' | 'design' = 'export'
+  export let locale: Language
+  export let handleLanguage: (lang: string) => void
 
   function goToMathalea (paramV: string | undefined) {
     if (paramV !== undefined) {
@@ -72,6 +81,11 @@
       <NavBarSubtitle {subtitle} type={subtitleType} />
     </div>
     <div class="flex flex-row space-x-4 px-0 pt-2 md:px-4">
+      {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
+        <LanguageStatus {locale} />
+        {:else}
+        <LanguageDropdown {locale} {handleLanguage} />
+        {/if}
       <label
         class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
       >

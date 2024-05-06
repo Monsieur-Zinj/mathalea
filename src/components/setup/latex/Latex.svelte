@@ -35,6 +35,7 @@ import {
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   /**
    * Toutes les variables configurables par l'interface WEB
@@ -288,7 +289,7 @@ import {
     ? 'dark'
     : ''}"
 >
-  <NavBar subtitle="LaTeX" subtitleType="export" />
+  <NavBar subtitle="LaTeX" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
 
   <section
     class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"

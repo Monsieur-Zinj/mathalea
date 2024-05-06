@@ -19,6 +19,7 @@
   import Button from '../../shared/forms/Button.svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import { onMount } from 'svelte'
+  import { referentielLocale } from '../../../lib/stores/languagesStore.js'
 
   const isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
@@ -190,7 +191,7 @@
     ? 'dark'
     : ''}"
 >
-  <NavBar subtitle="AMC" subtitleType="export" />
+  <NavBar subtitle="AMC" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
 
   <section class="px-10 py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <div

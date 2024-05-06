@@ -4,6 +4,7 @@
   import NavBar from '../../shared/header/NavBar.svelte'
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
   import type TypeExercice from '../../../exercices/Exercice'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   type TypeNote = {
     deckName: string
@@ -142,7 +143,7 @@
     </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
-  <NavBar subtitle="Anki" subtitleType="export" />
+  <NavBar subtitle="Anki" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
 
   <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
     <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>

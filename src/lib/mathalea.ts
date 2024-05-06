@@ -25,6 +25,7 @@ import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
+import { localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
 
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
@@ -380,6 +381,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
     if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
   }
+  updateURLFromReferentielLocale(url)
   updateGlobalOptionsInURL(url)
 }
 
@@ -390,6 +392,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
  * @returns vue
  */
 export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.location.href): InterfaceGlobalOptions {
+  const currentRefToUuid = localisedIDToUuid[get(referentielLocale)]
   let urlNeedToBeFreezed = false
   let v: VueType | undefined
   let z = '1'
@@ -434,8 +437,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (entry[0] === 'uuid') {
       indiceExercice++
       const uuid = entry[1]
-      const id = (Object.keys(refToUuid) as (keyof typeof refToUuid)[]).find((key) => {
-        return refToUuid[key] === uuid
+      const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
+        return currentRefToUuid[key] === uuid
       })
       if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
       newListeExercice[indiceExercice].uuid = uuid // string
@@ -445,7 +448,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       indiceExercice++
       const id = entry[1]
-      const uuid = refToUuid[id as keyof typeof refToUuid]
+      const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
       if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
     } else if (entry[0] === 'n') {
       newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
