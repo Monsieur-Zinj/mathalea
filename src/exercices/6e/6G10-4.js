@@ -9,7 +9,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
@@ -129,9 +129,10 @@ export default function VocabulaireDuCercle () {
       const DE = segment(D, E)
       const polygon = polygoneAvecNom(A, B, C, D, E)
       objetsEnonce.push(leCercle, labelPoint(O), tracePoint(O), OA, BC, DE, polygon[1])
-      const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1, optionsTikz: 'baseline=(current bounding box.north)' }
+      // const params = { xmin: -4, ymin: -4, xmax: 4, ymax: 4, pixelsParCm: 20, scale: 1, optionsTikz: 'baseline=(current bounding box.north)' }
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
-      const figure = mathalea2d(params, objetsEnonce)
+      const figure = mathalea2d(Object.assign({ }, fixeBordures(objetsEnonce)), objetsEnonce)
+      // const figure = mathalea2d(params, objetsEnonce)
       texte += figure + '<br>'
       // On ajoute au texte de la correction, la figure de la correction
       texteCorr += texte
