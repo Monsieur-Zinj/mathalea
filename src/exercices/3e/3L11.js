@@ -10,7 +10,8 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -65,9 +66,6 @@ export default function ExerciceDevelopper () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    this.sup = parseInt(this.sup) // difficulté
-    this.sup2 = parseInt(this.sup2) // consigne
-    this.sup3 = parseInt(this.sup3) // forme de développement
 
     this.consigne = this.sup2 === 1 ? 'Développer' : 'Développer et réduire'
     if (this.nbQuestions > 1 && !context.isDiaporama) this.consigne += ' les expressions suivantes'
@@ -167,9 +165,9 @@ export default function ExerciceDevelopper () {
           break
       }
       if (this.sup2 === 1) {
-        setReponse(this, i, reponse)
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       } else {
-        setReponse(this, i, reponse, { formatInteractif: 'formeDeveloppee' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
       }
       if (!context.isAmc) {
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''

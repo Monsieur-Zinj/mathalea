@@ -10,7 +10,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une fonction affine'
@@ -114,11 +114,11 @@ export default function LectureExpressionFonctionsAffines () {
       if (this.lineaire || listeDroites[i][0] === 0) {
         explain += `La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`
         this.listeCorrections.push(`La droite $(d_${i + 1})$ passe par l'origine. Elle représente donc la fonction linéaire $f_${i + 1}(x)=ax$ dont il faut déterminer le coefficient a.<br>$(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1])}$ c'est-à-dire $a\\times 1=${texNombre(listeDroites[i][1])}$ donc $a=${texNombre(listeDroites[i][1])}\\div 1$ d'où $a=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], 0)}$.`)
-        handleAnswers(this, i, { reponse: { value: { fonction: reduireAxPlusB(listeDroites[i][1], 0, 'x'), variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: reduireAxPlusB(listeDroites[i][1], 0, 'x'), options: { variable: 'x' }, compare: functionCompare } })
       } else {
         explain += `La droite $d_${i + 1}$ passe par le point de coordonnées $(0;${texNombre(listeDroites[i][0])})$. Elle représente donc la fonction affine $f_${i + 1}(x)=ax+b$ dont la constante $b$ est égale à $f_${i + 1}(0)=a\\times 0+b$, c'est-à-dire  $${texNombre(listeDroites[i][0])}=0+b$ donc $b=${texNombre(listeDroites[i][0])}$.<br> De plus $(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1] + listeDroites[i][0])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1] + listeDroites[i][0])}=a\\times 1${ecritureAlgebrique(listeDroites[i][0])}=a${ecritureAlgebrique(listeDroites[i][0])}$ donc $a=${texNombre(listeDroites[i][1] + listeDroites[i][0])}${ecritureAlgebrique(-listeDroites[i][0])}=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], listeDroites[i][0])}$.`
         this.listeCorrections.push(`La droite $d_${i + 1}$ passe par le point de coordonnées $(0;${texNombre(listeDroites[i][0])})$. Elle représente donc la fonction affine $f_${i + 1}(x)=ax+b$ dont la constante $b$ est égale à $f_${i + 1}(0)=a\\times 0+b$, c'est-à-dire  $${texNombre(listeDroites[i][0])}=0+b$ donc $b=${texNombre(listeDroites[i][0])}$.<br> De plus $(d_${i + 1})$ passe par le point de coordonnées $(1;${texNombre(listeDroites[i][1] + listeDroites[i][0])})$ donc $f_${i + 1}(1)=${texNombre(listeDroites[i][1] + listeDroites[i][0])}=a\\times 1${ecritureAlgebrique(listeDroites[i][0])}=a${ecritureAlgebrique(listeDroites[i][0])}$ donc $a=${texNombre(listeDroites[i][1] + listeDroites[i][0])}${ecritureAlgebrique(-listeDroites[i][0])}=${texNombre(listeDroites[i][1])}$. Ainsi $f_${i + 1}(x)=${reduireAxPlusB(listeDroites[i][1], listeDroites[i][0])}$.`)
-        handleAnswers(this, i, { reponse: { value: { fonction: reduireAxPlusB(listeDroites[i][1], listeDroites[i][0], 'x'), variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: reduireAxPlusB(listeDroites[i][1], listeDroites[i][0], 'x'), options: { variable: 'x' }, compare: functionCompare } })
       }
     }
     listeQuestionsToContenu(this)

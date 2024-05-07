@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1 } from '../../../lib/outils/ecritures'
-import { developmentCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtNonReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer une fonction dérivée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export default class deriveeSecondDegre extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
-    this.compare = developmentCompare
+    this.compare = expressionDeveloppeeEtNonReduiteCompare
   }
 
   nouvelleVersion () {

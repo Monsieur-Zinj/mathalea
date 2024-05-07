@@ -36,7 +36,7 @@ const basicKeys = {
   SQRT: {
     // eslint-disable-next-line no-useless-escape
     display: '$\\sqrt{\\square}$',
-    insert: '\\sqrt{#@}'
+    insert: '\\sqrt{#1}'
   },
   SQ: {
     display: '$\\square^2$',

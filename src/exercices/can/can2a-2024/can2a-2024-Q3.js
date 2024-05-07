@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { expandedAndReductedCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Développer une expression'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'mathlive'
-    this.compare = expandedAndReductedCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {
@@ -35,7 +35,7 @@ export default class NomExercice extends Exercice {
       this.correction += '<br>Le terme en $x^2$ vient de $x\\times x=x^2$.'
       this.correction += '<br>Le terme en $x$ vient de la somme de $7 \\times x$ et de $4 \\times x$.'
       this.correction += '<br>Le terme constant vient de $7\\times 4=28$.'
-      this.reponse = { reponse: { value: { expr: reduirePolynomeDegre3(0, 1, 11, 28, 'x'), strict: true }, compare: expandedAndReductedCompare } }
+      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, 1, 11, 28, 'x'), compare: expressionDeveloppeeEtReduiteCompare } }
     } else {
       const a = randint(1, 2)
       const b = randint(-3, 3, 0)
@@ -49,7 +49,7 @@ export default class NomExercice extends Exercice {
       this.correction += `<br>Le terme en $x^2$ vient de $${rienSi1(a)}x\\times ${ecritureParentheseSiNegatif(c)}x=${rienSi1(a * c)}x^2$.`
       this.correction += `<br>Le terme en $x$ vient de la somme de $${rienSi1(a)}x \\times ${ecritureParentheseSiNegatif(d)}$ et de $${b} \\times ${ecritureParentheseSiNegatif(c)}x$.`
       this.correction += `<br>Le terme constant vient de $${b}\\times ${ecritureParentheseSiNegatif(d)}= ${b * d}$.`
-      this.reponse = { reponse: { value: { expr: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x'), strict: true }, compare: expandedAndReductedCompare } }
+      this.reponse = { reponse: { value: reduirePolynomeDegre3(0, a * c, b * c + a * d, b * d, 'x'), compare: expressionDeveloppeeEtReduiteCompare } }
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''

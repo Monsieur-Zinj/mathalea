@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte'
+  import { onMount, tick, onDestroy, afterUpdate } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaHandleComponentChange,
@@ -35,17 +35,19 @@
   import type { InterfaceParams, NumberRange } from '../../../lib/types'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import FullscreenButton from '../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
+  import { buildMathAleaURL } from '../../../lib/components/urls'
+  import { updateFigures } from '../../../lib/components/sizeTools'
+  import { referentielLocale } from '../../../lib/stores/languagesStore'
 
   const divQuestion: HTMLDivElement[] = []
   let divTableDurationsQuestions: HTMLElement
   let stepsUl: HTMLUListElement
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
-  const isFullScreen = false
   let isPause = false
   let isCorrectionVisible = false
   let isQuestionVisible = true
   let isSameDurationForAll = false
-  let userZoom = 0.85
+  let userZoom = 1
   let currentZoom = userZoom
   let exercices: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -98,8 +100,22 @@
     isSameDurationForAll = true
   }
 
+  onDestroy(() => {
+    document.removeEventListener('updateAsyncEx', forceUpdate)
+    // arrete le timer
+    pause()
+  })
+
+  async function forceUpdate () {
+    updateExercices()
+  }
+
+  afterUpdate(() => {
+  })
+
   onMount(async () => {
     context.vue = 'diap'
+    document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
@@ -484,12 +500,14 @@
    * </ul>
    * @author sylvain
    */
-  async function setSize () {
+  async function setSize (force : boolean = false) {
     const zoomByVues = Array.apply(null, Array(nbOfVues)).map(Number.prototype.valueOf, 0)
-    for (let kk = 0; kk < 2; kk++) {
+    for (let kk = 0; kk < 3; kk++) {
       // premiere passe : on selectionne le meilleur zoom par vue (size)
       // deuxième passe : on applique le zoom minimum des différentes vues
+      // troisième passe : on applique le zoom de l'utilisateur
       const zoomMin = Math.min(...zoomByVues)
+      if (force) { kk = 2 }
       for (let i = 0; i < nbOfVues; i++) {
         if (typeof divQuestion[i] !== 'undefined') {
           mathaleaRenderDiv(divQuestion[i], -1)
@@ -514,82 +532,6 @@
             continue
           }
 
-          const svgDivs = diapocellDiv?.getElementsByClassName('mathalea2d')
-          const textcellWidth = textcellDiv?.clientWidth
-          const textcellHeight = textcellDiv?.clientHeight
-          // Donner la bonne taille aux figures
-          // console.log('zoom:' + currentZoom)
-          if (svgDivs != null && svgDivs.length !== 0 && questionDiv !== null) {
-            const nbOfSVG = svgDivs.length
-            const optimalSVGWidth = textcellWidth * 0.9
-            const coefHeight = isCorrectionVisible ? 0.33 : 0.66
-            const optimalSVGHeigth = textcellHeight * coefHeight
-            for (let k = 0; k < nbOfSVG; k++) {
-              const startingWidth = svgDivs[k].clientWidth
-              const startingHeight = svgDivs[k].clientHeight
-              const rw = optimalSVGWidth / startingWidth
-              const rh = optimalSVGHeigth / startingHeight
-              if (startingHeight * rw < optimalSVGHeigth) {
-                // console.log('rh -> height:' + rh)
-                // console.log('rw -> height (win):' + rw)
-                svgDivs[k].setAttribute(
-                  'width',
-                  (optimalSVGWidth * currentZoom).toString()
-                )
-                svgDivs[k].setAttribute(
-                  'height',
-                  (svgDivs[k].clientHeight * rw * currentZoom).toString()
-                )
-              } else {
-                // console.log('rw -> height:' + rw)
-                // console.log('rh -> height (win):' + rh)
-                svgDivs[k].setAttribute(
-                  'height',
-                  (optimalSVGHeigth * currentZoom).toString()
-                )
-                svgDivs[k].setAttribute(
-                  'width',
-                  (svgDivs[k].clientWidth * rh * currentZoom).toString()
-                )
-              }
-              svgDivs[k].removeAttribute('style')
-
-              const finalWidth = svgDivs[k].clientWidth
-              const finalHeight = svgDivs[k].clientHeight
-              const widthCoef = finalWidth / startingWidth
-              const heightCoef = finalHeight / startingHeight
-              // console.log('rw -> widthCoef:' + widthCoef)
-              // console.log('rh -> heightCoef:' + heightCoef)
-
-              /** on cherche le parent de la figure SVG */
-              const svgContainerDivs = svgDivs[k].closest(
-                '.svgContainer'
-              ) as HTMLDivElement
-              if (svgContainerDivs) {
-                svgContainerDivs.classList.add('flex')
-                svgContainerDivs.classList.add('justify-center')
-                svgContainerDivs.style.display = ''
-
-                /** on ajuste les étiquettes divLatex */
-                const divLatexDivs =
-                  svgContainerDivs.getElementsByClassName('divLatex') ?? []
-                for (let i = 0; i < divLatexDivs.length; i++) {
-                  const divLatex = divLatexDivs[i] as HTMLDivElement
-                  const originalTop = parseFloat(
-                    divLatex.style.top.replace('px', '')
-                  )
-                  const originalLeft = parseFloat(
-                    divLatex.style.left.replace('px', '')
-                  )
-                  divLatex.style.top =
-                    (originalTop * heightCoef).toString() + 'px'
-                  divLatex.style.left =
-                    (originalLeft * widthCoef).toString() + 'px'
-                }
-              }
-            }
-          }
-
           // Donner la bonne taille au texte
           let consigneHeight,
             correctionHeight,
@@ -597,90 +539,83 @@
             questionWidth,
             consigneWidth,
             correctionWidth: number
-          let size = 300
-          for (let i = 0; i < 3; i++) {
-            /* on fait trois boucles par pas de 50, puis 10, puis 2 pour accélerer la recherche */
-            const delta = i === 0 ? 50 : i === 1 ? 10 : 2
-            size = i === 0 ? size : i === 1 ? size + 50 : size + 10
-            size = (kk == 1 ? zoomMin : size)
-            do {
-              // console.log('size:' + size)
-              size = size - delta
-              // console.log('size:' + size)
-              if (questionDiv !== null) {
-                questionDiv.style.fontSize = size + 'px'
-                questionHeight = questionDiv.clientHeight
-                questionWidth =
-                  questionDiv.scrollWidth > questionDiv.clientWidth
-                    ? questionDiv.scrollWidth
-                    : questionDiv.clientWidth
-              } else {
-                questionHeight = 0
-                questionWidth = 0
+
+          let zoom = kk === 0 ? 10 : kk === 1 ? zoomMin : userZoom * currentZoom
+          if (kk === 1) currentZoom = zoomMin
+          const svgContainers = textcellDiv.getElementsByClassName('svgContainer')
+          const textcellWidth = textcellDiv.clientWidth
+          const textcellHeight = textcellDiv.clientHeight
+          do {
+            console.log('zoom:' + zoom)
+            if (svgContainers.length > 0) {
+              for (const svgContainer of svgContainers) {
+                svgContainer.classList.add('flex')
+                svgContainer.classList.add('justify-center')
+                updateFigures(svgContainer as HTMLDivElement, zoom)
               }
-              if (consigneDiv !== null) {
-                consigneDiv.style.fontSize = size + 'px'
-                consigneHeight = consigneDiv.clientHeight
-                consigneWidth = consigneDiv.clientWidth
-              } else {
-                consigneHeight = 0
-                consigneWidth = 0
-              }
-              if (correctionDiv !== null) {
-                correctionDiv.style.fontSize = size + 'px'
-                correctionHeight = correctionDiv.clientHeight
-                correctionWidth = correctionDiv.clientWidth
-              } else {
-                correctionHeight = 0
-                correctionWidth = 0
-              }
-            } while (
-              size > 6 /* pour éviter la boucle infinie */ && kk === 0 &&
+            }
+            if (zoom >= 1) textcellDiv.style.fontSize = `${zoom}rem`
+
+            if (questionDiv !== null) {
+              questionHeight = questionDiv.clientHeight
+              questionWidth =
+                questionDiv.scrollWidth > questionDiv.clientWidth
+                  ? questionDiv.scrollWidth
+                  : questionDiv.clientWidth
+            } else {
+              questionHeight = 0
+              questionWidth = 0
+            }
+            if (consigneDiv !== null) {
+              consigneHeight = consigneDiv.clientHeight
+              consigneWidth = consigneDiv.clientWidth
+            } else {
+              consigneHeight = 0
+              consigneWidth = 0
+            }
+            if (correctionDiv !== null) {
+              correctionHeight = correctionDiv.clientHeight
+              correctionWidth = correctionDiv.clientWidth
+            } else {
+              correctionHeight = 0
+              correctionWidth = 0
+            }
+
+            if ((questionWidth > textcellWidth ||
+                consigneWidth > textcellWidth ||
+                correctionWidth > textcellWidth ||
+                questionHeight + consigneHeight + correctionHeight > textcellHeight)) {
+              zoom -= (zoom > 5 ? 0.5 : 0.2)
+            }
+
+            console.log('questionWidth:' + questionWidth)
+            console.log('questionHeight:' + questionHeight)
+            console.log('consigneWidth:' + consigneWidth)
+            console.log('consigneHeight:' + consigneHeight)
+            console.log('correctionWidth:' + correctionWidth)
+            console.log('consigneHeight:' + consigneHeight)
+          } while (zoom > 0.6 && kk === 0 &&
               (questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
                 correctionWidth > textcellWidth ||
-                questionHeight + consigneHeight + correctionHeight >
-                  textcellHeight)
-            )
-            // console.log('stop size:' + size)
-          }
-
-          if (questionDiv !== null) {
-            questionDiv.style.fontSize = currentZoom * size + 'px'
-          }
-          if (consigneDiv !== null) {
-            consigneDiv.style.fontSize = currentZoom * size + 'px'
-          }
-          if (correctionDiv !== null) {
-            correctionDiv.style.fontSize = currentZoom * size + 'px'
-          }
-          zoomByVues[i] = size
+                questionHeight + consigneHeight + correctionHeight > textcellHeight)
+          )
+          zoomByVues[i] = zoom
         }
       }
     }
   }
 
   function zoomPlus () {
-    // userZoom += 0.25
-    if (userZoom < 1) {
-      userZoom += 0.05
-    } else {
-      userZoom = 1
-    }
-    currentZoom = userZoom
-    setSize()
+    userZoom += 0.05
+    setSize(true)
   }
 
   function zoomMoins () {
-    // if (userZoom > 1) userZoom -= 0.25
-    // else if (userZoom > 0.2) userZoom -= 0.1
-    if (userZoom > 0.1) {
+    if (userZoom > 0.5) {
       userZoom -= 0.05
-    } else {
-      userZoom = 0.1
     }
-    currentZoom = userZoom
-    setSize()
+    setSize(true)
   }
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
@@ -786,19 +721,8 @@
    * Gestion du bouton demandant de changer l'ordre des questions
    */
   function handleRandomQuestionOrder () {
-    // $questionsOrder.isQuestionsShuffled = !$questionsOrder.isQuestionsShuffled // <- inutile avec ButtonToggle
-    // globalOptions.update((l) => {
-    //   console.log('bouton touché, ordre ?')
-    //   console.log($questionsOrder.isQuestionsShuffled)
-    //   l.shuffle = $questionsOrder.isQuestionsShuffled
-    //   return l
-    // })
     $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
-    console.log('avant ordre change :')
-    console.log($questionsOrder.indexes)
     updateExercices()
-    console.log('après ordre change :')
-    console.log($questionsOrder.indexes)
   }
 
   /**
@@ -893,7 +817,7 @@
           />
         </button>
       </div> -->
-      <NavBar subtitle="Réglages du diaporama" subtitleType="export" />
+      <NavBar subtitle="Réglages du diaporama" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
       <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
         <!-- Multivue + Liens -->
         <div class="flex flex-col w-1/5 justify-start">
@@ -912,8 +836,6 @@
                     id="diaporama-apercu"
                     class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
                     on:click={() => {
-                      // console.log('indexes des questions :')
-                      // console.log($questionsOrder.indexes)
                       mathaleaHandleComponentChange('diaporama', 'overview')
                     }}
                   >
@@ -1083,7 +1005,7 @@
             Liens
             <div class="flex flex-row px-4 -mt-2 justify-start">
               <ModalActionWithDialog
-                on:display={() => copyLinkToClipboard('linkCopiedDialog-1')}
+                on:display={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
                 message="Le lien est copié dans le presse-papier !"
                 dialogId="linkCopiedDialog-1"
                 tooltipMessage="Lien du Diaporama"
@@ -1093,6 +1015,7 @@
                 classForButton="mr-4 my-2"
                 dialogId="QRCodeModal-1"
                 imageId="QRCodeCanvas-1"
+                url={document.URL}
                 tooltipMessage="QR-code du diaporama"
                 width={QRCodeWidth}
                 format={formatQRCodeIndex}
@@ -1591,7 +1514,7 @@
           </button>
         </div>
         <ModalActionWithDialog
-          on:display={() => copyLinkToClipboard('linkCopiedDialog-2')}
+          on:display={() => copyLinkToClipboard('linkCopiedDialog-2', buildMathAleaURL('diaporama'))}
           message="Le lien est copié dans le presse-papier !"
           dialogId="linkCopiedDialog-2"
           tooltipMessage="Lien du Diaporama"
@@ -1601,6 +1524,7 @@
           dialogId="QRCodeModal-2"
           imageId="QRCodeCanvas-2"
           tooltipMessage="QR-code du diaporama"
+          url={document.URL}
           width={QRCodeWidth}
           format={formatQRCodeIndex}
           buttonSize="text-[100px]"

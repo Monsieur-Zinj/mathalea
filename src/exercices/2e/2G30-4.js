@@ -76,9 +76,6 @@ export default function Equationcartesienne () {
           texteCorr += this.sup === 2 ? ' <br>Après réduction, une ' : ' <br>Une '
           texteCorr += 'équation cartésienne de la droite $(d)$ est donc de la forme : '
           const constante = -xA * yu + yA * xu
-          /* texteCorr += `$${yu === 0 ? '' : yu === 1 ? 'x' : yu === -1 ? '-x' : (yu + 'x')}`
-          texteCorr += `${xu === 0 ? '' : xu === 1 ? '-y' : (xu === -1 && yu === 0) ? 'y' : (xu === -1 && yu !== 0) ? '+y' : yu === 0 ? ((-xu) + 'y') : (ecritureAlgebriqueSauf1(-xu) + 'y')}`
-          texteCorr += `${constante === 0 ? '' : (ecritureAlgebriqueSauf1(constante))}=0$` */
           texteCorr += `$${reduireAxPlusByPlusC(yu, -xu, constante)}=0$`
           break
         }

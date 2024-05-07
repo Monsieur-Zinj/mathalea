@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -25,7 +25,7 @@ export default class PlaceVirguleProduit extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = false
-    this.compare = numberCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {

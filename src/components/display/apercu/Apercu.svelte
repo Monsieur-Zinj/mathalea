@@ -6,7 +6,7 @@
     darkMode,
     exercicesParams
   } from '../../../lib/stores/generalStore'
-  import { onMount, tick } from 'svelte'
+  import { onMount, tick, onDestroy, afterUpdate, beforeUpdate } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
@@ -35,7 +35,26 @@
   let divExercice: HTMLElement
   let correctionsSteps: number[] = []
 
+  async function forceUpdate () {
+    // console.log('forceUpdate')
+    updateExercices()
+    isCorrectionVisible = isCorrectionVisible
+  }
+
+  onDestroy(() => {
+    document.removeEventListener('updateAsyncEx', forceUpdate)
+  })
+
+  beforeUpdate(()=>{
+    // console.log('beforeUpdate')
+  })
+
+  afterUpdate(()=>{
+    // console.log('afterUpdate')
+  })
+
   onMount(async () => {
+    document.addEventListener('updateAsyncEx', forceUpdate)
     const url = new URL(window.location.href)
     selectedExercises.update(() => {
       const paramsSelectedExercises = url.searchParams.get('selectedExercises')

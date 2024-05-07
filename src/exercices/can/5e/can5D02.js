@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Convertir des heures décimales en heures/minutes et inversement*'
 export const interactifReady = true

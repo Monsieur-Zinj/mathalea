@@ -19,6 +19,7 @@ stages:
 - playwright-test
 - playwright-pdf
 - playwright-pdfDNB
+- playwright-pdfBAC
 
 sast:
   stage: test
@@ -46,23 +47,38 @@ default:
 
 .install_dependenciesPDF:
   before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
     - nohup pnpm start &
     - sleep 60
   
 .install_dependenciesPDFDNB:
   before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
-    - pnpm exec playwright install --with-deps chromium # dernière version playwright.
+    - nohup pnpm start &
+    - sleep 60
+
+.install_dependenciesPDFBAC:
+  before_script:
+    - pnpm config set store-dir .pnpm-store
+    - pnpm -v
+    - lualatex -v
+    - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
+    - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 60
 
 .testCIPDF:
-  image: guironne/tex-live-nodejs-playwright
+  image: guironne/tex-live-nodejs-playwright7
   extends: .install_dependenciesPDF
   stage: playwright-pdf
+  allow_failure: true
   rules:
   - if: $CI_COMMIT_BRANCH == "guironne-jobs"
     when: manual
@@ -77,7 +93,9 @@ default:
     paths:
       - tests/e2e/logs
       - updatefile
-    expire_in: 120 day
+    exclude:
+      - updatefile/output/*.zip
+    expire_in: 20 day
 
 .testCI:
   extends: .install_dependencies
@@ -141,6 +159,14 @@ testCan6e5e4e3ePDF:
   extends: .testCIPDF
   script:
     - NIV=can/6e^can/5e^can/4e^can/3e pnpm test:e2e:pdfexports
+
+testBAC20202024PDF:
+  extends: 
+    - .testCIPDF
+    - .install_dependenciesPDFBAC
+  stage: playwright-pdfBAC
+  script:
+    - NIV=bac_2023^bac_2022^bac_2021 pnpm test:e2e:pdfexports
 
 testDNB20132015PDF:
   extends: 

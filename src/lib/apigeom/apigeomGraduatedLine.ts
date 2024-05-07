@@ -8,7 +8,8 @@ export function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points }: {
     scale?: number,
     points?: Array<{ x: number, label: string }>
   }): { figure: Figure, latex: string} {
-  const width = 900
+  //  const width = 900
+  const width = 650
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: arrondi(1 / (10 * scale), 6), xScale: 3 * scale, snapGrid: true })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })

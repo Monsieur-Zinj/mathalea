@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Convertir des fractions d’heures en minutes et inversement'
 export const interactifReady = true

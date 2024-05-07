@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Multiplier par 10, ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +33,7 @@ export default class MultiplieDixiemeCM2 extends Exercice {
       puissance = randint(1, 3)
       nb = randint(6, 9) * 10 + randint(6, 9) * 10 ** (puissance - 1)
     }
-    this.reponse = { champ1: { value: texNombre(10 ** puissance, 3), compare: numberCompare } }
+    this.reponse = { champ1: { value: texNombre(10 ** puissance, 3), compare: expressionDeveloppeeEtReduiteCompare } }
     this.question = ` %{champ1}\\times ${texNombre(nb / (10 ** puissance), 3)}=${texNombre(nb, 0)}`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$\\ldots\\times ${texNombre(nb / (10 ** puissance), 3)}=${texNombre(nb, 0)}$`

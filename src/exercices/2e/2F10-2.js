@@ -15,7 +15,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer graphiquement l\'expression d\'une fonction affine'
@@ -145,7 +145,7 @@ export default function Lecturefonctionaffine () {
               ]
             }
           } else if (this.interactif) {
-            handleAnswers(this, i, { champ1: { value: { fonction: `${reduireAxPlusB(a, b)}`, variable: 'x' }, compare: functionCompare } })
+            handleAnswers(this, i, { champ1: { value: `${reduireAxPlusB(a, b)}`, options: { variable: 'x' }, compare: functionCompare } })
             texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
           }
           texteCorr = 'Puisque $f$ est une fonction affine, on a : $f(x)=ax+b$.<br>'
@@ -326,7 +326,7 @@ export default function Lecturefonctionaffine () {
               ]
             }
           } else if (this.interactif && !context.isAmc) {
-            handleAnswers(this, i, { champ1: { value: { fonction: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, variable: 'x' }, compare: functionCompare } })
+            handleAnswers(this, i, { champ1: { value: `${new FractionEtendue(a, d).texFractionSimplifiee}x${ecritureAlgebrique(b)}`, options: { variable: 'x' }, compare: functionCompare } })
             texte += remplisLesBlancs(this, i, 'f(x)=%{champ1}', 'fillInTheBlank', '\\ldots')
           }
           if (a > 0) {

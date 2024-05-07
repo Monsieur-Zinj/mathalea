@@ -8,7 +8,7 @@ import { Arbre, texProba } from '../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'

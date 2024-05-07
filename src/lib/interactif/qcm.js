@@ -3,7 +3,7 @@ import { shuffleJusqua } from '../outils/arrayOutils'
 import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
 import { gestionCan } from './gestionCan.js'
-import { afficheScore } from './gestionInteractif.js'
+import { afficheScore } from './gestionInteractif.ts'
 
 export function verifQuestionQcm (exercice, i) {
   let resultat

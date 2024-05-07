@@ -25,8 +25,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte'
-import Grandeur from '../../modules/Grandeur'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { unitsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
@@ -376,8 +375,8 @@ export default function ExercicePerimetresEtAires () {
       }
       if (this.questionJamaisPosee(i, resultat1, resultat2)) {
         if (!context.isAmc) {
-          handleAnswers(this, 2 * i, { reponse: { value: { grandeur: new Grandeur(resultat1, 'cm'), precision: 0.1 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
-          handleAnswers(this, 2 * i + 1, { reponse: { value: { grandeur: new Grandeur(resultat2, 'cm^2'), precision: 0.1 }, compare: unitsCompare } }, { formatInteractif: 'unites' })
+          handleAnswers(this, 2 * i, { reponse: { value: `${resultat1}cm`, options: { precision: 0.1 }, compare: unitsCompare } })
+          handleAnswers(this, 2 * i + 1, { reponse: { value: `${resultat2}cm^2`, options: { precision: 0.1 }, compare: unitsCompare } })
         } else {
           this.autoCorrection[i] = {
             enonce: texte,

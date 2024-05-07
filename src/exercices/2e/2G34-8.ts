@@ -6,7 +6,7 @@ import { lcm } from 'mathjs'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { textCompare } from '../../lib/interactif/comparisonFunctions'
+import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer la nature des solutions d\'un système linéaire de deux équations à deux inconnues'
 export const interactifReady = true
@@ -277,7 +277,7 @@ export default class systemeEquationsPremDeg extends Exercice {
       texteCorr = texteCorr + `Ainsi, le système ${texteEnCouleurEtGras(`${rep}`)}.`
       if (this.interactif) {
         texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'reponse') + '.'
-        handleAnswers(this, i, { reponse: { value: rep, compare: textCompare } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(this, i, { reponse: { value: rep, compare: texteSansCasseCompare } }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {
         this.listeQuestions.push(texte)

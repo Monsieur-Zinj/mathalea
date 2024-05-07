@@ -716,7 +716,7 @@ export default function ProblemesGrandeursComposees () {
                   'Définition : Allure (grandeur physique)',
                   'L\'allure est le temps exprimé en h, min, s pour parcourir un kilomètre.<br>L\'unité est alors h/km ou min/km.'
                 ) +
-                'pour chaque kilomètre parcouru :'
+                'pour chaque kilomètre parcouru :<br>'
               allures = []
               for (let j = 0; j < distance; j++) {
                 duree = Math.round(
@@ -726,20 +726,21 @@ export default function ProblemesGrandeursComposees () {
                 nbminutes = (duree - nbsecondes) / 60
                 allures.push([nbminutes, nbsecondes])
               }
-              texte += '$\\def\\arraystretch{1.5}\\begin{array}{|c' // On construit le tableau des allures
+              texte += `
+                $\\def\\arraystretch{1.5}${context.isHtml ? '' : '\\footnotesize'}\\begin{array}{|c` // On construit le tableau des allures
               texte += '|c'
               for (let j = 0; j < allures.length; j++) texte += '|c'
-              texte += '}\\hline  \\text{kilomètre}'
+              texte += '}\\hline  \\text{Kilomètres}'
               for (let j = 0; j < allures.length; j++) { texte += '&' + texNombre(j + 1) }
               texte +=
-                '\\\\\\hline \\text{allure en minutes et secondes (par km)}'
+                '\\\\\\hline \\begin{array}{l}  \\text{Allure en minutes} \\\\  \\text{et en secondes} \\end{array}'
               for (j = 0; j < allures.length; j++) {
                 texte +=
-                  '&' +
+                  '&\\begin{array}{l}' +
                   allures[j][0] +
-                  '\\text{ min }' +
+                  '\\text{ min}\\\\' +
                   allures[j][1] +
-                  '\\text{ s}'
+                  '\\text{ s}\\end{array}'
               }
               texte += '\\\\\\hline\\end{array}$<br>'
               texte +=

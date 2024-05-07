@@ -1,11 +1,12 @@
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
 export const amcReady = true
@@ -24,7 +25,6 @@ export const dateDeModifImportante = '09/04/2022'
  * * Si décomposition cochée : les nombres utilisés sont plus importants.
  * @author Jean-Claude Lhote
  * Ajout d'une option pour ne pas exiger une fraction irréductible le 09/04/2022 par Guillaume Valmont
- * 4C22
  */
 export const uuid = '72ce7'
 export const ref = '4C22'
@@ -57,8 +57,8 @@ export default function ExerciceMultiplierFractions () {
     } else {
       this.consigne = 'Calculer.'
     }
-    this.sup = contraindreValeur(1, 3, this.sup, 1)
-    this.sup4 = contraindreValeur(1, 3, this.sup4, 1)
+    // this.sup = contraindreValeur(1, 3, this.sup, 1)
+    // this.sup4 = contraindreValeur(1, 3, this.sup4, 1)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2, 2]// 1*nombre entier,3*fraction (pas de négatifs)
     } else if (this.sup === 2) {
@@ -83,7 +83,7 @@ export default function ExerciceMultiplierFractions () {
         [a, b] = choice(listeFractions);
         [c, d] = choice(listeFractions)
       } while ((a * c) % (b * d) === 0 || (a * c) % d === 0 || (b * d === 100))
-      if (this.sup2 === false) {
+      if (!this.sup2) {
         // methode 1 : simplifications finale
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
@@ -109,6 +109,7 @@ export default function ExerciceMultiplierFractions () {
         // méthode 2 : décomposition
         let facteurA, facteurB
         const listePremiers = shuffle([2, 3, 5, 7, 11])
+
         do {
           facteurA = listePremiers.pop()
           facteurB = listePremiers.pop()
@@ -116,7 +117,8 @@ export default function ExerciceMultiplierFractions () {
           d = d * facteurA
           b = b * facteurB
           c = c * facteurB
-        } while (Math.abs(a) === Math.abs(b) && listePremiers.length > 1)
+        } while ((Math.abs(a) === Math.abs(b) && Math.abs(c) === Math.abs(d) && listePremiers.length > 1))
+
         switch (typesDeQuestions) {
           case 1: // entier * fraction (tout positif)
             b = 1
@@ -135,19 +137,20 @@ export default function ExerciceMultiplierFractions () {
         }
       }
       const f1 = new FractionEtendue(a, b)
-      const f2 = new FractionEtendue(c, d)
       if (listeTypesDoperation[i] === 'mul') {
-        texte = `$${f1.texFraction}\\times${f2.texFraction}=$`
+        const f2 = new FractionEtendue(c, d)
+        texte = `$${f1.texFraction}\\times${f2.texFraction}$`
         texteCorr = `$${f1.texProduitFraction(f2, this.sup2)}$`
         reponse = f1.produitFraction(f2).simplifie()
       } else {
-        texte = `$\\dfrac{${(f1.estEntiere ? space2 : space) + f1.texFSD + (f1.estEntiere ? space2 : space)}}{${(f2.estEntiere ? space2 : space) + f2.texFraction + (f2.estEntiere ? space2 : space)}}=$`
+        const f2 = new FractionEtendue(d, c)
+        texte = `$\\dfrac{${(f1.den === 1 ? space2 : space) + f1.texFSD + (f1.den === 1 ? space2 : space)}}{${(f2.den === 1 ? space2 : space) + f2.texFraction + (f2.den === 1 ? space2 : space)}}$`
         texteCorr = `$${f1.texDiviseFraction(f2, this.sup2, '/')}$`
         reponse = f1.diviseFraction(f2).simplifie()
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
         if (fractionIrreductibleDemandee) {
           if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
           setReponse(this, i, reponse, {
@@ -167,6 +170,18 @@ export default function ExerciceMultiplierFractions () {
             signe: true
           })
         }
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

@@ -4,7 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Résoudre une équation $ax^2+bx+c=c$ '
 export const interactifReady = true

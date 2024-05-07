@@ -1,10 +1,11 @@
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../../lib/outils/ecritures'
+import { eqToLatex, printSystem, timesIfNotUn } from '../../lib/outils/systemeEquations'
 import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Déterminer le point d\'intersection de deux droites'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -67,67 +68,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
         }
         return vectEquiv
       }
-      const eqToLatex = function (vect : Array<number>, nomVal : Array<string>, inSys : boolean) {
-        let expr = ''
-        let checkPreviousNull = true
-        for (let i = 0; i < 3; i++) {
-          if ((vect.slice(0, 3).every(item => item === 0)) && i === 0) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        if (inSys === true) {
-          expr = expr + ' &='
-        } else {
-          expr = expr + '='
-        }
-        checkPreviousNull = true
-        for (let i = 3; i < 6; i++) {
-          if ((vect.slice(3).every(item => item === 0)) && i === 3) {
-            expr = expr + '0'
-          } else if (!(vect[i] === 0) && checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${texNombre(vect[i], 0)}${nomVal[i]}`
-            } else {
-              expr = expr + `${rienSi1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          } else if (!(vect[i] === 0) && !checkPreviousNull) {
-            if (nomVal[i] === '') {
-              expr = expr + `${ecritureAlgebrique(vect[i])}${nomVal[i]}`
-            } else {
-              expr = expr + `${ecritureAlgebriqueSauf1(vect[i])}${nomVal[i]}`
-            }
-            checkPreviousNull = false
-          }
-        }
-        return expr
-      }
-      const printSystem = function (eq1 : string, eq2 : string) {
-        let expr = ''
-        expr = expr + `\\begin{cases}\\begin{aligned}${eq1}\\\\${eq2}\\end{aligned}\\end{cases}`
-        return expr
-      }
-      const timesIfNotUn = function (valeur : number) {
-        if (valeur === 1 || valeur === -1) {
-          return ''
-        } else {
-          return '\\times'
-        }
-      }
+
       let eqInt1 : Array<number> = []
       let eqInt2 : Array<number> = []
       let eqSimpl1 : Array<number> = []

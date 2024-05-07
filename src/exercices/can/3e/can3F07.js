@@ -9,7 +9,7 @@ import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
-import { expandedAndReductedCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire graphiquement une fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -31,7 +31,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.compare = expandedAndReductedCompare
+  this.compare = expressionDeveloppeeEtReduiteCompare
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.nouvelleVersion = function () {
@@ -48,7 +48,7 @@ export default function LectureGraphiqueFonctionAffine1 () {
         rep, courbe(x => a * x + b, { repere: rep, color: 'blue' }), o)}
         `
     this.optionsChampTexte = { texteAvant: '$f(x)=$' }
-    this.reponse = { reponse: { value: { expr: `${reduireAxPlusB(a, b)}`, strict: false }, compare: expandedAndReductedCompare } }
+    this.reponse = { reponse: { value: `${reduireAxPlusB(a, b)}`, compare: expressionDeveloppeeEtReduiteCompare } }
     this.correction = `$f$ est de la forme
     $f(x)=ax+b$ avec $a$ le coefficient directeur de la droite (inclinaison de la droite par rapport à l'horizontale)
     et $b$ l'ordonnée à l'origine (ordonnée du point d'intersection entre la droite et l'axe des ordonnées).<br>

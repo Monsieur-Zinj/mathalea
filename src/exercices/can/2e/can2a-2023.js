@@ -22,7 +22,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'CAN Seconde sujet 2023'
 export const interactifReady = true

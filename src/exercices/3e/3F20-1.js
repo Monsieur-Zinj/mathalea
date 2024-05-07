@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { fraction } from '../../modules/fractions.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Fonctions affines'
 export const interactifType = 'mathLive'

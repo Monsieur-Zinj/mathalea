@@ -29,6 +29,7 @@
   import Can from './display/can/Can.svelte'
   import { canOptions } from '../lib/stores/canStore'
   import type { CanSolutionsMode } from '../lib/types/can'
+  import { updateReferentielLocaleFromURL } from '../lib/stores/languagesStore'
 
   let isInitialUrlHandled = false
 
@@ -49,13 +50,12 @@
   //       console.log('exercicesParams updated and difference')
   //       console.log(JSON.stringify(InterfaceExercicesParams))
   //     }
-  //     InterfaceExercicesParams = value    
+  //     InterfaceExercicesParams = value
   //   } else {
   //     InterfaceExercicesParams = value
-  //   }     
-  //   console.log(JSON.stringify(value)) 
+  //   }
+  //   console.log(JSON.stringify(value))
   // })
-
 
   // Gestion des recorders (Moodle, Capytale, etc. )
   // Lorsque la page d'accueil est dans un iFrame, l'URL est bloquée et les boutons d'exports cachés
@@ -119,6 +119,7 @@
   }
 
   function handleInitialUrl () {
+    updateReferentielLocaleFromURL()
     const urlOptions = mathaleaUpdateExercicesParamsFromUrl()
     globalOptions.update(() => {
       return urlOptions

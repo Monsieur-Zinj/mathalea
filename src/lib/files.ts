@@ -36,7 +36,6 @@ export async function downloadTexWithImagesZip (zipFileName: string, latexFile: 
   const zip = new JSZip()
   const withImages = doesLatexNeedsPics(latexFile.contents)
   const exosContentList = getExosContentList(exercices)
-  console.log('ici')
   const picsNames = getPicsNames(exosContentList)
   zip.file('main.tex', latexFile.latexWithPreamble)
   if (withImages) {

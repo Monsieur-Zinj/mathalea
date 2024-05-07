@@ -8,8 +8,8 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { numberCompare } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../lib/outils/texNombre'
 import { egalOuApprox } from '../../lib/outils/ecritures'
 
@@ -176,7 +176,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc && this.interactif) {
-            handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction), compare: expressionDeveloppeeEtReduiteCompare } })
           } else {
             propositionsAMC = [
               {
@@ -204,7 +204,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal), compare: expressionDeveloppeeEtReduiteCompare } })
           } else {
             propositionsAMC.push(
               {
@@ -247,7 +247,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline nospacebefore', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2), compare: expressionDeveloppeeEtReduiteCompare } })
           } else {
             propositionsAMC = [
               {
@@ -275,7 +275,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           texte += enonceAMC
           texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline nospacebefore', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
-            handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2), compare: numberCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2), compare: expressionDeveloppeeEtReduiteCompare } })
           } else {
             propositionsAMC.push(
               {

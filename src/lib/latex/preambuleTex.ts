@@ -24,9 +24,9 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 
 export function loadPreambule (latexFileInfos : LatexFileInfos, contents : contentsType) {
   if (latexFileInfos.style === 'Can') {
-    return loadPreambuleCan()
+    contents.preamble += loadPreambuleCan()
   }
-  return loadPackagesFromContent(contents)
+  loadPackagesFromContent(contents)
 }
 
 function loadPreambuleCan () {
@@ -143,7 +143,7 @@ export const logPDF = (str: string) => {
 }
 
 export function loadProfCollegeIfNeed (contents: contentsType) {
-  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage['], '\\usepackage{ProfCollege}', contents)
+  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', 'begin{Scratch}', 'begin{Tableur}'], '\\usepackage{ProfCollege}', contents)
 }
 
 function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
@@ -159,9 +159,13 @@ export function loadPackagesFromContent (contents: contentsType) {
   contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
   testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
+  testIfLoaded(['\\PstPolygon', '\\PstStarFive', '\\PstTriangle'], '\\usepackage{pst-poly}', contents)
   testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)
-  testIfLoaded(['\\pstGeonode', '\\pstLine'], '\\usepackage{pst-eucl}', contents)
+  testIfLoaded(['\\pstGeonode', '\\pstLine', '\\pstLabelAB'], '\\usepackage{pst-eucl}', contents)
   testIfLoaded(['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'], '\\usepackage{pst-plot}', contents)
+  testIfLoaded(['\\psbcurve'], '\\usepackage{pst-bezier}', contents)
+  testIfLoaded(['\\psBspline'], '\\usepackage{pst-bspline}', contents)
+  testIfLoaded(['\\pstThreeDLine', 'pstThreeDCoor'], '\\usepackage{pst-3dplot}', contents)
   testIfLoaded(['\\multido'], '\\usepackage{multido}', contents)
   testIfLoaded(['\\gradangle{', 'fillstyle=gradient'], '\\usepackage{pst-grad}', contents)
   testIfLoaded(['\\pstree{', '\\pstree['], '\\usepackage{pst-tree}', contents)
@@ -174,12 +178,11 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{multicols}'], '\\usepackage{multicol}', contents)
   testIfLoaded(['\\opadd', '\\opsub', '\\opmul', '\\opdiv', '\\opidiv'], '\\usepackage{xlop}', contents)
   testIfLoaded(['\\cancel'], '\\usepackage{cancel}', contents)
-  testIfLoaded(['\\draw[color={'], '\\usepackage[svgnames,dvipsnames]{xcolor}', contents)
+  testIfLoaded(['\\draw[color={'], '\\usepackage[table,svgnames]{xcolor}', contents)
   testIfLoaded(['\\np{', '\\np[', '\\numprint{'], '\\usepackage[autolanguage,np]{numprint}', contents)
   testIfLoaded(['\\mathscr'], '\\usepackage{mathrsfs}', contents)
   testIfLoaded(['\\fcolorbox{nombres}'], '\\definecolor{nombres}{cmyk}{0,.8,.95,0}', contents)
   testIfLoaded(['\\begin{tikzpicture}'], '\\usepackage{tikz}', contents)
-  testIfLoaded(['\\vect'], '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
   testIfLoaded(['\\begin{bclogo}'], '\\usepackage[tikz]{bclogo}', contents)
   if (contents.content.includes('\\begin{bclogo}')) {
     logPDF(`definecolor{nombres} : ${window.location.href}`)
@@ -192,7 +195,9 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\begin{wrapfigure}'], '\\usepackage{wrapfig}', contents)
   testIfLoaded(['needspace'], '\\usepackage{needspace}', contents)
   testIfLoaded(['\\begin{scratch}'], '\\usepackage{scratch3}', contents)
+  testIfLoaded(['\\begin{Scratch}'], '\\usepackage{unicode-math}\n\\newfontfamily\\myfontScratch[]{FreeSans}', contents)
   testIfLoaded(['\\degre', '\\og', '\\up{', '\\ieme{', '\\no'], '\\usepackage[french]{babel}', contents)
+  testIfLoaded(['\\degree'], '\\usepackage{gensymb}', contents)
   testIfLoaded(['\\multirow{'], '\\usepackage{multirow}', contents)
   testIfLoaded(['\\dotfills'], '\\newcommand\\dotfills[1][4cm]{\\makebox[#1]{\\dotfill}}', contents)
 
@@ -224,9 +229,17 @@ export function loadPackagesFromContent (contents: contentsType) {
     contents.preamble += '\n  \\unskip\\hskip0.125em \\tikz[baseline=-1.25ex,x=1ex,y=1ex,rounded corners=0pt]\\draw[fill=black!70,draw=none](0,0)--(1,0)--(0.5,-0.6)--cycle;'
     contents.preamble += '\n}'
   }
-  testIfLoaded(['\\R ', '\\R{', '\\N ', '\\N{', '\\N$', '\\R$'], '\\usepackage{amsfonts}', contents)
-  testIfLoaded(['\\R ', '\\R{', '\\R$'], '\\newcommand\\R{\\mathbb{R}}', contents)
-  testIfLoaded(['\\N ', '\\N{', '\\N$'], '\\newcommand\\N{\\mathbb{N}}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\R)', '\\R.', '\\R^', '\\R\\', '\\R$', '\\R_+', '\\in \\R', '\\N ', '\\N*', '\\N^*', '\\N,', '\\N{', '\\N^{', '\\N$', '\\N}'], '\\usepackage{amsfonts}', contents)
+  testIfLoaded(['\\R ', '\\R{', '\\R.', '\\R)', '\\R_+', '\\R$', '\\R^', '\\R\\', '\\in \\R'], '\\newcommand\\R{\\mathbb{R}}', contents)
+  testIfLoaded(['\\N ', '\\N,', '\\N^*', '\\N{', '\\N^{', '\\N$', '\\N*', '\\N}'], '\\newcommand\\N{\\mathbb{N}}', contents)
+  testIfLoaded(['\\vect', '\\Oij', '\\Oijk', '\\Ouv'], '\\newcommand{\\vect}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
+  testIfLoaded(['\\vectt'], '\\newcommand{\\vectt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
+  testIfLoaded(['\\vv'], '\\newcommand{\\vv}[1]{\\overrightarrow{\\,\\mathstrut#1\\,}}', contents)
+  testIfLoaded(['\\vvt'], '\\newcommand{\\vvt}[1]{\\overrightarrow{\\,\\mathstrut\\text{#1}\\,}}', contents)
+  testIfLoaded(['\\Oij'], '\\def\\Oij{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath}\\right)$}', contents)
+  testIfLoaded(['\\Oijk'], '\\def\\Oijk{$\\left(\\text{O}~;~\\vect{\\imath},~\\vect{\\jmath},~\\vect{k}\\right)$}', contents)
+  testIfLoaded(['\\Ouv'], '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}', contents)
+  testIfLoaded(['\\e'], '\\newcommand{\\e}{\\text{e}}', contents)
   testIfLoaded(['\\ldots', '\\cdots', '\\dots', '\\makebox', '\\framebox', '\\parbox', '\\mbox', '\\fbox', '\\sbox', '\\pbox'], '\\usepackage{amsmath}', contents)
   testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\blacktriangleleft', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft', '\\Box'], '\\usepackage{amssymb}', contents)
   testIfLoaded(['\\columncolor{', '\\cellcolor', '\\rowcolor'], '\\usepackage{colortbl}', contents)
@@ -240,13 +253,26 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\backslashbox', '\\diagbox{'], '\\usepackage{diagbox}', contents)
   testIfLoaded(['\\ds'], '\\newcommand{\\ds}{\\displaystyle}', contents)
   testIfLoaded(['\\EUR{'], '\\usepackage{marvosym}', contents)
+  testIfLoaded(['\\hautab'], '\\newcommand\\hautab[1]{\\renewcommand{\\arraystretch}{#1}}', contents)
+  testIfLoaded(['|C{', '{C{'], '\\newcolumntype{C}[1]{>{\\centering\\arraybackslash}p{#1cm}}', contents)
   testIfLoaded(['pattern'], '\\usetikzlibrary{patterns}', contents)
   testIfLoaded(['framed'], '\\usetikzlibrary{backgrounds}', contents)
   testIfLoaded(['single arrow'], '\\usetikzlibrary{shapes}', contents)
   testIfLoaded(['>=triangle 45'], '\\usetikzlibrary{arrows}', contents)
+  testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
+  testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
+  testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
   testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
+  testIfLoaded(['\\con{'], '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}', contents)
+  testIfLoaded(['\\Coord'], `\\newcommand*{\\Coord}[4]{% 
+\\ensuremath{\\vect{#1}\\, 
+      \\begin{pmatrix} 
+        #2\\\\ 
+        #3\\\\
+        #4
+\\end{pmatrix}}}`, contents, '\\Coord')
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
-  testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments'], '\\usepackage{tkz-euclide}', contents)
+  testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments', '\\pic['], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
   if (contents.content.includes('\\begin{forest}') || contents.contentCorr.includes('\\begin{forest}')) {
     logPDF(`usepackage{forest} : ${window.location.href}`)

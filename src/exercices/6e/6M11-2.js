@@ -16,7 +16,7 @@ import { texTexte } from '../../lib/format/texTexte'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer périmètre et aire de figures composées'
@@ -24,7 +24,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '28/10/2023'
+export const dateDeModifImportante = '06/05/2024'
 
 /**
  * Il faut calculer le périmètre et/ou l'aire par addition ou soustraction d'aires
@@ -305,7 +305,8 @@ export default function PerimetreOuAireDeFiguresComposees () {
           let L1 = randint(4, 8)
           let L2 = randint(3, L1 - 1)
           L1 = L1 + (randint(1, 9) / 10)
-          L2 = L2 + (randint(1, 9) / 10)
+          // L2 = L2 + (randint(1, 9) / 10)
+          L2 = L2 + (randint(1, 4) / 5)
           const zoom = randint(6, 8) / (L2)
           const A = point(0, 0, 'A')
           const B = point(0, L2 * zoom, 'B')
@@ -323,7 +324,7 @@ export default function PerimetreOuAireDeFiguresComposees () {
           const ER = segment(E, R)
           ER.pointilles = 5
           decoupages.push(CD, ER)
-          labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
+          // labelsSansDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'))
           labelsAvecDecoupage.push(texteSurSeg(A, B, stringNombre(L2, 1) + ' cm'), texteSurSeg(A, D, stringNombre(L1, 1) + ' cm'), texteSurSeg(E, R, stringNombre(L2 / 2, 1) + ' cm'))
           if (this.sup4 === 4) {
             objetsEnonce.push(...contourFigure, ...codagesSansDecoupage, ...labelsSansDecoupage)

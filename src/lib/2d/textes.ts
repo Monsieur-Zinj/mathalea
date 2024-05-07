@@ -295,7 +295,7 @@ export class TexteParPoint extends ObjetMathalea2D {
       if (!this.point.positionLabel) {
         this.point.positionLabel = 'above'
       }
-      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation, letterSize: 'footnotesize' }).svg()
+      return latex2d(this.texte.substring(1, this.texte.length - 1), this.point.x, this.point.y, { color: this.color[0], orientation: this.orientation, letterSize: 'normalsize' }).svg()
     } else {
       let code = ''
       let style = ''
@@ -448,7 +448,7 @@ export function texteParPosition (texte:string, x:number, y:number, orientation:
   if (ancrageDeRotation === 'middle') ancrageDeRotation = 'milieu'
   if (!['milieu', 'droite', 'gauche'].includes(ancrageDeRotation)) ancrageDeRotation = 'milieu'
   if (texte[0] === '$') {
-    return latexParCoordonnees(texte.substring(1, texte.length - 1), x, y, color, 50, 20, 'white', 8 * scale)
+    return latex2d(texte.substring(1, texte.length - 1), x, y, { color, backgroundColor: 'white', letterSize: 'normalsize' })
   } else {
     return new TexteParPoint(texte, point(x, y, ''), orientation, color, scale, ancrageDeRotation, mathOn, opacite)
   }
@@ -729,6 +729,7 @@ export class Latex2d extends ObjetMathalea2D {
   y: number
   opacity: number
   orientation: number
+  bordures: [number, number, number, number]
 
   /**
    * Les paramètres obligatoires (ne pas mettre de $ $ dans le latex !
@@ -753,6 +754,17 @@ export class Latex2d extends ObjetMathalea2D {
     this.latex = latex
     this.x = x
     this.y = y
+    const cx = Math.cos(this.orientation)
+    const sx = Math.sin(this.orientation)
+    const ratioLettreCm = 0.25
+    const epaisseurTexte = 0.3
+    const longueurTexte = latex.length * ratioLettreCm
+
+    this.bordures = [x - longueurTexte * cx,
+      y - longueurTexte * sx - epaisseurTexte,
+      x + longueurTexte * cx,
+      y + longueurTexte * sx + epaisseurTexte
+    ]
   }
 
   svg (): DivLatex {
@@ -781,11 +793,11 @@ export class Latex2d extends ObjetMathalea2D {
  * @param options.opacity l'opacité du texte // @fixme non encore implémenté
  *
  */
-export function latex2d (latex: string, x: number, y: number, options: {color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number}) {
-  const color = options.color ?? 'black'
-  const backgroundColor = options.backgroundColor == null || options.backgroundColor === '' || options.backgroundColor === 'none' ? 'none' : options.backgroundColor
-  const letterSize = options.letterSize ?? 'normalsize'
-  const orientation = options.orientation ?? 0
-  const opacity = options.opacity ?? 1
+export function latex2d (latex: string, x: number, y: number, { color, backgroundColor, letterSize, orientation, opacity }:{ color?: string, backgroundColor?: string, letterSize?: LetterSizeType, orientation?: number, opacity?: number }) {
+  color = color ?? 'black'
+  backgroundColor = backgroundColor == null || backgroundColor === '' || backgroundColor === 'none' ? 'none' : backgroundColor
+  letterSize = letterSize ?? 'normalsize'
+  orientation = orientation ?? 0
+  opacity = opacity ?? 1
   return new Latex2d(latex, x, y, { color, backgroundColor, letterSize, orientation, opacity })
 }

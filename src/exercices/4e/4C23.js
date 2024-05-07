@@ -8,7 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Effectuer somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'

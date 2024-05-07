@@ -9,14 +9,14 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
-export const titre = 'Réduire, si possible, une expression littérale simple'
+export const titre = 'Réduire et simplifier, si possible, une expression littérale simple'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Réduire, si possible, une expression littérale simple
+ * Réduire et simplifier, si possible, une expression littérale simple
  *
  * * ax+b
  * * a+bx
@@ -34,7 +34,6 @@ export const interactifType = 'mathLive'
  *
  *
  * @author Rémi Angot
- * 4L10-1
  */
 export const uuid = 'cc129'
 export const ref = '4L10-1'
@@ -44,14 +43,14 @@ export const refs = {
 }
 export default function ReductionsPiegesClassiques () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Réduire, si possible, les expressions suivantes.'
   this.spacing = 1
   this.nbQuestions = 10
   this.sup = true
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Réduire et simplifier, si possible, '
+    this.consigne += this.nbQuestions > 1 ? 'les expressions suivantes.' : 'l\'expression suivante.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

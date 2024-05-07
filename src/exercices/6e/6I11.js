@@ -14,7 +14,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { scratchblock } from '../../modules/scratchblock.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'

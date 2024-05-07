@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { expandedAndReductedCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
@@ -30,7 +30,7 @@ export default class ReduireDecimaux extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 nospacebefore' + KeyboardType.clavierDeBaseAvecVariable
     this.formatInteractif = 'calcul'
-    this.compare = expandedAndReductedCompare
+    this.compare = expressionDeveloppeeEtReduiteCompare
   }
 
   nouvelleVersion () {
@@ -42,7 +42,7 @@ export default class ReduireDecimaux extends Exercice {
           const a = randint(1, 2)
           const reduction = b.mul(-1).plus(a)
           this.reponse = texNombre(b.mul(-1).plus(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: { expr: this.reponse, strict: false }, compare: expandedAndReductedCompare } }
+          this.reponse = { reponse: { value: this.reponse, compare: expressionDeveloppeeEtReduiteCompare } }
           this.question = `Écrire le plus simplement possible  $${rienSi1(a)}${variable}-${texNombre(b, 2)}${variable}$.`
           if (this.interactif) { this.question += `<br>$${rienSi1(a)}${variable}-${texNombre(b, 2)}${variable}=$` }
           this.correction = 'À l\'aide d\'une factorisation, on obtient :<br>'
@@ -67,7 +67,7 @@ export default class ReduireDecimaux extends Exercice {
           const a = randint(1, 2)
           const reduction = b.sub(a)
           this.reponse = texNombre(b.sub(a), 2) + `${variable}`
-          this.reponse = { reponse: { value: { expr: this.reponse, strict: false }, compare: expandedAndReductedCompare } }
+          this.reponse = { reponse: { value: this.reponse, compare: expressionDeveloppeeEtReduiteCompare } }
           this.question = `Écrire le plus simplement possible  $${texNombre(b, 2)}${variable}-${rienSi1(a)}${variable}$.`
           if (this.interactif) { this.question += `<br>$${texNombre(b, 2)}${variable}-${rienSi1(a)}${variable}=$` }
           this.correction = 'À l\'aide d\'une factorisation, on obtient :<br>'

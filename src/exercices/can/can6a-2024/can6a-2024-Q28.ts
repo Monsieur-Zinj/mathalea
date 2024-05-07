@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 
 export const titre = 'Compléter 1 litre'
@@ -51,7 +51,7 @@ export default class CompleterUnLitre extends Exercice {
     this.question = `\\text{Complète : ${String(capacite)}\\,${unite}}+%{champ1}\\,\\text{${unite}} =1\\, \\text{L}`
     this.canEnonce = 'Complète.'
     this.canReponseACompleter = `$${String(capacite)}$ ${unite} $+ \\ldots$ \\,${unite} $=1$ L`
-    this.reponse = { champ1: { value: String(reste), compare: numberCompare } }
+    this.reponse = { champ1: { value: String(reste), compare: expressionDeveloppeeEtReduiteCompare } }
     this.correction = `Il faut ajouter $${miseEnEvidence(String(reste))}$ ${unite} à $${String(capacite)}$ ${unite} pour faire $1$ L, car $1$ L $=${String(reste + capacite)}$ ${unite}.`
   }
 }

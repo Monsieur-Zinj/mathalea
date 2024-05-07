@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { approximatelyCompare } from '../../lib/interactif/comparisonFunctions'
 
@@ -70,8 +70,8 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.01 }, compare: approximatelyCompare },
-          champ2: { value: { attendu: (100 * num / den).toFixed(0), tolerance: 1 }, compare: approximatelyCompare }
+          champ1: { value: (num / den).toFixed(3), options: { tolerance: 0.01 }, compare: approximatelyCompare },
+          champ2: { value: (100 * num / den).toFixed(0), options: { tolerance: 1 }, compare: approximatelyCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
       if (this.sup === 2) {
@@ -79,8 +79,8 @@ export default function ValeurApprocheeDePourcentages () {
         // setReponse(this, i, arrondi(num / den * 100, 0))
         handleAnswers(this, i, {
           bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-          champ1: { value: { attendu: (num / den).toFixed(3), tolerance: 0.001 }, compare: approximatelyCompare },
-          champ2: { value: { attendu: (100 * num / den).toFixed(1), tolerance: 0.1 }, compare: approximatelyCompare }
+          champ1: { value: (num / den).toFixed(3), options: { tolerance: 0.001 }, compare: approximatelyCompare },
+          champ2: { value: (100 * num / den).toFixed(1), options: { tolerance: 0.1 }, compare: approximatelyCompare }
         }, { formatInteractif: 'fillInTheBlank' })
       }
 

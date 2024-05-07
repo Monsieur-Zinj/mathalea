@@ -8,7 +8,7 @@ import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { all, create, sqrt } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

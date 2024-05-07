@@ -11,7 +11,7 @@ import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modul
 import { scratchblock } from '../../modules/scratchblock.js'
 import { noteLaCouleur, plateau2dNLC } from '../../modules/noteLaCouleur.js'
 import { allerA, angleScratchTo2d, attendre, baisseCrayon, clone, creerLutin, orienter } from '../../modules/2dLutin.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 

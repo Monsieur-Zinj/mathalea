@@ -3,12 +3,12 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { factorisationCompare, expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
-export const titre = 'Réduire un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
+import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+export const titre = 'Réduire et simplifier, si possible, un produit et une somme à partir des mêmes éléments algébriques pour distinguer la différence'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
@@ -49,7 +49,7 @@ export default function ReduireDinstinctionSommeProduit () {
 
       //= ==== 0 le produit puis la somme
       enonces.push({
-        enonce: `Simplifier le plus possible le produit puis la somme de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$`,
+        enonce: `Réduire et simplifier, si possible, le produit puis la somme de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$`,
         questtion: '',
         correction_produit: `Le produit de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$ vaut : ` + (n * p === 1 ? `$${inc}\\times ${inc} =$` : `$${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$`),
         correction_somme: `La somme de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$ vaut $${rienSi1(n)}${inc}+${rienSi1(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
@@ -57,7 +57,7 @@ export default function ReduireDinstinctionSommeProduit () {
 
       //= ==== 1 le produit puis la somme
       enonces.push({
-        enonce: `Simplifier le plus possible l'expression $${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc}$ puis l'expression $${rienSi1(n)}${inc}+${rienSi1(p)}${inc}$`,
+        enonce: `Réduire et simplifier, si possible, l'expression $${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc}$ puis l'expression $${rienSi1(n)}${inc}+${rienSi1(p)}${inc}$`,
         questtion: '',
         correction_produit: (n * p === 1 ? `$${inc}\\times ${inc} =$` : `$${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$`),
         correction_somme: `$${rienSi1(n)}${inc}+${rienSi1(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
@@ -65,7 +65,7 @@ export default function ReduireDinstinctionSommeProduit () {
 
       //= ==== 2 la somme puis le produit
       enonces.push({
-        enonce: `Simplifier le plus possible la somme puis le produit de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$`,
+        enonce: `Réduire et simplifier, si possible, la somme puis le produit de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$`,
         questtion: '',
         correction_produit: `Le produit de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$ vaut : ` + (n * p === 1 ? `$${inc}\\times ${inc} =$` : `$${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$`),
         correction_somme: `La somme de $${rienSi1(n)}${inc}$ et de $${rienSi1(p)}${inc}$ vaut : $${rienSi1(n)}${inc}+${rienSi1(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
@@ -73,7 +73,7 @@ export default function ReduireDinstinctionSommeProduit () {
 
       //= ==== 3 la somme puis le produit
       enonces.push({
-        enonce: `Simplifier le plus possible l'expression $${rienSi1(n)}${inc}+${rienSi1(p)}${inc}$ puis l'expression $${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc}$`,
+        enonce: `Réduire et simplifier, si possible, l'expression $${rienSi1(n)}${inc}+${rienSi1(p)}${inc}$ puis l'expression $${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc}$`,
         questtion: '',
         correction_produit: (n * p === 1 ? `$${inc}\\times ${inc} =$` : `$${rienSi1(n)}${inc}\\times ${rienSi1(p)}${inc} = ${n}\\times ${inc}\\times ${p}\\times ${inc} = ${n}\\times ${p}\\times ${inc}\\times ${inc}=$`),
         correction_somme: `$${rienSi1(n)}${inc}+${rienSi1(p)}${inc} = ${n}\\times ${inc}+${p}\\times ${inc} = (${n}+${p})\\times ${inc}=$ `
@@ -88,17 +88,9 @@ export default function ReduireDinstinctionSommeProduit () {
 
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
-        if (listeTypeDeQuestions[i] < 2) {
-          handleAnswers(this, 2 * i, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
-        } else {
-          handleAnswers(this, 2 * i, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
-        }
+        handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme, compare: expressionDeveloppeeEtReduiteCompare } })
         texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
-        if (listeTypeDeQuestions[i] > 1) {
-          handleAnswers(this, 2 * i + 1, { reponse: { value: reponseProduit, compare: factorisationCompare } }, { formatInteractif: 'calcul' })
-        } else {
-          handleAnswers(this, 2 * i + 1, { reponse: { value: { expr: reponseSomme, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'calcul' })
-        }
+        handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit, compare: expressionDeveloppeeEtReduiteCompare } })
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit
       texteCorr += listeTypeDeQuestions[i] > 1 ? correctionSommeFinale : correctionProduitFinal

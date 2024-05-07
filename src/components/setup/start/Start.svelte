@@ -8,13 +8,17 @@
   //     faudrait plutôtqu'ils fassent remonter les changements jusqu'à SideMenu.svelte via une {function} pour qu'ils
   //     les fassent redescendre ensuite par des {attributs}
   //
-  import { SvelteComponent, onMount, setContext } from 'svelte'
+  import { SvelteComponent, onDestroy, onMount, setContext } from 'svelte'
   import {
     callerComponent,
     darkMode,
     exercicesParams,
     globalOptions
   } from '../../../lib/stores/generalStore'
+  import {
+    localisedIDToUuid,
+    referentielLocale
+  } from '../../../lib/stores/languagesStore'
   import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
   import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
   import { type AppTierceGroup } from '../../../lib/types/referentiels'
@@ -31,6 +35,10 @@
   import type { InterfaceParams, VueType } from 'src/lib/types'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
+  import type { Language } from '../../../lib/types/languages'
+  import { isLanguage } from '../../../lib/types/languages'
+  import { get } from 'svelte/store'
+  import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   // import { keyboardState } from '../../keyboard/stores/keyboardStore'
 
   interface HeaderComponent extends SvelteComponent {
@@ -45,11 +53,56 @@
   let showThirdAppsChoiceDialog = false
   let isMd: boolean
   let headerComponent: HeaderComponent
+  let localeValue: Language = get(referentielLocale)
+
+  const unsubscribeToReferentielLocale = referentielLocale.subscribe(
+    (value) => {
+      localeValue = value
+    }
+  )
 
   onMount(() => {
     initTE({ Sidenav, Collapse, Ripple })
     addScrollListener()
   })
+
+  onDestroy(() => {
+    unsubscribeToReferentielLocale()
+  })
+
+  const handleLanguage = (lang: string) => {
+    // on se déplace circulairement dans le tableau allowedLanguages
+    // idée prise ici :https://dev.to/turneremma21/circular-access-of-array-in-javascript-j52
+    if (!isLanguage(lang)) {
+      throw new Error(`${lang} is not allowed as language.`)
+    } else {
+      referentielLocale.set(lang)
+      const currentRefToUuid = localisedIDToUuid[get(referentielLocale)]
+      exercicesParams.update((list) => {
+        for (let i = 0; i < list.length; i++) {
+          const localeID = (
+            Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]
+          ).find((key) => {
+            return currentRefToUuid[key] === list[i].uuid
+          })
+          const frenchID = (
+            Object.keys(
+              localisedIDToUuid['fr-FR']
+            ) as (keyof (typeof localisedIDToUuid)['fr-FR'])[]
+          ).find((key) => {
+            return localisedIDToUuid['fr-FR'][key] === list[i].uuid
+          })
+          list[i].id = localeID !== undefined && localeID.length !== 0 ? localeID : frenchID
+        }
+        return list
+      })
+      const event = new window.Event('languageHasChanged', {
+        bubbles: true
+      })
+      document.dispatchEvent(event)
+      mathaleaUpdateUrlFromExercicesParams()
+    }
+  }
 
   $: {
     isNavBarVisible = $globalOptions.v !== 'l'
@@ -174,6 +227,8 @@
       {trash}
       {setFullScreen}
       {handleExport}
+      locale={localeValue}
+      {handleLanguage}
     />
     {#if isMd}
       <!-- ====================================================================================

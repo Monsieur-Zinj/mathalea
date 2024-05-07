@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
+import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
@@ -42,7 +42,7 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.question = `%{champ1} < ${texNombre(decimal, 1)} < %{champ2}`
     this.canEnonce = 'Encadre par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < ${texNombre(decimal, 1)} < \\ldots$`
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: numberCompare }, champ2: { value: entierSup, compare: numberCompare } }
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: expressionDeveloppeeEtReduiteCompare }, champ2: { value: entierSup, compare: expressionDeveloppeeEtReduiteCompare } }
     this.correction = `$${miseEnEvidence(texNombre(entierInf, 0))} < ${texNombre(decimal, 1)} < ${miseEnEvidence(texNombre(entierSup, 0))}$`
   }
 }

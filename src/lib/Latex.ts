@@ -107,11 +107,8 @@ class Latex {
           if (exercice.content === '') {
             content += '% Cet exercice n\'est pas disponible au format LaTeX'
           } else {
-            if (latexFileInfos.style === 'Coopmaths') {
-              content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
-            } else if (latexFileInfos.style === 'Classique') {
-              content += '\n\\begin{EXO}{}{}\n'
-            }
+            content += `\n% @see : ${getUrlFromExercice(exercice)}`
+            content += `\n\\begin{EXO}{${exercice.examen || ''} ${exercice.mois || ''} ${exercice.annee || ''} ${exercice.lieu || ''}}{}\n`
             if (Number(exercice.nbCols) > 1) {
               content += `\\begin{multicols}{${exercice.nbCols}}\n`
             }
@@ -143,6 +140,7 @@ class Latex {
             contentCorr += '\\end{multicols}\n'
           }
           contentCorr += '\n\\end{EXO}\n'
+          content += `\n% @see : ${getUrlFromExercice(exercice)}`
           content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
@@ -155,7 +153,14 @@ class Latex {
 
   loadExercicesWithVersion (indiceVersion: number = 1) {
     for (const exercice of this.exercices) {
-      if (exercice.typeExercice === 'statique') continue
+      if (exercice.typeExercice === 'statique') {
+        const serie = exercice?.examen?.toLowerCase()
+        if (serie === 'crpe' && indiceVersion === 1) {
+          exercice.content = exercice.content?.replaceAll('{Images/', '{')
+          exercice.contentCorr = exercice.contentCorr?.replaceAll('{Images/', '{')
+        }
+        continue
+      }
       if (!Object.prototype.hasOwnProperty.call(exercice, 'listeQuestions')) continue
       const seed = indiceVersion > 1 ? exercice.seed + indiceVersion.toString() : exercice.seed
       exercice.seed = seed
@@ -454,7 +459,11 @@ export function buildImagesUrlsList (exosContentList: ExoContent[], picsNames: p
       const serie = exo?.serie?.toLowerCase()
       for (const file of picsNames[i]) {
         if (serie === 'crpe') {
-          imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          if (file.format) {
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.${file.format}`)
+          } else {
+            imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/images/${file.name}.png`)
+          }
         } else {
           if (file.format) {
             imagesFilesUrls.push(`${window.location.origin}/alea/static/${serie}/${year}/tex/${file.format}/${file.name}.${file.format}`)

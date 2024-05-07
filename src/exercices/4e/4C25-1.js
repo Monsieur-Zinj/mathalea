@@ -18,8 +18,12 @@ export const titre = 'Résoudre des problèmes additifs et multiplicatifs utilis
 
 export const uuid = '7ba8b'
 export const ref = '4C25-1'
+export const refs = {
+  'fr-fr': ['4C25-1'],
+  'fr-ch': ['10NO5-10']
+}
 export default function ProblemesMultiplicatifsFractions () {
-  Exercice.call(this) // Héritage de la classe Exercice()
+  Exercice.call(this)
   this.sup = '8'
   this.video = ''
   this.nbQuestions = 4
@@ -80,11 +84,11 @@ export default function ProblemesMultiplicatifsFractions () {
         let b = 0
         while (b < 50 && (
           F1.num === F2.num ||
-                  F1.num === F3.num ||
-                  F2.num === F3.num ||
-                  F1.den === F2.den ||
-                  F1.superieurLarge(fraction(1, 2)) ||
-                  F2.superieurLarge(fraction(1, 2))
+                F1.num === F3.num ||
+                F2.num === F3.num ||
+                F1.den === F2.den ||
+                F1.superieurLarge(fraction(1, 2)) ||
+                F2.superieurLarge(fraction(1, 2))
         )
         ) {
           // pour éviter la boucle infinie
@@ -190,7 +194,7 @@ export default function ProblemesMultiplicatifsFractions () {
         //= ===== énoncé indice 0 la bouteille d'eau  ======
         //= =====================================================
 
-        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille de $${pb3f[0].fractions[10]}$ cL d’eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
+        pb3f[0].enonce += `Ce matin, ${pb3f[0].prenoms[0]} a ouvert une bouteille d’eau. Elle a bu $${pb3f[0].fractions[0].texFraction}$ de la bouteille.`
         pb3f[0].enonce += `<br>Puis à midi, elle a bu $${pb3f[0].fractions[8].texFraction}$ du reste. `
 
         //= =====================================================
@@ -272,17 +276,17 @@ export default function ProblemesMultiplicatifsFractions () {
         let b = 0
         while (b < 50 && (
           F1.num === F2.num ||
-                  F1.num === F3.num ||
-                  F1.num === F4.num ||
-                  F2.num === F3.num ||
-                  F2.num === F4.num ||
-                  F3.num === F4.num ||
-                  F1.den === F2.den ||
-                  F1.den === F3.den ||
-                  F2.den === F3.den ||
-                  F1.superieurLarge(fraction(1, 3)) ||
-                  F2.superieurLarge(fraction(1, 3)) ||
-                  F3.superieurLarge(fraction(1, 3))
+                F1.num === F3.num ||
+                F1.num === F4.num ||
+                F2.num === F3.num ||
+                F2.num === F4.num ||
+                F3.num === F4.num ||
+                F1.den === F2.den ||
+                F1.den === F3.den ||
+                F2.den === F3.den ||
+                F1.superieurLarge(fraction(1, 3)) ||
+                F2.superieurLarge(fraction(1, 3)) ||
+                F3.superieurLarge(fraction(1, 3))
         )
         ) {
           // pour éviter la boucle infinie
@@ -302,11 +306,6 @@ export default function ProblemesMultiplicatifsFractions () {
           F2 = fraction(n2, d2).simplifie()
           F3 = fraction(n3, d3).simplifie()
           F4 = fraction(n4, d4).simplifie()
-          // console.log('b:' + b)
-          // console.log('f1:'+ F1.texFraction)
-          // console.log('f2:'+ F2.texFraction)
-          // console.log('f3:'+ F3.texFraction)
-          // console.log('f4:'+ F4.texFraction)
         }
         // on mélange
         [F1, F2, F3] = shuffle([F1, F2, F3])
@@ -394,7 +393,7 @@ export default function ProblemesMultiplicatifsFractions () {
         //= =====================================================
         //= ==========énoncé indice 1 les timbres ===========
         //= =====================================================
-        pb4f[1].enonce = `${pb4f[1].prenoms} fait la collection des timbres. Elle possède des timbres Français, Japonais, Méxicains et Brésiliens. Voici la répartion des timbres :`
+        pb4f[1].enonce = `${pb4f[1].prenoms} fait la collection des timbres. Elle possède des timbres Français, Japonais, Mexicains et Brésiliens. Voici la répartion des timbres :`
         pb4f[1].enonce += `$${pb4f[1].fractions[0].texFraction}$ ${pb4f[1].fractions[1]}.  `
         pb4f[1].enonce += `$${pb4f[1].fractions[12].texFraction}$ ${pb4f[1].fractions[13]}. `
         pb4f[1].enonce += `$${pb4f[1].fractions[14].texFraction}$ ${pb4f[1].fractions[15]}. `
@@ -403,8 +402,8 @@ export default function ProblemesMultiplicatifsFractions () {
         //= ==========énoncé indice 3 les bouquets ===========
         //= =====================================================
         pb4f[2].enonce = `Un marchand vend des bouquets de muguets le 1er mai. Il vend  $${pb4f[2].fractions[0].texFraction}$ de ses bouquets le matin, `
-        pb4f[2].enonce += `l'après-midi il vend $${pb4f[2].fractions[2].texFraction}$ de ce qui lui reste `
-        pb4f[2].enonce += `et le soir il vend $${pb4f[2].fractions[4].texFraction}$ de ce qui lui reste.`
+        pb4f[2].enonce += `l'après-midi il vend $${pb4f[2].fractions[12].texFraction}$ de ce qui lui reste `
+        pb4f[2].enonce += `et le soir il vend $${pb4f[2].fractions[14].texFraction}$ de ce qui lui reste.`
 
         //= =====================================================
         //= ========== Correction Commune  ===========

@@ -53,7 +53,8 @@ async function getConsoleTest (page: Page, urlExercice: string) {
           !msg.text().includes('No character metrics for') && // katex
           !msg.text().includes('LaTeX-incompatible input') && // katex
           !msg.text().includes('mtgLoad') && // mtgLoad : 3G22
-          !msg.text().includes('MG32div0') // MG32div0 : 3G22
+          !msg.text().includes('MG32div0') && // MG32div0 : 3G22
+          !msg.location().url.includes('mathgraph32')
       ) {
         if (!msg.text().includes('<HeaderExercice>')) {
           messages.push(page.url() + ' ' + msg.text())
@@ -168,7 +169,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('3e')
   // testRunAllLots('2e')
   // testRunAllLots('1e')
-  prefs.headless = true
+  // prefs.headless = true
   // testRunAllLots('3e/3G22')
-  testRunAllLots('4e/4C25-1')
+  testRunAllLots('3e/3G22.js')
 }

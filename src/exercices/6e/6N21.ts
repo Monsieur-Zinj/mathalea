@@ -11,7 +11,7 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
 
 export const dateDePublication = '29/06/2021'
-export const dateDeModifImportante = '12/12/2023'
+export const dateDeModifImportante = '03/05/2024'
 export const titre = 'Placer des points d’abscisses fractionnaires'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -53,7 +53,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     if (this.sup > 3) {
       typeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)
     } else {
-      typeDeQuestions = combinaisonListes([parseInt(this.sup)], this.nbQuestions)
+      typeDeQuestions = combinaisonListes([this.sup], this.nbQuestions)
     }
     const fractionsUtilisees: Array<[number, number]> = [] // Pour s'assurer de ne pas poser 2 fois la même question
     const tableUtilisées: [number[], number[], number[]] = [[], [], []]
@@ -223,7 +223,7 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
   stepBis?: number,
   points?: Array<{ x: number, label: string }>
 }): { figure: Figure, latex: string} {
-  const width = 900
+  const width = 750
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })

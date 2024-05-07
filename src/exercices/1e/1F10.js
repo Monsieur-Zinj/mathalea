@@ -52,13 +52,14 @@ export default function CalculsDeDerives () {
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, derivee, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, n, m, expression, derivee, domaine, ensembleDerivation, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
         case 'a':
           a = randint(-10, 10, 0)
           expression = `${a}`
           derivee = '0'
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case 'ax+b':
           a = randint(-10, 10, 0)
@@ -66,6 +67,7 @@ export default function CalculsDeDerives () {
           derivee = String(a)
           expression = reduireAxPlusB(a, b, 'x')
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case 'ax2+bx+c':
           a = randint(-10, 10, 0)
@@ -74,18 +76,21 @@ export default function CalculsDeDerives () {
           derivee = reduireAxPlusB(2 * a, b)
           expression = reduirePolynomeDegre3(0, a, b, c, 'x')
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case 'xn':
           n = randint(2, 10)
           expression = `x^${n}`
           derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case 'xn+1/x':
           n = randint(2, 10)
           expression = `x^${n}+\\dfrac{1}{x}`
           derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}-\\dfrac{1}{x^2}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+          domaine = [1, 10]
           break
         case 'xn+1/xm':
           n = randint(2, 10)
@@ -93,6 +98,7 @@ export default function CalculsDeDerives () {
           expression = `x^${n}+\\dfrac{1}{x^${m}}`
           derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}-\\dfrac{${m}}{x^${m + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+          domaine = [1, 10]
           break
         case 'xn+xm':
           n = randint(2, 10)
@@ -100,6 +106,7 @@ export default function CalculsDeDerives () {
           expression = `x^${n}+x^${m}`
           derivee = `${n}${n === 2 ? 'x' : `x^${n - 1}`}+${m}${m === 2 ? 'x' : `x^${m - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case 'axn':
           a = randint(-10, 10, [0, 1, -1])
@@ -107,24 +114,27 @@ export default function CalculsDeDerives () {
           expression = `${a}x^${n}`
           derivee = `${texNombre(a * n, 0)}${n === 2 ? 'x' : `x^${n - 1}`}`
           ensembleDerivation = '\\mathbb{R}'
+          domaine = [-10, 10]
           break
         case '1/x':
           expression = '\\dfrac{1}{x}'
           derivee = '\\dfrac{-1}{x^2}'
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
-
+          domaine = [1, 10]
           break
         case 'a/x':
           a = randint(-10, 10, [0, 1])
           expression = `\\dfrac{${a}}{x}`
           derivee = `\\dfrac{${texNombre(-a, 0)}}{x^2}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+          domaine = [1, 10]
           break
         case '1/xn':
           n = randint(2, 10)
           expression = `\\dfrac{${1}}{x^${n}}`
           derivee = `-\\dfrac{${n}}{x^${n + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+          domaine = [1, 10]
           break
         case 'a/xn':
           a = randint(-10, 10, [1, 0])
@@ -132,24 +142,27 @@ export default function CalculsDeDerives () {
           expression = `\\dfrac{${a}}{x^${n}}`
           derivee = `-\\dfrac{${texNombre(a * n, 0)}}{x^${n + 1}}`
           ensembleDerivation = '\\mathbb{R}^{\\text{*}}'
+          domaine = [1, 10]
           break
         case 'racine(x)':
           expression = '\\sqrt(x)'
           derivee = '\\dfrac{1}{2\\sqrt{x}}'
           ensembleDerivation = ']0,+\\infty['
+          domaine = [1, 10]
           break
         case 'racine(ax)':
           a = randint(2, 10, [4, 9])
           expression = `\\sqrt(${a}x)`
           derivee = `\\dfrac{${a}}{2\\sqrt{x}}`
           ensembleDerivation = ']0,+\\infty['
+          domaine = [1, 10]
           break
       }
 
       texte = `$${lettreMinusculeDepuisChiffre(i + 6)}:x\\longmapsto ${expression}$` + sp(10) + ';' + sp(10) + remplisLesBlancs(this, i, `${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto %{champ1}`)
       texteCorr = `$${lettreMinusculeDepuisChiffre(i + 6)}$ est dérivable sur $${ensembleDerivation}$ et $ ${lettreMinusculeDepuisChiffre(i + 6)}':x\\longmapsto ${derivee}$`
       if (!context.isAmc) {
-        handleAnswers(this, i, { champ1: { value: { fonction: derivee, variable: 'x' }, compare: functionCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { champ1: { value: derivee, options: { variable: 'x', domaine }, compare: functionCompare } })
       }
 
       if (this.liste_valeurs.indexOf(expression) === -1) {

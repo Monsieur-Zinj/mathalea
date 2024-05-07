@@ -1,5 +1,4 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { unSiPositifMoinsUnSinon } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
@@ -7,16 +6,21 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+import { equalFractionCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
+export const dateDeModifImportante = '27/04/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
 /**
- * Description didactique de l'exercice
+ * Déterminer le coefficient directeur d'une droite
  * @author Stéphane Guyon
  */
 export const uuid = '1ea16'
@@ -43,8 +47,9 @@ export default function CoefficientDirecteurDeDroite () {
     if (!this.interactif) {
       this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $(AB)$."
     } else {
-      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe, le coefficient directeur de la droite $(AB)$, écrire 'non' si la droite n'a pas de coefficicient directeur."
+      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe, le coefficient directeur de la droite $(AB)$, écrire 'aucun' si la droite n'a pas de coefficicient directeur."
     }
+
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
@@ -61,12 +66,17 @@ export default function CoefficientDirecteurDeDroite () {
           texteCorr += "<br>La droite $(AB)$ n'est donc pas verticale."
           texteCorr += '<br>On peut donc calculer le coefficient directeur $m$ de la droite.'
           texteCorr += "<br>On sait d'après le cours : $m=\\dfrac{y_B-y_A}{x_B-x_A}$."
-          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}=${texFractionFromString(n, d)}`
-          if ((pgcd(n, d) !== 1 || d === 1 || d < 0) && n !== 0) {
-            texteCorr += `=${texFractionReduite(n, d)}`
-          }
+          texteCorr += `<br>On applique avec les données de l'énoncé : $m=\\dfrac{${yB}-${ecritureParentheseSiNegatif(yA)}}{${xB}-${ecritureParentheseSiNegatif(xA)}}`
+          if ((pgcd(n, d) !== 1 || d === 1 || d < 0 || n < 0) && n !== 0) {
+            texteCorr += `=${new FractionEtendue(n, d).texFraction}`
+            texteCorr += `=${miseEnEvidence(new FractionEtendue(n, d).texFractionSimplifiee)}`
+          } else texteCorr += `=${miseEnEvidence(new FractionEtendue(n, d).texFraction)}`
+
           texteCorr += '$.'
-          setReponse(this, i, texFractionReduite(n, d))
+
+          // texte += `=${new FractionEtendue(n, d).texFractionSimplifiee}`
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(n, d).texFractionSimplifiee, compare: equalFractionCompare } }, { formatInteractif: 'calcul' })
+
           if (context.isAmc) {
             n = unSiPositifMoinsUnSinon(n) * unSiPositifMoinsUnSinon(d) * Math.abs(n)
             d = Math.abs(d)
@@ -94,7 +104,7 @@ export default function CoefficientDirecteurDeDroite () {
                     statut: '',
                     reponse: {
                       texte: 'numérateur',
-                      valeur: n,
+                      valeur: new FractionEtendue(n, d).n,
                       param: {
                         digits: 1,
                         decimals: 0,
@@ -111,7 +121,7 @@ export default function CoefficientDirecteurDeDroite () {
                     statut: '',
                     reponse: {
                       texte: 'dénominateur',
-                      valeur: d,
+                      valeur: new FractionEtendue(n, d).d,
                       param: {
                         digits: 1,
                         decimals: 0,
@@ -136,8 +146,9 @@ export default function CoefficientDirecteurDeDroite () {
           texte = `Avec $A(${xA};${yA})$ et $B(${xB};${yB})$. `
           texteCorr = 'On observe que $ x_B = x_A$.'
           texteCorr += '<br>La droite $(AB)$ est donc verticale.'
-          texteCorr += "<br>Elle n'admet donc pas de coefficient directeur."
-          setReponse(this, i, ['non', '\\times'])
+          texteCorr += `<br>Elle n'admet donc ${texteEnCouleurEtGras('aucun')} coefficient directeur.`
+          handleAnswers(this, i, { reponse: { value: 'aucun', compare: texteSansCasseCompare } })
+
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: `Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal. Soit $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>Déterminer, s'il existe, le coefficient directeur de la droite $\\bm{(AB)}$ sous la forme d'une fraction irréductible (coder deux fois zéro si le coefficient n'existe pas).<br>`,
@@ -196,7 +207,7 @@ export default function CoefficientDirecteurDeDroite () {
 
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore' + KeyboardType.alphanumeric, { texteAvant: '<br>Coefficient directeur de la droite $(AB)$ :' })
       if (this.questionJamaisPosee(i, xA, yA, xB, yB)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

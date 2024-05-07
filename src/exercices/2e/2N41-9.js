@@ -7,8 +7,8 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, printla
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { aleaExpression } from '../../modules/outilsMathjs'
-import engine, { expandedAndReductedCompare } from '../../lib/interactif/comparisonFunctions'
+import engine, { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { developpe, regroupeTermesMemeDegre, suppressionParentheses } from '../../lib/mathFonctions/outilsMaths'
 
 export const titre = 'Développer puis réduire des expressions littérales.'
 export const dateDePublication = '20/04/2024'
@@ -27,17 +27,20 @@ export const amcReady = true
  * @author Matthieu DEVILLERS refactorisé par Jean-Claude Lhote
  */
 export const uuid = '889ef'
-/* export const refs = [
-  {'fr-fr': ['2N41-9']},
-  {'fr-ch': []}
-]
- */
+export const refs = {
+  'fr-fr': ['2N41-9'],
+  'fr-ch': []
+}
+
 export default function DevelopperReduireExprComplexe () {
   Exercice.call(this) // Héritage de la classe Exercice()
   this.spacing = context.isHtml ? 3 : 2
   this.spacingCorr = context.isHtml ? 3 : 2
   this.nbQuestions = 1
   this.sup = '3'
+  this.sup2 = false
+  this.sup3 = 3
+  this.sup4 = true
   this.tailleDiaporama = 3
   this.listeAvecNumerotation = false
   this.correctionDetailleeDisponible = true
@@ -67,6 +70,9 @@ export default function DevelopperReduireExprComplexe () {
     )
     for (
       let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
+      const isColored = this.sup4
+      const level = this.sup3 - 1
+      const isPositif = this.sup2
       // Initialisation des variables didactiques en fonction du type de question voulu
       let ope = '+' // valeur par défaut
       let factsProd1Diff = true // par défaut
@@ -107,8 +113,8 @@ export default function DevelopperReduireExprComplexe () {
       }
       // initialisation des coefficients
       let c, d, g, h
-      const a = randint(this.sup2 ? 1 : -5, 5, 0)
-      const b = randint(this.sup2 ? 1 : -5, 5, 0)
+      const a = randint(isPositif ? 1 : -5, 5, 0)
+      const b = randint(isPositif ? 1 : -5, 5, 0)
       if (prod1Remarquable) {
         c = a
         d = -b
@@ -116,48 +122,67 @@ export default function DevelopperReduireExprComplexe () {
         c = a
         d = b
       } else {
-        c = randint(this.sup2 ? 1 : -5, 5, [0, a])
-        d = randint(this.sup2 ? 1 : -5, 5, [0, b])
+        c = randint(isPositif ? 1 : -5, 5, [0, a])
+        d = randint(isPositif ? 1 : -5, 5, [0, b])
       }
-      const e = randint(this.sup2 ? 1 : -5, 5, 0)
-      const f = randint(this.sup2 ? 1 : -5, 5, 0)
+      const e = randint(isPositif ? 1 : -5, 5, 0)
+      const f = randint(isPositif ? 1 : -5, 5, 0)
       if (!factsProd2Diff) {
         g = e
         h = f
       } else {
-        g = randint(this.sup2 ? 1 : -5, this.sup2 ? 9 : 5, [0, e])
-        h = randint(this.sup2 ? 1 : -5, this.sup2 ? 9 : 5, [0, f])
+        g = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, e])
+        h = randint(isPositif ? 1 : -5, isPositif ? 9 : 5, [0, f])
       }
-
+      const aS = String(a)
+      const bS = String(b)
+      const cS = String(c)
+      const dS = String(d)
+      const eS = String(e)
+      const fS = String(f)
+      const gS = String(g)
+      const hS = String(h)
       const choixLettre = choice(lettresPossibles)
       const expression1 = factsProd1Diff
-        ? printlatex(aleaExpression(`(a*${choixLettre}+(b))*(c*${choixLettre}+(d))`, { a, b, c, d })).replaceAll(' ', '')
-        : printlatex(aleaExpression(`(a*${choixLettre}+(b))^2`, { a, b })).replaceAll(' ', '')
+        ? printlatex(`(${aS}*${choixLettre}+(${bS}))*(${cS}*${choixLettre}+(${dS}))`).replaceAll(' ', '')
+        : printlatex(`(${aS}*${choixLettre}+(${bS}))^2`).replaceAll(' ', '')
       const expression2 = factsProd2Diff
-        ? printlatex(aleaExpression(`(e*${choixLettre}+(f))*(g*${choixLettre}+(h))`, { e, f, g, h })).replaceAll(' ', '')
-        : printlatex(aleaExpression(`(e*${choixLettre}+(f))^2`, { e, f })).replaceAll(' ', '')
-      console.log(expression1, expression2)
-      const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1)]).evaluate().latex
-      const devExpr2 = engine.box(['ExpandAll', engine.parse(expression2)]).evaluate().latex
+        ? printlatex(`(${eS}*${choixLettre}+(${fS}))*(${gS}*${choixLettre}+(${hS}))`).replaceAll(' ', '')
+        : printlatex(`(${eS}*${choixLettre}+(${fS}))^2`).replaceAll(' ', '')
+      const expressionDeveloppee1 = developpe(expression1, { isColored, colorOffset: 0, level })
+      const expressionDeveloppee2 = developpe(expression2, { isColored, colorOffset: 4, level })
+      const devExpr1 = engine.parse(developpe(expression1, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
+      // const devExpr1 = engine.box(['ExpandAll', engine.parse(expression1.replaceAll('\\dfrac', '\\frac'))]).evaluate().latex
+      const devExpr2 = engine.parse(developpe(expression2, { isColored: false, colorOffset: 0, level: 0 }).replaceAll('\\dfrac', '\\frac')).latex
+      const sansParentheses = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored })
+      const sansParenthesesNetB = suppressionParentheses(`(${devExpr1})${ope}(${devExpr2})`, { isColored: false })
       const expression = `${expression1}${ope}${expression2}`
+      const expressionOrdonnee = regroupeTermesMemeDegre(sansParenthesesNetB, { isColored })
+      const coeffX2 = ope === '-'
+        ? a * c - e * g
+        : a * c + e * g
+      const coeffX = ope === '-'
+        ? a * d + b * c - e * h - f * g
+        : a * d + b * c + e * h + f * g
+      const coeffConst = String(ope === '-' ? b * d - f * h : b * d + f * h)
+      const reponse = `${reduirePolynomeDegre3(0, coeffX2, coeffX, Number(coeffConst), choixLettre)}`
       let texte = `$${lettreDepuisChiffre(i + 1)}=${expression}$`
-      const coeffX2 = ope === '-' ? a * c - e * g : a * c + e * g
-      const coeffX = ope === '-' ? a * d + b * c - e * h - f * g : a * d + b * c + e * h + f * g
-      const coeffConst = ope === '-' ? b * d - f * h : b * d + f * h
-      const reponse = `${reduirePolynomeDegre3(
-          0,
-          coeffX2,
-          coeffX,
-          coeffConst,
-          choixLettre
-      )}`
       let texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=${expression}\\\\`
-      texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
       // ici on va rédiger la correction détaillée
+      if (this.correctionDetaillee) {
+        // La correction dans le texte pour tester
+        texteCorr += `&=\\left(${expressionDeveloppee1}\\right)${ope}\\left(${expressionDeveloppee2}\\right)\\\\`
+        texteCorr += `&=${sansParentheses}\\\\`
+        texteCorr += `&=${expressionOrdonnee}\\\\`
+      } else {
+        texteCorr += `&=(${devExpr1})${ope}(${devExpr2})\\\\`
+      }
 
       texteCorr += `&=${miseEnEvidence(reponse)}\\end{aligned}$`
+
+      // La correction pour de vrai
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: expandedAndReductedCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
                     ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')
@@ -256,6 +281,7 @@ export default function DevelopperReduireExprComplexe () {
 10 : '(ax-b)(ax+b) - (cx+d)^2'
 11 : 'Mélange'
 `]
-
   this.besoinFormulaire2CaseACocher = ['Coefficients strictement positifs', true]
+  this.besoinFormulaire3Numerique = ['Niveau de détail dans la correction détaillée', 3]
+  this.besoinFormulaire4CaseACocher = ['Couleur dans la correction', true]
 }

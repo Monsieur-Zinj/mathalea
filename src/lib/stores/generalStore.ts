@@ -55,11 +55,15 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   isInteractiveFree: true,
   oneShot: false,
   twoColumns: false,
-  beta: false
+  beta: false,
+  lang: 'fr-FR'
 })
 
 // utilisé pour les aller-retours entre le composant Diaporam et le composant Can
-export const questionsOrder = writable<{isQuestionsShuffled: boolean, indexes: number[]}>({
+export const questionsOrder = writable<{
+  isQuestionsShuffled: boolean
+  indexes: number[]
+}>({
   isQuestionsShuffled: false,
   indexes: []
 })
@@ -96,7 +100,9 @@ export const transitionsBetweenQuestions =
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
-export const capytaleMode = writable<'none'|'create' | 'assignment' | 'review' | 'view'>('none')
+export const capytaleMode = writable<
+  'none' | 'create' | 'assignment' | 'review' | 'view'
+>('none')
 
 // sauvegarde des résultats des exercices
 export const resultsByExercice = writable<InterfaceResultExercice[]>([])
@@ -123,7 +129,11 @@ export const isModalForStaticsVisible = writable<boolean>(false)
 /**
  * Déplace un exercice dans exercicesParams
  */
-export function moveExercice (liste: InterfaceParams[], iDepart: number, iArrivee: number): InterfaceParams[] {
+export function moveExercice (
+  liste: InterfaceParams[],
+  iDepart: number,
+  iArrivee: number
+): InterfaceParams[] {
   liste.splice(iArrivee, 0, liste.splice(iDepart, 1)[0])
   return liste
 }
@@ -234,7 +244,7 @@ export function updateGlobalOptionsInURL (url: URL) {
   } else {
     url.searchParams.delete('recorder')
   }
-  if (options.v === 'diaporama') {
+  if (options.v === 'diaporama' || options.v === 'overview') {
     if (selectedExexercicesStore) {
       url.searchParams.append(
         'selectedExercises',

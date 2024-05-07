@@ -18,7 +18,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Grandeur from '../../modules/Grandeur'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
 
 export const titre = 'Mettre en équation un problème et le résoudre'
 export const interactifReady = true

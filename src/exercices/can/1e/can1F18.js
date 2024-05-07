@@ -49,7 +49,7 @@ export default function CalculFonctionDeriveeAsurU () {
         this.correction = `$f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}=${a}\\times \\dfrac{1}{${reduireAxPlusB(m, p)}}$.<br>
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
           On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
-        this.reponse = `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`//, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
+        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
         this.canEnonce = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}$. `
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break
@@ -62,7 +62,7 @@ export default function CalculFonctionDeriveeAsurU () {
         this.correction = `$f(x)=\\dfrac{${a}}{${reduireAxPlusB(m, p)}}=${a}\\times \\dfrac{1}{${reduireAxPlusB(m, p)}}$.<br>
           Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
           On a  $u(x)=${reduireAxPlusB(m, p)}$ et $u'(x)=${m}$. <br>On en déduit  $f'(x)=${a}\\times \\dfrac{-${ecritureParentheseSiNegatif(m)}}{(${reduireAxPlusB(m, p)})^2}=\\dfrac{${-a * m}}{(${reduireAxPlusB(m, p)})^2}$.`
-        this.reponse = `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`//, `\\dfrac{${-a * m}}{(${m}x+${p})^2}`, `${-a}\\times\\dfrac{${m}}{(${m}x+${p})^2}`, `${a}\\times\\dfrac{${-m}}{(${m}x+${p})^2}`, `${-a * m}\\times\\dfrac{1}{(${m}x+${p})^2}`]
+        this.reponse = { reponse: { value: `\\dfrac{${-a * m}}{(${-m}x+${-p})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
         this.canEnonce = `Soit $f$ la fonction définie  par  $f(x)=\\dfrac{${a}}{${p}${ecritureAlgebriqueSauf1(m)}x}$.`
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break
@@ -77,7 +77,7 @@ export default function CalculFonctionDeriveeAsurU () {
                        Or  $\\left(\\dfrac{1}{u}\\right)'=\\dfrac{-u'}{u^2}$.<br>
                 On a  $u(x)=${reduirePolynomeDegre3(0, m, 0, p)}$ et $u'(x)=${2 * m}x$. On en déduit,
                 $f'(x)= ${a}\\times\\dfrac{-${ecritureParentheseSiNegatif(2 * m)}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}=\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}$.`
-        this.reponse = `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}` //, `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, -m, 0, -p)})^2}`]
+        this.reponse = { reponse: { value: `\\dfrac{${-2 * a * m}x}{(${reduirePolynomeDegre3(0, m, 0, p)})^2}`, options: { variable: 'x', domaine: [-100, 100] }, compare: functionCompare } }
         this.canEnonce = `Soit $f$ la fonction définie  par : $f(x)=\\dfrac{${a}}{${reduirePolynomeDegre3(0, m, 0, p)}}$. `
         this.canReponseACompleter = '$f\'(x)=\\ldots$'
         break
