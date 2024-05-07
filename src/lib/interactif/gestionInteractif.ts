@@ -45,7 +45,7 @@ digits?: number
 export type AnswerType = {
   value: string,
   compare: CompareFunction,
-  options: Record<string, unknown>
+  options?: Record<string, unknown>
 }
 
 type ResultOfExerciceInteractif = {
