@@ -154,7 +154,7 @@
     }
   }
 
-  afterUpdate(()=>{
+  afterUpdate(() => {
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {
       bubbles: true
@@ -275,6 +275,11 @@
     if (type === undefined || type === null) {
       type = exercice.interactifType
     }
+    if (type == null) { // @fixme on ne devrait jamais arriver ici pour un exercice non interactif !
+      window.notify('checkQuestion a été appelé pour un exercice non interactif', { exercice: exercice.uuid })
+      resultsByQuestion[i] = false
+      return
+    }
     if (type.toLowerCase() === 'mathlive') {
       resultsByQuestion[i] =
         verifQuestionMathLive(
@@ -310,7 +315,7 @@
     await tick()
     const feedback = document.querySelector<HTMLElement>(`#feedbackEx${indiceExercice[i]}Q${indiceQuestionInExercice[i]}`)
     // nécessaire pour le feedback
-    if (feedback !==null && feedback!== undefined) mathaleaRenderDiv(feedback)
+    if (feedback !== null && feedback !== undefined) mathaleaRenderDiv(feedback)
     mathaleaRenderDiv(divsCorrection[i])
   }
 
