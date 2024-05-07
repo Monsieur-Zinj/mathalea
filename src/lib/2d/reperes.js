@@ -4,7 +4,7 @@ import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { plot, point, tracePoint } from './points.js'
 import { segment } from './segmentsVecteurs.js'
-import { latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
+import { latex2d, latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
@@ -1219,12 +1219,12 @@ export function Repere ({
   yMax = 10,
   axeXisVisible = true,
   axeYisVisible = true,
-  axesEpaisseur = 2,
+  axesEpaisseur = 1.2,
   axesCouleur = 'black',
   axeXStyle = '->',
   axeYStyle = '->',
-  thickEpaisseur = 2,
-  thickHauteur = 0.2,
+  thickEpaisseur = 1.2,
+  thickHauteur = 0.13,
   thickCouleur = axesCouleur,
   xThickDistance = 1,
   xThickListe = [],
@@ -1244,7 +1244,7 @@ export function Repere ({
   yLabelMax = yThickMax,
   precisionLabelX = 1,
   precisionLabelY = 1,
-  xLabelEcart = 0.5,
+  xLabelEcart = 0.2,
   yLabelEcart = 0.5,
   xLegende = '',
   xLegendePosition = [],
@@ -1253,12 +1253,12 @@ export function Repere ({
   grille = true,
   grilleDistance = 1,
   grilleCouleur = 'black',
-  grilleOpacite = 0.5,
+  grilleOpacite = 0.4,
   grilleEpaisseur = 1,
   grilleSecondaire = false,
   grilleSecondaireDistance = 1,
   grilleSecondaireCouleur = 'gray',
-  grilleSecondaireOpacite = 0.3,
+  grilleSecondaireOpacite = 0.1,
   grilleSecondaireEpaisseur = 1,
   grilleX = grille,
   grilleXListe = [],
@@ -1486,13 +1486,13 @@ export function Repere ({
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = texteParPosition(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart, 0, 'black', 0.8, 'milieu', false)
+          l = latex2d(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
           //   l.isVisible = false
           objets.push(l)
         }
       } else {
         if (x.valeur <= xMax && x.valeur >= xMin) {
-          l = latexParCoordonnees(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart * 2, 'black', 20, 20, '', 8)
+          l = latex2d(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'tiny', color: 'black', opacity: 0.8 })
           //  l.isVisible = false
           objets.push(l)
         }
@@ -1509,13 +1509,13 @@ export function Repere ({
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = texteParPosition(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite, 0, 'black', 0.8, 'milieu', false)
+          l = latex2d(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
           //  l.isVisible = false
           objets.push(l)
         }
       } else {
         if (y.valeur >= yMin && y.valeur <= yMax) {
-          l = latexParCoordonnees(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite, 'black', 20, 20, '', 8)
+          l = latex2d(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
           //     l.isVisible = false
           objets.push(l)
         }
