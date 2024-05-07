@@ -16,9 +16,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '27/06/2022'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence can1G06
  *
 */
 export const uuid = 'a394f'
@@ -60,8 +58,9 @@ export default function ProduitScalaireFiguresClassiques () {
         ymax = Math.max(A.y, B.y, C.y, D.y) + 1
 
         objets.push(labelPoint(A, B, C, D), a1, a2, a3, poly)
+        this.question = '$ABCD$ est un parallélogramme.<br>'
         if (choix === 'a') {
-          this.question = `Calculer $\\overrightarrow{AB}\\cdot \\overrightarrow{AD}$.<br>
+          this.question += `Calculer $\\overrightarrow{AB}\\cdot \\overrightarrow{AD}$.<br>
           
           `
           this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
@@ -98,7 +97,7 @@ export default function ProduitScalaireFiguresClassiques () {
         }
         if (choix === 'b') {
           if (choice([true, false])) {
-            this.question = `Calculer $\\overrightarrow{AB}\\cdot \\overrightarrow{DC}$.<br>
+            this.question += `Calculer $\\overrightarrow{AB}\\cdot \\overrightarrow{DC}$.<br>
             
             `
             this.question += mathalea2d({ xmin, ymin, xmax, ymax, pixelsParCm: 15, mainlevee: false, amplitude: 0.3, scale: 0.5, style: 'margin: auto' }, objets)
