@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { pointSurDroite } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { texteParPosition } from '../../lib/2d/textes.js'
+import { latex2d, texteParPosition } from '../../lib/2d/textes.js'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils.js'
 import { troisColonnes } from '../../lib/format/miseEnPage.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
@@ -207,7 +207,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         ymin: -6,
         xmax: 7,
         ymax: 6,
-        pixelsParCm: 12,
+        pixelsParCm: 16,
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
@@ -216,7 +216,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         ymin: -6,
         xmax: 7,
         ymax: 6,
-        pixelsParCm: 12,
+        pixelsParCm: 16,
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
@@ -225,7 +225,7 @@ export default class AssocierGraphiqueSysteme extends Exercice {
         ymin: -6,
         xmax: 7,
         ymax: 6,
-        pixelsParCm: 12,
+        pixelsParCm: 16,
         scale: 0.32,
         style: 'display: inline',
         optionsTikz: ['baseline=(current bounding box.north)']
