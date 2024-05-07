@@ -14,7 +14,7 @@ export const titre = 'Effectuer somme, différence ou produit de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const dateDePublication = '15/09/2021'
-export const dateDeModifImportante = '11/09/2023'
+export const dateDeModifImportante = '07/05/2024'
 
 /**
  * Effectuer somme, différence ou produit de fractions
@@ -29,8 +29,6 @@ export const refs = {
 }
 export default function SommeOuProduitFractions () {
   Exercice.call(this)
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.spacing = context.isHtml ? 4 : 3
   this.spacingCorr = context.isHtml ? 4 : 3
   this.nbColonneModifiable = false
@@ -281,6 +279,6 @@ export default function SommeOuProduitFractions () {
   }
   this.besoinFormulaireTexte = [
     'Type de questions',
-    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Avec priorités opératoires\n4 : Mélange'
+    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange'
   ]
 }
