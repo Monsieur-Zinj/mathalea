@@ -32,7 +32,7 @@ export default class NomExercice extends Exercice {
       this.correction = 'On décompose le calcul pour le rendre plus simple mentalement :<br>'
       this.correction += ' $\\begin{aligned} 0,2\\times 0,3 &=2\\times 0,1\\times 3\\times 0,1\\\\'
       this.correction += ' &= 6\\times 0,01\\\\'
-      this.correction += `'\n&= ${miseEnEvidence('0,06')}`
+      this.correction += `\n&= ${miseEnEvidence('0,06')}`
       this.correction += '\n\\end{aligned}$'
     } else {
       const a = new Decimal(randint(1, 9)).div(10)
