@@ -1,6 +1,7 @@
 import SommeOuProduitFractions from '../4e/4C23.js'
 export const titre = 'Effectuer somme, différence ou produit de fractions'
 
+export const dateDeModifImportante = '07/05/2024'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 
@@ -17,4 +18,5 @@ export const refs = {
 }
 export default function SommeOuProduitFractions2nde () {
   SommeOuProduitFractions.call(this)
+  this.sup = 4
 }
