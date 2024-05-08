@@ -1,7 +1,8 @@
 import Exercice from '../../exercices/Exercice'
 import type TypeExercice from '../../exercices/Exercice'
 import { globalOptions, exercicesParams } from '../stores/generalStore'
-import referentielStatic from '../../json/referentielStatic.json'
+import referentielStaticFR from '../../json/referentielStaticFR.json'
+import referentielStaticCH from '../../json/referentielStaticCH.json'
 import { retrieveResourceFromUuid } from '../../lib/components/refUtils'
 import { isStaticType, type JSONReferentielObject } from '../../lib/types/referentiels'
 import {
@@ -14,7 +15,8 @@ import seedrandom from 'seedrandom'
 import { get } from 'svelte/store'
 
 const allStaticReferentiels: JSONReferentielObject = {
-  ...referentielStatic
+  ...referentielStaticFR,
+  ...referentielStaticCH
 }
 
 // on supprime les entrées par thèmes qui entraîne des doublons
@@ -23,6 +25,7 @@ delete allStaticReferentiels['BAC par thèmes - APMEP']
 delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
 delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
 delete allStaticReferentiels['E3C par thèmes - APMEP']
+delete allStaticReferentiels['EVACOM par thèmes']
 
 /**
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
@@ -89,6 +92,7 @@ function isStatic (uuid: string) {
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||
     uuid.startsWith('bac_') ||
+    uuid.startsWith('evacom_') ||
     uuid.startsWith('2nd_')
 }
 

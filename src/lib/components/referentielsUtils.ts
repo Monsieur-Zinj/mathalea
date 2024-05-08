@@ -1,7 +1,7 @@
 import type { InterfaceReferentiel } from '../types'
 import referentiel from '../../json/referentiel2022FR.json'
-import referentielStatic from '../../json/referentielStatic.json'
-import referentiel2nd from '../../json/referentiel2nd.json'
+import referentielStaticFR from '../../json/referentielStaticFR.json'
+import referentielStaticCH from '../../json/referentielStaticCH.json'
 import codeList from '../../json/codeToLevelList.json'
 import { findPropPaths, findDuplicates } from './searching'
 import { toMap } from './toMap'
@@ -15,7 +15,10 @@ import type { JSONReferentielObject } from '../types/referentiels'
 // On renomme les chapitres pour la partie statique
 const baseReferentiel: JSONReferentielObject = {
   ...referentiel,
-  static: { ...referentielStatic }
+  static: {
+    ...referentielStaticFR,
+    ...referentielStaticCH
+  }
 }
 if (get(globalOptions).beta) {
   // const second: JSONReferentielObject = referentiel2nd

@@ -11,8 +11,8 @@ import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOpti
 import { get } from 'svelte/store'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
-import refToUuid from '../json/refToUuidFR.json'
-import referentielStatic from '../json/referentielStatic.json'
+import referentielStaticFR from '../json/referentielStaticFR.json'
+import referentielStaticCH from '../json/referentielStaticCH.json'
 import 'katex/dist/katex.min.css'
 import renderScratch from './renderScratch.js'
 import { decrypt, isCrypted } from './components/urls.js'
@@ -26,7 +26,6 @@ import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
 import { localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
-
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
     if (root.uuid === targetUUID) {
@@ -186,9 +185,10 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
             param.uuid.substring(0, 4) === 'dnb_' ||
             param.uuid.substring(0, 4) === 'e3c_' ||
             param.uuid.substring(0, 4) === 'bac_' ||
+            param.uuid.substring(0, 7) === 'evacom_' ||
             param.uuid.startsWith('2nd_')
     ) {
-      const infosExerciceStatique = getExerciceByUuid(referentielStatic, param.uuid)
+      const infosExerciceStatique = (param.uuid.substring(0, 7) === 'evacom_') ? getExerciceByUuid(referentielStaticCH, param.uuid) : getExerciceByUuid(referentielStaticFR, param.uuid)
       let content = ''
       let contentCorr = ''
       if (infosExerciceStatique?.url) {
@@ -222,6 +222,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'
+      if (param.uuid.substring(0, 7) === 'evacom_') examen = 'EVACOM'
       exercices.push({ typeExercice: 'statique', uuid: param.uuid, content, contentCorr, annee, lieu, mois, numeroInitial, examen })
     } else {
       const exercice = await mathaleaLoadExerciceFromUuid(param.uuid)

@@ -6,7 +6,7 @@ import referentielsActivationList from '../../json/referentielsActivation.json'
 //    Types des bouts de chaînes des référentiels (les données des exercices)
 //
 // ===========================================================================
-export const EXAMS = ['dnb', 'bac', 'crpe', 'e3c']
+export const EXAMS = ['dnb', 'bac', 'crpe', 'e3c', 'evacom']
 export type Level = keyof typeof codeList | 'alea'
 export type ActivationName = keyof typeof referentielsActivationList
 /**
@@ -70,6 +70,7 @@ export type ExerciseType =
   | 'html'
   | 'svelte'
   | 'e3c'
+  | 'evacom'
   | 'outil'
   | 'tierce'
   | 'static'
@@ -121,7 +122,7 @@ export interface StaticItemInreferentiel extends BaseItemInReferentiel {
   pngCor: string
   tex: string
   texCor: string
-  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c'
+  typeExercice: 'static' | 'dnb' | 'bac' | 'e3c' |'evacom'
 }
 
 /**

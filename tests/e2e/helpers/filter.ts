@@ -1,9 +1,12 @@
-import referentielStatic from '../../../src/json/referentielStatic.json'
+import referentielStaticFR from '../../../src/json/referentielStaticFR.json'
+import referentielStaticCH from '../../../src/json/referentielStaticCH.json'
 import { type JSONReferentielObject } from '../../../src/lib/types/referentiels'
 import uuidToUrl from '../../../src/json/uuidsToUrlFR.json'
 
+// add all static referentiels FR and CH
 const allStaticReferentiels: JSONReferentielObject = {
-  ...referentielStatic
+  ...referentielStaticFR,
+  ...referentielStaticCH
 }
 
 // on supprime les entrées par thèmes qui entraîne des doublons
@@ -12,6 +15,7 @@ delete allStaticReferentiels['BAC par thèmes - APMEP']
 delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
 delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
 delete allStaticReferentiels['E3C par thèmes - APMEP']
+delete allStaticReferentiels['EVACOM par thèmes']
 
 export async function findUuid (filter : string) {
   const uuids = Object.entries(uuidToUrl)
