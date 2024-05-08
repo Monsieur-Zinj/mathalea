@@ -11,6 +11,7 @@ import { texMulticols } from '../lib/format/miseEnPage.js'
 import { arrondi, rangeMinMax } from '../lib/outils/nombres'
 import { context } from './context.js'
 import Decimal from 'decimal.js'
+import FractionEtendue from './FractionEtendue'
 
 export const tropDeChiffres = 'Trop de chiffres'
 export const epsilon = 0.000001
@@ -153,6 +154,8 @@ export function entreDeux (a, b) {
 
 /**
  * Compare deux nombres (pour les nombres en virgule flottante afin d'éviter les effets de la conversion en virgule flottante).
+ * Devient compatible avec les FractionEtendue le 7/05/2024 en comparant leur valeur décimale
+ * Pour les Decimal, la conversion automatique en number doit fonctionner.
  * @author Jean-Claude Lhote
  * @param {number} a premier nombre
  * @param {number} b deuxième nombre
@@ -161,6 +164,8 @@ export function entreDeux (a, b) {
  */
 export function egal (a, b, tolerance = epsilon) {
   tolerance = tolerance === 0 ? 1e-10 : tolerance
+  if (a instanceof FractionEtendue) a = a.valeurDecimale
+  if (b instanceof FractionEtendue) b = b.valeurDecimale
   return (Math.abs(a - b) <= tolerance)
 }
 

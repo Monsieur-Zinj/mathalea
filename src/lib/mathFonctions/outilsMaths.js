@@ -223,7 +223,7 @@ export function rationnalise (x) {
     return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
   }
   if (typeof x === 'number') {
-    return fraction(x.toFixed(2) * 10000, 10000).simplifie()
+    return new FractionEtendue(x.toFixed(2) * 10000, 10000).simplifie()
   }
   // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
   window.notify('rationnalise est appelé avec un nombre dont le format est inconnu :', { x })
