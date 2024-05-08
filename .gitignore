@@ -5,6 +5,7 @@ docs/
 dist/
 built/
 pnpm-lock.yaml
+vitetest.config.ts
 /test-results/
 /playwright-report/
 /playwright/.cache/

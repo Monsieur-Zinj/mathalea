@@ -38,10 +38,13 @@ export default function PuissancesDeDix () {
   this.nbColsCorr = 1
   this.sup = 1
   this.sup2 = 4
+  this.sup3 = false
   this.besoinFormulaireNumerique = false // Voir 2N31-5 pour voir besoinFormulaireNumerique à true
   this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
+  this.besoinFormulaire3CaseACocher = ['Avec des puissances négatives']
 
   this.nouvelleVersion = function (numeroExercice) {
+    this.sup3 = Boolean(this.sup3)
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
     this.boutonAide = modalPdf(
@@ -99,33 +102,68 @@ export default function PuissancesDeDix () {
     ) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
-      exp0 = randint(1, 9)
-      exp1 = randint(1, 9, [exp0])
-      exp = [exp0, exp1] // on choisit deux exposants différents c'est mieux
-      lettre = lettreDepuisChiffre(i + 1) // on utilise des lettres pour les calculs
+      const nbrNegSign = (i === 0 ? [] : (this.listeArguments[i - 1].match(/-/g) || [])).length
+      exp0 = (this.sup3 && nbrNegSign === 0 ? -1 : (nbrNegSign === 1 || !this.sup3 ? 1 : -1)) * randint(2, 9)
+      exp1 = (this.sup3 && nbrNegSign === 0 ? -1 : 1) * randint(2, 9, [exp0, -1 * exp0])
+      exp = randint(0, 1) === 0 ? [exp0, exp1] : [exp1, exp0]
+      // on choisit deux exposants différents c'est mieux
+      lettre = lettreDepuisChiffre(i + 1)
+      // on utilise des lettres pour les calculs
       let nbSimplifications
       switch (typesDeQuestions) {
-        case 1: // produit de puissances de même base
-          texte = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
-          texteCorr = `$${lettre}=10^${exp[0]}\\times 10^${exp[1]}$`
-          if (this.correctionDetaillee) {
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=${eclatePuissance(
-                            10,
-                            exp[0],
-                            coul0
-                        )} \\times ${eclatePuissance(10, exp[1], coul1)}$`
-          }
-          texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $10$.`
-          texteCorr += '<br>'
+        case 1: {
+          // produit de puissances de même base
+          texte = `$${lettre}=10^{${exp[0]}}\\times 10^{${exp[1]}}$`
+          texteCorr = `$${lettre}=10^{${exp[0]}}\\times 10^{${exp[1]}}$<br>`
           reponseInteractive = `10^{${exp[0] + exp[1]}}`
-          texteCorr += `$${lettre}=10^{${exp[0]}+${exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
+          if (this.correctionDetaillee) {
+            texteCorr += `$${lettre}=${exp[0] > 0 ? eclatePuissance(10, exp[0], coul0) : `\\dfrac{1}{${eclatePuissance(10, -1 * exp[0], coul0)}}`} \\times ${exp[1] > 0 ? eclatePuissance(10, exp[1], coul1) : `\\dfrac{1}{${eclatePuissance(10, -1 * exp[1], coul1)}}`}$<br>`
+          }
+          if (exp[0] > 0 && exp[1] > 0) {
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}~\\color{black}{+}~\\color{${coul1}}{${exp[1]}}}$ facteurs tous égaux à $10$.<br>`
+            texteCorr += `$${lettre}=10^{${exp[0]} +  ${exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
+          } else if (exp[0] < 0 && exp[1] > 0) {
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur et $\\color{${coul1}}{${exp[1]}}$ facteurs tous égaux à $10$ au numérateur.<br>`
+            if (-1 * exp[0] < exp[1]) {
+              // plus grand au numérateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', -1 * exp[0], coul0)}\\times${eclatePuissance(10, exp[0] + exp[1], coul1)}}{${eclatePuissance('\\cancel{10}', -1 * exp[0], coul1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{10^{${exp[1]}}}{10^{${-1 * exp[0]}}} = 10^{${exp[1]} - ${-1 * exp[0]}} = ${miseEnEvidence(reponseInteractive)}$`
+            } else {
+              // plus grand au dénominateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', exp[1], coul0)}}{${eclatePuissance('\\cancel{10}', exp[1], coul1)}\\times${eclatePuissance(10, -1 * exp[0] - exp[1], coul1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{10^{${exp[1]}}}{10^{${-1 * exp[0]}}} = \\dfrac{1}{10^{${-1 * exp[0]} - ${exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] - exp[1]}}}= ${miseEnEvidence(reponseInteractive)}$`
+            }
+          } else if (exp[0] > 0 && exp[1] < 0) {
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[0]}}}$ facteurs tous égaux à $10$ au numérateur et $\\color{${coul1}}{${-1 * exp[1]}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            if (exp[0] > -1 * exp[1]) {
+              // plus grand au numérateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', -1 * exp[1], coul0)}\\times${eclatePuissance(10, exp[0] + exp[1], coul1)}}{${eclatePuissance('\\cancel{10}', -1 * exp[1], coul1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{10^{${exp[0]}}}{10^{${-1 * exp[1]}}} = 10^{${exp[0]} - ${-1 * exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
+            } else {
+              // plus grand au dénominateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', exp[0], coul0)}}{${eclatePuissance('\\cancel{10}', exp[0], coul1)}\\times${eclatePuissance(10, -1 * exp[1] - exp[0], coul1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{10^{${exp[0]}}}{10^{${-1 * exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[1]} - ${exp[0]}}} = \\dfrac{1}{10^{${-1 * exp[1] - exp[0]}}}= ${miseEnEvidence(reponseInteractive)}$`
+            }
+          } else if (exp[0] < 0 && exp[1] < 0) {
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur et $\\color{${coul1}}{${-1 * exp[1]}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}+${-1 * exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] - 1 * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
+          }
           exposantAMC = [exp[0] + exp[1], exp[0] * exp[1], Math.max(...exp) - Math.min(...exp), -1 * (exp[0] + exp[1])]
           break
-        case 2: // quotient de puissances de même base
-          // Pour que la couleur de la 10 associée à l'exposant max soit toujours rouge.
+        }
+        case 2: {
+          // quotient de puissances de même base
           reponseInteractive = `10^{${exp[0] - exp[1]}}`
+          texte = `$${lettre}=\\dfrac{10^{${exp[0]}}}{10^{${exp[1]}}}$`
+          texteCorr = `$${lettre}=\\dfrac{10^{${exp[0]}}}{10^{${exp[1]}}}$<br>`
           if (Math.max(exp[0], exp[1]) === exp[0]) {
             couleurExp0 = coul0
             couleurExp1 = coul1
@@ -133,106 +171,110 @@ export default function PuissancesDeDix () {
             couleurExp0 = coul1
             couleurExp1 = coul0
           }
-          texte = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
-          texteCorr = `$${lettre}=\\dfrac{10^${exp[0]}}{10^${exp[1]}}$`
-          if (this.correctionDetaillee) {
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
-                            10,
-                            exp[0],
-                            couleurExp0
-                        )}}{${eclatePuissance(10, exp[1], couleurExp1)}}$`
-          }
-          texteCorr += '<br>'
-          nbSimplifications = Math.min(
-            exp[0],
-            exp[1]
-          )
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${nbSimplifications}}}$ simplification${nbSimplifications === 1 ? '' : 's'} par $10$ possible${nbSimplifications === 1 ? '' : 's'}.`
-          if (this.correctionDetaillee) {
-            texteCorr += '<br>'
-          }
-          /* if (exp[0] - exp[1] === 0) { // EE : impossible puisqu'ils sont différents
+          if (exp[0] > 0 && exp[1] > 0) {
             if (this.correctionDetaillee) {
-              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
-                                '\\cancel{10}',
-                                exp[0],
-                                couleurExp0
-                            )}}{${eclatePuissance('\\cancel{10}', exp[0], couleurExp1)}}$`
+              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(10, exp[0], couleurExp0)}}{${eclatePuissance(10, exp[1], couleurExp1)}}$<br>`
             }
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=1`
-          } else */
-          if (exp[0] - exp[1] < 0) {
+            nbSimplifications = Math.min(exp[0], exp[1])
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${nbSimplifications}}}$ simplification${nbSimplifications === 1 ? '' : 's'} par $10$ possible${nbSimplifications === 1 ? '' : 's'}.<br>`
+            if (exp[0] - exp[1] < 0) {
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', exp[0], couleurExp0)}}{${eclatePuissance('\\cancel{10}', exp[0], couleurExp1)}\\times${eclatePuissance(10, exp[1] - exp[0], couleurExp1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
+              texteCorr += `=${miseEnEvidence(reponseInteractive)}$`
+            } else {
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', exp[1], couleurExp0)}\\times${eclatePuissance(10, exp[0] - exp[1], couleurExp0)}}{${eclatePuissance('\\cancel{10}', exp[1], couleurExp1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=${miseEnEvidence(reponseInteractive)}$`
+            }
+          } else if (exp[0] < 0 && exp[1] < 0) {
+            texteCorr += `$${lettre}=\\dfrac{10^{${-1 * exp[1]}}}{10^{${-1 * exp[0]}}}$<br>`
             if (this.correctionDetaillee) {
-              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
-                                '\\cancel{10}',
-                                exp[0],
-                                couleurExp0
-                            )}}{${eclatePuissance(
-                                '\\cancel{10}',
-                                exp[0],
-                                couleurExp1
-                            )}\\times${eclatePuissance(10, exp[1] - exp[0], couleurExp1)}}$`
+              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(10, -1 * exp[1], couleurExp0)}}{${eclatePuissance(10, -1 * exp[0], couleurExp1)}}$<br>`
             }
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[1]}-${exp[0]}}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
-            /* if ((exp[1] - exp[0]) % 2 === 0) { // EE : Je ne vois pas ce qui change si cette différence est paire
-              texteCorr += `=\\dfrac{1}{${simpNotPuissance(
-                                10,
-                                exp[1] - exp[0]
-                            )}}=${simpNotPuissance(10, exp[0] - exp[1])}`
-            } else { */
-            texteCorr += `=${miseEnEvidence(reponseInteractive)}$`
-            // }
-          } else {
+            nbSimplifications = Math.min(-1 * exp[0], -1 * exp[1])
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul1}}{${nbSimplifications}}}$ simplification${nbSimplifications === 1 ? '' : 's'} par $10$ possible${nbSimplifications === 1 ? '' : 's'}.<br>`
+            if (-1 * exp[0] < -1 * exp[1]) {
+              // plus grand au numérateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', -1 * exp[0], couleurExp0)}\\times${eclatePuissance(10, exp[0] - exp[1], couleurExp0)}}{${eclatePuissance('\\cancel{10}', -1 * exp[0], couleurExp1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=10^{${-1 * exp[1]}-${-1 * exp[0]}}=${miseEnEvidence(reponseInteractive)}$`
+            } else {
+              // plus grand au dénominateur
+              if (this.correctionDetaillee) {
+                texteCorr += `$${lettre}=\\dfrac{${eclatePuissance('\\cancel{10}', -1 * exp[1], couleurExp0)}}{${eclatePuissance('\\cancel{10}', -1 * exp[1], couleurExp1)}\\times${eclatePuissance(10, -1 * exp[0] + exp[1], couleurExp1)}}$<br>`
+              }
+              texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}-${-1 * exp[1]}}}=\\dfrac{1}{10^{${exp[1] - exp[0]}}}`
+              texteCorr += `=${miseEnEvidence(reponseInteractive)}$`
+            }
+          } else if (exp[0] > 0 && exp[1] < 0) {
+            texteCorr += `$${lettre}={10^{${exp[0]}}}\\times {10^{${-1 * exp[1]}}}$<br>`
             if (this.correctionDetaillee) {
-              texteCorr += `$${lettre}=\\dfrac{${eclatePuissance(
-                                '\\cancel{10}',
-                                exp[1],
-                                couleurExp0
-                            )}\\times${eclatePuissance(
-                                10,
-                                exp[0] - exp[1],
-                                couleurExp0
-                            )}}{${eclatePuissance('\\cancel{10}', exp[1], couleurExp1)}}$`
+              texteCorr += `$${lettre}=${eclatePuissance(10, exp[0], couleurExp0)} \\times ${eclatePuissance(10, -1 * exp[1], couleurExp1)}$<br>`
             }
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=10^{${exp[0]}-${exp[1]}}=${miseEnEvidence(reponseInteractive)}$`
+            texteCorr += `Il y a donc $\\mathbf{\\color{${couleurExp0}}{${exp[0]}}~\\color{black}{+}~\\color{${couleurExp1}}{${-1 * exp[1]}}}$ facteurs tous égaux à $10$.<br>`
+            texteCorr += `$${lettre}=10^{${exp[0]} +  ${-1 * exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
+          } else if (exp[0] < 0 && exp[1] > 0) {
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}}\\times {10^{${exp[1]}}}}$<br>`
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\dfrac{1}{${eclatePuissance(10, -1 * exp[0], couleurExp0)} \\times ${eclatePuissance(10, exp[1], couleurExp1)}}$<br>`
+            }
+            texteCorr += `Il y a donc $\\mathbf{\\color{${couleurExp0}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur et $\\color{${couleurExp1}}{${exp[1]}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}+${exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] + exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
           }
-          setReponse(this, i, `10^{${exp[0] - exp[1]}}`, { formatInteractif: 'puissance' })
           exposantAMC = [exp[0] - exp[1], exp[0] * exp[1], -exp[0] + exp[1], exp[0] + exp[1]]
           break
-        case 3: // exponentiation
-          exp = [randint(2, 4), randint(2, 5)] // on redéfinit les deux exposants pour ne pas avoir d'écritures trop longues et pour éviter 1
-          texte = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
-          texteCorr = `$${lettre}=(10^${exp[0]})^{${exp[1]}}$`
-          if (this.correctionDetaillee) {
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
-                            `(10^${exp[0]})`,
-                            exp[1],
-                            coul0
-                        )}}_{${exp[1]}\\thickspace\\text{facteurs}}}$`
-            texteCorr += '<br>'
-            texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(
-                            `(\\color{${coul1}}{\\underbrace{${eclatePuissance(
-                                10,
-                                exp[0],
-                                coul1
-                            )}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`,
-                            exp[1],
-                            coul0
-                        )}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]
-                        }}\\thickspace\\color{black}{\\text{facteurs}}}}$`
+        }
+        case 3: {
+          // exponentiation
+          const nbrNegSign = (i === 0 ? [] : (this.listeArguments[i - 1].match(/-/g) || [])).length
+          exp0 = (this.sup3 && nbrNegSign === 0 ? -1 : (nbrNegSign === 1 || !this.sup3 ? 1 : -1)) * randint(2, 4)
+          exp1 = (this.sup3 && nbrNegSign === 0 ? -1 : 1) * randint(2, 4, [exp0, -1 * exp0])
+          exp = randint(0, 1) === 0 ? [exp0, exp1] : [exp1, exp0]
+          // on choisit deux exposants différents c'est mieux
+          texte = `$${lettre}=(10^{${exp[0]}})^{${exp[1]}}$`
+          texteCorr = `$${lettre}=(10^{${exp[0]}})^{${exp[1]}}$<br>`
+          if (exp[0] > 0 && exp[1] > 0) {
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(10^${exp[0]})`, exp[1], coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$<br>`
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(10, exp[0], coul1)}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`, exp[1], coul0)}}_{${exp[1]}\\times\\color{${coul1}}{${exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$<br>`
+            }
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$.<br>`
+            reponseInteractive = `10^{${exp[0] * exp[1]}}`
+            texteCorr += `$${lettre}=10^{${exp[0]}\\times${exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
+          } else if (exp[0] < 0 && exp[1] > 0) {
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(10^{${exp[0]}})`, exp[1], coul0)}}_{${exp[1]}\\thickspace\\text{facteurs}}}$<br>`
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{\\dfrac{1}{${eclatePuissance(10, -1 * exp[0], coul1)}}}_{${-1 * exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`, exp[1], coul0)}}_{${exp[1]}\\times\\color{${coul1}}{${-1 * exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$<br>`
+            }
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            reponseInteractive = `10^{${exp[0] * exp[1]}}`
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${-1 * exp[0]}\\times${exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
+          } else if (exp[0] > 0 && exp[1] < 0) {
+            texteCorr += `$${lettre}=\\dfrac{1}{(10^{${exp[0]}})^{${-1 * exp[1]}}}$<br>`
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{\\dfrac{1}{${eclatePuissance(`(10^{${exp[0]}})`, -1 * exp[1], coul0)}}}_{${-1 * exp[1]}\\thickspace\\text{facteurs}}}$<br>`
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{\\dfrac{1}{${eclatePuissance(10, exp[0], coul1)}}}_{${exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`, -1 * exp[1], coul0)}}_{${-1 * exp[1]}\\times\\color{${coul1}}{${exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$<br>`
+            }
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            reponseInteractive = `10^{${exp[0] * exp[1]}}`
+            texteCorr += `$${lettre}=\\dfrac{1}{10^{${exp[0]}\\times${-1 * exp[1]}}} = \\dfrac{1}{10^{${-1 * exp[0] * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
+          } else if (exp[0] < 0 && exp[1] < 0) {
+            texteCorr += `$${lettre}=\\dfrac{1}{(10^{${exp[0]}})^{${-1 * exp[1]}}}$<br>`
+            if (this.correctionDetaillee) {
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{\\dfrac{1}{${eclatePuissance(`(10^{${exp[0]}})`, -1 * exp[1], coul0)}}}_{${-1 * exp[1]}\\thickspace\\text{facteurs}}}$<br>`
+              texteCorr += `$${lettre}=\\color{${coul0}}{\\underbrace{${eclatePuissance(`(\\color{${coul1}}{\\underbrace{${eclatePuissance(10, -1 * exp[0], coul1)}}_{${-1 * exp[0]}\\thickspace\\text{facteurs}}}\\color{${coul0}})`, -1 * exp[1], coul0)}}_{${-1 * exp[1]}\\times\\color{${coul1}}{${-1 * exp[0]}}\\thickspace\\color{black}{\\text{facteurs}}}}$<br>`
+            }
+            texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${-1 * exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${-1 * exp[0]}}}$ facteurs tous égaux à $10$ au dénominateur.<br>`
+            reponseInteractive = `10^{${exp[0] * exp[1]}}`
+            texteCorr += `$${lettre}={10^{${-1 * exp[0]}\\times${-1 * exp[1]}}} = ${miseEnEvidence(reponseInteractive)}$`
           }
-          texteCorr += '<br>'
-          texteCorr += `Il y a donc $\\mathbf{\\color{${coul0}}{${exp[1]}}~\\color{black}{\\times}~\\color{${coul1}}{${exp[0]}}}$ facteurs tous égaux à $10$.`
-          texteCorr += '<br>'
-          reponseInteractive = `10^{${exp[0] * exp[1]}}`
-          texteCorr += `$${lettre}=10^{${exp[0]}\\times${exp[1]}} = ${miseEnEvidence(reponseInteractive)}$`
           exposantAMC = [exp[0] * exp[1], exp[0] - exp[1], exp[0] + exp[1], -1 * (exp[0] + exp[1])]
           break
+        }
         case 4:
           exp = [randint(1, 7, [1]), randint(1, 7, [1]), randint(1, 7, [1])] // on a besoin de 3 exposants distincts
           texte = `$${lettre}=\\dfrac{10^${exp[0]}\\times 100}{10^${exp[1]} \\times 10^${exp[2]}}$`
