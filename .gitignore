@@ -12,13 +12,16 @@ vitetest.config.ts
 /public/assets/bac
 /public/assets/crpe
 /public/assets/dnb
+/public/assets/evacom
+/public/assets/taf
 /public/assets/e3c
 /public/static
 _private/
 tests/e2e/logs
 updatefile
 # Dictionnaires générés
-src/json/referentielStatic.json
+src/json/referentielStaticFR.json
+src/json/referentielStaticCH.json
 
 src/json/exercicesCH.json
 src/json/exercicesFR.json

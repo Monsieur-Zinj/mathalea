@@ -137,7 +137,7 @@ function loadPreambuleCan () {
   `
 }
 
-let debug = false
+const debug = false
 export const logPDF = (str: string) => {
   if (debug) console.log('PACKAGETEST:' + str)
 }
@@ -241,7 +241,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\Ouv'], '\\def\\Ouv{$\\left(\\text{O}~;~\\vect{u},~\\vect{v}\\right)$}', contents)
   testIfLoaded(['\\e'], '\\newcommand{\\e}{\\text{e}}', contents)
   testIfLoaded(['\\ldots', '\\cdots', '\\dots', '\\makebox', '\\framebox', '\\parbox', '\\mbox', '\\fbox', '\\sbox', '\\pbox'], '\\usepackage{amsmath}', contents)
-  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\blacktriangleleft', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft', '\\Box'], '\\usepackage{amssymb}', contents)
+  testIfLoaded(['\\leadsto', '\\square', '\\blacktriangleright', '\\blacktriangleleft', '\\mathbb', '\\geqslant', '\\leqslant', '\\curvearrowleft', '\\Box', '\\checkmark', '\\fbox'], '\\usepackage{amssymb}', contents)
   testIfLoaded(['\\columncolor{', '\\cellcolor', '\\rowcolor'], '\\usepackage{colortbl}', contents)
   testIfLoaded(['\\ovalnum{\\ovalnum'], '\\definecolor{scrmovedddd}    {HTML}{3373cc}', contents)
   testIfLoaded(['\\ding{', '\\textding', '\\decoone'], '\\usepackage{pifont}', contents)
@@ -272,8 +272,10 @@ export function loadPackagesFromContent (contents: contentsType) {
         #4
 \\end{pmatrix}}}`, contents, '\\Coord')
   testIfLoaded(['\\widearc{', '\\eurologo'], '\\usepackage{fourier}', contents)
-  testIfLoaded(['\\tkzDefPoints', '\\tkzDefPointBy', '\\tkzLabelPoint', '\\tkzDrawSegments', '\\pic['], '\\usepackage{tkz-euclide}', contents)
+  testIfLoaded(['\\tkz', '\\pic['], '\\usepackage{tkz-euclide}', contents)
   testIfLoaded(['\\pstEllipse[linewidth='], '\\providecommand\\pstEllipse{}\n\\renewcommand{\\pstEllipse}[5][]{%\n\\psset{#1}\n\\parametricplot{#4}{#5}{#2\\space t cos mul #3\\space t sin mul}\n}', contents, '\\pstEllipse')
+  testIfLoaded(['\\makecell'], '\\usepackage{makecell}', contents)
+
   if (contents.content.includes('\\begin{forest}') || contents.contentCorr.includes('\\begin{forest}')) {
     logPDF(`usepackage{forest} : ${window.location.href}`)
     // gestion des commandes pour les sujets DNB : 2023

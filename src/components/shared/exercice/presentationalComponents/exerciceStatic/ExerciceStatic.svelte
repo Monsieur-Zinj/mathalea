@@ -5,13 +5,16 @@
   /**
    * Gestion du référentiel pour la recherche de l'uuid
   */
-  import referentielStatic from '../../../../../json/referentielStatic.json'
+  import referentielStaticFR from '../../../../../json/referentielStaticFR.json'
+  import referentielStaticCH from '../../../../../json/referentielStaticCH.json'
+
   import referentielBibliotheque from '../../../../../json/referentielBibliotheque.json'
   import type { HeaderProps } from '../../../../../lib/types/ui'
   // on rassemble les deux référentiel statique
   const allStaticReferentiels: JSONReferentielObject = {
     ...referentielBibliotheque,
-    ...referentielStatic
+    ...referentielStaticFR,
+    ...referentielStaticCH
   }
   // on supprime les entrées par thèmes qui entraîne des doublons
   delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
@@ -19,6 +22,8 @@
   delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
   delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
   delete allStaticReferentiels['E3C par thèmes - APMEP']
+  delete allStaticReferentiels['EVACOM par thèmes']
+
   export let uuid: string
   export let indiceExercice: number
   export let indiceLastExercice: number

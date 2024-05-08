@@ -10,12 +10,14 @@ import { dictionnaireCrpeCoop } from '../src/json/dictionnaireCrpeCoop.js'
 import { dictionnaireDNB } from '../src/json/dictionnaireDNB.js'
 import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
 import { dictionnaireE3C } from '../src/json/dictionnaireE3C.js'
+import { dictionnaireEVACOM } from '../src/json/dictionnaireEVACOM.js'
 
-const referentiel = {}
+const referentielFR = {}
+const referentielCH = {}
 
 // Gestion du DNB
-referentiel.DNB = {}
-referentiel.DNBTags = {}
+referentielFR.DNB = {}
+referentielFR.DNBTags = {}
 const setTagsDNB = new Set()
 
 for (const ex in dictionnaireDNB) {
@@ -26,25 +28,25 @@ for (const ex in dictionnaireDNB) {
 
 const tagsDNB = [...setTagsDNB].sort((a, b) => { return a.localeCompare(b) })
 for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
-  referentiel.DNB[annee] = {}
+  referentielFR.DNB[annee] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].annee === annee) {
-      referentiel.DNB[annee][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+      referentielFR.DNB[annee][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
     }
   }
 }
 
 for (const tag of tagsDNB) {
-  referentiel.DNBTags[tag] = {}
+  referentielFR.DNBTags[tag] = {}
   for (const ex in dictionnaireDNB) {
     if (dictionnaireDNB[ex].tags.includes(tag)) {
-      referentiel.DNBTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
+      referentielFR.DNBTags[tag][ex] = { uuid: ex, ...dictionnaireDNB[ex] }
     }
   }
 }
 
 // Gestion du BAC
-referentiel.BAC = {}
+referentielFR.BAC = {}
 const setThemesBAC = new Set()
 
 for (const ex in dictionnaireBAC) {
@@ -54,28 +56,28 @@ for (const ex in dictionnaireBAC) {
 }
 
 for (const annee of ['2021', '2022', '2023', '2024', '2025', '2026']) {
-  referentiel.BAC[annee] = {}
+  referentielFR.BAC[annee] = {}
   for (const ex in dictionnaireBAC) {
     if (dictionnaireBAC[ex].annee === annee) {
-      referentiel.BAC[annee][ex] = { uuid: ex, ...dictionnaireBAC[ex] }
+      referentielFR.BAC[annee][ex] = { uuid: ex, ...dictionnaireBAC[ex] }
     }
   }
 }
 
 const tagsBAC = [...setThemesBAC].sort((a, b) => { return a.localeCompare(b) })
-referentiel.BACTags = {}
+referentielFR.BACTags = {}
 
 for (const tag of tagsBAC) {
-  referentiel.BACTags[tag] = {}
+  referentielFR.BACTags[tag] = {}
   for (const ex in dictionnaireBAC) {
     if (dictionnaireBAC[ex].tags.includes(tag)) {
-      referentiel.BACTags[tag][ex] = { uuid: ex, ...dictionnaireBAC[ex] }
+      referentielFR.BACTags[tag][ex] = { uuid: ex, ...dictionnaireBAC[ex] }
     }
   }
 }
 
 // Gestion du BAC
-referentiel.E3C = {}
+referentielFR.E3C = {}
 const setThemesE3C = new Set()
 
 for (const ex in dictionnaireE3C) {
@@ -85,28 +87,28 @@ for (const ex in dictionnaireE3C) {
 }
 
 for (const annee of ['2021']) {
-  referentiel.E3C[annee] = {}
+  referentielFR.E3C[annee] = {}
   for (const ex in dictionnaireE3C) {
     if (dictionnaireE3C[ex].annee === annee) {
-      referentiel.E3C[annee][ex] = { uuid: ex, ...dictionnaireE3C[ex] }
+      referentielFR.E3C[annee][ex] = { uuid: ex, ...dictionnaireE3C[ex] }
     }
   }
 }
 
 const tagsE3C = [...setThemesE3C].sort((a, b) => { return a.localeCompare(b) })
-referentiel.E3CTags = {}
+referentielFR.E3CTags = {}
 
 for (const tag of tagsE3C) {
-  referentiel.E3CTags[tag] = {}
+  referentielFR.E3CTags[tag] = {}
   for (const ex in dictionnaireE3C) {
     if (dictionnaireE3C[ex].tags.includes(tag)) {
-      referentiel.E3CTags[tag][ex] = { uuid: ex, ...dictionnaireE3C[ex] }
+      referentielFR.E3CTags[tag][ex] = { uuid: ex, ...dictionnaireE3C[ex] }
     }
   }
 }
 
 // Gestion du CRPE version Coopmaths
-referentiel.crpe = {}
+referentielFR.crpe = {}
 const setThemesCrpe = new Set()
 
 for (const ex in dictionnaireCrpeCoop) {
@@ -116,28 +118,28 @@ for (const ex in dictionnaireCrpeCoop) {
 }
 
 for (const annee of ['2022', '2023']) {
-  referentiel.crpe[annee] = {}
+  referentielFR.crpe[annee] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
-      referentiel.crpe[annee][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
+      referentielFR.crpe[annee][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
     }
   }
 }
 
 const tagsCrpe = [...setThemesCrpe].sort((a, b) => { return a.localeCompare(b) })
-referentiel.crpeTags = {}
+referentielFR.crpeTags = {}
 
 for (const tag of tagsCrpe) {
-  referentiel.crpeTags[tag] = {}
+  referentielFR.crpeTags[tag] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].tags.includes(tag)) {
-      referentiel.crpeTags[tag][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
+      referentielFR.crpeTags[tag][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
     }
   }
 }
 
 // Gestion du CRPE version Copirelem
-referentiel.crpeCopirelem = {}
+referentielFR.crpeCopirelem = {}
 const setThemesCrpeCopirelem = new Set()
 
 for (const ex in dictionnaireCrpe) {
@@ -147,37 +149,73 @@ for (const ex in dictionnaireCrpe) {
 }
 
 for (const annee of ['2019', '2018', '2017', '2016', '2015']) {
-  referentiel.crpeCopirelem[annee] = {}
+  referentielFR.crpeCopirelem[annee] = {}
   for (const ex in dictionnaireCrpe) {
     if (dictionnaireCrpe[ex].annee === annee) {
-      referentiel.crpeCopirelem[annee][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+      referentielFR.crpeCopirelem[annee][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
     }
   }
 }
 
 const tagsCrpeCopirelem = [...setThemesCrpeCopirelem].sort((a, b) => { return a.localeCompare(b) })
-referentiel.crpeCopirelemTags = {}
+referentielFR.crpeCopirelemTags = {}
 
 for (const tag of tagsCrpeCopirelem) {
-  referentiel.crpeCopirelemTags[tag] = {}
+  referentielFR.crpeCopirelemTags[tag] = {}
   for (const ex in dictionnaireCrpe) {
     if (dictionnaireCrpe[ex].tags.includes(tag)) {
-      referentiel.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+      referentielFR.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
+    }
+  }
+}
+
+// Gestion du ref EVACOM
+referentielCH.EVACOM = {}
+referentielCH.EVACOMTags = {}
+const setTagsEVACOM = new Set()
+
+for (const ex in dictionnaireEVACOM) {
+  dictionnaireEVACOM[ex].tags.forEach(e => {
+    setTagsEVACOM.add(e)
+  })
+}
+
+const tagsEVACOM = [...setTagsEVACOM].sort((a, b) => { return a.localeCompare(b) })
+for (const annee of ['2025', '2024', '2023', '2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013']) {
+  referentielCH.EVACOM[annee] = {}
+  for (const ex in dictionnaireEVACOM) {
+    if (dictionnaireEVACOM[ex].annee === annee) {
+      referentielCH.EVACOM[annee][ex] = { uuid: ex, ...dictionnaireEVACOM[ex] }
+    }
+  }
+}
+
+for (const tag of tagsEVACOM) {
+  referentielCH.EVACOMTags[tag] = {}
+  for (const ex in dictionnaireEVACOM) {
+    if (dictionnaireEVACOM[ex].tags.includes(tag)) {
+      referentielCH.EVACOMTags[tag][ex] = { uuid: ex, ...dictionnaireEVACOM[ex] }
     }
   }
 }
 
 // On renomme les clés à la racine du référentiel
-delete Object.assign(referentiel, { 'Brevet des collèges par thèmes - APMEP': referentiel.DNBTags }).DNBTags
-delete Object.assign(referentiel, { 'Brevet des collèges par année - APMEP': referentiel.DNB }).DNB
-delete Object.assign(referentiel, { 'BAC par thèmes - APMEP': referentiel.BACTags }).BACTags
-delete Object.assign(referentiel, { 'BAC par année - APMEP': referentiel.BAC }).BAC
-delete Object.assign(referentiel, { 'CRPE (2015-2019) par thèmes - COPIRELEM': referentiel.crpeCopirelemTags }).crpeCopirelemTags
-delete Object.assign(referentiel, { 'CRPE (2015-2019) par année - COPIRELEM': referentiel.crpeCopirelem }).crpeCopirelem
-delete Object.assign(referentiel, { 'CRPE (2022-2023) par thèmes': referentiel.crpeTags }).crpeTags
-delete Object.assign(referentiel, { 'CRPE (2022-2023) par année': referentiel.crpe }).crpe
-delete Object.assign(referentiel, { 'E3C par thèmes - APMEP': referentiel.E3CTags }).E3CTags
-delete Object.assign(referentiel, { 'E3C par specimen - APMEP': referentiel.E3C }).E3C
+delete Object.assign(referentielFR, { 'Brevet des collèges par thèmes - APMEP': referentielFR.DNBTags }).DNBTags
+delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.DNB }).DNB
+delete Object.assign(referentielFR, { 'BAC par thèmes - APMEP': referentielFR.BACTags }).BACTags
+delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
+delete Object.assign(referentielFR, { 'CRPE (2015-2019) par thèmes - COPIRELEM': referentielFR.crpeCopirelemTags }).crpeCopirelemTags
+delete Object.assign(referentielFR, { 'CRPE (2015-2019) par année - COPIRELEM': referentielFR.crpeCopirelem }).crpeCopirelem
+delete Object.assign(referentielFR, { 'CRPE (2022-2023) par thèmes': referentielFR.crpeTags }).crpeTags
+delete Object.assign(referentielFR, { 'CRPE (2022-2023) par année': referentielFR.crpe }).crpe
+delete Object.assign(referentielFR, { 'E3C par thèmes - APMEP': referentielFR.E3CTags }).E3CTags
+delete Object.assign(referentielFR, { 'E3C par specimen - APMEP': referentielFR.E3C }).E3C
 
-const data = JSON.stringify(referentiel, null, 2)
-fs.writeFileSync('src/json/referentielStatic.json', data)
+delete Object.assign(referentielCH, { 'EVACOM par thèmes': referentielCH.EVACOMTags }).EVACOMTags
+delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
+
+const dataFR = JSON.stringify(referentielFR, null, 2)
+fs.writeFileSync('src/json/referentielStaticFR.json', dataFR)
+
+const dataCH = JSON.stringify(referentielCH, null, 2)
+fs.writeFileSync('src/json/referentielStaticCH.json', dataCH)

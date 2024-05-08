@@ -41,6 +41,7 @@
       uuid.startsWith('dnb_') ||
       uuid.startsWith('e3c_') ||
       uuid.startsWith('bac_') ||
+      uuid.startsWith('evacom_') ||
       uuid.startsWith('2nd_')
   }
 

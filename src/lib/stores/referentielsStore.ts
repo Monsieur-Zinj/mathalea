@@ -1,7 +1,8 @@
 // Ce store est dédié au stockage des référentiels et des outils de leur évolution
 import referentielAlea from '../../json/referentiel2022FR.json'
 import referentielAleaCH from '../../json/referentiel2022CH.json'
-import referentielExams from '../../json/referentielStatic.json'
+import referentielExams from '../../json/referentielStaticFR.json'
+import referentielExamsCH from '../../json/referentielStaticCH.json'
 import referentielProfs from '../../json/referentielProfs.json'
 import referentielRessources from '../../json/referentielRessources.json'
 import referentielBibliotheque from '../../json/referentielBibliotheque.json'
@@ -105,6 +106,11 @@ export const originalReferentiels = [...activatedReferentielsInMenu]
 /**
  * Constitutions des référentiels suisses
  */
+// on trie les examens dans l'ordre inverse des années/mois
+const examsReferentielCH: JSONReferentielObject = { ...referentielExamsCH }
+let examensCH = getAllEndings(examsReferentielCH)
+examensCH = [...sortArrayOfResourcesBasedOnYearAndMonth(examensCH, 'desc')]
+const orderedExamsReferentielCH = buildReferentiel(examensCH)
 const baseReferentielCH: JSONReferentielObject = { ...referentielAleaCH }
 const newExercisesCH: ResourceAndItsPath[] = getRecentExercices(baseReferentielCH)
 const newExercisesReferentielCH: JSONReferentielObject = {}
@@ -126,6 +132,12 @@ const allReferentielsInMenusCH: ReferentielInMenu[] = [
     name: 'aleatoires',
     searchable: true,
     referentiel: aleaReferentielCH
+  },
+  {
+    title: 'EVACOM et TAF',
+    name: 'examens',
+    searchable: true,
+    referentiel: orderedExamsReferentielCH
   },
   {
     title: 'Géométrie dynamique',
