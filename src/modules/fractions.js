@@ -1,5 +1,5 @@
-import FractionEtendue from './FractionEtendue.ts'
-import ListeFraction from './ListeFraction.js'
+import FractionEtendue from './FractionEtendue'
+import ListeFraction from './ListeFraction'
 import { rationnalise } from '../lib/mathFonctions/outilsMaths'
 
 /**
@@ -13,37 +13,37 @@ import { rationnalise } from '../lib/mathFonctions/outilsMaths'
  */
 export function obtenirListeFractionsIrreductibles () { // sous forme de fractions
   return [
-    fraction(1, 2),
-    fraction(1, 3),
-    fraction(2, 3),
-    fraction(1, 4),
-    fraction(3, 4),
-    fraction(1, 5),
-    fraction(2, 5),
-    fraction(3, 5),
-    fraction(4, 5),
-    fraction(1, 6),
-    fraction(5, 6),
-    fraction(1, 7),
-    fraction(2, 7),
-    fraction(3, 7),
-    fraction(4, 7),
-    fraction(5, 7),
-    fraction(6, 7),
-    fraction(1, 8),
-    fraction(3, 8),
-    fraction(5, 8),
-    fraction(7, 8),
-    fraction(1, 9),
-    fraction(2, 9),
-    fraction(4, 9),
-    fraction(5, 9),
-    fraction(7, 9),
-    fraction(8, 9),
-    fraction(1, 10),
-    fraction(3, 10),
-    fraction(7, 10),
-    fraction(9, 10)]
+    new FractionEtendue(1, 2),
+    new FractionEtendue(1, 3),
+    new FractionEtendue(2, 3),
+    new FractionEtendue(1, 4),
+    new FractionEtendue(3, 4),
+    new FractionEtendue(1, 5),
+    new FractionEtendue(2, 5),
+    new FractionEtendue(3, 5),
+    new FractionEtendue(4, 5),
+    new FractionEtendue(1, 6),
+    new FractionEtendue(5, 6),
+    new FractionEtendue(1, 7),
+    new FractionEtendue(2, 7),
+    new FractionEtendue(3, 7),
+    new FractionEtendue(4, 7),
+    new FractionEtendue(5, 7),
+    new FractionEtendue(6, 7),
+    new FractionEtendue(1, 8),
+    new FractionEtendue(3, 8),
+    new FractionEtendue(5, 8),
+    new FractionEtendue(7, 8),
+    new FractionEtendue(1, 9),
+    new FractionEtendue(2, 9),
+    new FractionEtendue(4, 9),
+    new FractionEtendue(5, 9),
+    new FractionEtendue(7, 9),
+    new FractionEtendue(8, 9),
+    new FractionEtendue(1, 10),
+    new FractionEtendue(3, 10),
+    new FractionEtendue(7, 10),
+    new FractionEtendue(9, 10)]
 }
 
 /**
@@ -52,19 +52,19 @@ export function obtenirListeFractionsIrreductibles () { // sous forme de fractio
  */
 export function obtenirListeFractionsIrreductiblesFaciles () { // sous forme de fractions
   return [
-    fraction(1, 2),
-    fraction(1, 3),
-    fraction(2, 3),
-    fraction(1, 5),
-    fraction(2, 5),
-    fraction(3, 5),
-    fraction(4, 5),
-    fraction(1, 7),
-    fraction(2, 7),
-    fraction(3, 7),
-    fraction(4, 7),
-    fraction(5, 7),
-    fraction(6, 7)
+    new FractionEtendue(1, 2),
+    new FractionEtendue(1, 3),
+    new FractionEtendue(2, 3),
+    new FractionEtendue(1, 5),
+    new FractionEtendue(2, 5),
+    new FractionEtendue(3, 5),
+    new FractionEtendue(4, 5),
+    new FractionEtendue(1, 7),
+    new FractionEtendue(2, 7),
+    new FractionEtendue(3, 7),
+    new FractionEtendue(4, 7),
+    new FractionEtendue(5, 7),
+    new FractionEtendue(6, 7)
   ]
 }
 
