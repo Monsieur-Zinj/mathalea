@@ -35,6 +35,8 @@ export default function DeriveeProduit () {
   // Sortie LaTeX
   this.nbCols = 1 // Nombre de colonnes
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction
+  this.spacing = 2
+  this.spacingCorr = 2
   this.sup = '1'
   this.sup2 = false
   this.sup3 = false
@@ -108,7 +110,7 @@ export default function DeriveeProduit () {
       // Enoncé
       nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
       texte = 'Dans cette question, on demande de réduire si possible l\'expression de la dérivée.<br>'
-      texte += `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$`
+      texte += `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$.<br>`
       // Correction
       texteCorr = `$${nameF}$ est dérivable sur $\\R$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur somme est dérivable sur $I$ et on a la formule : '
@@ -158,9 +160,9 @@ export default function DeriveeProduit () {
       termes = termes.map(el => el.startsWith('+') ? el.substring(1) : el)
       termesD = termesD.map(el => el.startsWith('+') ? el.substring(1) : el)
       if (termes.length > 1) {
-        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>`
+        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br><br>`
         for (let n = 0; n < termes.length; n++) {
-          texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br>`
+          texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br><br>`
         }
       } else {
         texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
