@@ -50,7 +50,7 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '-8', compare: calculCompare } })
 
     i = 2
-    this.listeQuestions[i] = '$(2x-5)^2= $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX)
+    this.listeQuestions[i] = 'Développer et réduire l\'expression suivante.<br><br>$(2x-5)^2= $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets)
     this.listeCorrections[i] = `$(2x-5)^2 = ${miseEnEvidence('4x^2 - 20x + 25')} $`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '4x^2 - 20x + 25', compare: expressionDeveloppeeEtReduiteCompare } })
@@ -80,7 +80,7 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '1.17', compare: calculCompare } })
 
     i = 7
-    this.listeQuestions[i] = 'Médiane de la série :<br>$15\\;;\\;2\\;;\\;12\\;;\\;10\\;;\\;7$<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+    this.listeQuestions[i] = 'Médiane de la série ;<br>$15\\;;\\;2\\;;\\;12\\;;\\;10\\;;\\;7$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `Série ordonnée : $2\\;;\\;7\\;;\\;10\\;;\\;12\\;;\\;15$<br>L'effectif total est 5 donc la médiane est la 3e valeur : $${miseEnEvidence('10')}$.`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '10', compare: calculCompare } })
@@ -129,13 +129,13 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '9', compare: calculCompare } })
 
     i = 11
-    this.listeQuestions[i] = 'Simplifier $\\Big(2\\sqrt{3}\\Big)^2 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
+    this.listeQuestions[i] = 'Simplifier.<br> $\\Big(2\\sqrt{3}\\Big)^2 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `$\\Big(2\\sqrt{3}\\Big)^2 = 4 \\times 3 =  ${miseEnEvidence('12')} $`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '12', compare: calculCompare } })
 
     i = 12
-    this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$<br>'
+    this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
     this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' largeur01') + '$0,7^2$'
     this.listeCorrections[i] = `$0,7 \\lt 1$ donc $0{,}7~${miseEnEvidence('\\gt')}~0{,}7^2 $`
     // @ts-expect-error problème de typage pour reponse
@@ -178,7 +178,7 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '\\sqrt{40}', compare: calculCompare } })
 
     i = 17
-    this.listeQuestions[i] = 'Écriture scientifique de $0{,}0314$<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+    this.listeQuestions[i] = 'Écriture scientifique de $0{,}0314$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) + '.'
     this.listeCorrections[i] = `$0{,}0314 =   ${miseEnEvidence('3{,}14\\times10^{-2}')}$`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '3{,}14\\times10^{-2}', compare: scientificCompare } })
@@ -187,7 +187,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'Solutions de $x(x-3)=0$ :<br>'
     if (this.interactif) {
       this.listeQuestions[i] += '<em>(Écrire les solutions dans l\'ordre croissant.)</em><br>'
-      this.listeQuestions[i] += remplisLesBlancs(this, i, 'S=\\{%{champ1} \\;;\\; %{champ2}\\}\\text{.}', KeyboardType.clavierNumbers)
+      this.listeQuestions[i] += remplisLesBlancs(this, i, 'S=\\{%{champ1} \\;;\\; %{champ2}\\}\\text{.}', KeyboardType.clavierNumbers) + '.'
     }
     this.listeCorrections[i] = `Un produit est nul si et seulement si l'un au moins de ses facteurs est nul.<br>$S=${miseEnEvidence('\\{0\\;;\\;3\\}')}$`
     handleAnswers(this, i, {
@@ -200,7 +200,7 @@ export default class nomExercice extends Exercice {
     )
 
     i = 19
-    this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
+    this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '.'
     this.listeCorrections[i] = `$5\\times\\dfrac{4}{5} - 8 = 4 - 8 =   ${miseEnEvidence('-4')}$`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '-4', compare: calculCompare } })
@@ -260,7 +260,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'Un sac contient $15$ jetons identiques numérotés de $1$ à $15$. On tire un jeton au hasard.<br>Quelle est la probabilité qu\'il porte un nombre premier ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = 'Les nombres premiers inférieurs ou égaux à $15$ sont : $2\\;;\\;3\\;;\\;5\\;;\\;7\\;;\\;11\\;;\\;13$.'
-    this.listeCorrections[i] += `<br>La probabilité de tirer un nombre premier est donc : $${miseEnEvidence('\\dfrac{6}{15}')}$`
+    this.listeCorrections[i] += `<br>La probabilité de tirer un nombre premier est donc : $${miseEnEvidence('\\dfrac{6}{15}')}$.`
     // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '\\dfrac{6}{15}', compare: equalFractionCompare } })
 
@@ -278,9 +278,9 @@ export default class nomExercice extends Exercice {
     handleAnswers(this, i, { reponse: { value: '\\dfrac{5}{2}', compare: equalFractionCompare } })
 
     i = 24
-    this.listeQuestions[i] = 'Coordonnées du point $M$ milieu du segment $[AB]$ où : $A(-2\\;;\\;3)$ et $B(2\\;;\\;7)$ :<br>'
+    this.listeQuestions[i] = 'Coordonnées du point $M$, milieu du segment $[AB]$ où : $A(-2\\;;\\;3)$ et $B(2\\;;\\;7)$ :<br>'
     if (this.interactif) {
-      this.listeQuestions[i] += remplisLesBlancs(this, i, 'M\\Big(%{champ1} \\;;\\; %{champ2}\\Big)\\text{.}', KeyboardType.clavierNumbers)
+      this.listeQuestions[i] += remplisLesBlancs(this, i, 'M\\Big(%{champ1} \\;;\\; %{champ2}\\Big)\\text{.}', KeyboardType.clavierNumbers) + '.'
     }
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
@@ -294,7 +294,7 @@ export default class nomExercice extends Exercice {
 
     i = 25
     this.listeQuestions[i] = 'Les vecteurs $\\vec{u}\\begin{pmatrix}2 \\\\-5\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}-4 \\\\10\\end{pmatrix}$ sont-ils colinéaires ?<br>'
-    this.listeCorrections[i] = `$\\vec{v} = -2\\times\\vec{u}$ donc $${miseEnEvidence('\\text{oui}')}$ les vecteurs sont colinéaires.`
+    this.listeCorrections[i] = `$\\vec{v} = -2\\times\\vec{u}$, donc $${miseEnEvidence('\\text{oui}')}$ les vecteurs sont colinéaires.`
     this.autoCorrection[i] = {
       // @ts-expect-error problème de typage pour reponse
       options: { ordered: false },
@@ -332,7 +332,24 @@ export default class nomExercice extends Exercice {
       { x: 6, y: -4, deriveeGauche: -0.25, deriveeDroit: -0.25, isVisible: false }
     ]
 
-    const o = texteParPosition('O', -0.3, -0.3, 0.5, 'black', 1)
+    const textO = texteParPosition('O', -0.3, -0.3, 0.5, 'black', 1)
+    const textX1 = texteParPosition('1', 1, 0.5, 0.5, 'black', 1)
+    const textX2 = texteParPosition('2', 2, 0.5, 0.5, 'black', 1)
+    const textX3 = texteParPosition('3', 3, 0.5, 0.5, 'black', 1)
+    const textX4 = texteParPosition('4', 4, 0.5, 0.5, 'black', 1)
+    const textX5 = texteParPosition('5', 5, 0.5, 0.5, 'black', 1)
+    const textXM1 = texteParPosition('-1', -1, 0.5, 0.5, 'black', 1)
+    const textXM2 = texteParPosition('-2', -2, 0.5, 0.5, 'black', 1)
+    const textXM3 = texteParPosition('-3', -3, 0.5, 0.5, 'black', 1)
+    const textXM4 = texteParPosition('-4', -4, 0.5, 0.5, 'black', 1)
+    const textXM5 = texteParPosition('-5', -5, 0.5, 0.5, 'black', 1)
+    const textY1 = texteParPosition('1', 0.5, 1, 0.5, 'black', 1)
+    const textY2 = texteParPosition('2', 0.5, 2, 0.5, 'black', 1)
+    const textY3 = texteParPosition('3', 0.5, 3, 0.5, 'black', 1)
+    const textYM1 = texteParPosition('1', 0.5, -1, 0.5, 'black', 1)
+    const textYM2 = texteParPosition('2', 0.5, -2, 0.5, 'black', 1)
+    const textYM3 = texteParPosition('3', 0.5, -3, 0.5, 'black', 1)
+    const textYM4 = texteParPosition('4', 0.5, -4, 0.5, 'black', 1)
     const theSpline = spline(noeuds)
     const repere1 = repere({
       xMin: -6.5,
@@ -356,9 +373,9 @@ export default class nomExercice extends Exercice {
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
       color: 'blue'
     })
-    const objetsEnonce = [repere1, courbe1]
+    const objetsEnonce = [repere1, courbe1, textO, textX1, textX2, textX3, textX4, textX5, textXM1, textXM2, textXM3, textXM4, textXM5, textY1, textY2, textY3, textYM1, textYM2, textYM3, textYM4]
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
-    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce, o)
+    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
     this.listeQuestions[i] += '<br>Quels sont les antécédents de $0$ par $f$ ?<br>'
     this.listeQuestions[i] += '<em>(Les écrire dans l\'ordre croissant et les séparer avec un point-virgule.)</em><br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
@@ -368,7 +385,7 @@ export default class nomExercice extends Exercice {
 
     i = 28
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
-    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce, o)
+    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
     this.listeQuestions[i] += '<br>Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `L'image de $0$ par la fonction $f$ est $${miseEnEvidence('1')}$.`
@@ -377,8 +394,8 @@ export default class nomExercice extends Exercice {
 
     i = 29
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
-    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce, o)
-    this.listeQuestions[i] += '<br>Sur quel intervalle $f$ est-elle positive ou nulle ?<br>'
+    this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
+    this.listeQuestions[i] += '<br>Sur quel intervalle, $f$ est-elle positive ou nulle ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `La fonction $f$ est positive ou nulle sur $${miseEnEvidence('[-3;1]')}$.`
     // @ts-expect-error problème de typage pour reponse
