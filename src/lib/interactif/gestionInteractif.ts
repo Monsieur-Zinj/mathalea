@@ -30,7 +30,7 @@ digits?: number
   signe?: boolean
   exposantNbChiffres?: number
   exposantSigne?: boolean
-  approx: number
+  approx?: number
   aussiCorrect?: number
   digitsNum?: number
   digitsDen?: number
@@ -85,7 +85,7 @@ export type LegacyReponses = LegacyReponse[]|LegacyReponse
  * @param objetReponse
  */
 export function setCliqueFigure (objetReponse: AutoCorrection) {
-  objetReponse.reponse = { param: { formatInteractif: 'cliqueFigure' } }
+  objetReponse.reponse = { ...objetReponse.reponse, param: { formatInteractif: 'cliqueFigure' } }
 }
 /**
  * Pour positionner le formatInteractif d'une question sur 'qcm'
@@ -94,7 +94,7 @@ export function setCliqueFigure (objetReponse: AutoCorrection) {
  * @param objetReponse
  */
 export function setQcm (objetReponse: AutoCorrection) {
-  objetReponse.reponse = { param: { formatInteractif: 'qcm' } }
+  objetReponse.reponse = { ...objetReponse.reponse, param: { formatInteractif: 'qcm' } }
 }
 /**
  * Pour positionner le formatInteractif d'une question sur 'listeDeroulante'
@@ -103,7 +103,7 @@ export function setQcm (objetReponse: AutoCorrection) {
  * @param objetReponse
  */
 export function setListeDeroulante (objetReponse: AutoCorrection) {
-  objetReponse.reponse = { param: { formatInteractif: 'listeDeroulante' } }
+  objetReponse.reponse = { ...objetReponse.reponse, param: { formatInteractif: 'listeDeroulante' } }
 }
 
 /**
