@@ -60,9 +60,14 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           const compareFunction = reponse.compare ?? calculCompare
           const inputs = Array.from(table.querySelectorAll('math-field'))
           const input = inputs.find((el) => el.id === `champTexteEx${exercice.numeroExercice}Q${i}${key}`)
+          let result
           const spanFedback = table.querySelector(`span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`)
+          if (input == null || input === '') {
+            result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}` }
+          } else {
+            result = compareFunction(input.value, reponse.value, options)
+          }
           // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
-          const result = compareFunction(input.value, reponse.value, options)
           if (result.isOk) {
             points.push(1)
             spanFedback.innerHTML = '😎'
@@ -99,8 +104,13 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             saisies[key] = saisie
             const compareFunction = reponse.compare ?? calculCompare
             const options = reponse.options
+            let result
             // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
-            const result = compareFunction(saisie, reponse.value, options)
+            if (saisie == null || saisie === '') {
+              result = { isOk: false, feedback: `Vous devez saisir une réponse dans le champ ${key.charAt(key.length - 1)}` }
+            } else {
+              result = compareFunction(saisie, reponse.value, options)
+            }
             if (result.isOk) {
               points.push(1)
               mfe.setPromptState(key, 'correct', true)
@@ -147,6 +157,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
     }
     const saisie = champTexte.value
+    if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     let isOk = false
     let ii = 0
     let reponse; let feedback = ''

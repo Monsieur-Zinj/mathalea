@@ -88,7 +88,7 @@ class SplineCatmullRom {
       }
       // t = (x - this.x[i - 1]) / (this.x[i] - this.x[i - 1])
       const k = 1 / (this.x[i] - this.x[i - 1])
-      const t0 = new Polynome({ isUseFraction: false, coeffs: [-this.x[i - 1], 1] })
+      const t0 = new Polynome({ useFraction: false, coeffs: [-this.x[i - 1], 1] })
       const t = t0.multiply(k)
       const t2 = t.multiply(t)
       const t3 = t2.multiply(t)
