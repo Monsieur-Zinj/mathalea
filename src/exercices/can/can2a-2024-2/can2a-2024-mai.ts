@@ -187,7 +187,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'Solutions de $x(x-3)=0$ :<br>'
     if (this.interactif) {
       this.listeQuestions[i] += '<em>(Écrire les solutions dans l\'ordre croissant.)</em><br>'
-      this.listeQuestions[i] += remplisLesBlancs(this, i, 'S=\\{%{champ1} \\;;\\; %{champ2}\\}\\text{.}', KeyboardType.clavierNumbers) + '.'
+      this.listeQuestions[i] += remplisLesBlancs(this, i, 'S=\\{%{champ1} \\;;\\; %{champ2}\\}\\text{.}', KeyboardType.clavierNumbers)
     }
     this.listeCorrections[i] = `Un produit est nul si et seulement si l'un au moins de ses facteurs est nul.<br>$S=${miseEnEvidence('\\{0\\;;\\;3\\}')}$`
     handleAnswers(this, i, {
@@ -280,7 +280,7 @@ export default class nomExercice extends Exercice {
     i = 24
     this.listeQuestions[i] = 'Coordonnées du point $M$, milieu du segment $[AB]$ où : $A(-2\\;;\\;3)$ et $B(2\\;;\\;7)$ :<br>'
     if (this.interactif) {
-      this.listeQuestions[i] += remplisLesBlancs(this, i, 'M\\Big(%{champ1} \\;;\\; %{champ2}\\Big)\\text{.}', KeyboardType.clavierNumbers) + '.'
+      this.listeQuestions[i] += remplisLesBlancs(this, i, 'M\\Big(%{champ1} \\;;\\; %{champ2}\\Big)\\text{.}', KeyboardType.clavierNumbers)
     }
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
