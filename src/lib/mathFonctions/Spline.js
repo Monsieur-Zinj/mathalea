@@ -206,7 +206,7 @@ export class Spline {
         const matriceInverse = matrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
-          isUseFraction: true,
+          useFraction: true,
           coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
         }))
       }
