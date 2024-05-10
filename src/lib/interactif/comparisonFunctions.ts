@@ -947,7 +947,7 @@ export function numerationCompare (input: string, goodAnswer: string, { pluriels
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function unitsCompare (input: string, goodAnswer: string, { precision } = {}): {
+export function unitsCompare (input: string, goodAnswer: string, { precision = 1 } = {}): {
   isOk: boolean,
   feedback?: string
 } {
