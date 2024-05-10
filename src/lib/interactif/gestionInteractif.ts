@@ -678,7 +678,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
  * @param {AnswerType} reponses
  * @param {ReponseParams} params
  */
-export function handleAnswers (exercice, question, reponses: AnswerType, params?: ReponseParams = {}) {
+export function handleAnswers (exercice, question, reponses: Valeur, params?: ReponseParams = {}) {
   if (context.isAmc) { // handleAnswer ne s'occupe pas de l'export AMC
     return
   }
