@@ -1,4 +1,4 @@
-import { abs, acos, polynomialRoot, round } from 'mathjs'
+import { abs, acos, fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -284,8 +284,8 @@ export class Spline {
       for (let i = 0; i < this.polys.length; i++) {
         const polEquation = this.polys[i].add(-y) // Le polynome dont les racines sont les antécédents de y
         // Algebrite n'aime pas beaucoup les coefficients decimaux...
-        try {
-          const liste = polynomialRoot(...polEquation.monomes)
+        try { // si le polynome utilise des FractionEtendue, il faut les convertir au format mathjs pour polynomialRoot
+          const liste = polEquation.useFraction ? polynomialRoot(...polEquation.monomes.map(el => fraction(el.num, el.den))) : polynomialRoot(...polEquation.monomes)
           for (const valeur of liste) {
             let arr
             if (typeof valeur === 'number') {
