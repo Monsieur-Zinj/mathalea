@@ -27,7 +27,7 @@ export const refs = {
 }
 const termNames = ['u', 'v', 'w', 'z']
 
-export default function DeriveeProduit () {
+export default function DeriveePoly () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
@@ -160,9 +160,9 @@ export default function DeriveeProduit () {
       termes = termes.map(el => el.startsWith('+') ? el.substring(1) : el)
       termesD = termesD.map(el => el.startsWith('+') ? el.substring(1) : el)
       if (termes.length > 1) {
-        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br><br>`
+        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>${useFraction ? '<br>' : ''}`
         for (let n = 0; n < termes.length; n++) {
-          texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br><br>`
+          texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br>${useFraction ? '<br>' : ''}`
         }
       } else {
         texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
@@ -171,7 +171,7 @@ export default function DeriveeProduit () {
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${nameF}'(x)=$` })
+        texte += `<br>${useFraction ? '<br>' : ''}` + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${nameF}'(x)=$` })
         handleAnswers(this, i, { reponse: { value: poly.derivee().toLatex(), compare: functionCompare } })
       }
 
