@@ -1,214 +1,255 @@
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import { signe } from '../../lib/outils/nombres'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Dérivée d\'un quotient'
+export const titre = 'Dérivée d\'un produit'
 export const dateDePublication = '22/01/2022'
-export const dateDeModificationImportante = '07/05/2024'
+export const dateDeModifImportante = '06/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Calculer la dérivée d'un quotient
- * @author Jean-Léon Henry
- * Finalisé par Jean-Claude Lhote
- * Référence 1AN14-5
+ * Calculer la dérivée d'un produit
+ * @author Jean-Léon Henry modifié par Rémi Angot (choix des fonctions + parenthèses)
+ * mise en jour par Jean-Claude Lhote à la demande des collègues de lycée (notations + paramétrage + quelques améliorations esthétiques)
+ * Référence 1AN14-4
  */
 
-export const uuid = 'b32f2'
-export const ref = '1AN14-5'
+export const uuid = '1a60f'
 export const refs = {
   'fr-fr': ['1AN14-5'],
   'fr-ch': []
 }
-export default function DeriveeQuotient () {
+/**
+ * @param {string} expression expression parsée
+ * @returns expression en LaTeX avec multication implicite
+ * @author Jean-Léon Henry()
+ */
+export function prettyTex (expression) {
+  return expression.toTex({ implicit: 'hide' }).replaceAll('\\cdot', '').replaceAll('~', '')
+}
+
+export default function DeriveeProduit () {
   Exercice.call(this)
   this.titre = titre
-  // this.consigne = "Pour chacune des fonctions suivantes, dire sur quel ensemble elle est dérivable, puis déterminer l'expression de sa fonction dérivée."
   this.consigne = 'Pour chacune des fonctions suivantes, déterminer l\'expression de sa fonction dérivée.'
-  this.nbQuestions = 5
+  this.nbQuestions = 3
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
   this.sup = '1'
-  this.sup2 = true
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  /* const reglesDeSimplifications = math.simplify.rules.slice()
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-*/
+  // const reglesDeSimplifications = math.simplify.rules.slice()
+  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
+  // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
+  // reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
+  // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
+
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
-    if (this.sup2) {
-      this.interactifReady = false
-    } else {
-      this.interactifReady = true
-    }
+
     // Types d'énoncés
+    // const listeTypeDeQuestionsDisponibles = ['monome2/poly1', 'inv/poly1']
+    // if (this.sup === 2) {
+    //   listeTypeDeQuestionsDisponibles.push('racine/poly', 'racine/poly2centre', 'monome2/racine')
+    //   if (this.sup2) {
+    //     listeTypeDeQuestionsDisponibles.push('exp/poly', 'exp/poly2centre')
+    //   }
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       listeOfCase: [
-        'poly1a/poly1',
-        'mon/poly1',
-        'poly/poly1',
-        'mon/poly2centre'
+        'monome2/poly1',
+        'inv/poly1',
+        'racine/poly',
+        'racine/poly2centre',
+        'monome2/racine'
       ],
       min: 1,
-      max: 4,
-      melange: 5,
+      max: 5,
+      melange: 6,
       defaut: 1
     })
-    for (let i = 0, texte, texteCorr, expression, nameF, maReponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // On créé les coefficients d'un monome x^m qu'ont va générer
-      const coeffs = new Array(randint(2, 9)) // Au moins 2 coeffs, i.e. deg >= 1
-      coeffs.fill(0)
-      coeffs.push(1) // on ajoute un coeff donc deg >= 2
-      // On génère des fonctions qui pourrait servir
+    for (let i = 0, texte, texteCorr, terme1, terme2, expression, askFacto, askFormule, askQuotient, ensembleDerivation, namef, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      // On commence par générer des fonctions qui pourrait servir
       const dictFonctions = {
         exp: 'e^x',
-        mon: new Polynome({ coeffs }),
+        racine: '\\sqrt{x}',
+        inv: '1/x',
         poly1: new Polynome({ rand: true, deg: 1 }),
-        poly1a: new Polynome({ rand: true, deg: 1 }),
         poly2centre: new Polynome({ rand: true, coeffs: [[10, true], 0, [10, true]] }),
-        poly: new Polynome({ rand: true, deg: 2 }),
         monome2: new Polynome({ rand: true, coeffs: [0, 0, [10, true]] }),
-        racine: 'sqrt(x)'
+        poly: new Polynome({ rand: true, deg: randint(1, 2) })
       }
       const listeTypeFonctions = listeTypeDeQuestions[i].split('/')
-      const typeNum = listeTypeFonctions[0]
-      const typeDen = listeTypeFonctions[1]
-      // Extraction des fonctions
-      const fNum = dictFonctions[typeNum]
-      const fDen = dictFonctions[typeDen]
-      const termeNum = engine.parse(['pol', 'mon'].includes(typeNum.substr(0, 3)) ? fNum.toMathExpr() : fNum)
-      const termeDen = engine.parse(['pol', 'mon'].includes(typeDen.substr(0, 3)) ? fDen.toMathExpr() : fDen)
-      expression = `(${termeNum.latex})/(${termeDen.latex})`
+      // On précise les énoncés
+      askFacto = listeTypeFonctions.includes('exp')
+      askFormule = listeTypeFonctions.includes('poly1')
+      askQuotient = listeTypeFonctions.includes('inv')
+      // On randomise l'ordre des termes, sauf pour l'inverse et un monome devant une racine/une affine
+      let f1 = 0
+      let f2 = 1
+      if (!(['monome2/racine', 'monome2/poly1', 'inv/poly1'].includes(listeTypeDeQuestions[i]))) {
+        f1 = randint(0, 1)
+        f2 = 1 - f1
+      }
+      const typef1 = listeTypeFonctions[f1]
+      const typef2 = listeTypeFonctions[f2]
+      // On gère les parenthèses autour des fonctions spéciales
+      const noPar = type => ['monome2', 'racine', 'exp', 'inv'].includes(type)
+      const parenth = (expr, type) => (noPar(type) ? expr : `(${expr})`)
+      // On crée les expressions des fonctions : les polynômes dans dictFonctions ne sont pas des chaînes
+      const exprf1 = ['poly', 'mono'].includes(typef1.substring(0, 4)) ? dictFonctions[typef1].toMathExpr() : dictFonctions[typef1]
+      const exprf2 = ['poly', 'mono'].includes(typef2.substring(0, 4)) ? dictFonctions[typef2].toMathExpr() : dictFonctions[typef2]
+      terme1 = parenth(exprf1, typef1)
+      terme2 = parenth(exprf2, typef2)
+      // Expression finale de la fonction
+      expression = `${terme1}*${terme2}`
+      // Ensemble de dérivation
+      ensembleDerivation = listeTypeFonctions.includes('racine') ? '\\mathbb{R}_+^*' : '\\mathbb{R}'
+      ensembleDerivation = listeTypeFonctions.includes('inv') ? '\\mathbb{R}^*' : ensembleDerivation
 
-      // Énoncé
-      nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
-      texte = ''
-      texte += `$${nameF}(x)=${engine.parse(expression).simplify().latex}$`
+      // Enoncé
+      namef = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
+      texte = askFacto ? 'Dans cette question, on demande la réponse sous forme factorisée.<br>' : ''
+      texte = askFormule
+        ? `Dans cette question, on demande d'utiliser la formule de dérivation d'un produit${askQuotient
+          ? ' et de mettre le résultat sous forme d\'un quotient.'
+          : '.'}<br>`
+        : texte
+      texte += `$${namef}(x)=${engine.parse(expression).latex}$`
       // Correction
-      const derNum = engine.box(['D', termeNum, 'x']).evaluate()
-      const derDen = engine.box(['D', termeDen, 'x']).evaluate()
-      texteCorr = ''
-      // texteCorr = `$${nameF}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
-      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$, et que $v$ ne s\'annule pas sur $I$ alors leur quotient est dérivable sur $I$ et on a la formule : '
-      texteCorr += '\\[\\left(\\frac{u}{v}\\right)\'=\\frac{u\'\\times v-u\\times v\'}{v^2}.\\]'
-      texteCorr += `Ici $${nameF}=\\frac{u}{v}$ avec : `
-      texteCorr += `\\[\\begin{aligned}u(x)&=${termeNum.latex},\\ u'(x)=${derNum.latex}\\\\ v(x)&=${termeDen.latex},\\ v'(x)=${derDen.latex}.\\end{aligned}\\]`
+      texteCorr = `$${namef}$ est dérivable sur $${ensembleDerivation}$. Soit $x\\in${ensembleDerivation}$.<br>`
+      texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur produit est dérivable sur $I$ et on a la formule : '
+      texteCorr += '\\[(u\\times v)\'=u\'\\times v+u\\times v\'.\\]'
+      texteCorr += `Ici $${namef}=u\\times v$ avec : `
+      texteCorr += `\\[\\begin{aligned}u(x)&=${engine.parse(exprf1).latex}\\\\ v(x)&=${engine.parse(exprf2).latex}.\\end{aligned}\\]`
       switch (listeTypeDeQuestions[i]) {
-        case 'poly1a/poly1':
-        case 'poly/poly1': {
-          // fDen = cx+d
-          const c = fDen.monomes[1]
-          const d = fDen.monomes[0]
-          const valI = new FractionEtendue(-d, c)
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
-          texteCorr += 'On obtient alors : '
-          if (fNum.deg === 1) {
-            // fNum = ax+b
-            const a = fNum.monomes[1]
-            const b = fNum.monomes[0]
-            texteCorr += `\\[${nameF}'(x)=\\frac{${a}(${termeDen.latex})-(${termeNum.latex})\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
-            texteCorr += 'D\'où, en développant le numérateur : '
-            texteCorr += `\\[${nameF}'(x)=\\frac{${fDen.multiply(a)}-(${fNum.multiply(c)})}{(${termeDen.latex})^2}.\\]`
-            texteCorr += 'Les termes en $x$ se compensent et on obtient : '
-            texteCorr += `\\[${nameF}'(x)=\\frac{${a * d}${ecritureAlgebrique(-c * b)}}{(${termeDen.latex})^2}.\\]`
-            texteCorr += 'C\'est-à-dire : '
-            texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}.}\\]`
-            maReponse = `\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`
-            handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
-          } else if (fNum.deg === 2) {
-            texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen.latex})-(${termeNum.latex})\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
-            texteCorr += 'D\'où, en développant le numérateur : '
-            const polyInterm = fNum.derivee().multiply(fDen)
-            texteCorr += `\\[${nameF}'(x)=\\frac{${polyInterm}-(${fNum.multiply(c)})}{(${termeDen.latex})^2}.\\]`
-            texteCorr += 'On réduit le numérateur pour obtenir : '
-            maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-            texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-            handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
-            texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
-          }
+        case 'inv/poly1': {
+          const b = dictFonctions[typef2].monomes[0] // coeffs du poly1
+          const a = dictFonctions[typef2].monomes[1] // coeffs du poly1
+          const f2 = dictFonctions[typef2]
+          // Début correction
+          texteCorr += 'On utilise la formule rappelée plus haut et on a : '
+          texteCorr += `\\[${namef}'(x)=\\underbrace{-\\frac{1}{x^2}}_{u'(x)}\\times${engine.parse(terme2).latex}+\\frac{1}{x}\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `Ce qui donne, en simplifiant : \\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${a}}{x}.\\]`
+          texteCorr += 'On additionne les deux fractions pour obtenir : '
+          texteCorr += `\\[${namef}'(x)=\\frac{${f2.multiply(-1)}}{x^2}+\\frac{${Polynome.print([0, a])}}{x^2}=\\frac{${f2.multiply(-1)}${Polynome.print([0, a], true)}}{x^2}.\\]`
+          texteCorr += 'Des termes se simplifient au numérateur et on a : '
+          texteCorr += `\\[${namef}'(x)=\\frac{${Polynome.print([-b])}}{x^2}.\\]`
+          // Remarque sur la méthode alternative
+          const fExpand = engine.parse(`${a}${ecritureAlgebrique(b)}/x`).latex
+          texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${fExpand}$.<br>`
+          const maReponse = engine.box(['D', engine.parse(fExpand), 'x']).evaluate().latex
+          texteCorr += `Et donc $${namef}'(x)=${maReponse}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          // Sans le replace { x} est mal interprété par le parser de mathLive
+          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
           break
         }
-        case 'mon/poly2centre': {
-          const c = fDen.monomes[2]
-          const d = fDen.monomes[0]
-          const fDenDer = fDen.derivee().toLatex()
-          if (c * d > 0) {
-            texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ car $${termeDen.latex}${c < 0 ? '<0' : '>0'}$ pour tout $x$.<br>`
+        case 'monome2/poly1': {
+          const mon2 = dictFonctions[typef1]
+          const poly1 = dictFonctions[typef2]
+          const a = poly1.monomes[1]
+          const polExpand = mon2.multiply(poly1)
+          // Début correction
+          texteCorr += `On utilise la formule rappelée plus haut et on a  \\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times(${exprf2})+(${mon2.toMathExpr()})\\times\\underbrace{${a > 0 ? a : `(${a})`}}_{v'(x)}.\\]`
+          texteCorr += `On développe pour obtenir : \\[${namef}'(x)=${mon2.derivee().multiply(poly1)}${mon2.multiply(a).toMathExpr(true)}.\\]`
+          texteCorr += `Puis, en regroupant les termes de même degré : \\[${namef}'(x)=${polExpand.derivee()}.\\]`
+          // Remarque sur la méthode alternative
+          texteCorr += `Remarque : on pourrait bien entendu développer avant de dériver.<br>Dans ce cas, $${namef}(x)=${polExpand}$.<br>`
+          texteCorr += `Et donc $${namef}'(x)=${polExpand.derivee()}$. Ce qui est bien cohérent avec le résultat trouvé plus haut.`
+          handleAnswers(this, i, { reponse: { value: polExpand.derivee().toString(), compare: functionCompare } })
+          break
+        }
+        case 'monome2/racine': {
+          const mon2 = dictFonctions[typef1]
+          const m = mon2.monomes[2] // coeff du monome2
+          texteCorr += 'On applique la  formule rappellée plus haut : '
+          texteCorr += `\\[${namef}'(x)=\\underbrace{${mon2.derivee()}}_{u'(x)}\\times\\sqrt{x}+(${mon2.toMathExpr()})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}.\\]`
+          texteCorr += 'On peut réduire un peu l\'expression : '
+          texteCorr += `\\[${namef}'(x)=${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}` // attention l'équation finit ligne suivante
+          if (m % 2 !== 0) {
+            texteCorr += `\\frac{${rienSi1(Math.abs(m))}x^2}{2\\sqrt{x}}.\\]`
+            handleAnswers(this, i, { reponse: { value: `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${rienSi1(Math.abs(m))}x^2}{2\\sqrt{x}}`, compare: functionCompare } })
+            // Réponse réduite à ajouter
           } else {
-            const valI = new FractionEtendue(-d, c)
-            const valeurInterdite = `\\sqrt{${valI.texFSD}}`
-            texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valeurInterdite}$ et $x\\neq-${valeurInterdite}$.<br>`
+            texteCorr += `\\frac{${Polynome.print([0, 0, Math.abs(m / 2)])}}{\\sqrt{x}}.\\]`
+            handleAnswers(this, i, { reponse: { value: `${rienSi1(2 * m)}x\\sqrt{x}${signe(m)}\\frac{${Polynome.print([0, 0, Math.abs(m / 2)])}}{\\sqrt{x}}`, compare: functionCompare } })
+            // Réponse réduite à ajouter
           }
-          texteCorr += 'On obtient alors : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${fDenDer.startsWith('-') ? `(${fDenDer})` : `${fDenDer}`}}{(${termeDen.latex})^2}.\\]`
-          texteCorr += 'D\'où, en développant le numérateur : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(fDen.derivee().multiply(-1)).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
-          texteCorr += 'On simplifie pour obtenir :'
-          maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(fDen.derivee().multiply(-1)))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
-        }
-          break
-        case 'mon/poly1': {
-          // fDen = cx+d
-          const c = fDen.monomes[1]
-          const d = fDen.monomes[0]
-          const valI = new FractionEtendue(-d, c)
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
-          texteCorr += 'On obtient alors : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
-          texteCorr += 'D\'où, en développant le numérateur : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee().multiply(fDen)}${fNum.multiply(-c).toMathExpr(true)}}{(${termeDen.latex})^2}.\\]`
-          texteCorr += 'On simplifie pour obtenir :'
-          maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
           break
         }
-        case 'exp/poly1' : {
-          // fDen = cx+d
-          const c = fDen.monomes[1]
-          const d = fDen.monomes[0]
-          const valI = new FractionEtendue(-d, c)
-          texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
-          texteCorr += 'On obtient alors : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
-          texteCorr += 'On factorise par $e^x$, et on obtient : '
-          texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen}${ecritureAlgebrique(-c)})}{(${termeDen.latex})^2},\\]`
-          texteCorr += 'ce qui donne, après réduction : '
-          maReponse = `\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen.latex})^2}`
-          texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
+        case 'racine/poly2centre': // traité ci-après
+        case 'racine/poly': {
+          const racineGauche = typef1 === 'racine'
+          const poly = listeTypeDeQuestions[i] === 'racine/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
+          const derivee = poly.derivee()
+          const tex = derivee.toLatex()
+          const neg = tex.startsWith('-')
+          // 1ère étape : application de la formule
+          let intermediaire
+          if (racineGauche) intermediaire = `\\underbrace{\\frac{1}{2\\sqrt{x}}}_{u'(x)}\\times(${poly})+\\sqrt{x}\\times\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{${derivee.isMon() ? derivee.toLatex() : '(' + derivee.toLatex() + ')'}}_{u'(x)}\\times\\sqrt{x}+(${poly})\\times\\underbrace{\\frac{1}{2\\sqrt{x}}}_{v'(x)}`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
+          // 2ème étape : simplification
+          let interm2
+          if (racineGauche) {
+            interm2 = `\\frac{${poly}}{2\\sqrt{x}}${derivee.isMon()
+              ? neg
+                  ? tex
+                  : '+' + tex
+                : '+' + `(${derivee.toLatex()})`}\\sqrt{x}`
+          } else interm2 = `${derivee.isMon() ? `${derivee.toLatex()}` : `(${derivee.toLatex()})`}\\sqrt{x}+\\frac{${poly}}{2\\sqrt{x}}`
+          texteCorr += 'L\'énoncé ne demandant rien de plus, on se contente de simplifier l\'expression :'
+          texteCorr += `\\[${namef}'(x)=${interm2}\\]`
+          handleAnswers(this, i, { reponse: { value: interm2, compare: functionCompare } })
           break
         }
+        case 'exp/poly': // traité ci-après
+        case 'exp/poly2centre': {
+          const expGauche = typef1 === 'exp'
+          const poly = listeTypeDeQuestions[i] === 'exp/poly2centre' ? dictFonctions.poly2centre : dictFonctions.poly
+          const derivee = poly.derivee()
+          // 1ère étape : application de la formule
+          let intermediaire
+          if (expGauche) intermediaire = `\\underbrace{e^x}_{u'(x)}\\times(${poly})+e^x\\times\\underbrace{(${derivee})}_{v'(x)}`
+          else intermediaire = `\\underbrace{${derivee.isMon() ? `${derivee.toLatex()}` : `(${derivee.toLatex()})`}}_{u'(x)}\\times e^x+(${poly})\\times\\underbrace{e^x}_{v'(x)}`
+          texteCorr += `On utilise la formule rappelée plus haut et on a \\[${namef}'(x)=${intermediaire}.\\]`
+          // 2ème étape : Factorisation
+          const interm2 = `(${poly.add(derivee).toLatex()})`
+          const termeGauche = expGauche ? 'e^x' : interm2
+          const termeDroite = expGauche ? interm2 : 'e^x'
+          texteCorr += 'Comme demandé, on factorise l\'expression par $e^x$ : '
+          texteCorr += `\\[${namef}'(x)=${termeGauche}${termeDroite}\\]`
+          handleAnswers(this, i, { reponse: { value: `${termeGauche}${termeDroite}`, compare: functionCompare } })
+          // 3e étape : Simplification si nécessaire
+          const interm2Simp = `(${poly.add(derivee)})`
+          const termeGauche2 = expGauche ? 'e^x' : interm2Simp
+          const termeDroite2 = expGauche ? interm2Simp : 'e^x'
+          if (`${termeGauche2}${termeDroite2}` !== `${termeGauche}${termeDroite}`) {
+            texteCorr += 'On peut réduire ou réordonner l\'expression entre parenthèses : '
+            texteCorr += `\\[${namef}'(x)=${termeGauche2}${termeDroite2}\\]`
+            handleAnswers(this, i, { reponse: { value: `${termeGauche2}${termeDroite2}`, compare: functionCompare } })
+          }
+        }
+          break
         default:
-          texteCorr += 'TODO'
+          texteCorr += 'Correction non encore implémentée.'
           break
       }
       texte = texte.replaceAll('\\frac', '\\dfrac')
-      if (this.sup2) {
-        texte += `<br>Montrer que $${nameF}^\\prime(x)=${maReponse.replaceAll('\\frac', '\\dfrac')}$`
-      }
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
-      if (this.interactif && !this.sup2) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${nameF}'(x)=$` })
+      if (this.interactif) {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${namef}'(x)=$` })
       }
+
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
@@ -219,6 +260,5 @@ export default function DeriveeQuotient () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
-  this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', true]
+  this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 }
