@@ -9,15 +9,16 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Donner l\'expression littérale d\'un périmètre et d\'une aire de quadrilatère'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '08/03/2022'
+export const dateDeModifImportante = '11/05/2024'
 
 /**
- * Description didactique de l'exercice : Faire le lien entre le calcul littéral et son expression visuelle
+ *
  * @author Mireille Gain
- * Référence 4L10-2
 */
 export const uuid = 'af8bb'
 export const ref = '4L10-2'
@@ -31,7 +32,6 @@ export default function AirePerimetrePolygone () {
   this.nbQuestions = 4 // Nombre de questions par défaut
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
-  this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -67,13 +67,14 @@ export default function AirePerimetrePolygone () {
           )
           texteCorr += 'Périmètre :'
           texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc1}$`
-          texteCorr += `<br>$\\mathcal{P} =4${inc1}$`
+          texteCorr += `<br>$\\mathcal{P} =${miseEnEvidence(`4${inc1}`)}$`
           texteCorr += '<br>Aire :'
           texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc1}$`
-          texteCorr += `<br>$\\mathcal{A} =${inc1}^2$`
+          texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${inc1}^2`)}$`
           break
 
         case 'r1': // Rectangle ayant une lettre pour Longueur et une autre lettre pour largeur, ou bien une lettre pour Longueur et un nombre pour largeur
+        {
           E = point(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 2 / 3)
@@ -81,34 +82,21 @@ export default function AirePerimetrePolygone () {
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           o = choice([1, 2])
-          if (o === 1) {
-            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)])
-            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-            texte += mathalea2d(params,
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc1}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
-            )
-            texteCorr += 'Périmètre :'
-            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc2}+${inc1}+${inc2}$`
-            texteCorr += `<br>$\\mathcal{P} =2${inc1}+2${inc2}$`
-            texteCorr += '<br>Aire :'
-            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc2}$`
-            texteCorr += `<br>$\\mathcal{A} =${inc1}${inc2}$`
-          } else {
-            params = fixeBordures([quad, texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)])
-            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-            texte += mathalea2d(params,
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(L, 3, 4.7), texteParPosition(`$${inc1}$`, -0.7, 2)
-            )
-            texteCorr += 'Périmètre :'
-            texteCorr += `<br>$\\mathcal{P} =${L}+${inc1}+${L}+${inc1}$`
-            texteCorr += `<br>$\\mathcal{P} =2${inc1}+${2 * L}$`
-            texteCorr += '<br>Aire :'
-            texteCorr += `<br>$\\mathcal{A} =${L}\\times ${inc1}$`
-            texteCorr += `<br>$\\mathcal{A} =${L}${inc1}$`
-          }
+          const inc = o === 1 ? inc1 : L
+          params = fixeBordures([quad, texteParPosition(`$${inc}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)])
+          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+          texte += mathalea2d(params,
+            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), texteParPosition(`$${inc}$`, 3, 4.7), texteParPosition(`$${inc2}$`, -0.7, 2)
+          )
+          texteCorr += 'Périmètre :'
+          texteCorr += `<br>$\\mathcal{P} =${inc}+${inc2}+${inc}+${inc2}$`
+          texteCorr += `<br>$\\mathcal{P} =${miseEnEvidence(o === 1 ? `2${inc}+2${inc2}` : `${2 * inc}+2${inc2}`)}$`
+          texteCorr += '<br>Aire :'
+          texteCorr += `<br>$\\mathcal{A} =${inc}\\times ${inc2}$`
+          texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${inc}${inc2}`)}$`
           break
-
-        case 'r2': // Rectangle ayant le triple d'une mesure en longueur, et un nombre ou cette mesure en largeur
+        }
+        case 'r2': { // Rectangle ayant le triple d'une mesure en longueur, et un nombre ou cette mesure en largeur
           E = point(0, 0)
           F = pointAdistance(E, 6, 0)
           G = similitude(E, F, -90, 1 / 3)
@@ -122,33 +110,20 @@ export default function AirePerimetrePolygone () {
           quad = polygone(E, F, G, H)
           quad.epaisseur = 2
           o = choice([1, 2])
-          if (o === 1) {
-            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)])
-            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-            texte += mathalea2d(params,
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc1}$`, -0.7, 1)
-            )
-            texteCorr += 'Périmètre :'
-            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}+${inc1}$`
-            texteCorr += `<br>$\\mathcal{P} =8${inc1}$`
-            texteCorr += '<br>Aire :'
-            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc1}+${inc1}\\times ${inc1}+${inc1}\\times ${inc1}$`
-            texteCorr += `<br>$\\mathcal{A} =3${inc1}^2$`
-          } else {
-            params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)])
-            params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
-            texte += mathalea2d(params,
-              quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), codageSegments('/', 'red', F, G, H, E), texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc2}$`, -0.7, 1)
-            )
-            texteCorr += 'Périmètre :'
-            texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc2}+${inc1}+${inc1}+${inc1}+${inc2}$`
-            texteCorr += `<br>$\\mathcal{P} =6${inc1}+2${inc2}$`
-            texteCorr += '<br>Aire :'
-            texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc2}+${inc1}\\times ${inc2}+${inc1}\\times ${inc2}$`
-            texteCorr += `<br>$\\mathcal{A} =3${inc1}${inc2}$`
-          }
+          const inc = o === 1 ? inc1 : inc2
+          params = fixeBordures([quad, texteParPosition(`$${inc1}$`, 1, 2.7), texteParPosition(`$${inc}$`, -0.7, 1)])
+          params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
+          const objets = [quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), segment(I, J), segment(K, M), codageSegments('/', 'red', [H, N, P, G]), texteParPosition(`$${inc}$`, -0.7, 1), texteParPosition(`$${inc1}$`, 1, 2.7)]
+          objets.push(o === 1 ? codageSegments('/', 'red', F, G, H, E) : codageSegments('||', 'blue', F, G, H, E))
+          texte += mathalea2d(params, objets)
+          texteCorr += 'Périmètre :'
+          texteCorr += `<br>$\\mathcal{P} =${inc1}+${inc1}+${inc1}+${inc}+${inc1}+${inc1}+${inc1}+${inc}$`
+          texteCorr += o === 1 ? `<br>$\\mathcal{P} =${miseEnEvidence(`8${inc1}`)}$` : `<br>$\\mathcal{P} =${miseEnEvidence(`6${inc1}+2${inc2}`)}$`
+          texteCorr += '<br>Aire :'
+          texteCorr += `<br>$\\mathcal{A} =${inc1}\\times ${inc}+${inc1}\\times ${inc}+${inc1}\\times ${inc}$`
+          texteCorr += o === 1 ? `<br>$\\mathcal{A} =${miseEnEvidence(`3${inc1}^2`)}$` : `<br>$\\mathcal{A} =${miseEnEvidence(`3${inc1}${inc2}`)}$`
           break
-
+        }
         case 'r3': // Rectangle ayant un nombre pour largeur et une somme de lettres pour Longueur
           E = point(0, 0)
           F = pointAdistance(E, 6, 0)
@@ -161,16 +136,16 @@ export default function AirePerimetrePolygone () {
           params = fixeBordures([quad, texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)])
           params.optionsTikz = 'baseline={([yshift={-\\ht\\strutbox}]current bounding box.north)}'
           texte += mathalea2d(params,
-            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('/', 'red', E, F, G, H), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
+            quad, codageAngleDroit(E, F, G), codageAngleDroit(F, G, H), codageAngleDroit(G, H, E), codageAngleDroit(H, E, F), codageSegments('||', 'blue', F, G, H, E), segment(I, J), texteParPosition(`$${inc1}$`, l / 2, 4.7), texteParPosition(`$${inc2}$`, 3 + l / 2, 4.7), texteParPosition(l, -0.7, 2)
           )
           texteCorr += 'Périmètre :'
           texteCorr += `<br>$\\mathcal{P} =${l} + ${inc1} + ${inc2} + ${l} + ${inc1} + ${inc2}$`
           texteCorr += `<br>$\\mathcal{P} =2\\times${l}+2\\times ${inc1}+2\\times ${inc2}$`
-          texteCorr += `<br>$\\mathcal{P} =2${inc1}+2${inc2}+${2 * l}$`
+          texteCorr += `<br>$\\mathcal{P} =${miseEnEvidence(`2${inc1}+2${inc2}+${2 * l}`)}$`
           texteCorr += '<br>Aire :'
           texteCorr += `<br>$\\mathcal{A} =${l}\\times (${inc1}+${inc2})$`
           texteCorr += `<br>$\\mathcal{A} =${l}\\times ${inc1}+${l}\\times ${inc2}$`
-          texteCorr += `<br>$\\mathcal{A} =${l}${inc1}+${l}${inc2}$`
+          texteCorr += `<br>$\\mathcal{A} =${miseEnEvidence(`${l}${inc1}+${l}${inc2}`)}$`
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
