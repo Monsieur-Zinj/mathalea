@@ -793,7 +793,7 @@ export function powerCompare (input: string, goodAnswer: string): ResultType {
  * @author Jean-Claude Lhote
  */
 export function setsCompare (input: string, goodAnswer: string): ResultType {
-  const clean = generateCleaner(['virgules'])
+  const clean = generateCleaner(['virgules', 'parentheses'])
   // const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.') // @fixme vérifier si on a besoin d'éliminer ce {.} ? si oui, l'intégrer au cleauner 'virgules'
   const elements1 = clean(input).split(';').sort((a: string, b: string) => Number(a) - Number(b))
   const elements2 = clean(goodAnswer).split(';').sort((a: string, b: string) => Number(a) - Number(b))
