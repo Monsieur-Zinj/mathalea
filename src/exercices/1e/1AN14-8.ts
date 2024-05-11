@@ -1,14 +1,14 @@
 import Exercice from '../Exercice'
 import Derivees1 from './1AN14-30'
-import Derivees2 from './1AN14-31'
-import Derivees3 from './1AN14-51'
+import Derivees2 from './1AN14-4'
+import Derivees3 from './1AN14-71'
 import MetaExercice from '../MetaExerciceCan'
-export const titre = 'Dérivation de polynomes simples'
+export const titre = 'Dérivation Bilan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f38cf'
 export const refs = {
-  'fr-fr': ['1AN14-7'],
+  'fr-fr': ['1AN14-8'],
   'fr-ch': []
 }
 export const dateDePublication = '18/04/2024'
