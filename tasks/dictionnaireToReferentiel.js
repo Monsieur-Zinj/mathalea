@@ -200,18 +200,18 @@ for (const tag of tagsEVACOM) {
 }
 
 // On renomme les clés à la racine du référentiel
-delete Object.assign(referentielFR, { 'Brevet des collèges par thèmes - APMEP': referentielFR.DNBTags }).DNBTags
+delete Object.assign(referentielFR, { 'Brevet des collèges par thème - APMEP': referentielFR.DNBTags }).DNBTags
 delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.DNB }).DNB
-delete Object.assign(referentielFR, { 'BAC par thèmes - APMEP': referentielFR.BACTags }).BACTags
+delete Object.assign(referentielFR, { 'BAC par thème - APMEP': referentielFR.BACTags }).BACTags
 delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
-delete Object.assign(referentielFR, { 'CRPE (2015-2019) par thèmes - COPIRELEM': referentielFR.crpeCopirelemTags }).crpeCopirelemTags
+delete Object.assign(referentielFR, { 'CRPE (2015-2019) par thème - COPIRELEM': referentielFR.crpeCopirelemTags }).crpeCopirelemTags
 delete Object.assign(referentielFR, { 'CRPE (2015-2019) par année - COPIRELEM': referentielFR.crpeCopirelem }).crpeCopirelem
-delete Object.assign(referentielFR, { 'CRPE (2022-2023) par thèmes': referentielFR.crpeTags }).crpeTags
+delete Object.assign(referentielFR, { 'CRPE (2022-2023) par thème': referentielFR.crpeTags }).crpeTags
 delete Object.assign(referentielFR, { 'CRPE (2022-2023) par année': referentielFR.crpe }).crpe
-delete Object.assign(referentielFR, { 'E3C par thèmes - APMEP': referentielFR.E3CTags }).E3CTags
+delete Object.assign(referentielFR, { 'E3C par thème - APMEP': referentielFR.E3CTags }).E3CTags
 delete Object.assign(referentielFR, { 'E3C par specimen - APMEP': referentielFR.E3C }).E3C
 
-delete Object.assign(referentielCH, { 'EVACOM par thèmes': referentielCH.EVACOMTags }).EVACOMTags
+delete Object.assign(referentielCH, { 'EVACOM par thème': referentielCH.EVACOMTags }).EVACOMTags
 delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
 
 const dataFR = JSON.stringify(referentielFR, null, 2)
