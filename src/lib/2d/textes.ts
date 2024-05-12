@@ -744,13 +744,13 @@ export class Latex2d extends ObjetMathalea2D {
    * @param options.opacity l'opacité du texte // @fixme non encore implémenté
    *
    */
-  constructor (latex: string, x: number, y: number, options: {color: string, backgroundColor: string, letterSize: LetterSizeType, orientation: number, opacity: number}) {
+  constructor (latex: string, x: number, y: number, { color = 'black', backgroundColor = '', letterSize = 'normalsize', orientation = 0, opacity = 1 }) {
     super()
-    this.color = colorToLatexOrHTML(options.color ?? 'black')
-    this.backgroundColor = options.backgroundColor == null || options.backgroundColor === '' ? '' : options.backgroundColor
-    this.letterSize = options.letterSize ?? 'normalsize'
-    this.orientation = options.orientation ?? 0
-    this.opacity = options.opacity ?? 1
+    this.color = colorToLatexOrHTML(color)
+    this.backgroundColor = colorToLatexOrHTML(backgroundColor)
+    this.letterSize = letterSize
+    this.orientation = orientation
+    this.opacity = opacity
     this.latex = latex
     this.x = x
     this.y = y
@@ -773,7 +773,7 @@ export class Latex2d extends ObjetMathalea2D {
 
   // @todo ajouter opacity, orientation au tikz.
   tikz () {
-    return this.backgroundColor !== ''
+    return this.backgroundColor[1] !== ''
       ? `\\draw (${this.x},${this.y}) node[anchor = center] {\\colorbox ${this.backgroundColor[1]} {\\${this.letterSize}  \\color${this.color[1]}{$${this.latex}$}}};`
       : `\\draw (${this.x},${this.y}) node[anchor = center] {\\${this.letterSize} \\color${this.color[1]}{$${this.latex}$}};`
   }
