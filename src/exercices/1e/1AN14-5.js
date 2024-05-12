@@ -42,7 +42,7 @@ export default function DeriveeProduit () {
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = '1'
+  this.sup = '6'
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   // const reglesDeSimplifications = math.simplify.rules.slice()
   // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)

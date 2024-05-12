@@ -27,7 +27,7 @@ class DerivationFonctionRationnelles extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : k/(ax+b)\n2 : (ax+b)/(cx+d)\n3 : ax²/(ax+b)\n4 : (ax²+bx+c)/(dx+e)\n5 : Mélange']
-    this.sup = 5
+    this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }
@@ -45,7 +45,7 @@ class DerivationFonctionRationnelles extends Exercice {
           } while (compareArrays(laFonctionNum.monomes, laFonctionDen.monomes))
           break
         case 3:
-          laFonctionNum = new Polynome({ rand: false, deg: 2, coeffs: [0, 0, randint(-6, 6)] })
+          laFonctionNum = new Polynome({ rand: false, deg: 2, coeffs: [0, 0, randint(-9, 9, [-1, 0, 1])] })
           laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
           break
         case 4:

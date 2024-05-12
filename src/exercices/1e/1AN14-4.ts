@@ -27,7 +27,7 @@ class DerivationSommesSimples extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 : polynome et inverse\n2 : polynome et racine carrée\n3 : inverse et racine carrée\n4 : les trois réunis\n5 : Mélange']
-    this.sup = 1
+    this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
   }

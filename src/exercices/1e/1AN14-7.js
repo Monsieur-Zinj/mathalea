@@ -1,13 +1,14 @@
-import { derivative, divide, parse, simplify } from 'mathjs'
 import { Polynome } from '../../lib/mathFonctions/Polynome.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { prettyTex } from './1AN14-5.js'
-
-const math = { simplify, parse, derivative }
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Dérivée d\'une composée affine'
 
 /**
@@ -32,12 +33,6 @@ export default function DeriveeComposee () {
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
   this.sup = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
-  const reglesDeSimplifications = math.simplify.rules.slice()
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
-  reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n3 + n2*n3'), 1)
-  reglesDeSimplifications.push({ l: '-(n1*v)', r: '-n1*v' })
-  reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
-
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
@@ -50,14 +45,14 @@ export default function DeriveeComposee () {
       listeTypeDeQuestionsDisponibles.push('exp')
     }
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, expression, exprF, namef, deriveeF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, expression, exprF, nameF, deriveeF, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On génère des fonctions qui pourrait servir
       const coeffs = new Array(randint(2, 9))
       coeffs.fill(0)
       coeffs.push(1)
       const dictFonctions = {
         exp: 'e^',
-        racine: 'sqrt',
+        racine: '\\sqrt',
         inv: '1/',
         monome: new Polynome({ coeffs })
       }
@@ -67,12 +62,21 @@ export default function DeriveeComposee () {
       const typeF = listeTypeDeQuestions[i]
       const f = dictFonctions[typeF]
       // Expression finale de la fonction
-      exprF = typeF === 'monome' ? f.toMathExpr() : f + '(x)'
-      expression = typeF === 'monome' ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}` : `${f}(${polAff})`
+      exprF = typeF === 'monome'
+        ? f.toMathExpr()
+        : typeF === 'inverse'
+          ? '\\frac{1}{x}'
+          : f + '{x}'
+      expression = typeF === 'monome'
+        ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}`
+        : typeF === 'inverse'
+          ? `\\frac{1}{${polAff}}`
+          : `${f}{${polAff}}`
+      let value = ''
 
       // Enoncé
-      namef = lettreMinusculeDepuisChiffre(i + 6)
-      texte = `$${namef}:x\\longmapsto ${prettyTex(math.simplify(expression, reglesDeSimplifications))}$`
+      nameF = lettreMinusculeDepuisChiffre(i + 6)
+      texte = `$${nameF}(x)=${engine.parse(expression).simplify().latex}$`
       // Correction
       texteCorr = 'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
@@ -82,54 +86,60 @@ export default function DeriveeComposee () {
           deriveeF = 'e^x'
           break
         case 'inv':
-          deriveeF = '-1/x^2'
+          deriveeF = '\\frac{-1}{x^2}'
           break
         case 'racine':
-          deriveeF = '1/(2*sqrt(x))'
+          deriveeF = '\\frac{1}{2\\sqrt{x}}'
           break
         case 'monome':
           deriveeF = f.derivee().toLatex()
           break
       }
-      texteCorr += `Ici : \\[\\begin{aligned}u&:x\\mapsto ${prettyTex(math.simplify(exprF, reglesDeSimplifications))}\\\\ u'&:x\\mapsto ${prettyTex(math.simplify(deriveeF, reglesDeSimplifications))}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
-      texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${namef}$. On a, en appliquant la formule ci-dessus : `
+      texteCorr += `Ici : \\[\\begin{aligned}u(x)&=${engine.parse(exprF).simplify().latex}\\\\ u^\\prime(x)&=${engine.parse(deriveeF).simplify().latex}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
+      texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${nameF}$. On a, en appliquant la formule ci-dessus : `
       switch (typeF) {
         case 'exp':
-          texteCorr += `\\[${namef}'(x)=${rienSi1(a)}${prettyTex(math.simplify(expression, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${rienSi1(a)}${engine.parse(expression).simplify().latex}.\\]`
           break
         case 'inv':
-          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`-${f}(${polAff})^2`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${a}\\times ${`\\frac{-1}{(${polAff})^2}`}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
-          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${-a}/(${polAff})^2`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${`\\frac{${-a}}{(${polAff})^2}`}.\\]`
+          value = `${`\\frac{${-a}}{(${polAff})^2}`}`
           break
         case 'racine': {
-          texteCorr += `\\[${namef}'(x)=${a}\\times${prettyTex(math.simplify(`1/(2*sqrt(${polAff}))`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${a}\\times${`\\frac{1}{2\\sqrt{${polAff}}}`}.\\]`
           texteCorr += 'D\'où, en simplifiant :'
-          const num = a % 2 === 0 ? divide(a, 2) : a
-          const den = `${a % 2 === 0 ? '' : '2*'}sqrt(${polAff})`
-          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${num}/(${den})`, reglesDeSimplifications))}.\\]`
+          const num = a % 2 === 0 ? a / 2 : a
+          const den = `${a % 2 === 0 ? '' : '2'}\\sqrt{${polAff}}`
+          texteCorr += `\\[${nameF}'(x)=${`\\frac{${num}}{${den}}`}.\\]`
+          value = `${`\\frac{${num}}{${den}}`}`
           break
         }
         case 'monome':
-          texteCorr += `\\[${namef}'(x)=${a}\\times ${prettyTex(math.simplify(`${f.deg}(${polAff})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${a}\\times ${`${f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}`}.\\]`
           texteCorr += 'D\'où, en simplifiant : '
-          texteCorr += `\\[${namef}'(x)=${prettyTex(math.simplify(`${a}*${f.deg}(${polAff})${f.deg === 2 ? '' : `^(${f.deg - 1})`}`, reglesDeSimplifications))}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${a * f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}.\\]`
+          value = `${a * f.deg}(${polAff})${f.deg === 2 ? '' : `^{${f.deg - 1}}`}`
+
           if (f.deg === 2) {
             texteCorr += 'On développe et on réduit pour obtenir  :'
-            texteCorr += `\\[.${namef}'(x)=${polAff.multiply(2 * a)}\\]`
+            texteCorr += `\\[${nameF}'(x)=${polAff.multiply(2 * a)}\\]`
+            value = `${polAff.multiply(2 * a)}`
           }
           break
         default:
           texteCorr += 'Correction non encore implémentée.'
           break
       }
-      texte = texte.replaceAll('\\frac', '\\dfrac')
+      texte = texte.replaceAll('\\frac', '\\dfrac') + ajouteChampTexteMathLive(this, i, 'inline largeur01')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        handleAnswers(this, i, { reponse: { value, compare: functionCompare } })
         i++
       }
       cpt++

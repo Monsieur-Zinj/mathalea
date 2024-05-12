@@ -34,8 +34,8 @@ export default function DeriveeQuotient () {
   // Sortie LaTeX
   this.nbCols = 2 // Nombre de colonnes
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction
-  this.sup = '1'
-  this.sup2 = true
+  this.sup = '5'
+  this.sup2 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   /* const reglesDeSimplifications = math.simplify.rules.slice()
   reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
@@ -67,7 +67,7 @@ export default function DeriveeQuotient () {
       melange: 5,
       defaut: 1
     })
-    for (let i = 0, texte, texteCorr, expression, nameF, maReponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, expression, nameF, maReponse, df, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // On créé les coefficients d'un monome x^m qu'ont va générer
       const coeffs = new Array(randint(2, 9)) // Au moins 2 coeffs, i.e. deg >= 1
       coeffs.fill(0)
@@ -113,6 +113,7 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
+          df = `\\R\\backslash\\{${valI.texFSD}\\}`
           texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
           texteCorr += 'On obtient alors : '
           if (fNum.deg === 1) {
@@ -127,7 +128,6 @@ export default function DeriveeQuotient () {
             texteCorr += 'C\'est-à-dire : '
             texteCorr += `\\[\\boxed{${nameF}'(x)=\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}.}\\]`
             maReponse = `\\frac{${(a * d) - (c * b)}}{(${termeDen.latex})^2}`
-            handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
           } else if (fNum.deg === 2) {
             texteCorr += `\\[${nameF}'(x)=\\frac{(${fNum.derivee()})(${termeDen.latex})-(${termeNum.latex})\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
             texteCorr += 'D\'où, en développant le numérateur : '
@@ -136,7 +136,6 @@ export default function DeriveeQuotient () {
             texteCorr += 'On réduit le numérateur pour obtenir : '
             maReponse = `\\frac{${polyInterm.add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
             texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-            handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
             texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur si possible, mais cela sort du cadre de cet exercice.'
           }
           break
@@ -149,6 +148,7 @@ export default function DeriveeQuotient () {
             texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ car $${termeDen.latex}${c < 0 ? '<0' : '>0'}$ pour tout $x$.<br>`
           } else {
             const valI = new FractionEtendue(-d, c)
+            df = `\\R\\backslash\\{${valI.texFSD}\\}`
             const valeurInterdite = `\\sqrt{${valI.texFSD}}`
             texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valeurInterdite}$ et $x\\neq-${valeurInterdite}$.<br>`
           }
@@ -160,7 +160,6 @@ export default function DeriveeQuotient () {
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(fDen.derivee().multiply(-1)))}}{(${termeDen.latex})^2}`
           texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
           texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
         }
           break
         case 'mon/poly1': {
@@ -168,6 +167,7 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
+          df = `\\R\\backslash\\{${valI.texFSD}\\}`
           texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum.derivee()}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
@@ -177,7 +177,6 @@ export default function DeriveeQuotient () {
           maReponse = `\\frac{${fNum.derivee().multiply(fDen).add(fNum.multiply(-c))}}{(${termeDen.latex})^2}`
           texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
           texteCorr += '<b>Remarque : </b>la plupart du temps, on veut le signe de la dérivée. Il serait donc plus logique de factoriser le numérateur, mais cela sort du cadre de cet exercice.'
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
           break
         }
         case 'exp/poly1' : {
@@ -185,6 +184,7 @@ export default function DeriveeQuotient () {
           const c = fDen.monomes[1]
           const d = fDen.monomes[0]
           const valI = new FractionEtendue(-d, c)
+          df = `\\R\\backslash\\{${valI.texFSD}\\}`
           texteCorr += `Ici la formule ci-dessus est applicable pour tout $x$ tel que $${termeDen.latex}\\neq 0$. C'est-à-dire $x\\neq${valI.texFSD}$.<br>`
           texteCorr += 'On obtient alors : '
           texteCorr += `\\[${nameF}'(x)=\\frac{${fNum}(${fDen})-${fNum}\\times${c < 0 ? `(${c})` : c}}{(${termeDen.latex})^2}.\\]`
@@ -193,7 +193,6 @@ export default function DeriveeQuotient () {
           texteCorr += 'ce qui donne, après réduction : '
           maReponse = `\\frac{${fNum}(${Polynome.print([d - c, c])})}{(${termeDen.latex})^2}`
           texteCorr += `\\[\\boxed{${nameF}'(x)=${maReponse}.}\\]`
-          handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
           break
         }
         default:
@@ -203,6 +202,8 @@ export default function DeriveeQuotient () {
       texte = texte.replaceAll('\\frac', '\\dfrac')
       if (this.sup2) {
         texte += `<br>Montrer que $${nameF}^\\prime(x)=${maReponse.replaceAll('\\frac', '\\dfrac')}$`
+      } else {
+        texte = `Donner l'expression de la dérivée de $${nameF}$ définie pour tout $x\\in${df}$ par : ` + texte
       }
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif && !this.sup2) {
@@ -212,6 +213,7 @@ export default function DeriveeQuotient () {
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        handleAnswers(this, i, { reponse: { value: maReponse, compare: functionCompare } })
         i++
       }
       cpt++
@@ -219,5 +221,5 @@ export default function DeriveeQuotient () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 : (ax+b)/(cx+d)\n2 : ax^n/(cx+d)\n3 : (ax²+bx+c)/(ex+f)\n4 ax^n/(ax²+bx+c)\n5 : mélange']
-  this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', true]
+  this.besoinFormulaire2CaseACocher = ['Montrer que... (non interactif)', false]
 }

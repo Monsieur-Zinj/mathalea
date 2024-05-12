@@ -105,27 +105,24 @@ export default class MetaExercice extends Exercice {
         }
       } else {
         //* ***************** Question Exo classique *****************//
-        this.listeQuestions[indexQuestion] = Question.listeQuestions[0] + ajouteFeedback(this, indexQuestion)
+        this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
+        if (!this.listeQuestions[indexQuestion].includes('feedback')) {
+          this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion] + ajouteFeedback(this, indexQuestion)
+        }
         this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
-        this.listeCanEnonces[indexQuestion] = (Question.listeCanEnonces[0])
-        this.listeCanReponsesACompleter[indexQuestion] = (Question.listeCanReponsesACompleter[0])
         this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
+        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
+        this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('resultatCheckEx0Q0', `resultatCheckEx0Q${indexQuestion}`)
+
         // fin d'alimentation des listes de question et de correction pour cette question
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
-        if (Question.formatInteractif === 'fillInTheBlank') {
-          handleAnswers(this, indexQuestion, Question.listeQuestions[0].reponse.valeur)
-        } else if (Question.formatInteractif === 'qcm') {
+        const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
+        const compare = Question.autoCorrection[0].reponse.valeur.compare ?? expressionDeveloppeeEtReduiteCompare
+        if (formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
-        } else if (Question.compare == null) {
-          handleAnswers(this, indexQuestion, { value: Question.reponse, compare: expressionDeveloppeeEtReduiteCompare })
         } else {
-          handleAnswers(this, indexQuestion, {
-            reponses: {
-              value: Question.reponse,
-              compare: Question.compare
-            }
-          }, { formatInteractif: 'mathlive' })
+          handleAnswers(this, indexQuestion, Question.autoCorrection[0].reponse.valeur, { formatInteractif: 'mathlive' })
         }
       }
 
