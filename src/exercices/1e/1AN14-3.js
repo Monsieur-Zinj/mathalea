@@ -37,7 +37,7 @@ export default function DeriveePoly () {
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction
   this.spacing = 2
   this.spacingCorr = 2
-  this.sup = '1'
+  this.sup = '6'
   this.sup2 = false
   this.sup3 = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
@@ -172,8 +172,8 @@ export default function DeriveePoly () {
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif) {
         texte += `<br>${useFraction ? '<br>' : ''}` + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${nameF}'(x)=$` })
-        handleAnswers(this, i, { reponse: { value: poly.derivee().toLatex(), compare: functionCompare } })
       }
+      handleAnswers(this, i, { reponse: { value: poly.derivee().toLatex(), compare: functionCompare } })
 
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)

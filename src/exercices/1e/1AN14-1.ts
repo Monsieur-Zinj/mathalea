@@ -28,7 +28,7 @@ class DerivationFonctionsUsuelles extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : Fonctions usuelles au hasard\n2 : Affine niveau 1\n3 : Affine niveau2\n4 : Monome niveau 1\n5 : Monome niveau2\n6 : Inverse niveau 1\n7 : Inverse niveau 2\n8 : Mélange']
-    this.sup = '1'
+    this.sup = '8'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
