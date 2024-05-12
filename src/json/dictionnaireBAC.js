@@ -1369,7 +1369,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet2_polynesie_1_cor.tex',
-    tags: [' QCM', 'Logarithme', 'Exponentielle', 'Primitives']
+    tags: ['QCM', 'Logarithme', 'Exponentielle', 'Primitives']
   },
   bac_2022_05_sujet2_polynesie_2: {
     annee: '2022',
