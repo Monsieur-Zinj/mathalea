@@ -1530,12 +1530,12 @@ export function Repere ({
     objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 0, 'black', 1, 'droite'))
   }
   this.objets = objets
-
+  // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
   this.addObjet = function (objet) {
     if (!(objet instanceof ObjetMathalea2D)) return
     this.objets = [...this.objets, objet]
   }
-
+  // Une méthode pour passer ce qu'il fait à mathalea2d()
   this.trace = function () {
     return this.objets
   }
