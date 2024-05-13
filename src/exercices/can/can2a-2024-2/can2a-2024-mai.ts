@@ -333,23 +333,6 @@ export default class nomExercice extends Exercice {
     ]
 
     const textO = texteParPosition('O', -0.3, -0.3, 0.5, 'black', 1)
-    const textX1 = texteParPosition('1', 1, -0.5, 0.5, 'black', 1)
-    const textX2 = texteParPosition('2', 2, -0.5, 0.5, 'black', 1)
-    const textX3 = texteParPosition('3', 3, -0.5, 0.5, 'black', 1)
-    const textX4 = texteParPosition('4', 4, -0.5, 0.5, 'black', 1)
-    const textX5 = texteParPosition('5', 5, -0.5, 0.5, 'black', 1)
-    const textXM1 = texteParPosition('-1', -1, -0.5, 0.5, 'black', 1)
-    const textXM2 = texteParPosition('-2', -2, -0.5, 0.5, 'black', 1)
-    const textXM3 = texteParPosition('-3', -3, -0.5, 0.5, 'black', 1)
-    const textXM4 = texteParPosition('-4', -4, -0.5, 0.5, 'black', 1)
-    const textXM5 = texteParPosition('-5', -5, -0.5, 0.5, 'black', 1)
-    const textY1 = texteParPosition('1', -0.5, 1, 0.5, 'black', 1)
-    const textY2 = texteParPosition('2', -0.5, 2, 0.5, 'black', 1)
-    const textY3 = texteParPosition('3', -0.5, 3, 0.5, 'black', 1)
-    const textYM1 = texteParPosition('1', -0.5, -1, 0.5, 'black', 1)
-    const textYM2 = texteParPosition('2', -0.5, -2, 0.5, 'black', 1)
-    const textYM3 = texteParPosition('3', -0.5, -3, 0.5, 'black', 1)
-    const textYM4 = texteParPosition('4', -0.5, -4, 0.5, 'black', 1)
     const theSpline = spline(noeuds)
     const repere1 = repere({
       xMin: -6.5,
@@ -373,7 +356,7 @@ export default class nomExercice extends Exercice {
       optionsNoeuds: { color: 'blue', taille: 2, style: 'x', epaisseur: 2 },
       color: 'blue'
     })
-    const objetsEnonce = [repere1, courbe1, textO, textX1, textX2, textX3, textX4, textX5, textXM1, textXM2, textXM3, textXM4, textXM5, textY1, textY2, textY3, textYM1, textYM2, textYM3, textYM4]
+    const objetsEnonce = [repere1, courbe1, textO]
     this.listeQuestions[i] = 'On donne le graphique d’une fonction $f$ : <br>'
     this.listeQuestions[i] += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.55, style: 'margin: auto' }, { xmin: -6, ymin: -5, xmax: 6, ymax: 4 }), objetsEnonce)
     this.listeQuestions[i] += '<br>Quels sont les antécédents de $0$ par $f$ ?<br>'
