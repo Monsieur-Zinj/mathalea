@@ -40,6 +40,8 @@ export default function DeriveePoly () {
   this.sup = '6'
   this.sup2 = false
   this.sup3 = false
+  this.correctionDetailleeDisponible = true
+  this.correctionDetaillee = false
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   // const reglesDeSimplifications = math.simplify.rules.slice()
   // reglesDeSimplifications.splice(reglesDeSimplifications.findIndex(rule => rule.l === 'n1*n2 + n2'), 1)
@@ -109,8 +111,7 @@ export default function DeriveePoly () {
       if (expression.startsWith('+')) expression = expression.substring(1)
       // Enoncé
       nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
-      texte = 'Dans cette question, on demande de réduire si possible l\'expression de la dérivée.<br>'
-      texte += `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$.<br>`
+      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$.<br>`
       // Correction
       texteCorr = `$${nameF}$ est dérivable sur $\\R$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur somme est dérivable sur $I$ et on a la formule : '
@@ -128,46 +129,25 @@ export default function DeriveePoly () {
         termes.push(ecritureAlgebrique(poly.monomes[0]))
         termesD.push('0')
       }
-      /*
-      switch (listeTypeDeQuestions[i]) {
-        case 'const':
-          termes = [poly.toLatex()]
-          termes = ['0']
-          break
 
-        case 'poly1':
-          termes = [`${ecritureAlgebriqueSauf1(poly.monomes[1])}x`, ecritureAlgebrique(poly.monomes[0])]
-          termesD = [poly.derivee().toLatex(), '0']
-          break
-
-        case 'poly2':
-          termes = [`${ecritureAlgebriqueSauf1(poly.monomes[2])}x^2`, `${ecritureAlgebriqueSauf1(poly.monomes[1])}x`, ecritureAlgebrique(poly.monomes[0])]
-          termesD = [`${ecritureAlgebriqueSauf1(poly.monomes[2])}x^2`, `${ecritureAlgebriqueSauf1(poly.monomes[1])}x`, ecritureAlgebrique(poly.monomes[0])]
-
-          break
-
-        case 'poly3':
-
-          break
-        case 'monbis':
-
-          break
-        default:
-          texteCorr += 'Correction non encore implémentée.'
-          break
-      }
-  */
-      termes = termes.map(el => el.startsWith('+') ? el.substring(1) : el)
-      termesD = termesD.map(el => el.startsWith('+') ? el.substring(1) : el)
-      if (termes.length > 1) {
-        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>${useFraction ? '<br>' : ''}`
-        for (let n = 0; n < termes.length; n++) {
-          texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br>${useFraction ? '<br>' : ''}`
+      if (this.correctionDetaillee) {
+        termes = termes.map(el => el.startsWith('+') ? el.substring(1) : el)
+        termesD = termesD.map(el => el.startsWith('+') ? el.substring(1) : el)
+        if (termes.length > 1) {
+          texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une somme de $${termes.length}$ termes.<br>${useFraction ? '<br>' : ''}`
+          texteCorr += 'On rappelle que $(u+v)^\\prime=u^\\prime+v^\\prime$.<br>'
+          for (let n = 0; n < termes.length; n++) {
+            texteCorr += `$${termNames[n]}(x)=${termes[n]},\\ ${termNames[n]}^\\prime(x)=${termesD[n]}$.<br>${useFraction ? '<br>' : ''}`
+          }
+        } else {
+          texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
         }
       } else {
-        texteCorr = `La fonction $${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$ est une fonction constante, sa dérivée est la fonction constante nulle.<br>`
+        texteCorr = `$${nameF}^\\prime(x)=${poly.detailleCalculDerivee()}$.<br>`
+        texteCorr += 'On effectue les produits.<br>'
       }
       texteCorr += `On obtient alors : $${nameF}^\\prime(x)=${poly.derivee().toLatex().replaceAll('.', '{,}')}$.`
+
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif) {

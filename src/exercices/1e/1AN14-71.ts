@@ -30,6 +30,7 @@ class DerivationFonctionRationnelles extends Exercice {
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = true
   }
 
   nouvelleVersion () {
@@ -79,9 +80,9 @@ class DerivationFonctionRationnelles extends Exercice {
         texteCorr += `En effet, $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${u}$ et $v(x)=${v}$<br>`
         texteCorr += 'On calcule donc $\\dfrac{u^\\prime\\times v - u\\times v^\\prime}{v^2}$, soit :<br>'
         texteCorr += `Au numérateur : $${uPrime} \\times ${v}  - ${u} \\times ${vPrime}$.<br>`
-        texteCorr += `Au dénominateur : $${v}^2$.`
+        texteCorr += `Au dénominateur : $${v}^2$.<br>`
       }
-      texteCorr = `L'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$ est :<br>`
+      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$ est :<br>`
       texteCorr += `$f'(x)=${miseEnEvidence(reponse)}$.`
 
       if (this.questionJamaisPosee(i, laFonctionNum.toLatex(), laFonctionDen.toLatex())) {
