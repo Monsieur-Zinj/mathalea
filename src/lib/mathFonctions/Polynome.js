@@ -1,7 +1,7 @@
 import { abs, acos, equal, largerEq, max, polynomialRoot, round } from 'mathjs'
 import { egal, randint } from '../../modules/outils'
 import { choice } from '../outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../outils/ecritures'
+import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../outils/ecritures'
 import Decimal from 'decimal.js'
 import { texNombre } from '../outils/texNombre'
 import { rationnalise } from './outilsMaths'
@@ -364,6 +364,19 @@ export class Polynome {
     }
     if (coeffDerivee.length === 0) return new Polynome({ deg: 0, coeffs: [0] })
     return new Polynome({ coeffs: coeffDerivee, useFraction: this.useFraction, useDecimal: this.useDecimal })
+  }
+
+  detailleCalculDerivee () {
+    let formeDerivee = ''
+    for (let index = this.monomes.length - 1; index > 0; index--) {
+      const el = this.monomes[index]
+      if (!egal(el, 0)) {
+        formeDerivee += formeDerivee === ''
+          ? `${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
+          : `+${String(index)}\\times ${el instanceof FractionEtendue ? el.texParentheses : ecritureParentheseSiNegatif(el)}${index > 2 ? `x^{${index - 1}}` : index === 2 ? 'x' : ''}`
+      }
+    }
+    return formeDerivee
   }
 
   /**

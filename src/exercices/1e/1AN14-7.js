@@ -5,7 +5,7 @@ import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
+import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -64,19 +64,19 @@ export default function DeriveeComposee () {
       // Expression finale de la fonction
       exprF = typeF === 'monome'
         ? f.toMathExpr()
-        : typeF === 'inverse'
+        : typeF === 'inv'
           ? '\\frac{1}{x}'
           : f + '{x}'
       expression = typeF === 'monome'
         ? `${rienSi1(f.monomes[f.deg])}(${polAff})^${f.deg}`
-        : typeF === 'inverse'
+        : typeF === 'inv'
           ? `\\frac{1}{${polAff}}`
           : `${f}{${polAff}}`
       let value = ''
 
       // Enoncé
       nameF = lettreMinusculeDepuisChiffre(i + 6)
-      texte = `$${nameF}(x)=${engine.parse(expression).simplify().latex}$`
+      texte = `$${nameF}(x)=${expression}$`
       // Correction
       texteCorr = 'On rappelle le cours. Si $x$ est un nombre réel tel que $u$ soit dérivable en $ax+b$, alors $v:x\\mapsto u(ax+b)$ est dérivable en $x$ et on a :'
       texteCorr += '\\[v\'(x)=a\\times u\'(ax+b).\\]'
@@ -95,11 +95,11 @@ export default function DeriveeComposee () {
           deriveeF = f.derivee().toLatex()
           break
       }
-      texteCorr += `Ici : \\[\\begin{aligned}u(x)&=${engine.parse(exprF).simplify().latex}\\\\ u^\\prime(x)&=${engine.parse(deriveeF).simplify().latex}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
+      texteCorr += `Ici : \\[\\begin{aligned}u(x)&=${exprF}\\\\ u^\\prime(x)&=${deriveeF}\\\\a&=${a}\\\\b&=${b}.\\end{aligned}\\]`
       texteCorr += `Soit $x$ un réel de l'ensemble de dérivabilité de $${nameF}$. On a, en appliquant la formule ci-dessus : `
       switch (typeF) {
         case 'exp':
-          texteCorr += `\\[${nameF}'(x)=${rienSi1(a)}${engine.parse(expression).simplify().latex}.\\]`
+          texteCorr += `\\[${nameF}'(x)=${rienSi1(a)}e^{${polAff}}.\\]`
           break
         case 'inv':
           texteCorr += `\\[${nameF}'(x)=${a}\\times ${`\\frac{-1}{(${polAff})^2}`}.\\]`
