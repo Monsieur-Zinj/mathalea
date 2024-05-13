@@ -80,6 +80,9 @@ export function mathalea2d (
 ) {
   const ajouteCodeHtml = function (mainlevee, objets, divsLatex, xmin, ymax) {
     let codeSvg = ''
+    // Dans le cas d'objets composites avec des objets Mathalea2d et des divLatex, il faut que ces objets exposent une propriété objets qui contient la liste des objets qui les composent.
+    // Cette list est substituée à l'objet ici
+    if (typeof objets === 'object' && objets.objets != null) objets = objets.objets // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
       // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
