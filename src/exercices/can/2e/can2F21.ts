@@ -2,9 +2,9 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { numberCompare } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, reduireAxPlusB, rienSi1 } from '../../../lib/outils/ecritures'
+import { calculCompare } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer un seuil avec un fonction affine'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default class seuilFctAff extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 nospacebefore ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
-    this.compare = numberCompare
+    this.compare = calculCompare
   }
 
   nouvelleVersion () {
