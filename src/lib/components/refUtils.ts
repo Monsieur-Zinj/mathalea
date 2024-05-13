@@ -165,9 +165,11 @@ export function retrieveResourceFromUuid (
     case 1:
       return harvest[0]
     default:
-      throw new Error(
-        `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`
-      )
+      console.log(`${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`)
+      return harvest[0]
+      // throw new Error(
+      //   `${targetUuid} est présente ${harvest.length} fois dans le référentiel !!!`
+      // )
   }
 }
 
