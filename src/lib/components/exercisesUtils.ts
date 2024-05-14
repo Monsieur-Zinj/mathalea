@@ -19,13 +19,13 @@ const allStaticReferentiels: JSONReferentielObject = {
   ...referentielStaticCH
 }
 
-// on supprime les entrées par thèmes qui entraîne des doublons
-delete allStaticReferentiels['Brevet des collèges par thèmes - APMEP']
-delete allStaticReferentiels['BAC par thèmes - APMEP']
-delete allStaticReferentiels['CRPE (2015-2019) par thèmes - COPIRELEM']
-delete allStaticReferentiels['CRPE (2022-2023) par thèmes']
-delete allStaticReferentiels['E3C par thèmes - APMEP']
-delete allStaticReferentiels['EVACOM par thèmes']
+// on supprime les entrées par thème qui entraîne des doublons
+delete allStaticReferentiels['Brevet des collèges par thème - APMEP']
+delete allStaticReferentiels['BAC par thème - APMEP']
+delete allStaticReferentiels['CRPE (2015-2019) par thème - COPIRELEM']
+delete allStaticReferentiels['CRPE (2022-2023) par thème']
+delete allStaticReferentiels['E3C par thème - APMEP']
+delete allStaticReferentiels['EVACOM par thème']
 
 /**
  * Construit la liste des exercices basée sur le contenu du store exercicesParams
