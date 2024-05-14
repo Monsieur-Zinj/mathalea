@@ -50,6 +50,14 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
+    - pwd #/builds/coopmaths/mathalea
+    - texconfig conf | grep TEXMFHOME #TEXMFHOME=/root/texmf
+    - mkdir -p /root/texmf/tex/latex
+    - cd /root/texmf/tex/latex
+    - wget http://mirrors.ctan.org/macros/latex/contrib/profcollege.zip
+    - unzip profcollege.zip
+    - rm profcollege.zip
+    - cd /builds/coopmaths/mathalea
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
     - sleep 60
@@ -59,6 +67,14 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
+    - pwd #/builds/coopmaths/mathalea
+    - texconfig conf | grep TEXMFHOME #TEXMFHOME=/root/texmf
+    - mkdir -p /root/texmf/tex/latex
+    - cd /root/texmf/tex/latex
+    - wget http://mirrors.ctan.org/macros/latex/contrib/profcollege.zip
+    - unzip profcollege.zip
+    - rm profcollege.zip
+    - cd /builds/coopmaths/mathalea
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
@@ -69,6 +85,14 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
+    - pwd #/builds/coopmaths/mathalea
+    - texconfig conf | grep TEXMFHOME #TEXMFHOME=/root/texmf
+    - mkdir -p /root/texmf/tex/latex
+    - cd /root/texmf/tex/latex
+    - wget http://mirrors.ctan.org/macros/latex/contrib/profcollege.zip
+    - unzip profcollege.zip
+    - rm profcollege.zip
+    - cd /builds/coopmaths/mathalea
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
