@@ -8,7 +8,7 @@ import Exercice from '../Exercice'
 import { estentier, gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Operation from '../../modules/operations.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 

@@ -8,7 +8,7 @@ import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Développer (a-b)(a+b)'
 export const interactifReady = true

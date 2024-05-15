@@ -7,7 +7,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fractionCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'

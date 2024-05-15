@@ -19,7 +19,7 @@ import { arete3d, CodageAngleDroit3D, demicercle3d, point3d, rotationV3d, sphere
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
 import { max, min } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Problèmes nécessitant un calcul de longueur à l\'aide de la trigonométrie'
 export const interactifReady = true

@@ -10,7 +10,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Grandeur from '../../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true

@@ -11,7 +11,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Associer des systèmes d\'équations à leur représentation graphique'
 export const interactifReady = true

@@ -11,7 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { min } from 'mathjs'
 import Grandeur from '../../modules/Grandeur'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context'
 import Decimal from 'decimal.js'
 import { tableau } from '../../lib/2d/tableau'

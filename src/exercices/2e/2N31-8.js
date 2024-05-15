@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, calculANePlusJamaisUtiliser, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 export const titre = 'Lier calcul avec des puissances de 10 et les préfixes'
 export const interactifReady = true

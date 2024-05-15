@@ -7,7 +7,7 @@ import Decimal from 'decimal.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 

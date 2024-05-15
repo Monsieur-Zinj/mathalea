@@ -13,7 +13,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { functionCompare, equalFractionCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = "Lire graphiquement les caractéristiques de la courbe représentative d'une fonction affine ou linéaire"

@@ -5,7 +5,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { evaluate, Fraction } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import * as pkg from '@cortex-js/compute-engine'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 const { ComputeEngine } = pkg
 export const interactifReady = true
