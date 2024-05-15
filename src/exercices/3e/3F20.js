@@ -16,7 +16,6 @@ import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'
@@ -159,7 +158,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
       const pointilles = polyline([projeteY, M, projeteX], 'red')
       pointilles.pointilles = 2
       pointilles.epaisseur = 1
+<<<<<<< src/exercices/3e/3F20.js
+      const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.2, M.y), 0, 'black', 1, 'gauche')
+=======
       const coordonnees = texteParPoint(`(${antecedent0};${image0})`, point(M.x + 0.7, M.y + abs(M.y) / M.y * 0.0), 0, 'black', 1, 'gauche')
+>>>>>>> src/exercices/3e/3F20.js
 
       switch (listeTypesDeQuestions[i]) {
         // On détermine l'image à partir de l'expression générale de la fonction
@@ -194,7 +197,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'imageParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
-          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
