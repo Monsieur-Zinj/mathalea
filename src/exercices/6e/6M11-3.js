@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer le périmètre de carrés, rectangles et triangles'
 export const amcReady = true

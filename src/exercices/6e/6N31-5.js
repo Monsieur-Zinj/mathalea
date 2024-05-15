@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const dateDePublication = '28/09/22'
 export const titre = 'Encadrer un décimal'

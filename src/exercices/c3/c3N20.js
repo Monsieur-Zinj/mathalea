@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Donner l\'écriture décimale à partir d\'un somme d\'entiers et de fractions décimales'

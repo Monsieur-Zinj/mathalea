@@ -8,7 +8,7 @@ import { Arbre } from '../../../modules/arbres.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer la probabilité d’une intersection à partir d’un arbre'
 export const dateDePublication = '04/07/2022'

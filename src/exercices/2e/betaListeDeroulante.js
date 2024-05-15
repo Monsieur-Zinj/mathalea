@@ -6,7 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import RepereBuilder from '../../lib/2d/RepereBuilder.ts'
 import ListeDeroulante from '../../lib/interactif/listeDeroulante/ListeDeroulante'
 import '../../lib/interactif/listeDeroulante/listeDeroulante.scss'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Reconnaître une fonction d\'après sa courbe'
 export const interactifReady = true

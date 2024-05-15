@@ -12,7 +12,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
 export const interactifReady = true

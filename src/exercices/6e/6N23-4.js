@@ -5,7 +5,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true

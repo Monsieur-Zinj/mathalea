@@ -11,7 +11,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true

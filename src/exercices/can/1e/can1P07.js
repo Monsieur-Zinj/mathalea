@@ -5,7 +5,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'Déterminer une probabilité dans un tableau d’effectifs'

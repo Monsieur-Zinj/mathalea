@@ -10,7 +10,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } f
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'

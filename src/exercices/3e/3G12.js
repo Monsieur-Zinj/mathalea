@@ -14,7 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { egal, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pavage } from '../../modules/Pavage.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Trouver l\'image d\'une figure par une rotation dans un pavage'
 export const dateDePublication = '16/12/2020'

@@ -7,7 +7,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.j
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.js'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Spécial escape game'

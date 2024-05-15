@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { translation } from '../../lib/2d/transformations.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'

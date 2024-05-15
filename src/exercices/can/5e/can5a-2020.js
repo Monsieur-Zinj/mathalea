@@ -22,7 +22,7 @@ import { min, round } from 'mathjs'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN 5e sujet 2020'
 export const interactifReady = true

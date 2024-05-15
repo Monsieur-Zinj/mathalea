@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, creerCouples } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Tables de multiplication et de divisions'

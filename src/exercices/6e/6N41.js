@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Compléter les égalités entre fractions simples'

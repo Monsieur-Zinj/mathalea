@@ -21,7 +21,7 @@ import { paveLPH3d } from '../../../modules/3d.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'CAN 5e sujet 2022'

@@ -11,7 +11,7 @@ import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Calculs de fréquences'

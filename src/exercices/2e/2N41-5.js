@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fraction } from '../../modules/fractions.js'
 import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Développer $(a-b)^2$'

@@ -5,7 +5,7 @@ import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Valeurs remarquables du cosinus et sinus'
 export const interactifReady = true

@@ -2,7 +2,7 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Exprimer une variable en fonction des autres à  partir de formules mathématiques'

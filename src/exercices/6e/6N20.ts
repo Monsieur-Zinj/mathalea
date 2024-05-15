@@ -5,7 +5,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
 import type { MathfieldElement } from 'mathlive'

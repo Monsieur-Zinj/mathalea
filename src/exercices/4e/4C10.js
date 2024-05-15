@@ -7,7 +7,7 @@ import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
 export const interactifReady = true

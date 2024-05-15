@@ -8,7 +8,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'

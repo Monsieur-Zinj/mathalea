@@ -6,7 +6,7 @@ import { sp } from '../../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true

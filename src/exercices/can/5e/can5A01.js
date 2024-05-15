@@ -6,7 +6,7 @@ import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLi
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenuSansNumero, randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Travailler les répétitions (Scratch)'
 export const dateDePublication = '24/10/2021'

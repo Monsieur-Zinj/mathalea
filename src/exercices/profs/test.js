@@ -1,7 +1,7 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions.ts'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 export const titre = 'Eric fait ses tests interactifs.'

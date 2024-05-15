@@ -9,7 +9,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outil
 import Exercice from '../Exercice'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'

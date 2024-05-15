@@ -5,7 +5,7 @@ import { egal, randint, printlatex, listeQuestionsToContenuSansNumero } from '..
 import { context } from '../../modules/context.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { expressionDeveloppeeEtNonReduiteCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { toutPourUnPoint } from '../../lib/interactif/mathLive.js'

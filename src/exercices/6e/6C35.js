@@ -16,7 +16,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { expressionDeveloppeeEtReduiteCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'

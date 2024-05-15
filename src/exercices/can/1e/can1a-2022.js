@@ -28,7 +28,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'CAN première sujet 2022'
 export const interactifReady = true

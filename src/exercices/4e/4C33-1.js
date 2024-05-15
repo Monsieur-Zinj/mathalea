@@ -8,7 +8,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { powerCompare } from '../../lib/interactif/comparisonFunctions'
 

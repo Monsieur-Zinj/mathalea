@@ -25,7 +25,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { texTexte } from '../../lib/format/texTexte'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { unitsCompare } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true

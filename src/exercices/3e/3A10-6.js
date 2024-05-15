@@ -5,7 +5,7 @@ import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Trouver un chiffre pour qu\'un nombre soit divisible par un autre'
 export const interactifReady = true

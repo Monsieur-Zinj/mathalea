@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { fraction } from '../../modules/fractions.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../lib/outils/nombres'
 
 export const titre = 'Donner différentes écritures de nombres décimaux'

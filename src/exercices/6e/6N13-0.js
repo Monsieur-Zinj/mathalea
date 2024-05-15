@@ -3,7 +3,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Connaître les préfixes utilisés dans les unités'
 export const interactifReady = true

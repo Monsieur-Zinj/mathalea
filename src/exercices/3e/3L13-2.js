@@ -10,7 +10,7 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau.js'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'

@@ -8,7 +8,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
 import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'

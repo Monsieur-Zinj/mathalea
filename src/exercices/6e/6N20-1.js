@@ -8,7 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 
 import { fraction } from '../../modules/fractions.js'
 import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
 import { consecutiveCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'

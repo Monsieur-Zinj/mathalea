@@ -14,7 +14,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const titre = 'Trouver le nombre de faces ou d\'arêtes d\'un solide'
 export const dateDePublication = '7/11/2021'

@@ -4,7 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.ts'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
 

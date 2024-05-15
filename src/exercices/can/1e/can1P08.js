@@ -7,7 +7,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif.ts'
+import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
 
 export const titre = 'Compléter le tableau d’une loi de probabilité d’une variable aléatoire'
