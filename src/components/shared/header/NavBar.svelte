@@ -7,9 +7,15 @@
   import Button from '../forms/Button.svelte'
   import { mathaleaHandleComponentChange } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
-  import { VUES_WITH_LANG_STATUS_ONLY, type Language } from '../../../lib/types/languages'
+  import {
+    VUES_WITH_LANG_STATUS_ONLY,
+    type Language
+  } from '../../../lib/types/languages'
   import LanguageStatus from '../ui/LanguageStatus.svelte'
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
+  import LanguageIcon from '../ui/LanguageIcon.svelte'
+  import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
+  import ModalGridOfCards from '../modal/ModalGridOfCards.svelte'
 
   export let title: string = 'MathALÉA'
   export let subtitle: string = ''
@@ -17,7 +23,10 @@
   export let locale: Language
   export let handleLanguage: (lang: string) => void
 
-  function goToMathalea (paramV: string | undefined) {
+  let languageChoiceModal: ModalGridOfCards
+  let showLanguageChoiceModal: boolean = false
+
+  function goToMathalea(paramV: string | undefined) {
     if (paramV !== undefined) {
       mathaleaHandleComponentChange(paramV, $callerComponent)
     }
@@ -83,9 +92,23 @@
     <div class="flex flex-row space-x-4 px-0 pt-2 md:px-4">
       {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
         <LanguageStatus {locale} />
-        {:else}
-        <LanguageDropdown {locale} {handleLanguage} />
-        {/if}
+      {:else}
+        <!-- Menu déroulant en mode desktop -->
+        <div class="hidden md:block">
+          <LanguageDropdown {locale} {handleLanguage} />
+        </div>
+        <!-- En mode smartphone bouton commandant un dialogue -->
+        <div class="md:hidden">
+          <button
+            type="button"
+            on:click={() => {
+              showLanguageChoiceModal = !showLanguageChoiceModal
+            }}
+          >
+            <LanguageIcon {locale} />
+          </button>
+        </div>
+      {/if}
       <label
         class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
       >
@@ -113,5 +136,9 @@
     </div>
   </div>
 </nav>
-
-<style></style>
+<ModalLanguageChoice
+  {languageChoiceModal}
+  bind:showLanguageChoiceModal
+  {locale}
+  {handleLanguage}
+/>
