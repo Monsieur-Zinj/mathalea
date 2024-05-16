@@ -21,7 +21,6 @@ export const uuid = '17c65'
 /**
  * Questions sur les fonctions affines ou linéaires
  * @author Jean-Claude Lhote
- * @constructor
  */
 export default function FonctionsAffinesOuLineaires () {
   Exercice.call(this)
@@ -29,15 +28,15 @@ export default function FonctionsAffinesOuLineaires () {
   const fonctionsLineaires = new FonctionsLineaires()
   const fonctionsAffines = new FonctionsAffines()
   this.lycee = true // mettre à true dans 2F10-8.js
-  this.comment = 'L\'exercice propose de panacher les questions de 3F20 et 3F20-1'
+  this.comment = 'L\'exercice propose de panacher les questions de 3F20 et 3F20-1.'
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
   this.sup2 = '11'
   this.spacingCorr = 3
   this.sup3 = '3'
   this.besoinFormulaireNumerique = ['Coefficient : ', 3, '1: Coefficient entier\n2: Coefficient rationnel\n3: Mélange']
-  this.besoinFormulaire2Texte = ['Types de questions', 'Nombres séparés par des tirets :\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique fonctions affines uniquement (formule des accroissements)\n10: Expression par valeurs fonctions affines uniquement (formule des accroissements)\n11: Mélange']
-  this.besoinFormulaire3Texte = ['Type de fonction', 'Nombres séparés par des tirets\n1: Linéaire\n2: Affine\n3: Mélange']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1: Image par expression\n2: Image par valeurs\n3: Image par graphique\n4: Antécédent par expression\n5: Antécédent par valeurs\n6: Antécédent par graphique\n7: Expression par valeurs\n8: Expression par graphique\n9: Expression par graphique fonctions affines uniquement (formule des accroissements)\n10: Expression par valeurs fonctions affines uniquement (formule des accroissements)\n11: Mélange']
+  this.besoinFormulaire3Texte = ['Type de fonctions', 'Nombres séparés par des tirets\n1: Linéaire\n2: Affine\n3: Mélange']
   this.nouvelleVersion = function () {
     fonctionsAffines.interactif = this.interactif
     fonctionsAffines.nbQuestions = this.nbQuestions
