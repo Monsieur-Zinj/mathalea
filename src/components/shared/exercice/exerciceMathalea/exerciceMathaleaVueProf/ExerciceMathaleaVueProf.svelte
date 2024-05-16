@@ -257,7 +257,7 @@
           await newData()
         }
       }
-      mathaleaRenderDiv(divExercice, -1)
+      mathaleaRenderDiv(divExercice)
       if (exerciceHasNoSettings) {
         isSettingsVisible = false
         // headerProps.settingsReady = false
@@ -401,6 +401,7 @@
       exercise.nouvelleVersionWrapper(exerciseIndex)
     }
     mathaleaUpdateUrlFromExercicesParams()
+    console.log('update')
     await adjustMathalea2dFiguresWidth()
   }
 
@@ -501,6 +502,7 @@
             }
           }
         }
+        console.log('ici')
         const consigneDiv = mathalea2dFigures[k].closest('[id^="consigne"]')
         if (
           consigneDiv &&
