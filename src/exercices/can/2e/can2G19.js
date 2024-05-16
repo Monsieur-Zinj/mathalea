@@ -30,7 +30,7 @@ export const refs = {
 export default function CoeffDirDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -155,20 +155,15 @@ export default function CoeffDirDroite () {
           yLabelMin: 2 * ymin + 1,
           axeXStyle: '->',
           axeYStyle: '->',
-          yLabelDistance: 2,
+          yLabelDistance: 1,
           yLabelEcart: 0.5,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: 2 * ymin,
-          grilleSecondaireYMax: 2 * ymax,
-          grilleSecondaireXMin: xmin,
-          grilleSecondaireXMax: xmax
+          grilleXDistance: 1,
+          grilleYDistance: 0.5
         })
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = 'Donner le coefficient directeur $m$ de la droite.<br><br>'
+        this.question = 'Donner le coefficient directeur $m$ de la droite.<br>'
         this.question += `${objet}<br>`
         this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {
