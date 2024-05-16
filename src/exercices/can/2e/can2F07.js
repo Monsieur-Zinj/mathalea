@@ -76,7 +76,7 @@ export default function ExtremumsTableau () {
         colorBackground: '',
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
-        lgt: 3, // taille de la première colonne en cm
+        lgt: 2, // taille de la première colonne en cm
         scale: 0.4
       }) + '<br>'
       this.canEnonce = texte

@@ -96,12 +96,8 @@ export default function EquationDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = `Donner l'équation réduite de la droite.<br><br>
-
-        `
-        this.question += `${objet}<br>
-
-        `
+        this.question = 'Donner l\'équation réduite de la droite.<br>'
+        this.question += `${objet}`
         if (yB === yA) {
           this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=0$.<br>
           Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${yA}`)}$.
@@ -180,23 +176,13 @@ export default function EquationDroite () {
           axeYStyle: '->',
           yLabelDistance: 2,
           yLabelEcart: 0.5,
-          grilleSecondaire: true,
-          grilleSecondaireYDistance: 1,
-          grilleSecondaireXDistance: 1,
-          grilleSecondaireYMin: 2 * ymin,
-          grilleSecondaireYMax: 2 * ymax,
-          grilleSecondaireXMin: xmin,
-          grilleSecondaireXMax: xmax
+          grilleYDistance: 0.5
         })
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
         objetC2 = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, lABx2, sBAx, sAxA, lBBx2)
-        this.question = `Donner l'équation réduite de la droite.<br><br>
-
-        `
-        this.question += `${objet}<br>
-
-          `
+        this.question = 'Donner l\'équation réduite de la droite.<br>'
+        this.question += `${objet}`
         if (yB === yA) {
           this.correction = `La droite est horizontale. On en déduit que son coefficient directeur est $m=0$.<br>
         Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${2 * yA}`)}$.
