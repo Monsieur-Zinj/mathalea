@@ -14,8 +14,9 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Fonctions linéaires'
 export const interactifType = 'mathLive'
@@ -23,6 +24,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '13/04/2023'
+export const dateDeModifImportante = '16/05/2024'
 export const ref = '3F20'
 export const refs = {
   'fr-fr': ['3F20'],
@@ -38,7 +40,7 @@ export default function FonctionsLineaires () {
   this.comment = `L'exercice propose différents types de questions sur les fonctions linéaires :<br>
 calcul d'image, calcul d'antécédent ou détermination du coefficient.<br>
 Ce coefficient peut être au choix entier relatif ou rationnel relatif.<br>
-Certaines questions de calcul d'image nécessitent le calcul du coefficient au prélable.<br>
+Certaines questions de calcul d'image nécessitent le calcul du coefficient au préalable.<br>
 Le choix a été fait d'un antécédent primaire entier positif, le coefficient étant négatif avec une probabilité de 50%.<br>`
   this.sup = 1 // coefficient entier relatif
   this.nbQuestions = 8
@@ -73,9 +75,11 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     const listeTypeDeCoeff = this.sup === 1
       ? combinaisonListes([1], this.nbQuestions)
-      : this.sup === 2
+    /* : this.sup === 2
         ? combinaisonListes([1], this.nbQuestions)
         : combinaisonListes([1, 2], this.nbQuestions)
+        */
+      : combinaisonListes([2], this.nbQuestions)
     const antecedents = []
     for (let i = 0, texteAMC, valeurAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const elementAmc = {}
@@ -95,6 +99,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           coefficient = new FractionEtendue(premierAvec(antecedent0, antecedents, false) * choice([-1, 1]), antecedent0)
           break
       }
+
       let imageString, formatInteractif
       //
       const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1, 2 * antecedent0]))
@@ -295,7 +300,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
           }
           break
         case 'expressionParGraphique':
@@ -325,7 +330,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texteAMC = `Coefficient de $${nomFonction}$ : valeur de $a$ dans $${nomFonction}(x)=ax$`
             valeurAMC = coefficient
           } else {
-            setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x`, `${coefficientString}x`], { formatInteractif: 'calcul' })
+            handleAnswers(this, i, { reponse: { value: `${coefficientString}x`, compare: fonctionComparaison } })
           }
           break
       }
