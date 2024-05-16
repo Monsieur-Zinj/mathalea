@@ -9,12 +9,14 @@ import Exercice from '../deprecatedExercice.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import {
+  gestionnaireFormulaireTexte,
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { setsCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
+export const dateDeModifImportante = '16/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -40,35 +42,34 @@ export default function EquationsFonctionsRef () {
   this.spacing = 1
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
+  this.besoinFormulaireTexte = [
+    'Type de questions', [
+      'Nombres séparés par des tirets',
+      '1 : x^2=k',
+      '2 : sqrt(x)=k',
+      '3 : 1/x=k',
+      '4 : x^3=k',
+      '5 : Mélange'
+    ].join('\n')
+  ]
+
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let typesDeQuestionsDisponibles
-    switch (this.sup) {
-      case 1:
-        typesDeQuestionsDisponibles = ['x^2=k']
-        break
-      case 2:
-        typesDeQuestionsDisponibles = ['sqrt(x)=k']
-        break
-      case 3:
-        typesDeQuestionsDisponibles = ['1/x=k']
-        break
-      case 4:
-        typesDeQuestionsDisponibles = ['x^3=k']
-        break
-      case 5:
-        typesDeQuestionsDisponibles = ['x^2=k', 'sqrt(x)=k', '1/x=k', 'x^3=k']
-        break
-       //
-    }
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 1,
+      nbQuestions: this.nbQuestions
+    })
+    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     function ecritureParentheseSiNegatif (a, maximumFractionDigits = 15) {
       const result = Intl.NumberFormat('fr-FR', { maximumFractionDigits }).format(a).replace(',', '{,}')
       return a < 0 ? `(${result})` : result
     }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let sousChoix
     if (parseInt(this.sup2) === 1) {
       sousChoix = combinaisonListes([0], this.nbQuestions) // pour choisir aléatoirement des questions dans chaque catégorie
@@ -77,17 +78,16 @@ export default function EquationsFonctionsRef () {
     } else {
       sousChoix = combinaisonListes([0, 1, 2, 3], this.nbQuestions)
     }
-    for (let i = 0, texte, texteCorr, x, y, a, b, c, k, k1, f1, enonce, correction, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, a, b, c, k, k1, f1, listeaEtb, choix, enonce, correction, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
-      x = randint(-9, 9, [0, 1, -1])
-      y = randint(-9, 9, [x, 0])
+  
 
       switch (listeTypeDeQuestions[i]) {
-        case 'x^2=k':
+        case 1: // x^2=k
           switch (sousChoix[i]) { //
             case 0:
               a = randint(0, 15) ** 2
-              k = choice([randint(-20, 50, [1, 4, 9, 16, 25, 36, 49]), randint(-20, 50, [1, 4, 9, 16, 25, 36, 49]), randint(-20, 50, [1, 4, 9, 16, 25, 36, 49]), a])
+              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $x^2=${k}$`
               correction = ''
@@ -101,37 +101,24 @@ export default function EquationsFonctionsRef () {
               if (k > 0) {
                 correction += `L'équation est de la forme $x^2=k$ avec $k=${k}$. Comme  $${k}>0$ alors l'équation admet deux solutions : $-\\sqrt{${k}}$ et $\\sqrt{${k}}$.<br>
                 `
-                if (extraireRacineCarree(k)[1] === k) {
-                  if (k === 1) {
-                    reponse = `\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`
-                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors
+                if (k === a) {
+                  reponse = `\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}`
+
+                  correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${Math.sqrt(k)}$ et $${Math.sqrt(k)}$.<br>
-                Ainsi,  $S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$.`
-                  } else {
-                    reponse = `\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`
-                    correction += `Ainsi, $S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$.`
-                  }
+                Ainsi,  $S=${miseEnEvidence(`\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}`)}$.`
                 } else {
-                  if (k === a) {
-                    reponse = `\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}`
-                    correction += `Comme $-\\sqrt{${k}}=-${Math.sqrt(k)}$ et $\\sqrt{${k}}=${Math.sqrt(k)}$ alors
-                les solutions de l'équation peuvent s'écrire plus simplement : $-${Math.sqrt(k)}$ et $${Math.sqrt(k)}$.<br>
-                Ainsi,  $S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$.`
-                  } else {
-                    reponse = `\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}};${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`
-                    correction += `Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
-                    les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
-                    Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
-                  }
+                  reponse = `\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`
+                  correction += `Ainsi,  $S=${miseEnEvidence(`\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`)}$.`
                 }
               } else {
                 if (k === 0) {
                   reponse = '\\{0\\}'
                   correction += `L'équation est de la forme $x^2=k$ avec $k=${k}$. Comme $k=${k}$ alors L'équation admet une unique solution : $0$.<br>
-                Ainsi, $S=\\{0\\}$.`
+                Ainsi, $S=${miseEnEvidence('\\{0\\}')}$.`
                 } else {
                   correction += `L'équation est de la forme $x^2=k$ avec $k=${k}$. Comme $${k}<0$, alors l'équation n'admet aucune solution.<br>
-                  Ainsi, $S=\\emptyset$.`
+                  Ainsi, $S=${miseEnEvidence('\\emptyset')}$.`
                   reponse = '\\emptyset'
                 }
               }
@@ -139,8 +126,9 @@ export default function EquationsFonctionsRef () {
               break
             case 1:// x^2+b=c
               b = randint(-15, 15, 0)
-              c = randint(-15, 15, 0)
-              k = c - b
+              a = randint(0, 15) ** 2
+              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
+              c = k + b
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $x^2${ecritureAlgebrique(b)}=${c}$`
               correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
@@ -158,41 +146,42 @@ export default function EquationsFonctionsRef () {
              \\end{aligned}$`
               }
               if (k > 0) {
-                if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
+                if (k === a) {
                   correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$,  l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
                 <br> Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
-                Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
+                Ainsi,  $S=${miseEnEvidence(`\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}`)}$.`
                   reponse = `\\{-${extraireRacineCarree(k)[0]};${extraireRacineCarree(k)[0]}\\}`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$. <br>
                     Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
-                    Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
+                    Ainsi,  $S=${miseEnEvidence(`\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`)}$.`
                     reponse = `\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}};${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`
                   } else {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${c - b}$. Comme $${c - b}>0$, l'équation a deux solutions : $-\\sqrt{${c - b}}$ et $\\sqrt{${c - b}}$.<br>
-                    Ainsi,  $S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$.`
-                    reponse = `\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}`
+                    Ainsi,  $S=${miseEnEvidence(`\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}`)}$.`
+                    reponse = `\\{-\\sqrt{${c - b}};\\sqrt{${c - b}}\\}`
                   }
                 }
               }
               if (k === 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$, alors l'équation a une solution : $0$.<br>
-              Ainsi, $S=\\{0\\}$. `
+              Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
                 reponse = '\\{0\\}'
               }
               if (k < 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(c - b, 0)}$. Comme $${texNombre(c - b, 0)}<0$, l'équation n'a pas de solution.
-                <br>Ainsi, $S=\\emptyset$. `
+                <br>Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
                 reponse = '\\emptyset'
               }
               break
             case 2:// -x^2+b=c
-              b = randint(-10, 10, 0)
-              c = randint(-10, 10, 0)
-              k = b - c
+              b = randint(-15, 15, 0)
+              a = randint(0, 15) ** 2
+              k = choice([choice([2, 3, 5, 7, 10, 11, 13, 15, 17, 19, 21, 23, 26]) * choice([-1, 1]), a])
+              c = b - k
               enonce = `Résoudre dans $\\mathbb{R}$ :<br>
               ${sp(50)} $-x^2${ecritureAlgebrique(b)}=${c}$`
               correction = 'On isole $x^2$ dans le membre de gauche pour obtenir une équation du type $x^2=k$.<br> '
@@ -213,33 +202,33 @@ export default function EquationsFonctionsRef () {
               }
 
               if (k > 0) {
-                if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
+                if (k === a) {
                   correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
                 <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.<br>
-                Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$.`
+                Ainsi,  $S=${miseEnEvidence(`\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}`)}$.`
                   reponse = `\\{-${extraireRacineCarree(k)[0]};${extraireRacineCarree(k)[0]}\\}`
                 } else {
                   if (extraireRacineCarree(k)[1] !== k) {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>Comme $-\\sqrt{${k}}=-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ alors
                     les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$ et $${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}$.<br>
-                    Ainsi,  $S=\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}$.`
+                    Ainsi,  $S=${miseEnEvidence(`\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`)}$.`
                     reponse = `\\{-${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}};${extraireRacineCarree(k)[0]}\\sqrt{${extraireRacineCarree(k)[1]}}\\}`
                   } else {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.<br>
-                    Ainsi,  $S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$.`
+                    Ainsi,  $S=${miseEnEvidence(`\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}`)}$.`
                     reponse = `\\{-\\sqrt{${k}};\\sqrt{${k}}\\}`
                   }
                 }
               }
               if (k === 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$, donc l'équation a une solution : $0$.<br>
-              Ainsi, $S=\\{0\\}$. `
+              Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
                 reponse = '\\{0\\}'
               }
               if (k < 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(b - c)}$. Comme $${texNombre(b - c)}<0$, l'équation n'a pas de solution.
-                <br> Ainsi, $S=\\emptyset$. `
+                <br> Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
                 reponse = '\\emptyset'
               }
               break
@@ -273,19 +262,19 @@ export default function EquationsFonctionsRef () {
                   correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${texNombre(k, 0)}$. Comme $${texNombre(k, 0)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texNombre(k, 0)}}$ et $\\sqrt{${texNombre(k, 0)}}$.
                 <br>  Comme $-\\sqrt{${texNombre(k, 0)}}=-${extraireRacineCarree(k)[0]}$ et $\\sqrt{${k}}=${extraireRacineCarree(k)[0]}$ alors
                 les solutions de l'équation peuvent s'écrire plus simplement : $-${extraireRacineCarree(k)[0]}$ et $${extraireRacineCarree(k)[0]}$.
-                <br> Ainsi, $S=\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}$.`
+                <br> Ainsi, $S=${miseEnEvidence(`\\left\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\right\\}`)}$.`
                   reponse = `\\{-${extraireRacineCarree(k)[0]};${extraireRacineCarree(k)[0]}\\}`
                 } else {
                   if (((c - b === 4) && a === 9) || ((c - b === 9) && a === 4) || ((c - b === 16) && a === 9) || ((c - b === 9) && a === 16)) {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${texFractionReduite(c - b, a)}>0$, alors l'équation a deux solutions : $-\\sqrt{${texFractionReduite(c - b, a)}}$ et $\\sqrt{${texFractionReduite(c - b, a)}}$.
                   <br>  Comme $-\\sqrt{${f1.texFractionSimplifiee}}=-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\sqrt{${f1.texFractionSimplifiee}}=\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ alors
                   les solutions de l'équation peuvent s'écrire plus simplement : $-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$ et $\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}$.<br>
-                  Ainsi, $S=\\left\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}${sp(1)};${sp(1)}\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\right\\}$`
+                  Ainsi, $S=${miseEnEvidence(`\\left\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}${sp(1)};${sp(1)}\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\right\\}`)}$`
                     reponse = `\\{-\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}};\\dfrac{${extraireRacineCarree(c - b)[0]}}{${extraireRacineCarree(a)[0]}}\\}`
                   } else {
                     correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}>0$, alors l'équation a deux solutions :
                   $-\\sqrt{${f1.texFractionSimplifiee}}$ et $\\sqrt{${f1.texFractionSimplifiee}}$. <br>
-                  Ainsi, $S=\\left\\{-\\sqrt{${f1.texFractionSimplifiee}}${sp(1)};${sp(1)}\\sqrt{${f1.texFractionSimplifiee}}\\right\\}$`
+                  Ainsi, $S=${miseEnEvidence(`\\left\\{-\\sqrt{${f1.texFractionSimplifiee}}${sp(1)};${sp(1)}\\sqrt{${f1.texFractionSimplifiee}}\\right\\}`)}$`
                     reponse = `\\{-\\sqrt{${f1.texFractionSimplifiee}};\\sqrt{${f1.texFractionSimplifiee}}\\}`
                   }
                 }
@@ -293,19 +282,19 @@ export default function EquationsFonctionsRef () {
 
               if (c - b === 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=0$. Alorsl'équation a une solution : $0$.<br>
-              Ainsi, $S=\\{0\\}$. `
+              Ainsi, $S=${miseEnEvidence('\\{0\\}')}$. `
                 reponse = '\\{0\\}'
               }
               if ((c - b) / a < 0) {
                 correction += `<br>L'équation est de la forme $x^2=k$ avec $k=${f1.texFractionSimplifiee}$. Comme $${f1.texFractionSimplifiee}<0$, alors l'équation n'a pas de solution. <br>
-              Ainsi, $S=\\emptyset$. `
+              Ainsi, $S=${miseEnEvidence('\\emptyset')}$. `
                 reponse = '\\emptyset'
               }
 
               break
           }
           break
-        case 'sqrt(x)=k':
+        case 2:// 'sqrt(x)=k'
           switch (sousChoix[i]) {
             case 0:// sqrt(x)=k
               k = randint(-25, 25, 0)
@@ -320,13 +309,13 @@ export default function EquationsFonctionsRef () {
               }
               if (k < 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$. Comme $k=${k}$ et $${k}<0$ alors l'équation n'admet pas de solution.<br>
-              Ainsi,   $S=\\emptyset$.
+              Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
               `
                 reponse = '\\emptyset'
               }
               if (k > 0 || k === 0) {
                 correction += `$k=${k}$ et $${k}>0$ donc l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
-               Ainsi $S=\\{${k ** 2}\\}$.
+               Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
               `
                 reponse = `\\{${k ** 2}\\}`
               }
@@ -356,13 +345,13 @@ export default function EquationsFonctionsRef () {
               }
               if (c - b < 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${k}$. Comme $${k}<0$ alors l'équation n'admet pas de solution. <br>
-Ainsi,   $S=\\emptyset$.<br>
+Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
               }
               if (c - b > 0 || c - b === 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${c - b}$. Comme $${c - b}\\geqslant 0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
-   Ainsi $S=\\{${k ** 2}\\}$.
+   Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
   `
                 reponse = `\\{${k ** 2}\\}`
               }
@@ -393,13 +382,13 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k < 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${k}$. Comme $${k}<0$ alors l'équation n'admet pas de solution. <br>
-Ainsi,   $S=\\emptyset$.<br>
+Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
               }
               if (k > 0 || k === 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${b - c}$. Comme $${b - c}\\geqslant0$ alors l'équation admet une solution : $${k}^2=${k ** 2}$.<br>
-   Ainsi $S=\\{${k ** 2}\\}$.
+   Ainsi $S=${miseEnEvidence(`\\{${k ** 2}\\}`)}$.
   `
                 reponse = `\\{${k ** 2}\\}`
               }
@@ -431,13 +420,13 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k < 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}<0$ alors l'équation n'admet pas de solution. <br>
-Ainsi,   $S=\\emptyset$.<br>
+Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
 `
                 reponse = '\\emptyset'
               }
               if (k > 0 || k === 0) {
                 correction += `L'équation est de la forme $\\sqrt{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Comme $${texFractionReduite(c - b, a)}\\geqslant0$ alors l'équation admet une solution : $\\left(${texFractionReduite(c - b, a)}\\right)^2=${texFractionReduite((c - b) ** 2, a ** 2)}$.<br>
-   Ainsi $S=\\left\\{${texFractionReduite((c - b) ** 2, a ** 2)}\\right\\}$.
+   Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite((c - b) ** 2, a ** 2)}\\right\\}`)}$.
   `
                 reponse = `\\{${texFractionReduite((c - b) ** 2, a ** 2)}\\}`
               }
@@ -445,11 +434,11 @@ Ainsi,   $S=\\emptyset$.<br>
               break
           }
           break
-        case '1/x=k':
+        case 3:// '1/x=k'
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
-              k = randint(-10, 10)
+              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
 
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
                 ${sp(50)} $\\dfrac{1}{x}=${k}$`
@@ -462,14 +451,14 @@ Ainsi,   $S=\\emptyset$.<br>
               correction += ''
               if (k === 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Comme $k=${k}$, alors l'équation n'admet pas de solution.<br>
-              Ainsi,   $S=\\emptyset$.
+              Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
               `
                 reponse = '\\emptyset'
               }
               if (k !== 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Comme $${k}\\neq 0$ alors l'équation admet une solution :
                 $${texFractionReduite(1, k)}$.<br>
-               Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
+               Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(1, k)}\\right\\}`)}$.
               `
                 reponse = `\\{${texFractionReduite(1, k)}\\}`
               }
@@ -477,9 +466,11 @@ Ainsi,   $S=\\emptyset$.<br>
               break
 
             case 1:
+
+              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
               b = randint(-10, 10, 0)
-              c = randint(-10, 10)
-              k = c - b
+              c = k + b
+              // k = c - b
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
                    ${sp(50)} $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$`
               correction = ''
@@ -500,21 +491,23 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k === 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation n'admet pas de solution.<br>
-                 Ainsi,   $S=\\emptyset$.
+                 Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
               }
               if (k !== 0) {
                 correction += `$k=${k}$ et $${k}\\neq 0$, donc l'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation admet une solution :
                    $${texFractionReduite(1, k)}$.<br>
-                  Ainsi $S=\\left\\{${texFractionReduite(1, k)}\\right\\}$.
+                  Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(1, k)}\\right\\}`)}$.
                  `
                 reponse = `\\{${texFractionReduite(1, k)}\\}`
               }
               break
             case 2:
-              a = randint(-10, 10, 0)
-              b = randint(-10, 10, 0)
+              listeaEtb = [[5, 0], [3, 0], [10, 5], [6, 3], [2, 14], [1, 7], [2, 9], [3, 9], [9, 3], [2, 7], [4, 3], [10, 6], [5, 3], [4, 7], [10, 3], [6, 9], [4, 2]]
+              choix = choice(listeaEtb)
+              a = choix[0] * choice([-1, 1])
+              b = choix[1] * choice([-1, 1])
               k = b / a
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
                    ${sp(50)} $\\dfrac{${a}}{x}=${b}$`
@@ -526,7 +519,7 @@ Ainsi,   $S=\\emptyset$.<br>
                                                 \\end{aligned}$<br>`
               if (k === 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${k}$. Donc l'équation n'admet pas de solution.<br>
-                 Ainsi,   $S=\\emptyset$.
+                 Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
               }
@@ -534,13 +527,13 @@ Ainsi,   $S=\\emptyset$.<br>
                 if (k % 1 === 0) {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution :
                    $\\dfrac{1}{${texFractionReduite(b, a)}}$.<br>
-                  Ainsi $S=\\left\\{${texFractionReduite(a, b)}\\right\\}$.
+                  Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(a, b)}\\right\\}`)}$.
                  `
                   reponse = `\\{${texFractionReduite(a, b)}\\}`
                 } else {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(b, a)}$. Donc l'équation admet une solution :
                  $\\dfrac{1}{${texFractionReduite(b, a)}}=${texFractionReduite(a, b)}$.<br>
-                Ainsi $S=\\left\\{${texFractionReduite(a, b)}\\right\\}$.
+                Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(a, b)}\\right\\}`)}$.
                `
                   reponse = `\\{${texFractionReduite(a, b)}\\}`
                 }
@@ -549,8 +542,10 @@ Ainsi,   $S=\\emptyset$.<br>
             case 3:
               a = randint(-10, 10, 0)
               b = randint(-10, 10, 0)
-              c = randint(-10, 10, 0)
-              k = (c - b) / a
+              // c = randint(-10, 10, 0)
+              k = choice([-3, -7, -6, 3, 6, 7, 9, -9, 0, -11, 11, -12, 12, -8, 8, -13, 13])
+              c = a * k + b
+              // k = (c - b) / a
               enonce = `Résoudre dans $\\mathbb{R}^*$ :<br>
                    ${sp(50)} $\\dfrac{${a}}{x}${ecritureAlgebrique(b)}=${c}$`
               correction = ''
@@ -573,7 +568,7 @@ Ainsi,   $S=\\emptyset$.<br>
               }
               if (k === 0) {
                 correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation n'admet pas de solution.<br>
-                 Ainsi,   $S=\\emptyset$.
+                 Ainsi,   $S=${miseEnEvidence('\\emptyset')}$.
                  `
                 reponse = '\\emptyset'
               }
@@ -581,13 +576,13 @@ Ainsi,   $S=\\emptyset$.<br>
                 if (k % 1 === 0) {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution :
                    $\\dfrac{1}{${texFractionReduite(c - b, a)}}$.<br>
-                  Ainsi $S=\\left\\{${texFractionReduite(a, c - b)}\\right\\}$.
+                  Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(a, c - b)}\\right\\}`)}$.
                  `
                   reponse = `\\{${texFractionReduite(a, c - b)}\\}`
                 } else {
                   correction += `L'équation est de la forme $\\dfrac{1}{x}=k$ avec $k=${texFractionReduite(c - b, a)}$. Donc l'équation  admet une solution :
                  $\\dfrac{1}{${texFractionReduite(c - b, a)}}=${texFractionReduite(a, c - b)}$.<br>
-                Ainsi $S=\\left\\{${texFractionReduite(a, c - b)}\\right\\}$.
+                Ainsi $S=${miseEnEvidence(`\\left\\{${texFractionReduite(a, c - b)}\\right\\}`)}$.
                `
                   reponse = `\\{${texFractionReduite(a, c - b)}\\}`
                 }
@@ -596,7 +591,7 @@ Ainsi,   $S=\\emptyset$.<br>
           }
           break
 
-        case 'x^3=k':
+        case 4:// 'x^3=k'
 
           switch (sousChoix[i]) { // sousChoix[i] = randint(0, 5)
             case 0:
@@ -709,8 +704,8 @@ Ainsi,   $S=\\emptyset$.<br>
       handleAnswers(this, i, { reponse: { value: reponse, compare: setsCompare } })
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
       texteCorr = correction
-
-      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {
+      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations et écrire les solutions éventuelles dans l\'ordre croissant}$.' }
+      if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -720,10 +715,5 @@ Ainsi,   $S=\\emptyset$.<br>
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    5,
-    '1 : x^2=k\n2 : sqrt{x}=k \n3 : 1/x=k \n4 : x^3=k \n5 : Mélange'
-  ]
   this.besoinFormulaire2Numerique = ['Choix des questions', 3, '1 : Équation directe\n2 : Équation indirecte\n3 : Mélange']
 }
