@@ -94,6 +94,7 @@ function cleanPower (str: string): string {
   return str.replaceAll('²', '^2') // '²' c'est pas correct en latex !
     .replaceAll('³', '^3') // '³' non plus
     .replaceAll('^{}', '') // les exposants vides, il n'aime pas ça non plus
+    .replaceAll('^{^', '^{') // EE : Pour supprimer les puissances de puissances malencontreuses
 }
 
 /**
