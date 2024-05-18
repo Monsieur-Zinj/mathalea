@@ -13,6 +13,7 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
+- playwright-test
 - test
 - build-projet
 - playwright-testCanEleve
@@ -43,6 +44,8 @@ default:
     - pnpm config set store-dir .pnpm-store
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm install
     - nohup pnpm start &
+    - sleep 20
+    - until $(curl --output /dev/null --head --fail http://localhost:80/alea/); do printf '.'; sleep 10; done
     - sleep 60
 
 .install_dependenciesPDF:
