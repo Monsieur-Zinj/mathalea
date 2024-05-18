@@ -319,7 +319,8 @@ export const developmentCompare = function (input: string, goodAnswer:string) {
   }
   const saisieDev = engine.box(['ExpandAll', saisieParsed]).evaluate().simplify().canonical
   return { isOk: ['Add', 'Subtract'].includes(String(saisieParsed.head)) && saisieDev.isSame(saisieParsed.simplify().canonical) && saisieParsed.isEqual(reponseParsed) }
-}
+} */
+
 /**
  * comparaison de durées
  * @param {string} input
@@ -327,7 +328,7 @@ export const developmentCompare = function (input: string, goodAnswer:string) {
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function hmsCompare (input: string, goodAnswer: string): ResultType {
+function hmsCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['unites'])
   const cleanInput = clean(input)
   const inputHms = Hms.fromString(cleanInput)

@@ -588,7 +588,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
-      if (exercice.compare != null) {
+      if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
         let value: string | Grandeur | string[]
         if (typeof exercice.reponse !== 'string') {
@@ -609,12 +609,13 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         } else {
           reponse = { reponse: { value: exercice.reponse, compare } }
         }
-        handleAnswers(exercice, i,
-          reponse
-          , { formatInteractif: exercice.formatInteractif ?? 'mathlive' })
+        handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
+      } else if (exercice.reponse instanceof Object) {
+        handleAnswers(exercice, i, exercice.reponse)
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
       }
+
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(

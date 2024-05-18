@@ -6,11 +6,12 @@ import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Decimal from 'decimal.js'
 import {
+  fonctionComparaison,
   calculCompare,
   fractionCompare,
   equalFractionCompare,
   simplerFractionCompare,
-  hmsCompare,
+  // hmsCompare,
   intervalCompare,
   // numberCompare,
   powerCompare,
@@ -511,7 +512,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses[0].toString(),
-          compare: hmsCompare
+          compare: fonctionComparaison,
+          options: { HMS: true }
         }
       }, params)
       /*

@@ -7,7 +7,7 @@ import { colorToLatexOrHTML, mathalea2d } from '../../../modules/2dGeneralites.j
 import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-import { hmsCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -32,7 +32,6 @@ export default function LireHeure () {
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
   this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
-  this.compare = hmsCompare
   this.nouvelleVersion = function () {
     const horloge = []
     const O = point(0, 0)
@@ -62,7 +61,7 @@ export default function LireHeure () {
     ` +
 
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
-    this.reponse = `${h}h ${m}`
+    this.reponse = { reponse: { value: `${h}h ${m}`, compare: fonctionComparaison, options: { HMS: true } } }
     this.correction = `$${h}$ h $${m}$`
     if (context.isAmc) {
       this.autoCorrection = [
