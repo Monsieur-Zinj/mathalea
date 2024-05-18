@@ -5,7 +5,7 @@ import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { point } from '../../../lib/2d/points'
 import { segment } from '../../../lib/2d/segmentsVecteurs'
-import { latex2d, latexParCoordonnees } from '../../../lib/2d/textes'
+import { latex2d } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
@@ -29,10 +29,9 @@ export default class EquationsCarree extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.lycee
+    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
     this.formatInteractif = 'calcul'
     this.compare = intervalsCompare
   }
@@ -41,10 +40,10 @@ export default class EquationsCarree extends Exercice {
     let reponse
     const a = randint(1, 12)
     const o = latex2d('\\text{O}', -0.2, -0.3, { color: 'black', letterSize: 'scriptsize', backgroundColor: '' })
-    const Texte1 = latexParCoordonnees(`y=${a ** 2}`, 4, 2.7, 'green', 0, 0, '')
-    const Texte2 = latexParCoordonnees('y=x^2', 3, 4.5, 'blue', 0, 0, '')
-    const Texte3 = latexParCoordonnees(`-${a}`, -1.73, -0.6, 'red', 0, 0, '')
-    const Texte4 = latexParCoordonnees(`${a}`, 1.73, -0.6, 'red', 0, 0, '')
+    const Texte1 = latex2d(`y=${a ** 2}`, 4, 2.7, { color: 'green', letterSize: 'scriptsize', backgroundColor: '' })
+    const Texte2 = latex2d('y=x^2', 3, 4.5, { color: 'blue', letterSize: 'scriptsize', backgroundColor: '' })
+    const Texte3 = latex2d(`-${a}`, -1.73, -0.6, { color: 'red', letterSize: 'scriptsize', backgroundColor: '' })
+    const Texte4 = latex2d(`${a}`, 1.73, -0.6, { color: 'red', letterSize: 'scriptsize', backgroundColor: '' })
     const A = point(1.73, 3)
     const Ax = point(A.x, 0)
     const sAAx = segment(A, Ax)
