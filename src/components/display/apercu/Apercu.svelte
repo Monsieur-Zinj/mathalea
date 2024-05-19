@@ -45,11 +45,11 @@
     document.removeEventListener('updateAsyncEx', forceUpdate)
   })
 
-  beforeUpdate(()=>{
+  beforeUpdate(() => {
     // console.log('beforeUpdate')
   })
 
-  afterUpdate(()=>{
+  afterUpdate(() => {
     // console.log('afterUpdate')
   })
 
@@ -107,6 +107,7 @@
         if (exercice.typeExercice === 'simple') {
           mathaleaHandleExerciceSimple(exercice, false)
         } else {
+          seedrandom(exercice.seed, { global: true })
           exercice.nouvelleVersionWrapper?.()
         }
         seedrandom(exercice.seed, { global: true })
