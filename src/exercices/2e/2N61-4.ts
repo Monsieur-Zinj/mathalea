@@ -9,7 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -799,7 +799,13 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
       }
       if (this.interactif && !context.isAmc) {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: '<br>S = ' })
-        handleAnswers(this, i, { reponse: { value: correctionInteractif, compare: intervalsCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, {
+          reponse: {
+            value: correctionInteractif,
+            compare: fonctionComparaison,
+            options: { intervalle: true }
+          }
+        })
       }
       if (this.questionJamaisPosee(i, a, b, c, e, d)) {
         this.listeQuestions.push(texte)

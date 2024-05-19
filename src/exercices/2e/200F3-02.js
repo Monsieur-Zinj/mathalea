@@ -6,7 +6,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lecture graphique de domaine de définition'
@@ -25,7 +25,6 @@ export const refs = {
 /**
  * trois niveaux, trouver les signes d'une fonction affine
  * @author Jean-Claude Lhote
- * Référence
  */
 export default class LectureEnsebleDef extends Exercice {
   constructor () {
@@ -36,7 +35,6 @@ export default class LectureEnsebleDef extends Exercice {
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau', 3]
     this.formatChampTexte = KeyboardType.clavierEnsemble
-    this.compare = intervalsCompare
   }
 
   nouvelleVersion () {
@@ -164,6 +162,12 @@ export default class LectureEnsebleDef extends Exercice {
 
     this.question = mathalea2d(Object.assign({}, fixeBordures([repere])), [repere, courbeAvecTrace]) + 'Quel est l\'ensemble de définition de la fonction représentée ci-dessus ?'
     this.correction = `L'ensemble de définition de la fonction est $${ouvertGauche ? ']' : '['}${xmin};${xmax}${ouvertDroit ? '[' : ']'}$.`
-    this.reponse = `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`
+    this.reponse = {
+      reponse: {
+        value: `${ouvertGauche ? '\\left\\rbrack' : '\\left\\lbrack'}${xmin};${xmax}${ouvertDroit ? '\\right\\lbrack' : '\\right\\rbrack'}`,
+        compare: fonctionComparaison,
+        options: { intervalle: true }
+      }
+    }
   }
 }

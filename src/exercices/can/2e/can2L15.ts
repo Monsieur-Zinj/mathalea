@@ -10,7 +10,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { courbe } from '../../../lib/2d/courbes'
-import { intervalsCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre une inéquation du type $x^2<k$ ou $x^2>k$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -21,19 +21,16 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class EquationsCarree extends Exercice {
   constructor () {
     super()
-    this.titre = titre
+    this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
     this.formatInteractif = 'calcul'
-    this.compare = intervalsCompare
   }
 
   nouvelleVersion () {
@@ -95,7 +92,6 @@ export default class EquationsCarree extends Exercice {
           }), Cg
           , r1, o, sAAx, sBBx, sAxBx, Texte1, Texte2, Texte3, Texte4)
           reponse = choix ? `]-${a};${a}[` : `[-${a};${a}]`
-          this.reponse = { reponse: { value: reponse, compare: intervalsCompare } }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation $x^2${choix ? '<' : ' \\leqslant '}${a ** 2}$.`
           this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}`
@@ -153,7 +149,6 @@ export default class EquationsCarree extends Exercice {
           Cg
           , r1, o, sAAx, sBBx, sAxAxI, sBxBxI, Texte1, Texte2, Texte3, Texte4)
           reponse = choix ? `]-\\infty;${-a}[\\cup]${a};+\\infty[` : `]-\\infty;${-a}]\\cup[${a};+\\infty[`
-          this.reponse = { reponse: { value: reponse, compare: intervalsCompare } }
           this.question = `Donner l'ensemble $S$ des solutions de  l'inéquation : $x^2${choix ? '>' : ' \\geqslant '}${a ** 2}$.`
           this.correction = 'Pour résoudre cette inéquation, on peut imaginer le graphique correspondant à la situation : <br>'
           this.correction += `${graphiqueC}<br>`
@@ -162,6 +157,13 @@ export default class EquationsCarree extends Exercice {
         ${choix ? `$${miseEnEvidence(`]-\\infty\\,;\\,-${a}[\\cup ]${a}\\,;\\, +\\infty[`)}$` : `$${miseEnEvidence(`]-\\infty\\,;\\,-${a}]\\cup [${a}\\,;\\, +\\infty[`)}$`}.`
         }
         break
+    }
+    this.reponse = {
+      reponse: {
+        value: reponse,
+        compare: fonctionComparaison,
+        options: { intervalle: true }
+      }
     }
     if (this.interactif) {
       this.question += `<br>

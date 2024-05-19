@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean,avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS :boolean}} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -391,19 +391,21 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     avecFractions = true,
     fractionIrreductibleSeulement = false,
     operationSeulementEtNonCalcul = false,
-    HMS = false
+    HMS = false,
+    intervalle = false
   } = { }) : ResultType {
+  // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
-  // else .... ici, on mettrait d'autres else comme ci-dessus
-  else { // La comparaison par défaut
-    return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
-      {
-        avecSigneMultiplier,
-        avecFractions,
-        fractionIrreductibleSeulement,
-        operationSeulementEtNonCalcul
-      })
-  }
+  if (intervalle) return intervalsCompare(input, goodAnswer)
+
+  // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
+  return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
+    {
+      avecSigneMultiplier,
+      avecFractions,
+      fractionIrreductibleSeulement,
+      operationSeulementEtNonCalcul
+    })
 }
 
 /**
@@ -816,7 +818,7 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  * @param goodAnswer
  * @author Jean-Claude Lhote
  */
-export function intervalsCompare (input: string, goodAnswer: string) {
+function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   input = clean(input)
   goodAnswer = clean(goodAnswer).replaceAll('bigcup', 'cup').replaceAll('bigcap', 'cap')

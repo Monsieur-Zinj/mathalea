@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { calculCompare, equalFractionCompare, expressionDeveloppeeEtReduiteCompare, factorisationCompare, intervalsCompare, scientificCompare } from '../../../lib/interactif/comparisonFunctions'
+import { calculCompare, equalFractionCompare, expressionDeveloppeeEtReduiteCompare, factorisationCompare, fonctionComparaison, scientificCompare } from '../../../lib/interactif/comparisonFunctions'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -138,7 +138,6 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
     this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' largeur01') + '$0,7^2$'
     this.listeCorrections[i] = `$0,7 \\lt 1$ donc $0{,}7~${miseEnEvidence('\\gt')}~0{,}7^2 $`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '>', compare: calculCompare } })
 
     i = 13
@@ -147,14 +146,18 @@ export default class nomExercice extends Exercice {
       this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) + ' cm'
     }
     this.listeCorrections[i] = `L'aire est de $49~\\text{cm}^2$ donc c'est un carré de $7~\\text{cm}$ de côté.<br> Son périmètre est : $4 \\times 7~\\text{cm} =  ${miseEnEvidence('28')}~\\text{cm}$`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '28', compare: calculCompare } })
 
     i = 14
     this.listeQuestions[i] = 'Quel est l\'intervalle de l\'ensemble des solutions de l\'équation $\\mid x-1 \\mid \\lt 2$ ?<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `$S=${miseEnEvidence(']-1\\;;\\;3[')}$`
-    // @ts-expect-error problème de typage pour reponse
-    handleAnswers(this, i, { reponse: { value: ']-1;3[', compare: intervalsCompare } })
+    handleAnswers(this, i, {
+      reponse: {
+        value: ']-1;3[',
+        compare: fonctionComparaison,
+        options: { intervalle: true }
+      }
+    })
 
     i = 15
     this.listeQuestions[i] = 'Soient $A(5\\;;\\;9)$ et $B(7\\;;\\;3)$ dans un repère orthonormé.<br>Déterminer les coordonnées du vecteur $\\overrightarrow{AB}$.<br>'
@@ -163,7 +166,6 @@ export default class nomExercice extends Exercice {
       this.listeQuestions[i] += remplisLesBlancs(this, i, '\\overrightarrow{AB}\\Big(%{champ1} \\;;\\; %{champ2}\\Big)', KeyboardType.clavierNumbers)
     }
     handleAnswers(this, i, {
-      // @ts-expect-error problème de typage pour reponse
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '2', compare: calculCompare },
       champ2: { value: '-6', compare: calculCompare }
@@ -191,7 +193,6 @@ export default class nomExercice extends Exercice {
     }
     this.listeCorrections[i] = `Un produit est nul si et seulement si l'un au moins de ses facteurs est nul.<br>$S=${miseEnEvidence('\\{0\\;;\\;3\\}')}$`
     handleAnswers(this, i, {
-      // @ts-expect-error problème de typage pour reponse
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '0', compare: calculCompare },
       champ2: { value: '3', compare: calculCompare }
@@ -202,7 +203,6 @@ export default class nomExercice extends Exercice {
     i = 19
     this.listeQuestions[i] = 'Valeur de $5x - 8$ pour $x=\\dfrac{4}{5}$ :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction) + '.'
     this.listeCorrections[i] = `$5\\times\\dfrac{4}{5} - 8 = 4 - 8 =   ${miseEnEvidence('-4')}$`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '-4', compare: calculCompare } })
 
     i = 20
@@ -252,7 +252,6 @@ export default class nomExercice extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets) + '<br>Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '3', compare: equalFractionCompare } })
     this.listeCorrections[i] = `$L = ${miseEnEvidence('3')}$ u.l.`
 
@@ -261,20 +260,17 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = 'Les nombres premiers inférieurs ou égaux à $15$ sont : $2\\;;\\;3\\;;\\;5\\;;\\;7\\;;\\;11\\;;\\;13$.'
     this.listeCorrections[i] += `<br>La probabilité de tirer un nombre premier est donc : $${miseEnEvidence('\\dfrac{6}{15}')}$.`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '\\dfrac{6}{15}', compare: equalFractionCompare } })
 
     i = 22
     this.listeQuestions[i] = 'La décomposition en produit de facteurs premiers de 30 est : <br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
     this.listeCorrections[i] = `$30 = ${miseEnEvidence('2\\times3\\times5')}$`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '2\\times3\\times5', compare: calculCompare } })
 
     i = 23
     this.listeQuestions[i] = 'Soient $A(4\\;;\\;9)$ et $B(2\\;;\\;4)$.<br>Déterminer le coefficient directeur de la droite $(AB)$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = `$m=\\dfrac{y_B - y_A}{x_B - x_A} = \\dfrac{4 - 9}{2 - 4} = ${miseEnEvidence('\\dfrac{5}{2}')}$`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '\\dfrac{5}{2}', compare: equalFractionCompare } })
 
     i = 24
@@ -284,7 +280,6 @@ export default class nomExercice extends Exercice {
     }
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
-      // @ts-expect-error problème de typage pour reponse
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
       champ1: { value: '0', compare: equalFractionCompare },
       champ2: { value: '5', compare: equalFractionCompare }
@@ -296,7 +291,6 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] = 'Les vecteurs $\\vec{u}\\begin{pmatrix}2 \\\\-5\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}-4 \\\\10\\end{pmatrix}$ sont-ils colinéaires ?<br>'
     this.listeCorrections[i] = `$\\vec{v} = -2\\times\\vec{u}$, donc $${miseEnEvidence('\\text{oui}')}$ les vecteurs sont colinéaires.`
     this.autoCorrection[i] = {
-      // @ts-expect-error problème de typage pour reponse
       options: { ordered: false },
       enonce: '',
       propositions: [
@@ -317,7 +311,6 @@ export default class nomExercice extends Exercice {
     i = 26
     this.listeQuestions[i] = 'Factoriser $x^2-25$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX)
     this.listeCorrections[i] = `On utilise l'identité remarquable $a^2-b^2=(a+b)(a-b)$ pour obtenir : $x^2 - 25 = x^2 - 5^2 = ${miseEnEvidence('(x+5)(x-5)')} $`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '(x+5)(x-5)', compare: factorisationCompare } })
 
     i = 27
@@ -363,7 +356,6 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += '<em>(Les écrire dans l\'ordre croissant et les séparer avec un point-virgule.)</em><br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `Les antécédents de $0$ par $f$ sont $${miseEnEvidence('-3\\;;\\;1')}$.`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '-3;1', compare: calculCompare } })
 
     i = 28
@@ -372,7 +364,6 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += '<br>Quelle est l\'image de $0$ par la fonction $f$ ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
     this.listeCorrections[i] = `L'image de $0$ par la fonction $f$ est $${miseEnEvidence('1')}$.`
-    // @ts-expect-error problème de typage pour reponse
     handleAnswers(this, i, { reponse: { value: '1', compare: calculCompare } })
 
     i = 29
@@ -381,8 +372,13 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += '<br>Sur quel intervalle, $f$ est-elle positive ou nulle ?<br>'
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
     this.listeCorrections[i] = `La fonction $f$ est positive ou nulle sur $${miseEnEvidence('[-3;1]')}$.`
-    // @ts-expect-error problème de typage pour reponse
-    handleAnswers(this, i, { reponse: { value: '[-3;1]', compare: intervalsCompare } })
+    handleAnswers(this, i, {
+      reponse: {
+        value: '[-3;1]',
+        compare: fonctionComparaison,
+        options: { intervalle: true }
+      }
+    })
 
     listeQuestionsToContenu(this)
   }

@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { reduireAxPlusB } from '../../../lib/outils/ecritures'
-import { intervalsCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 
 export const titre = 'Résoudre une inéquation'
@@ -11,20 +11,16 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f0f67'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
  */
 export default class solutionInequation extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
     this.formatInteractif = 'calcul'
-    this.compare = intervalsCompare
   }
 
   nouvelleVersion () {
@@ -58,7 +54,13 @@ export default class solutionInequation extends Exercice {
     L'ensemble solution est donc :  $${miseEnEvidence(reponse)}$.   
      `
     }
-    this.reponse = { reponse: { value: reponse, compare: intervalsCompare } }
+    this.reponse = {
+      reponse: {
+        value: reponse,
+        compare: fonctionComparaison,
+        options: { intervalle: true }
+      }
+    }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
