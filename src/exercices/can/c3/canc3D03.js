@@ -1,5 +1,5 @@
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { hmsCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
@@ -24,7 +24,6 @@ export default function AjouterDesDurees () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
-  this.compare = hmsCompare
   if (!this.interactif) {
     this.question += ' $\\ldots$ minutes'
   }
@@ -39,7 +38,7 @@ export default function AjouterDesDurees () {
       ? 'On ajoute les heures avec les heures et les minutes avec les minutes<br>' + `$(${a}\\text{ h }+${c}\\text{ h })+(${b}\\text{ min }+${d}\\text{ min })=${a + c}\\text{ h }${b + d}\\text{ min}$.`
       : `On remarque qu'il y a $${b}\\text{ min } + ${d}\\text{ min }=60\\text{ min}$ qui font une heure.<br>
       On ajoute donc : $1\\text{ h }+${a}\\text{ h }+${c}\\text{ h }=${1 + a + c}\\text{ h}$.`
-    this.reponse = variante ? `${a + c}h ${b + d}min` : `${1 + a + c}h`
+    this.reponse = { reponse: { value: variante ? `${a + c}h ${b + d}min` : `${1 + a + c}h`, compare: fonctionComparaison, options: { HMS: true } } }
     this.canEnonce = this.question
     this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
   }

@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { hmsCompare, unitsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison, unitsCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
@@ -103,7 +103,7 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Au bout de combien de temps le projectile retombe-t-il au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: texNombre(t1, 0) + 's', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: texNombre(t1, 0) + 's', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
         this.listeCorrections.push(
           `Au bout de ${texNombre(
@@ -316,14 +316,14 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'À quelle heure fait-il le plus chaud ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmax) + ' h', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmax) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
 
         this.listeCorrections.push(`C'est à ${hmax} h qu'il fait le plus chaud.`)
         this.listeQuestions.push(
           'À quelle heure fait-il le plus froid ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmin) + ' h', compare: hmsCompare } }, { formatInteractif: 'hms' })
+        handleAnswers(this, indiceQuestion, { reponse: { value: String(hmin) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
 
         this.listeCorrections.push(`C'est à ${hmin} h qu'il fait le plus froid.`)
