@@ -65,7 +65,8 @@ export default class MetaExercice extends Exercice {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else {
           if (Question.compare == null) {
-            setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
+            if (Question.reponse.reponse instanceof Object && Question.reponse.reponse.value != null && typeof Question.reponse.reponse.value === 'string') handleAnswers(this, indexQuestion, Question.reponse)
+            else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
           } else {
             const compare = Question.compare
             if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
@@ -118,7 +119,6 @@ export default class MetaExercice extends Exercice {
         // this.formatChampTexte = Question.formatChampTexte
         // this.formatInteractif = Question.formatInteractif
         const formatInteractif = Question.autoCorrection[0].reponse.param.formatInteractif
-        const compare = Question.autoCorrection[0].reponse.valeur.compare ?? expressionDeveloppeeEtReduiteCompare
         if (formatInteractif === 'qcm') {
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
         } else {

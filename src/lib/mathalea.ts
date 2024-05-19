@@ -590,7 +590,6 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
       if (exercice.compare != null) { /// DE LA AU PROCHAIN LA, ce sera à supprimer quand il n'y aura plus de this.compare
         let reponse = {}
-        let value: string | Grandeur | string[]
         if (typeof exercice.reponse !== 'string') {
           if (exercice.reponse instanceof FractionEtendue) {
             reponse = { reponse: { value: exercice.reponse.texFraction, compare } }
@@ -610,7 +609,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           reponse = { reponse: { value: exercice.reponse, compare } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
-      } else if (exercice.reponse instanceof Object) {
+      } else if (exercice.reponse instanceof Object && exercice.reponse.value != null && typeof exercice.reponse.value === 'string') {
         handleAnswers(exercice, i, exercice.reponse)
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })

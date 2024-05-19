@@ -65,7 +65,7 @@ export interface Valeur {
   L1C1?: AnswerType
   L1C2?: AnswerType
   L2C1?: AnswerType
-  L2C2: AnswerType // idem on en ajoutera si besoin
+  L2C2?: AnswerType // idem on en ajoutera si besoin
   callback?: ()=>ResultOfExerciceInteractif
 }
 

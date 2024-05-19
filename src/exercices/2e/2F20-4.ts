@@ -18,7 +18,7 @@ import { latex2d } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { setsCompare, intervalsCompare } from '../../lib/interactif/comparisonFunctions'
+import { setsCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { point } from '../../lib/2d/points'
 
 export const titre = 'Résoudre graphiquement une équation ou une inéquation'
@@ -563,8 +563,8 @@ class resolutionEquationInequationGraphique extends Exercice {
     soluces = soluces.sort((a: number, b: number) => a - b)
     if (this.sup === 1 || this.sup === 3) {
       enonce += `Résoudre graphiquement l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur la partie visible du graphique.<br>`
-      if (this.interactif) enonce += 'Les solutions doivent être séparées par un point-virgule.<br>'
-      texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$<br><br>`
+      if (this.interactif) enonce += 'Si besoin, les solutions doivent être séparées par un point-virgule.<br>'
+      texteCorr += `L'ensemble de solutions de l'équation correspond aux abscisses des points d'intersection des deux courbes soit : $\\{${soluces.map(el => texNombre(el, 1)).join(';')}\\}$`
     }
     let indexQuestion = 0
     if (soluces != null) {
@@ -587,15 +587,15 @@ class resolutionEquationInequationGraphique extends Exercice {
       }
       const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 
-      // enonce += '$' + soluces2 + '$'
       handleAnswers(this, indexQuestion, {
         reponse: {
           value: soluces2,
-          compare: intervalsCompare
+          compare: fonctionComparaison,
+          options: { intervalle: true }
         }
-      }, { formatInteractif: 'calcul' })
+      })
       texteCorr += `<br>Pour trouver l'ensemble des solutions de l'inéquation, on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en-dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
-      texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$.<br><br>`
+      texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
@@ -651,6 +651,19 @@ class resolutionEquationInequationGraphique extends Exercice {
       const courbes = [courbe1, courbe2, trait1, trait2, nomCourbe1, nomCourbe2]
       this.listeQuestions = [enonce + mathalea2d(Object.assign({}, fixeBordures([...repere.objets, ...courbes])), ...repere.objets, ...courbes)]
     }
+
+    // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+    const textCorrSplit = texteCorr.split(':')
+    let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+    aRemplacer = aRemplacer.replaceAll('$', '')
+
+    texteCorr = ''
+    for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+      texteCorr += textCorrSplit[ee] + ':'
+    }
+    texteCorr += ` $${miseEnEvidence(aRemplacer)}$`
+    // Fin de cette uniformisation
+    texteCorr += '.'
     this.listeCorrections = [texteCorr]
   }
 }

@@ -12,7 +12,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { intervalsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -685,7 +685,13 @@ export default function ExerciceInequationProduit () {
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur50 lycee nospacebefore', { texteAvant: '<br>S = ' })
-        handleAnswers(this, i, { reponse: { value: correctionInteractif, compare: intervalsCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, {
+          reponse: {
+            value: correctionInteractif,
+            compare: fonctionComparaison,
+            options: { intervalle: true }
+          }
+        })
         if (i === 0) {
           texte += lampeMessage({
             titre: 'Quelques commandes pratiques pour le clavier : ',
