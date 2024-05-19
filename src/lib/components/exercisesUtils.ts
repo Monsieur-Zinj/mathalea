@@ -123,11 +123,11 @@ export const splitExercisesIntoQuestions = (
       mathaleaHandleExerciceSimple(exercice, exercice.interactif, k)
     } else {
       if (exercice.nouvelleVersionWrapper !== undefined) {
+        if (exercice.seed !== undefined) {
+          seedrandom(exercice.seed, { global: true })
+        }
         exercice.nouvelleVersionWrapper(k)
       }
-    }
-    if (exercice.seed !== undefined) {
-      seedrandom(exercice.seed, { global: true })
     }
     isCorrectionVisible[k] = false
     const cumulConsignesCorrections = []
