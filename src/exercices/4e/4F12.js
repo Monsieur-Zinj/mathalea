@@ -12,8 +12,10 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison, unitsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre un problème s\'appuyant sur la lecture d\'une représentation graphique'
 export const interactifType = 'mathLive'
 export const interactifReady = true
@@ -23,7 +25,6 @@ export const amcType = 'AMCHybride'
 /**
  * Problème avec lecture de représentation graphique d'une fonction
  * @author Rémi Angot
- * Référence 4F12
  */
 export const uuid = 'b428e'
 export const ref = '4F12'
@@ -33,8 +34,6 @@ export const refs = {
 }
 export default function ExploiterRepresentationGraphique () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -106,21 +105,21 @@ export default function ExploiterRepresentationGraphique () {
         handleAnswers(this, indiceQuestion, { reponse: { value: texNombre(t1, 0) + 's', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
         this.listeCorrections.push(
-          `Au bout de ${texNombre(
+          `Au bout de $${miseEnEvidence(texNombre(
             t1
-          )} s, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombre(
+          ) + sp() + '\\text{s}')}$, le projectile retombe au sol car la courbe passe par le point de coordonnées $(${texNombre(
             t1
           )}~;~0)$.`
         )
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, options: { precision: 0 }, compare: unitsCompare } })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } })
         indiceQuestion++
         this.listeCorrections.push(
           `Le point le plus haut de la courbe a pour abscisse $${texNombre(
             (t1 / 2)
-          )}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
+          )}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${miseEnEvidence(Math.round(f(t1 / 2)) + sp() + '\\text{m}')}$.`
         )
 
         break
@@ -156,11 +155,11 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'À quelle distance le projectile est-il retombé au sol ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: `${t1}m`, options: { precision: 0 }, compare: unitsCompare } })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${t1}m`, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } })
         indiceQuestion++
 
         this.listeCorrections.push(
-            `Le projectile retombe au sol à une distance de ${t1} m, car la courbe passe par le point de coordonnées $(${texNombre(
+            `Le projectile retombe au sol à une distance de $${miseEnEvidence(texNombre(t1) + sp() + '\\text{m}')}$, car la courbe passe par le point de coordonnées $(${texNombre(
               t1
             )}~;~0)$.`
         )
@@ -168,11 +167,11 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la hauteur maximale atteinte par le projectile ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 longueur')
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, options: { precision: 0 }, compare: unitsCompare } })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${Math.round(f(t1 / 2))}m`, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } })
         indiceQuestion++
 
         this.listeCorrections.push(
-            `Le point le plus haut de la courbe a pour abscisse $${texNombre((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${Math.round(f(t1 / 2))}$ m.`
+            `Le point le plus haut de la courbe a pour abscisse $${texNombre((t1 / 2))}$ et pour ordonnée $${Math.round(f(t1 / 2))}$ donc la hauteur maximale est de $${miseEnEvidence(Math.round(f(t1 / 2)) + sp() + '\\text{m}')}$.`
         )
 
         break
@@ -235,18 +234,17 @@ export default function ExploiterRepresentationGraphique () {
 
         this.introduction += '<br><br>' + 'À l\'aide de ce graphique, répondre aux questions suivantes :'
 
-        this.listeQuestions.push('Pendant combien de temps a-t-elle fait du vélo ?')
-
-        this.listeCorrections.push('Elle a fait du vélo pendant 40 minutes.')
-
-        this.listeQuestions.push('Quelle distance a-t-elle parcourue au total ?')
-        this.listeCorrections.push(`Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de ${2 * v3} km.`)
-
         this.listeQuestions.push(`Que se passe-t-il après ${tempsPause} minutes de vélo ?`)
         this.listeCorrections.push('La distance reste constante alors qu\'elle est sur un chemin rectiligne. Elle a donc fait une pause.')
 
+        this.listeQuestions.push(`Pendant combien de temps, ${fille}, a-t-elle fait réellement du vélo ?`)
+        this.listeCorrections.push(`${fille} est partie 40 min et a fait une pause de 10 min donc elle a fait réellement du vélo pendant $${miseEnEvidence(texNombre(30) + sp() + '\\text{min}')}$.`)
+
+        this.listeQuestions.push('Quelle distance a-t-elle parcourue au total ?')
+        this.listeCorrections.push(`Le point le plus loin de sa maison est à ${v3} km et ensuite elle revient chez elle, donc la distance totale est de $${miseEnEvidence(texNombre(2 * v3) + sp() + '\\text{km}')}$.`)
+
         this.listeQuestions.push('À quel moment a-t-elle été la plus rapide ?')
-        this.listeCorrections.push(`Elle a été la plus rapide ${periodeRapide} où elle a effectué ${v3} km en 10 minutes.`)
+        this.listeCorrections.push(`${fille} a été la plus rapide ${periodeRapide} où elle a effectué $${miseEnEvidence(texNombre(v3) + sp() + '\\text{km}')}$ en 10 minutes.`)
 
         break
       case 'temperature':
@@ -301,32 +299,32 @@ export default function ExploiterRepresentationGraphique () {
         this.listeQuestions.push(
           'Quelle est la température la plus froide de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmin}°C`, options: { precision: 0 }, compare: unitsCompare } })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmin}°C`, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } })
         indiceQuestion++
 
-        this.listeCorrections.push(`La température la plus basse est ${tmin}°C.`)
+        this.listeCorrections.push(`La température la plus basse est $${miseEnEvidence(`${tmin}^\\circ\\text{C}`)}$.`)
 
         this.listeQuestions.push(
           'Quelle est la température la plus chaude de la journée ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 ' + KeyboardType.nombresEtDegreCelsius)
         )
-        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmax}°C`, options: { precision: 0 }, compare: unitsCompare } })
+        handleAnswers(this, indiceQuestion, { reponse: { value: `${tmax}°C`, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0 } } })
         indiceQuestion++
 
-        this.listeCorrections.push(`La température la plus élevée de la journée est ${tmax}°C.`)
+        this.listeCorrections.push(`La température la plus élevée de la journée est $${miseEnEvidence(`${tmax}^\\circ\\text{C}`)}$.`)
         this.listeQuestions.push(
           'À quelle heure fait-il le plus chaud ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: String(hmax) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
 
-        this.listeCorrections.push(`C'est à ${hmax} h qu'il fait le plus chaud.`)
+        this.listeCorrections.push(`C'est à $${miseEnEvidence(hmax + sp() + '\\text{h}')}$ qu'il fait le plus chaud.`)
         this.listeQuestions.push(
           'À quelle heure fait-il le plus froid ?' + ajouteChampTexteMathLive(this, indiceQuestion, 'inline largeur10 clavierHms')
         )
         handleAnswers(this, indiceQuestion, { reponse: { value: String(hmin) + ' h', compare: fonctionComparaison, options: { HMS: true } } })
         indiceQuestion++
 
-        this.listeCorrections.push(`C'est à ${hmin} h qu'il fait le plus froid.`)
+        this.listeCorrections.push(`C'est à $${miseEnEvidence(hmin + sp() + '\\text{h}')}$ qu'il fait le plus froid.`)
 
         break
     }
@@ -551,5 +549,5 @@ export default function ExploiterRepresentationGraphique () {
       }
     } else listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo(non disponible en interactif)\n3 : Température\n4 : Au hasard']
+  this.besoinFormulaireNumerique = ['Choix des problèmes', 4, '1 : Projectile\n2 : Trajet à vélo (non disponible en interactif)\n3 : Température\n4 : Au hasard']
 }
