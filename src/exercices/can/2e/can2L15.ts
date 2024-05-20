@@ -10,7 +10,7 @@ import { repere } from '../../../lib/2d/reperes'
 import { droite } from '../../../lib/2d/droites'
 import { mathalea2d } from '../../../modules/2dGeneralites'
 import { courbe } from '../../../lib/2d/courbes'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre une inéquation du type $x^2<k$ ou $x^2>k$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
