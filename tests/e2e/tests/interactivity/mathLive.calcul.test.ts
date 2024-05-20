@@ -1,9 +1,11 @@
 import { clean } from 'helpers/text'
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 
 async function testEntier (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=cfa6a&id=6C10&n=20&d=10&s=6&s2=3&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=cfa6a&id=6C10&n=20&d=10&s=6&s2=3&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -37,7 +39,8 @@ async function testEntier (page: Page) {
 }
 
 async function testCalculLitteral (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&id=3L11&n=10&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=77a62&id=3L11&n=10&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -66,7 +69,8 @@ async function testCalculLitteral (page: Page) {
 }
 
 async function testCalculLitteral2 (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=77a62&n=10&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=77a62&n=10&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -95,7 +99,9 @@ async function testCalculLitteral2 (page: Page) {
 }
 
 async function testRelatifs (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=cbc26&id=5R20&i=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=cbc26&id=5R20&i=1'
+
   // 5R20 les réponses peuvent être de la forme 5 ou (+5) ou (5) ou (-5) ou -5
   const questions = await getQuestions(page, urlExercice)
 
@@ -126,11 +132,6 @@ async function testRelatifs (page: Page) {
   return true
 }
 
-runTest(testRelatifs, import.meta.url)
-runTest(testEntier, import.meta.url)
-runTest(testCalculLitteral, import.meta.url)
-runTest(testCalculLitteral2, import.meta.url)
-
 function stringToNumber (str: string): number {
   if (str === '') {
     return 1
@@ -140,4 +141,19 @@ function stringToNumber (str: string): number {
     return 1
   }
   return Number(str)
+}
+
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(testRelatifs, import.meta.url)
+  runTest(testEntier, import.meta.url)
+  runTest(testCalculLitteral, import.meta.url)
+  runTest(testCalculLitteral2, import.meta.url)
+} else {
+  runTest(testRelatifs, import.meta.url)
+  runTest(testEntier, import.meta.url)
+  runTest(testCalculLitteral, import.meta.url)
+  runTest(testCalculLitteral2, import.meta.url)
 }

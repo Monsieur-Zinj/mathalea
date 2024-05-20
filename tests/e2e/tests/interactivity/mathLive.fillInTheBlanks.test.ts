@@ -1,8 +1,10 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 
 async function test6N203 (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=3bdcd&id=6N20-3&alea=vBuv&i=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=3bdcd&id=6N20-3&alea=vBuv&i=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -29,7 +31,8 @@ async function test6N203 (page: Page) {
 }
 
 async function test5R211 (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=f2db1&alea=1iCO&i=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=f2db1&alea=1iCO&i=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -57,5 +60,13 @@ async function test5R211 (page: Page) {
   return true
 }
 
-runTest(test6N203, import.meta.url)
-runTest(test5R211, import.meta.url)
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test6N203, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+  runTest(test5R211, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+} else {
+  runTest(test6N203, import.meta.url)
+  runTest(test5R211, import.meta.url)
+}

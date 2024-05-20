@@ -16,7 +16,7 @@ export default mergeConfig(viteConfig, defineConfig({
   test: {
     include: ['./tests/consistency/consistency.test.{js,ts}'],
     hookTimeout: 600_000,
-    testTimeout: 40_000,
+    testTimeout: 200_000,
     poolOptions: {
       threads: {
         singleThread: true

@@ -119,8 +119,24 @@ export function runSeveralTests (tests: ((page: Page) => Promise<boolean>)[], me
 export async function getQuestions (page: Page, urlExercice: string) {
   const questionSelector = 'div#exo0 div.mb-5 div.container>li'
 
+  // console.log('getQuestions')
+
+  await page.addInitScript(() => {
+    const katexRenderedHandler = () => {
+      window.katexRendered = true
+      // console.log('katex rendered received')
+      document.removeEventListener('katexRendered', katexRenderedHandler)
+    }
+    // console.log('katexRendered listener')
+    document.addEventListener('katexRendered', katexRenderedHandler)
+  })
+
+  console.log('goto:' + urlExercice)
   await page.goto(urlExercice)
-  await waitForKatex(page)
+
+  // console.log('waitForFunction')
+  await page.waitForFunction(() => window.katexRendered)
+
   await page.waitForSelector(questionSelector)
   const locators = await page.locator(questionSelector).all()
 
@@ -142,16 +158,24 @@ export async function getQuestions (page: Page, urlExercice: string) {
   return questions
 }
 
+/**
+ * MGU
+ * On peut rater l'événement si la page se charge rapidement.
+ * A ne surtout pas utiliser
+ * @deprecated
+ */
 export async function waitForKatex (page: Page) {
   await page.evaluate(() => {
     const katexRenderedHandler = () => {
       window.katexRendered = true
+      console.log('katex rendered received')
       document.removeEventListener('katexRendered', katexRenderedHandler)
     }
 
     document.addEventListener('katexRendered', katexRenderedHandler)
   })
-  await page.waitForFunction(() => window.katexRendered)
+  console.log('waitForFunction')
+  await page.waitForFunction(() => window.katexRendered, null, { timeout: 60000 })
 }
 
 async function getQuestionId (question: Locator) {

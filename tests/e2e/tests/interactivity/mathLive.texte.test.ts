@@ -1,9 +1,11 @@
 import Decimal from 'decimal.js'
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 
 async function test (page: Page) {
-  const urlExercice = 'localhost:5173/alea/?uuid=4ce2d&id=3P10-1&n=20&i=1&s=2'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=4ce2d&id=3P10-1&n=20&i=1&s=2'
   // 3P10-1 uniquement dans le cas de la recherche du taux de variation
   const questions = await getQuestions(page, urlExercice)
 
@@ -20,5 +22,11 @@ async function test (page: Page) {
   await checkFeedback(page, questions)
   return true
 }
-
-runTest(test, import.meta.url)
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+} else {
+  runTest(test, import.meta.url)
+}

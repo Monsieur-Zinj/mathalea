@@ -1,9 +1,11 @@
 import Decimal from 'decimal.js'
 import { checkFeedback, getQuestions, inputAnswerById, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=5999f&id=6M11-2&n=4&d=10&s=1&s2=true&s3=1&s4=3&alea=BZOJ&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=5999f&id=6M11-2&n=4&d=10&s=1&s2=true&s3=1&s4=3&alea=BZOJ&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   // Dans cet exercice avec plusieurs champs, il y a un décalage sur les indices
@@ -36,4 +38,11 @@ async function test (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+} else {
+  runTest(test, import.meta.url, { pauseOnError: true }) // true pendant le développement, false ensuite
+}

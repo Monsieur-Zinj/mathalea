@@ -20,9 +20,10 @@ async function test (page: Page) {
   if (browser === null) throw Error('can\'t test a null browser')
   const [context] = browser.contexts()
   const questionsNb = 20
-  const classicExerciseUrl = 'http://localhost:5173/alea/?uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const classicExerciseUrl = hostname + '?uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true&uuid=0e6bd&id=6C10-1&n=10&d=10&s=2-3-4-5-6-7-8-9-10&s2=1&s3=true'
   await testUrl(classicExerciseUrl, page, context, questionsNb, 'classique')
-  const simpleExerciseUrl = 'http://localhost:5173/alea/?uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
+  const simpleExerciseUrl = hostname + '?uuid=4ba86&id=canc3C04&n=10&d=10&cd=1&uuid=4ba86&id=canc3C04&n=10&d=10&cd=1'
   await testUrl(simpleExerciseUrl, page, context, questionsNb, 'simple')
   checkConsistency()
   return true
@@ -235,7 +236,7 @@ function checkConsistency () {
       console.log(`Les questions n'ont pas changé entre la vue ${states[i - 1].view} et la vue ${states[i].view} pour les exercices de type ${states[i].exerciseType}`)
     }
   }
-  if (differenceIndexes.length > 1) {
+  if (differenceIndexes.length > 0) {
     const messages: string[] = []
     for (const differenceIndex of differenceIndexes) {
       messages.push(`Il y a une différence entre la vue ${states[differenceIndex - 1].view} et la vue ${states[differenceIndex].view} pour les exercices de type ${states[differenceIndex].exerciseType}`)
@@ -262,4 +263,11 @@ function getDifferencesIndexes () {
   return differenceIndexes
 }
 
-runTest(test, import.meta.url, { pauseOnError: false, browserOptions: { timeout: 40000 } })
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test, import.meta.url, { pauseOnError: false })
+} else {
+  runTest(test, import.meta.url, { pauseOnError: false })
+}
