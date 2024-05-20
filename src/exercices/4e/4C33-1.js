@@ -10,7 +10,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { powerCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
@@ -29,7 +29,6 @@ export const dateDeModifImportante = '14/09/2023'
  * * 4 : produit de puissances de même exposant
  * * 5 : mélange des trois autres niveaux
  * @author Sébastien Lozano
- * 4C33-1
  */
 export const uuid = 'bae57'
 export const ref = '4C33-1'
@@ -359,7 +358,7 @@ export default function PuissancesDunRelatif1 () {
       }
 
       if (this.interactif && !context.isAmc) {
-        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: powerCompare } })
+        handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' $=$' })
       }
       if (context.isAmc) {

@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean}} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:true }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -393,12 +393,19 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     operationSeulementEtNonCalcul = false,
     HMS = false,
     intervalle = false,
-    estDansIntervalle = false
+    estDansIntervalle = false,
+    ecritureScientifique = false,
+    unite = false,
+    precisionUnite = 0,
+    puissance = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
+  if (ecritureScientifique) return scientificCompare(input, goodAnswer)
+  if (unite) return unitsCompare(input, goodAnswer, { precision: precisionUnite })
+  if (puissance) return powerCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -531,7 +538,7 @@ export function decimalCompare (input: string, goodAnswer: string): ResultType {
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function scientificCompare (input: string, goodAnswer: string): ResultType {
+function scientificCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'espaces', 'parentheses', 'puissances'])
   const saisieClean = clean(input)
   const reponseClean = clean(goodAnswer)
@@ -725,7 +732,7 @@ export function fractionCompare (input: string, goodAnswer: string): ResultType 
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function powerCompare (input: string, goodAnswer: string): ResultType {
+function powerCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'puissances'])
   let formatOK: boolean = false
   let formatKO: boolean = false
@@ -953,7 +960,7 @@ export function numerationCompare (input: string, goodAnswer: string, { pluriels
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function unitsCompare (input: string, goodAnswer: string, { precision = 1 } = {}): {
+function unitsCompare (input: string, goodAnswer: string, { precision = 1 } = {}): {
   isOk: boolean,
   feedback?: string
 } {

@@ -14,9 +14,9 @@ import {
   // hmsCompare,
   // intervalCompare,
   // numberCompare,
-  powerCompare,
-  scientificCompare,
-  unitsCompare,
+  // powerCompare,
+  // scientificCompare,
+  // unitsCompare,
   texteAvecCasseCompare,
   texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
@@ -570,7 +570,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         return handleAnswers(exercice, i, {
           reponse: {
             value: reponses[0].replace(',', '.'),
-            compare: scientificCompare
+            compare: fonctionComparaison,
+            options: { ecritureScientifique: true }
           }
         }, params)
       }
@@ -627,8 +628,10 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses[0].toString().replace('\u202f', ''),
-          options: { precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
-          compare: unitsCompare
+          /* options: { precision: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) },
+          compare: unitsCompare */
+          compare: fonctionComparaison,
+          options: { unite: true, precisionUnite: 10 ** precision * 10 ** (reponses[0].puissanceUnite * reponses[0].puissancePrefixe) }
         }
       }, params)
     case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
@@ -655,7 +658,9 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: String(reponses[0]),
-          compare: powerCompare
+          // compare: powerCompare
+          compare: fonctionComparaison,
+          options: { puissance: true }
         }
       }, params)
       /* EE : N'existe plus. Faudra choisir entre réduite ou non réduite avec les fonctions de comparaisons
@@ -682,7 +687,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
  * @param {AnswerType} reponses
  * @param {ReponseParams} params
  */
-export function handleAnswers (exercice, question, reponses: Valeur, params?: ReponseParams = {}) {
+export function handleAnswers (exercice:Exercice, question:number, reponses: Valeur, params: ReponseParams|undefined = {}) {
   if (context.isAmc) { // handleAnswer ne s'occupe pas de l'export AMC
     return
   }
