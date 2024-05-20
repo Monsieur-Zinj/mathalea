@@ -6,9 +6,11 @@ import { KatexHandler } from '../../helpers/KatexHandler'
 import { extraireCoeffAffine } from '../../helpers/maths'
 import FractionEtendue from '../../../../src/modules/FractionEtendue'
 import { pgcd } from '../../../../src/lib/outils/primalite'
+import prefs from '../../helpers/prefs.js'
 
 async function test (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=ec059&id=2F20-2&n=10&d=10&s=1&s2=2&i=1&cd=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=ec059&id=2F20-2&n=10&d=10&s=1&s2=2&i=1&cd=1' // Mettre ici l'url de l'exercice (éventuellement avec la graine mais push sans la graine)
   const questions = await getQuestions(page, urlExercice)
   for (const question of questions) {
     const katexExpression = new KatexHandler(page, question, { hasText: '=' })
@@ -53,7 +55,8 @@ async function test (page: Page) {
 
 async function testFractionSimplifieeIrreductible (page: Page) {
   // Ce test s'assure que les fractions simplifiées mais non irréductibles ne sont pas acceptées
-  const urlExercice = 'http://localhost:5173/alea/?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=true&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=f8f4e&id=5N13&n=20&d=10&s=50&s2=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -79,5 +82,13 @@ async function testFractionSimplifieeIrreductible (page: Page) {
   return true
 }
 
-runTest(test, import.meta.url)
-runTest(testFractionSimplifieeIrreductible, import.meta.url)
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+  runTest(testFractionSimplifieeIrreductible, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
+} else {
+  runTest(test, import.meta.url)
+  runTest(testFractionSimplifieeIrreductible, import.meta.url)
+}

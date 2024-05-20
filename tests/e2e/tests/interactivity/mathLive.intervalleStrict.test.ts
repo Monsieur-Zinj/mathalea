@@ -1,9 +1,11 @@
 import { arrondi } from '../../../../src/lib/outils/nombres'
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
+import prefs from '../../helpers/prefs.js'
 
 async function testSalaires (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=b8afd&id=3S14&n=20&d=10&s=4&s2=2&s3=true&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=b8afd&id=3S14&n=20&d=10&s=4&s2=2&s3=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   type Couple = [number, number]
@@ -52,7 +54,8 @@ async function testSalaires (page: Page) {
 }
 
 async function testNotes (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=b8afd&id=3S14&n=20&d=10&s=2&s2=2&s3=true&i=1&cd=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=b8afd&id=3S14&n=20&d=10&s=2&s2=2&s3=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
   for (const question of questions) {
     let reponse = ''
@@ -80,7 +83,8 @@ async function testNotes (page: Page) {
 }
 
 async function test6N314 (page: Page) {
-  const urlExercice = 'http://localhost:5173/alea/?uuid=b86b9&id=6N31-4&alea=x9ft&i=1'
+  const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
+  const urlExercice = hostname + '?uuid=b86b9&id=6N31-4&alea=x9ft&i=1'
   // 6N31-4
   const questions = await getQuestions(page, urlExercice)
 
@@ -99,6 +103,15 @@ async function test6N314 (page: Page) {
   return true
 }
 
-runTest(testSalaires, import.meta.url)
-runTest(testNotes, import.meta.url)
-runTest(test6N314, import.meta.url)
+const local = true
+if (process.env.CI) {
+  // utiliser pour les tests d'intégration
+  prefs.headless = true
+  runTest(testSalaires, import.meta.url, { pauseOnError: false })
+  runTest(testNotes, import.meta.url, { pauseOnError: false })
+  runTest(test6N314, import.meta.url, { pauseOnError: false })
+} else {
+  runTest(testSalaires, import.meta.url)
+  runTest(testNotes, import.meta.url)
+  runTest(test6N314, import.meta.url)
+}

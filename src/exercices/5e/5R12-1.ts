@@ -86,7 +86,7 @@ class ReperagePointDuPlan extends Exercice {
       this.question = enonce + emplacementPourFigure
       this.correction = texteCorr
     } else {
-      this.question = enonce + `\n\n\\bigskip\n\\{Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
+      this.question = enonce + `\n\n\\bigskip\n{\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
         -5/0/A,0/-5/B,5/0/C,0/5/D%
         }}`
       this.correction = `{\\Reperage[Plan,AffichageGrad,Unitesx=0.75,Unitey=0.75,Traces={%
