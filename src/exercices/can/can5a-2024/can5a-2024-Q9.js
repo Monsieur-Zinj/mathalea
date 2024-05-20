@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { equalFractionCompare, expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { equalFractionCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Convertir des dm en m et réciproquement'
 export const interactifReady = true
@@ -57,7 +57,7 @@ export default class NomExercice extends Exercice {
         } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
       } else {
         this.formatInteractif = 'mathlive'
-        this.compare = expressionDeveloppeeEtReduiteCompare
+        this.compare = fonctionComparaison
         const a = randint(15, 60)
         this.reponse = String(a * 10)
         this.question = `Complète : <br> $${texNombre(a, 0)}$ m $=$ `

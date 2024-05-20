@@ -8,7 +8,7 @@ import { texteParPosition } from '../../../lib/2d/textes'
 import { repere } from '../../../lib/2d/reperes.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { context } from '../../../modules/context'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Lire une image graphiquement '
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,7 +27,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.clavierDeBase
     this.formatInteractif = 'mathlive'
-    this.compare = expressionDeveloppeeEtReduiteCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -158,7 +158,7 @@ export default class NomExercice extends Exercice {
            son image  sur l'axe des ordonnées (axe de lecture des images). <br>
            On obtient :  $f(${theSpline.x[antecedent]})=${miseEnEvidence(theSpline.y[antecedent])}$.`
 
-      this.reponse = { reponse: { value: String(theSpline.y[antecedent]), compare: expressionDeveloppeeEtReduiteCompare } }
+      this.reponse = { reponse: { value: String(theSpline.y[antecedent]), compare: fonctionComparaison } }
       this.canEnonce = this.question// 'Compléter'
       this.canReponseACompleter = ''
     }

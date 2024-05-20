@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
-import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../src/lib/outils/texNombre'
 
 export const titre = 'Associer puissances de 10 et préfixes'
@@ -58,7 +58,7 @@ export default class PuissancesEtPrefixe extends Exercice {
         texte = this.interactif
           ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'texte')
           : `${prefixe}`
-        handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: fonctionComparaison } })
         texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`
       }
       if (context.isAmc) {

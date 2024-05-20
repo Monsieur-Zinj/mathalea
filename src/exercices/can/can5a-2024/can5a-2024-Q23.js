@@ -1,6 +1,6 @@
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { plaque3d } from '../../../modules/3d'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     context.anglePerspective = 40
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
-    this.compare = expressionDeveloppeeEtReduiteCompare
+    this.compare = fonctionComparaison
     this.nbQuestions = 1
     this.canOfficielle = false
     this.formatInteractif = 'mathlive'

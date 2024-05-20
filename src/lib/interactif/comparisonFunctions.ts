@@ -470,7 +470,7 @@ export function customCanonical (expr:BoxedExpression, { expressionsForcementRed
  * @author Eric Elter
  * @return ResultType
  */
-export function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
+function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   {
     expressionsForcementReduites = true,
     avecSigneMultiplier = true,

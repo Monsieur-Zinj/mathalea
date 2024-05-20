@@ -6,7 +6,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { signe } from '../../../lib/outils/nombres'
 import { ecritureAlgebrique, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Réduire une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
     this.optionsChampTexte = { texteAvant: '$=$' }
     this.canOfficielle = false
-    this.compare = expressionDeveloppeeEtReduiteCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -90,7 +90,7 @@ export default class NomExercice extends Exercice {
       }
     }
 
-    this.reponse = { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } }
+    this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
     if (!this.interactif) {

@@ -7,7 +7,7 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -89,7 +89,7 @@ export default function ExerciceAdditionsRelatifs (max = 20) {
       } else {
         texte += ajouteChampTexteMathLive(this, i)
         texte += ajouteFeedback(this, i)
-        handleAnswers(this, i, { reponse: { value: (a + b).toString(), compare: expressionDeveloppeeEtReduiteCompare } })
+        handleAnswers(this, i, { reponse: { value: (a + b).toString(), compare: fonctionComparaison } })
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

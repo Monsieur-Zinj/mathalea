@@ -10,7 +10,7 @@ import { max } from 'mathjs'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fractionCompare, expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fractionCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
@@ -216,7 +216,7 @@ export default function SommeFractionsDecimales () {
               signe: false
             })
           } else {
-            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison } }, { formatInteractif: 'mathlive' })
           }
 
           break
@@ -252,7 +252,7 @@ export default function SommeFractionsDecimales () {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               champ1: { value: fractionResultat, compare: fractionCompare },
-              champ2: { value: stringNombre(reponseAMC, 3), compare: expressionDeveloppeeEtReduiteCompare }
+              champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison }
             }, { formatInteractif: 'mathlive' })
           }
           break

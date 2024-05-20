@@ -1,6 +1,6 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { Grille } from '../../../lib/2d/reperes'
 import { Point } from '../../../lib/2d/points'
 import { Polygone } from '../../../lib/2d/polygones'
@@ -27,7 +27,7 @@ export default class AireTrapezeRectangle extends Exercice {
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' ua' }
     this.canOfficielle = false
-    this.compare = expressionDeveloppeeEtReduiteCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

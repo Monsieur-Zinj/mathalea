@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice'
 import { randint } from '../../../modules/outils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { toutPourUnPoint } from '../../../lib/interactif/mathLive'
 
@@ -39,7 +39,7 @@ export default class EncadreRacParDeuxEntiers extends Exercice {
     this.question = `%{champ1} < \\sqrt{${texNombre(nbre, 0)}} < %{champ2}`
     this.canEnonce = 'Compléter par deux entiers consécutifs.'
     this.canReponseACompleter = `$\\ldots < \\sqrt{${texNombre(nbre, 1)}} < \\ldots$`
-    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: expressionDeveloppeeEtReduiteCompare }, champ2: { value: entierSup, compare: expressionDeveloppeeEtReduiteCompare } }
+    this.reponse = { bareme: toutPourUnPoint, champ1: { value: entierInf, compare: fonctionComparaison }, champ2: { value: entierSup, compare: fonctionComparaison } }
     this.correction = `Comme $${texNombre(entierInf ** 2, 0)} < ${texNombre(nbre, 0)} < ${texNombre(entierSup ** 2, 0)}$, alors 
     $${miseEnEvidence(texNombre(entierInf, 0))} < \\sqrt{${texNombre(nbre, 0)}} < ${miseEnEvidence(texNombre(entierSup, 0))}$.`
   }

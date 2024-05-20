@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../modules/outi
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
-import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Réduire une expression de la forme $ax+bx$ '
 export const interactifReady = true
@@ -61,7 +61,7 @@ export default function Reductionaxbx () {
           break
       }
 
-      handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
+      handleAnswers(this, i, { reponse: { value: reponse, options: { strict: false }, compare: fonctionComparaison } })
       texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: ' $=$' })
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
