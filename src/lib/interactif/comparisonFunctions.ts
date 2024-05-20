@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean}} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -392,11 +392,13 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     fractionIrreductibleSeulement = false,
     operationSeulementEtNonCalcul = false,
     HMS = false,
-    intervalle = false
+    intervalle = false,
+    estDansIntervalle = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)
+  if (estDansIntervalle) return intervalCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -996,7 +998,7 @@ export function unitsCompare (input: string, goodAnswer: string, { precision = 1
  * @return ResultType
  * @author Jean-Claude Lhote
  */
-export function intervalCompare (input: string, goodAnswer: string): {
+function intervalCompare (input: string, goodAnswer: string): {
   isOk: boolean,
   feedback?: string
 } {

@@ -4,7 +4,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { intervalCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Compléter un encadrement'
@@ -12,18 +12,14 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'd8549'
 /**
- * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
-    this.compare = intervalCompare
     this.formatInteractif = 'mathlive' // 'intervalleStrict'
     this.canOfficielle = false
   }
@@ -31,7 +27,14 @@ export default class NomExercice extends Exercice {
   nouvelleVersion () {
     const valInf = this.canOfficielle ? 3 : randint(1, 10)
     const valSup = this.canOfficielle ? new Decimal(3.1) : choice([new Decimal(valInf).add(0.1), new Decimal(valInf).add(0.01)])
-    this.reponse = { reponse: { value: `]${valInf};${valSup}[`, compare: intervalCompare } }
+    this.reponse = {
+      reponse: {
+        value: `]${valInf};${valSup}[`,
+        compare: fonctionComparaison,
+        options: { estDansIntervalle: true }
+      }
+    }
+
     this.question = 'Complète par un nombre. <br>'
     if (this.interactif) {
       this.optionsChampTexte = { texteAvant: `$${valInf} < $`, texteApres: `$<${texNombre(valSup, 2)}  $` }

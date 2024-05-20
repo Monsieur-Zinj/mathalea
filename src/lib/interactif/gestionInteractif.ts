@@ -12,7 +12,7 @@ import {
   equalFractionCompare,
   simplerFractionCompare,
   // hmsCompare,
-  intervalCompare,
+  // intervalCompare,
   // numberCompare,
   powerCompare,
   scientificCompare,
@@ -636,7 +636,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: `]${reponses[0]};${reponses[1]}[`,
-          compare: intervalCompare
+          compare: fonctionComparaison,
+          options: { estDansIntervalle: true }
         }
       }, params)
     case 'intervalle' :
@@ -644,7 +645,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: `[${reponses[0]};${reponses[1]}]`,
-          compare: intervalCompare
+          compare: fonctionComparaison,
+          options: { estDansIntervalle: true }
         }
       }, params)
     case 'puissance' :
