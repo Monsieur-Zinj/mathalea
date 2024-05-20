@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { range1 } from '../../lib/outils/nombres'
-import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
+import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -73,29 +73,29 @@ export default function ReduireUneExpressionLitterale () {
       let reponse = ''
       switch (listeTypeDeQuestions[i]) {
         case 1: // ax+bx+c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}=`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}=`
           reponse = `${texNombre(a + b, 1)}${inc}+${texNombre(c, 1)}`
           break
         case 2: // ax+b+x+c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}+${inc}+${texNombre(c, 1)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}+${inc}+${texNombre(c, 1)}=`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}+${inc}+${texNombre(c, 1)}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}+${inc}+${texNombre(c, 1)}=`
           reponse = `${texNombre(a + 1, 1)}${inc}+${texNombre(b + c, 1)}`
           break
         case 3: // ax^2+bx+c+dx^2+x
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}^2+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}^2+${inc}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}^2+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}^2+${inc}=`
-          reponse = `${texNombre(a + d)}${inc}^2+${texNombre(b + 1)}${inc}+${texNombre(c, 1)}`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}^2+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}^2+${inc}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}^2+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}^2+${inc}=`
+          reponse = `${texNombre(a + d, 1)}${inc}^2+${texNombre(b + 1, 1)}${inc}+${texNombre(c, 1)}`
           break
         case 4: // a+x+b+c+dx
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}+${inc}+${texNombre(b, 1)}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}+${inc}+${texNombre(b, 1)}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}=`
-          reponse = `${texNombre(1 + d)}${inc}+${texNombre(a + b + c)}`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}+${inc}+${texNombre(b, 1)}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}+${inc}+${texNombre(b, 1)}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc}=`
+          reponse = `${texNombre(1 + d, 1)}${inc}+${texNombre(a + b + c, 1)}`
           break
         case 5: // ax+y+bx+c+dy
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${inc2}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc2}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${inc2}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc2}=`
-          reponse = `${texNombre(a + b, 1)}${inc}+${texNombre(1 + d)}${inc2}+${texNombre(c, 1)}`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${inc2}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc2}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${inc2}+${texNombre(b, 1)}${inc}+${texNombre(c, 1)}+${texNombre(d, 1)}${inc2}=`
+          reponse = `${texNombre(a + b, 1)}${inc}+${texNombre(1 + d, 1)}${inc2}+${texNombre(c, 1)}`
           break
         case 6: // ax+b-cx
           if (c > a) {
@@ -103,8 +103,8 @@ export default function ReduireUneExpressionLitterale () {
           } else if (c === a) {
             a++
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}-${texNombre(c, 1)}${inc}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}-${texNombre(c, 1)}${inc}=`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}-${texNombre(c, 1)}${inc}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}+${texNombre(b, 1)}-${texNombre(c, 1)}${inc}=`
           reponse = `${rienSi1(a - c)}${inc}+${texNombre(b, 1)}`
           break
         case 7: // ax-cx
@@ -113,8 +113,8 @@ export default function ReduireUneExpressionLitterale () {
           } else if (c === a) {
             a++
           }
-          texte = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}-${texNombre(c, 1)}${inc}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}-${texNombre(c, 1)}${inc}=`
+          texte = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}-${texNombre(c, 1)}${inc}$`
+          texteCorr = `$${lettreIndiceeDepuisChiffre(i + 1)}=${texNombre(a, 1)}${inc}-${texNombre(c, 1)}${inc}=`
           reponse = `${rienSi1(a - c)}${inc}`
           break
       }
