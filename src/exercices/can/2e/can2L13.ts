@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { expressionDeveloppeeEtReduiteCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rienSi1 } from '../../../lib/outils/ecritures'
 export const titre = 'Développer avec la double distributivité'
@@ -28,7 +28,7 @@ export default class DeveloppementDouble extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
-    this.compare = expressionDeveloppeeEtReduiteCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
@@ -40,7 +40,7 @@ export default class DeveloppementDouble extends Exercice {
           const c = 1
           const d = randint(-10, 10, [0, b, -b])
           this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
-          this.reponse = { reponse: { value: this.reponse, compare: expressionDeveloppeeEtReduiteCompare } }
+          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
@@ -57,7 +57,7 @@ export default class DeveloppementDouble extends Exercice {
           const c = randint(2, 4)
           const d = randint(-10, 10, [0, b, -b])
           this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
-          this.reponse = { reponse: { value: this.reponse, compare: expressionDeveloppeeEtReduiteCompare } }
+          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
           this.question = `Développer et réduire l'expression $(${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${reduireAxPlusB(a, b)})(${reduireAxPlusB(c, d)})&=${rienSi1(a * c)}x^2${ecritureAlgebriqueSauf1(a * d)}x${ecritureAlgebriqueSauf1(b * c)}x${ecritureAlgebrique(b * d)}\\\\
@@ -74,7 +74,7 @@ export default class DeveloppementDouble extends Exercice {
           const c = randint(1, 2)
           const d = randint(-10, 10, [0, b])
           this.reponse = `${a * c}x^2+${b * c + a * d}x+${b * d}`
-          this.reponse = { reponse: { value: this.reponse, compare: expressionDeveloppeeEtReduiteCompare } }
+          this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
           this.question = `Développer et réduire l'expression $(${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})$.<br>`
           this.correction = `$\\begin{aligned}
             (${b}${ecritureAlgebriqueSauf1(a)}x)(${reduireAxPlusB(c, d)})&=${rienSi1(b * a)}x${ecritureAlgebrique(b * d)}${ecritureAlgebriqueSauf1(a * c)}x^2${ecritureAlgebrique(a * d)}x\\\\

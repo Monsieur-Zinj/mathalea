@@ -24,7 +24,7 @@ import { context } from '../../modules/context.js'
 import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -458,7 +458,7 @@ export default function Transformations () {
             break
         }
 
-        handleAnswers(this, i, { reponse: { value: images[i], compare: expressionDeveloppeeEtReduiteCompare } }, { formatInteractif: 'mathlive' })
+        handleAnswers(this, i, { reponse: { value: images[i], compare: fonctionComparaison } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       const graphique = mathalea2d({

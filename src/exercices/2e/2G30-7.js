@@ -14,7 +14,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texNombre } from '../../lib/outils/texNombre.ts'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { expressionDeveloppeeEtReduiteCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une équation réduite à partir de sa représentation graphique'
 export const interactifReady = true
@@ -114,7 +114,7 @@ export default function Lecturegraphiquedeaetb () {
 
         texteCorr += `<br>On peut en déduire que l'équation réduite de la droite $(d)$ est : $y=${miseEnEvidence(reduireAxPlusB(coeffDir, b))}$.`
         const reponse = reduireAxPlusB(coeffDir.simplifie(), b)
-        handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtReduiteCompare } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
         if (b + a < -8 || b + a > 8) { // Si cela sort du cadre
           s1 = segment(-d, b - a, 0, b - a, 'blue')

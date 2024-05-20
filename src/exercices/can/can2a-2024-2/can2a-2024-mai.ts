@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { calculCompare, equalFractionCompare, expressionDeveloppeeEtReduiteCompare, factorisationCompare, fonctionComparaison, scientificCompare } from '../../../lib/interactif/comparisonFunctions'
+import { calculCompare, equalFractionCompare, fonctionComparaison, factorisationCompare, fonctionComparaison, scientificCompare } from '../../../lib/interactif/comparisonFunctions'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -50,7 +50,7 @@ export default class nomExercice extends Exercice {
     i = 2
     this.listeQuestions[i] = 'Développer et réduire l\'expression suivante.<br><br>$(2x-5)^2= $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets)
     this.listeCorrections[i] = `$(2x-5)^2 = ${miseEnEvidence('4x^2 - 20x + 25')} $`
-    handleAnswers(this, i, { reponse: { value: '4x^2 - 20x + 25', compare: expressionDeveloppeeEtReduiteCompare } })
+    handleAnswers(this, i, { reponse: { value: '4x^2 - 20x + 25', compare: fonctionComparaison } })
 
     i = 3
     this.listeQuestions[i] = '$\\dfrac{1}{5} + \\dfrac{1}{7} = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)

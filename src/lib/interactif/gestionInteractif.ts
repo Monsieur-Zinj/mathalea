@@ -20,7 +20,8 @@ import {
   texteAvecCasseCompare,
   texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
-  expressionDeveloppeeEtReduiteCompare, type CompareFunction
+  // expressionDeveloppeeEtReduiteCompare,
+  type CompareFunction
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -460,7 +461,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         reponse: {
           value: String(reponses[0].num),
           //  compare: numberCompare
-          compare: expressionDeveloppeeEtReduiteCompare
+          compare: fonctionComparaison
         }
       }, params)
 
@@ -471,7 +472,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         reponse: {
           value: String(reponses[0].den),
           //  compare: numberCompare
-          compare: expressionDeveloppeeEtReduiteCompare
+          compare: fonctionComparaison
         }
       }, params)
 
@@ -543,7 +544,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
             value: reponses[0].toString(),
             //  compare: decimalCompare
             //  compare: numberCompare
-            compare: expressionDeveloppeeEtReduiteCompare
+            compare: fonctionComparaison
           }
         }, params)
       }
@@ -557,7 +558,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
           value: String(reponses[0].replace(',', '.')),
           // compare: decimalCompare
           // compare: numberCompare
-          compare: expressionDeveloppeeEtReduiteCompare
+          compare: fonctionComparaison
         }
       }, params)
     case 'ecritureScientifique': {

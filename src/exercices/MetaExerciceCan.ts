@@ -2,7 +2,7 @@ import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
-import { expressionDeveloppeeEtReduiteCompare } from '../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../modules/FractionEtendue'
@@ -50,7 +50,7 @@ export default class MetaExercice extends Exercice {
             handleAnswers(this, indexQuestion, {
               champ1: {
                 value: Question.reponse,
-                compare: Question.compare ?? expressionDeveloppeeEtReduiteCompare
+                compare: Question.compare ?? fonctionComparaison
               }
             }, { formatInteractif: 'mathlive' })
           } else if (typeof Question.reponse === 'object') {
