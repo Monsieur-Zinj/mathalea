@@ -108,7 +108,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `$${miseEnEvidence(reponse)}$ livres sont distribués par le professeur.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'livres'
                 })
                 setReponse(this, i + ii, reponse)
@@ -121,7 +120,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La masse moyenne des livres distribués à chaque enfant est de $${miseEnEvidence(texNombre(reponse))}$ g.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'g'
                 })
                 setReponse(this, i + ii, reponse)
@@ -184,7 +182,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le prix total des fruits achetés est de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -230,7 +227,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le prix total des légumes achetés est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse2)
@@ -290,7 +286,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin compte $${miseEnEvidence(texNombre(reponse))}$ habitants.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'habitants'
                 })
                 setReponse(this, i + ii, reponse)
@@ -303,7 +298,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le village de Saint-${quidam}-Le-Bouquetin se situe à $${miseEnEvidence(texNombre(reponse))}$ m d'altitude.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'm'
                 })
                 setReponse(this, i + ii, reponse)
@@ -366,7 +360,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Il y a $${miseEnEvidence(texNombre(reponse1))}$ cases dans le manga de ${quidam2}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'cases'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -412,7 +405,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `On a rendu à ${quidam2} $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse2)
@@ -483,13 +475,11 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La durée prévue du film est de ${texteEnCouleurEtGras(minToHour(reponse1[0] * 60 + reponse1[1]))}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse1[0])
                 ii++
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'min'
                 })
                 setReponse(this, i + ii, reponse1[1])
@@ -553,13 +543,11 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `L'émission se termine à ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'min'
                 })
                 setReponse(this, i + ii, reponse2[1])
@@ -644,7 +632,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La ${personnage1} de ${quidam2} payera $${nb5}$ fois, la somme de $${miseEnEvidence(texPrix(reponse1))}$ €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -690,7 +677,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le montant total des cadeaux offerts à ${quidam2} est de $${miseEnEvidence(texPrix(reponse2))}$ €.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse2)
@@ -754,7 +740,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `${quidam2} a $${miseEnEvidence(reponse1)}$ ans.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'ans'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -800,7 +785,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `${quidam2} mesure $${miseEnEvidence(texNombre(reponse2))}$ m.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'm'
                 })
                 setReponse(this, i + ii, reponse2)
@@ -864,7 +848,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le ${personnage1} de ${quidam} dépense chaque semaine $${miseEnEvidence(texPrix(reponse1))}$ € pour son journal.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + '€'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -910,13 +893,11 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le ${personnage1} de ${quidam} arrive à son travail ${texteEnCouleurEtGras(minToHoraire(reponse2[0] * 60 + reponse2[1]))}.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'h'
                 })
                 setReponse(this, i + ii, reponse2[0])
                 ii++
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'min'
                 })
                 setReponse(this, i + ii, reponse2[1])
@@ -996,7 +977,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La distance séparant l'entrepôt du premier arrêt est de $${miseEnEvidence(reponse)}$ km.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'km'
                 })
                 setReponse(this, i + ii, reponse)
@@ -1009,7 +989,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `Le livreur a déposé $${miseEnEvidence(reponse)}$ colis à son deuxième arrêt.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'colis'
                 })
                 setReponse(this, i + ii, reponse)
@@ -1074,7 +1053,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La masse de chacun des petits conteneurs est de $${miseEnEvidence(texNombre(reponse1))}$ kg.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'kg'
                 })
                 setReponse(this, i + ii, reponse1)
@@ -1121,7 +1099,6 @@ export default function ExerciceInformationsProblemes () {
               texteCorr += `La masse totale des gros conteneurs est de $${miseEnEvidence(texNombre(reponse))}$ tonnes.`
               if (this.interactif) {
                 texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline ' + KeyboardType.clavierDeBase, {
-                  texte: '',
                   texteApres: sp(3) + 'tonnes'
                 })
                 setReponse(this, i + ii, reponse)
