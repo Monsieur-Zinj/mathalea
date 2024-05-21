@@ -1,8 +1,8 @@
 import { ComputeEngine, type BoxedExpression, type Parser, type LatexDictionaryEntry } from '@cortex-js/compute-engine'
-import FractionEtendue from '../../modules/FractionEtendue'
+// import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
-import { texFractionFromString } from '../outils/deprecatedFractions'
+// import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
 
@@ -637,13 +637,14 @@ export function simplerFractionCompare (input: string, goodAnswer: string): Resu
   return { isOk: false }
 }
 
+/* Suppression de cette fonction au profit de fonctionComparaison
 /**
  * comparaison de fraction en valeur acceptant la valeur décimale
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
  * @author Jean-Claude Lhote
- */
+
 export function equalFractionCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['fractions', 'virgules', 'espaces'])
   goodAnswer = cleaner(goodAnswer)
@@ -659,7 +660,6 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
     // La saisie est une fraction
     if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
   }
-*/
 
   if (input.includes('\\frac')) {
     // La saisie est une fraction
@@ -679,7 +679,8 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
   }
 
   return { isOk: false }
-}
+} */
+
 /**
  * Comparaison de fraction en acceptant toute valeur (y compris la valeur décimale) mais n'acceptant de racine carrée au dénominateur
  * @param {string} input
@@ -694,8 +695,10 @@ export function equalFractionCompareSansRadical (input: string, goodAnswer: stri
   // Utilisation d'une expression régulière pour extraire le contenu de la deuxième accolade
   const contenuDeuxiemeAccolade: string | null = input.match(/\\frac{[^}]*}{(\\sqrt[^}]*)/)?.[1] || null
 
-  if (contenuDeuxiemeAccolade === null) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
-  else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  // if (contenuDeuxiemeAccolade === null) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  // else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  if (contenuDeuxiemeAccolade === null) return { isOk: fonctionComparaison(input, goodAnswer).isOk }
+  else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: fonctionComparaison(input, goodAnswer).isOk }
   else return { isOk: false }
 }
 

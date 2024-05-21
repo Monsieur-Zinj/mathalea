@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer l\'opposé ou l\'inverse d\'une fraction'
 export const interactifReady = true
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
-    this.compare = equalFractionCompare
+    this.compare = fonctionComparaison
     this.optionsChampTexte = { texteAvant: 'est', texteApres: '.' }
     this.canOfficielle = false
   }

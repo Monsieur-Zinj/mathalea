@@ -9,7 +9,7 @@ import {
   fonctionComparaison,
   calculCompare,
   fractionCompare,
-  equalFractionCompare,
+  // equalFractionCompare,
   simplerFractionCompare,
   // hmsCompare,
   // intervalCompare,
@@ -610,7 +610,8 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses[0].texFraction.replace('dfrac', 'frac'),
-          compare: equalFractionCompare
+          //  compare: equalFractionCompare
+          compare: fonctionComparaison
         }
       }, params)
     case 'fraction':

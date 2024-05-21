@@ -6,7 +6,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { context } from '../../../modules/context'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { equalFractionCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Convertir des dm en m et réciproquement'
 export const interactifReady = true
@@ -24,13 +24,13 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
     this.canOfficielle = false
-    this.compare = equalFractionCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
     if (this.canOfficielle) {
       this.formatInteractif = 'mathlive'
-      this.compare = equalFractionCompare
+      this.compare = fonctionComparaison
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
       this.correction = ` Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
@@ -43,7 +43,7 @@ export default class NomExercice extends Exercice {
     } else {
       if (choice([true, false])) {
         this.formatInteractif = 'mathlive'
-        this.compare = equalFractionCompare
+        this.compare = fonctionComparaison
         const a = randint(3, 15)
         this.reponse = new FractionEtendue(a, 10).texFraction
         this.question = `Complète : <br>$${a}$ dm $=$`

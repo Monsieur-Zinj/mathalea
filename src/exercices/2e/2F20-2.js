@@ -85,7 +85,7 @@ export default function CalculPointSurCourbe () {
       // on ne choisit que des nombres compris entre 1 et 20
       x = randint(-9, 9, [0, 1, -1])
       y = randint(-9, 9, [x, 0])
-
+      console.log(i, listeTypeDeQuestions[i], sousChoix[i])
       switch (listeTypeDeQuestions[i]) {
         case 'affine':
           switch (sousChoix[i]) { // sousChoix[i]
