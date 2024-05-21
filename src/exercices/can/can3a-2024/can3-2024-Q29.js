@@ -9,7 +9,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { point } from '../../../lib/2d/points'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Compléter un schéma avec un nombre '
 export const interactifReady = true
@@ -29,7 +29,7 @@ export default class NomExercice extends Exercice {
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.optionsChampTexte = { texteAvant: '? $=$' }
     this.formatInteractif = 'calcul'
-    this.compare = equalFractionCompare
+    this.compare = fonctionComparaison
     this.canOfficielle = false
   }
 

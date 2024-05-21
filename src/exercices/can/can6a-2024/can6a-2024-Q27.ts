@@ -6,7 +6,7 @@ import { point } from '../../../lib/2d/points'
 import { polygone, Polygone } from '../../../lib/2d/polygones'
 import { segment, Segment } from '../../../lib/2d/segmentsVecteurs'
 import { rotation, similitude } from '../../../lib/2d/transformations'
-import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Déterminer une fraction d\'aire'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export default class FractionDeRectangle extends Exercice {
     this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = false
-    this.compare = equalFractionCompare
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

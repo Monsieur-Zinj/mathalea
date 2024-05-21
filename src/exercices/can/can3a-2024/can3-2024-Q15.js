@@ -4,7 +4,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { equalFractionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Soustraire deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,7 +22,7 @@ export default class NomExercice extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'calcul'
-    this.compare = equalFractionCompare
+    this.compare = fonctionComparaison
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = false
   }
