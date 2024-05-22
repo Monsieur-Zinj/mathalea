@@ -15,7 +15,7 @@ import { mathalea2d } from '../../../modules/2dGeneralites'
 import { propositionsQcm } from '../../../lib/interactif/qcm'
 import { spline } from '../../../lib/mathFonctions/Spline'
 
-export const titre = 'Titre de l\'exercice'
+export const titre = 'Course aux nombres - 2nde - Mai 2024'
 export const dateDePublication = '7/5/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
