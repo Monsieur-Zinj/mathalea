@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante'
-import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Déterminer la position relative de deux droites à l\'aide de leur équation et en déduire le nombre de solution d\'un système d\'équations'
 export const interactifReady = true
@@ -235,7 +235,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
         texte += '<br>' + 'Le système d\'équations' + choixDeroulant(this, i, choix, 'position') + '.'
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
-          reponse: { value: rep, compare: texteSansCasseCompare }
+          reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } }
         }, { formatInteractif: 'listeDeroulante' })
       }
       if (this.questionJamaisPosee(i, solX, solY)) {

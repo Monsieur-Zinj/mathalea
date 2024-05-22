@@ -5,7 +5,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegati
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant, listeDeroulanteToQcm } from '../../lib/interactif/questionListeDeroulante.js'
-import { texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const titre = 'Tester si un couple de points vérifie un système de deux équations à deux inconnues.'
 export const interactifReady = true
@@ -276,7 +276,7 @@ export default class systemeEquationsPremDegSol extends Exercice {
       texteCorr = texteCorr + `<br> ${texteEnCouleurEtGras(`${rep}`)}`
       if (this.interactif) {
         texte = texte + choixDeroulant(this, i, choix, 'une réponse')
-        handleAnswers(this, i, { reponse: { value: rep, compare: texteSansCasseCompare } }, { formatInteractif: 'listeDeroulante' })
+        handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } }, { formatInteractif: 'listeDeroulante' })
       } else {
         const options = { ordered: true, vertical: true }
         listeDeroulanteToQcm(this, i, choix, rep, options)
