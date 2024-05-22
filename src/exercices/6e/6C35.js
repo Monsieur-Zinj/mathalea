@@ -17,7 +17,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { fonctionComparaison, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Modéliser des problèmes'
 export const interactifReady = true
@@ -499,7 +499,7 @@ export default function ModelisationProblemes () {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
         texteCorr += `Cet énoncé est associé avec le schéma ${texteEnCouleurEtGras(lettres[i])}.`
-        handleAnswers(this, i, { reponse: { value: lettres[i], compare: texteSansCasseCompare } }, { formatInteractif: 'calcul' })
+        handleAnswers(this, i, { reponse: { value: lettres[i], compare: fonctionComparaison, options: { texteSansCasse: true } } })
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }

@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean }} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -398,7 +398,8 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     unite = false,
     precisionUnite = 0,
     puissance = false,
-    texteAvecCasse = false
+    texteAvecCasse = false,
+    texteSansCasse = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -408,6 +409,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (unite) return unitsCompare(input, goodAnswer, { precision: precisionUnite })
   if (puissance) return powerCompare(input, goodAnswer)
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
+  if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -426,7 +428,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
  * @author Eric Elter (aidé par ArnoG)
  * @return BoxedExpression
  */
-export function customCanonical (expr:BoxedExpression, { expressionsForcementReduites = true, fractionIrreductibleSeulement = false, operationSeulementEtNonCalcul = false } = {}):BoxedExpression {
+function customCanonical (expr:BoxedExpression, { expressionsForcementReduites = true, fractionIrreductibleSeulement = false, operationSeulementEtNonCalcul = false } = {}):BoxedExpression {
   if (!operationSeulementEtNonCalcul) { // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
     if (typeof expr.value === 'number') {
       if ((expr.head === 'Divide' || expr.head === 'Rational') && fractionIrreductibleSeulement) {
@@ -612,7 +614,7 @@ export function upperCaseCompare (input: string, goodAnswer: string): ResultType
  * @author Eric Elter
  * @return ResultType
 */
-export function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
+function texteSansCasseCompare (input: string, goodAnswer: string): ResultType {
   input = input.toLowerCase()
   goodAnswer = goodAnswer.toLowerCase()
   return texteAvecCasseCompare(input, goodAnswer)

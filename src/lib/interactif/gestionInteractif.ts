@@ -18,7 +18,7 @@ import {
   // scientificCompare,
   // unitsCompare,
   // texteAvecCasseCompare,
-  texteSansCasseCompare,
+  // texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
   // expressionDeveloppeeEtReduiteCompare,
   type CompareFunction
@@ -590,7 +590,9 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses.map(el => String(el).toLowerCase()),
-          compare: texteSansCasseCompare
+          // compare: texteSansCasseCompare
+          compare: fonctionComparaison,
+          options: { texteSansCasse: true }
         }
       }, params)
     case 'fractionPlusSimple':
