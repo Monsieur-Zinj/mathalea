@@ -17,7 +17,7 @@ import {
   // powerCompare,
   // scientificCompare,
   // unitsCompare,
-  texteAvecCasseCompare,
+  // texteAvecCasseCompare,
   texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
   // expressionDeveloppeeEtReduiteCompare,
@@ -580,7 +580,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
     }
     case 'texte':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "texte" la réponse n\'est pas un string !', { reponses })
-      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: texteAvecCasseCompare } }, params)
+      return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: fonctionComparaison, options: { texteAvecCasse: true } } }, params)
     /* case 'canonicalAdd':
       if (typeof reponses[0] !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, param)

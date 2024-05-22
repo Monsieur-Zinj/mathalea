@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:true }} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -397,7 +397,8 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     ecritureScientifique = false,
     unite = false,
     precisionUnite = 0,
-    puissance = false
+    puissance = false,
+    texteAvecCasse = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -406,6 +407,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (ecritureScientifique) return scientificCompare(input, goodAnswer)
   if (unite) return unitsCompare(input, goodAnswer, { precision: precisionUnite })
   if (puissance) return powerCompare(input, goodAnswer)
+  if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -558,7 +560,7 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
  * @author Jean-Claude Lhote
  * @return ResultType
  */
-export function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
+function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['parentheses', 'mathrm'])
   input = cleaner(input)
   goodAnswer = cleaner(goodAnswer)
