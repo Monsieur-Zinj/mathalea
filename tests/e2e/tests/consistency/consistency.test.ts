@@ -253,7 +253,7 @@ function getDifferencesIndexes () {
       if (
         states[i].exerciseType === states[i - 1].exerciseType &&
           states[i].numbers[j] !== states[i - 1].numbers[j] &&
-          !(states[i].exerciseType === 'simple' && (states[i].view === 'AMC' || states[i - 1].view === 'AMC')) // Les exercices simples n'ont pas de sortie AMC
+          !(states[i].exerciseType === 'simple' && (states[i].view === 'AMC:AMCcodeGrid' || states[i - 1].view === 'AMC:AMCcodeGrid')) // Les exercices simples n'ont pas de sortie AMC
       ) {
         differenceIndexes.push(i)
         break

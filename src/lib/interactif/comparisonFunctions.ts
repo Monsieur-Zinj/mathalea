@@ -1,8 +1,8 @@
 import { ComputeEngine, type BoxedExpression, type Parser, type LatexDictionaryEntry } from '@cortex-js/compute-engine'
-import FractionEtendue from '../../modules/FractionEtendue'
+// import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
-import { texFractionFromString } from '../outils/deprecatedFractions'
+// import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
 
@@ -381,7 +381,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:true }} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -397,7 +397,8 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     ecritureScientifique = false,
     unite = false,
     precisionUnite = 0,
-    puissance = false
+    puissance = false,
+    texteAvecCasse = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -406,6 +407,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (ecritureScientifique) return scientificCompare(input, goodAnswer)
   if (unite) return unitsCompare(input, goodAnswer, { precision: precisionUnite })
   if (puissance) return powerCompare(input, goodAnswer)
+  if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -558,7 +560,7 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
  * @author Jean-Claude Lhote
  * @return ResultType
  */
-export function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
+function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['parentheses', 'mathrm'])
   input = cleaner(input)
   goodAnswer = cleaner(goodAnswer)
@@ -637,13 +639,14 @@ export function simplerFractionCompare (input: string, goodAnswer: string): Resu
   return { isOk: false }
 }
 
+/* Suppression de cette fonction au profit de fonctionComparaison
 /**
  * comparaison de fraction en valeur acceptant la valeur décimale
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
  * @author Jean-Claude Lhote
- */
+
 export function equalFractionCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['fractions', 'virgules', 'espaces'])
   goodAnswer = cleaner(goodAnswer)
@@ -659,7 +662,6 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
     // La saisie est une fraction
     if (engine.parse(cleanStringBeforeParse(input)).canonical.canonical.isEqual(fReponse.canonical)) return { isOk: true }
   }
-*/
 
   if (input.includes('\\frac')) {
     // La saisie est une fraction
@@ -679,7 +681,8 @@ export function equalFractionCompare (input: string, goodAnswer: string): Result
   }
 
   return { isOk: false }
-}
+} */
+
 /**
  * Comparaison de fraction en acceptant toute valeur (y compris la valeur décimale) mais n'acceptant de racine carrée au dénominateur
  * @param {string} input
@@ -694,8 +697,10 @@ export function equalFractionCompareSansRadical (input: string, goodAnswer: stri
   // Utilisation d'une expression régulière pour extraire le contenu de la deuxième accolade
   const contenuDeuxiemeAccolade: string | null = input.match(/\\frac{[^}]*}{(\\sqrt[^}]*)/)?.[1] || null
 
-  if (contenuDeuxiemeAccolade === null) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
-  else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  // if (contenuDeuxiemeAccolade === null) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  // else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: equalFractionCompare(input, goodAnswer).isOk }
+  if (contenuDeuxiemeAccolade === null) return { isOk: fonctionComparaison(input, goodAnswer).isOk }
+  else if (!contenuDeuxiemeAccolade.includes('sqrt')) return { isOk: fonctionComparaison(input, goodAnswer).isOk }
   else return { isOk: false }
 }
 

@@ -86,7 +86,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} + ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a} + ${b} = $`
+              texteAvant: `$${a} + ${b} = $`
             })
           }
           texteCorr = `$${a} + ${b} = ${a + b}$`
@@ -96,7 +96,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} + \\ldots\\ldots = ${a + b}$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a}~+ $`,
+              texteAvant: `$${a}~+ $`,
               texteApres: `$= ${a + b}$`
             })
           }
@@ -113,7 +113,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} - ${b} =$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a} - ${b} = $`
+              texteAvant: `$${a} - ${b} = $`
             })
           }
           texteCorr = `$${a} - ${b} = ${a - b}$`
@@ -129,7 +129,7 @@ export default function TablesAdditionsSoustractions () {
           texte = `$${a} - \\ldots\\ldots = ${a - b}$`
           if (this.interactif && context.isHtml) {
             texte = ajouteChampTexteMathLive(this, i, 'largeur10 inline', {
-              texte: `$${a}~- $`,
+              texteAvant: `$${a}~- $`,
               texteApres: `$= ${a - b}$`
             })
           }

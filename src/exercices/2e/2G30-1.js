@@ -9,7 +9,7 @@ import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { equalFractionCompare, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison, texteSansCasseCompare } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = "Déterminer le coefficient directeur d'une droite"
@@ -75,7 +75,7 @@ export default function CoefficientDirecteurDeDroite () {
           texteCorr += '$.'
 
           // texte += `=${new FractionEtendue(n, d).texFractionSimplifiee}`
-          handleAnswers(this, i, { reponse: { value: new FractionEtendue(n, d).texFractionSimplifiee, compare: equalFractionCompare } }, { formatInteractif: 'calcul' })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(n, d).texFractionSimplifiee, compare: fonctionComparaison } })
 
           if (context.isAmc) {
             n = unSiPositifMoinsUnSinon(n) * unSiPositifMoinsUnSinon(d) * Math.abs(n)

@@ -3,7 +3,7 @@ import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
-import { calculCompare, equalFractionCompare, fonctionComparaison, factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
+import { calculCompare, fonctionComparaison, factorisationCompare } from '../../../lib/interactif/comparisonFunctions'
 import { context } from '../../../modules/context'
 import { sp } from '../../../lib/outils/outilString'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
@@ -55,7 +55,7 @@ export default class nomExercice extends Exercice {
     i = 3
     this.listeQuestions[i] = '$\\dfrac{1}{5} + \\dfrac{1}{7} = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = `$\\dfrac{1}{5} + \\dfrac{1}{7} = ${miseEnEvidence('\\dfrac{12}{35}')} $`
-    handleAnswers(this, i, { reponse: { value: '\\dfrac{12}{35}', compare: equalFractionCompare } })
+    handleAnswers(this, i, { reponse: { value: '\\dfrac{12}{35}', compare: fonctionComparaison } })
 
     i = 4
     this.listeQuestions[i] = '$30~\\%~\\text{de}~20 = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
@@ -238,7 +238,7 @@ export default class nomExercice extends Exercice {
       scale: 0.5,
       style: 'margin: auto'
     }, objets) + '<br>Longueur de la ligne brisée en unités de longueur (u.l) :<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
-    handleAnswers(this, i, { reponse: { value: '3', compare: equalFractionCompare } })
+    handleAnswers(this, i, { reponse: { value: '3', compare: fonctionComparaison } })
     this.listeCorrections[i] = `$L = ${miseEnEvidence('3')}$ u.l.`
 
     i = 21
@@ -246,7 +246,7 @@ export default class nomExercice extends Exercice {
     this.listeQuestions[i] += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = 'Les nombres premiers inférieurs ou égaux à $15$ sont : $2\\;;\\;3\\;;\\;5\\;;\\;7\\;;\\;11\\;;\\;13$.'
     this.listeCorrections[i] += `<br>La probabilité de tirer un nombre premier est donc : $${miseEnEvidence('\\dfrac{6}{15}')}$.`
-    handleAnswers(this, i, { reponse: { value: '\\dfrac{6}{15}', compare: equalFractionCompare } })
+    handleAnswers(this, i, { reponse: { value: '\\dfrac{6}{15}', compare: fonctionComparaison } })
 
     i = 22
     this.listeQuestions[i] = 'La décomposition en produit de facteurs premiers de 30 est : <br>'
@@ -257,7 +257,7 @@ export default class nomExercice extends Exercice {
     i = 23
     this.listeQuestions[i] = 'Soient $A(4\\;;\\;9)$ et $B(2\\;;\\;4)$.<br>Déterminer le coefficient directeur de la droite $(AB)$.<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction)
     this.listeCorrections[i] = `$m=\\dfrac{y_B - y_A}{x_B - x_A} = \\dfrac{4 - 9}{2 - 4} = ${miseEnEvidence('\\dfrac{5}{2}')}$`
-    handleAnswers(this, i, { reponse: { value: '\\dfrac{5}{2}', compare: equalFractionCompare } })
+    handleAnswers(this, i, { reponse: { value: '\\dfrac{5}{2}', compare: fonctionComparaison } })
 
     i = 24
     this.listeQuestions[i] = 'Coordonnées du point $M$, milieu du segment $[AB]$ où : $A(-2\\;;\\;3)$ et $B(2\\;;\\;7)$ :<br>'
@@ -267,8 +267,8 @@ export default class nomExercice extends Exercice {
     this.listeCorrections[i] = `$M\\Big( \\dfrac{x_A + x_B}{2}  \\;;\\;  \\dfrac{y_A + y_B}{2}\\Big) \\iff M\\Big( \\dfrac{-2 + 2}{2}  \\;;\\;  \\dfrac{3 + 7}{2}\\Big) \\iff M\\Big(${miseEnEvidence('0\\;;\\;5')}\\Big)$`
     handleAnswers(this, i, {
       bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
-      champ1: { value: '0', compare: equalFractionCompare },
-      champ2: { value: '5', compare: equalFractionCompare }
+      champ1: { value: '0', compare: fonctionComparaison },
+      champ2: { value: '5', compare: fonctionComparaison }
     },
     { formatInteractif: 'mathlive' }
     )

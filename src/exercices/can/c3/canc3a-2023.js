@@ -445,7 +445,7 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, nombreDeDixiemesDansUnDecimal.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
             texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur15 nospacebefore', {
-                            texte: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
+                            texteAvant: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
                             texteApres: sp(5) + 'dixièmes en tout.'
                         })}`
           }

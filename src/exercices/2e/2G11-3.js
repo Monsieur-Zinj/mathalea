@@ -5,6 +5,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '21/05/2024'
 
 /**
  * Clone de 3G31-1 pour les 2nde
