@@ -134,9 +134,9 @@ export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.sup = 1
+    // this.sup = 1
     this.nbQuestions = 1 // Nombre de questions par défaut
-    this.besoinFormulaireTexte = ['Choix des questions', '1 : Antécédents de zéros entiers\n2 : Antécédents de zéros non entiers possible\n3 : Mélange']
+    // this.besoinFormulaireTexte = ['Choix des questions', '1 : Antécédents de zéros entiers\n2 : Antécédents de zéros non entiers possible\n3 : Mélange']
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
@@ -146,7 +146,7 @@ export default class BetaModeleSpline extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const typeDeQuestions = gestionnaireFormulaireTexte({
-      saisie: this.sup,
+      saisie: '1', // @fixme à modifier dés qu'on aura une recherche fiable des zéros.
       min: 1,
       max: 3,
       melange: 3,
@@ -187,7 +187,7 @@ export default class BetaModeleSpline extends Exercice {
       const courbe1 = maSpline.courbe({
         repere: repere1,
         epaisseur: 1.5,
-        step: 0.2,
+        step: 0.25,
         ajouteNoeuds: true,
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
