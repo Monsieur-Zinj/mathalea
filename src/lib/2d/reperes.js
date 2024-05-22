@@ -1404,7 +1404,7 @@ export function Repere ({
       }
       // On créé la liste avec ces valeurs
       grilleSecondaireYListe = rangeMinMax(0, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance / yUnite).concat(
-        rangeMinMax(0, -grilleSecondaireYMin, grilleYListe, grilleSecondaireYDistance).map(el => -el)
+        rangeMinMax(0, -grilleSecondaireYMin, grilleYListe, grilleSecondaireYDistance / yUnite).map(el => -el)
       )
     }
     for (const y of grilleSecondaireYListe) {
@@ -1433,7 +1433,7 @@ export function Repere ({
       }
       // On créé la liste avec ces valeurs
       grilleSecondaireXListe = rangeMinMax(0, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance / xUnite).concat(
-        rangeMinMax(0, -grilleSecondaireXMin, grilleXListe, grilleSecondaireXDistance).map(el => -el)
+        rangeMinMax(0, -grilleSecondaireXMin, grilleXListe, grilleSecondaireXDistance / xUnite).map(el => -el)
       )
     }
     for (const x of grilleSecondaireXListe) {
