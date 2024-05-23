@@ -8,7 +8,7 @@ import Decimal from 'decimal.js'
 import {
   fonctionComparaison,
   calculCompare,
-  fractionCompare,
+  // fractionCompare,
   // equalFractionCompare,
   simplerFractionCompare,
   // hmsCompare,
