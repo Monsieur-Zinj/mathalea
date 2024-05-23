@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { inferieurouegal } from '../../modules/outils.js'
 import { point, tracePoint } from './points.js'
@@ -453,6 +453,32 @@ export function integrale (f, {
   hachures = 0
 } = {}) {
   return new Integrale(f, { repere, color, couleurDeRemplissage, epaisseur, step, a, b, opacite, hachures })
+}
+
+export function BezierPath ({
+  xStart = 0,
+  yStart = 0,
+  xEnd = 1,
+  yEnd = 1,
+  xAnteCtrl = 1,
+  yAnteCtrl = 1,
+  xPostCtrl = -1,
+  yPostCtrl = -1,
+  color = 'black',
+  epaisseur = 1,
+  opacite = 1
+}) {
+  ObjetMathalea2D.call(this, {})
+  this.color = colorToLatexOrHTML(color)
+  this.opacite = opacite
+  this.epaisseur = epaisseur
+  const t = (xEnd - xStart) * 0.5
+  this.svg = function (coeff) {
+    return `<path fill="none" stroke="${this.color[0]}" d="M ${xSVG(xStart, coeff)},${ySVG(yStart, coeff)} C${xSVG(xStart + xAnteCtrl * t, coeff)},${ySVG(yStart + yAnteCtrl * t, coeff)} ${xSVG(xEnd + xPostCtrl * t, coeff)},${ySVG(yEnd + yPostCtrl * t, coeff)} ${xSVG(xEnd, coeff)},${ySVG(yEnd, coeff)}" />\n`
+  }
+  this.tikz = function () {
+    return `\n\t\\draw(${xStart},${yStart}) .. controls (${xStart + xAnteCtrl * t},${yStart + yAnteCtrl * t}) and (${xEnd + xPostCtrl * t},${yEnd + yPostCtrl * t}) .. (${xEnd},${yEnd});`
+  }
 }
 
 /**

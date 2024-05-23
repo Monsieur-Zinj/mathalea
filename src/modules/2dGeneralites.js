@@ -1,5 +1,6 @@
 import { context } from './context.js'
 import katex from 'katex'
+import { arrondi } from '../lib/outils/nombres'
 
 /*
   MathALEA2D
@@ -36,6 +37,24 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
   if (classe && context.isInEditor) context.objets2D.push(this)
 }
 
+/**
+ * Une fonction pour convertir des abscisses en unité Mathalé en abscisses svg
+ * @param x
+ * @param coeff
+ * @return {number}
+ */
+export const xSVG = function (x, coeff) {
+  return arrondi(x * coeff, 1)
+}
+/**
+ * Une fonction pour convertir des ordonnées en unité Mathalé en ordonnées svg
+ * @param y
+ * @param coeff
+ * @return {number}
+ */
+export const ySVG = function (y, coeff) {
+  return arrondi(-y * coeff, 1)
+}
 /**
  * mathalea2d(xmin,xmax,ymin,ymax,objets)
  *
