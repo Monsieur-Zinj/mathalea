@@ -3,7 +3,7 @@ import { abs, acos, fraction, polynomialRoot, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
-import { Courbe } from '../2d/courbes.js'
+import { BezierPath, Courbe } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
@@ -613,7 +613,6 @@ export class Spline {
   /**
      * crée l'objet mathalea2d correspondant à la courbe tracée
      * @param {Repere} repere
-     * @param {number} step
      * @param {string} color
      * @param {number} epaisseur
      * @param {boolean} ajouteNoeuds
@@ -622,7 +621,6 @@ export class Spline {
      */
   courbe ({
     repere,
-    step = 0.1,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
@@ -630,7 +628,6 @@ export class Spline {
   } = {}) {
     return new Trace(this, {
       repere,
-      step,
       color,
       epaisseur,
       ajouteNoeuds,
@@ -697,7 +694,6 @@ export class Trace extends ObjetMathalea2D {
      */
   constructor (spline, {
     repere,
-    step = 0.25,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = true,
@@ -709,59 +705,46 @@ export class Trace extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
     for (let i = 0; i < spline.n - 1; i++) {
       if (spline.polys[i].deg > 1) {
-        objets.push(new Courbe(spline.fonctions[i], {
-          repere,
-          epaisseur,
-          color,
-          step,
-          xMin: spline.x[i],
-          xMax: spline.x[i + 1]
+        objets.push(new BezierPath({
+          xStart: spline.x[i],
+          yStart: spline.y[i],
+          xEnd: spline.x[i + 1],
+          yEnd: spline.y[i + 1],
+          xAnteCtrl: 1,
+          yAnteCtrl: spline.noeuds[i].deriveeDroit,
+          xPostCtrl: -1,
+          yPostCtrl: -spline.noeuds[i + 1].deriveeGauche
         }))
       } else {
         const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
         s.epaisseur = epaisseur
         objets.push(s)
       }
-      if (ajouteNoeuds && spline.visibles[i]) {
-        const noeud = point(spline.x[i], spline.y[i])
-        const traceNoeud = tracePoint(noeud)
-        if (optionsNoeuds) {
-          if (optionsNoeuds.color) {
-            traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
-            traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
-          }
-          if (optionsNoeuds.epaisseur) {
-            traceNoeud.epaisseur = optionsNoeuds.epaisseur
-          }
-          if (optionsNoeuds.style) {
-            traceNoeud.style = optionsNoeuds.style
-          }
-          if (optionsNoeuds.taille) {
-            traceNoeud.taille = optionsNoeuds.taille
-          }
-        }
-        objets.push(traceNoeud)
-      }
     }
-    if (ajouteNoeuds && spline.visibles[spline.n - 1]) {
-      const noeud = point(spline.x[spline.n - 1], spline.y[spline.n - 1])
-      const traceNoeud = tracePoint(noeud)
-      if (optionsNoeuds) {
-        if (optionsNoeuds.color) {
-          traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
-          traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
-        }
-        if (optionsNoeuds.epaisseur) {
-          traceNoeud.epaisseur = optionsNoeuds.epaisseur
-        }
-        if (optionsNoeuds.style) {
-          traceNoeud.style = optionsNoeuds.style
-        }
-        if (optionsNoeuds.taille) {
-          traceNoeud.taille = optionsNoeuds.taille
+
+    if (ajouteNoeuds) {
+      for (let i = 0; i < spline.n; i++) {
+        if (spline.visibles[i]) {
+          const noeud = point(spline.x[i], spline.y[i])
+          const traceNoeud = tracePoint(noeud)
+          if (optionsNoeuds) {
+            if (optionsNoeuds.color) {
+              traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
+              traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
+            }
+            if (optionsNoeuds.epaisseur) {
+              traceNoeud.epaisseur = optionsNoeuds.epaisseur
+            }
+            if (optionsNoeuds.style) {
+              traceNoeud.style = optionsNoeuds.style
+            }
+            if (optionsNoeuds.taille) {
+              traceNoeud.taille = optionsNoeuds.taille
+            }
+          }
+          objets.push(traceNoeud)
         }
       }
-      objets.push(traceNoeud)
     }
     this.svg = function (coeff) {
       let code = ''
@@ -773,7 +756,7 @@ export class Trace extends ObjetMathalea2D {
     this.tikz = function () {
       let code = ''
       for (const objet of objets) {
-        code += '\n\t' + objet.tikz()
+        code += objet.tikz()
       }
       return code
     }

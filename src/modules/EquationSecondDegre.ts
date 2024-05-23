@@ -81,7 +81,7 @@ class EquationSecondDegre {
       } else if (this.natureDesSolutions === 'irrationnel') {
         const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
         const sol2Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
-        this.solutionsListeTex = [ce.serialize(ce.parse(sol1Tex, { canonical: true })), ce.serialize(ce.parse(sol2Tex, { canonical: true }))]
+        this.solutionsListeTex = [ce.serialize(ce.parse(sol1Tex).simplify()), ce.serialize(ce.parse(sol2Tex).simplify())]
       }
     }
     this.ensembleDeSolutionsTex = this.delta.num < 0 ? 'S=\\emptyset' : this.delta.num > 0 ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}' : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
