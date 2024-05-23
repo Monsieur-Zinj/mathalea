@@ -5,6 +5,7 @@ import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
+import type termeSuite from '../../exercices/can/can1a-2024/can1a-2024-Q15'
 
 const engine = new ComputeEngine()
 export default engine
@@ -381,7 +382,7 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean }} [options]
+ * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean, fractionIdentique:boolean }} [options]
  * @author Eric Elter
  * @return ResultType
  */
@@ -399,7 +400,8 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     precisionUnite = 0,
     puissance = false,
     texteAvecCasse = false,
-    texteSansCasse = false
+    texteSansCasse = false,
+    fractionIdentique = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -410,6 +412,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (puissance) return powerCompare(input, goodAnswer)
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
+  if (fractionIdentique) return fractionCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -422,9 +425,9 @@ export function fonctionComparaison (input: string, goodAnswer:string,
 }
 
 /**
- * Cette fonction permet que Cortex fasse un super job avec la réduction d'expression et avec des options supplémentaires
+ * Cette fonction permet que ComputeEngine fasse un super job avec la réduction d'expression et avec des options supplémentaires
  * @param {expr} BoxedExpression
- * @param {{ fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean}} [options]
+ * @param {{ expressionsForcementReduites:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean}} [options]
  * @author Eric Elter (aidé par ArnoG)
  * @return BoxedExpression
  */
@@ -707,13 +710,13 @@ export function equalFractionCompareSansRadical (input: string, goodAnswer: stri
 }
 
 /**
- * comparaison de fraction à l'identique (pour les fraction irréductibles par exemple)
+ * comparaison de fraction à l'identique (pour les fraction irréductibles par exemple ou pour les fractions décimales)
  * @param {string} input
  * @param {string} goodAnswer // Doit être au format texFSD ! le signe devant, numérateur et dénominateur positifs !!!
  * @author Jean-Claude Lhote
  * @return ResultType
  */
-export function fractionCompare (input: string, goodAnswer: string): ResultType {
+function fractionCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['espaces', 'fractions'])
   const inputParsed = engine.parse(clean(input), { canonical: false })
   let newFraction
