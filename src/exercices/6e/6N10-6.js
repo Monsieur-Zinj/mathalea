@@ -10,7 +10,7 @@ import { max } from 'mathjs'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { fractionCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
@@ -216,7 +216,7 @@ export default function SommeFractionsDecimales () {
               signe: false
             })
           } else {
-            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } } })
           }
 
           break
@@ -229,7 +229,7 @@ export default function SommeFractionsDecimales () {
               formatInteractif: 'fraction'
             })
           } else {
-            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fractionCompare } }, { formatInteractif: 'mathlive' })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionIdentique: true } } })
           }
           break
         case 3 :
@@ -251,9 +251,9 @@ export default function SommeFractionsDecimales () {
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              champ1: { value: fractionResultat, compare: fractionCompare },
-              champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison }
-            }, { formatInteractif: 'mathlive' })
+              champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionIdentique: true } },
+              champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } }
+            })
           }
           break
       }

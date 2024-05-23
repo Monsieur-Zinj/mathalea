@@ -622,7 +622,9 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       return handleAnswers(exercice, i, {
         reponse: {
           value: reponses.map(el => el.texFSD),
-          compare: fractionCompare
+          // compare: fractionCompare
+          compare: fonctionComparaison,
+          options: { fractionIdentique: true }
         }
       }, params)
     case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
