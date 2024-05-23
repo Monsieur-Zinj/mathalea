@@ -23,6 +23,52 @@ export function compareArrays (array1: unknown[], array2: unknown[]): boolean {
   }
   return true
 }
+
+/**
+ * Retourne true si o1 et o2 ont les mêmes propriétés avec les mêmes valeurs
+ * @param o1
+ * @param o2
+ */
+export function areSameObject (o1: unknown, o2: unknown): boolean {
+  if (typeof o1 !== 'object' || typeof o2 !== 'object') return false
+  // les deux sont object
+  if (o1 === null) return o2 === null
+  // o1 objet non null
+  if (o2 === null) return false
+  if (Object.keys(o1).length !== Object.keys(o2).length) return false
+  return Object.entries(o1).every(([key, value]) => areSameValues((o2)[key], value))
+}
+/**
+ * Retourne true si ar1 et ar2 sont deux tableaux de même longueur, avec les même valeurs dans le même ordre
+ */
+export function areSameArray (ar1: unknown[], ar2: unknown[]): boolean {
+  if (!Array.isArray(ar1) || !Array.isArray(ar2) || ar1.length !== ar2.length) return false
+  return ar1.every((elt, i) => areSameValues(elt, ar2[i]))
+}
+/**
+ * Retourne true si v1 et v2 ont la même valeur (égaux pour string|boolean|number, même contenu pour Object|Array)
+ * Ne fonctionne pas pour les Object qui ne sont pas des "plain object" comme Regexp, Date, etc.
+ */
+export function areSameValues (v1: unknown, v2: unknown): boolean {
+  // une valeur qui n'est pas égale à elle même en js
+  if (typeof v1 === 'undefined') return typeof v2 === 'undefined'
+  if (v1 === null) return v2 === null
+  if (Number.isNaN(v1)) return Number.isNaN(v2)
+  if (Array.isArray(v1)) return Array.isArray(v2) ? areSameArray(v1, v2) : false
+  if (typeof v1 === 'object') {
+    if (v1 instanceof Date) {
+      if (!(v2 instanceof Date)) return false
+      return v1.valueOf() === v2.valueOf()
+    }
+    if (v1 instanceof RegExp) {
+      if (!(v2 instanceof RegExp)) return false
+      return v1.source === v2.source && v1.flags === v2.flags
+    }
+    return areSameObject(v1, v2)
+  }
+  return v1 === v2
+}
+
 /**
  * Créé tous les couples possibles avec un élément de E1 et un élément de E2.
  * L'ordre est pris en compte, donc on pourra avoir (3,4) et (4,3).
@@ -279,6 +325,30 @@ export function shuffle2tableaux<T, U> (obj1: T[], obj2: U[]): void {
     obj1[rnd] = tmp1
     obj2[rnd] = tmp2
   }
+}
+
+/**
+ * Mélange les items de deux tableaux de la même manière
+ *
+ *
+ * @see https://stackoverflow.com/questions/18194745/shuffle-multiple-javascript-arrays-in-the-same-way
+ */
+export function shuffle2tableauxSansModif<T, U> (obj1: T[], obj2: U[]): [T[], U[]] {
+  let index = obj1.length
+  let rnd, tmp1, tmp2
+  const obj1bis = obj1.slice()
+  const obj2bis = obj2.slice()
+  while (index) {
+    rnd = Math.floor(Math.random() * index)
+    index -= 1
+    tmp1 = obj1bis[index]
+    tmp2 = obj2bis[index]
+    obj1bis[index] = obj1bis[rnd]
+    obj2bis[index] = obj2bis[rnd]
+    obj1bis[rnd] = tmp1
+    obj2bis[rnd] = tmp2
+  }
+  return [obj1bis, obj2bis]
 }
 
 /**
