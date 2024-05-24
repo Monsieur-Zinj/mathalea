@@ -3,7 +3,7 @@ import { abs, acos, fraction, polynomialRoot, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
-import { BezierPath, Courbe } from '../2d/courbes.js'
+import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
@@ -203,14 +203,16 @@ export class Spline {
           })
           return
         }
+
         const matriceInverse = matrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,
-          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
+          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse().map((el) => el.valeurDecimale)
         }))
       }
     }
+
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
     this.x = this.noeuds.map((noeud) => noeud.x)
@@ -535,7 +537,7 @@ export class Spline {
      * @returns {function(*): number|*}
      */
   get fonction () {
-    return x => this.#image(rationnalise(x))
+    return x => this.#image(x)
   }
 
   /**
