@@ -192,8 +192,9 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
-      const objetsEnonce = [repere1, courbe1]
+      const objetsEnonce = [...repere1.objets, courbe1]
       let texteEnonce
+
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
 
@@ -203,11 +204,12 @@ export default class BetaModeleSpline extends Exercice {
       } else {
         setReponse(this, i, ['Non', 'NON', 'non'])
       }
-      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
-        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+      const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+
+      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' + figure
       if (this.interactif) { // || this.can
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
-        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+        texteEnonce += figure
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '
