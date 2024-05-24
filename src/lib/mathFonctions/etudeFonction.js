@@ -834,84 +834,84 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
  * @returns {*[]}
  */
 export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue(1, 100), tolerance = 0.005) {
-  if (!(step instanceof FractionEtendue)) {
+  // Je vire le recours systématique aux FractionEtendues
+  /* if (!(step instanceof FractionEtendue)) {
     const f = fraction(step.toFixed(3))
     step = new FractionEtendue(f.n * f.s, f.d)
   }
+  */
   const signes = []
   let xG, xD, signe, signeCourant
   let image
-  for (let x = new FractionEtendue(xMin); x <= xMax; x = x.sommeFraction(step)) {
+  for (let x = xMin; x <= xMax; x += step) {
     try {
       image = fonction(x)
       // ci-dessous on détecte les zéros à tolérance près
-      if (image instanceof FractionEtendue) {
+      /* if (image instanceof FractionEtendue) {
         const y = Math.abs(image.valeurDecimale)
         if (y < tolerance) {
           image = 0
         }
       } else {
-        const y = Math.abs(image)
-        if (y < tolerance) image = 0 // comme x peut être à un chouilla des racines, on teste à un milliardième près
-      }
+       */
+      const y = Math.abs(image)
+      if (y < tolerance) image = 0 // comme x peut être à un chouilla des racines, on teste à un milliardième près
       signe = image < 0 ? '-' : image > 0 ? '+' : 'z'
       if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
-        xG = x.simplifie()
+        xG = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
         xD = xG
         signeCourant = signe
       } else { // On est dans un intervalle commencé
         if (signe === signeCourant) {
           if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
             signes.push({ xG, xD, signe })
-            xG = x.simplifie()
-            xD = xG
+            xG = xD
             signes.push({ xG, xD, signe: 'z' })
             xG = null
             xD = null
             signeCourant = null
           } else { // Le signe n'a pas changé, on repousse xD
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
           }
         } else if (signe === '+') { // Le signe a changé il est devenu positif
           if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
             signes.push({ xG, xD, signe: signeCourant })
-            xG = x.simplifie()
+            xG = xD
             signes.push({ xG, xD, signe: 'z' })
             xG = null
             xD = null
             signeCourant = null
           } else { // On est vraiment dans un nouveau secteur où la fonction est positive
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
             if (signeCourant === '-') {
               signes.push({ xG, xD, signe: signeCourant })
-              xG = x.simplifie()
+              xG = xD
             }
             signeCourant = '+'
           }
         } else if (signe === '-') { // Le signe a changé, il est devenu négatif
           if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
             signes.push({ xG, xD, signe: signeCourant })
-            xG = x.simplifie()
+            xG = xD
             signes.push({ xG, xD, signe: 'z' })
             xG = null
             xD = null
             signeCourant = null
           } else { // Le signe est vraiment devenu négatif
-            xD = x.simplifie()
+            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
             if (signeCourant === '+') {
               signes.push({ xG, xD, signe: signeCourant })
-              xG = x.simplifie()
+              xG = xD
             }
             signeCourant = '-'
           }
         } else { // Là le signe est devenu 'z'
-          xD = x.simplifie()
+          xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
           signes.push({ xG, xD, signe: signeCourant })
-          xG = x.simplifie()
-          xD = xG
+          xG = xD
           signes.push({ xG, xD, signe: 'z' })
           xD = null
           signeCourant = 'z'
