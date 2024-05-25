@@ -28,7 +28,7 @@ export default class NomExercice extends Exercice {
     if (this.canOfficielle) {
       this.reponse = 30
       this.question = '$2+4\\times 7$ '
-      this.correction = `La multiplication est prioritaire :<br> $2+4\\times 7=2+28=${miseEnEvidence(45)}$`
+      this.correction = `La multiplication est prioritaire :<br> $2+4\\times 7=2+28=${miseEnEvidence(30)}$`
     } else {
       const a = randint(2, 9)
       const b = randint(1, 9)
