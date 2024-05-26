@@ -13,7 +13,6 @@ export const titre = 'Placer un événement sur une échelle de probabilités'
 /**
  * Placer un événement sur une échelle de probabilités.
  * @author Erwan Duplessy
- * Référence 5S20
  */
 // Source : https://pedagogie.ac-guadeloupe.fr/sites/default/files/File/flouvet/ra16_c4_math_probabilite_flash_pdf_69131.pdf
 export const uuid = '86db6'
@@ -75,9 +74,9 @@ export default function PlacerProbabilites () {
     // Evenements très probables :
     lstEvenenementD.push(['Que le prochain président de la République Française ait plus de 40 ans', 0.9])
     // Evenements certains :
-    lstEvenenementA.push(['Que le prochain oiseau que je verrai ait des ailes.', 1])
-    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit sur le cercle de centre A et de rayon 4 cm.', 1])
-    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit dans le disque de centre A et de rayon 5 cm.', 1])
+    lstEvenenementA.push(['Que le prochain oiseau que je verrai voler ait des ailes', 1])
+    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit sur le cercle de centre A et de rayon 4 cm', 1])
+    lstEvenenementA.push(['Que le point M, placé à 4 cm de A, soit dans le disque de centre A et de rayon 5 cm', 1])
     // Evenement divers :
     const m = choice([4, 6, 8, 10, 12, 20, 24, 30, 48, 60, 100]) // nombre de faces du dé
     const n = randint(1, m) // nombre à obtenir
