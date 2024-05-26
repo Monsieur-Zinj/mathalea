@@ -140,6 +140,10 @@ export async function getQuestions (page: Page, urlExercice: string) {
   await page.waitForSelector(questionSelector)
   const locators = await page.locator(questionSelector).all()
 
+  const href = await page.evaluate(() => document.location.href)
+
+  console.log('goto (avec la graine):' + href)
+
   const questions: Question[] = []
   for (const locator of locators) {
     questions.push({
@@ -263,10 +267,15 @@ export async function checkFeedback (page: Page, questions: Question[]) {
   await checkButtonClick(page)
   await addFeedbacks(page, questions)
 
+  
   for (const question of questions) {
     const numeroQuestion = Number(question.id.split('Q')[1]) + 1
-    if (question.feedback === 'OK' && !question.isCorrect) throw Error(`On s'attendait à avoir une mauvaise réponse à la question ${numeroQuestion}`)
-    if (question.feedback === 'KO' && question.isCorrect) throw Error(`On s'attendait à avoir une bonne réponse à la question ${numeroQuestion}`)
+    if (question.feedback === 'OK' && !question.isCorrect) {
+      throw Error(`On s'attendait à avoir une mauvaise réponse à la question ${numeroQuestion}`)
+    }
+    if (question.feedback === 'KO' && question.isCorrect) {
+      throw Error(`On s'attendait à avoir une bonne réponse à la question ${numeroQuestion}`)
+    }
   }
 }
 

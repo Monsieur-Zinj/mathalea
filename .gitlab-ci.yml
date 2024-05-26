@@ -15,7 +15,6 @@
 stages:
 - playwright-testInteractivity
 - playwright-testConsistency
-- playwright-test
 - test
 - build-projet
 - playwright-testCanEleve
@@ -69,7 +68,7 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - pnpm exec playwright@1.44.0 install --with-deps chromium
+    - npm install playwright@1.44.0 --with-deps chromium
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - pnpm install
     - nohup pnpm start &
@@ -82,7 +81,7 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - pnpm exec playwright@1.44.0 install --with-deps chromium
+    - npm install playwright@1.44.0 --with-deps chromium
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
     - nohup pnpm start &
