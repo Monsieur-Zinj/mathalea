@@ -104,7 +104,7 @@ export default function EvolutionsEnPourcentage () {
               if (taux > 0) {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer l'augmentation du prix en pourcentage.`
                 texteCorr = `$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
-                texteCorr += `<br>Le prix a été multiplié par ${coeff}, il a donc augmenté de $${miseEnEvidence(taux)}~\\%$.`
+                texteCorr += `<br>Le prix a été multiplié par $${coeff}$, il a donc augmenté de $${miseEnEvidence(taux)}~\\%$.`
               } else {
                 texte = `Un article qui coûtait $${texPrix(depart)}$ € coûte maintenant $${texPrix(arrive)}$ €. Exprimer la réduction du prix en pourcentage.`
                 texteCorr = `<br>$${texPrix(arrive)}\\div ${texPrix(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
