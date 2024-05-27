@@ -1,6 +1,6 @@
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { expressionDeveloppeeEtNonReduiteCompare } from '../../lib/interactif/comparisonFunctions.ts'
+import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
@@ -31,7 +31,8 @@ export default function desTestsPourInteractivité () {
       const reponse = '2\\times3x+3\\times7 '
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
-      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
+      // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre
