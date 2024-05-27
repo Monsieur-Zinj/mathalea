@@ -219,6 +219,7 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     const y = Number(f(x))
     if (isFinite(y)) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
@@ -366,6 +367,7 @@ export function Integrale (f, {
   }
   for (let x = a; inferieurouegal(x, b); x += pas
   ) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     if (isFinite(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
@@ -472,12 +474,11 @@ export function BezierPath ({
   this.color = colorToLatexOrHTML(color)
   this.opacite = opacite
   this.epaisseur = epaisseur
-  const t = (xEnd - xStart) * 0.5
   this.svg = function (coeff) {
-    return `<path fill="none" stroke="${this.color[0]}" d="M ${xSVG(xStart, coeff)},${ySVG(yStart, coeff)} C${xSVG(xStart + xAnteCtrl * t, coeff)},${ySVG(yStart + yAnteCtrl * t, coeff)} ${xSVG(xEnd + xPostCtrl * t, coeff)},${ySVG(yEnd + yPostCtrl * t, coeff)} ${xSVG(xEnd, coeff)},${ySVG(yEnd, coeff)}" />\n`
+    return `<path fill="none" stroke="${this.color[0]}" d="M ${xSVG(xStart, coeff)},${ySVG(yStart, coeff)} C${xSVG(xStart + xAnteCtrl, coeff)},${ySVG(yStart + yAnteCtrl, coeff)} ${xSVG(xEnd + xPostCtrl, coeff)},${ySVG(yEnd + yPostCtrl, coeff)} ${xSVG(xEnd, coeff)},${ySVG(yEnd, coeff)}" />\n`
   }
   this.tikz = function () {
-    return `\n\t\\draw(${xStart},${yStart}) .. controls (${xStart + xAnteCtrl * t},${yStart + yAnteCtrl * t}) and (${xEnd + xPostCtrl * t},${yEnd + yPostCtrl * t}) .. (${xEnd},${yEnd});`
+    return `\n\t\\draw(${xStart},${yStart}) .. controls (${xStart + xAnteCtrl},${yStart + yAnteCtrl}) and (${xEnd + xPostCtrl},${yEnd + yPostCtrl}) .. (${xEnd},${yEnd});`
   }
 }
 
@@ -551,6 +552,7 @@ export function CourbeSpline (f, {
     pas = step
   }
   for (let x = xMin; inferieurouegal(x, xMax); x = x + pas) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     y = f.image(x)
     if (!isNaN(y)) {
       if (y < yMax + 1 && y > yMin - 1) {
