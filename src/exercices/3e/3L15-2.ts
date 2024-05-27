@@ -139,7 +139,10 @@ export default class nomExercice extends Exercice {
       }
       if (listeTypeQuestions[i].includes('PasDeSol')) {
         sol = '\\emptyset$.'
-      } else {
+      } else if (listeTypeQuestions[i] === 'racine') {
+        sol = `\\left\\{-\\sqrt{${coeffConstant.multiplieEntier(-1).entierDivise(coeffX).texFractionSimplifiee}},\\sqrt{${coeffConstant.multiplieEntier(-1).entierDivise(coeffX).texFractionSimplifiee}}\\right\\}$.`
+      }
+      else {
         sol = `\\left\\{-${coeffConstant.multiplieEntier(-1).entierDivise(coeffX).texRacineCarree(false)};${coeffConstant.multiplieEntier(-1).entierDivise(coeffX).texRacineCarree(false)}\\right\\}$.`
       }
       texteCorr += ` L'ensemble de solutions est $S=${sol}`

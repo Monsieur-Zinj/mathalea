@@ -8,8 +8,8 @@ export const dateDePublication = '14/05/2024'
 export const interactifReady = false
 export const uuid = '1be55'
 export const refs = {
-  'fr-fr': ['3L15-2'],
-  'fr-ch': ['11FA10-14']
+  'fr-fr': ['1E19'],
+  'fr-ch': ['11FA10-15']
 }
 
 // export const dateDeModifImportante = '24/10/2021'
