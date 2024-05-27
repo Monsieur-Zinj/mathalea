@@ -9,6 +9,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { courbeSpline } from '../../lib/2d/courbes'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -26,6 +27,7 @@ const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisibl
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 0, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+  { x: 1, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -192,7 +194,14 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
-      const objetsEnonce = [...repere1.objets, courbe1]
+      const courbe2 = courbeSpline(maSpline, {
+        repere: repere1,
+        xMin: maSpline.x[0],
+        xMax: maSpline.x[maSpline.n - 1],
+        step: 0.1,
+        color: 'red'
+      })
+      const objetsEnonce = [...repere1.objets, courbe1, courbe2]
       let texteEnonce
 
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })

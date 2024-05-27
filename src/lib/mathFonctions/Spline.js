@@ -168,11 +168,28 @@ export class Spline {
 
     for (let i = 0; i < noeuds.length - 1; i++) {
       const x0 = noeuds[i].x
-      const y0 = noeuds[i].y
-      const d0 = noeuds[i].deriveeDroit
       const x1 = noeuds[i + 1].x
+      const y0 = noeuds[i].y
       const y1 = noeuds[i + 1].y
-      const d1 = noeuds[i + 1].deriveeGauche
+      const a = noeuds[i].deriveeDroit
+      const b = noeuds[i + 1].deriveeGauche
+      const delta = x1 - x0
+      const d2 = delta * delta
+      const d3 = delta * d2
+      const dy = y1 - y0
+      const A = (a + b) * delta - 2 * (dy)
+      const B = 3 * dy - delta * (b + 2 * a)
+      const C = a * delta
+      const cx3 = A / d3
+      const cx2 = -3 * A * x0 / d3 + B / (delta ** 2)
+      const cx1 = 3 * A * (x0 ** 2) / d3 - 2 * B * x0 / d2 + C / delta
+      const cx0 = -A * (x0 ** 3) / d3 + B * (x0 ** 2) / d2 - C * x0 / delta + y0
+
+      this.polys.push(new Polynome({
+        useFraction: false,
+        coeffs: [cx0, cx1, cx2, cx3]
+      }))
+      /*
       const matrice = new MatriceCarree([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
@@ -211,8 +228,8 @@ export class Spline {
           coeffs: matriceInverse.multiplieVecteur(vecteur).reverse().map((el) => el.valeurDecimale)
         }))
       }
+*/
     }
-
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
     this.x = this.noeuds.map((noeud) => noeud.x)
@@ -221,6 +238,9 @@ export class Spline {
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
     this.fonctions = this.#convertPolyFunction()
+    this.image = function (x) {
+      return this.#image(x)
+    }
   }
 
   pointsOfSpline (nbPoints) {
@@ -707,15 +727,16 @@ export class Trace extends ObjetMathalea2D {
     this.bordures = [xMin, yMin, xMax, yMax]
     for (let i = 0; i < spline.n - 1; i++) {
       if (spline.polys[i].deg > 1) {
+        const deltaX = (spline.x[i + 1] - spline.x[i]) / 3
         objets.push(new BezierPath({
           xStart: spline.x[i],
           yStart: spline.y[i],
           xEnd: spline.x[i + 1],
           yEnd: spline.y[i + 1],
-          xAnteCtrl: 1,
-          yAnteCtrl: spline.noeuds[i].deriveeDroit,
-          xPostCtrl: -1,
-          yPostCtrl: -spline.noeuds[i + 1].deriveeGauche
+          xAnteCtrl: deltaX,
+          yAnteCtrl: spline.noeuds[i].deriveeDroit * deltaX,
+          xPostCtrl: -deltaX,
+          yPostCtrl: -spline.noeuds[i + 1].deriveeGauche * deltaX
         }))
       } else {
         const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
