@@ -440,3 +440,19 @@ export function ordreAlphabetique (str: string):string {
   const orderedChars = chars.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
   return orderedChars.join('')
 }
+
+/**
+ * Liste les différents éléments d'un array séparés par une virgule et un "et" avant le dernier élément
+ * @param array
+ * @returns une chaîne à afficher
+ */
+export function lister (array: unknown[]): string {
+  let str = ''
+  for (let i = 0; i < array.length - 1; i++) {
+    if (i !== 0) str += ', '
+    str += array[i]
+  }
+  if (array.length > 1) str += ' et '
+  str += array[array.length - 1]
+  return str
+}

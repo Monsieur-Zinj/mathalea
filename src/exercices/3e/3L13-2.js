@@ -11,7 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
 

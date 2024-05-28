@@ -544,7 +544,7 @@ export class LatexParCoordonnees extends ObjetMathalea2D {
     this.color = colorToLatexOrHTML(color)
     this.texte = texte
     this.orientation = 0 // dans latexParCoordonnees le latex ne peux pas tourner (on n'a pas d'argument pour ça et c'est pour cela qu'il y a latex2d() !)
-    this.bordures = [this.x - (this.texte.length ?? 0) * 0.2, this.y - 0.02 * this.hauteur, this.x + (this.texte.length ?? 0) * 0.2, this.y + 0.02 * this.hauteur]
+    this.bordures = [this.x - (this.texte.length ?? 0) * 0.15, this.y - 0.02 * this.hauteur, this.x + (this.texte.length ?? 0) * 0.15, this.y + 0.02 * this.hauteur]
     if (tailleCaracteres > 19) this.taille = '\\huge'
     else if (tailleCaracteres > 16) this.taille = '\\LARGE'
     else if (tailleCaracteres > 13) this.taille = '\\Large'
@@ -744,7 +744,24 @@ export class Latex2d extends ObjetMathalea2D {
    * @param options.opacity l'opacité du texte // @fixme non encore implémenté
    *
    */
-  constructor (latex: string, x: number, y: number, { color = 'black', backgroundColor = '', letterSize = 'normalsize', orientation = 0, opacity = 1 }) {
+  constructor (
+    latex: string,
+    x: number,
+    y: number,
+    {
+      color = 'black',
+      backgroundColor = '',
+      letterSize = 'normalsize',
+      orientation = 0,
+      opacity = 1
+    }:
+    {
+      color: string
+      backgroundColor: string
+      letterSize: LetterSizeType
+      orientation: number
+      opacity: number
+    }) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.backgroundColor = colorToLatexOrHTML(backgroundColor)

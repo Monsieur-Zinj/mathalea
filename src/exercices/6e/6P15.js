@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { Tableau } from '../../lib/2d/tableau.js'
+import { Tableau } from '../../lib/2d/tableau'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { numAlpha } from '../../lib/outils/outilString.js'

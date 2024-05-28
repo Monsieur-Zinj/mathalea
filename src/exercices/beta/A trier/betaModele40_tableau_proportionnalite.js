@@ -1,4 +1,4 @@
-import { tableau } from '../../../lib/2d/tableau.js'
+import { tableau } from '../../../lib/2d/tableau'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import Exercice from '../../Exercice.js'

@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { Tableau } from '../../lib/2d/tableau.js'
+import { Tableau } from '../../lib/2d/tableau'
 import { context } from '../../modules/context.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
