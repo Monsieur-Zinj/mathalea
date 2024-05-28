@@ -208,8 +208,10 @@ delete Object.assign(referentielFR, { 'CRPE (2015-2019) par thème - COPIRELEM':
 delete Object.assign(referentielFR, { 'CRPE (2015-2019) par année - COPIRELEM': referentielFR.crpeCopirelem }).crpeCopirelem
 delete Object.assign(referentielFR, { 'CRPE (2022-2023) par thème': referentielFR.crpeTags }).crpeTags
 delete Object.assign(referentielFR, { 'CRPE (2022-2023) par année': referentielFR.crpe }).crpe
-delete Object.assign(referentielFR, { 'E3C par thème - APMEP': referentielFR.E3CTags }).E3CTags
-delete Object.assign(referentielFR, { 'E3C par specimen - APMEP': referentielFR.E3C }).E3C
+// delete Object.assign(referentielFR, { 'E3C par thème - APMEP': referentielFR.E3CTags }).E3CTags
+// delete Object.assign(referentielFR, { 'E3C par specimen - APMEP': referentielFR.E3C }).E3C
+delete Object.assign(referentielFR, { 'E3C par thème': referentielFR.E3CTags }).E3CTags
+delete Object.assign(referentielFR, { 'E3C par année': referentielFR.E3C }).E3C
 
 delete Object.assign(referentielCH, { 'EVACOM par thème': referentielCH.EVACOMTags }).EVACOMTags
 delete Object.assign(referentielCH, { 'EVACOM par année': referentielCH.EVACOM }).EVACOM
