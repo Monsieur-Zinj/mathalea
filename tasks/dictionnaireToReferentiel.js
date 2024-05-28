@@ -86,7 +86,7 @@ for (const ex in dictionnaireE3C) {
   })
 }
 
-for (const annee of ['2021']) {
+for (const annee of ['2020', '2021']) {
   referentielFR.E3C[annee] = {}
   for (const ex in dictionnaireE3C) {
     if (dictionnaireE3C[ex].annee === annee) {
