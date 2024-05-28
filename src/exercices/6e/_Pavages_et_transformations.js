@@ -14,7 +14,7 @@ import { imagePointParTransformation } from '../../modules/imagePointParTransfor
 import Exercice from '../deprecatedExercice.js'
 import { assombrirOuEclaircir, colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
-import { egal, gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { egal, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { rotationAnimee, symetrieAnimee, translationAnimee } from '../../modules/2dAnimation.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -36,19 +36,13 @@ export default function PavagesEtTransformations () {
   this.nbColsCorr = 1
   this.listeAvecNumerotation = false
   this.besoinFormulaire2Texte = ['Choix des pavages', 'Nombres séparés par des tirets\nChoix entre 1 et 7\nChoix 8 pour un mélange de tous les pavages']
-  this.sup2 = 8
+  this.sup2 = 1
   // this.sup = 1 // 1 pour symétrie axiale, 2 pour symétrie centrale, 3 pour translations, et 4 pour rotations ; paramètre fixé par les variantes respectives.
   // context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
   this.nouvelleVersion = function (numeroExercice) {
     this.listeQuestions = []
     this.listeCorrections = [] // Liste de questions corrigées
-    const typeDePavage = gestionnaireFormulaireTexte({
-      max: 7,
-      defaut: 8,
-      melange: 8,
-      nbQuestions: this.nbQuestions,
-      saisie: this.sup2
-    })
+
     const objetsEnonce = []
     const objetsCorrection = []
     if (this.level === 3) {
@@ -87,7 +81,7 @@ export default function PavagesEtTransformations () {
         break
       case 2:
         // choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
-        choixPave = typeDePavage[0]// pavages adaptés à symétrie centrale (tous)
+        choixPave = choice([0, 2, 5, 7])// typeDePavage[0]// pavages adaptés à symétrie centrale (tous)
         break
       case 3:
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)
@@ -403,7 +397,7 @@ export default function PavagesEtTransformations () {
         )
 
         break
-      case 2: // symétrie centrale
+      case 2: { // symétrie centrale
         // Première question : une figure dans tabfigA, une symétrie par rapport au milieu d'un [B'C'], logiquement : l'image est dans tabfigB et B' est l'image de C !
         indexA = randint(0, nx * ny - 1)
         numA = tabfigA[indexA][2]
@@ -472,7 +466,6 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-
         texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
@@ -577,7 +570,7 @@ export default function PavagesEtTransformations () {
           mainlevee: false
         }, objetsCorrection
         )
-
+      }
         break
 
       case 3: // translations
