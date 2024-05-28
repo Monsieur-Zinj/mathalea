@@ -99,7 +99,7 @@ def newEntry(file:str,dicoType:str)->list:
             numeroInitial = filename.split('_')[6]
         else: # EE : Ici, on considère que c'est le DNB
             numeroInitial = filename.split('_')[4]
-        if (('sujet1' in filename) or ('sujet2' in filename)): # EE : Ici, on considère que c'est le BAC ....
+        if ((('sujet1' in filename) or ('sujet2' in filename))and('bac' in filename)): # EE : Ici, on considère que c'est le BAC ....
             lieu = locationName(filename.split('_')[4])
             if (('groupe1' in filename) or ('groupe2' in filename)):
                 if ('groupe1' in filename) :
