@@ -744,7 +744,24 @@ export class Latex2d extends ObjetMathalea2D {
    * @param options.opacity l'opacité du texte // @fixme non encore implémenté
    *
    */
-  constructor (latex: string, x: number, y: number, { color = 'black', backgroundColor = '', letterSize = 'normalsize', orientation = 0, opacity = 1 }) {
+  constructor (
+    latex: string,
+    x: number,
+    y: number,
+    {
+      color = 'black',
+      backgroundColor = '',
+      letterSize = 'normalsize',
+      orientation = 0,
+      opacity = 1
+    }:
+    {
+      color: string
+      backgroundColor: string
+      letterSize: LetterSizeType
+      orientation: number
+      opacity: number
+    }) {
     super()
     this.color = colorToLatexOrHTML(color)
     this.backgroundColor = colorToLatexOrHTML(backgroundColor)
