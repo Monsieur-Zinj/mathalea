@@ -10,7 +10,7 @@ import { Arbre } from '../../modules/arbres.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '15/01/2022'

@@ -8,7 +8,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 export const titre = 'Produire une formule à partir d\'un tableau'
 
 /**

@@ -8,7 +8,7 @@ import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 
 export const titre = 'Compléter le tableau d’une loi de probabilité d’une variable aléatoire'
 export const dateDePublication = '08/07/2022'

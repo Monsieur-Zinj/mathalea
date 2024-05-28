@@ -18,7 +18,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randi
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'CAN 5e sujet 2021'

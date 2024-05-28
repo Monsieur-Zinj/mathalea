@@ -8,7 +8,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Déterminer une probabilité dans un tableau de probabilités'

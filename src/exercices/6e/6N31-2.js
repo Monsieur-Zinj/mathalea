@@ -4,7 +4,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 export const titre = 'Trouver un ordre de grandeur d\'opérations sur les décimaux'
 
 /**

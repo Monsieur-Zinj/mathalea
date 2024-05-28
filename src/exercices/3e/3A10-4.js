@@ -9,7 +9,7 @@ import {
   listeQuestionsToContenu,
   randint
 } from '../../modules/outils.js'
-import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 

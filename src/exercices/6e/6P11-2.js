@@ -1,4 +1,4 @@
-import { tableau } from '../../lib/2d/tableau.js'
+import { tableau } from '../../lib/2d/tableau'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'

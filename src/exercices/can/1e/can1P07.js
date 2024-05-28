@@ -6,7 +6,7 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 
 export const titre = 'Déterminer une probabilité dans un tableau d’effectifs'
 export const dateDePublication = '06/07/2022'

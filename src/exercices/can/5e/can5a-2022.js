@@ -22,7 +22,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../../lib/2d/tableau.js'
+import { tableauColonneLigne } from '../../../lib/2d/tableau'
 
 export const titre = 'CAN 5e sujet 2022'
 export const interactifReady = true
