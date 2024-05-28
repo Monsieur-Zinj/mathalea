@@ -458,7 +458,7 @@ function customCanonical (expr:BoxedExpression, { expressionsForcementReduites =
     return expr.engine.box([expr.head,
       ...expr.ops.map((x) =>
         customCanonical(x, { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
-      )], { canonical: ['InvisibleOperator', 'Order'] })
+      )], { canonical: ['InvisibleOperator', 'Order', 'Flatten'] })
   }
   return expr.canonical
 }
