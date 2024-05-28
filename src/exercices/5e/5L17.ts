@@ -67,7 +67,7 @@ En s'aidant d'un tableau, calculer les températures ressenties correspondant à
           const denominateur = msOuKmh === 'm/s' ? -2 * a0 : arrondi(-2 * a0 * 3.6 ** 2, 2)
           const vitesses: number[] = []
           for (let i = 0; i < nbCalculsParQuestion; i++) {
-            vitesses.push(randint(10, msOuKmh === 'm/s' ? 36 : 130))
+            vitesses.push(randint(10, msOuKmh === 'm/s' ? 36 : 130, vitesses))
           }
           texte = `La distance de freinage d'un véhicule dépend de l'état de la route et de la vitesse à laquelle il roulait avant de commencer à freiner.<br>
 Sur une route ${secheOuMouillee}, on peut calculer la Distance de Freinage $(DF)$ en mètres à partir de sa vitesse initiale $(v_0)$ en ${msOuKmh} à l'aide de la formule $DF = \\dfrac{v_0^2}{${texNombre(denominateur, 2)}}$.<br>
