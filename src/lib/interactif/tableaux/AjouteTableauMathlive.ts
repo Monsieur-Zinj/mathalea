@@ -163,7 +163,7 @@ export class AddTabPropMathlive {
       appendCell({ isInteractif, line: firstLine, icell: ligne1[i], indexCol: i + 1, indexLine: 0, tag: 'td', classes, NoEx, NoQ, style: style[`L${0}C${i + 1}`] })
     }
     table.appendChild(firstLine)
-    // tableau de proportionnalité conforme à ceux définis dans src/lib/2d/tableau.js
+    // tableau de proportionnalité conforme à ceux définis dans src/lib/2d/tableau
     const secondLine = document.createElement('tr')
     const entete2 = ligne2.shift()
     if (entete2) appendCell({ isInteractif, line: secondLine, icell: entete2, indexCol: 0, indexLine: 1, tag: 'th', classes, NoEx, NoQ, style: style[`L${1}C${0}`] })
@@ -277,14 +277,14 @@ export class AddTabDbleEntryMathlive {
    * @param tabEntetesLignes
    * @param tabLignes
    */
-  static convertTclToTableauMathlive (tabEntetesColonnes: string[], tabEntetesLignes: string[], tabLignes: string[], gras: boolean = true, color: string = 'black') {
+  static convertTclToTableauMathlive (tabEntetesColonnes: (string | number)[], tabEntetesLignes: (string | number)[], tabLignes: (string | number)[], gras: boolean = true, color: string = 'black') {
     const headingCols: Icell[] = []
-    for (const str of tabEntetesColonnes) {
-      headingCols.push({ texte: str, latex: true, gras, color })
+    for (const enTete of tabEntetesColonnes) {
+      headingCols.push({ texte: enTete.toString(), latex: true, gras, color })
     }
     const headingLines: Icell[] = []
-    for (const str of tabEntetesLignes) {
-      headingLines.push({ texte: str, latex: true, gras, color })
+    for (const enTete of tabEntetesLignes) {
+      headingLines.push({ texte: enTete.toString(), latex: true, gras, color })
     }
     const raws: Array<Icell[]> = []
     const haveHeadC = headingCols.length > 0
@@ -296,7 +296,7 @@ export class AddTabDbleEntryMathlive {
     for (let i = 0; i < nbLines; i++) {
       const raw: Icell[] = []
       for (let j = 0; j < nbCols; j++) {
-        raw.push({ texte: tabLignes[i * nbCols + j], latex: true, gras, color })
+        raw.push({ texte: tabLignes[i * nbCols + j].toString(), latex: true, gras, color })
       }
       raws.push(raw)
     }
