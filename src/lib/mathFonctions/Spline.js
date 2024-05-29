@@ -1,4 +1,4 @@
-import { abs, acos, fraction, polynomialRoot, round } from 'mathjs'
+import { abs, acos, multiply, fraction, matrix, polynomialRoot, round, det, inv } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
@@ -8,7 +8,6 @@ import { point, tracePoint } from '../2d/points.js'
 import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
 import { signesFonction, variationsFonction } from './etudeFonction.js'
-import { MatriceCarree } from './MatriceCarree.js'
 import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
@@ -173,13 +172,13 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = new MatriceCarree([
+      const matrice = matrix([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
         [3 * x1 ** 2, 2 * x1, 1, 0]
       ])
-      if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
+      /* if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
         window.notify('Spline : Système impossible à résoudre il y a un problème avec les données ', {
           x0,
           y0,
@@ -190,24 +189,25 @@ export class Spline {
         })
         return
       }
+       */
       if (y0 + (x1 - x0) * d1 === y1 && d0 === d1) {
         const a = (y1 - y0) / (x1 - x0)
         const b = y0 - a * x0
         this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
       } else {
-        const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
-        if (determinant.valeurDecimale === 0) {
+        const determinant = fraction(det(matrice))// c'est maintenant une FractionEtendue !
+        if (determinant === 0) {
           window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
             noeudGauche: noeuds[i],
             noeudDroit: noeuds[i + 1]
           })
           return
         }
-        const matriceInverse = matrice.inverse()
+        const matriceInverse = inv(matrice)
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,
-          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse()
+          coeffs: multiply(matriceInverse, vecteur).toArray().reverse().map(el => Number(el.toFixed(3)))
         }))
       }
     }
