@@ -4,7 +4,7 @@ import { point, pointAdistance } from '../../lib/2d/points.js'
 import { polygoneAvecNom } from '../../lib/2d/polygones.js'
 import { vecteur } from '../../lib/2d/segmentsVecteurs.js'
 import { rotation, similitude, translation } from '../../lib/2d/transformations.js'
-import { nombreDeChiffresDe } from '../../lib/outils/nombres'
+import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, numAlpha, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -23,12 +23,8 @@ export const interactifReady = true
 export const dateDeModifImportante = '12/04/2023' // Ajout de trois paramètres - séparation des figures, des demandes d'aires et/ ou de périmètres, affichage ou pas des figures - par EE
 /**
  * Un carré, un rectangle et un triangle rectangle sont tracés.
- *
  * Il faut calculer les aires
- *
- * Pas de version LaTeX
  * @author Rémi Angot
- * Référence 6M11
  */
 export const uuid = 'd1513'
 export const ref = '6M11-1'
@@ -38,16 +34,10 @@ export const refs = {
 }
 export default function PerimetreOuAireDeCarresRectanglesTriangles () {
   Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
   this.interactif = false
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 1
-  this.nbQuestionsModifiable = true
   this.sup = 4
   this.sup2 = 3
   this.sup3 = true
@@ -75,7 +65,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
       const a = randint(2, 5)
       const b = randint(2, 5)
       const c2 = Math.sqrt(a * a + b * b)
-      const pIJK = calculANePlusJamaisUtiliser(a + b + c2, 1)
+      const pIJK = arrondi(a + b + c2, 1)
       const A = point(0, 0, nom[0])
       const B = rotation(point(c, 0), A, randint(-15, 15), nom[1])
       const C = rotation(A, B, -90, nom[2])

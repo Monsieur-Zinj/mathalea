@@ -5,7 +5,6 @@ import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
-import type termeSuite from '../../exercices/can/can1a-2024/can1a-2024-Q15'
 
 const engine = new ComputeEngine()
 export default engine
@@ -198,7 +197,7 @@ export function operationCompare (input: string, goodAnswer: string):ResultType 
 }
 */
 
-/**
+/*
  * Comparaison des enchainements de calculs NUMERIQUES (mais pas leurs résultats)
  * Permet de valider des 'opérations' par exemple : '4+8' ou '4\\times 5' ou encore '3\\times 5 + 4'
  * @param {string} input
@@ -880,7 +879,7 @@ function intervalsCompare (input: string, goodAnswer: string) {
   return { isOk: false, feedback: 'Il faut donner un intervalle ou une réunion d\'intervalles' }
 }
 // Fonction devenue inutile
-/**
+/*
  * comparaison d'expression développées et réduite pour les tests d'Éric Elter
  * @param {string} input
  * @param {string} goodAnswer
