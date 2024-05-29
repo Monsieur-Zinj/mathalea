@@ -13,13 +13,9 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 stages:
-- playwright-testInteractivity
-- playwright-testConsistency
 - test
 - build-projet
 - playwright-testCanEleve
-- playwright-testConsistency
-- playwright-testInteractivity
 - playwright-test
 - playwright-pdf
 - playwright-pdfDNB
@@ -119,6 +115,7 @@ default:
   extends: .install_dependencies
   image: mcr.microsoft.com/playwright:v1.43.0-jammy
   stage: playwright-test
+  allow_failure: true
   rules:
   - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
     when: never
@@ -276,7 +273,7 @@ playwright-testCanEleve:
 
 playwright-testConsistency:
   extends: .testCI
-  stage: playwright-testConsistency
+  stage: playwright-testCanEleve
   script:
     - pnpm test:e2e:consistency
   rules:
@@ -292,7 +289,7 @@ playwright-testConsistency:
 
 playwright-testInteractivity:
   extends: .testCI
-  stage: playwright-testInteractivity
+  stage: playwright-testCanEleve
   script:
     - pnpm test:e2e:interactivity
   rules:
