@@ -44,7 +44,9 @@ export default function NotationPuissance () {
     let listeTypeDeQuestions
     switch (this.sup) {
       case 1:
-        this.consigne = 'Écrire l\'expression avec des $\\times$ et sans utiliser la notation puissance. Aucun calcul n\'est nécessaire.'
+        this.consigne = 'Écrire l\'expression '
+        this.consigne += this.classe === 2 ? '(avec des $\\times$ si besoin) ' : 'avec des $\\times$ et '
+        this.consigne += 'sans utiliser la notation puissance. Aucun calcul n\'est nécessaire.'
         listeTypeDeQuestions = ['produit']
         break
       case 2:
@@ -127,7 +129,9 @@ export default function NotationPuissance () {
       switch (listeTypeDeQuestions[i]) {
         case 'produit':
           if (this.sup === 3) {
-            texte = `Écrire $${puissance}$ avec des $\\times$ et sans utiliser la notation puissance`
+            texte = `Écrire $${puissance}$ `
+            texte += this.classe === 2 ? '(avec des $\\times$ si besoin) ' : 'avec des $\\times$ et '
+            texte += 'sans utiliser la notation puissance'
           } else {
             texte = `$${puissance}$`
           }
@@ -163,7 +167,7 @@ export default function NotationPuissance () {
             enonce = `$${listeSignes[i]} ${produit}$`
             correction = `$${listeSignes[i]} ${produit} = ${puissance}$`
           }
-          this.sup === 3 ? texte = `Simplifier ${enonce} en utilisant la notation puissance` : texte = enonce
+          texte = this.sup === 3 ? `Simplifier ${enonce} en utilisant la notation puissance` : enonce
           texteCorr = correction
           setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
           break
