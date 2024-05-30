@@ -122,7 +122,8 @@ const basicKeys = {
     insert: '$$\\widehat{#0}$$'
   },
   PERCENT: {
-    display: '%'
+    display: '%',
+    insert: '\\%'
   },
   COLON: {
     display: ':'
