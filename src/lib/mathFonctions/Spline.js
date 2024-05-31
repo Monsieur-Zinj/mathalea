@@ -1,4 +1,4 @@
-import { abs, acos, multiply, fraction, matrix, polynomialRoot, round, det, inv } from 'mathjs'
+import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue.ts'
@@ -11,6 +11,7 @@ import { signesFonction, variationsFonction } from './etudeFonction.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
+import { matriceCarree } from './MatriceCarree'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -171,7 +172,7 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = matrix([
+      const matrice = matriceCarree([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
@@ -194,19 +195,18 @@ export class Spline {
         const b = y0 - a * x0
         this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
       } else {
-        const determinant = fraction(det(matrice))// c'est maintenant une FractionEtendue !
-        if (determinant === 0) {
+        if (matrice.determinant() === 0) {
           window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
             noeudGauche: noeuds[i],
             noeudDroit: noeuds[i + 1]
           })
           return
         }
-        const matriceInverse = inv(matrice)
+        const matriceInverse = matrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,
-          coeffs: multiply(matriceInverse, vecteur).toArray().reverse().map(el => Number(el.toFixed(3)))
+          coeffs: matriceInverse.multiply(vecteur).toArray().reverse().map(el => Number(el.toFixed(6))) // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
         }))
       }
     }
@@ -295,7 +295,7 @@ export class Spline {
                 arr = 0
               } else {
                 const argument = valeur.arg()
-                if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+                if (Math.abs(argument) < 0.001 || Math.abs(Math.abs(argument) - Math.PI) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
                   arr = round(valeur.re, 3) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null
