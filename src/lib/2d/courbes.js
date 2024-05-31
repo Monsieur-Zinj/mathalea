@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { inferieurouegal } from '../../modules/outils.js'
 import { point, tracePoint } from './points.js'
@@ -219,6 +219,7 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     const y = Number(f(x))
     if (isFinite(y)) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
@@ -366,6 +367,7 @@ export function Integrale (f, {
   }
   for (let x = a; inferieurouegal(x, b); x += pas
   ) {
+    if (x > b) x = b // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     if (isFinite(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
@@ -455,6 +457,31 @@ export function integrale (f, {
   return new Integrale(f, { repere, color, couleurDeRemplissage, epaisseur, step, a, b, opacite, hachures })
 }
 
+export function BezierPath ({
+  xStart = 0,
+  yStart = 0,
+  xEnd = 1,
+  yEnd = 1,
+  xAnteCtrl = 1,
+  yAnteCtrl = 1,
+  xPostCtrl = -1,
+  yPostCtrl = -1,
+  color = 'black',
+  epaisseur = 1,
+  opacite = 1
+}) {
+  ObjetMathalea2D.call(this, {})
+  this.color = colorToLatexOrHTML(color)
+  this.opacite = opacite
+  this.epaisseur = epaisseur
+  this.svg = function (coeff) {
+    return `<path fill="none" stroke="${this.color[0]}" d="M ${xSVG(xStart, coeff)},${ySVG(yStart, coeff)} C${xSVG(xStart + xAnteCtrl, coeff)},${ySVG(yStart + yAnteCtrl, coeff)} ${xSVG(xEnd + xPostCtrl, coeff)},${ySVG(yEnd + yPostCtrl, coeff)} ${xSVG(xEnd, coeff)},${ySVG(yEnd, coeff)}" />\n`
+  }
+  this.tikz = function () {
+    return `\n\t\\draw(${xStart},${yStart}) .. controls (${xStart + xAnteCtrl},${yStart + yAnteCtrl}) and (${xEnd + xPostCtrl},${yEnd + yPostCtrl}) .. (${xEnd},${yEnd});`
+  }
+}
+
 /**
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
  * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
@@ -525,6 +552,7 @@ export function CourbeSpline (f, {
     pas = step
   }
   for (let x = xMin; inferieurouegal(x, xMax); x = x + pas) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     y = f.image(x)
     if (!isNaN(y)) {
       if (y < yMax + 1 && y > yMin - 1) {
