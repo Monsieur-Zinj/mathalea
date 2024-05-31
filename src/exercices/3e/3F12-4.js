@@ -51,7 +51,7 @@ export default function ImageGraphique () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     this.sup = parseInt(this.sup)
-    let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, numa, dena, numb, denb, numc, denc, ymax, f
+    let a, b, c, d, x1, x2, x3, fx1, fx2, fx3, ymax, f
 
     function initialiseVariables () {
       x1 = randint(-6, -3)
@@ -85,16 +85,14 @@ export default function ImageGraphique () {
         x3 = randint(1, 6)
         fx1 = randint(-5, 5)
         fx3 = randint(-6, 6, c);
-        [[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-        while (dena === 0 || denb === 0 || numa === 0) {
+        [a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+        while (Number.isNaN(a) || Number.isNaN(b) === 0 || a === 0) {
           x1 = randint(-6, -3)
           x3 = randint(1, 6)
           fx1 = randint(-5, 5)
           fx3 = randint(-6, 6, c)
-          ;[[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+          ;[a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
         }
-        a = new Decimal(numa).div(dena)
-        b = new Decimal(numb).div(denb)
         x2 = 0
         fx2 = c
 
@@ -102,21 +100,17 @@ export default function ImageGraphique () {
       }
 
       if (this.sup === 3) {
-        [[numa, dena], [numb, denb], [numc, denc]] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
-        let [extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d])
-        while (dena === 0 || denb === 0 || denc === 0 || abs(extremum1[1]) > ymax || abs(extremum2[1]) > ymax) {
+        [a, b, c] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
+        let [extremum1, extremum2] = chercheMinMaxFonction([a, b, c, d])
+        while (Number.isNaN(a) || Number.isNaN(b) === 0 || Number.isNaN(c) || a === 0 || abs(extremum1[1]) > ymax || abs(extremum2[1]) > ymax) {
           initialiseVariables();
-          [[numa, dena], [numb, denb], [numc, denc]] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
-          if (chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d]) === []) {
+          [a, b, c] = resolutionSystemeLineaire3x3(x1, x2, x3, fx1, fx2, fx3, d)
+          if (chercheMinMaxFonction([a, b, c, d]) === []) {
             [extremum1, extremum2] = [[0, 999], [0, 999]]
           } else {
-            [extremum1, extremum2] = chercheMinMaxFonction([numa / dena, numb / denb, numc / denc, d])
+            [extremum1, extremum2] = chercheMinMaxFonction([a, b, c, d])
           }
         }
-        a = new Decimal(numa).div(dena)
-        b = new Decimal(numb).div(denb)
-        c = new Decimal(numc).div(denc)
-
         f = x => a * x ** 3 + b * x ** 2 + c * x + d
       }
 

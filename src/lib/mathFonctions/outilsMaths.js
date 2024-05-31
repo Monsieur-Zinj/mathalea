@@ -1,5 +1,4 @@
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { fraction } from '../../modules/fractions.js'
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
@@ -146,26 +145,9 @@ export function interpolationDeLagrange (listePoints) {
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
   const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  const determinant = matrice.determinant()
-  if (determinant.isEqual(0)) {
-    return [[0, 0], [0, 0], [0, 0]]
-  }
-  const [a, b] = matrice.cofacteurs().transposee().multiplieVecteur([fx1 - c, fx2 - c])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(determinant)) {
-    window.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
-     cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
-      Le déterminant est : ${determinant} et les numérateurs ${a} et ${b}`, { determinant, a, b })
-    const fa = determinant.inverse.multiplieEntier(a)
-    const fb = determinant.inverse.multiplieEntier(b)
-    return [[fa.numIrred, fa.denIrred], [fb.numIrred, fb.denIrred]]
-  } else {
-    const fa = a.diviseFraction(determinant)
-    const fb = b.diviseFraction(determinant)
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred]
-    ]
-  }
+  if (matrice.determinant() === 0) return [0, 0]
+  const [a, b] = matrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
+  return [a, b]
 }
 
 /**
@@ -178,33 +160,11 @@ export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
   const y1 = fx1 - d
   const y2 = fx2 - d
   const y3 = fx3 - d
-  const determinant = matrice.determinant()
-  if (determinant.isEqual(0)) {
-    return [[0, 0], [0, 0], [0, 0]]
+  if (matrice.determinant() === 0) {
+    return [0, 0, 0]
   }
-  const [a, b, c] = matrice.cofacteurs().transposee().multiplieVecteur([y1, y2, y3])
-  if (Number.isInteger(a) && Number.isInteger(b) && Number.isInteger(c) && Number.isInteger(determinant)) { // code caduque : determinant est une FractionEtendue de même que a,b et c
-    const fa = determinant.inverse.multiplieEntier(a)
-    const fb = determinant.inverse.multiplieEntier(b)
-    const fc = determinant.inverse.multiplieEntier(c)
-    window.notify(`Les coefficients trouvés sont des entiers avant division par le déterminant,
-     cela ne devrait pas arriver puisque multiplieVecteur() produit des FractionEtendue.
-      Le déterminant est : ${determinant} et les numérateurs ${a}, ${b} et ${c}`, { determinant, a, b, c })
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred],
-      [fc.numIrred, fc.denIrred]
-    ]
-  } else {
-    const fa = a.diviseFraction(determinant)
-    const fb = b.diviseFraction(determinant)
-    const fc = c.diviseFraction(determinant)
-    return [
-      [fa.numIrred, fa.denIrred],
-      [fb.numIrred, fb.denIrred],
-      [fc.numIrred, fc.denIrred]
-    ]
-  }
+  const [a, b, c] = matrice.inverse().multiply([y1, y2, y3]).toArray()
+  return [a, b, c]
 }
 
 /**

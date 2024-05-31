@@ -51,7 +51,7 @@ export default class LectureSigneAffine extends Exercice {
         case 2: { // coefficient entier relatif
           const y = randint(-3, 3, 0)
           const x = randint(-3, 3, 0)
-                ;[a, b] = trouveFonctionAffine(0, y, x, 0).map(el => el.valeurDecimale)
+                ;[a, b] = trouveFonctionAffine(0, y, x, 0)
         }
           break
         default: // coefficient rationnel

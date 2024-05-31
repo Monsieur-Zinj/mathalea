@@ -44,7 +44,7 @@ export default function AntecedentGraphique () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    let a, b, c, x1, x2, x3, fx1, fx2, fx3, numa, dena, numb, denb, texte, texteCorr, f
+    let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f
     let indexInteractif = 0
     let incrementInteractif
     this.sup = Number(this.sup)
@@ -100,17 +100,15 @@ export default function AntecedentGraphique () {
           f = x => a * (x - x0) ** 2 + fx0
         } else {
           fx3 = fx1;
-          [[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
-          while (dena === 0 || denb === 0 || numa === 0) {
+          [a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+          while (Number.isNaN(a) || Number.isNaN(b) === 0 || a === 0) {
             x1 = randint(-4, -1)
             x3 = randint(1, 4)
             fx1 = randint(-7, 7)
             fx3 = fx1
             c = randint(-6, 6);
-            [[numa, dena], [numb, denb]] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
+            [a, b] = resolutionSystemeLineaire2x2(x1, x3, fx1, fx3, c)
           }
-          a = new Decimal(numa).div(dena)
-          b = new Decimal(numb).div(denb)
           x2 = 0
           fx2 = c
           f = x => a * x ** 2 + b * x + c
