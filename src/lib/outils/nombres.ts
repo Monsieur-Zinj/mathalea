@@ -190,12 +190,13 @@ export function range (max: number = 10, listeAEviter: number[] = []) {
  *
  * @author Rémi Angot
  */
-export function rangeMinMax (min: number, max: number, listeAEviter: number[] = [], step = 1) {
+export function rangeMinMax (min: number, max: number, listeAEviter: number|number[] = [], step = 1) {
   // Créer un tableau avec toutes les valeurs de 0 à max sauf celle de la liste à éviter
   const liste = []
   for (let i = min; i <= max; i = i + step) {
     liste.push(i)
   }
+  if (typeof listeAEviter === 'number') listeAEviter = [listeAEviter]
   for (let i = 0; i < listeAEviter.length; i++) {
     enleveElement(liste, listeAEviter[i])
   }

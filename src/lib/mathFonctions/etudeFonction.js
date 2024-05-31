@@ -12,6 +12,7 @@ import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { matriceCarree } from './MatriceCarree.js'
 import engine from '../interactif/comparisonFunctions'
+import { inv, multiply } from 'mathjs'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -966,7 +967,7 @@ export function variationsFonction (derivee, xMin, xMax, step, tolerance = 0.005
  */
 export function trouveFonctionAffine (x1, x2, y1, y2) {
   const matrice = matriceCarree([[x1, 1], [x2, 1]])
-  return matrice.inverse().multiplieVecteur([y1, y2])
+  return multiply(inv(matrice), [y1, y2]).toArray()
 }
 
 /**

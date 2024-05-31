@@ -1,12 +1,9 @@
-import { all, create } from 'mathjs'
 import { MatriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-
-const math = create(all)
 
 export const titre = 'Calcul de déterminant'
 
@@ -17,6 +14,7 @@ export const dateDeModifImportante = '24/10/2021' // Une date de modification im
 /**
  * Description didactique de l'exercice
  * @author Maxime Nguyen
+ * Terminé par Jean-Claude Lhote (correction du cas 3x3 détaillée + mise en place classe MatriceCarree)
  * Référence HPC104
  */
 export const uuid = '2806f'
@@ -67,7 +65,7 @@ export default class nomExercice extends Exercice {
           for (let i = 0; i < n; i++) {
             const ligne = []
             for (let j = 0; j < m; j++) {
-              coef = math.pickRandom(coefficients)
+              coef = choice(coefficients)
               ligne.push(coef)
             }
             table.push(ligne)
@@ -88,7 +86,7 @@ export default class nomExercice extends Exercice {
           for (let i = 0; i < n; i++) {
             const ligne = []
             for (let j = 0; j < m; j++) {
-              coef = math.pickRandom(coefficients)
+              coef = choice(coefficients)
               ligne.push(coef)
             }
             table.push(ligne)
@@ -96,7 +94,31 @@ export default class nomExercice extends Exercice {
           const matrice = new MatriceCarree(table)
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
-          texteCorr += `On calcule $det(${nommatrice}) = ${matrice.determinant()}$.`
+          const matRed = []
+          const factor = []
+          for (let i = 0; i < 3; i++) {
+            factor.push(matrice.get([0, i]))
+            matRed.push(matrice.reduite(0, i))
+          }
+          texteCorr += `$\\begin{aligned}\\text{On calcule : }${matrice.texDet()}&=`
+          for (let i = 0; i < 3; i++) {
+            texteCorr += `${i % 2 === 0 ? '+' : '-'}${ecritureParentheseSiNegatif(factor[i])}\\times ${matRed[i].texDet()}`
+          }
+          texteCorr += '\\\\\n&='
+          let parcel = ''
+          for (let i = 0; i < 3; i++) {
+            parcel += `${ecritureAlgebrique((-1) ** i * factor[i])}\\times ${ecritureParentheseSiNegatif(matRed[i].determinant())}`
+          }
+          if (parcel.startsWith('+')) parcel = parcel.substring(1)
+          texteCorr += parcel + '\\\\\n&='
+          parcel = ''
+          for (let i = 0; i < 3; i++) {
+            parcel += `${ecritureAlgebrique((-1) ** i * factor[i] * matRed[i].determinant())}`
+          }
+          if (parcel.startsWith('+')) parcel = parcel.substring(1)
+          texteCorr += parcel + '\\\\\n&='
+          texteCorr += `${matrice.determinant()}`
+          texteCorr += '\\end{aligned}$.'
           break
         }
       }

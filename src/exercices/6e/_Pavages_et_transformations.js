@@ -53,7 +53,14 @@ export default function PavagesEtTransformations () {
       this.sup = 2
     } else this.sup = 1
     // listes de pavages [nx,ny,xB,yB,xC,yC,xD,yD,zoom,angle]  : 0=carrés, 1=cerf-volant 2=quadri concave 3=quadri quelconque 4=parallélogrammes 5=triangles rectangles isocèles 6=triangles équilatéraux 7=losanges
-    const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0], [5, 5, 6, 0, 8, 8, 0, 6, 60, -9], [5, 5, 8, 0, 4, 4, 2, 8, 50, 0], [5, 5, 4, 0, 6, 4, 0, 6, 50, 5], [4, 6, 8, 0, 7, 4, -1, 4, 50, 10], [5, 5, 8, 0, 4, 4, 0, 8, 50, 0], [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 0], [4, 4, 3, 1, 4, 4, 1, 3, 20, 0]]
+    const paves = [[5, 5, 4, 0, 4, 4, 0, 4, 30, 0],
+      [5, 5, 6, 0, 8, 8, 0, 6, 60, -9],
+      [5, 5, 8, 0, 4, 4, 2, 8, 50, 0],
+      [5, 5, 4, 0, 6, 4, 0, 6, 50, 11],
+      [4, 6, 8, 0, 7, 4, -1, 4, 50, 0],
+      [5, 5, 8, 0, 4, 4, 0, 8, 50, 0],
+      [5, 5, 4, 0, 3, 2 * Math.sin(Math.PI / 3), 2, 4 * Math.sin(Math.PI / 3), 20, 20],
+      [4, 4, 3, 1, 4, 4, 1, 3, 20, -18]]
     const quad = []
     const quadCorr = []
     let labelCentre1, labelCentre2, labelCentre3
@@ -65,7 +72,6 @@ export default function PavagesEtTransformations () {
     let vecteur1, vecteur2, vecteur3, vector1, vector2, vector3, origine1, origine2, origine3, indexsym2, indexsym1,
       indexsym3
     let segCorr11, segCorr12, segCorr21, segCorr22, segCorr31, segCorr32
-    let B, C, D
     let iB1, iB2, iB3, iC1, iA1, iD1
     let texte = ''
     let texteCorr = ''
@@ -80,8 +86,7 @@ export default function PavagesEtTransformations () {
         choixPave = 0 // pavages adaptés à symétrie axiale (carrés)
         break
       case 2:
-        // choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
-        choixPave = choice([0, 2, 5, 7])// typeDePavage[0]// pavages adaptés à symétrie centrale (tous)
+        choixPave = randint(0, 7)// pavages adaptés à symétrie centrale (tous)
         break
       case 3:
         choixPave = randint(0, 7) // pavages adaptés à translation (tous)
@@ -91,7 +96,7 @@ export default function PavagesEtTransformations () {
         break
     }
     pave = paves[choixPave]
-
+    let B, C, D
     const nx = pave[0]
     const ny = pave[1]
     let xB = pave[2]
@@ -103,7 +108,7 @@ export default function PavagesEtTransformations () {
     const Zoom = pave[8]
     const Angle = pave[9]
     const A = point(0, 0)
-    if (choixPave !== 0 && choixPave !== 6 && choixPave !== 7) {
+    if (choixPave !== 0) { // } && choixPave !== 6 && choixPave !== 7) {
       B = similitude(point(xB, yB), A, Angle, 22 / Zoom)
       C = similitude(point(xC, yC), A, Angle, 22 / Zoom)
       D = similitude(point(xD, yD), A, Angle, 22 / Zoom)
@@ -190,7 +195,7 @@ export default function PavagesEtTransformations () {
       objetsCorrection.push(quadCorr[i], texteParPoint(i, barycentre(quad[i], '', 'center'), 0, assombrirOuEclaircir('gray', 50), 1, 'milieu', false))
     }
 
-    context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
+    // context.fenetreMathalea2d = [Xmin, Ymin, Xmax, Ymax]
     let trace, label, pt1, pt2
     let texteAMC1, texteAMC2, texteAMC3, consigneAMC
     switch (parseInt(this.sup)) {
@@ -205,7 +210,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
+            if (egal(punto[0], tabfigC[j][0], 0.05) && egal(punto[1], tabfigC[j][1], 0.05)) {
               trouver = true
               num1 = tabfigA[j][2]
               xa = tabfigA[indexA][0]
@@ -249,7 +254,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
+            if (egal(punto[0], tabfigB[j][0], 0.05) && egal(punto[1], tabfigB[j][1], 0.05)) {
               trouver = true
               num2 = tabfigB[j][2]
               xb = tabfigD[indexD][0]
@@ -294,7 +299,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
+            if (egal(punto[0], tabfigC[j][0], 0.05) && egal(punto[1], tabfigC[j][1], 0.05)) {
               trouver = true
               num3 = tabfigB[j][2]
               xc = tabfigC[indexC][0]
@@ -362,16 +367,15 @@ export default function PavagesEtTransformations () {
         objetsCorrection.push(codageSegments('OO', context.isAmc ? 'black' : 'green', segCorr11, segCorr12))
         objetsCorrection.push(codageSegments('XX', context.isAmc ? 'black' : 'red', segCorr21, segCorr22))
         objetsCorrection.push(codageSegments('|||', context.isAmc ? 'black' : 'blue', segCorr31, segCorr32))
-        consigneAMC = mathalea2d({
-          xmin: Xmin,
-          xmax: Xmax,
-          ymin: Ymin,
-          ymax: Ymax,
-          pixelsParCm: 15,
-          scale: 0.3,
-          optionsTikz: ['every node/.style={scale=0.6}'],
-          mainlevee: false
-        }, objetsEnonce
+        consigneAMC = mathalea2d(
+          Object.assign({
+            pixelsParCm: 15,
+            scale: 0.3,
+            optionsTikz: ['every node/.style={scale=0.6}']
+          },
+          fixeBordures(objetsEnonce, { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 })
+          ),
+          objetsEnonce
         )
         texte += consigneAMC
         quad1 = translation(quad[num1], vecteur(0, 0))
@@ -397,7 +401,7 @@ export default function PavagesEtTransformations () {
         )
 
         break
-      case 2: { // symétrie centrale
+      case 2: // symétrie centrale
         // Première question : une figure dans tabfigA, une symétrie par rapport au milieu d'un [B'C'], logiquement : l'image est dans tabfigB et B' est l'image de C !
         indexA = randint(0, nx * ny - 1)
         numA = tabfigA[indexA][2]
@@ -410,7 +414,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
+            if (egal(punto[0], tabfigB[j][0], 0.05) && egal(punto[1], tabfigB[j][1], 0.05)) {
               trouver = true
               num1 = tabfigB[j][2]
               xa = tabfigA[indexA][0]
@@ -445,7 +449,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
+            if (egal(punto[0], tabfigC[j][0], 0.05) && egal(punto[1], tabfigC[j][1], 0.05)) {
               trouver = true
               num2 = tabfigA[j][2]
               xb = tabfigA[indexD][0]
@@ -482,7 +486,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], tabfigD[j][1], 0.001)) {
+            if (egal(punto[0], tabfigD[j][0], 0.01) && egal(punto[1], tabfigD[j][1], 0.01)) {
               trouver = true
               num3 = tabfigD[j][2]
               xc = tabfigA[indexC][0]
@@ -519,16 +523,15 @@ export default function PavagesEtTransformations () {
         objetsCorrection.push(labelCentre1, labelCentre2, labelCentre3, labelPoint(centre1, 'red'), labelPoint(centre2, 'red'), labelPoint(centre3, 'red'))
         if (context.isHtml) objetsCorrection.push(rotationAnimee(quad[numA], centre1, 180, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 180, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, 180, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
-        consigneAMC = mathalea2d({
-          xmin: Xmin,
-          xmax: Xmax,
-          ymin: Ymin,
-          ymax: Ymax,
-          pixelsParCm: 15,
-          scale: 0.3,
-          optionsTikz: ['every node/.style={scale=0.6}'],
-          mainlevee: false
-        }, objetsEnonce
+        consigneAMC = mathalea2d(
+          Object.assign({
+            pixelsParCm: 15,
+            scale: 0.3,
+            optionsTikz: ['every node/.style={scale=0.6}']
+          },
+          fixeBordures(objetsEnonce, { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 })
+          ),
+          objetsEnonce
         )
         texte += consigneAMC
         quad1 = translation(quad[num1], vecteur(0, 0))
@@ -570,7 +573,7 @@ export default function PavagesEtTransformations () {
           mainlevee: false
         }, objetsCorrection
         )
-      }
+
         break
 
       case 3: // translations
@@ -587,7 +590,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigA[j][0], 0.001) && egal(punto[1], tabfigA[j][1], 0.001)) {
+            if (egal(punto[0], tabfigA[j][0], 0.05) && egal(punto[1], tabfigA[j][1], 0.05)) {
               trouver = true
               num1 = tabfigA[j][2]
               xa = tabfigA[indexA][0]
@@ -628,7 +631,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigB[j][0], 0.001) && egal(punto[1], tabfigB[j][1], 0.001)) {
+            if (egal(punto[0], tabfigB[j][0], 0.05) && egal(punto[1], tabfigB[j][1], 0.05)) {
               trouver = true
               num2 = tabfigB[j][2]
               xb = tabfigD[indexD][0]
@@ -670,7 +673,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigA[j][0], 0.001) && egal(punto[1], tabfigA[j][1], 0.001)) {
+            if (egal(punto[0], tabfigA[j][0], 0.05) && egal(punto[1], tabfigA[j][1], 0.05)) {
               trouver = true
               num3 = tabfigA[j][2]
               xc = tabfigC[indexC][0]
@@ -704,16 +707,15 @@ export default function PavagesEtTransformations () {
         objetsCorrection.push(vecteur1, vecteur2, vecteur3)
         if (context.isHtml) objetsCorrection.push(translationAnimee(quad[numA], vector1, `id="anim${numeroExercice}A" dur="2s" repeatcount="1"`), translationAnimee(quad[numD], vector2, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), translationAnimee(quad[numC], vector3, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
-        consigneAMC = mathalea2d({
-          xmin: Xmin,
-          xmax: Xmax,
-          ymin: Ymin,
-          ymax: Ymax,
-          pixelsParCm: 15,
-          scale: 0.3,
-          optionsTikz: ['every node/.style={scale=0.6}'],
-          mainlevee: false
-        }, objetsEnonce
+        consigneAMC = mathalea2d(
+          Object.assign({
+            pixelsParCm: 15,
+            scale: 0.3,
+            optionsTikz: ['every node/.style={scale=0.6}']
+          },
+          fixeBordures(objetsEnonce, { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 })
+          ),
+          objetsEnonce
         )
         texte += consigneAMC
         quad1 = translation(quad[num1], vecteur(0, 0))
@@ -750,7 +752,6 @@ export default function PavagesEtTransformations () {
         break
 
       case 4: // rotations
-
         // première question : centre A, rotation de 90° sens anti-horaire, une figure de tabfigA donne une figure de tabfigD, le point B donne le point D.
         indexA = randint(0, nx * ny - 1)
         numA = tabfigA[indexA][2]
@@ -761,7 +762,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], tabfigD[j][1], 0.001)) {
+            if (egal(punto[0], tabfigD[j][0], 0.1) && egal(punto[1], tabfigD[j][1], 0.1)) {
               trouver = true
               num1 = tabfigD[j][2]
               xa = tabfigA[indexA][0]
@@ -795,7 +796,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], 4 + tabfigC[j][0], 0.001) && egal(punto[1], tabfigC[j][1], 0.001)) {
+            if (egal(punto[0], 4 + tabfigC[j][0], 0.1) && egal(punto[1], tabfigC[j][1], 0.1)) {
               trouver = true
               num2 = tabfigC[j][2]
               xb = tabfigA[indexD][0]
@@ -829,7 +830,7 @@ export default function PavagesEtTransformations () {
         trouver = false
         while (trouver === false) {
           for (let j = 0; j < nx * ny; j++) {
-            if (egal(punto[0], tabfigD[j][0], 0.001) && egal(punto[1], 4 + tabfigD[j][1], 0.001)) {
+            if (egal(punto[0], tabfigD[j][0], 0.1) && egal(punto[1], 4 + tabfigD[j][1], 0.1)) {
               trouver = true
               num3 = tabfigD[j][2]
               xc = tabfigA[indexC][0]
@@ -873,16 +874,15 @@ export default function PavagesEtTransformations () {
         objetsCorrection.push(trace, label)
         if (context.isHtml) objetsCorrection.push(rotationAnimee(quad[numA], centre1, -90, `id="anim${numeroExercice}A" dur ="2s" repeatcount="1"`), rotationAnimee(quad[numD], centre2, 90, `id="anim${numeroExercice}B" dur="2s" repeatcount="1"`), rotationAnimee(quad[numC], centre3, -90, `id="anim${numeroExercice}C" dur="2s" repeatcount="1"`))
 
-        consigneAMC = mathalea2d({
-          xmin: Xmin,
-          xmax: Xmax,
-          ymin: Ymin,
-          ymax: Ymax,
-          pixelsParCm: 15,
-          scale: 0.3,
-          optionsTikz: ['every node/.style={scale=0.6}'],
-          mainlevee: false
-        }, objetsEnonce
+        consigneAMC = mathalea2d(
+          Object.assign({
+            pixelsParCm: 15,
+            scale: 0.3,
+            optionsTikz: ['every node/.style={scale=0.6}']
+          },
+          fixeBordures(objetsEnonce, { rxmin: -1, rxmax: 1, rymin: -1, rymax: 1 })
+          ),
+          objetsEnonce
         )
         texte += consigneAMC
         quad1 = translation(quad[num1], vecteur(0, 0))
@@ -930,12 +930,10 @@ export default function PavagesEtTransformations () {
           Object.assign({}, fixeBordures(objetsCorrection), {
             pixelsParCm: 15,
             scale: 0.3,
-            optionsTikz: ['every node/.style={scale=0.6}'],
-            mainlevee: false
+            optionsTikz: ['every node/.style={scale=0.6}']
           })
           , objetsCorrection
         )
-
         break
     }
     setReponse(this, 0, num1)
