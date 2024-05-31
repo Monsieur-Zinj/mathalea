@@ -4,8 +4,7 @@ import { choice } from '../outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegatif, rienSi1 } from '../outils/ecritures'
 import Decimal from 'decimal.js'
 import { texNombre } from '../outils/texNombre'
-import { rationnalise } from './outilsMaths'
-import FractionEtendue from '../../modules/FractionEtendue'
+import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { generateCleaner } from '../interactif/comparisonFunctions'
 
 const clean = generateCleaner(['virgules', 'fractions', 'espaces'])

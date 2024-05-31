@@ -22,10 +22,40 @@ import {
 import { abs, multiply, gcd, round, lcm, max, min } from 'mathjs'
 import { colorToLatexOrHTML } from './2dGeneralites.js'
 import Decimal from 'decimal.js'
-import { rationnalise } from '../lib/mathFonctions/outilsMaths'
 
 type FractionRepresentationType = 'gateau'|'barre'|'segment'
 
+/**
+ * Une fonction pour transformer en FractionEtendue
+ * @param x
+ * @return {FractionEtendue}
+ */
+export function rationnalise (x:number|FractionEtendue|Decimal|null) {
+  if (x == null) {
+    window.notify('rationnalise est appelé avec une valeur undefined ou nulle', { x })
+    return new FractionEtendue(0, 1)
+  }
+  if (x instanceof FractionEtendue) return x
+  if (x instanceof Decimal) {
+    const numDen = x.toFraction(10000) // On limite le dénominateur à 10000
+    return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
+  }
+  if (typeof x === 'number') {
+    // MGU  : C'est dangereux ce truc mais bon...
+    // Déjà ça gère au delà des centièmes...
+    const numDen = new Decimal(x.toFixed(5)).toFraction(10000)
+    return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
+  }
+  // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
+  window.notify('rationnalise est appelé avec un nombre dont le format est inconnu :', { x })
+  return x
+}
+
+/**
+ * transforme si besoin les numérateurs et dénominateurs en number
+ * @param n
+ * @param d
+ */
 function normalizeFraction (n: number|Decimal, d:number): [number, number] {
   let num: number
   let den: number
