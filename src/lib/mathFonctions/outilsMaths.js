@@ -1,8 +1,6 @@
-import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures'
 import { matriceCarree } from './MatriceCarree.js'
-import Decimal from 'decimal.js'
 import { Polynome } from './Polynome.js'
 import { miseEnEvidence } from '../outils/embellissements'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
