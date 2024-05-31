@@ -1,6 +1,5 @@
-import FractionEtendue from './FractionEtendue'
+import FractionEtendue, { rationnalise } from './FractionEtendue'
 import ListeFraction from './ListeFraction'
-import { rationnalise } from '../lib/mathFonctions/outilsMaths'
 
 /**
  * Des fonctions pour manipuler des objets Fraction ou ListeFraction
