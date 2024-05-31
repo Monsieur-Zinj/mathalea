@@ -108,7 +108,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         // Si il faut multiplier pour convertir
         resultat = arrondi(a * prefixeMulti[k][1], 12)
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${unite}$` })}` : `\\dotfills  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${texTexte(unite)}$` })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -130,7 +130,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
       } else if (div && typesDeQuestions < 4) {
         resultat = arrondi(a / prefixeDiv[k][1], 12)
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
-        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${unite}$` })}` : `\\dotfills  ${texTexte(unite)}$`
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${texTexte(unite)}$` })}` : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           '$ ' +
           texNombre(a) +
@@ -161,7 +161,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         if (randint(0, 1) > 0) {
           resultat = a * Math.pow(10, ecart)
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${listeUnite[unite1]}$` })}` : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${texTexte(listeUnite[unite1])}$` })}` : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
@@ -184,7 +184,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         } else {
           resultat = a / Math.pow(10, ecart)
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
-          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${listeUnite[unite2]}$` })}` : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: sp() + `$${texTexte(listeUnite[unite2])}$` })}` : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             '$ ' +
             texNombre(a) +
