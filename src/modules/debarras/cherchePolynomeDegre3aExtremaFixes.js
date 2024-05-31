@@ -1,4 +1,4 @@
-import { matriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
+import { matrice } from '../../lib/mathFonctions/Matrice.js'
 import { egal } from '../outils.js'
 
 /**
@@ -6,7 +6,7 @@ import { egal } from '../outils.js'
  * @author Jean-Claude Lhote
  */
 export function cherchePolynomeDegre3aExtremaFixes (x1, x2, y1, y2) {
-  const M = matriceCarree([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
+  const M = matrice([[x1 ** 3, x1 ** 2, x1, 1], [x2 ** 3, x2 ** 2, x2, 1], [3 * x1 ** 2, 2 * x1, 1, 0], [3 * x2 ** 2, 2 * x2, 1, 0]])
   const R = [y1, y2, 0, 0]
   if (!egal(M.determinant(), 0)) return M.inverse().multiplieVecteur(R)
   else return false

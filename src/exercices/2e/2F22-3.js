@@ -199,9 +199,12 @@ export default class BetaModeleSpline extends Exercice {
         xMin: maSpline.x[0],
         xMax: maSpline.x[maSpline.n - 1],
         step: 0.1,
-        color: 'red'
+        color: 'red',
+        epaisseur: 5,
+        opacite: 0.5
       })
-      const objetsEnonce = [...repere1.objets, courbe1, courbe2]
+
+      const objetsEnonce = [...repere1.objets, courbe2, courbe1]
       let texteEnonce
 
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })

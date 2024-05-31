@@ -10,9 +10,8 @@ import { segment, vecteur } from '../2d/segmentsVecteurs.js'
 import { translation } from '../2d/transformations.js'
 import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
-import { matriceCarree } from './MatriceCarree.js'
+import { matrice } from './Matrice.js'
 import engine from '../interactif/comparisonFunctions'
-import { inv, multiply } from 'mathjs'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -966,8 +965,8 @@ export function variationsFonction (derivee, xMin, xMax, step, tolerance = 0.005
  * @returns {[number,number]}
  */
 export function trouveFonctionAffine (x1, x2, y1, y2) {
-  const matrice = matriceCarree([[x1, 1], [x2, 1]])
-  return multiply(inv(matrice), [y1, y2]).toArray()
+  const maMatrice = matrice([[x1, 1], [x2, 1]])
+  return maMatrice.inverse().multiply([y1, y2]).toArray()
 }
 
 /**
@@ -1169,5 +1168,5 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
  */
 export function derivee (fonction, variable) {
   const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
-  const laDerivee = engine.box(['D', laFonction, variable]).evaluate().latex
+  return engine.box(['D', laFonction, variable]).evaluate().latex
 }

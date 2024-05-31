@@ -11,7 +11,7 @@ import { signesFonction, variationsFonction } from './etudeFonction.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
-import { matriceCarree } from './MatriceCarree'
+import { matrice } from './Matrice'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -172,7 +172,7 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = matriceCarree([
+      const maMatrice = matrice([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
@@ -195,14 +195,14 @@ export class Spline {
         const b = y0 - a * x0
         this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
       } else {
-        if (matrice.determinant() === 0) {
+        if (maMatrice.determinant() === 0) {
           window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
             noeudGauche: noeuds[i],
             noeudDroit: noeuds[i + 1]
           })
           return
         }
-        const matriceInverse = matrice.inverse()
+        const matriceInverse = maMatrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,

@@ -1,4 +1,4 @@
-import { MatriceCarree } from '../../lib/mathFonctions/MatriceCarree.js'
+import { Matrice } from '../../lib/mathFonctions/Matrice.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -70,11 +70,11 @@ export default class nomExercice extends Exercice {
             }
             table.push(ligne)
           }
-          const matrice = new MatriceCarree(table)
+          const matrice = new Matrice(table)
 
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
-          texteCorr += `On calcule $det(${nommatrice}) = ${ecritureParentheseSiNegatif(table[0][0])} \\times ${ecritureParentheseSiNegatif(table[1][1])} - ${ecritureParentheseSiNegatif(table[1][0])} \\times ${ecritureParentheseSiNegatif(table[0][1])}  = ${matrice.determinant()}$.`
+          texteCorr += `On calcule $${matrice.texDet()} = ${ecritureParentheseSiNegatif(table[0][0])} \\times ${ecritureParentheseSiNegatif(table[1][1])} - ${ecritureParentheseSiNegatif(table[1][0])} \\times ${ecritureParentheseSiNegatif(table[0][1])}  = ${matrice.determinant()}$.`
           break
         }
         case 'type2': {
@@ -91,7 +91,7 @@ export default class nomExercice extends Exercice {
             }
             table.push(ligne)
           }
-          const matrice = new MatriceCarree(table)
+          const matrice = new Matrice(table)
           texte = `Calculer le déterminant de la matrice $${nommatrice} = ${matrice.toTex()}$.` // Les questions sont modifiées en fonction de la difficulté
           texteCorr = ''
           const matRed = []
