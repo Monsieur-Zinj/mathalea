@@ -21,7 +21,6 @@ export const dateDeModifImportante = '09/03/2023'
  * Résolution d'équations de type (ax+b)(cx+d)=0
  * @author Jean-Claude Lhote
  * Tout est dans le nom de la fonction.
- * Référence 3L14
  * Rendu interactif par Guillaume Valmont le 18/03/2022
  */
 export const uuid = 'ecf62'
@@ -74,7 +73,8 @@ export default function ResoudreUneEquationProduitNul () {
         break
     }
     for (let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (listeTypeDeQuestions[i]) {
+      // switch (listeTypeDeQuestions[i]) {
+      switch (13) {
         case 1: // (x+a)(x+b)=0 avec a et b entiers
           b = randint(1, context.isAmc ? 9 : 20)
           d = randint(1, context.isAmc ? 9 : 20, [b])
@@ -105,9 +105,12 @@ export default function ResoudreUneEquationProduitNul () {
         case 13: // (x+b)(cx+d)=0  avec b/a et d/c entiers.
         {
           a = randint(2, 6)
-          b = Math.round(randint(1, 5) * a)
-          c = randint(2, 6, [a])
-          d = Math.round(randint(1, 5) * c)
+          b = randint(1, 5) * a
+          do {
+            c = randint(2, 6, [a])
+            d = randint(1, 5) * c
+          } while (-b * c === -d)
+
           const choix = choice([0, 1])
           texte = [`$(x+${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x+${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
@@ -116,22 +119,22 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$${c}x=${-d}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$${c}x=${-d}$` : `$x=${-b}$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=-${texFractionFromString(d, c)}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=-${texFractionFromString(d, c)}$` : `$x=${-b}$`)
           texteCorr += '<br> Donc ' + (choix === 0 ? `$x=${-b}$` : `$x=${-d / c}$`) + ` ${texteEnCouleurEtGras('ou', 'black')} ` + (choix === 0 ? `$x=${-d / c}$` : `$x=${-b}$`)
-          if (-b * c === -d) {
+          /* if (-b * c === -d) {
             setReponse(this, i, `${-b}`)
             solution1 = -b
             solution2 = -b
-          } else {
-            setReponse(this, i, [`${-b};${-d / c}`, `${-d / c};${-b}`])
-            solution1 = Math.min(-b, -d / c)
-            solution2 = Math.max(-b, -d / c)
-          }
+          } else { */
+          setReponse(this, i, [`${-b};${-d / c}`, `${-d / c};${-b}`])
+          solution1 = Math.min(-b, -d / c)
+          solution2 = Math.max(-b, -d / c)
+          // }
           break
         }
         case 42: // (x-b)(cx+d)=0  ou (cx+d)(x-b)=0 avec d/c entiers.
         {
-          b = Math.round(randint(1, context.isAmc ? 9 : 20))
+          b = randint(1, context.isAmc ? 9 : 20)
           c = randint(2, 8, [b])
-          d = Math.round(randint(1, 6) * c)
+          d = randint(1, 6) * c
           const choix = choice([0, 1])
           texte = [`$(x-${b})(${c}x+${d})=0$`, `$(${c}x+${d})(x-${b})=0$`][choix]
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
@@ -148,9 +151,11 @@ export default function ResoudreUneEquationProduitNul () {
         }
         case 3: // (ax+b)(cx+d)=0  avec b/a et d/c entiers.
           a = randint(2, 6)
-          b = Math.round(randint(1, 5) * a)
-          c = randint(2, 6, [a])
-          d = Math.round(randint(1, 5) * c)
+          b = randint(1, 5) * a
+          do {
+            c = randint(2, 6, [a])
+            d = randint(1, 5) * c
+          } while (-b * c === -d)
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
@@ -158,15 +163,15 @@ export default function ResoudreUneEquationProduitNul () {
           texteCorr += '<br> Donc ' + `$${a}x=${-b}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$${c}x=${-d}$`
           texteCorr += '<br> Donc ' + `$x=-${texFractionFromString(b, a)}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=-${texFractionFromString(d, c)}$`
           texteCorr += '<br> Donc ' + `$x=${-b / a}$` + ` ${texteEnCouleurEtGras('ou', 'black')} ` + `$x=${-d / c}$`
-          if (-b * c === -d * a) {
+          /* if (-b * c === -d * a) {
             setReponse(this, i, `${-b / a}`)
             solution1 = -b / a
             solution2 = -b / a
-          } else {
-            setReponse(this, i, [`${-b / a};${-d / c}`, `${-d / c};${-b / a}`])
-            solution1 = Math.min(-b / a, -d / c)
-            solution2 = Math.max(-b / a, -d / c)
-          }
+          } else { */
+          setReponse(this, i, [`${-b / a};${-d / c}`, `${-d / c};${-b / a}`])
+          solution1 = Math.min(-b / a, -d / c)
+          solution2 = Math.max(-b / a, -d / c)
+          // }
           break
         case 4: // (ax+b)(cx-d)=0  avec b/a et d/c entiers.
         {
@@ -191,8 +196,10 @@ export default function ResoudreUneEquationProduitNul () {
         case 5:
           a = randint(2, 9) // (ax+b)(cx+d)=0 avec b/a et d/c quelconques.
           b = randint(1, context.isAmc ? 9 : 20, [a])
-          c = randint(2, 9, [a])
-          d = randint(1, context.isAmc ? 9 : 20, [b, c])
+          do {
+            c = randint(2, 9, [a])
+            d = randint(1, context.isAmc ? 9 : 20, [b, c])
+          } while (b * c === d * a)
           texte = `$(${a}x+${b})(${c}x+${d})=0$`
           texteCorr = 'Un produit est nul si l\'un au moins de ses facteurs est nul.'
           texteCorr += '<br>' + `$(${a}x+${b})(${c}x+${d})=0$`
@@ -206,20 +213,20 @@ export default function ResoudreUneEquationProduitNul () {
           if (texFractionFromString(d, c) !== texFractionReduite(d, c)) {
             texteCorr += `$=-${texFractionReduite(d, c)}$`
           }
-          if (b * c === d * a) {
+          /* if (b * c === d * a) {
             setReponse(this, i, `$-${texFractionReduite(d, c)}$`)
             solution1 = fraction(-d, c).simplifie()
             solution2 = fraction(-d, c).simplifie()
+          } else { */
+          setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
+          if (-b / a < -d / c) {
+            solution1 = fraction(-b, a).simplifie()
+            solution2 = fraction(-d, c).simplifie()
           } else {
-            setReponse(this, i, FractionEtendue.texArrayReponsesCoupleDeFractionsEgalesEtSimplifiees(-b, a, -d, c))
-            if (-b / a < -d / c) {
-              solution1 = fraction(-b, a).simplifie()
-              solution2 = fraction(-d, c).simplifie()
-            } else {
-              solution2 = fraction(-b, a).simplifie()
-              solution1 = fraction(-d, c).simplifie()
-            }
+            solution2 = fraction(-b, a).simplifie()
+            solution1 = fraction(-d, c).simplifie()
           }
+          // }
           break
         case 6: {
           a = randint(2, 9) // (ax+b)(cx-d)=0 avec b/a et d/c quelconques.
