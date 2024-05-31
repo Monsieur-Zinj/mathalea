@@ -1,4 +1,4 @@
-import { matriceCarree } from '../lib/mathFonctions/MatriceCarree.js'
+import { matrice } from '../lib/mathFonctions/Matrice.js'
 
 /**
  * Description
@@ -37,83 +37,83 @@ export function imagePointParTransformation (transformation, pointA, pointO, vec
   const v = vecteur[1]
   const k = rapport // rapport d'homothétie
 
-  const matriceChangementDeRepere = matriceCarree([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
-  const matriceChangementDeRepereInv = matriceCarree([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
+  const matriceChangementDeRepere = matrice([[1, 0, x2], [0, 1, y2], [0, 0, 1]])
+  const matriceChangementDeRepereInv = matrice([[1, 0, -x2], [0, 1, -y2], [0, 0, 1]])
 
-  let matrice
+  let maMatrice
   switch (transformation) {
     case 1: { // Symétrie par rapport à la première bissectrice
-      const matriceSymObl1 = matriceCarree([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
-      matrice = matriceSymObl1.multiply(matriceChangementDeRepereInv)
+      const matriceSymObl1 = matrice([[0, 1, 0], [1, 0, 0], [0, 0, 1]]) // x'=y et y'=x
+      maMatrice = matriceSymObl1.multiply(matriceChangementDeRepereInv)
     }
       break
     case 2: { // symétrie par rapport à la deuxième bissectrice
-      const matriceSymObl2 = matriceCarree([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
-      matrice = matriceSymObl2.multiply(matriceChangementDeRepereInv)
+      const matriceSymObl2 = matrice([[0, -1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=-y et y'=-x
+      maMatrice = matriceSymObl2.multiply(matriceChangementDeRepereInv)
     }
       break
     case 3: { // Symétrie par rapport à l'axe des abscisses
-      const matriceSymxxprime = matriceCarree([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
-      matrice = matriceSymxxprime.multiply(matriceChangementDeRepereInv)
+      const matriceSymxxprime = matrice([[1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=x et y'=-y
+      maMatrice = matriceSymxxprime.multiply(matriceChangementDeRepereInv)
     }
       break
     case 4: { // symétrie par rapport à l'axe des ordonnées
-      const matriceSymYyPrime = matriceCarree([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
-      matrice = matriceSymYyPrime.multiply(matriceChangementDeRepereInv)
+      const matriceSymYyPrime = matrice([[-1, 0, 0], [0, 1, 0], [0, 0, 1]]) // x'=-x et y'=y
+      maMatrice = matriceSymYyPrime.multiply(matriceChangementDeRepereInv)
     }
       break
     case 5: { // rotation 90 direct
-      const matriceQuartDeTourDirect = matriceCarree([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
-      matrice = matriceQuartDeTourDirect.multiply(matriceChangementDeRepereInv)
+      const matriceQuartDeTourDirect = matrice([[0, -1, 0], [1, 0, 0], [0, 0, 1]]) // x'=-y et y'=x
+      maMatrice = matriceQuartDeTourDirect.multiply(matriceChangementDeRepereInv)
     }
       break
     case 6: { // rotation quart de tour indirect
-      const matriceQuartDeTourIndirect = matriceCarree([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
-      matrice = matriceQuartDeTourIndirect.multiply(matriceChangementDeRepereInv)
+      const matriceQuartDeTourIndirect = matrice([[0, 1, 0], [-1, 0, 0], [0, 0, 1]]) // x'=y et y'=-x
+      maMatrice = matriceQuartDeTourIndirect.multiply(matriceChangementDeRepereInv)
     }
       break
     case 7: { // symétrie centrale
-      const matriceSymCentrale = matriceCarree([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
-      matrice = matriceSymCentrale.multiply(matriceChangementDeRepereInv)
+      const matriceSymCentrale = matrice([[-1, 0, 0], [0, -1, 0], [0, 0, 1]]) // x'=-x et y'=-y
+      maMatrice = matriceSymCentrale.multiply(matriceChangementDeRepereInv)
     }
       break
     case 11: { // rotation 60° direct
-      const matriceRotation60Direct = matriceCarree([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-      matrice = matriceRotation60Direct.multiply(matriceChangementDeRepereInv)
+      const matriceRotation60Direct = matrice([[0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+      maMatrice = matriceRotation60Direct.multiply(matriceChangementDeRepereInv)
     }
       break
     case 12: { // rotation 60° indirect
-      const matriceRotation60Indirect = matriceCarree([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
-      matrice = matriceRotation60Indirect.multiply(matriceChangementDeRepereInv)
+      const matriceRotation60Indirect = matrice([[0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), 0.5, 0], [0, 0, 1]])
+      maMatrice = matriceRotation60Indirect.multiply(matriceChangementDeRepereInv)
     }
       break
     case 13: { // rotation 120° direct
-      const matriceRotation120Direct = matriceCarree([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-      matrice = matriceRotation120Direct.multiply(matriceChangementDeRepereInv)
+      const matriceRotation120Direct = matrice([[-0.5, -Math.sin(Math.PI / 3), 0], [Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+      maMatrice = matriceRotation120Direct.multiply(matriceChangementDeRepereInv)
     }
       break
     case 14: { // rotation 120° indirect
-      const matriceRotation120Indirect = matriceCarree([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
-      matrice = matriceRotation120Indirect.multiply(matriceChangementDeRepereInv)
+      const matriceRotation120Indirect = matrice([[-0.5, Math.sin(Math.PI / 3), 0], [-Math.sin(Math.PI / 3), -0.5, 0], [0, 0, 1]])
+      maMatrice = matriceRotation120Indirect.multiply(matriceChangementDeRepereInv)
     }
       break
     case 8: { // translation
-      const matriceTranslation = matriceCarree([[1, 0, u], [0, 1, v], [0, 0, 1]])
-      matrice = matriceTranslation.multiply(matriceChangementDeRepereInv)
+      const matriceTranslation = matrice([[1, 0, u], [0, 1, v], [0, 0, 1]])
+      maMatrice = matriceTranslation.multiply(matriceChangementDeRepereInv)
     }
       break
     case 9: { // homothétie rapport entier
-      const matriceHomothetie = matriceCarree([[k, 0, 0], [0, k, 0], [0, 0, 1]])
-      matrice = matriceHomothetie.multiply(matriceChangementDeRepereInv)
+      const matriceHomothetie = matrice([[k, 0, 0], [0, k, 0], [0, 0, 1]])
+      maMatrice = matriceHomothetie.multiply(matriceChangementDeRepereInv)
     }
       break
     case 10: { // homothetie rapport inverse d'entier
-      const matriceHomothetie2 = matriceCarree([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
-      matrice = matriceHomothetie2.multiply(matriceChangementDeRepereInv)
+      const matriceHomothetie2 = matrice([[1 / k, 0, 0], [0, 1 / k, 0], [0, 0, 1]])
+      maMatrice = matriceHomothetie2.multiply(matriceChangementDeRepereInv)
     }
       break
   }
-  const pointA1 = matrice.multiply(pointA)
+  const pointA1 = maMatrice.multiply(pointA)
   const pointA2 = matriceChangementDeRepere.multiply(pointA1)
   return pointA2.toArray()
 }

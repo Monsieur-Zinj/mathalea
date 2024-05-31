@@ -1,6 +1,6 @@
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures'
-import { matriceCarree } from './MatriceCarree.js'
+import { matrice } from './Matrice.js'
 import { Polynome } from './Polynome.js'
 import { miseEnEvidence } from '../outils/embellissements'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
@@ -129,9 +129,9 @@ export function interpolationDeLagrange (listePoints) {
  * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  if (matrice.determinant() === 0) return [0, 0]
-  const [a, b] = matrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
+  const maMatrice = matrice([[x1 ** 2, x1], [x2 ** 2, x2]])
+  if (maMatrice.determinant() === 0) return [0, 0]
+  const [a, b] = maMatrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
   return [a, b]
 }
 
@@ -141,14 +141,14 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
  * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
-  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
+  const maMatrice = matrice([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d
   const y2 = fx2 - d
   const y3 = fx3 - d
-  if (matrice.determinant() === 0) {
+  if (maMatrice.determinant() === 0) {
     return [0, 0, 0]
   }
-  const [a, b, c] = matrice.inverse().multiply([y1, y2, y3]).toArray()
+  const [a, b, c] = maMatrice.inverse().multiply([y1, y2, y3]).toArray()
   return [a, b, c]
 }
 

@@ -1,17 +1,17 @@
-import { abs, acos, fraction, polynomialRoot, round } from 'mathjs'
+import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
 import { signesFonction, variationsFonction } from './etudeFonction.js'
-import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
+import { matrice } from './Matrice'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -167,35 +167,18 @@ export class Spline {
 
     for (let i = 0; i < noeuds.length - 1; i++) {
       const x0 = noeuds[i].x
-      const x1 = noeuds[i + 1].x
       const y0 = noeuds[i].y
+      const d0 = noeuds[i].deriveeDroit
+      const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
-      const a = noeuds[i].deriveeDroit
-      const b = noeuds[i + 1].deriveeGauche
-      const delta = x1 - x0
-      const d2 = delta * delta
-      const d3 = delta * d2
-      const dy = y1 - y0
-      const A = (a + b) * delta - 2 * (dy)
-      const B = 3 * dy - delta * (b + 2 * a)
-      const C = a * delta
-      const cx3 = A / d3
-      const cx2 = -3 * A * x0 / d3 + B / (delta ** 2)
-      const cx1 = 3 * A * (x0 ** 2) / d3 - 2 * B * x0 / d2 + C / delta
-      const cx0 = -A * (x0 ** 3) / d3 + B * (x0 ** 2) / d2 - C * x0 / delta + y0
-
-      this.polys.push(new Polynome({
-        useFraction: false,
-        coeffs: [cx0, cx1, cx2, cx3]
-      }))
-      /*
-      const matrice = new MatriceCarree([
+      const d1 = noeuds[i + 1].deriveeGauche
+      const maMatrice = matrice([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
         [3 * x1 ** 2, 2 * x1, 1, 0]
       ])
-      if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
+      /* if (matrice.table.filter(ligne => ligne.filter(nombre => isNaN(nombre)).length !== 0).length > 0) {
         window.notify('Spline : Système impossible à résoudre il y a un problème avec les données ', {
           x0,
           y0,
@@ -206,28 +189,26 @@ export class Spline {
         })
         return
       }
+       */
       if (y0 + (x1 - x0) * d1 === y1 && d0 === d1) {
         const a = (y1 - y0) / (x1 - x0)
         const b = y0 - a * x0
         this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
       } else {
-        const determinant = matrice.determinant()// c'est maintenant une FractionEtendue !
-        if (determinant.valeurDecimale === 0) {
+        if (maMatrice.determinant() === 0) {
           window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
             noeudGauche: noeuds[i],
             noeudDroit: noeuds[i + 1]
           })
           return
         }
-
-        const matriceInverse = matrice.inverse()
+        const matriceInverse = maMatrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,
-          coeffs: matriceInverse.multiplieVecteur(vecteur).reverse().map((el) => el.valeurDecimale)
+          coeffs: matriceInverse.multiply(vecteur).toArray().reverse().map(el => Number(el.toFixed(6))) // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
         }))
       }
-*/
     }
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
@@ -317,7 +298,7 @@ export class Spline {
                 arr = 0
               } else {
                 const argument = valeur.arg()
-                if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+                if (Math.abs(argument) < 0.001 || Math.abs(Math.abs(argument) - Math.PI) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
                   arr = round(valeur.re, 3) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null
