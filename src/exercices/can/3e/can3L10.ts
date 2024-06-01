@@ -17,16 +17,14 @@ export const refs = {
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
- * Référence
 */
 export default class ReduireAvecParentheses2 extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 nospacebefore' + KeyboardType.clavierDeBaseAvecVariable
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
   }
 
@@ -37,8 +35,8 @@ export default class ReduireAvecParentheses2 extends Exercice {
     const d = randint(-10, 10, 0)
     const k = randint(-10, 10, [-1, 1, 0])
     const choix = choice([true, false])
-    this.reponse = choix ? reduireAxPlusB(a + k * c, k * d, variable) : reduireAxPlusB(k * c, k * d + a, variable)// texNombre(b).mul(-1).plus(a), 2) + `${variable}`
-    this.reponse = { reponse: { value: this.reponse, compare: fonctionComparaison } }
+    const reponse = choix ? reduireAxPlusB(a + k * c, k * d, variable) : reduireAxPlusB(k * c, k * d + a, variable)// texNombre(b).mul(-1).plus(a), 2) + `${variable}`
+    this.reponse = { reponse: { value: reponse, compare: fonctionComparaison } }
     this.question = `Écrire le plus simplement possible  $${choix ? `${rienSi1(a)}${variable}` : `${a}`}${ecritureAlgebrique(k)}(${reduireAxPlusB(c, d, variable)})$.`
     if (this.interactif) { this.question += `<br>$${choix ? `${rienSi1(a)}${variable}` : `${a}`}${ecritureAlgebrique(k)}(${reduireAxPlusB(c, d, variable)})=$` }
     this.correction = 'On commence par développer le produit, puis on réduit. <br>'
