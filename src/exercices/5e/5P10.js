@@ -137,7 +137,13 @@ export default function TableauxEtProportionnalite () {
         { // case 0 --> multiplication ligne1 vers ligne2
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
-            [n1 * coeff], [n2 * coeff, n3 * coeff]
+            [n1 * coeff], [n2 * coeff, n3 * coeff],
+            0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsOK(n1, n2, n3, coeff, 'L1L2'),
           justification_L2_L1: justificationsOK(n1, n2, n3, coeff, 'L2L1'),
@@ -148,7 +154,13 @@ export default function TableauxEtProportionnalite () {
         { // case 1 --> multiplication ligne1 vers ligne2 Décimaux
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
-            [texNombre((u1 + ci1 / 10) * coeff, 1)], [texNombre((u2 + ci2 / 10) * coeff, 1), texNombre((u3 + ci3 / 10) * coeff, 1)]
+            [texNombre((u1 + ci1 / 10) * coeff, 1)], [texNombre((u2 + ci2 / 10) * coeff, 1), texNombre((u3 + ci3 / 10) * coeff, 1)],
+            0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsOK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L1L2'),
           justification_L2_L1: justificationsOK(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, 'L2L1'),
@@ -159,7 +171,12 @@ export default function TableauxEtProportionnalite () {
         { // case 2 --> division ligne1 vers ligne2
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 * coeff + '\\phantom{000}', '\\phantom{000}' + n2 * coeff + '\\phantom{000}', '\\phantom{000}' + n3 * coeff + '\\phantom{000}'],
-            [n1], [n2, n3]
+            [n1], [n2, n3], 0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsOK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L1L2'),
           justification_L2_L1: justificationsOK(n1 * coeff, n2 * coeff, n3 * coeff, 1 / coeff, 'L2L1'),
@@ -170,7 +187,13 @@ export default function TableauxEtProportionnalite () {
         { // case 3 --> addition ligne1 vers ligne2
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
-            [n1 + coeff], [n2 + coeff, n3 + coeff]
+            [n1 + coeff], [n2 + coeff, n3 + coeff],
+            0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsKO(n1, n2, n3, coeff, '+', 'L1L2'),
           justification_L2_L1: justificationsKO(n1 + coeff, n2 + coeff, n3 + coeff, -coeff, '+', 'L2L1'),
@@ -180,7 +203,13 @@ export default function TableauxEtProportionnalite () {
         { // case 4 --> addition ligne1 vers ligne2 Décimaux
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
-            [texNombre((u1 + ci1 / 10) + coeff, 1)], [texNombre((u2 + ci2 / 10) + coeff, 1), texNombre((u3 + ci3 / 10) + coeff, 1)]
+            [texNombre((u1 + ci1 / 10) + coeff, 1)], [texNombre((u2 + ci2 / 10) + coeff, 1), texNombre((u3 + ci3 / 10) + coeff, 1)],
+            0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsKO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L1L2'),
           justification_L2_L1: justificationsKO(u1 + ci1 / 10, u2 + ci2 / 10, u3 + ci3 / 10, coeff, '+', 'L2L1'),
@@ -191,7 +220,13 @@ export default function TableauxEtProportionnalite () {
         { // case 5 --> soustraction ligne1 vers ligne2
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
-            [n1 - coeffSoust], [n2 - coeffSoust, n3 - coeffSoust]
+            [n1 - coeffSoust], [n2 - coeffSoust, n3 - coeffSoust],
+            0,
+            true,
+            this.numeroExercice,
+            i,
+            false,
+            { L0C0: 'white', L0C1: 'white', L0C2: 'white', L1C0: 'white' }
           ),
           justification_L1_L2: justificationsKO(n1, n2, n3, coeffSoust, '-', 'L1L2'),
           justification_L2_L1: justificationsKO(n1 - coeffSoust, n2 - coeffSoust, n3 - coeffSoust, -coeffSoust, '-', 'L2L1'),
