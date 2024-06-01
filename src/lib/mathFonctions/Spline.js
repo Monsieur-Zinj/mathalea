@@ -5,7 +5,6 @@ import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
-import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
 import { signesFonction, variationsFonction } from './etudeFonction.js'
 import { Polynome } from './Polynome.js'
@@ -209,6 +208,7 @@ export class Spline {
           coeffs: matriceInverse.multiply(vecteur).toArray().reverse().map(el => Number(el.toFixed(6))) // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
         }))
       }
+      this.nbPointsForApiGeom = 100 // On pourra modifier cette propriété avant de récupérer pointOfSpline
     }
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
@@ -218,14 +218,15 @@ export class Spline {
     this.n = this.y.length // on a n valeurs de y et donc de x, soit n-1 intervalles numérotés de 1 à n-1.
     // this.step = step // on en a besoin pour la dérivée...
     this.fonctions = this.#convertPolyFunction()
-    this.image = function (x) {
-      return this.#image(x)
-    }
   }
 
-  pointsOfSpline (nbPoints) {
+  get image () {
+    return this.fonction
+  }
+
+  get pointOfSpline () {
     const points = []
-    const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / nbPoints // on fait 50 points ça devrait suffir...
+    const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / this.nbPointsForApiGeom // on fait 50 points ça devrait suffir...
     let x = this.x[0]
     do {
       points.push({ x, y: this.#image(x) })
@@ -695,9 +696,9 @@ export class Trace extends ObjetMathalea2D {
      * @param {Object} optionsNoeud
      */
   constructor (spline, {
-    repere,
     color = 'black',
-    epaisseur = 1,
+    epaisseur = 2,
+    opacite = 1,
     ajouteNoeuds = true,
     optionsNoeuds = {}
   } = {}) {
@@ -705,26 +706,27 @@ export class Trace extends ObjetMathalea2D {
     const objets = []
     const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
     this.bordures = [xMin, yMin, xMax, yMax]
-    for (let i = 0; i < spline.n - 1; i++) {
-      if (spline.polys[i].deg > 1) {
-        const deltaX = (spline.x[i + 1] - spline.x[i]) / 3
-        objets.push(new BezierPath({
-          xStart: spline.x[i],
-          yStart: spline.y[i],
-          xEnd: spline.x[i + 1],
-          yEnd: spline.y[i + 1],
-          xAnteCtrl: deltaX,
-          yAnteCtrl: spline.noeuds[i].deriveeDroit * deltaX,
-          xPostCtrl: -deltaX,
-          yPostCtrl: -spline.noeuds[i + 1].deriveeGauche * deltaX
-        }))
-      } else {
-        const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
-        s.epaisseur = epaisseur
-        objets.push(s)
-      }
-    }
+    const listeOfTriplets = []
 
+    for (let i = 0; i < spline.n - 1; i++) {
+      const deltaX = (spline.x[i + 1] - spline.x[i])
+      const deltaY = spline.y[i + 1] - spline.y[i]
+      const x1 = deltaX / 3
+      const y1 = spline.noeuds[i].deriveeDroit * deltaX / 3
+      const x2 = 2 * deltaX / 3
+      const y2 = deltaY - spline.noeuds[i + 1].deriveeGauche * deltaX / 3
+      const x3 = deltaX
+      const y3 = deltaY
+      listeOfTriplets.push([[x1, y1], [x2, y2], [x3, y3]])
+    }
+    objets.push(new BezierPath({
+      xStart: spline.x[0],
+      yStart: spline.y[0],
+      listeOfTriplets,
+      color,
+      epaisseur,
+      opacite
+    }))
     if (ajouteNoeuds) {
       for (let i = 0; i < spline.n; i++) {
         if (spline.visibles[i]) {

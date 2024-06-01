@@ -9,7 +9,6 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { courbeSpline } from '../../lib/2d/courbes'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -194,6 +193,7 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
+      /* Pour tracer la spline à l'ancienne
       const courbe2 = courbeSpline(maSpline, {
         repere: repere1,
         xMin: maSpline.x[0],
@@ -203,8 +203,8 @@ export default class BetaModeleSpline extends Exercice {
         epaisseur: 5,
         opacite: 0.5
       })
-
-      const objetsEnonce = [...repere1.objets, courbe2, courbe1]
+ */
+      const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
 
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
