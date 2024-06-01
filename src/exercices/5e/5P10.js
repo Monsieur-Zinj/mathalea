@@ -4,12 +4,18 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { tableauColonneLigne } from '../../lib/2d/tableau.js'
+import { propositionsQcm } from '../../lib/interactif/qcm'
+
+export const dateDeModifImportante = '01/06/2024'
 export const titre = 'Reconnaître des tableaux de proportionnalité'
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = true
+export const amcType = 'qcmMono'
 
 /**
  * * Justifier qu'un tableau est un tableau de proportionnalité ou non
- * * 5P10
  * @author Sébastien Lozano
  */
 
@@ -76,39 +82,29 @@ function justificationsKO (n1, n2, n3, coeff, operation, sens) {
 
 export default function TableauxEtProportionnalite () {
   Exercice.call(this)
-  this.debug = false
   this.sup = 1
-  if (this.debug) {
-    this.nbQuestions = 6
-  } else {
-    this.nbQuestions = 4
-  }
 
-  this.titre = titre
-  this.consigne = 'Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.'
+  this.nbQuestions = 4
+
+  this.interactif = false
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3, 4, 5]
-    } else {
-      // typesDeQuestionsDisponibles = shuffle([choice([1,3]),choice([2,4]),0]);
-      typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
-      typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles)
-    }
+    typesDeQuestionsDisponibles = [choice([0, 1]), 2, choice([3, 4]), 5]
+    typesDeQuestionsDisponibles = shuffle(typesDeQuestionsDisponibles)
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    this.consigne = this.interactif ? '' : 'Dire si les tableaux suivants sont de tableaux de proportionnalité. Justifier.'
+
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -247,69 +243,28 @@ export default function TableauxEtProportionnalite () {
         })
       }
 
-      // autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += '             '
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
+      // autant de cases que d'elements dans le tableau des situations
+      texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
+      texte += this.interactif ? 'Le tableau ci-dessus est-il un tableau de proportionnalité ?' : ''
+      texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
+
+      if (this.interactif || context.isAmc) {
+        this.autoCorrection[i] = {}
+        this.autoCorrection[i].options = { ordered: true }
+        this.autoCorrection[i].enonce = `${texte}\n`
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'Oui',
+            statut: !enonces[listeTypeDeQuestions[i]].correction.includes('pas')
+          },
+          {
+            texte: 'Non',
+            statut: enonces[listeTypeDeQuestions[i]].correction.includes('pas')
           }
-          break
-        case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
-          break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-          break
-        case 3:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-          break
-        case 4:
-          texte = `${enonces[4].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[4].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[4].correction}`
-          }
-          break
-        case 5:
-          texte = `${enonces[5].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[5].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[5].correction}`
-          }
-          break
+        ]
+        if (this.interactif) {
+          texte += propositionsQcm(this, i).texte
+        }
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
@@ -321,6 +276,4 @@ export default function TableauxEtProportionnalite () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',2,"1 : Entiers naturels\n2 : Entiers relatifs"];
-  // this.besoinFormulaire2CaseACocher = ["Avec des expressions du second degré"];
 }
