@@ -17,12 +17,11 @@ export const titre = 'Probabilités conditionnelles'
 
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '25/10/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '01/06/2024' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
- * @author
- * Référence
+ * @author Stephane Guyon
  */
 export const uuid = '9ccfd'
 export const ref = '1P10'
@@ -32,7 +31,6 @@ export const refs = {
 }
 export default function ProbabilitesConditionnelles () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = context.isHtml ? 2 : 1
@@ -96,7 +94,7 @@ export default function ProbabilitesConditionnelles () {
           objets.push(latexParCoordonnees(texProba(1 - a / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar A 1-${a}
           objets.push(latexParCoordonnees(texProba(1 - v / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar B sachant \\bar A
           objets.push(latexParCoordonnees(texProba(v / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de B sachant \\bar A
-          objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B \\cap A
+          objets.push(latexParCoordonnees(`P(A\\cap V)=${texProba(av / 100, this.sup)}`, 13.5, 7.8, 'red', 20, 20, 'white', 10))// proba de B \\cap A
 
           objets.push(latexParCoordonnees('V', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar V', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
@@ -145,7 +143,8 @@ export default function ProbabilitesConditionnelles () {
         case 'sujetE3C2':
           c = randint(30, 70)// p(C)
           ec = randint(20, 95 - c)// P_\bar C(E)
-          ce = randint(20, 95 - c)// P(E \cap C)
+          // ce = randint(20, 95 - c)// P(E \cap C)
+          ce = randint(15, c - 10)// P(E \cap C) // Modif EE
           O = point(0.6, 2.3)
           A = point(5, 5)
           B = point(5, 1)
@@ -167,7 +166,7 @@ export default function ProbabilitesConditionnelles () {
           objets.push(latexParCoordonnees(texProba(1 - c / 100, this.sup), 2.5, 2.1, 'black', 20, 20, 'white', 6))// proba de \\bar C 1-${c}
           objets.push(latexParCoordonnees(texProba(1 - ec / 100, this.sup), 6.8, 0.9, 'black', 20, 20, 'white', 6))// proba de \\bar E sachant \\bar C
           objets.push(latexParCoordonnees(texProba(ec / 100, this.sup), 6.8, 2.7, 'black', 20, 20, 'white', 6))// proba de E sachant \\bar C
-          objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 10.5, 7.8, 'red', 20, 20, '', 10))// proba de C \\cap E
+          objets.push(latexParCoordonnees(`P(C\\cap E)=${texProba(ce / 100, this.sup)}`, 13.5, 7.8, 'red', 20, 20, '', 10))// proba de C \\cap E
           objets.push(latexParCoordonnees('E', 9, 7.7, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de A
           objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
