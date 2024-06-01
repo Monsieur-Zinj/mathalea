@@ -15,7 +15,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { fraction } from '../../modules/fractions.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
@@ -25,7 +25,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '08/05/2023'
-export const dateDeModifImportante = '16/05/2024'
+export const dateDeModifImportante = '01/06/2024'
 export const ref = '3F20-1'
 export const refs = {
   'fr-fr': ['3F20-1'],
@@ -120,17 +120,16 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
       }
       const coeffRationnel = coefficient instanceof FractionEtendue
-      let imageString, formatInteractif
+      let imageString
       const antecedent = choice(rangeMinMax(-10, 10, [antecedent0, 0, 1, -1]))
       const image0 = ordonneeOrigine + (coeffRationnel ? coefficient.num : coefficient * antecedent0)
       if (coeffRationnel) {
         image = coefficient.multiplieEntier(antecedent).ajouteEntier(ordonneeOrigine)
         imageString = image.texFSD
-        formatInteractif = 'fractionEgale'
+        // formatInteractif = 'fractionEgale'
       } else {
         image = ordonneeOrigine + coefficient * antecedent
         imageString = texNombre(image, 0)
-        formatInteractif = 'calcul'
       }
       antecedents.push(antecedent, antecedent0)
       const coefficientString = coeffRationnel ? coefficient.simplifie().texFSD : coefficient.toString()
@@ -197,7 +196,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+            // } else setReponse(this, i, image, { formatInteractif })
+          } else handleAnswers(this, i, { reponse: { value: image, compare: fonctionComparaison } })
           break
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
@@ -217,7 +217,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+            // } else setReponse(this, i, image, { formatInteractif })
+          } else handleAnswers(this, i, { reponse: { value: image, compare: fonctionComparaison } })
           break
         case 'imageParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
@@ -246,7 +247,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `image de $${antecedent}$ par $${nomFonction}$`
             valeurAMC = image
-          } else setReponse(this, i, image, { formatInteractif })
+            //  } else setReponse(this, i, image, { formatInteractif })
+          } else handleAnswers(this, i, { reponse: { value: image, compare: fonctionComparaison } })
           break
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
@@ -268,7 +270,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent, compare: fonctionComparaison } })
           break
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
@@ -298,7 +301,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent, compare: fonctionComparaison } })
           break
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
@@ -336,7 +340,8 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           if (context.isAmc) {
             texteAMC = `antécédent de $${imageString}$ par $${nomFonction}$`
             valeurAMC = antecedent
-          } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+            //  } else setReponse(this, i, antecedent, { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: antecedent, compare: fonctionComparaison } })
           break
         case 'expressionParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
@@ -356,8 +361,10 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte2AMC = `Valeur de $b$ dans $${nomFonction}(x)=ax+b$`
             valeur2AMC = ordonneeOrigine
             texte3AMC = 'Vos calculs et votre réponse<br>'
-          } else setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+          // } else  setReponse(this, i, [`${nomFonction}(x)=${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, `${coefficientString}${ecritureAlgebrique(ordonneeOrigine)}`, `${ordonneeOrigine}${coefficientString}x`, `${nomFonction}(x)=${ordonneeOrigine}${coefficientString}x`], { formatInteractif: 'calcul' })
+          } else handleAnswers(this, i, { reponse: { value: `${coefficientString}x${ecritureAlgebrique(ordonneeOrigine)}`, compare: fonctionComparaison } })
           break
+
         case 'expressionParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.`
