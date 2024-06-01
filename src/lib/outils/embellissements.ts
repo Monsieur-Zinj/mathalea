@@ -11,8 +11,7 @@ import FractionEtendue from '../../modules/FractionEtendue'
  * @param {string} couleur en anglais ou code couleur hexadécimal par défaut c'est le orange de CoopMaths
  * @author Rémi Angot
  */
-export function miseEnEvidence (texte: string, couleur: string = '#f15929') {
-  // @ts-ignore
+export function miseEnEvidence (texte: string | FractionEtendue, couleur: string = '#f15929') {
   if (texte instanceof FractionEtendue) texte = texte.texFraction
   if (isArray(couleur)) couleur = couleur[0]
   if (context.isHtml) {
@@ -20,6 +19,8 @@ export function miseEnEvidence (texte: string, couleur: string = '#f15929') {
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
+    } else if (couleur === 'green') {
+      return `{\\color[HTML]{008002}\\boldsymbol{${texte}}}`
     } else {
       return `{\\color{${couleur.replace('#', '')}}\\boldsymbol{${texte}}}`
     }
@@ -40,8 +41,10 @@ export function miseEnCouleur (texte: string, couleur: string = '#f15929') {
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}} ${texte}}`
+    } else if (couleur === 'green') {
+      return `{\\color[HTML]{008002} ${texte}}`
     } else {
-      return `{\\color{${couleur.replace('#', '')}} ${texte}}`
+      return `{\\color{${couleur}} ${texte}}`
     }
   }
 }
@@ -59,6 +62,8 @@ export function texteEnCouleur (texte: string, couleur = '#f15929') {
   } else {
     if (couleur[0] === '#') {
       return `{\\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+    } else if (couleur === 'green') {
+      return `{\\color[HTML]{008002} ${texte}}`
     } else {
       return `{\\color{${couleur.replace('#', '')}}${texte}}`
     }
@@ -78,6 +83,8 @@ export function texteEnCouleurEtGras (texte: string, couleur = '#f15929') {
   } else {
     if (couleur[0] === '#') {
       return `{\\bfseries \\color[HTML]{${couleur.replace('#', '')}}${texte}}`
+    } else if (couleur === 'green') {
+      return `{\\bfseries \\color[HTML]{008002} ${texte}}`
     } else {
       return `{\\bfseries \\color{${couleur.replace('#', '')}}${texte}}`
     }
