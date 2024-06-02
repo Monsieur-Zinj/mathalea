@@ -819,8 +819,6 @@ export default function SujetCAN2022Seconde () {
           break
 
         case 22:
-          c = choice([2, 3, 11, 12])
-          p = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]
           c = choice([true, false])
           choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
@@ -856,7 +854,7 @@ export default function SujetCAN2022Seconde () {
           break
 
         case 23:
-          choix = choice(['d'])
+          choix = choice(['a', 'b', 'c', 'd'])
           if (choix === 'a') {
             g = choice([3, 5, 7])
             k = choice([2, 3])
