@@ -3,7 +3,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { prenom } from '../../lib/outils/Personne'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
-import { miseEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -64,7 +64,8 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
 $${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
 <br>
-$${miseEnCouleur(`((${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]}))`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$
+$${miseEnCouleur(`(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
+<br>
 `
       switch (listeTypeQuestions[i]) {
         case '1 -> 3':
@@ -81,7 +82,8 @@ $${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[2]} ${nombres[4]} = ${resultat3}`, 'green')}$<br>
 $${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} ${signes[3]} ${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${nombres[4]}}{${resultat3}}`, 'green')} = ${nombreCible}$<br>
 <br>
-$${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$
+$${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$<br>
+<br>
 `
           break
         case '1 -> 4':
@@ -98,7 +100,8 @@ $${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[4]} = ${resultat3}`, 'green')}$<br>
 $${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[3]} ${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[2]} ${nombres[4]}}{${resultat3}}`, 'green')} = ${nombreCible}$<br>
 <br>
-$${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$
+$${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$<br>
+<br>
 `
           break
         case '2 -> 4':
@@ -115,7 +118,8 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
 $${miseEnCouleur(`${calcul3} = ${resultat3}`, 'green')}$<br>
 $${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]}}{${resultat2}}`, 'blue')} ${signes[3]} ${miseEnCouleur(`\\overset{${calcul3}}{${resultat3}}`, 'green')} = ${nombreCible}$<br>
 <br>
-$${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${calcul3})`, 'green')} = ${nombreCible}$
+$${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${calcul3})`, 'green')} = ${nombreCible}$<br>
+<br>
 `
           break
       }
@@ -127,7 +131,8 @@ $${calcul3} = ${resultat3}$<br>
 $${calcul4} = ${nombreCible}$<br>
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}`
       handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
-      if (!this.correctionDetaillee) texteCorr = `$${redaction} = ${nombreCible}$`
+      if (!this.correctionDetaillee) texteCorr = ''
+      texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 
       const nombreCibleValide = Number(nombreCible) < 100 && Number(nombreCible) > 0
       const aucunResultatIntermediaireNegatif = Number(resultat1) >= 0 && Number(resultat2) >= 0 && Number(resultat3) >= 0
@@ -141,15 +146,7 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline larg
     }
     listeQuestionsToContenu(this)
     function rediger (expression1: string, signe: string, expression2: string): string {
-      let redaction = expression1
-      if (signe === '\\times' || signe === '\\div') {
-        redaction = `(${redaction})`
-      }
-      if (signe !== '+' && isNaN(Number(expression2))) {
-        expression2 = `(${expression2})`
-      }
-      redaction += ` ${signe} ${expression2}`
-      return redaction
+      return `(${expression1}) ${signe} ${expression2}`
     }
   }
 }
