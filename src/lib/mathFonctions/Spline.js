@@ -1,17 +1,16 @@
-import { abs, acos, multiply, fraction, matrix, polynomialRoot, round, det, inv } from 'mathjs'
+import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import FractionEtendue from '../../modules/FractionEtendue.ts'
+import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
-import { Courbe } from '../2d/courbes.js'
+import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
-import { Segment } from '../2d/segmentsVecteurs.js'
 import { choice } from '../outils/arrayOutils'
 import { signesFonction, variationsFonction } from './etudeFonction.js'
-import { rationnalise } from './outilsMaths.js'
 import { Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
+import { matrice } from './Matrice'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -172,7 +171,7 @@ export class Spline {
       const x1 = noeuds[i + 1].x
       const y1 = noeuds[i + 1].y
       const d1 = noeuds[i + 1].deriveeGauche
-      const matrice = matrix([
+      const maMatrice = matrice([
         [x0 ** 3, x0 ** 2, x0, 1],
         [x1 ** 3, x1 ** 2, x1, 1],
         [3 * x0 ** 2, 2 * x0, 1, 0],
@@ -195,21 +194,21 @@ export class Spline {
         const b = y0 - a * x0
         this.polys.push(new Polynome({ coeffs: [b, a, 0, 0] }))
       } else {
-        const determinant = fraction(det(matrice))// c'est maintenant une FractionEtendue !
-        if (determinant === 0) {
+        if (maMatrice.determinant() === 0) {
           window.notify('Spline : impossible de trouver un polynome ici car la matrice n\'est pas inversible, il faut revoir vos noeuds : ', {
             noeudGauche: noeuds[i],
             noeudDroit: noeuds[i + 1]
           })
           return
         }
-        const matriceInverse = inv(matrice)
+        const matriceInverse = maMatrice.inverse()
         const vecteur = [y0, y1, d0, d1]
         this.polys.push(new Polynome({
           useFraction: true,
-          coeffs: multiply(matriceInverse, vecteur).toArray().reverse().map(el => Number(el.toFixed(3)))
+          coeffs: matriceInverse.multiply(vecteur).toArray().reverse().map(el => Number(el.toFixed(6))) // parti pris : on arrondit au millionnième pour les entiers qui s'ignorent (pour les 1/3 c'est rapé, mais c'est suffisamment précis)
         }))
       }
+      this.nbPointsForApiGeom = 100 // On pourra modifier cette propriété avant de récupérer pointOfSpline
     }
     this.noeuds = [...noeuds]
     this.n = this.noeuds.length
@@ -221,9 +220,13 @@ export class Spline {
     this.fonctions = this.#convertPolyFunction()
   }
 
-  pointsOfSpline (nbPoints) {
+  get image () {
+    return this.fonction
+  }
+
+  get pointsOfSpline () {
     const points = []
-    const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / nbPoints // on fait 50 points ça devrait suffir...
+    const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / this.nbPointsForApiGeom // on fait 50 points ça devrait suffir...
     let x = this.x[0]
     do {
       points.push({ x, y: this.#image(x) })
@@ -296,7 +299,7 @@ export class Spline {
                 arr = 0
               } else {
                 const argument = valeur.arg()
-                if (abs(argument) < 0.01 || abs((abs(argument) - acos(-1))) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
+                if (Math.abs(argument) < 0.001 || Math.abs(Math.abs(argument) - Math.PI) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
                   arr = round(valeur.re, 3) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null
@@ -535,7 +538,7 @@ export class Spline {
      * @returns {function(*): number|*}
      */
   get fonction () {
-    return x => this.#image(rationnalise(x))
+    return x => this.#image(x)
   }
 
   /**
@@ -613,7 +616,6 @@ export class Spline {
   /**
      * crée l'objet mathalea2d correspondant à la courbe tracée
      * @param {Repere} repere
-     * @param {number} step
      * @param {string} color
      * @param {number} epaisseur
      * @param {boolean} ajouteNoeuds
@@ -622,7 +624,6 @@ export class Spline {
      */
   courbe ({
     repere,
-    step = 0.1,
     color = 'black',
     epaisseur = 1,
     ajouteNoeuds = false,
@@ -630,7 +631,6 @@ export class Spline {
   } = {}) {
     return new Trace(this, {
       repere,
-      step,
       color,
       epaisseur,
       ajouteNoeuds,
@@ -696,10 +696,9 @@ export class Trace extends ObjetMathalea2D {
      * @param {Object} optionsNoeud
      */
   constructor (spline, {
-    repere,
-    step = 0.25,
     color = 'black',
-    epaisseur = 1,
+    epaisseur = 2,
+    opacite = 1,
     ajouteNoeuds = true,
     optionsNoeuds = {}
   } = {}) {
@@ -707,61 +706,50 @@ export class Trace extends ObjetMathalea2D {
     const objets = []
     const { xMin, xMax, yMin, yMax } = spline.trouveMaxes()
     this.bordures = [xMin, yMin, xMax, yMax]
+    const listeOfTriplets = []
+
     for (let i = 0; i < spline.n - 1; i++) {
-      if (spline.polys[i].deg > 1) {
-        objets.push(new Courbe(spline.fonctions[i], {
-          repere,
-          epaisseur,
-          color,
-          step,
-          xMin: spline.x[i],
-          xMax: spline.x[i + 1]
-        }))
-      } else {
-        const s = new Segment(spline.x[i] * repere.xUnite, spline.y[i] * repere.yUnite, spline.x[i + 1] * repere.xUnite, spline.fonctions[i](spline.x[i + 1]) * repere.yUnite, color)
-        s.epaisseur = epaisseur
-        objets.push(s)
-      }
-      if (ajouteNoeuds && spline.visibles[i]) {
-        const noeud = point(spline.x[i], spline.y[i])
-        const traceNoeud = tracePoint(noeud)
-        if (optionsNoeuds) {
-          if (optionsNoeuds.color) {
-            traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
-            traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
-          }
-          if (optionsNoeuds.epaisseur) {
-            traceNoeud.epaisseur = optionsNoeuds.epaisseur
-          }
-          if (optionsNoeuds.style) {
-            traceNoeud.style = optionsNoeuds.style
-          }
-          if (optionsNoeuds.taille) {
-            traceNoeud.taille = optionsNoeuds.taille
-          }
-        }
-        objets.push(traceNoeud)
-      }
+      const deltaX = (spline.x[i + 1] - spline.x[i])
+      const deltaY = spline.y[i + 1] - spline.y[i]
+      const x1 = deltaX / 3
+      const y1 = spline.noeuds[i].deriveeDroit * deltaX / 3
+      const x2 = 2 * deltaX / 3
+      const y2 = deltaY - spline.noeuds[i + 1].deriveeGauche * deltaX / 3
+      const x3 = deltaX
+      const y3 = deltaY
+      listeOfTriplets.push([[x1, y1], [x2, y2], [x3, y3]])
     }
-    if (ajouteNoeuds && spline.visibles[spline.n - 1]) {
-      const noeud = point(spline.x[spline.n - 1], spline.y[spline.n - 1])
-      const traceNoeud = tracePoint(noeud)
-      if (optionsNoeuds) {
-        if (optionsNoeuds.color) {
-          traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
-          traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
-        }
-        if (optionsNoeuds.epaisseur) {
-          traceNoeud.epaisseur = optionsNoeuds.epaisseur
-        }
-        if (optionsNoeuds.style) {
-          traceNoeud.style = optionsNoeuds.style
-        }
-        if (optionsNoeuds.taille) {
-          traceNoeud.taille = optionsNoeuds.taille
+    objets.push(new BezierPath({
+      xStart: spline.x[0],
+      yStart: spline.y[0],
+      listeOfTriplets,
+      color,
+      epaisseur,
+      opacite
+    }))
+    if (ajouteNoeuds) {
+      for (let i = 0; i < spline.n; i++) {
+        if (spline.visibles[i]) {
+          const noeud = point(spline.x[i], spline.y[i])
+          const traceNoeud = tracePoint(noeud)
+          if (optionsNoeuds) {
+            if (optionsNoeuds.color) {
+              traceNoeud.color = colorToLatexOrHTML(optionsNoeuds.color)
+              traceNoeud.couleurDeRemplissage = colorToLatexOrHTML(optionsNoeuds.color)
+            }
+            if (optionsNoeuds.epaisseur) {
+              traceNoeud.epaisseur = optionsNoeuds.epaisseur
+            }
+            if (optionsNoeuds.style) {
+              traceNoeud.style = optionsNoeuds.style
+            }
+            if (optionsNoeuds.taille) {
+              traceNoeud.taille = optionsNoeuds.taille
+            }
+          }
+          objets.push(traceNoeud)
         }
       }
-      objets.push(traceNoeud)
     }
     this.svg = function (coeff) {
       let code = ''
@@ -773,7 +761,7 @@ export class Trace extends ObjetMathalea2D {
     this.tikz = function () {
       let code = ''
       for (const objet of objets) {
-        code += '\n\t' + objet.tikz()
+        code += objet.tikz()
       }
       return code
     }

@@ -411,7 +411,7 @@ export function TracePoint (...points) {
     }
     let code = ''
     for (const objet of objetstikz) {
-      code += '\n\t' + objet.tikz()
+      code += objet.tikz()
     }
     return code
   }

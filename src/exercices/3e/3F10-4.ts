@@ -71,7 +71,7 @@ class LireImageParApiGeom extends Exercice {
     this.autoCorrection = []
 
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    const mesPoints = spline.pointsOfSpline(126)
+    const mesPoints = spline.pointsOfSpline
     let mesPointsApiGeom: Point[] = []
     if (mesPoints && Array.isArray(mesPoints)) {
       mesPointsApiGeom = mesPoints.map(el => this.figure.create('Point', { x: el.x, y: el.y, isVisible: false }))

@@ -1,5 +1,5 @@
 import { simplify } from 'mathjs'
-import { matriceCarree } from '../../../lib/mathFonctions/MatriceCarree.js'
+import { matrice } from '../../../lib/mathFonctions/Matrice.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
@@ -51,7 +51,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
       varCoeff = ['a11', 'a12', 'a21', 'a22'] // Noms des coefficients de la matrice
       do {
         varSol.concat(varCoeff).forEach(v => (sys[v] = randint(-10, 10, 0))) // Affectation des 6 valeurs
-        coeff = matriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]]) // Création de la matrice
+        coeff = matrice([[sys.a11, sys.a12], [sys.a21, sys.a22]]) // Création de la matrice
       } while (coeff.determinant === 0) // On veut une unique solution
       droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Vecteur à droite du système
       mat = dessSysteme(sys, droit, niveau) // Représentation du système
@@ -74,7 +74,7 @@ export default function Systeme2x2parCombinaisonLineaire () {
         sys.a12 *= c1
         sys.a21 *= c2
         sys.a22 *= c2
-        coeff = matriceCarree([[sys.a11, sys.a12], [sys.a21, sys.a22]]) // Nouveau système
+        coeff = matrice([[sys.a11, sys.a12], [sys.a21, sys.a22]]) // Nouveau système
         droit = coeff.multiplieVecteur([sys.xS, sys.yS]) // Terme à droite de l'égalité
         mat = dessSysteme(sys, droit, niveau)
         texteCorr += 'On obtient alors le système :<br>$\\begin{array}{r}'

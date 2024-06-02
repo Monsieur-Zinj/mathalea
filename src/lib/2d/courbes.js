@@ -1,4 +1,4 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, ObjetMathalea2D, xSVG, ySVG } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { inferieurouegal } from '../../modules/outils.js'
 import { point, tracePoint } from './points.js'
@@ -219,6 +219,7 @@ export function Courbe (f, {
   }
   for (let x = xMin; inferieurouegal(x, xMax); x += pas
   ) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     const y = Number(f(x))
     if (isFinite(y)) {
       if (f(x) < yMax + 1 && f(x) > yMin - 1) {
@@ -366,6 +367,7 @@ export function Integrale (f, {
   }
   for (let x = a; inferieurouegal(x, b); x += pas
   ) {
+    if (x > b) x = b // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     if (isFinite(f(x))) {
       if (f(x) < ymax + 1 && f(x) > ymin - 1) {
         points.push(point(x * xunite, f(x) * yunite))
@@ -455,6 +457,45 @@ export function integrale (f, {
   return new Integrale(f, { repere, color, couleurDeRemplissage, epaisseur, step, a, b, opacite, hachures })
 }
 
+export function BezierPath ({
+  xStart = 0,
+  yStart = 0,
+  listeOfTriplets = [[[1, 1], [-1, -1], [1, 1]]],
+  color = 'black',
+  epaisseur = 2,
+  opacite = 1
+}) {
+  ObjetMathalea2D.call(this, {})
+  this.color = colorToLatexOrHTML(color)
+  this.opacite = opacite
+  this.epaisseur = epaisseur
+  this.svg = function (coeff) { //
+    let path = `<path fill="none" stroke="${this.color[0]}" stroke-width=${this.epaisseur} d="M${xSVG(xStart, coeff)},${ySVG(yStart, coeff)} c`
+    for (const triplet of listeOfTriplets) {
+      path += `${xSVG(triplet[0][0], coeff)},${ySVG(triplet[0][1], coeff)} ${xSVG(triplet[1][0], coeff)},${ySVG(triplet[1][1], coeff)} ${xSVG(triplet[2][0], coeff)},${ySVG(triplet[2][1], coeff)} `
+    }
+    path += '" />\n'
+    return path
+  }
+  this.tikz = function () {
+    let path = `\n\t\\draw[color = ${this.color[1]},line width = ${this.epaisseur}, opacity = ${this.opacite}](${xStart},${yStart})`
+    // Pour tikz, les coordonnées du point initial et final doivent être en coordonnées absolues, seules les points de contrôles peuvent-être en relatif à leur noeud respectif
+    let x0 = xStart
+    let y0 = yStart
+    for (const triplet of listeOfTriplets) {
+      const x3 = x0 + triplet[2][0]
+      const y3 = y0 + triplet[2][1]
+      const dX2X3 = triplet[1][0] - triplet[2][0] // tikz prend comme origine le point final pour calculer les coordonnées relatives du point de contrôle 2 !
+      const dY2Y3 = triplet[1][1] - triplet[2][1]
+      path += ` .. controls +(${triplet[0][0].toFixed(2)},${triplet[0][1].toFixed(2)}) and +(${dX2X3.toFixed(2)},${dY2Y3.toFixed(2)})  .. (${x3.toFixed(2)},${y3.toFixed(2)})\n`
+      x0 = x3 // Le nouveau point de départ est le point d'arrivée du tronçon précédent !
+      y0 = y3
+    }
+    path += ';\n'
+    return path
+  }
+}
+
 /**
  * Trace la courbe d'une fonction, précédemment définie comme Spline, dans un repère
  * @param {function} f fonction à tracer défine, au préalable, avec splineCatmullRom()
@@ -525,6 +566,7 @@ export function CourbeSpline (f, {
     pas = step
   }
   for (let x = xMin; inferieurouegal(x, xMax); x = x + pas) {
+    if (x > xMax) x = xMax // normalement x<xMax... mais inférieurouegal ne compare qu'à 0.0000001 près, on peut donc avoir xMax+epsilon qui sort de l'intervalle de déf
     y = f.image(x)
     if (!isNaN(y)) {
       if (y < yMax + 1 && y > yMin - 1) {

@@ -26,6 +26,7 @@ const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0.5, deriveeDroit: 0.5, isVisibl
   { x: -2, y: 4, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: -1, y: 2, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 0, y: 1, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
+  { x: 1, y: 2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 2, y: 0, deriveeGauche: -1, deriveeDroit: -1, isVisible: true },
   { x: 3, y: -2, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
   { x: 4, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },
@@ -192,8 +193,20 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
-      const objetsEnonce = [repere1, courbe1]
+      /* Pour tracer la spline à l'ancienne
+      const courbe2 = courbeSpline(maSpline, {
+        repere: repere1,
+        xMin: maSpline.x[0],
+        xMax: maSpline.x[maSpline.n - 1],
+        step: 0.1,
+        color: 'red',
+        epaisseur: 5,
+        opacite: 0.5
+      })
+ */
+      const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
+
       const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
 
@@ -203,11 +216,12 @@ export default class BetaModeleSpline extends Exercice {
       } else {
         setReponse(this, i, ['Non', 'NON', 'non'])
       }
-      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' +
-        mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+      const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+
+      texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' + figure
       if (this.interactif) { // || this.can
         texteEnonce = 'Voici la représentation graphique d\'une fonction $f$ :<br>'
-        texteEnonce += mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
+        texteEnonce += figure
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '

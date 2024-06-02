@@ -1,24 +1,9 @@
-import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { randint } from '../../modules/outils.js'
 import { ecritureAlgebrique } from '../outils/ecritures'
-import { matriceCarree } from './MatriceCarree.js'
-import Decimal from 'decimal.js'
+import { matrice } from './Matrice.js'
 import { Polynome } from './Polynome.js'
 import { miseEnEvidence } from '../outils/embellissements'
 import engine, { generateCleaner } from '../interactif/comparisonFunctions'
-
-/**
- * retourne une FractionEtendue à partir de son écriture en latex (ne prend pas en compte des écritures complexes comme
- * \dfrac{4+\dfrac{4}{5}}{5-\dfrac{3}{5}}
- * @param {string} fractionLatex la fraction écrite en latex (avec des accolades) exemple : \frac{5}{7} ou \dfrac{5}{7}
- * @returns {FractionEtendue}
- */
-export function fractionLatexToMathjs (fractionLatex) {
-  const parts = fractionLatex.split('{')
-  const num = Number(parts[1].slice(0, -1))
-  const den = Number(parts[2].slice(0, -1))
-  return new FractionEtendue(num, den)
-}
 
 /**
  * delta(true) retourne dans un tableau des valeurs de a, b, c telles que b*b-4*a*c >0
@@ -144,9 +129,9 @@ export function interpolationDeLagrange (listePoints) {
  * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
-  const matrice = matriceCarree([[x1 ** 2, x1], [x2 ** 2, x2]])
-  if (matrice.determinant() === 0) return [0, 0]
-  const [a, b] = matrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
+  const maMatrice = matrice([[x1 ** 2, x1], [x2 ** 2, x2]])
+  if (maMatrice.determinant() === 0) return [0, 0]
+  const [a, b] = maMatrice.inverse().multiply([fx1 - c, fx2 - c]).toArray()
   return [a, b]
 }
 
@@ -156,41 +141,15 @@ export function resolutionSystemeLineaire2x2 (x1, x2, fx1, fx2, c) {
  * @author Jean-Claude Lhote
  */
 export function resolutionSystemeLineaire3x3 (x1, x2, x3, fx1, fx2, fx3, d) {
-  const matrice = matriceCarree([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
+  const maMatrice = matrice([[x1 ** 3, x1 ** 2, x1], [x2 ** 3, x2 ** 2, x2], [x3 ** 3, x3 ** 2, x3]])
   const y1 = fx1 - d
   const y2 = fx2 - d
   const y3 = fx3 - d
-  if (matrice.determinant() === 0) {
+  if (maMatrice.determinant() === 0) {
     return [0, 0, 0]
   }
-  const [a, b, c] = matrice.inverse().multiply([y1, y2, y3]).toArray()
+  const [a, b, c] = maMatrice.inverse().multiply([y1, y2, y3]).toArray()
   return [a, b, c]
-}
-
-/**
- * Une fonction pour transformer en FractionEtendue
- * @param x
- * @return {FractionEtendue}
- */
-export function rationnalise (x) {
-  if (x == null) {
-    window.notify('rationnalise est appelé avec une valeur undefined ou nulle', { x })
-    return new FractionEtendue(0, 1)
-  }
-  if (x instanceof FractionEtendue) return x
-  if (x instanceof Decimal) {
-    const numDen = x.toFraction(10000) // On limite le dénominateur à 10000
-    return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
-  }
-  if (typeof x === 'number') {
-    // MGU  : C'est dangereux ce truc mais bon...
-    // Déjà ça gère au delà des centièmes...
-    const numDen = new Decimal(x.toFixed(5)).toFraction(10000)
-    return new FractionEtendue(numDen[0].toNumber(), numDen[1].toNumber())
-  }
-  // c'est pas un number, c'est pas une FractionEtendue... ça doit être une Fraction de mathjs
-  window.notify('rationnalise est appelé avec un nombre dont le format est inconnu :', { x })
-  return x
 }
 
 /**
