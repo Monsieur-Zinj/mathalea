@@ -224,7 +224,7 @@ export class Spline {
     return this.fonction
   }
 
-  get pointOfSpline () {
+  get pointsOfSpline () {
     const points = []
     const stepPoints = (this.x[this.x.length - 1] - this.x[0]) / this.nbPointsForApiGeom // on fait 50 points ça devrait suffir...
     let x = this.x[0]
