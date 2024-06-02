@@ -26,6 +26,10 @@ import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
 import { localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
+import { delay } from './components/time.js'
+
+const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
+
 function getExerciceByUuid (root: object, targetUUID: string): object | null {
   if ('uuid' in root) {
     if (root.uuid === targetUUID) {
@@ -78,44 +82,55 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
   if (url) {
     [filename, directory, isCan] = url.replaceAll('\\', '/').split('/').reverse()
   }
-  try {
+  let attempts = 0
+  const maxAttempts = 3
+
+  while (attempts < maxAttempts) {
+    try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
     // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
-    let module: any
-    if (isCan === 'can') {
-      if (filename != null && filename.includes('.ts')) {
-        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else if (filename != null) {
-        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      let module: any
+      if (isCan === 'can') {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+        }
+      } else {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+        }
       }
-    } else {
-      if (filename != null && filename.includes('.ts')) {
-        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else if (filename != null) {
-        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
-      }
-    }
-    const ClasseExercice = module.default
-    const exercice = new ClasseExercice()
+      const ClasseExercice = module.default
+      const exercice = new ClasseExercice()
         ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-      if (module[p] !== undefined) exercice[p] = module[p]
-    })
-    ;(await exercice).id = filename
-    if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-      animationLoading(true)
-      await loadGiac()
-      animationLoading(false)
+        if (module[p] !== undefined) exercice[p] = module[p]
+      })
+      ;(await exercice).id = filename
+      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+        animationLoading(true)
+        await loadGiac()
+        animationLoading(false)
+      }
+      return exercice
+    } catch (error) {
+      attempts++
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
+      if (attempts === maxAttempts) {
+        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.log(error)
+        const exercice = new Exercice()
+        exercice.titre = ERROR_MESSAGE
+        exercice.nouvelleVersion = () => {
+        }
+        return exercice
+      } else {
+        await delay(1000)
+      }
     }
-    return exercice
-  } catch (error) {
-    console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-    console.log(error)
-    const exercice = new Exercice()
-    exercice.titre = `Uuid ${uuid} - Problème à signaler`
-    exercice.nouvelleVersion = () => {
-    }
-    return exercice
   }
 }
 
@@ -131,44 +146,55 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
   if (url) {
     [filename, directory, isCan] = url.replaceAll('\\', '/').split('/').reverse()
   }
-  try {
+  let attempts = 0
+  const maxAttempts = 3
+
+  while (attempts < maxAttempts) {
+    try {
     // L'import dynamique ne peut descendre que d'un niveau, les sous-répertoires de directory ne sont pas pris en compte
     // cf https://github.com/rollup/plugins/tree/master/packages/dynamic-import-vars#globs-only-go-one-level-deep
     // L'extension doit-être visible donc on l'enlève avant de la remettre...
-    let module
-    if (isCan === 'can') {
-      if (filename != null && filename.includes('.ts')) {
-        module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else if (filename != null) {
-        module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+      let module
+      if (isCan === 'can') {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/can/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/can/${directory}/${filename.replace('.js', '')}.js`)
+        }
+      } else {
+        if (filename != null && filename.includes('.ts')) {
+          module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
+        } else if (filename != null) {
+          module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
+        }
       }
-    } else {
-      if (filename != null && filename.includes('.ts')) {
-        module = await import(`../exercices/${directory}/${filename.replace('.ts', '')}.ts`)
-      } else if (filename != null) {
-        module = await import(`../exercices/${directory}/${filename.replace('.js', '')}.js`)
-      }
-    }
-    const ClasseExercice = module.default
-    const exercice = new ClasseExercice()
+      const ClasseExercice = module.default
+      const exercice = new ClasseExercice()
         ;['titre', 'amcReady', 'amcType', 'interactifType', 'interactifReady'].forEach((p) => {
-      if (module[p] !== undefined) exercice[p] = module[p]
-    })
-    ;(await exercice).id = filename
-    if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
-      animationLoading(true)
-      await loadGiac()
-      animationLoading(false)
+        if (module[p] !== undefined) exercice[p] = module[p]
+      })
+      ;(await exercice).id = filename
+      if (exercice.typeExercice && exercice.typeExercice.includes('xcas')) {
+        animationLoading(true)
+        await loadGiac()
+        animationLoading(false)
+      }
+      return exercice
+    } catch (error) {
+      attempts++
+      window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
+      if (attempts === maxAttempts) {
+        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.log(error)
+        const exercice = new Exercice()
+        exercice.titre = ERROR_MESSAGE
+        exercice.nouvelleVersion = () => {
+        }
+        return exercice
+      } else {
+        await delay(1000)
+      }
     }
-    return exercice
-  } catch (error) {
-    console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-    console.log(error)
-    const exercice = new Exercice()
-    exercice.titre = `Uuid ${uuid} - Problème à signaler`
-    exercice.nouvelleVersion = () => {
-    }
-    return exercice
   }
 }
 
