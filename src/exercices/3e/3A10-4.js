@@ -10,6 +10,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { choice } from '../../lib/outils/arrayOutils'
 
 export const titre = 'Compter et lister les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
 
@@ -91,10 +92,19 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
         return a - b
       })
       // on choisit les multiplicités
-      const tabMultiplicitesb = []
-      for (let k = 0; k < tabRangsb.length; k++) {
-        tabMultiplicitesb[k] = randint(1, this.sup ? 4 : 2)
+      let tabMultiplicitesb = []
+      if (tabRangsb.length < 3) {
+        for (let k = 0; k < tabRangsb.length; k++) {
+          tabMultiplicitesb[k] = randint(1, this.sup ? 4 : 2)
+        }
+      } else {
+        // S'il y a 3 facteurs premiers, on fixe à 12, 16 ou 18 le nombre de diviseurs
+        tabMultiplicitesb = choice([[2, 1, 1], [3, 1, 1], [2, 2, 1]]).sort(() => Math.random < 0.5)
       }
+
+      // Sum des multiplicités
+      const sumMultiplicitesb = tabMultiplicitesb.reduce((a, b) => a * (b + 1), 1)
+      console.log('sumMultiplicitesb : ' + sumMultiplicitesb)
 
       texte = ''
       let nombreADecomposerb = 1
