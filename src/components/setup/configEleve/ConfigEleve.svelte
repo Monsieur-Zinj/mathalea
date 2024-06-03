@@ -85,7 +85,7 @@
   let isDataRandom: boolean = false
   function handleSeed () {
     for (const param of $exercicesParams) {
-      if (!isDataRandom && param.alea === undefined ) {
+      if (!isDataRandom && param.alea === undefined) {
         param.alea = mathaleaGenerateSeed()
       } else if (isDataRandom) {
         param.alea = undefined
@@ -438,6 +438,25 @@
               explanations={[
                 "Chaque élève aura des pages avec des données différentes d'un autre élève.",
                 'Tous les élèves auront des pages identiques.'
+              ]}
+              on:toggle={handleSeed}
+            />
+          </div>
+        </div>
+        <div class="pb-2">
+          <div
+            class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Affichage du titre de l'exercice
+          </div>
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggleAlt
+              title={'Titre de l\'exercice'}
+              bind:value={$globalOptions.isTitleDisplayed}
+              id={'config-eleve-title-displayed-toggle'}
+              explanations={[
+                'Les titres sont affichés',
+                'Les titres sont masqués.'
               ]}
               on:toggle={handleSeed}
             />

@@ -53,6 +53,7 @@ export const globalOptions = writable<InterfaceGlobalOptions>({
   setInteractive: '2',
   isSolutionAccessible: true,
   isInteractiveFree: true,
+  isTitleDisplayed: true,
   oneShot: false,
   twoColumns: false,
   beta: false,
@@ -215,6 +216,7 @@ export function updateGlobalOptionsInURL (url: URL) {
       es += options.isInteractiveFree ? '1' : '0'
       es += options.oneShot ? '1' : '0'
       es += options.twoColumns ? '1' : '0'
+      es += options.isTitleDisplayed ? '1' : '0'
       url.searchParams.append('es', es)
     }
     if (options.done) {
