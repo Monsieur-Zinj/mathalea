@@ -190,6 +190,7 @@
     globalOptions.update((params) => {
       params.presMode = 'un_exo_par_page'
       params.isDataRandom = true
+      params.isTitleDisplayed = true
       if ($globalOptions.v === 'eleve') {
         params.isInteractiveFree = false
       }
@@ -867,9 +868,24 @@ function addExercise (uuid: string) {
             <ButtonToggle
               titles={['différentes', 'identiques']}
               bind:value={$globalOptions.isDataRandom}
-              on:toggle={() => {
-                console.log($globalOptions)
-              }}
+            />
+          </div>
+        </div>
+        <div class="pb-2">
+          <div
+            class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Affichage des titres
+          </div>
+          <!-- <div
+            class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light disabled"
+          >
+            Tous les élèves auront des pages :
+          </div> -->
+          <div class="flex flex-row justify-start items-center px-4">
+            <ButtonToggle
+              titles={['Tous les titres sont affichés', 'Tous les titres sont masqués']}
+              bind:value={$globalOptions.isTitleDisplayed}
             />
           </div>
         </div>

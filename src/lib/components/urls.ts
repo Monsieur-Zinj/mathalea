@@ -102,13 +102,14 @@ export function buildEsParams (
     ['cartes', 4]
   ])
   let es = ''
-  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns
+  // Paramètre 'es' : presMode|setInteractive|isSolutionAccessible|isInteractiveFree|oneShot|twoColumns|isTitleDisplayed
   es += presentationMode.get(mode !== undefined ? mode : options.presMode)
   es += options.setInteractive
   es += options.isSolutionAccessible ? '1' : '0'
   es += options.isInteractiveFree ? '1' : '0'
   es += options.oneShot ? '1' : '0'
   es += options.twoColumns ? '1' : '0'
+  es += options.isTitleDisplayed ? '1' : '0'
   return es
 }
 

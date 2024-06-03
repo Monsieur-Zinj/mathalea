@@ -40,6 +40,7 @@ export interface InterfaceGlobalOptions {
     // | 'cartes'
   setInteractive: string
   isSolutionAccessible?: boolean
+  isTitleDisplayed?: boolean
   isInteractiveFree?: boolean
   oneShot?: boolean
   recorder?: 'capytale' | 'labomep' | 'moodle' | 'anki'
