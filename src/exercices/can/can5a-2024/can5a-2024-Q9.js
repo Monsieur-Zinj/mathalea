@@ -19,7 +19,6 @@ export const uuid = '1bb1e'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
@@ -29,8 +28,6 @@ export default class NomExercice extends Exercice {
 
   nouvelleVersion () {
     if (this.canOfficielle) {
-      this.formatInteractif = 'mathlive'
-      this.compare = fonctionComparaison
       this.reponse = new FractionEtendue(7, 10).texFraction
       this.question = 'Complète : <br> $7$ dm $=$ '
       this.correction = ` Comme $1$ m $=10$ dm, alors $1$ dm $=0,1$ m.<br>
@@ -42,8 +39,6 @@ export default class NomExercice extends Exercice {
       } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
     } else {
       if (choice([true, false])) {
-        this.formatInteractif = 'mathlive'
-        this.compare = fonctionComparaison
         const a = randint(3, 15)
         this.reponse = new FractionEtendue(a, 10).texFraction
         this.question = `Complète : <br>$${a}$ dm $=$`
@@ -56,8 +51,6 @@ export default class NomExercice extends Exercice {
           this.optionsChampTexte = { texteApres: 'm' }
         } else { this.question += `${context.isHtml ? '$\\ldots$ m' : ''}` }
       } else {
-        this.formatInteractif = 'mathlive'
-        this.compare = fonctionComparaison
         const a = randint(15, 60)
         this.reponse = String(a * 10)
         this.question = `Complète : <br> $${texNombre(a, 0)}$ m $=$ `
