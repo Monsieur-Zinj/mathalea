@@ -41,3 +41,7 @@ export const updateURLFromReferentielLocale = (url: URL) => {
     params.set('lang', locale)
   }
 }
+
+export function getLang () {
+  return get(referentielLocale)
+}

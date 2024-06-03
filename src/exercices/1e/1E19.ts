@@ -19,7 +19,7 @@ export const refs = {
  * @author Nathan Scheinmann
 */
 
-export default class nomExercice extends Exercice {
+export default class ExerciceEquationSecondDegre extends Exercice {
   constructor () {
     super()
     this.besoinFormulaireTexte = ['Nombre de solutions', '1 : Une solution\n2 : Deux solutions\n3 : Pas de solution réelle\n4 : Mélange']
@@ -34,13 +34,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    // Exemple d'utilisation :
     this.comment = "L'option une unique solution avec type de solution irrationelle donne par défaut une solution fractionnaire<br> Le format de l'équation est: 1. ax^2+bx+c=0 <br>2. bx+ax^2+c=0<br>3. ax^2+bx+c=dx^2+ex+f<br>4. bx+c+ax^2=f+dx^2+ex."
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
