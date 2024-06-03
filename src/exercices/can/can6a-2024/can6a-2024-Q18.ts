@@ -23,7 +23,7 @@ export default class AireTrapezeRectangle extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.optionsChampTexte = { texteApres: ' ua' }
     this.canOfficielle = false
@@ -57,9 +57,9 @@ export default class AireTrapezeRectangle extends Exercice {
       new Point(grandeBase + 1, hauteur + 2)],
     'black', 'none', 'black'
     )
-    unite.epaisseur = 2
-    unite.hachures = 'checkerboard'
-    trapeze.epaisseur = 2
+    // unite.epaisseur = 2
+    // unite.hachures = 'checkerboard'
+    // trapeze.epaisseur = 2
     trapeze.couleurDeRemplissage = colorToLatexOrHTML('gray')
     const figureA = texteParPoint('Figure A', new Point(2, 0.5), 0, 'black', 1, 'gauche')
     const ua = texteParPoint('1 ua', new Point(grandeBase + 1.5, hauteur + 0.5), 0, 'black', 1, 'milieu')

@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { calculCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
@@ -23,12 +23,11 @@ export const refs = {
 export default class fractionsDecimaux extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 nospacebefore' + KeyboardType.clavierDeBase
-    this.formatInteractif = 'calcul'
-    this.compare = calculCompare
+    // this.formatInteractif = 'calcul'
+    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

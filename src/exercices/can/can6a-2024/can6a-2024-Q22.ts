@@ -22,7 +22,7 @@ export default class AbscisseEnDemiBis extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.formatChampTexte = 'largeur01'
     this.canOfficielle = false
     this.compare = fonctionComparaison

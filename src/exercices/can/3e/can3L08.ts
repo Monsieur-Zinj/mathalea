@@ -28,7 +28,6 @@ export const refs = {
 export default class EnFonctionDeAire extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecVariable
