@@ -17,12 +17,12 @@ export const amcType = 'qcmMono'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
-export const dateDeModifImportante = '31/05/2023'
+export const dateDeModifImportante = '03/06/2024'
 
 /**
  * Conversions de volumes.
  *
- * Dans la correction, on ne voit qu`une multiplication ou qu`un division pour obtenir le résultat
+ * Dans la correction, on ne voit qu`une multiplication ou qu`une division pour obtenir le résultat
  *
  * * 1 : Conversions en mètres-cubes avec des multiplications
  * * 2 : Conversions en mètres-cubes avec des divisions
@@ -30,7 +30,6 @@ export const dateDeModifImportante = '31/05/2023'
  * * 4 : Conversions avec des multiplications ou divisions
  * * Paramètre supplémentaire : utiliser des nombres décimaux (par défaut tous les nombres sont entiers)
  * @author Rémi Angot
- * Référence 6M31
  * Amélioration de l'interactivité (mathLive maintenant inline) par Guillaume Valmont le 14/05/2022
  */
 export const uuid = '33ac2'
@@ -44,12 +43,8 @@ export default function ExerciceConversionsVolumes () {
   this.sup = 1 // Niveau de difficulté de l`exercice
   this.sup2 = false // Avec des nombres décimaux ou pas
   this.sup3 = 1 // interactifType Qcm
-  this.titre = titre
   this.spacing = 2
   this.nbColsCorr = 1
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
 
   function nombreAleatoire (nbChiffres) { // retourne un entier aléatoire à n chiffres sous la forme d'un Decimal
     let a = new Decimal(0)
@@ -147,7 +142,6 @@ export default function ExerciceConversionsVolumes () {
                     '^3' +
                     ' =  ' +
                     texNombre(a, 3) +
-                    '\\times' +
                     prefixeMulti[k][1] +
                     texTexte(unite) +
                     '^3' +
@@ -177,7 +171,6 @@ export default function ExerciceConversionsVolumes () {
                     '^3' +
                     ' =  ' +
                     texNombre(a, 3) +
-                    '\\div' +
                     prefixeDiv[k][1] +
                     texTexte(unite) +
                     '^3' +
