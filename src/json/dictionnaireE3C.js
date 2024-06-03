@@ -253,7 +253,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_1_cor.tex',
-    tags: ['QCM','Dérivation','Produit scalaire']
+    tags: ['QCM', 'Dérivation', 'Produit scalaire']
   },
   e3c_2020_00_sujet1_2: {
     annee: '2020',
@@ -265,7 +265,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_2_cor.tex',
-    tags: ['Dérivation','Exponentielle']
+    tags: ['Dérivation', 'Exponentielle']
   },
   e3c_2020_00_sujet1_3: {
     annee: '2020',
@@ -277,7 +277,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet1_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet1_3_cor.tex',
-    tags: ['Suites','Algorithmie']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2020_00_sujet1_4: {
     annee: '2020',
@@ -301,7 +301,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_1_cor.tex',
-    tags: ['QCM','Dérivation','Exponentielle','Géométrie repérée']
+    tags: ['QCM', 'Dérivation', 'Exponentielle', 'Géométrie repérée']
   },
   e3c_2020_00_sujet2_2: {
     annee: '2020',
@@ -325,7 +325,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet2_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet2_3_cor.tex',
-    tags: ['Suites','Algorithmie']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2020_00_sujet2_4: {
     annee: '2020',
@@ -349,7 +349,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_1_cor.tex',
-    tags:  tags: ['QCM','Probabilités','Variables aléatoires','Algorithmie']
+    tags: ['QCM', 'Probabilités', 'Variables aléatoires', 'Algorithmie']
   },
   e3c_2020_00_sujet3_2: {
     annee: '2020',
@@ -373,7 +373,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_3_cor.tex',
-    tags: ['Dérivation','Exponentielle']
+    tags: ['Dérivation', 'Exponentielle']
   },
   e3c_2020_00_sujet3_4: {
     annee: '2020',
@@ -385,7 +385,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet3_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet3_4_cor.tex',
-    tags: ['Géométrie repérée','Produit scalaire']
+    tags: ['Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet4_1: {
     annee: '2020',
@@ -397,7 +397,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet4_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet4_1_cor.tex',
-    tags: ['QCM','Polynômes','Dérivation','Exponentielle','Géométrie repérée','Produit scalaire']
+    tags: ['QCM', 'Polynômes', 'Dérivation', 'Exponentielle', 'Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet4_2: {
     annee: '2020',
@@ -446,7 +446,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_1_cor.tex',
-    tags: ['QCM','Trigonométrie','Géométrie repérée','Produit scalaire']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet5_2: {
     annee: '2020',
@@ -482,7 +482,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet5_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet5_4_cor.tex',
-    tags: ['Suites','Algorithmie']
+    tags: ['Suites', 'Algorithmie']
   },
 
   e3c_2020_00_sujet6_1: {
@@ -495,7 +495,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_1_cor.tex',
-    tags: ['QCM','Trigonométrie','Dérivation','Géométrie repérée','Produit scalaire']
+    tags: ['QCM', 'Trigonométrie', 'Dérivation', 'Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet6_2: {
     annee: '2020',
@@ -519,7 +519,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet6_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet6_3_cor.tex',
-    tags: ['Suites','Algorithmie']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2020_00_sujet6_4: {
     annee: '2020',
@@ -543,7 +543,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_1_cor.tex',
-    tags: ['QCM','Trigonométrie','Géométrie repérée','Produit scalaire']
+    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Produit scalaire']
   },
   e3c_2020_00_sujet7_2: {
     annee: '2020',
@@ -567,7 +567,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_3_cor.tex',
-    tags: ['Suites','Algorithmie']
+    tags: ['Suites', 'Algorithmie']
   },
   e3c_2020_00_sujet7_4: {
     annee: '2020',
@@ -579,7 +579,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet7_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet7_4_cor.tex',
-    tags: ['Polynômes','Dérivation']
+    tags: ['Polynômes', 'Dérivation']
   },
   e3c_2020_00_sujet8_1: {
     annee: '2020',
@@ -591,7 +591,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet8_1.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet8_1_cor.tex',
-    tags: ['QCM','Suites','Trigonométrie','Exponentielle','Variables aléatoires','Probabilités']
+    tags: ['QCM', 'Suites', 'Trigonométrie', 'Exponentielle', 'Variables aléatoires', 'Probabilités']
   },
   e3c_2020_00_sujet8_2: {
     annee: '2020',
