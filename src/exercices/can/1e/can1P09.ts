@@ -25,10 +25,9 @@ export const refs = {
 export default class esperance extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
     this.formatChampTexte = 'largeur01'
   }

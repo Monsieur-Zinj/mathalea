@@ -21,8 +21,6 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'mathlive'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {

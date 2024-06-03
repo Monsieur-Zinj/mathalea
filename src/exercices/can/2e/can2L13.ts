@@ -27,7 +27,7 @@ export default class DeveloppementDouble extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
   }
 

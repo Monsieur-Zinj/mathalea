@@ -25,7 +25,7 @@ export default class NomExercice extends Exercice {
     this.compare = fonctionComparaison
     this.nbQuestions = 1
     this.canOfficielle = false
-    this.formatInteractif = 'mathlive'
+    // this.formatInteractif = 'mathlive'
   }
 
   nouvelleVersion () {

@@ -28,7 +28,7 @@ export default class DiagonaleCarre extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 nospacebefore' + KeyboardType.clavierDeBaseAvecVariable
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
   }
 

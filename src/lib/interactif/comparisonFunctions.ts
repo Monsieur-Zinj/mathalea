@@ -381,12 +381,13 @@ engine.latexDictionary = [
  * comparaison générique : notre couteau suisse
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean, fractionIdentique:boolean }} [options]
+ * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean, HMS:boolean, intervalle:boolean, estDansIntervalle:boolean, ecritureScientifique:boolean, unite:boolean, precisionUnite:number, puissance:boolean, texteAvecCasse:boolean, texteSansCasse:boolean, fractionIdentique:boolean }} [options]
  * @author Eric Elter
  * @return ResultType
  */
 export function fonctionComparaison (input: string, goodAnswer:string,
   {
+    expressionsForcementReduites=true,
     avecSigneMultiplier = true,
     avecFractions = true,
     fractionIrreductibleSeulement = false,
@@ -416,6 +417,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
     {
+      expressionsForcementReduites,
       avecSigneMultiplier,
       avecFractions,
       fractionIrreductibleSeulement,
@@ -472,7 +474,7 @@ function customCanonical (expr:BoxedExpression, { expressionsForcementReduites =
  * - on n'accepte que l'enchaînement de calculs fourni en goodAnswer et non le résultat de cet enchaînement de calculs
  * @param {string} input
  * @param {string} goodAnswer
- * @param {{avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean}} [options]
+ * @param {{expressionsForcementReduites:boolean, avecSigneMultiplier:boolean, avecFractions:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean}} [options]
  * @author Eric Elter
  * @return ResultType
  */

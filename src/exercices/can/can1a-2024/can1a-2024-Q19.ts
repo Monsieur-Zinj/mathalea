@@ -16,12 +16,11 @@ export const uuid = '4f56c'
 export default class deriveeSecondDegre extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'calcul'
+    // this.formatInteractif = 'calcul'
     this.compare = expressionDeveloppeeEtNonReduiteCompare
   }
 

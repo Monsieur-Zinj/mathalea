@@ -21,13 +21,10 @@ export const uuid = '325b5'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.clavierDeBase
-    this.formatInteractif = 'mathlive'
-    this.compare = fonctionComparaison
   }
 
   nouvelleVersion () {
