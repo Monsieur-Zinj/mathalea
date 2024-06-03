@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-// import { modalUrl } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -34,7 +33,6 @@ export default function CoefficientEvolution () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    // this.boutonAide = modalUrl(numeroExercice, 'https://coopmaths.fr/aide/3P10/')
     let typesDeQuestionsDisponibles = []
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {
@@ -49,7 +47,11 @@ export default function CoefficientEvolution () {
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     for (let i = 0, texte, texteCorr, reponse, taux, coeff, cpt = 0; i < this.nbQuestions && cpt < 100;) {
-      taux = choice([randint(1, 19) * 10, randint(1, 29, [10, 20])])
+      if (['taux-', 'coef-'].includes(listeTypeDeQuestions[i])) {
+        taux = choice([randint(1, 9) * 10, randint(1, 29, [10, 20])])
+      } else {
+        taux = choice([randint(1, 19) * 10, randint(1, 29, [10, 20])])
+      }
       switch (listeTypeDeQuestions[i]) {
         case 'coef+':
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par `
