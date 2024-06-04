@@ -25,7 +25,7 @@ import FractionEtendue from '../modules/FractionEtendue'
 import Decimal from 'decimal.js'
 import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
-import { localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
+import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
 import { delay } from './components/time.js'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
@@ -713,8 +713,11 @@ export function mathaleaGenerateSeed ({ includeUpperCase = true, includeNumbers 
  * @param {string} texte
  * @returns string
  */
-export function mathaleaFormatExercice (texte = '') {
-  return texte
+// Define the function with the condition check
+export function mathaleaFormatExercice (texte = ' ') {
+  const lang = getLang()
+  // Replace symbols based on general rules
+  let formattedText = texte
     .replace(/\\dotfill/g, '..............................')
     .replace(/\\not=/g, '≠')
     .replace(/\\ldots/g, '....')
@@ -722,6 +725,13 @@ export function mathaleaFormatExercice (texte = '') {
     .replaceAll(' !', '&nbsp;!')
     .replaceAll(' ;', '&nbsp;;')
     .replaceAll(' :', '&nbsp;:')
+
+  // Check if the language is 'fr-CH' and replace \times with \cdot if true
+  if (lang === 'fr-CH') {
+    formattedText = formattedText.replace(/\\times/g, '\\cdot')
+  }
+
+  return formattedText
 }
 
 /**
