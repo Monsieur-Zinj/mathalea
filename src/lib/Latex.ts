@@ -3,6 +3,7 @@ import { loadFonts, loadPackagesFromContent, loadPreambule, loadProfCollegeIfNee
 import TypeExercice from '../exercices/Exercice'
 import { mathaleaHandleExerciceSimple } from './mathalea.js'
 import seedrandom from 'seedrandom'
+import { getLang } from './stores/languagesStore'
 // printPrettier pose problème avec begin{aligned}[t] en ajoutant un saut de ligne problématique
 // import { printPrettier } from 'prettier-plugin-latex/standalone.js'
 
@@ -578,7 +579,8 @@ export function makeImageFilesUrls (exercices: TypeExercice[]) {
  */
 export function format (text: string): string {
   if (text === undefined) return ''
-  return text
+  const lang = getLang()
+  let formattedText = text
     .replace(/(<br *\/?>[\n\t ]*)+<br *\/?>/gim, '\n\n\\medskip\n')
     .replace(/(\d+)\s*°/g, '\\ang{$1}')
     .replace(/<br>/g, '\\\\')
@@ -587,6 +589,13 @@ export function format (text: string): string {
     .replace(/\\\\\s*\n\n/gm, '\\\\')
     .replace('«', '\\og{}')
     .replace('»', '\\fg{}')
+
+  // Check if the language is 'fr-CH' and replace \times with \cdot if true
+  if (lang === 'fr-CH') {
+    formattedText = formattedText.replace(/\\times/g, '\\cdot')
+  }
+
+  return formattedText
 }
 
 function getUrlFromExercice (ex: TypeExercice) {
