@@ -825,5 +825,61 @@ export const garderPourTagsEx4 =
       'static/crpe/2022/2022-g4-ex4-corr.tex'
     ],
     tags: ['Algorithmique et programmation']
+  },
+  crpe_l3_2025_sujet0_1: {
+    annee: '2025',
+    lieu: 'sujet0',
+    numeroInitial: '1',
+    png: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_1.png',
+    pngCor: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_1_cor.png',
+    typeExercice: 'crpe',
+    url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_1.tex',
+    urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_1_cor.tex',
+    tags: ['']
+  },
+  crpe_l3_2025_sujet0_2: {
+    annee: '2025',
+    lieu: 'sujet0',
+    numeroInitial: '2',
+    png: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_2.png',
+    pngCor: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_2_cor.png',
+    typeExercice: 'crpe',
+    url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_2.tex',
+    urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_2_cor.tex',
+    tags: ['']
+  },
+  crpe_l3_2025_sujet0_3: {
+    annee: '2025',
+    lieu: 'sujet0',
+    numeroInitial: '3',
+    png: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_3.png',
+    pngCor: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_3_cor.png',
+    typeExercice: 'crpe',
+    url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_3.tex',
+    urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_3_cor.tex',
+    tags: ['']
+  },
+  crpe_l3_2025_sujet0_4: {
+    annee: '2025',
+    lieu: 'sujet0',
+    numeroInitial: '4',
+    png: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_4.png',
+    pngCor: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_4_cor.png',
+    typeExercice: 'crpe',
+    url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_4.tex',
+    urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_4_cor.tex',
+    tags: ['']
+  },
+  crpe_l3_2025_sujet0_5: {
+    annee: '2025',
+    lieu: 'sujet0',
+    numeroInitial: '5',
+    png: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_5.png',
+    pngCor: 'static/crpe/2025/tex/png/crpe_l3_2025_sujet0_5_cor.png',
+    typeExercice: 'crpe',
+    url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_5.tex',
+    urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_5_cor.tex',
+    tags: ['']
   }
+
 }
