@@ -31,13 +31,14 @@ export default function ProblemesThales () {
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
+  this.sup = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let texte = ''
     let texteCorr = ''
-    const typesDeQuestions = randint(1, 2)
+    const typesDeQuestions = (this.sup === 1 || this.sup === 2) ? this.sup : choice([1, 2])
     let A, B, C, D, E, M, N, x, k, y, p, codage1, codage2, codage3, codage4, sMN, sBD, sCote, texte1, texte2, texte3, texte4, labels, BC, BD, MN
     const [nomA, nomB, nomC, nomD] = creerNomDePolygone(4, ['MNQD'])
     switch (typesDeQuestions) {
@@ -156,7 +157,8 @@ export default function ProblemesThales () {
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
     listeQuestionsToContenu(this)
-    // this.besoinFormulaireNumerique = ['Type de questions',2,"1 : Donner l'égalité\n2 : Compléter une égalité avec une addition ou une soustraction"];
+
     // this.besoinFormulaire2CaseACocher = ['Sans figures']
   }
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Triangles rectangles imbriqués\n2 : Triangles dans un rectangle\n3 : Mélange']
 }
