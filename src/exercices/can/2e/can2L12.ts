@@ -27,7 +27,6 @@ export default class FatorisationEgR extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
-    this.formatInteractif = 'calcul'
     this.compare = factorisationCompare
   }
 
