@@ -88,7 +88,8 @@ def newEntry(file:str,dicoType:str)->list:
     """
     pass    
     # On récupère le nom du fichier sans l'extension
-    filename = os.path.splitext(file)[0]    
+    filename = os.path.splitext(file)[0]
+    filename = filename.lower()
     # On récupère l'extension
     extension = os.path.splitext(file)[1]
     # Pour les lignes à ajouter
@@ -97,7 +98,7 @@ def newEntry(file:str,dicoType:str)->list:
     if filename[-4:] != '_cor' and  extension == ".tex" :
         if 'mathalea' in filename: # EE : Pas encore trouvé à quel occasion cela l'était
             numeroInitial = filename.split('_')[6]
-        else: # EE : Ici, on considère que c'est le DNB
+        else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
         if ((('sujet1' in filename) or ('sujet2' in filename))and('bac' in filename)): # EE : Ici, on considère que c'est le BAC ....
             lieu = locationName(filename.split('_')[4])
@@ -115,31 +116,43 @@ def newEntry(file:str,dicoType:str)->list:
                 sujet='J2'
             
             newLines = f'''  {filename}: {{
-    annee: '{filename[4:8]}',
-    lieu: '{lieu}',
-    mois: '{monthName(filename[9:11])}',
-    jour: '{sujet}',
-    numeroInitial: '{numeroInitial}',
-    png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-    pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
-    typeExercice: '{dicoType}',
-    url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
-    urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['']
-  }},\n'''
+                annee: '{filename[4:8]}',
+                lieu: '{lieu}',
+                mois: '{monthName(filename[9:11])}',
+                jour: '{sujet}',
+                numeroInitial: '{numeroInitial}',
+                png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
+                pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
+                typeExercice: '{dicoType}',
+                url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
+                urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
+                tags: ['']
+            }},\n'''
+        elif ('crpe' in filename): # EE : Ici, on considère que c'est les CRPE
+            newLines = f'''  {filename}: {{
+                annee: '{filename[8:12]}',
+                lieu: '{locationName(filename.split('_')[3])}',
+                numeroInitial: '{numeroInitial}',
+                png: 'static/{dicoType}/{filename[8:12]}/tex/png/{filename}.png',
+                pngCor: 'static/{dicoType}/{filename[8:12]}/tex/png/{filename}_cor.png',
+                typeExercice: '{dicoType}',
+                url: 'static/{dicoType}/{filename[8:12]}/tex/{filename}.tex',
+                urlcor: 'static/{dicoType}/{filename[8:12]}/tex/{filename}_cor.tex',
+                tags: ['']
+            }},\n'''    
         else: # Cette partie concerne le DNB et le bac avant 2022
             newLines = f'''  {filename}: {{
-    annee: '{filename[4:8]}',
-    lieu: '{locationName(filename.split('_')[3])}',
-    mois: '{monthName(filename[9:11])}',
-    numeroInitial: '{numeroInitial}',
-    png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-    pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
-    typeExercice: '{dicoType}',
-    url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
-    urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-    tags: ['']
-  }},\n'''    
+                annee: '{filename[4:8]}',
+                lieu: '{locationName(filename.split('_')[3])}',
+                mois: '{monthName(filename[9:11])}',
+                numeroInitial: '{numeroInitial}',
+                png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
+                pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
+                typeExercice: '{dicoType}',
+                url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
+                urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
+                tags: ['']
+            }},\n'''    
     
     return [newLines,filename]
 
@@ -272,12 +285,13 @@ def main():
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
-    while choiceDico not in ['1','2','3']:
+    while choiceDico not in ['1','2','3','4']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : BAC
         ---> 3 : E3C
-Taper 1, 2 ou 3 pour lancer le script --> """)
+        ---> 4 : CRPE        
+Taper 1, 2, 3 ou 4 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
@@ -295,21 +309,20 @@ Taper 1, 2 ou 3 pour lancer le script --> """)
         # dicoPath = './src/js/modules/dictionnaireE3C.js'
         dicoPath = '../../src/json/dictionnaireE3C.js'
         dicoType = 'e3c'
+    elif (choiceDico == '4'):
+        # dicoPath = './src/js/modules/dictionnaireE3C.js'
+        dicoPath = '../../src/json/dictionnaireCrpeCoop.js'
+        dicoType = 'crpe'
 
     manageDico(dicoPath,dicoType)
 
     if __name__ == "__main__":
-        restart = ''
-        while restart not in ['o','n']:
-            print(" ")
-            print("=============================================================================")
-            print("                   Remplissage Dictionnaire Achevé")
-            print("=============================================================================")
-            print(" ")
-            restart=input(" Voulez-vous synchroniser/générer un autre dictionnaire ? (o pour Oui / n pour Non) ")    
-            if restart == 'o':
-                main()  
-
+        print(" ")
+        print("=============================================================================")
+        print("                   Remplissage Dictionnaire Achevé")
+        print("=============================================================================")
+        print(" ")
+        
     # On évalue le temps de traitement
     end_time = datetime.now()
     print("=============================================================================")
