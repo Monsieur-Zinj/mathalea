@@ -266,21 +266,21 @@ export default function ReciproqueThales () {
         if (this.sup === 1) {
           // niveau 1 : Calcul direct
           texte =
-                        '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
           texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.`
           texte +=
                         '\\end{itemize}  ' +
                         `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
-                        '. \\end{minipage}'
+                        '\\end{minipage}'
         } else if (this.sup === 2) {
           // niveau 2 : Calcul intermédiaire nécessaire
           texte =
-                        '\\begin{minipage}{.7 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
+                        '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
           texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.`
           texte +=
                         '\\end{itemize}  ' +
                         `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
-                        '. \\end{minipage}'
+                        '\\end{minipage}'
           if (k.isPos()) {
             // triangles imbriqués
             texteCorr +=
@@ -314,9 +314,9 @@ export default function ReciproqueThales () {
 
         if (this.sup < 3) {
           // on ne fait la figure que si niveau < 3
-          texte += '\\begin{minipage}{0.3 \\linewidth}'
+          texte += '\\begin{minipage}[t]{0.4 \\linewidth}'
           // dessin de la figure
-          texte += '\n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
+          texte += '\\vspace{0pt}   \n \\begin{tikzpicture}[scale=0.7]' // Balise début de figure
           texte +=
                         '\n\t \\tkzDefPoints{0/0/' +
                         s1 +
