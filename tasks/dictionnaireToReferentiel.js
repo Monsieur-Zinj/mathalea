@@ -117,8 +117,9 @@ for (const ex in dictionnaireCrpeCoop) {
   })
 }
 
-for (const annee of ['2022', '2023']) {
+for (const annee of ['2022', '2023', '2025']) {
   referentielFR.crpe[annee] = {}
+
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
       referentielFR.crpe[annee][ex] = { uuid: ex, ...dictionnaireCrpeCoop[ex] }
