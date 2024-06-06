@@ -90,7 +90,6 @@ export default function UnionEtIntersectionIntervallesDeR () {
           int2 = intervalle(C, D, 'blue', 0)
 
           texte = 'Donner si possible, une écriture simplifiée de '
-          texte += 'tupe ' + typesDeQuestions
           if (test === 1) {
             texte += `$I=[${a};${b}]\\cap[${c};${d}]$`
             texteCorr = `${context.isHtml ? '<br>' : ''}On cherche les réels qui sont à la fois dans $[${a};${b}]$ et dans $[${c};${d}]$.`
