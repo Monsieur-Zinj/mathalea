@@ -1,4 +1,4 @@
-import { ComputeEngine} from '@cortex-js/compute-engine'
+import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
@@ -14,20 +14,21 @@ export const uuid = 'testEE'
 const engine = new ComputeEngine()
 // export engine
 
-function customCanonicalEE(expr) {
+function customCanonicalEE (expr) {
   if (typeof expr.value === 'number') {
     if (expr.head === 'Divide' || expr.head === 'Rational') {
-      if (expr.engine.box(['GCD', expr.op1, expr.op2]).value !== 1) return expr;
+      if (expr.engine.box(['GCD', expr.op1, expr.op2]).value !== 1) return expr
     }
-    return expr.engine.number(expr.value);
+    return expr.engine.number(expr.value)
   }
 
-  if (expr.ops)
+  if (expr.ops) {
     return expr.engine.box([expr.head, ...expr.ops.map(customCanonicalEE)], {
-      canonical: ['InvisibleOperator', 'Order', 'Flatten'],
-    });
+      canonical: ['InvisibleOperator', 'Order', 'Flatten']
+    })
+  }
 
-  return expr.canonical;
+  return expr.canonical
 }
 
 export default function desTestsPourInteractivité () {
@@ -36,13 +37,13 @@ export default function desTestsPourInteractivité () {
   this.interactifType = interactifType
   this.consigne = 'Pour tester cette expression et QUE celle-là :'
   this.nouvelleVersion = function () {
-    console.log(customCanonicalEE(engine.parse('(5\\times4c)+1', { canonical: false })).json)
-    console.log(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false })).json)
-    console.log(customCanonicalEE(engine.parse('(5\\times4c)+1', { canonical: false })).toString())
-    console.log(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false })).toString())
-    console.log(customCanonicalEE(engine.parse('(5\\times4c)+1', { canonical: false })).ops[0].head)
-    console.log(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false })).ops[0].head)
-    //.isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false })))) 
+    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
+    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
+    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
+    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
+    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
+    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
+    // .isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false }))))
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
@@ -55,7 +56,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(5, 3)
       // const reponse = '\\dfrac{3}{5}'
       // const reponse = '3x+2'
-      const reponse = '(2\\times3x)+1 '
+      const reponse = '3x^2-3x-3'
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
