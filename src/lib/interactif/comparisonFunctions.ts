@@ -387,7 +387,7 @@ engine.latexDictionary = [
  */
 export function fonctionComparaison (input: string, goodAnswer:string,
   {
-    expressionsForcementReduites=true,
+    expressionsForcementReduites = true,
     avecSigneMultiplier = true,
     avecFractions = true,
     fractionIrreductibleSeulement = false,
@@ -842,8 +842,8 @@ function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   input = clean(input)
   goodAnswer = clean(goodAnswer).replaceAll('bigcup', 'cup').replaceAll('bigcap', 'cap')
-  let isOk1: boolean = true
-  let isOk2: boolean = true
+  let isOk1 = true
+  let isOk2 = true
   let feedback: string = ''
   const extractBornesAndOp = /[^[\];]+/g
   const extractCrochets = /[[\]]/g
@@ -858,23 +858,17 @@ function intervalsCompare (input: string, goodAnswer: string) {
     // On teste les bornes et les opérateurs
     let i
     for (i = 0; i < borneAndOpSaisie.length; i++) {
-      const borneOuOp = engine.parse(borneAndOpSaisie[i])
-      const borneOuOpR = engine.parse(borneAndOpReponse[i])
-      if (!borneOuOp.isEqual(borneOuOpR)) {
-        isOk1 = false
-        if (['\\cup', '\\cap'].includes(borneAndOpSaisie[i])) {
-          feedback += `Il y a une erreur avec l'opérateur : $${borneAndOpSaisie[i]}$.<br>`
-        } else {
-          feedback += `Il y a une erreur avec la valeur : $${borneAndOpSaisie[i]}$.<br>`
-        }
+      isOk1 = fonctionComparaison(borneAndOpSaisie[i], borneAndOpReponse[i]).isOk
+      if (!isOk1) {
+        feedback += (['\\cup', '\\cap'].includes(borneAndOpSaisie[i]))
+          ? `Il y a une erreur avec l'opérateur : $${borneAndOpSaisie[i]}$.<br>`
+          : `Il y a une erreur avec la valeur : $${borneAndOpSaisie[i]}$.<br>`
       }
     }
     // on teste maintenant les crochets
     for (i = 0; i < crochetsSaisie.length; i++) {
-      if (crochetsSaisie[i] !== crochetsReponse[i]) {
-        isOk2 = false
-        feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>`
-      }
+      isOk2 = crochetsSaisie[i] === crochetsReponse[i]
+      if (!isOk2) feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>`
     }
     return { isOk: isOk1 && isOk2, feedback }
   }
