@@ -22,7 +22,6 @@ export const dateDeModifImportante = '05/11/2023'
 /**
  * Calcul de volumes.
  * @author Jean-Claude Lhote (AMC par EE) // modifié par Mireille Gain pour y ajouter les décimaux
- * référence 6M30
  */
 
 export const uuid = '04b0d'
@@ -33,16 +32,11 @@ export const refs = {
 }
 export default function CalculDeVolumes () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
   this.classe = 6
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.sup3 = 2
 
   this.sup4 = 3

@@ -10,7 +10,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { range } from '../../lib/outils/nombres'
-import { functionXyCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const interactifReady = true
 export const interactifType = ['mathLive', 'listeDeroulante']
@@ -248,7 +248,7 @@ export default function EcrireUneExpressionNumerique () {
             handleAnswers(this, i, { reponse: { value: expNom } }, { formatInteractif: 'listeDeroulante' })
           }
         }
-        // on doit donner une expression littérale => handleAnswer avec functionXyCompare. ou amcOpen
+
         if (this.version === 1) {
           if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
             this.autoCorrection[i] =
@@ -265,7 +265,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, options: { variables: ['x', 'y'] }, compare: functionXyCompare } })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }
 
