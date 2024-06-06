@@ -8,6 +8,7 @@ import { factorisationCompare } from '../../lib/interactif/comparisonFunctions'
 import { fraction } from '../../modules/fractions.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { pgcd } from '../../lib/outils/primalite'
 
 export const titre = 'Factoriser a²-b²'
 export const interactifReady = true
@@ -15,14 +16,10 @@ export const interactifType = 'mathLive'
 
 export const dateDeModifImportante = '26/02/2023'
 
-// FIX ME
-// On a saisi les produits dans les 2 ordres en attendant d'avoir un outil de calcul formel
-
 /**
  * Factoriser a²-b²
  * @author Jean-Claude Lhote,
  * Ajout Mélange des questions Matthieu Devillers
- * 3L12
  */
 export const uuid = '81fd2'
 export const ref = '3L12'
@@ -32,12 +29,7 @@ export const refs = {
 }
 export default function FactoriserIdentitesRemarquables3 () {
   Exercice.call(this)
-  this.titre = titre
-  this.correctionDetailleeDisponible = false
   context.isHtml ? (this.spacingCorr = 3) : (this.spacingCorr = 2)
-  if (!context.isHtml) {
-    this.correctionDetaillee = false
-  }
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -46,11 +38,9 @@ export default function FactoriserIdentitesRemarquables3 () {
   this.sup = 4
   this.sup2 = true
   this.tailleDiaporama = 3
-  this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const Fractions = [
@@ -99,8 +89,10 @@ export default function FactoriserIdentitesRemarquables3 () {
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, ns, ds, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
-      a = randint(1, 9)
-      b = randint(2, 9)
+      do {
+        a = randint(1, 9)
+        b = randint(2, 9)
+      } while (pgcd(a, b) !== 1)
       const uneFraction = choice(Fractions)
       ns = uneFraction[0]
       ds = uneFraction[1]
