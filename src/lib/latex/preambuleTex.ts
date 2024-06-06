@@ -159,9 +159,9 @@ export function loadPackagesFromContent (contents: contentsType) {
   contents.preamble += '\n% loadPackagesFromContent'
   loadProfCollegeIfNeed(contents)
   testIfLoaded(['pspicture', '\\rput', '\\pscurve', '\\psset', '\\psframe'], '\\usepackage{pstricks}', contents)
-  testIfLoaded(['\\PstPolygon', '\\PstStarFive', '\\PstTriangle'], '\\usepackage{pst-poly}', contents)
+  testIfLoaded(['\\PstPolygon', '\\PstStarFive'], '\\usepackage{pst-poly}', contents)
   testIfLoaded(['\\pstext'], '\\usepackage{pst-text}', contents)
-  testIfLoaded(['\\pstGeonode', '\\pstLine', '\\pstLabelAB'], '\\usepackage{pst-eucl}', contents)
+  testIfLoaded(['\\pstGeonode', '\\pstLine', '\\pstLabelAB', '\\PstTriangle'], '\\usepackage{pst-eucl}', contents)
   testIfLoaded(['\\psaxes', '\\psline', '\\pspolygon', '\\psplot'], '\\usepackage{pst-plot}', contents)
   testIfLoaded(['\\psbcurve'], '\\usepackage{pst-bezier}', contents)
   testIfLoaded(['\\psBspline'], '\\usepackage{pst-bspline}', contents)
