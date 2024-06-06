@@ -5,7 +5,6 @@
  */
 
 import fs from 'fs'
-// import { dictionnaireCrpe } from '../src/json/dictionnaireCrpe.js'
 import { dictionnaireCrpeCoop } from '../src/json/dictionnaireCrpeCoop.js'
 import { dictionnaireDNB } from '../src/json/dictionnaireDNB.js'
 import { dictionnaireBAC } from '../src/json/dictionnaireBAC.js'
@@ -117,7 +116,7 @@ for (const ex in dictionnaireCrpeCoop) {
   })
 }
 
-for (const annee of ['2019', '2018', '2017', '2016', '2015', '2022', '2023', '2025']) {
+for (const annee of ['2019', '2018', '2017', '2016', '2015', '2022', '2023', '2024', '2025']) {
   referentielFR.crpe[annee] = {}
   for (const ex in dictionnaireCrpeCoop) {
     if (dictionnaireCrpeCoop[ex].annee === annee) {
@@ -137,37 +136,6 @@ for (const tag of tagsCrpe) {
     }
   }
 }
-
-// Gestion du CRPE version Copirelem
-/* referentielFR.crpeCopirelem = {}
-const setThemesCrpeCopirelem = new Set()
-
-for (const ex in dictionnaireCrpe) {
-  dictionnaireCrpe[ex].tags.forEach(e => {
-    setThemesCrpeCopirelem.add(e)
-  })
-}
-
-for (const annee of ['2019', '2018', '2017', '2016', '2015']) {
-  referentielFR.crpeCopirelem[annee] = {}
-  for (const ex in dictionnaireCrpe) {
-    if (dictionnaireCrpe[ex].annee === annee) {
-      referentielFR.crpeCopirelem[annee][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
-    }
-  }
-}
-
-const tagsCrpeCopirelem = [...setThemesCrpeCopirelem].sort((a, b) => { return a.localeCompare(b) })
-referentielFR.crpeCopirelemTags = {}
-
-for (const tag of tagsCrpeCopirelem) {
-  referentielFR.crpeCopirelemTags[tag] = {}
-  for (const ex in dictionnaireCrpe) {
-    if (dictionnaireCrpe[ex].tags.includes(tag)) {
-      referentielFR.crpeCopirelemTags[tag][ex] = { uuid: ex, ...dictionnaireCrpe[ex] }
-    }
-  }
-} */
 
 // Gestion du ref EVACOM
 referentielCH.EVACOM = {}
@@ -204,14 +172,8 @@ delete Object.assign(referentielFR, { 'Brevet des collèges par thème - APMEP':
 delete Object.assign(referentielFR, { 'Brevet des collèges par année - APMEP': referentielFR.DNB }).DNB
 delete Object.assign(referentielFR, { 'BAC par thème - APMEP': referentielFR.BACTags }).BACTags
 delete Object.assign(referentielFR, { 'BAC par année - APMEP': referentielFR.BAC }).BAC
-// delete Object.assign(referentielFR, { 'CRPE (2015-2019) par thème - COPIRELEM': referentielFR.crpeCopirelemTags }).crpeCopirelemTags
-// delete Object.assign(referentielFR, { 'CRPE (2015-2019) par année - COPIRELEM': referentielFR.crpeCopirelem }).crpeCopirelem
-// delete Object.assign(referentielFR, { 'CRPE (2022-2023) par thème': referentielFR.crpeTags }).crpeTags
-// delete Object.assign(referentielFR, { 'CRPE (2022-2023) par année': referentielFR.crpe }).crpe
 delete Object.assign(referentielFR, { 'CRPE par thème': referentielFR.crpeTags }).crpeTags
 delete Object.assign(referentielFR, { 'CRPE par année': referentielFR.crpe }).crpe
-// delete Object.assign(referentielFR, { 'E3C par thème - APMEP': referentielFR.E3CTags }).E3CTags
-// delete Object.assign(referentielFR, { 'E3C par specimen - APMEP': referentielFR.E3C }).E3C
 delete Object.assign(referentielFR, { 'E3C par thème': referentielFR.E3CTags }).E3CTags
 delete Object.assign(referentielFR, { 'E3C par année': referentielFR.E3C }).E3C
 

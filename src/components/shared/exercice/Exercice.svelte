@@ -37,7 +37,7 @@
   })
 
   function isStatic (uuid: string) {
-    return uuid.startsWith('crpe-') ||
+    return uuid.startsWith('crpe') ||
       uuid.startsWith('dnb_') ||
       uuid.startsWith('e3c_') ||
       uuid.startsWith('bac_') ||

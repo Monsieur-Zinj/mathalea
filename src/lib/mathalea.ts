@@ -207,7 +207,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
   const exercices = []
   for (const param of params) {
     if (
-      param.uuid.substring(0, 5) === 'crpe-' ||
+      param.uuid.substring(0, 4) === 'crpe' ||
             param.uuid.substring(0, 4) === 'dnb_' ||
             param.uuid.substring(0, 4) === 'e3c_' ||
             param.uuid.substring(0, 4) === 'bac_' ||
@@ -244,7 +244,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
       const mois = infosExerciceStatique?.mois
       const numeroInitial = infosExerciceStatique?.numeroInitial
       let examen: string = ''
-      if (param.uuid.substring(0, 5) === 'crpe-') examen = 'CRPE'
+      if (param.uuid.substring(0, 4) === 'crpe') examen = 'CRPE'
       if (param.uuid.substring(0, 4) === 'dnb_') examen = 'DNB'
       if (param.uuid.substring(0, 4) === 'e3c_') examen = 'E3C'
       if (param.uuid.substring(0, 4) === 'bac_') examen = 'BAC'

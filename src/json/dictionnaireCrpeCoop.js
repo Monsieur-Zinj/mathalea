@@ -650,7 +650,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_1.tex',
     urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_1_cor.tex',
-    tags: ['']
+    tags: ['Ensembles de nombres', 'Probabilités']
   },
   crpe_l3_2025_sujet0_2: {
     annee: '2025',
@@ -661,7 +661,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_2.tex',
     urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_2_cor.tex',
-    tags: ['']
+    tags: ['Fonctions', 'Pourcentages']
   },
   crpe_l3_2025_sujet0_3: {
     annee: '2025',
@@ -672,7 +672,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_3.tex',
     urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_3_cor.tex',
-    tags: ['']
+    tags: ['Aires', 'Proportionnalité', 'Pythagore']
   },
   crpe_l3_2025_sujet0_4: {
     annee: '2025',
@@ -683,7 +683,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_4.tex',
     urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_4_cor.tex',
-    tags: ['']
+    tags: ['Statistiques', 'Pourcentages']
   },
   crpe_l3_2025_sujet0_5: {
     annee: '2025',
@@ -694,7 +694,7 @@ export const dictionnaireCrpeCoop = {
     typeExercice: 'crpe',
     url: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_5.tex',
     urlcor: 'static/crpe/2025/tex/crpe_l3_2025_sujet0_5_cor.tex',
-    tags: ['']
+    tags: ['Algorithmique et programmation', 'Agrandissement-réduction', 'Volumes']
   },
   'crpe-2019-g1-ex1': {
     typeExercice: 'crpe',
@@ -744,7 +744,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g1-ex3-cor-7.png',
       'static/crpe/2019/2019-g1-ex3-cor-8.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2019-g1-pb': {
     typeExercice: 'crpe',
@@ -766,7 +766,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g1-pb-cor-6.png',
       'static/crpe/2019/2019-g1-pb-cor-7.png'
     ],
-    tags: ['Aires et périmètres', 'Pythagore', 'Calcul littéral', 'Proportionnalité', 'Lecture graphique', 'Tableur', 'Ensembles de nombres']
+    tags: ['Aires', 'Pythagore', 'Calcul littéral', 'Proportionnalité', 'Lecture graphique', 'Tableur', 'Ensembles de nombres']
   },
   'crpe-2019-g2-ex1': {
     typeExercice: 'crpe',
@@ -780,7 +780,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g2-ex1-cor-1.png',
       'static/crpe/2019/2019-g2-ex1-cor-2.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2019-g2-ex2': {
     typeExercice: 'crpe',
@@ -840,7 +840,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g2-pb-cor-4.png',
       'static/crpe/2019/2019-g2-pb-cor-5.png'
     ],
-    tags: ['Aires et périmètres', 'Pythagore', 'Trigonométrie', 'Proportionnalité', 'Géométrie plane', 'Volumes', 'Lecture graphique', 'Calcul littéral']
+    tags: ['Aires', 'Pythagore', 'Trigonométrie', 'Proportionnalité', 'Géométrie plane', 'Volumes', 'Lecture graphique', 'Calcul littéral']
   },
   'crpe-2019-g3-ex1': {
     typeExercice: 'crpe',
@@ -855,7 +855,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g3-ex1-cor-2.png',
       'static/crpe/2019/2019-g3-ex1-cor-3.png'
     ],
-    tags: ['Pythagore', 'Thalès', 'Aires et périmètres']
+    tags: ['Pythagore', 'Thalès', 'Aires']
   },
   'crpe-2019-g3-ex2': {
     typeExercice: 'crpe',
@@ -885,7 +885,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g3-ex3-cor-2.png',
       'static/crpe/2019/2019-g3-ex3-cor-4.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2019-g3-pb': {
     typeExercice: 'crpe',
@@ -921,7 +921,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g4-ex1-cor-1.png',
       'static/crpe/2019/2019-g4-ex1-cor-2.png'
     ],
-    tags: ['Géométrie plane', 'Thalès', 'Aires et périmètres']
+    tags: ['Géométrie plane', 'Thalès', 'Aires']
   },
   'crpe-2019-g4-ex2': {
     typeExercice: 'crpe',
@@ -954,7 +954,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g4-ex3-cor-1.png',
       'static/crpe/2019/2019-g4-ex3-cor-2.png'
     ],
-    tags: ['Algorithmique', 'Programme de calculs', 'Calcul littéral', 'Équations']
+    tags: ['Algorithmique et programmation', 'Programme de calculs', 'Calcul littéral', 'Équations']
   },
   'crpe-2019-g4-pb': {
     typeExercice: 'crpe',
@@ -975,7 +975,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g4-pb-cor-6.png',
       'static/crpe/2019/2019-g4-pb-cor-7.png'
     ],
-    tags: ['Volumes', 'Statistiques', 'Fonctions', 'Patrons', 'Aires et périmètres', 'Grandeurs composées']
+    tags: ['Volumes', 'Statistiques', 'Fonctions', 'Patrons', 'Aires', 'Grandeurs composées']
   },
   'crpe-2019-g5-ex1': {
     typeExercice: 'crpe',
@@ -1019,7 +1019,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-g5-ex3-cor-4.png',
       'static/crpe/2019/2019-g5-ex3-cor-5.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2019-g5-ex4': {
     typeExercice: 'crpe',
@@ -1069,7 +1069,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-ver-pb-cor-3.png',
       'static/crpe/2019/2019-ver-pb-cor-4.png'
     ],
-    tags: ['Pythagore', 'Géométrie plane', 'Aires et périmètres', 'Trigonométrie', 'Thalès', 'Calcul littéral', 'Proportionnalité', 'Arithmétique']
+    tags: ['Pythagore', 'Géométrie plane', 'Aires', 'Trigonométrie', 'Thalès', 'Calcul littéral', 'Proportionnalité', 'Arithmétique']
   },
   'crpe-2019-bes-pb': {
     typeExercice: 'crpe',
@@ -1087,7 +1087,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-bes-pb-cor-3.png',
       'static/crpe/2019/2019-bes-pb-cor-4.png'
     ],
-    tags: ['Géométrie plane', 'Proportionnalité', 'Vitesses', 'Aires et périmètres', 'Pythagore', 'Tableur', 'Algorithmique']
+    tags: ['Géométrie plane', 'Proportionnalité', 'Vitesses', 'Aires', 'Pythagore', 'Tableur', 'Algorithmique et programmation']
   },
   'crpe-2019-cle-pb': {
     typeExercice: 'crpe',
@@ -1105,7 +1105,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2019/2019-cle-pb-cor-2.png',
       'static/crpe/2019/2019-cle-pb-cor-3.png'
     ],
-    tags: ['Recherche d\'informations', 'Durées', 'Pourcentages', 'Statistiques', 'Tableur', 'Vitesses', 'Calcul littéral', 'Lecture graphique', 'Aires et périmètres', 'Grandeurs composées', 'Trigonométrie']
+    tags: ['Recherche d\'informations', 'Durées', 'Pourcentages', 'Statistiques', 'Tableur', 'Vitesses', 'Calcul littéral', 'Lecture graphique', 'Aires', 'Grandeurs composées', 'Trigonométrie']
   },
   'crpe-2019-tou-pb': {
     typeExercice: 'crpe',
@@ -1167,7 +1167,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g1-ex3-cor-2.png',
       'static/crpe/2018/2018-g1-ex3-cor-3.png'
     ],
-    tags: ['Algorithmique', 'Programme de calculs']
+    tags: ['Algorithmique et programmation', 'Programme de calculs']
   },
   'crpe-2018-g1-ex4': {
     typeExercice: 'crpe',
@@ -1182,7 +1182,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g1-ex4-cor-2.png',
       'static/crpe/2018/2018-g1-ex4-cor-3.png'
     ],
-    tags: ['Vrai-faux', 'Aires et périmètres', 'Volumes', 'Pourcentages', 'Géométrie plane']
+    tags: ['Vrai-faux', 'Aires', 'Volumes', 'Pourcentages', 'Géométrie plane']
   },
   'crpe-2018-g1-pb': {
     typeExercice: 'crpe',
@@ -1204,7 +1204,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g1-pb-cor-6.png',
       'static/crpe/2018/2018-g1-pb-cor-7.png'
     ],
-    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Vitesses', 'Proportionnalité', 'Durées', 'Calculs numériques']
+    tags: ['Recherche d\'informations', 'Aires', 'Vitesses', 'Proportionnalité', 'Durées', 'Calculs numériques']
   },
   'crpe-2018-g2-ex1': {
     typeExercice: 'crpe',
@@ -1234,7 +1234,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g2-ex2-cor-1.png',
       'static/crpe/2018/2018-g2-ex2-cor-2.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2018-g2-ex3': {
     typeExercice: 'crpe',
@@ -1263,7 +1263,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g2-ex4-cor-2.png',
       'static/crpe/2018/2018-g2-ex4-cor-3.png'
     ],
-    tags: ['Géométrie plane', 'Aires et périmètres', 'Pythagore', 'Trigonométrie']
+    tags: ['Géométrie plane', 'Aires', 'Pythagore', 'Trigonométrie']
   },
   'crpe-2018-g2-pb': {
     typeExercice: 'crpe',
@@ -1283,7 +1283,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g2-pb-cor-4.png',
       'static/crpe/2018/2018-g2-pb-cor-5.png'
     ],
-    tags: ['Volumes', 'Aires et périmètres', 'Patrons', 'Lecture graphique', 'Fonctions', 'Tableur', 'Grandeurs composées']
+    tags: ['Volumes', 'Aires', 'Patrons', 'Lecture graphique', 'Fonctions', 'Tableur', 'Grandeurs composées']
   },
   'crpe-2018-g3-ex1': {
     typeExercice: 'crpe',
@@ -1297,7 +1297,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g3-ex1-cor-1.png',
       'static/crpe/2018/2018-g3-ex1-cor-2.png'
     ],
-    tags: ['Géométrie plane', 'Aires et périmètres', 'Trigonométrie', 'Pythagore']
+    tags: ['Géométrie plane', 'Aires', 'Trigonométrie', 'Pythagore']
   },
   'crpe-2018-g3-ex2': {
     typeExercice: 'crpe',
@@ -1325,7 +1325,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2018/2018-g3-ex3-cor-1.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2018-g3-ex4': {
     typeExercice: 'crpe',
@@ -1357,7 +1357,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g3-pb-cor-3.png',
       'static/crpe/2018/2018-g3-pb-cor-4.png'
     ],
-    tags: ['Recherche d\'informations', 'Aires et périmètres', 'Proportionnalité', 'Géométrie plane', 'Lecture graphique', 'Tableur', 'Vitesses', 'Pourcentages']
+    tags: ['Recherche d\'informations', 'Aires', 'Proportionnalité', 'Géométrie plane', 'Lecture graphique', 'Tableur', 'Vitesses', 'Pourcentages']
   },
 
   'crpe-2018-g4-ex1': {
@@ -1373,7 +1373,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g4-ex1-cor-2.png',
       'static/crpe/2018/2018-g4-ex1-cor-3.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2018-g4-ex2': {
     typeExercice: 'crpe',
@@ -1439,7 +1439,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g4-pb-cor-5.png',
       'static/crpe/2018/2018-g4-pb-cor-6.png'
     ],
-    tags: ['Géométrie plane', 'Proportionnalité', 'Aires et périmètres', 'Pythagore', 'Lecture graphique', 'Fonctions', 'Arithmétique']
+    tags: ['Géométrie plane', 'Proportionnalité', 'Aires', 'Pythagore', 'Lecture graphique', 'Fonctions', 'Arithmétique']
   },
   'crpe-2018-g5-ex1': {
     typeExercice: 'crpe',
@@ -1483,7 +1483,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g5-ex3-cor-2.png',
       'static/crpe/2018/2018-g5-ex3-cor-3.png'
     ],
-    tags: ['Algorithmique', 'Programme de calculs', 'Arithmétique']
+    tags: ['Algorithmique et programmation', 'Programme de calculs', 'Arithmétique']
   },
   'crpe-2018-g5-ex4': {
     typeExercice: 'crpe',
@@ -1516,7 +1516,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-g5-pb-cor-5.png',
       'static/crpe/2018/2018-g5-pb-cor-6.png'
     ],
-    tags: ['Aires et périmètres', 'Volumes', 'Pythagore', 'Trigonométrie', 'Recherche d\'informations', 'Proportionnalité', 'Thalès', 'Agrandissement-réduction']
+    tags: ['Aires', 'Volumes', 'Pythagore', 'Trigonométrie', 'Recherche d\'informations', 'Proportionnalité', 'Thalès', 'Agrandissement-réduction']
   },
   'crpe-2018-s1-ex1': {
     typeExercice: 'crpe',
@@ -1531,7 +1531,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-s1-ex1-cor-2.png',
       'static/crpe/2018/2018-s1-ex1-cor-3.png'
     ],
-    tags: ['Pythagore', 'Volumes', 'Thalès', 'Géométrie plane', 'Aires et périmètres', 'Patrons']
+    tags: ['Pythagore', 'Volumes', 'Thalès', 'Géométrie plane', 'Aires', 'Patrons']
   },
   'crpe-2018-s1-ex2': {
     typeExercice: 'crpe',
@@ -1549,7 +1549,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-s1-ex2-cor-5.png',
       'static/crpe/2018/2018-s1-ex2-cor-6.png'
     ],
-    tags: ['Géométrie dans l\'espace', 'Patrons', 'Aires et périmètres', 'Proportionnalité']
+    tags: ['Géométrie dans l\'espace', 'Patrons', 'Aires', 'Proportionnalité']
   },
   'crpe-2018-s1-ex3': {
     typeExercice: 'crpe',
@@ -1582,7 +1582,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-s1-ex4-cor-4.png',
       'static/crpe/2018/2018-s1-ex4-cor-5.png'
     ],
-    tags: ['Algorithmique', 'Probabilités']
+    tags: ['Algorithmique et programmation', 'Probabilités']
   },
   'crpe-2018-s1-ex5': {
     typeExercice: 'crpe',
@@ -1616,7 +1616,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-s2-pb-cor-4.png',
       'static/crpe/2018/2018-s2-pb-cor-5.png'
     ],
-    tags: ['Géométrie dans l\'espace', 'Géométrie plane', 'Trigonométrie', 'Aires et périmètres', 'Proportionnalité', 'Grandeurs composées', 'Lecture graphique', 'Vitesses', 'Pourcentages']
+    tags: ['Géométrie dans l\'espace', 'Géométrie plane', 'Trigonométrie', 'Aires', 'Proportionnalité', 'Grandeurs composées', 'Lecture graphique', 'Vitesses', 'Pourcentages']
   },
   'crpe-2018-s4-pb': {
     typeExercice: 'crpe',
@@ -1634,7 +1634,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2018/2018-s4-pb-cor-4.png',
       'static/crpe/2018/2018-s4-pb-cor-5.png'
     ],
-    tags: ['Calculs numériques', 'Tableur', 'Pourcentages', 'Aires et périmètres', 'Volumes', 'Pythagore', 'Proportionnalité', 'Arithmétique']
+    tags: ['Calculs numériques', 'Tableur', 'Pourcentages', 'Aires', 'Volumes', 'Pythagore', 'Proportionnalité', 'Arithmétique']
   },
 
   'crpe-2017-g1-ex1': {
@@ -1661,7 +1661,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2017/2017-g1-ex2-cor.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2017-g1-ex3': {
     typeExercice: 'crpe',
@@ -1738,7 +1738,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2017/2017-g2-ex3-cor.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2017-g2-ex4': {
     typeExercice: 'crpe',
@@ -1770,7 +1770,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g2-pb-cor4.png',
       'static/crpe/2017/2017-g2-pb-cor5.png'
     ],
-    tags: ['Pythagore', 'Aires et périmètres', 'Pourcentages', 'Calcul littéral', 'Tableur', 'Fonctions']
+    tags: ['Pythagore', 'Aires', 'Pourcentages', 'Calcul littéral', 'Tableur', 'Fonctions']
   },
   'crpe-2017-g3-ex1': {
     typeExercice: 'crpe',
@@ -1812,7 +1812,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2017/2017-g3-ex3-cor.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2017-g3-ex4': {
     typeExercice: 'crpe',
@@ -1888,7 +1888,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g4-ex3-cor.png',
       'static/crpe/2017/2017-g4-ex3-cor2.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-2017-g4-ex4': {
     typeExercice: 'crpe',
@@ -1947,7 +1947,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g5-ex2-cor1.png',
       'static/crpe/2017/2017-g5-ex2-cor2.png'
     ],
-    tags: ['Algorithmique', 'Calcul littéral']
+    tags: ['Algorithmique et programmation', 'Calcul littéral']
   },
   'crpe-2017-g5-ex3': {
     typeExercice: 'crpe',
@@ -2002,13 +2002,13 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-g5-pb-cor12.png',
       'static/crpe/2017/2017-g5-pb-cor13.png'
     ],
-    tags: ['Volumes', 'Aires et périmètres', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique', 'Géométrie dans l\'espace', 'Géométrie plane']
+    tags: ['Volumes', 'Aires', 'Calcul littéral', 'Fonctions', 'Tableur', 'Lecture graphique', 'Géométrie dans l\'espace', 'Géométrie plane']
   },
   'crpe-blanc-2017-algo': {
     typeExercice: 'crpe',
     annee: '2017',
     lieu: 'COPIRELEM ESPE',
-    numeroInitial: 'Algorithmique',
+    numeroInitial: 'Algorithmique et programmation',
     png: [
       'static/crpe/2017/2017-algorithmique-1.png',
       'static/crpe/2017/2017-algorithmique-2.png',
@@ -2029,7 +2029,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2017/2017-algorithmique-cor-10.png',
       'static/crpe/2017/2017-algorithmique-cor-11.png'
     ],
-    tags: ['Algorithmique']
+    tags: ['Algorithmique et programmation']
   },
   'crpe-blanc-2017-besancon-1': {
     typeExercice: 'crpe',
@@ -2173,7 +2173,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-g1-pb-cor-6.png',
       'static/crpe/2016/2016-g1-pb-cor-7.png'
     ],
-    tags: ['Lecture graphique', 'Volumes', 'Aires et périmètres', 'Calcul littéral', 'Durées', 'Proportionnalité', 'Pourcentages', 'Arithmétique']
+    tags: ['Lecture graphique', 'Volumes', 'Aires', 'Calcul littéral', 'Durées', 'Proportionnalité', 'Pourcentages', 'Arithmétique']
   },
   'crpe-2016-g2-ex1': {
     typeExercice: 'crpe',
@@ -2391,7 +2391,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-cre-pb-cor-3.png',
       'static/crpe/2016/2016-cre-pb-cor-4.png'
     ],
-    tags: ['Trigonométrie', 'Proportionnalité', 'Aires et périmètres', 'Géométrie dans l\'espace', 'Volumes', 'Calcul littéral', 'Lecture graphique', 'Grandeurs composées']
+    tags: ['Trigonométrie', 'Proportionnalité', 'Aires', 'Géométrie dans l\'espace', 'Volumes', 'Calcul littéral', 'Lecture graphique', 'Grandeurs composées']
   },
   'crpe-2016-pol-ex1': {
     typeExercice: 'crpe',
@@ -2418,7 +2418,7 @@ export const dictionnaireCrpeCoop = {
     pngCor: [
       'static/crpe/2016/2016-pol-ex2-cor.png'
     ],
-    tags: ['Pourcentages', 'Aires et périmètres']
+    tags: ['Pourcentages', 'Aires']
   },
   'crpe-2016-pol-ex3': {
     typeExercice: 'crpe',
@@ -2469,7 +2469,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2016/2016-pol-pb-cor-6.png',
       'static/crpe/2016/2016-pol-pb-cor-7.png'
     ],
-    tags: ['Aires et périmètres', 'Pythagore', 'Trigonométrie', 'Lecture graphique', 'Calcul littéral']
+    tags: ['Aires', 'Pythagore', 'Trigonométrie', 'Lecture graphique', 'Calcul littéral']
   },
   'crpe-2015-g1-ex1': {
     typeExercice: 'crpe',
@@ -2529,7 +2529,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-g1-pb-cor-4.png',
       'static/crpe/2015/2015-g1-pb-cor-5.png'
     ],
-    tags: ['Aires et périmètres', 'Calcul littéral']
+    tags: ['Aires', 'Calcul littéral']
   },
   'crpe-2015-g2-ex1': {
     typeExercice: 'crpe',
@@ -2673,7 +2673,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-g3-pb-cor-5.png',
       'static/crpe/2015/2015-g3-pb-cor-6.png'
     ],
-    tags: ['Géométrie plane', 'Aires et périmètres', 'Calcul littéral', 'Pythagore']
+    tags: ['Géométrie plane', 'Aires', 'Calcul littéral', 'Pythagore']
   },
   'crpe-2015-espe-ex1': {
     typeExercice: 'crpe',
@@ -2746,7 +2746,7 @@ export const dictionnaireCrpeCoop = {
       'static/crpe/2015/2015-espe-pb3-cor-1.png',
       'static/crpe/2015/2015-espe-pb3-cor-2.png'
     ],
-    tags: ['Géométrie plane', 'Proportionnalité', 'Volumes', 'Pythagore', 'Arithmétique', 'Tableur', 'Aires et périmètres', 'Trigonométrie', 'Calcul littéral']
+    tags: ['Géométrie plane', 'Proportionnalité', 'Volumes', 'Pythagore', 'Arithmétique', 'Tableur', 'Aires', 'Trigonométrie', 'Calcul littéral']
   },
   'crpe-2015-espe-ex01': {
     typeExercice: 'crpe',
