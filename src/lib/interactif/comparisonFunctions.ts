@@ -1128,13 +1128,13 @@ export function functionCompare (input: string, goodAnswer: string, { variable =
   return { isOk }
 }
 
-/**
+/*
  * Comparaison de fonction f(x,y) (ou tout autre variable) x et y étant les lettres par défaut
  * @param {string} input
  * @param {string} goodAnswer
  * @param {{variables: string[]}} [options]
  * @author Jean-Claude Lhote
- */
+ *
 export function functionXyCompare (input: string, goodAnswer: string, { variables = ['x', 'y'] } = { }): ResultType {
   const clean = generateCleaner(['espaces', 'virgules', 'parentheses', 'fractions', 'divisions'])
   // Pour l'instant les fonctions trigo saisies au clavier ne sont pas les fonction trigo latex.
@@ -1156,7 +1156,7 @@ export function functionXyCompare (input: string, goodAnswer: string, { variable
     }
   }
   return { isOk }
-}
+} */
 
 /**
  * Comparaison d'égalités (pour l'instant strictement égal, il est prévu d'implémenter l'équivalence d'égalités)
