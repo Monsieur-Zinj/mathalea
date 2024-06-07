@@ -4,6 +4,7 @@ import { polygone } from '../../lib/2d/polygones.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
 import { abs } from '../../lib/outils/nombres'
@@ -13,12 +14,19 @@ import { pgcd } from '../../lib/outils/primalite'
 import { texPrix, texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, itemize, randint } from '../../modules/outils.js'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+
 export const titre = 'Modéliser un problème par une inéquation'
 export const dateDePublication = '14/02/2023'
+export const dateDeModifImportante = '07/06/2024'
 /**
  * Description didactique de l'exercice
  * @author Gilles Mora
@@ -50,13 +58,13 @@ export default function ModeliseInequations () {
     } else if (this.sup === 2) {
       typeDeQuestionsDisponibles = ['typeE4', 'typeE5', 'typeE6']//
     } else if (this.sup === 3) {
-      typeDeQuestionsDisponibles = ['typeE7', 'typeE8']
+      typeDeQuestionsDisponibles = ['typeE7', 'typeE8']//
     } else if (this.sup === 4) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6', 'typeE7', 'typeE8']
     }
     //
     const listeTypeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // Boucle principale où i+1 correspond au numéro de la question
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'typeE1'://
@@ -64,6 +72,7 @@ export default function ModeliseInequations () {
             const b = randint(a + 5, 50) //
             const c = new Decimal(randint(20, 35)).div(100)
             const d = new Decimal(randint(14, 19)).div(100)
+
             texte = `  Une société de location de véhicules particulièrs propose deux tarifs :<br>
               $\\bullet$ Tarif A : un forfait de $${a}$ € et $${texNombre(c, 2)}$ € par km parcouru ;<br>
               $\\bullet$  Tarif B : un forfait de $${b}$ € et $${texNombre(d, 2)}$ € par km parcouru ;<br>
@@ -83,13 +92,17 @@ export default function ModeliseInequations () {
       x&>\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}
       \\end{aligned}$<br>`
             if (Math.round((a - b) / (d - c)) === (a - b) / (d - c)) {
-              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)}$ km que le tarif B est plus intéressant que le tarif A.
+              texteCorr += `Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}= ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(texNombre(Math.ceil((a - b) / (d - c)) + 1, 0))}$ km que le tarif B est plus intéressant que le tarif A.
              `
+              reponse = texNombre(Math.ceil((a - b) / (d - c)) + 1, 0)
             } else {
-              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${Math.ceil((a - b) / (d - c))}$ km que le tarif B est plus intéressant que le tarif A.
-                              `
+              texteCorr += ` Comme $\\dfrac{${abs(a - b)}}{${texNombre(abs(d - c), 2)}}\\simeq ${texNombre((a - b) / (d - c), 2)}$, c'est donc pour une distance minimale de  $${miseEnEvidence(Math.ceil((a - b) / (d - c)))}$ km que le tarif B est plus intéressant que le tarif A.
+                            `
+              reponse = texNombre(Math.ceil((a - b) / (d - c)), 0)
             }
-          }
+
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
           break
 
         case 'typeE2':
@@ -103,20 +116,23 @@ export default function ModeliseInequations () {
             Forfait de $${b}$ € quelque soit le nombre de km parcourus, puis un supplément par kilomètre parcouru de $${texNombre(a, 2)}$ €. <br>
             
             ${quidam} loue une voiture à cette société. Elle a un budget de $${budget}$ € et ne veut pas le dépasser.<br>
-                      Quel est le nombre maximum de km qu'elle pourra parcourir sans dépasser son budget ?
+                      Quel est le nombre maximum de km (arrondi à l'unité si besoin) qu'elle pourra parcourir sans dépasser son budget ?
                                    `
             texteCorr = `En notant $x$, le nombre de km parcourus, le coût pour la location mensuelle est donné par : $${reduireAxPlusB(a, b)}$.<br>
             Le budget de ${quidam} étant de  $${budget}$ €, le nombre de km $x$ qu'elle pourra parcourir doit vérifier $${reduireAxPlusB(a, b)}<${budget}$.<br>
             $\\begin{aligned}
-            ${reduireAxPlusB(a, b)}&<${budget}\\\\
-            ${texNombre(a, 2)}x+${b}-${miseEnEvidence(b)}&< ${budget}x-${miseEnEvidence(b)}\\\\
-            ${texNombre(a, 2)}x&<${budget - b}\\\\
-            x&<\\dfrac{${budget - b}}{${texNombre(a, 2)}}
+            ${reduireAxPlusB(a, b)}&\\leqslant${budget}\\\\
+            ${texNombre(a, 2)}x+${b}-${miseEnEvidence(b)}&\\leqslant ${budget}x-${miseEnEvidence(b)}\\\\
+            ${texNombre(a, 2)}x&\\leqslant${budget - b}\\\\
+            x&\\leqslant\\dfrac{${budget - b}}{${texNombre(a, 2)}}
     \\end{aligned}$<br>`
 
             texteCorr += `Comme $\\dfrac{${budget - b}}{${texNombre(a, 2)}}${Math.round((budget - b) / a) === (budget - b) / a ? '=' : '\\simeq'} ${texNombre((budget - b) / a, 2)}$, ${quidam} pourra faire au maximum  $${Math.floor((budget - b) / a)}$ km pendant le mois avec son budget de $${budget}$ €.
        `
-          }
+            reponse = texNombre(Math.floor((budget - b) / a), 0)
+
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: ' km' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
           break
         case 'typeE3':
           { const PB = new Decimal(randint(7, 25, [10, 20])).div(2)// prix billet
@@ -137,10 +153,12 @@ export default function ModeliseInequations () {
                 x&\\geqslant \\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}\\\\
     \\end{aligned}$<br>
   Comme  $\\dfrac{${texNombre(RT - PB * EM, 2)}}{${texNombre(PB, 2)}}${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? '=' : '\\simeq'} ${texNombre((RT - PB * EM) / PB, 1)}$,
-  il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre((RT - PB * EM) / PB + 1, 0)}$`} entrées pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ €.
-              
-              `
-          }
+  il faudra au minimum ${Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? `$${texNombre((RT - PB * EM) / PB, 0)}$` : `$${texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)} $`} entrées pour que la recette de la journée soit au moins égale à  $${texNombre(RT)}$ €.
+                            `
+            reponse = Math.round((RT - PB * EM) / PB) === (RT - PB * EM) / PB ? texNombre((RT - PB * EM) / PB, 0) : texNombre(Math.floor((RT - PB * EM) / PB) + 1, 0)
+
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: '€' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } }) }
           break
 
         case 'typeE4':
@@ -187,7 +205,9 @@ export default function ModeliseInequations () {
               texteCorr += ` x &${choix ? '\\leqslant' : '\\geqslant'}  ${f.texFraction}\\\\`
 
               texteCorr += '\\end{aligned}$<br>'
-              texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `\\left[0\\,;\\,${f.texFraction}\\right]` : `\\left[${f.texFraction}\\,;\\,${L}\\right]`}$`
+              texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `${miseEnEvidence(`\\left[0\\,;\\,${f.texFraction}\\right]`)}` : `${miseEnEvidence(`\\left[${f.texFraction}\\,;\\,${L}\\right]`)}`}$`
+              reponse = choix ? `[0;${f.texFraction}]` : `[${f.texFraction};${L}]`
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
             } else {
               texteCorr += `$\\begin{aligned}
               \\dfrac{${l} x}{2} &${choix ? '\\leqslant' : '\\geqslant'} \\dfrac{${l}(${L}-x)}{${2 * P[1]}}\\\\`
@@ -197,11 +217,12 @@ export default function ModeliseInequations () {
               texteCorr += ` ${texNombre(l * P[1], 0)}x +${l}x&${choix ? '\\leqslant' : '\\geqslant'} ${l * L}\\\\`
               texteCorr += ` ${texNombre(l * P[1] + l, 0)}x &${choix ? '\\leqslant' : '\\geqslant'} ${l * L}\\\\`
               texteCorr += ` x &${choix ? '\\leqslant' : '\\geqslant'}  ${f2.texFraction}\\\\`
-
               texteCorr += '\\end{aligned}$<br>'
-              texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `\\left[0\\,;\\,${f.texFraction}\\right]` : `\\left[${f.texFraction}\\,;\\,${L}\\right]`}$`
+              texteCorr += `L'aire du triangle $AMD$ est ${choix ? 'au plus' : 'au moins'} égale ${P[0]} de l'aire du triangle $CMB$ pour $x\\in ${choix ? `${miseEnEvidence(`\\left[0\\,;\\,${f.texFraction}\\right]`)}` : `${miseEnEvidence(`\\left[${f.texFraction}\\,;\\,${L}\\right]`)}`}$`
+              reponse = choix ? `[0;${f.texFraction}]` : `[${f.texFraction};${L}]`
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
             }
-          }
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } }) }
           break
 
         case 'typeE5':
@@ -249,6 +270,10 @@ export default function ModeliseInequations () {
             texteCorr += `Comme $\\dfrac{${P - 2 * b - 2 * a}}{4}=${texNombre((P - 2 * b - 2 * a) / 4, 2)}$, $x$ doit être supérieur à $${texNombre((P - 2 * b - 2 * a) / 4, 2)}$ cm pour que le périmètre de la figure soit supérieur à $${P}$ cm.
 
              `
+            reponse = new FractionEtendue(P - 2 * b - 2 * a, 4).texFraction
+
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
 
@@ -304,10 +329,15 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             if (pgcd(Aire - a ** 2, a + b / 2) === 1) {
               texteCorr += `$x$ doit être supérieur à $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
             `
+
+              reponse = new FractionEtendue(Aire - a ** 2, a + b / 2).texFraction
             } else {
               texteCorr += `Comme $\\dfrac{${Aire - a ** 2}}{${texNombre(a + b / 2, 0)}}=${f.texFraction}$, $x$ doit être supérieur à $${f.texFraction}$ cm pour que l'aire  de la figure dépasse $${Aire}$ cm$^2$.
              `
+              reponse = f.texFraction
             }
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$x>$' })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
 
@@ -337,10 +367,14 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
             if (pgcd(res - b * c, c * a) === 1) {
               texteCorr += `On doit choisir $x${c * a > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour obtenir un nombre ${choix[0]} à $${res}$. .
             `
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: c * a > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             } else {
               texteCorr += `Comme $\\dfrac{${res - b * c}}{${texNombre(c * a)}}=${f.texFraction}$, on doit choisir $x${c * a > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour obtenir un nombre ${choix[0]} à $${res}$.
              `
+              texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: c * a > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
             }
+            reponse = f.texFraction
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
 
@@ -385,10 +419,14 @@ Le problème revient donc à trouver les valeurs de $x$ vérifiant : $${rienSi1(
               texteCorr += `Comme $\\dfrac{${b * b}}{${a - 2 * b}}=${f.texFraction}$, on doit choisir $x${a - 2 * b > 0 ? `${choix[1]}` : `${choix[2]}`}${f.texFraction}$ pour que le résultat obtenu
   avec le programme 1 soit ${choix[0]} à celui obtenu avec le programme 2.`
             }
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: a - 2 * b > 0 ? `$x${choix[1]}$` : `$x${choix[2]}$` })
+            reponse = f.texFraction
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
 
           break
       }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
