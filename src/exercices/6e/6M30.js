@@ -18,7 +18,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-export const dateDeModifImportante = '05/11/2023'
+export const dateDeModifImportante = '08/06/2024'
 /**
  * Calcul de volumes.
  * @author Jean-Claude Lhote (AMC par EE) // modifié par Mireille Gain pour y ajouter les décimaux
@@ -103,14 +103,9 @@ export default function CalculDeVolumes () {
           volume = c.pow(3)
           j = randint(0, 3) // pour le choix de l'unité
           texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-          texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
           texte += ` d'un cube de $${texNombre(c, 1)} ${listeUnites[j][0]}$ d'arête.`
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
-          if (!volume.eq(volume.round())) {
-            texteCorr += `${texNombre(volume)}${listeUnites[j][1]}\\approx ${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
-          } else {
-            texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-          }
+          texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
           resultat = volume.round()
           if (!c.eq(6)) resultat2 = c.pow(2).mul(6).round()
           else resultat2 = c.mul(24).round()
@@ -127,13 +122,9 @@ export default function CalculDeVolumes () {
             volume = l.mul(L).mul(h)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
-            texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
+            texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
-            if (!volume.eq(volume.round())) {
-              texteCorr += `${texNombre(volume)}${listeUnites[j][1]}\\approx ${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
-            } else {
-              texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-            }
+            texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
             resultat = volume.round()
             resultat2 = l.plus(L).plus(h).mul(6).round()
             if (resultat2.eq(resultat)) resultat2 = resultat2.div(2).round()
@@ -147,14 +138,9 @@ export default function CalculDeVolumes () {
             L = new Decimal(randint(6, 10)).div(10)
             volume = l.mul(L).mul(h)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-            texte += `, arrondi au $${listeUnites[j][1]}$ près,`
-            texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de largeur, de $${texNombre(L, 1)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
+            texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L * 10)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
-            if (!volume.eq(volume.round())) {
-              texteCorr += `${texNombre(volume)}${listeUnites[j][1]}\\approx ${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
-            } else {
-              texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-            }
+            texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
             resultat = volume.round()
             resultat2 = l.plus(L).plus(h).mul(6).round()
             resultat3 = l.mul(2).mul(L).plus(L.mul(h).mul(2)).plus(l.mul(h).mul(2)).round()
