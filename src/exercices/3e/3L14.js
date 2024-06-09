@@ -73,8 +73,7 @@ export default function ResoudreUneEquationProduitNul () {
         break
     }
     for (let i = 0, a, b, c, d, solution1, solution2, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // switch (listeTypeDeQuestions[i]) {
-      switch (13) {
+      switch (listeTypeDeQuestions[i]) {
         case 1: // (x+a)(x+b)=0 avec a et b entiers
           b = randint(1, context.isAmc ? 9 : 20)
           d = randint(1, context.isAmc ? 9 : 20, [b])
