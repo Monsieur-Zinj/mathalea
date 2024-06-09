@@ -11,7 +11,7 @@ import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions.js'
 
 export const dateDePublication = '28/01/2023'
-export const dateDeModifImportante = '03/05/2024'
+export const dateDeModifImportante = '08/06/2024'
 export const titre = 'Placer des points d’abscisses fractionnaires (niv 2)'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -96,7 +96,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
         case 6:
           origine = typeDeQuestions[i] === 2 ? 0 : randint(1, 7)
           coef = 3
-          origine = 0
           den = randint(2, 5, tableUtilisées[1])
           tableUtilisées[1].push(den)
           if (tableUtilisées[1].length === 4) tableUtilisées[1] = []
@@ -105,7 +104,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
         case 7:
           origine = typeDeQuestions[i] === 3 ? 0 : randint(1, 7)
           coef = 4
-          origine = 0
           den = randint(2, 3, tableUtilisées[2])
           tableUtilisées[2].push(den)
           if (tableUtilisées[2].length === 2) tableUtilisées[2] = []
@@ -114,13 +112,12 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
         case 8:
           origine = typeDeQuestions[i] === 4 ? 0 : randint(1, 7)
           coef = 5
-          origine = 0
           den = randint(2, 3, tableUtilisées[3])
           tableUtilisées[3].push(den)
           if (tableUtilisées[3].length === 2) tableUtilisées[3] = []
           break
       }
-      origine = this.sup > 4 ? randint(-4, 1) : origine // Pour la 2nde
+      // origine = this.sup > 4 ? randint(-4, 1) : origine // Pour la 2nde
       num = origine * den + randint(1, den * 4, den)
       let num2 = randint(origine * den + 1, (origine + 4) * den, [num, den])
       let num3 = randint(origine * den + 1, (origine + 4) * den, [num, num2, den])
