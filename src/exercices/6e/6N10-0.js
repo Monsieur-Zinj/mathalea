@@ -5,8 +5,10 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Écrire un nombre en chiffres ou en lettres'
 
@@ -86,11 +88,13 @@ export default function ÉcrireNombresEntiers () {
         else texteCorr = `${nombreEnLettres(nombre)}`
       } else {
         setReponse(this, i, texNombre(nombre), { formatInteractif: 'texte' })
-        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  ' : ' <br>' + ajouteChampTexteMathLive(this, i, 'college6eme')}`
+        handleAnswers(this, i, { reponse: { value: texNombre(nombre), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(nombre)} ${!this.interactif ? ' :  ' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(nombre)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(nombre)} : $${texNombre(nombre)}$`
         else texteCorr = `$${texNombre(nombre)}$`
       }
+      texte += ajouteFeedback(this, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
