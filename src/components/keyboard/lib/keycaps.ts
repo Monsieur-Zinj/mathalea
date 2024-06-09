@@ -79,6 +79,10 @@ const basicKeys = {
   POINT: {
     display: '.'
   },
+  SPACE: {
+    display: '$\\tiny\\text{espace}$',
+    insert: '\\,'
+  },
   '(': {
     display: '(',
     insert: '\\lparen'
@@ -346,9 +350,6 @@ const basicKeys = {
   },
   NUM: {
     display: '?123'
-  },
-  SPACE: {
-    display: ' '
   },
   // =================== sets
   COMP: {

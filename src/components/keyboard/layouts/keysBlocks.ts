@@ -31,6 +31,10 @@ const numbersOperationsXCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'xMath', 'DIV', 'MULT', 'SUB', 'ADD'],
   block: [7, 8, 9, 'DIV', 4, 5, 6, 'MULT', 1, 2, 3, 'SUB', 0, 'COMMA', 'xMath', 'ADD']
 }
+const numbersSpaceCaps: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'COMMA', 'SPACE'],
+  block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'SPACE']
+}
 const variableCaps: CompleteKeysList = {
   inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'V', 'F'],
   block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'V', 'F']
@@ -199,6 +203,13 @@ export const numbersOperationsX: KeyboardBlock = {
   keycaps: numbersOperationsXCaps,
   cols: 4,
   title: 'Nombres+Opérations',
+  isUnits: false
+}
+
+export const numbersSpace: KeyboardBlock = {
+  keycaps: numbersSpaceCaps,
+  cols: 3,
+  title: 'Nombres',
   isUnits: false
 }
 
@@ -388,6 +399,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   lengths,
   masses,
   numbers,
+  numbersSpace,
   numbersX,
   numbers2,
   numbersOperations,
