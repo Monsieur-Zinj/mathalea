@@ -77,7 +77,7 @@ export default function ExtremumsTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 2, // taille de la première colonne en cm
-        scale: 0.4
+        scale: 1 // ceci est l'échelle du texte
       }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {
