@@ -56,7 +56,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(5, 3)
       // const reponse = '\\dfrac{3}{5}'
       // const reponse = '3x+2'
-      const reponse = '3x^2-3x-3'
+      const reponse = '\\dfrac{-2x-3}{-5}'
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })

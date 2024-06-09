@@ -401,7 +401,8 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     puissance = false,
     texteAvecCasse = false,
     texteSansCasse = false,
-    fractionIdentique = false
+    fractionIdentique = false,
+    egaliteExpression = false
   } = { }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -413,6 +414,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (fractionIdentique) return fractionCompare(input, goodAnswer)
+  if (egaliteExpression) return egaliteCompare(input, goodAnswer)
 
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
@@ -434,7 +436,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
  */
 function customCanonical (expr:BoxedExpression, { expressionsForcementReduites = true, fractionIrreductibleSeulement = false, operationSeulementEtNonCalcul = false } = {}):BoxedExpression {
   if (!operationSeulementEtNonCalcul) { // Ci-dessous, on accepte le résultat d'un calcul mais pas un autre enchaînement Ici, si 4+2 est attendu, alors 4+2=6 mais 4+2!=5+1. C'est la valeur par défaut
-    if (typeof expr.value === 'number') {
+    if (typeof expr.value === 'number') { // L'expression est une expression numérique
       if ((expr.head === 'Divide' || expr.head === 'Rational') && fractionIrreductibleSeulement) {
         if (expr.engine.box(['GCD', expr.op1, expr.op2]).value !== 1 || expr.op2.value === 1) return expr
       }
@@ -455,7 +457,10 @@ function customCanonical (expr:BoxedExpression, { expressionsForcementReduites =
       return expr.engine.number(expr.value)
     }
   }
-  if (expr.ops) { // Pour ne pas accepter les +0 ou les \\times1
+  if ((expr.head === 'Divide' || expr.head === 'Rational')) { // Pour enlever les divisions éventuelles par 1
+    if (expr.op2.value === 1) expr = expr.op1
+  }
+  if (expr.ops) { // Pour ne pas accepter les +0, les \\times1, pour ne pas se soucier de l'ordre
     return expr.engine.box([expr.head,
       ...expr.ops.map((x) =>
         customCanonical(x, { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
@@ -493,8 +498,14 @@ function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
   input = clean(input)
   goodAnswer = clean(goodAnswer)
+  // const toto = engine.parse(goodAnswer, { canonical: false })
   const saisieParsed = customCanonical(engine.parse(input, { canonical: false }), { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
   const reponseParsed = customCanonical(engine.parse(goodAnswer, { canonical: false }), { expressionsForcementReduites, fractionIrreductibleSeulement, operationSeulementEtNonCalcul })
+  // console.log(reponseParsed.toString(), saisieParsed.toString())
+  // console.log(reponseParsed.value, saisieParsed.value)
+  // console.log(toto.head)
+  // console.log('toto.op1', toto.op1)
+  // console.log('toto.op2', toto.op2)
   return { isOk: saisieParsed.isSame(reponseParsed) }
 }
 
@@ -1158,13 +1169,13 @@ export function functionXyCompare (input: string, goodAnswer: string, { variable
   return { isOk }
 } */
 
-/**
+/*
  * Comparaison d'égalités (pour l'instant strictement égal, il est prévu d'implémenter l'équivalence d'égalités)
  * @param {string} input
  * @param {string} goodAnswer
  * @param {{membre1Variable?: string, membre2Variable?: string, strict?: boolean, domaine: [number, number]}} [options]
  * @author Jean-Claude Lhote
- */
+ *
 export function equalityCompare (input: string, goodAnswer: string, { membre1Variable = 'x', membre2Variable = 'x', strict = true, domaine = [-100, 100] } = {}):ResultType {
   const [m1, m2] = input.split('=')
   const [goodAnswerMb1, goodAnswerMb2] = goodAnswer.split('=')
@@ -1183,4 +1194,22 @@ export function equalityCompare (input: string, goodAnswer: string, { membre1Var
       feedback: ''
     }
   }
+} */
+
+/**
+ * Comparaison d'égalités (pour les équations de droites ou d'autres égalités comme dans can2L11 ou can1a-2024-Q14)
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ */
+export function egaliteCompare (input: string, goodAnswer: string):ResultType {
+  const [m1, m2] = input.split('=')
+  const [goodAnswerMb1, goodAnswerMb2] = goodAnswer.split('=')
+  if (m1 == null || m2 == null) return { isOk: false, feedback: 'Une égalité est attendue' }
+
+  const { isOk: isOk1 } = fonctionComparaison(m2, goodAnswerMb1)
+  const { isOk: isOk2 } = fonctionComparaison(m1, goodAnswerMb1)
+  const { isOk: isOk3 } = fonctionComparaison(m2, goodAnswerMb2)
+  const { isOk: isOk4 } = fonctionComparaison(m1, goodAnswerMb2)
+  return { isOk: (isOk1 || isOk2) && (isOk3 || isOk4) }
 }
