@@ -79,7 +79,7 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
     } else {
       classe = 'fillInTheBlanks'
     }
-    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>`
+    return `<math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>`
     // on enlève ce divFeedback automatique, c'est l'exercice qui doit l'ajouter.
     // <div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
   } else {
