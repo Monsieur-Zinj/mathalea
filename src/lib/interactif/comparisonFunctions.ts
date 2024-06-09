@@ -418,7 +418,6 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
 
-  console.log(input, goodAnswer)
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
     {
@@ -1221,7 +1220,7 @@ export function egaliteCompare (input: string, goodAnswer: string):ResultType {
  * Comparaison de nombres avec les espaces exigés
  * @param {string} input
  * @param {string} goodAnswer
- * @author Eric Elter
+ * @author Rémi Angot
  */
 export function numberWithSpaceCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['espaces'])

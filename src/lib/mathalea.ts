@@ -645,7 +645,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
           reponse = { reponse: { value: exercice.reponse, compare } }
         }
         handleAnswers(exercice, i, reponse, { formatInteractif: exercice.formatInteractif ?? 'mathlive' }) /// // PROCHAIN LA : La partie ci-dessus sera à supprimer quand il n'y aura plus de this.compare
-      } else if (exercice.reponse instanceof Object && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
+      } else if (exercice.reponse instanceof Object && exercice.reponse.reponse != null && exercice.reponse.reponse.value != null && typeof exercice.reponse.reponse.value === 'string') {
         handleAnswers(exercice, i, exercice.reponse)
       } else {
         setReponse(exercice, i, exercice.reponse, { formatInteractif: exercice.formatInteractif ?? 'calcul' })
