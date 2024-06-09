@@ -74,7 +74,7 @@ export default function ExprimerVariable () {
           this.correction += a === -1 ? `${-c}${ecritureAlgebriqueSauf1(a)}${var1}$.` : `\\dfrac{${-c}${ecritureAlgebriqueSauf1(a)}${var1}}{${-b}}$`
         }
         // 08/06/2024 : customCanonical empêche actuellement d'accepter (3x+5)/6 pour (-3x-5)/(-6). Qd ce sera fait, on enlevera un des deux cas ci-dessous (qui seront équivalents).
-        this.reponse = { reponse: { value: b === -1 ? `${var2}=${`${reduireAxPlusB(a, -c, var1)}`}` : `${var2}=${`\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`}`, compare: fonctionComparaison, options: { egaliteExpression: true } } }
+        this.reponse = { reponse: { value: b < 0 ? `${var2}=${`\\dfrac{${reduireAxPlusB(a, -c, var1)}}{${-b}}`}` : `${var2}=${`\\dfrac{${reduireAxPlusB(-a, c, var1)}}{${b}}`}`, compare: fonctionComparaison, options: { egaliteExpression: true } } }
       }
     }
     // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

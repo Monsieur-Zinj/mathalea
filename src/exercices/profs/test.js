@@ -37,12 +37,12 @@ export default function desTestsPourInteractivité () {
   this.interactifType = interactifType
   this.consigne = 'Pour tester cette expression et QUE celle-là :'
   this.nouvelleVersion = function () {
-    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
-    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
-    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
-    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
-    console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
-    console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
+    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
+    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
+    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
+    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
+    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
+    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
     // .isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false }))))
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -56,7 +56,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(5, 3)
       // const reponse = '\\dfrac{3}{5}'
       // const reponse = '3x+2'
-      const reponse = '\\dfrac{-2x-3}{-5}'
+      const reponse = '\\dfrac{-2x}{-5}'
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
