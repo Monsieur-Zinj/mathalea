@@ -3,9 +3,11 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Écrire un nombre à partir de son nombre de dizaines, de centaines, de milliers...'
 export const interactifReady = true
@@ -121,14 +123,16 @@ export default function ExerciceNumerationEntier () {
                     b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
                 )} ${rangs[rangRef]}}$`
       }
-      const reponse = this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
+      const reponse = texNombre(this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef))
 
-      setReponse(this, i, texNombre(reponse), { formatInteractif: 'texte' })
+      // setReponse(this, i, texNombre(reponse), { formatInteractif: 'texte' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
       if (this.sup2) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline ' + KeyboardType.numbersSpace, { espace: true })
       } else {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline college6eme', { texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline ' + KeyboardType.numbersSpace, { espace: true, texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
       }
+      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(0, 2)

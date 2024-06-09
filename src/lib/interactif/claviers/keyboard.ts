@@ -72,7 +72,8 @@ const KEYBOARD_CATEGORIES = [
   'clavierProbabilite',
   'angles',
   'nombresEtDegre',
-  'nombresEtDegreCelsius'
+  'nombresEtDegreCelsius',
+  'numbersSpace'
 ] as const
 
 export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
@@ -135,6 +136,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbersX', 'ensemble']
     case KeyboardType.clavierNumbers:
       return ['numbers']
+    case KeyboardType.numbersSpace:
+      return ['numbersSpace']
     case KeyboardType.clavierFullOperations:
       return ['numbers', 'fullOperations']
     case KeyboardType.clavierProbabilite:

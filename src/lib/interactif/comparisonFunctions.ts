@@ -401,6 +401,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
     puissance = false,
     texteAvecCasse = false,
     texteSansCasse = false,
+    nombreAvecEspace = false,
     fractionIdentique = false,
     egaliteExpression = false
   } = { }) : ResultType {
@@ -415,7 +416,9 @@ export function fonctionComparaison (input: string, goodAnswer:string,
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (fractionIdentique) return fractionCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
+  if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
 
+  console.log(input, goodAnswer)
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer,
     {
@@ -1212,4 +1215,21 @@ export function egaliteCompare (input: string, goodAnswer: string):ResultType {
   const { isOk: isOk3 } = fonctionComparaison(m2, goodAnswerMb2)
   const { isOk: isOk4 } = fonctionComparaison(m1, goodAnswerMb2)
   return { isOk: (isOk1 || isOk2) && (isOk3 || isOk4) }
+}
+
+/**
+ * Comparaison de nombres avec les espaces exigés
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @author Eric Elter
+ */
+export function numberWithSpaceCompare (input: string, goodAnswer: string): ResultType {
+  const clean = generateCleaner(['espaces'])
+  const inputClean = clean(input)
+  const goodAnswerClean = clean(goodAnswer)
+  let feedback = ''
+  if (input !== goodAnswer && inputClean === goodAnswerClean) {
+    feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
+  }
+  return { isOk: input === goodAnswer, feedback }
 }
