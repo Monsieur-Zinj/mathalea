@@ -5,8 +5,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-
-export const dateDeModifImportante = '05/11/2023'
+export const dateDeModifImportante = '10/06/2024'
 
 /**
  * @author Jean-claude Lhote

@@ -18,7 +18,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
-export const dateDeModifImportante = '08/06/2024'
+export const dateDeModifImportante = '10/06/2024'
 /**
  * Calcul de volumes.
  * @author Jean-Claude Lhote (AMC par EE) // modifié par Mireille Gain pour y ajouter les décimaux
@@ -116,20 +116,22 @@ export default function CalculDeVolumes () {
         case 2: // pavé droit
           if (this.sup === 1) { // sans conversion
             j = randint(0, 3) // pour le choix de l'unité
+
             l = partieDecimale1.plus(randint(2, 8))
-            h = partieDecimale2.plus(randint(3, 10, l.toNumber()))
-            L = partieDecimale3.plus(randint(4, 10, l.toNumber()))
+            h = partieDecimale2.plus(randint(3, 10, parseInt(l.toNumber())))
+            L = partieDecimale3.plus(randint(4, 10, parseInt(l.toNumber())))
             volume = l.mul(L).mul(h)
+
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
             texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
             texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
             texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-            resultat = volume.round()
-            resultat2 = l.plus(L).plus(h).mul(6).round()
-            if (resultat2.eq(resultat)) resultat2 = resultat2.div(2).round()
-            resultat3 = l.mul(2).mul(L).plus(L.mul(h).mul(2)).plus(l.mul(h).mul(2)).round()
-            resultat4 = l.plus(L).plus(h).mul(2).round()
+            resultat = volume
+            resultat2 = l.plus(L).plus(h).mul(6)
+            if (resultat2.eq(resultat)) resultat2 = resultat2.div(2)
+            resultat3 = l.mul(2).mul(L).plus(L.mul(h).mul(2)).plus(l.mul(h).mul(2))
+            resultat4 = l.plus(L).plus(h).mul(2)
           } else {
             // avec conversion
             j = randint(1, 2) // pour le choix de l'unité  centrale
@@ -141,10 +143,10 @@ export default function CalculDeVolumes () {
             texte += ` d'un pavé droit de $${texNombre(l, 1)}${listeUnites[j][0]}$ de profondeur, de $${texNombre(L, 1)}${listeUnites[j - 1][0]}$ de longueur et de $${texNombre(h)}${listeUnites[j + 1][0]}$ de hauteur.`
             texteCorr = `$\\mathcal{V}= l \\times L \\times h = ${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L, 1)}${listeUnites[j - 1][0]}\\times${texNombre(h, 0)}${listeUnites[j + 1][0]}=${texNombre(l, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(L * 10)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
             texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-            resultat = volume.round()
-            resultat2 = l.plus(L).plus(h).mul(6).round()
-            resultat3 = l.mul(2).mul(L).plus(L.mul(h).mul(2)).plus(l.mul(h).mul(2)).round()
-            resultat4 = l.plus(L).plus(h).mul(2).round()
+            resultat = volume
+            resultat2 = l.plus(L).plus(h).mul(6)
+            resultat3 = l.mul(2).mul(L).plus(L.mul(h).mul(2)).plus(l.mul(h).mul(2))
+            resultat4 = l.plus(L).plus(h).mul(2)
           }
           break
         case 3: // Cylindre
@@ -218,20 +220,15 @@ export default function CalculDeVolumes () {
             l = new Decimal(randint(5, 15)).div(10)
             volume = c.mul(h).mul(l).div(2)
             texte += context.isAmc ? ` en$${listeUnites[j][1]}$` : ''
-            texte += !volume.eq(volume.round()) ? `, arrondi au $${listeUnites[j][1]}$ près,` : ''
             texte += ` d'un prisme droit de hauteur $${texNombre(l, 1)}${listeUnites[j - 1][0]}$ et dont les bases sont des triangles de base $${texNombre(c, 1)}${listeUnites[j][0]}$ et de hauteur correspondante $${h}${listeUnites[j + 1][0]}$.`
             texteCorr = `$\\mathcal{V}=\\mathcal{B} \\times h=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${h}${listeUnites[j + 1][0]}}{2}\\times${texNombre(l, 1)}${listeUnites[j - 1][0]}=\\dfrac{${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(h.div(10), 1)
                         }${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}}{2}\\times${texNombre(l.mul(10), 0)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
           }
-          if (!volume.eq(volume.round())) {
-            texteCorr += `${texNombre(volume, 2)}${listeUnites[j][1]}\\approx ${miseEnEvidence(`${texNombre(volume.round())}${listeUnites[j][1]}`)}$`
-          } else {
-            texteCorr += `${miseEnEvidence(`${texNombre(volume, 2)}${listeUnites[j][1]}`)}$`
-          }
-          resultat = volume.round()
-          resultat2 = volume.mul(4).round()
-          resultat3 = c.plus(h).mul(l).round()
-          resultat4 = volume.mul(2).round()
+          texteCorr += `${miseEnEvidence(`${texNombre(volume, 2)}${listeUnites[j][1]}`)}$`
+          resultat = volume
+          resultat2 = volume.mul(4)
+          resultat3 = c.plus(h).mul(l)
+          resultat4 = volume.mul(2)
           break
         case 5: // cone
           if (this.sup === 1) {
