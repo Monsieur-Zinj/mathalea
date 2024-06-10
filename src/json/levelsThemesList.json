@@ -867,7 +867,7 @@
     }
   },
   "2S2": {
-    "titre": "Statistique desciptive",
+    "titre": "Statistique descriptive",
     "sousThemes": {
       "2S21": "Décrire les différences entre deux séries statistiques",
       "2S22": "Lire et comprendre une fonction écrite en Python renvoyant la moyenne (m), l'écart type (s) et la proportion d'éléments dans [m-2s;m+2s]"
