@@ -8,7 +8,7 @@ import {
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -20,6 +20,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
+export const dateDeModifImportante = '10/06/2024'
 
 /**
  * Développer en utilisant la distributivité simple
@@ -151,15 +152,19 @@ export default function ExerciceDevelopper () {
       texteCorr = texte + '<br>'
       texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(reponseDev, couleurCorrection[0])}$`
       reponse = this.sup2 === 1 ? reponseDev : reponseRed
-      texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`
 
       if (this.sup2 === 1) {
+        texteCorr += '<br>Ce n\'est pas demandé, ici, mais si on voulait réduire l\'expression, on obtiendrait : <br>'
         handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       } else {
+        texteCorr += '<br>En réduisant l\'expression, on obtient : <br>'
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
       }
+
+      texteCorr += ` $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`
       if (!context.isAmc) {
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',

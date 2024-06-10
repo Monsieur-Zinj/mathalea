@@ -431,7 +431,7 @@ export function fonctionComparaison (input: string, goodAnswer:string,
 
 /**
  * Cette fonction permet que ComputeEngine fasse un super job avec la réduction d'expression et avec des options supplémentaires
- * @param {expr} BoxedExpression
+ * @param {BoxedExpression} expr
  * @param {{ expressionsForcementReduites:boolean, fractionIrreducibleSeulement:boolean, operationSeulementEtNonCalcul:boolean}} [options]
  * @author Eric Elter (aidé par ArnoG)
  * @return BoxedExpression
@@ -471,6 +471,9 @@ function customCanonical (expr:BoxedExpression, { expressionsForcementReduites =
   return expr.canonical
 }
 
+// Définir le type pour les substitutions
+type Substitutions = { [variable: string]: number };
+
 /**
  * Comparaison d'expressions developpées ET REDUITES (multiplications acceptées, fractions acceptées... PAS ENCORE AVEC DES RACINES CARREES mais cela arrive.)
  * Comparaison aussi de tous les nombres (puisque c'est une expression réduite particulière)
@@ -508,9 +511,48 @@ function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   // console.log(toto.head)
   // console.log('toto.op1', toto.op1)
   // console.log('toto.op2', toto.op2)
-  return { isOk: saisieParsed.isSame(reponseParsed) }
+
+  // Ci-dessous, si on a une comparaison fausse mais que l'expression donnée est mathématiquement correcte, on fait un feedback.
+  let feedback = ''
+  const substitutions: Substitutions = { a: 2, b: 2, c: 2, x: 2, y: 2, z: 2 } // On peut ajouter d'autres variables si nécessaire
+  if (!saisieParsed.isSame(reponseParsed) && evaluateExpression(goodAnswer, substitutions) === evaluateExpression(input, substitutions)) {
+    feedback = expressionsForcementReduites
+      ? 'L\'expression littérale attendue devrait être développée et réduite or ce n\'est pas le cas.'
+      : 'L\'expression littérale attendue devrait être simplement développée or ce n\'est pas le cas.'
+  }
+  return { isOk: saisieParsed.isSame(reponseParsed), feedback }
 }
 
+/**
+ * Fonction pour évaluer une expression avec des substitutions dynamiques (quelle que soit la lettre utilisée dans substitutions)
+ * @param {BoxedExpression} expr
+ * @param {Substitutions} substitutions
+ * @example evaluateExpression('3x+5', { x: 2}) -> 11
+ * @example evaluateExpression('3x+5', { y: 2}) -> NAN
+ * @example evaluateExpression('3x+5', { c: 2, x: 2, y: 2}) -> 5
+ * @author Eric Elter
+ * @return integer||string
+ */
+function evaluateExpression (expr: string, substitutions: Substitutions): number|string {
+  // Définir l'expression
+  const expression = engine.parse(expr)
+
+  // Faire les substitutions
+  let substituted = expression
+  for (const [variable, value] of Object.entries(substitutions)) {
+    substituted = substituted.subs({ [variable]: value })
+  }
+
+  // Évaluer l'expression substituée
+  const result = substituted.evaluate().value
+
+  // Convertir le résultat en nombre ou 'NAN' si ce n'est pas un nombre
+  if (typeof result === 'number') {
+    return result
+  } else {
+    return 'NAN'
+  }
+}
 /**
  * comparaison d'expressions developpées NON REDUITES
  * @param {string} input
@@ -520,37 +562,7 @@ function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
  */
 export function expressionDeveloppeeEtNonReduiteCompare (input: string, goodAnswer:string) : ResultType {
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, { expressionsForcementReduites: false })
-  /* goodAnswer = String(goodAnswer) // Au cas où string ne serait pas string. Est-ce utile ?
-  const clean = generateCleaner(['puissances', 'virgules', 'fractions', 'parentheses', 'foisUn'])
-  input = clean(input)
-  goodAnswer = clean(goodAnswer)
-  const saisieParsed = engine.parse(input)
-  const reponseParsed = engine.parse(goodAnswer)
-
-  if (saisieParsed == null || reponseParsed == null) { // JCL avait mis cette précaution dans la fonction précédente. Je ne sais pas trop pourquoi. Je laisse en attendant.
-    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ', { saisie: input, reponse: goodAnswer })
-    return { isOk: false }
-  }
-  return { isOk: saisieParsed.isEqual(reponseParsed) } */
 }
-
-// Fin du travail de EE
-
-/* Cette fonction n'a pas lieu d'exister car numberCompare fait tout aussi pour tous les nombres
-
-/**
- * comparaison de nombres décimaux bon, rien de transcendant, on compare les strings nettoyées
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
-export function decimalCompare (input: string, goodAnswer: string): ResultType {
-
-  const clean = generateCleaner(['virgules', 'espaces', 'parentheses'])
-  const saisieClean = clean(input)
-  const reponseClean = clean(goodAnswer)
-  return { isOk: saisieClean === reponseClean } // facile ! des Décimaux en string sont égaux si les strings sont égales.
-}
-*/
 
 /**
  * comparaison de nombres en écritures scientifiques @todo à vérifier celle-là, j'suis pas convaincu

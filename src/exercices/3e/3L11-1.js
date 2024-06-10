@@ -14,7 +14,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
-export const dateDeModifImportante = '26/02/2023'
+export const dateDeModifImportante = '10/06/2024'
 
 /**
  * Développer des expressions de la forme(ax+ou-b)(cx+ou-d)
@@ -41,7 +41,6 @@ export default function DoubleDistributivite () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Développer et réduire les expressions suivantes.' : 'Développer et réduire l\'expression suivante.'
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -130,7 +129,7 @@ export default function DoubleDistributivite () {
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, options: { strict: this.sup3 }, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
         texte += ajouteFeedback(this, i)
       } else {
