@@ -264,7 +264,7 @@ export function getKeyboardShortcusts (mf: MathfieldElement): void {
 
 const shortcutsByKeyboards = {
   default: {
-    D: { mode: 'math', value: 'd' },
+    // D: { mode: 'math', value: 'd' }, // On avait un problème avec la notation D et mathLive
     '*': { mode: 'math', value: '\\times' },
     '.': { mode: 'math', value: '{,}' },
     ',': { mode: 'math', value: '{,}' },
