@@ -21,7 +21,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-export const dateDeModifImportante = '03/04/2022'
+export const dateDeModifImportante = '11/06/2024'
 
 export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèles avec le théorème de Thalès'
 
@@ -29,7 +29,6 @@ export const titre = 'Démontrer que deux droites sont ou ne sont pas parallèle
  * Reciproque_Thales
  * @author Jean-Claude Lhote
  * 18/10/21 passage de MG32 à MathALEA2D par Rémi Angot
- * 3G21
  */
 export const uuid = '3451c'
 export const ref = '3G21'
@@ -39,9 +38,7 @@ export const refs = {
 }
 export default function ReciproqueThales () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestions = 3
-  // this.nbQuestionsModifiable = false
   context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 1)
   context.isHtml ? (this.spacing = 2) : (this.spacing = 1.5)
   this.nbCols = 1
@@ -257,7 +254,7 @@ export default function ReciproqueThales () {
         `,
                     'Mettre en couleur les 2 triangles')
 
-        if (context.isHtml) {
+        if (context.isHtml && this.sup !== 3) {
           texte += `<br><div style="display: inline-block;margin-top:20px;">${boutonAideMathalea2d}</div>`
         }
       } else {

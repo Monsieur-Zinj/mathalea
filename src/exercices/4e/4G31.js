@@ -4,10 +4,10 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDeModifImportante = '11/06/2024'
 
 /**
  * @author Jean-Claude Lhote
- * référence 4G31
  */
 export const uuid = '4dce8'
 export const ref = '4G31'
@@ -18,6 +18,5 @@ export const refs = {
 export default function ReciproqueThales4eme () {
   ReciproqueThales.call(this)
   this.quatrieme = true
-  this.titre = titre
   this.besoinFormulaire3Numerique = false
 }
