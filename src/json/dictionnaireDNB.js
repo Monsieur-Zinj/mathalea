@@ -8202,4 +8202,65 @@ export const dictionnaireDNB = {
   },
 
 
+  dnb_2024_05_ameriquenord_1: {
+                annee: '2024',
+                lieu: 'Amérique du Nord',
+                mois: 'Mai',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_05_ameriquenord_2: {
+                annee: '2024',
+                lieu: 'Amérique du Nord',
+                mois: 'Mai',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_05_ameriquenord_3: {
+                annee: '2024',
+                lieu: 'Amérique du Nord',
+                mois: 'Mai',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_05_ameriquenord_4: {
+                annee: '2024',
+                lieu: 'Amérique du Nord',
+                mois: 'Mai',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_05_ameriquenord_5: {
+                annee: '2024',
+                lieu: 'Amérique du Nord',
+                mois: 'Mai',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5_cor.tex',
+                tags: ['']
+            },
+
 }
