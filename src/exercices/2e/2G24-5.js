@@ -1,10 +1,13 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +16,7 @@ export const dateDePublication = '12/06/2023'
 
 /**
  * Coordonnées d'un point à partir d'une égalité
- * @author Stéphan Grignon
+ * @author Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '222f6'
 export const ref = '2G24-5'
@@ -58,7 +61,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             yB = new FractionEtendue(yA - uy, 1)
           }
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne le point $A(${xA};${yA})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne le point $A(${xA}\\,;\\,${yA})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du point $B$ tel que $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$.`
 
           texteCorr = `$\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$ `
@@ -69,7 +72,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}=${xA}-x_B\\\\${uy}=${yA}-y_B\\end{cases}$ `
             texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${ecritureParentheseSiNegatif(ux)}\\\\y_B=${yA}-${ecritureParentheseSiNegatif(uy)}\\end{cases}$ `
           }
-          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$ soit $B(${xB};${yB})$.`
+          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB.texFraction}\\\\y_B=${yB.texFraction}\\end{cases}$, soit $B(${miseEnEvidence(xB.texFraction)}\\,;\\,${miseEnEvidence(yB.texFraction)})$.`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $(x_B;y_B)$ les coordonnées du point que nous cherchons à déterminer.<br><br>'
             texteCorr += 'On sait d\'après le cours que si $M(x_M;y_M)$ et $N(x_N;y_N)$ sont deux points d\'un repère, on a alors $\\overrightarrow{MN}\\begin{pmatrix}x_N-x_M\\\\y_N-y_M\\end{pmatrix}$.<br><br>'
@@ -89,7 +92,7 @@ export default function Calculercoordonneesegalitevecteurs () {
               texteCorr += `$\\begin{cases}${ux}=${xA}-x_B\\\\${uy}=${yA}-y_B\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${ecritureParentheseSiNegatif(ux)}\\\\y_B=${yA}-${ecritureParentheseSiNegatif(uy)}\\end{cases}$<br><br>`
             }
-            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$ soit $B(${xB};${yB})$.`
+            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB.texFraction}\\\\y_B=${yB.texFraction}\\end{cases}$, soit $B(${miseEnEvidence(xB.texFraction)}\\,;\\,${miseEnEvidence(yB.texFraction)})$.`
           }
         }
           break
@@ -113,7 +116,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             yB = new FractionEtendue(yD - yC + yA - uy, 1)
           }
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points $A(${xA};${yA})$, $C(${xC};${yC})$, $D(${xD};${yD})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points $A(${xA}\\,;\\,${yA})$, $C(${xC}\\,;\\,${yC})$, $D(${xD}\\,;\\,${yD})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du point $B$ tel que $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$.`
 
           if (pr === 'A') {
@@ -121,7 +124,7 @@ export default function Calculercoordonneesegalitevecteurs () {
           } else {
             texteCorr = `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$.<br><br>`
           }
-          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
           texteCorr += `$\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$ `
           if (pr === 'A') {
             texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}=x_B-${ecritureParentheseSiNegatif(xA)}+${ecritureParentheseSiNegatif(xD - xC)}\\\\${uy}=y_B-${ecritureParentheseSiNegatif(yA)}+${ecritureParentheseSiNegatif(yD - yC)}\\end{cases}$ `
@@ -132,14 +135,14 @@ export default function Calculercoordonneesegalitevecteurs () {
             texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}=${xD - xC + xA}-x_B\\\\${uy}=${yD - yC + yA}-y_B\\end{cases}$ `
             texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xD - xC + xA}-${ecritureParentheseSiNegatif(ux)}\\\\y_B=${yD - yC + yA}-${ecritureParentheseSiNegatif(uy)}\\end{cases}$ `
           }
-          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$ soit $B(${xB};${yB})$.`
+          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB.texFraction}\\\\y_B=${yB.texFraction}\\end{cases}$, soit $B(${miseEnEvidence(xB.texFraction)}\\,;\\,${miseEnEvidence(yB.texFraction)})$.`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $(x_B;y_B)$ les coordonnées du point que nous cherchons à déterminer.<br><br>'
             texteCorr += 'On sait d\'après le cours que si $M(x_M;y_M)$ et $N(x_N;y_N)$ sont deux points d\'un repère, on a alors $\\overrightarrow{MN}\\begin{pmatrix}x_N-x_M\\\\y_N-y_M\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
             if (pr === 'A') {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}x_B-${ecritureParentheseSiNegatif(xA)}\\\\y_B-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ et `
-              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
               texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$ et que $\\vec{w}=\\vec{u}+\\vec{v}$ aura pour coordonnées $\\vec{w}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$, ce qui équivaut à résoudre :<br><br>`
@@ -148,7 +151,7 @@ export default function Calculercoordonneesegalitevecteurs () {
               texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}${ecritureAlgebrique(xC + xA - xD)}=x_B\\\\${uy}${ecritureAlgebrique(yC + yA - yD)}=y_B\\end{cases}$<br><br>`
             } else {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$ et `
-              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
               texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$ et que $\\vec{w}=\\vec{u}+\\vec{v}$ aura pour coordonnées $\\vec{w}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$, ce qui équivaut à résoudre :<br><br>`
@@ -156,7 +159,7 @@ export default function Calculercoordonneesegalitevecteurs () {
               texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}=${xD - xC + xA}-x_B\\\\${uy}=${yD - yC + yA}-y_B\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xD - xC + xA}-${ecritureParentheseSiNegatif(ux)}\\\\y_B=${yD - yC + yA}-${ecritureParentheseSiNegatif(uy)}\\end{cases}$<br><br>`
             }
-            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$ soit $B(${xB};${yB})$.`
+            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB}\\\\y_B=${yB}\\end{cases}$, soit $B(${miseEnEvidence(xB)}\\,;\\,${miseEnEvidence(yB)})$.`
           }
         }
           break
@@ -189,7 +192,7 @@ export default function Calculercoordonneesegalitevecteurs () {
           } else {
             texteCorr = `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$.<br><br>`
           }
-          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
           texteCorr += `$\\overrightarrow{CD}=${k}\\overrightarrow{${pr}${se}}$ `
           if (pr === 'A') {
             texteCorr += `$\\Leftrightarrow\\begin{cases}${xD - xC}=${k}(x_B-${ecritureParentheseSiNegatif(xA)})\\\\[0.7em]${yD - yC}=${k}(y_B-${ecritureParentheseSiNegatif(yA)})\\end{cases}$ `
@@ -200,17 +203,17 @@ export default function Calculercoordonneesegalitevecteurs () {
             texteCorr += `$\\Leftrightarrow\\begin{cases}\\dfrac{${xD - xC}}{${k}}=${xA}-x_B\\\\[0.7em]\\dfrac{${yD - yC}}{${k}}=${yA}-y_B\\end{cases}$ `
             texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texFSP}\\\\[0.7em]y_B=${yA}-${b.texFSP}\\end{cases}$ `
           }
-          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$ soit $B\\left(${xB.texFSD};${yB.texFSD}\\right)$.`
+          texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$, soit $B\\left(${miseEnEvidence(xB.texFSD)}\\,;\\,${miseEnEvidence(yB.texFSD)}\\right)$.`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $(x_B;y_B)$ les coordonnées du point que nous cherchons à déterminer.<br><br>'
             texteCorr += 'On sait d\'après le cours que si $M(x_M;y_M)$ et $N(x_N;y_N)$ sont deux points d\'un repère, on a alors $\\overrightarrow{MN}\\begin{pmatrix}x_N-x_M\\\\y_N-y_M\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
             if (pr === 'A') {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}x_B-${ecritureParentheseSiNegatif(xA)}\\\\y_B-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ et `
-              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
             } else {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$ et `
-              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+              texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
             }
             texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{u}\\begin{pmatrix}k \\times x\\\\k \\times y\\end{pmatrix}$ et que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$.<br><br>'
@@ -224,15 +227,29 @@ export default function Calculercoordonneesegalitevecteurs () {
               texteCorr += `$\\Leftrightarrow\\begin{cases}\\dfrac{${xD - xC}}{${k}}=${xA}-x_B\\\\[0.7em]\\dfrac{${yD - yC}}{${k}}=${yA}-y_B\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}x_B=${xA}-${a.texFSP}\\\\[0.7em]y_B=${yA}-${b.texFSP}\\end{cases}$<br><br>`
             }
-            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$ soit $B\\left(${xB.texFSD};${yB.texFSD}\\right)$.`
+            texteCorr += `Ce qui donne au final : $\\begin{cases}x_B=${xB.texFSD}\\\\[0.7em]y_B=${yB.texFSD}\\end{cases}$, soit $B\\left(${miseEnEvidence(xB.texFSD)};${miseEnEvidence(yB.texFSD)}\\right)$.`
           }
         }
           break
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Abscisse $x$ de $B$ :' })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Ordonnée $y$ de $B$ :' })
-      setReponse(this, 2 * i, xB, { formatInteractif: 'fractionEgale' })
-      setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
+
+      handleAnswers(this, i, {
+        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: xB.texFraction, compare: fonctionComparaison },
+        champ2: { value: yB.texFraction, compare: fonctionComparaison }
+      },
+      { formatInteractif: 'mathlive' })
+      if (this.interactif) {
+        texte += '<br>' + remplisLesBlancs(this, i,
+          'B(%{champ1}\\,;\\,%{champ2})',
+          KeyboardType.clavierDeBaseAvecFraction
+        )
+      }
+
+      // texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Abscisse $x$ de $B$ :' })
+      // texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Ordonnée $y$ de $B$ :' })
+      // setReponse(this, 2 * i, xB, { formatInteractif: 'fractionEgale' })
+      // setReponse(this, 2 * i + 1, yB, { formatInteractif: 'fractionEgale' })
       if (this.questionJamaisPosee(i, xB, yB)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

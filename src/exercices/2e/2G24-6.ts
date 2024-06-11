@@ -1,3 +1,4 @@
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 import { randint } from '../../modules/outils'
 import Exercice from '../Exercice'
@@ -22,7 +23,7 @@ class CoordonneesParallelogramme extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
-    this.spacingCorr = 4
+    this.spacingCorr = 3
     this.typeExercice = 'simple'
   }
 
@@ -44,6 +45,7 @@ class CoordonneesParallelogramme extends Exercice {
     this.question = `Dans un repère $(O\\;;\\;\\vec{i}\\;;\\;\\vec{j})$, on considère les points $${nomA}(${ax}\\;;\\;${ay})$, `
     this.question += `$${nomB}(${bx}\\;;\\;${by})$ et $${nomC}(${cx}\\;;\\;${cy})$.<br>`
     this.question += `Déterminer les coordonnées du point $${nomD}$ tel que $${nomA}${nomB}${nomC}${nomD}$ soit un parallélogramme.`
+    this.question += `<br>$(${dx}\\;;\\;${dy})$`
     if (this.interactif) {
       this.question += `<br><br>$${nomD}$ a pour coordonnées : `
     }
@@ -56,7 +58,7 @@ class CoordonneesParallelogramme extends Exercice {
     this.correction += `=\\dbinom{${cx} - x}{${cy} - y}$.`
     this.correction += `<br>L'égalité $\\overrightarrow{${nomA}${nomB}} = \\overrightarrow{${nomD}${nomC}}$ se traduit donc par : `
     this.correction += `$\\begin{cases}${cx} - x &= ${bx - ax} \\\\ ${cy} - y &= ${by - ay}\\end{cases}\\quad$ soit $\\quad\\begin{cases}x &= ${dx} \\\\ y &= ${dy}\\end{cases}$.`
-    this.correction += `<br>Les coordonnées du point $${nomD}$ sont donc $(${dx}\\;;\\;${dy})$.`
+    this.correction += `<br>Les coordonnées du point $${nomD}$ sont donc $${miseEnEvidence(`(${dx}\\;;\\;${dy})`)}$.`
   }
 }
 
