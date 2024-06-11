@@ -1,10 +1,14 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +17,7 @@ export const dateDePublication = '28/05/2023'
 
 /**
  * Différence de deux vecteurs à l'aide des coordonnées
- * @author Stéphan Grignon
+ * @author Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = '14a2c'
 export const ref = '2G24-3'
@@ -73,12 +77,12 @@ export default function Calculercoordonneesdifferencevecteurs () {
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}\\\\${vy}\\end{pmatrix}$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$.'
 
-          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}-${ecritureParentheseSiNegatif(vx)}\\\\${uy}-${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+          texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}-${ecritureParentheseSiNegatif(vx)}\\\\${uy}-${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br>'
             texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x-x\'\\\\y-y\'\\end{pmatrix}$.<br>'
             texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${ux}-${ecritureParentheseSiNegatif(vx)}\\\\${uy}-${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$.<br>`
-            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
           }
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
@@ -111,57 +115,24 @@ export default function Calculercoordonneesdifferencevecteurs () {
 
           const c = frac2[0] - frac2[1] * vy
           const d = frac2[1]
-
+          wx = new FractionEtendue(a, b).simplifie()
+          wy = new FractionEtendue(c, d).simplifie()
           texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux.texFraction}\\\\[0.7em]${uy.texFraction}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy}\\end{pmatrix}$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$.'
 
           texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}-${vx.texFraction}\\\\[0.7em]${uy.texFraction}-${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$`
-          if (a > 0 && c < 0) {
-            wx = new FractionEtendue(a, b).simplifie()
-            wy = new FractionEtendue(c * -1, d).simplifie()
-            texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]-${wy.texFraction}\\end{pmatrix}$.<br>`
-          }
-          if (a < 0 && c > 0) {
-            wx = new FractionEtendue(a * -1, b).simplifie()
-            wy = new FractionEtendue(c, d).simplifie()
-            texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}-${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.<br>`
-          }
-          if (a < 0 && c < 0) {
-            wx = new FractionEtendue(a * -1, b).simplifie()
-            wy = new FractionEtendue(c * -1, d).simplifie()
-            texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}-${wx.texFraction}\\\\[0.7em]-${wy.texFraction}\\end{pmatrix}$.<br>`
-          }
-          if (a > 0 && c > 0) {
-            wx = new FractionEtendue(a, b).simplifie()
-            wy = new FractionEtendue(c, d).simplifie()
-            texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.<br>`
-          }
+
+          texteCorr += `, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
+
           if (this.correctionDetaillee) {
             texteCorr = 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br>'
             texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x-x\'\\\\y-y\'\\end{pmatrix}$.<br>'
             texteCorr += `On applique ici aux données de l'énoncé :
             $\\overrightarrow{w}\\begin{pmatrix}${ux.texFraction}-${vx.texFraction}\\\\[0.7em]${uy.texFraction}-${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$.<br>`
-            if (a > 0 && c < 0) {
-              wx = new FractionEtendue(a, b).simplifie()
-              wy = new FractionEtendue(c * -1, d).simplifie()
-              texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]-${wy.texFraction}\\end{pmatrix}$.<br>`
-            }
-            if (a < 0 && c > 0) {
-              wx = new FractionEtendue(a * -1, b).simplifie()
-              wy = new FractionEtendue(c, d).simplifie()
-              texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}-${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.<br>`
-            }
-            if (a < 0 && c < 0) {
-              wx = new FractionEtendue(a * -1, b).simplifie()
-              wy = new FractionEtendue(c * -1, d).simplifie()
-              texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}-${wx.texFraction}\\\\[0.7em]-${wy.texFraction}\\end{pmatrix}$.<br>`
-            }
-            if (a > 0 && c > 0) {
-              wx = new FractionEtendue(a, b).simplifie()
-              wy = new FractionEtendue(c, d).simplifie()
-              texteCorr += ` soit $\\overrightarrow{w}\\begin{pmatrix}${wx.texFraction}\\\\[0.7em]${wy.texFraction}\\end{pmatrix}$.<br>`
-            }
+
+            texteCorr += `, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
           }
+
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
             texteCorr += 'Ce résultat était prévisible puisque $\\overrightarrow{u}$ et $\\overrightarrow{v}$ sont égaux $\\overrightarrow{u}=\\overrightarrow{v}$.'
@@ -181,21 +152,21 @@ export default function Calculercoordonneesdifferencevecteurs () {
           wx = new FractionEtendue((xB - xA) - (xD - xC), 1)
           wy = new FractionEtendue((yB - yA) - (yD - yC), 1)
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA};${yA}\\right)$, $B\\left(${xB};${yB}\\right)$, $C\\left(${xC};${yC}\\right)$ et $D\\left(${xD};${yD}\\right)$.<br>`
+          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA}\\,;\\,${yA}\\right)$, $B\\left(${xB}\\,;\\,${yB}\\right)$, $C\\left(${xC}\\,;\\,${yC}\\right)$ et $D\\left(${xD}\\,;\\,${yD}\\right)$.<br>`
           texte += 'Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}-\\overrightarrow{CD}$.'
 
-          texteCorr = `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
-          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
-          texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}-${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}-${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$ soit $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+          texteCorr = `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+          texteCorr += `$\\overrightarrow{w}\\begin{pmatrix}${xB - xA}-${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}-${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
           if (this.correctionDetaillee) {
             texteCorr = 'On sait d\'après le cours que si $A(x_A;y_A)$ et $B(x_B;y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
             texteCorr += 'On applique ici aux données de l\'énoncé :<br><br>'
-            texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
-            texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$ soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
+            texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
+            texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
             texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br>'
             texteCorr += 'On sait d\'après le cours que $\\overrightarrow{w}=\\overrightarrow{u}-\\overrightarrow{v}$ aura pour coordonnées $\\overrightarrow{w}\\begin{pmatrix}x-x\'\\\\y-y\'\\end{pmatrix}$.<br>'
             texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{w}\\begin{pmatrix}${xB - xA}-${ecritureParentheseSiNegatif(xD - xC)}\\\\${yB - yA}-${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$.<br>`
-            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${wx}\\\\${wy}\\end{pmatrix}$.<br>`
+            texteCorr += `Ce qui donne au final : $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.<br>`
           }
           if (wx === 0 && wy === 0) {
             texteCorr += 'Ici $\\overrightarrow{w}$ est un vecteur nul.<br>'
@@ -204,10 +175,19 @@ export default function Calculercoordonneesdifferencevecteurs () {
         }
           break
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: '<br><br>Composante sur $x$ de $\\overrightarrow{w}$ :' })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: '<br><br>Composante sur $y$ de $\\overrightarrow{w}$ :' })
-      setReponse(this, 2 * i, wx, { formatInteractif: 'fractionEgale' })
-      setReponse(this, 2 * i + 1, wy, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, i, {
+        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: wx.texFraction, compare: fonctionComparaison },
+        champ2: { value: wy.texFraction, compare: fonctionComparaison }
+      },
+      { formatInteractif: 'mathlive' })
+      if (this.interactif) {
+        texte += '<br>' + remplisLesBlancs(this, i,
+          '\\overrightarrow{w}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}',
+          KeyboardType.clavierDeBaseAvecFraction
+        )
+      }
+
       if (this.questionJamaisPosee(i, wx, wy)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

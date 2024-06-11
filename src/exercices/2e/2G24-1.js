@@ -4,13 +4,16 @@ import { nomVecteurParPosition, segment, vecteur } from '../../lib/2d/segmentsVe
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,7 +22,7 @@ export const dateDeModifImportante = '30/06/2023'
 
 /**
  * Coordonnées d'un vecteur à partir de deux points
- * @author Stéphane Guyon & Stéphan Grignon
+ * @author Stéphane Guyon & Stéphan Grignon Interactif Gilles Mora le 11 juin 2024
  */
 export const uuid = 'f71c1'
 export const ref = '2G24-1'
@@ -68,18 +71,18 @@ export default function Calculercoordonneesvecteurs () {
         texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA}\\,;\\,${yA}\\right)$ et $${nomsPoints[1]}\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
-        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\${yABFraction.texFraction}\\end{pmatrix}$.<br>`
+        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\${yABFraction.texFraction}\\end{pmatrix}$.<br>`
         if (this.correctionDetaillee) {
           texteCorr = 'On sait d\'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
           texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br>`
-          texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\${yABFraction.texFraction}\\end{pmatrix}$.<br><br>`
+          texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
       } else if (this.sup === 2) {
         const listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4], [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
         const frac1 = choice(listeFractions1)
         xA = new FractionEtendue(frac1[0], frac1[1])
         xABFraction = new FractionEtendue(randint(-4, 4, [0]), 1)
-        xB = xA.ajouteEntier(xABFraction).simplifie()
+        xB = xA.sommeFractions(xABFraction).simplifie()
         const frac2 = choice(listeFractions1)
         yABFraction = new FractionEtendue(frac2[0], frac2[1])
         yB = randint(-4, 4, [0])
@@ -108,11 +111,11 @@ export default function Calculercoordonneesvecteurs () {
         texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD}\\,;\\,${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
-        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$ soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\[0.7em]${yABFraction.texFSD}\\end{pmatrix}$.<br>`
+        texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFSD)}\\end{pmatrix}$.<br>`
         if (this.correctionDetaillee) {
           texteCorr = 'On sait d\'après le cours que si $A(x_A\\,;\\,y_A)$ et $B(x_B\\,;\\,y_B)$ sont deux points d\'un repère, alors on a $\\overrightarrow{AB}\\begin{pmatrix}x_B-x_A\\\\y_B-y_A\\end{pmatrix}$.<br>'
           texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$.<br>`
-          texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\[0.7em]${yABFraction.texFSD}\\end{pmatrix}$.<br><br>`
+          texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
       }
 
@@ -152,10 +155,19 @@ export default function Calculercoordonneesvecteurs () {
         texteCorr += `On peux vérifier graphiquement ci-dessous les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.<br>`
         texteCorr += mathalea2d(Object.assign({ zoom: 2 }, fixeBordures(objets)), objets) // On trace le graphique
       }
-      texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteAvant: `<br><br>Composante sur $x$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
-      texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline', { texteAvant: `<br><br>Composante sur $y$ de $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$ :` })
-      setReponse(this, 2 * i, xABFraction, { formatInteractif: 'fractionEgale' })
-      setReponse(this, 2 * i + 1, yABFraction, { formatInteractif: 'fractionEgale' })
+      handleAnswers(this, i, {
+        bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+        champ1: { value: xABFraction.texFraction, compare: fonctionComparaison },
+        champ2: { value: yABFraction.texFraction, compare: fonctionComparaison }
+      },
+      { formatInteractif: 'mathlive' })
+      if (this.interactif) {
+        texte += '<br>' + remplisLesBlancs(this, i,
+          `\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}%{champ1}\\\\\\\\%{champ2}\\end{pmatrix}`,
+          KeyboardType.clavierDeBaseAvecFraction
+        )
+      }
+
       if (this.questionJamaisPosee(i, xABFraction.texFraction, yABFraction.texFraction)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
