@@ -995,7 +995,7 @@ function unitsCompare (input: string, goodAnswer: string, { precision = 1 } = {}
   feedback?: string
 } {
   input = input.replace('^\\circ', '°').replace('\\degree', '°')
-  const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses'])
+  const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses', 'mathrm'])
   const inputGrandeur = inputToGrandeur(cleaner(input))
   const goodAnswerGrandeur = Grandeur.fromString(goodAnswer)
   if (inputGrandeur) {
