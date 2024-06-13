@@ -12,7 +12,6 @@ export const titre = 'Déterminer une équation cartésienne de droite à partir
 /**
  * Description didactique de l'exercice
  * @author Stéphane Guyon
- * Référence 2G30-3, ex 2G51
 */
 export const uuid = '1bb30'
 export const ref = '2G30-3'
@@ -22,7 +21,6 @@ export const refs = {
 }
 export default function Equationcartesienne () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = 'Déterminer une équation cartésienne de la droite $(AB)$.'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
@@ -49,7 +47,7 @@ export default function Equationcartesienne () {
             xB = xB + randint(1, 2)
             yB = yB - randint(1, 2)
           }
-          texte = `avec les point $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB})$ `
+          texte = `avec les points $A$ et $B$ de coordonnées : $A(${xA};${yA})$ et $B(${xB};${yB})$ `
           texteCorr = 'On sait qu\'une équation cartésienne de la droite $(AB)$ est de la forme :'
           texteCorr += ' $(AB) : ax+by+c=0$, avec $(a;b)\\neq (0;0)$.'
           texteCorr += '<br>On sait aussi que dans ces conditions, un vecteur directeur de cette droite a pour coordonnées :'
@@ -91,5 +89,4 @@ export default function Equationcartesienne () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté', 2,'1 : Facile\n2 : Difficile'];
 }
