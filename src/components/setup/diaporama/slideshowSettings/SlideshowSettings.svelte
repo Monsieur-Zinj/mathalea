@@ -5,8 +5,10 @@
   import {
     questionsOrder,
     selectedExercises,
-    transitionsBetweenQuestions
+    transitionsBetweenQuestions,
+    globalOptions
   } from '../../../../lib/stores/generalStore'
+  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
   import type Exercice from '../../../../exercices/Exercice'
   import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
   import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
@@ -17,6 +19,10 @@
   import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
+  import { createEventDispatcher } from 'svelte'
+  import type { DataFromSettings } from '../../../../lib/types/slideshow'
+
+  const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
 
   export let exercices: Exercice[]
   export let stringNbOfVues: string
@@ -28,23 +34,149 @@
   export let QRCodeWidth: number
   export let formatQRCodeIndex: 0 | 1 | 2
   export let updateExercices: () => void
-  export let handleCheckManualMode: () => void
-  export let handleCheckSameDurationForAll: () => void
-  export let labelsForMultivue: { label: string; value: string | number; isDisabled?: boolean | undefined; }[]
-  export let labelsForSounds: { label: string; value: string | number; isDisabled?: boolean | undefined; }[]
-  export let handleTuneChange: () => void
-  export let handleRandomQuestionOrder: () => void
-  export let handleSampleChecked: () => void
-  export let handleSampleSizeChange: () => void
-  export let handleTransitionsMode: () => void
-  export let handleTransitionSound: () => void
   export let handleChangeDurationGlobal: () => void
-  export let goToQuestion: (index: number) => void
-  export let timer: (duration: number) => void
-  export let getTotalNbOfQuestions: () => number
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
   export let divTableDurationsQuestions: HTMLDivElement
   export let durations: number[]
+
+  const labelsForSounds = [
+    { label: 'Son 1', value: '0' },
+    { label: 'Son 2', value: '1' },
+    { label: 'Son 3', value: '2' },
+    { label: 'Son 4', value: '3' }
+  ]
+  const labelsForMultivue = [
+    { label: 'Pas de multivue', value: '1' },
+    { label: 'Deux vues', value: '2' },
+    { label: 'Trois vues', value: '3' },
+    { label: 'Quatre vues', value: '4' }
+  ]
+
+/**
+ * Met à jour le numéro du son dans l'URL
+ * @author sylvain
+ */
+function handleTuneChange () {
+  globalOptions.update((l) => {
+    l.sound = $transitionsBetweenQuestions.tune
+    return l
+  })
+  updateExercices()
+}
+
+/**
+ * Gérer le choix de cartons entre les questions
+ * @author sylvain
+ */
+function handleTransitionsMode () {
+  // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
+  globalOptions.update((l) => {
+    l.trans = $transitionsBetweenQuestions.isActive
+    return l
+  })
+  updateExercices()
+}
+
+/**
+ * Gérer le choix de sons entre les questions
+ * @author sylvain
+ */
+function handleTransitionSound () {
+  if ($transitionsBetweenQuestions.isNoisy) {
+    if (typeof $transitionsBetweenQuestions.tune === 'undefined') {
+      $transitionsBetweenQuestions.tune = '0'
+    }
+    globalOptions.update((l) => {
+      l.sound = $transitionsBetweenQuestions.tune
+      return l
+    })
+  } else {
+    // $transitionsBetweenQuestions.tune = undefined
+    globalOptions.update((l) => {
+      l.sound = undefined
+      return l
+    })
+  }
+  updateExercices()
+}
+
+/**
+ * Gestion du bouton demandant de changer l'ordre des questions
+ */
+function handleRandomQuestionOrder () {
+  $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
+  updateExercices()
+}
+
+function handleCheckSameDurationForAll () {
+  globalOptions.update((l) => {
+    l.durationGlobal = undefined
+    return l
+  })
+  handleChangeDurationGlobal()
+}
+
+/**
+ * Calcule le nombre total de questions
+ */
+$: getTotalNbOfQuestions = () => {
+  let sum = 0
+  for (const [i, exercice] of exercices.entries()) {
+    if ($selectedExercises.isActive) {
+      if ($selectedExercises.indexes.includes(i)) {
+        sum += exercice.nbQuestions
+      }
+    } else {
+      sum += exercice.nbQuestions
+    }
+  }
+  return sum
+}
+
+function handleCheckManualMode () {
+  isManualModeActive = !isManualModeActive
+}
+
+/**
+ * Gestion de la sélection du choix des exercices dans la liste
+ */
+function handleSampleChecked () {
+  $selectedExercises.count = exercices.length - 1
+  $selectedExercises.isActive = !$selectedExercises.isActive
+  if (!$selectedExercises.isActive) {
+    $selectedExercises.indexes = [...Array(exercices.length).keys()]
+    globalOptions.update((l) => {
+      l.choice = undefined
+      return l
+    })
+    getTotalNbOfQuestions()
+    updateExercices()
+  } else {
+    handleSampleSizeChange()
+  }
+}
+
+/**
+ * Gestion du changement du nombre d'exercices à utiliser
+ * dans la liste de ceux sélectionnées
+ *
+ * 1/ on génère une liste d'indexes aléatoires sur laquelle
+ * sera batie la liste des exercices à utiliser
+ * 2/ on met à jours les paramètres dans les options et l'URL
+ */
+function handleSampleSizeChange () {
+  if ($selectedExercises.count) {
+    $selectedExercises.indexes = [
+      ...listOfRandomIndexes(exercices.length, $selectedExercises.count)
+    ]
+  }
+  globalOptions.update((l) => {
+    l.choice = $selectedExercises.count
+    return l
+  })
+  getTotalNbOfQuestions()
+  updateExercices()
+}
 
 </script>
 
@@ -440,15 +572,17 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           id="diaporama-play-button"
           class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
           on:click={() => {
-            goToQuestion(0)
             if (!isManualModeActive) {
-              timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+              dispatch('updateData', { timer: durationGlobal ?? durations[currentQuestion] ?? 10, questionNumber: 0 })
+            } else {
+              dispatch('updateData', { questionNumber: 0 })
             }
           }}
           on:keydown={() => {
-            goToQuestion(0)
             if (!isManualModeActive) {
-              timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+              dispatch('updateData', { timer: durationGlobal ?? durations[currentQuestion] ?? 10, questionNumber: 0 })
+            } else {
+              dispatch('updateData', { questionNumber: 0 })
             }
           }}
         >
