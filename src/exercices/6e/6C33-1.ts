@@ -146,6 +146,7 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline larg
     }
     listeQuestionsToContenu(this)
     function rediger (expression1: string, signe: string, expression2: string): string {
+      if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
       return `(${expression1}) ${signe} ${expression2}`
     }
   }
