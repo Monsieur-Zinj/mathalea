@@ -110,7 +110,7 @@ export default class ProbaUnionInter extends Exercice {
               texteCorr += `$P=${miseEnEvidence(reponse)}$<br>`
             }
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: ' $P=$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: ' $P=$' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -133,7 +133,7 @@ export default class ProbaUnionInter extends Exercice {
         La probabilité d'obtenir un nombre premier est donc : $${miseEnEvidence(reponse)}${new FractionEtendue(cribleEratostheneN(a).length, a).texSimplificationAvecEtapes()}$. `
             }
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '$P=$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -158,7 +158,7 @@ export default class ProbaUnionInter extends Exercice {
                 On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(nbBoules)}$ de tirer une boule ${choix1 ? 'rouge' : 'bleue'}.<br>
                 Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(nbBoules)}}$.`
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '$P=$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -184,14 +184,13 @@ export default class ProbaUnionInter extends Exercice {
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{2}')}$.`
               reponse = new FractionEtendue(1, 2).texFraction
-            }
-            if (choix === 'd') {
+            } else { // if (choix === 'd') {
               texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{4}')}$.`
               reponse = new FractionEtendue(1, 4).texFraction
             }
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '$P=$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -212,7 +211,7 @@ export default class ProbaUnionInter extends Exercice {
           texteCorr = `La probabilité d’obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
           Il y a donc $${k * choixProba[1]}$ boules au total dans l'urne et donc $${k * choixProba[1]}-${k * choixProba[0]}=${miseEnEvidence(reponse)}$ boules bleues.`
 
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteApres: 'boules bleues' })
+          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: 'boules bleues' })
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         }
           break
