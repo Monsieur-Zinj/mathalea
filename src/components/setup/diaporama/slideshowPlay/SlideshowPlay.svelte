@@ -1,58 +1,54 @@
 <script lang="ts">
-  import { onDestroy, onMount, tick } from 'svelte'
-  import {
-    mathaleaHandleComponentChange,
-
-    mathaleaRenderDiv
-
-  } from '../../../../lib/mathalea'
-  import {
-    questionsOrder,
-    transitionsBetweenQuestions
-  } from '../../../../lib/stores/generalStore'
-  import {
-    setPhraseDuree
-  } from '../../../../lib/components/time'
+  import type { DataFromSettings } from '../../../../lib/types/slideshow'
   import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
-    import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
-    import ModalForQrCode from '../../../shared/modal/ModalForQRCode.svelte'
-    import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
-    import { buildMathAleaURL } from '../../../../lib/components/urls'
+  import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
+  import ModalForQrCode from '../../../shared/modal/ModalForQRCode.svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
+  import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { updateFigures } from '../../../../lib/components/sizeTools'
-    import type { DataFromSettings } from '../../../../lib/types/slideshow'
-  let isPause = false
-  let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
-  let myInterval: number
-  let stepsUl: HTMLUListElement
-  export let dataFromSettings: DataFromSettings
-  export let isManualModeActive: boolean
-  export let currentDuration: number
-  export let questions: string[][]
+  import { setPhraseDuree } from '../../../../lib/components/time'
+  import { buildMathAleaURL } from '../../../../lib/components/urls'
+  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { questionsOrder, transitionsBetweenQuestions } from '../../../../lib/stores/generalStore'
+
   export let consignes: string[][]
   export let corrections: string[][]
-  export let nbOfVues: number
+  export let currentDuration: number
   export let currentQuestion: number
+  export let dataFromSettings: DataFromSettings
   export let durations: number[]
-  let messageDuree: string
-
-  let isCorrectionVisible = false
-  let isQuestionVisible = true
-  export let divQuestion: HTMLDivElement[]
-  let displayCurrentDuration: () => string
-  let displayCurrentCorrectionMode: () => string
-  export let isSameDurationForAll: boolean
-  export let durationGlobal: number | undefined
-  export let handleChangeDurationGlobal: () => void
-  export let userZoom: number
-  export let updateExercices: () => void
-  export let QRCodeWidth: number
-  export let formatQRCodeIndex: 0 | 1 | 2
+  export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
+  export let nbOfVues: number
+  export let questions: string[][]
   export let transitionSounds: Record<string, HTMLAudioElement>
-  let currentZoom = userZoom
+  export let updateExercices: () => void
+
+  let currentZoom: number
+  let displayCurrentCorrectionMode: () => string
+  let displayCurrentDuration: () => string
+  const divQuestion: HTMLDivElement[] = []
+  let durationGlobal: number | undefined
+  let formatQRCodeIndex: 0 | 1 | 2
+  let isCorrectionVisible = false
+  let isManualModeActive: boolean
+  let isPause = false
+  let isQuestionVisible = true
+  let isSameDurationForAll: boolean
+  let messageDuree: string
+  let myInterval: number
+  let QRCodeWidth: number
+  let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
+  let stepsUl: HTMLUListElement
+  let userZoom = 1
+
+  currentZoom = userZoom
 
   onMount(() => {
-    console.log(dataFromSettings)
+    applyDataFromSettings()
+  })
+
+  function applyDataFromSettings () {
     if (dataFromSettings) {
       if (dataFromSettings.timer !== undefined) {
         timer(dataFromSettings.timer)
@@ -60,8 +56,14 @@
       if (dataFromSettings.questionNumber !== undefined) {
         goToQuestion(dataFromSettings.questionNumber)
       }
+      currentQuestion = dataFromSettings.currentQuestion
+      durationGlobal = dataFromSettings.durationGlobal
+      formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
+      isManualModeActive = dataFromSettings.isManualModeActive
+      isSameDurationForAll = dataFromSettings.isSameDurationForAll
+      QRCodeWidth = dataFromSettings.QRCodeWidth
     }
-  })
+  }
   $: {
     if (stepsUl) {
       const steps = stepsUl.querySelectorAll('li')
@@ -123,6 +125,7 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
   function timer (timeQuestion = 5, reset = true) {
+    console.log(timeQuestion)
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
       pause()
@@ -350,7 +353,7 @@ function handleTimerChange () {
     isManualModeActive = false
     durationGlobal = cursorTimeValue
     isSameDurationForAll = true
-    handleChangeDurationGlobal()
+    handleChangeDurationGlobal(durationGlobal)
   }
   goToQuestion(currentQuestion)
 }
@@ -642,14 +645,14 @@ data-theme="daisytheme"
             </div>
           </div>
           <div class="modal-action">
-            <button
-              type="button"
+            <label
+              for="timerSettings"
               class="btn btn-neutral"
               on:click={switchPause}
               on:keydown={switchPause}
             >
               Fermer
-            </button>
+            </label>
           </div>
         </div>
       </div>

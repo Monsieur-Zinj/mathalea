@@ -1,44 +1,31 @@
 <script lang="ts">
-  import {
-    mathaleaHandleComponentChange
-  } from '../../../../lib/mathalea'
+  import type Exercice from '../../../../exercices/Exercice'
+  import type { DataFromSettings } from '../../../../lib/types/slideshow'
+  import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
+  import FormRadio from '../../../shared/forms/FormRadio.svelte'
+  import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
+  import NavBar from '../../../shared/header/NavBar.svelte'
+  import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
+  import ModalForQRCode from '../../../shared/modal/ModalForQRCode.svelte'
+  import { createEventDispatcher } from 'svelte'
+  import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
+  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
+  import { buildMathAleaURL } from '../../../../lib/components/urls'
+  import { mathaleaHandleComponentChange } from '../../../../lib/mathalea'
   import {
     questionsOrder,
     selectedExercises,
     transitionsBetweenQuestions,
     globalOptions
   } from '../../../../lib/stores/generalStore'
-  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
-  import type Exercice from '../../../../exercices/Exercice'
-  import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
-  import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
-  import ModalForQRCode from '../../../shared/modal/ModalForQRCode.svelte'
-  import FormRadio from '../../../shared/forms/FormRadio.svelte'
-  import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
-  import NavBar from '../../../shared/header/NavBar.svelte'
-  import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
-  import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
-  import { createEventDispatcher } from 'svelte'
-  import type { DataFromSettings } from '../../../../lib/types/slideshow'
-
-  const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
 
   export let exercices: Exercice[]
-  export let stringNbOfVues: string
-  export let stringDureeTotale: string
-  export let isManualModeActive: boolean
-  export let isSameDurationForAll: boolean
-  export let durationGlobal: number | undefined
-  export let currentQuestion: number
-  export let QRCodeWidth: number
-  export let formatQRCodeIndex: 0 | 1 | 2
   export let updateExercices: () => void
-  export let handleChangeDurationGlobal: () => void
+  export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
-  export let divTableDurationsQuestions: HTMLDivElement
-  export let durations: number[]
 
+  const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
   const labelsForSounds = [
     { label: 'Son 1', value: '0' },
     { label: 'Son 2', value: '1' },
@@ -51,6 +38,19 @@
     { label: 'Trois vues', value: '3' },
     { label: 'Quatre vues', value: '4' }
   ]
+  const settings: DataFromSettings = {
+    currentQuestion: 0,
+    divTableDurationsQuestions: undefined,
+    durationGlobal: undefined,
+    formatQRCodeIndex: 0,
+    isManualModeActive: false,
+    isSameDurationForAll: false,
+    QRCodeWidth: 100,
+    questionNumber: 0,
+    stringDureeTotale: '0',
+    stringNbOfVues: '',
+    timer: $globalOptions.durationGlobal ?? 10
+  }
 
 /**
  * Met à jour le numéro du son dans l'URL
@@ -113,7 +113,7 @@ function handleCheckSameDurationForAll () {
     l.durationGlobal = undefined
     return l
   })
-  handleChangeDurationGlobal()
+  handleChangeDurationGlobal(undefined)
 }
 
 /**
@@ -134,7 +134,7 @@ $: getTotalNbOfQuestions = () => {
 }
 
 function handleCheckManualMode () {
-  isManualModeActive = !isManualModeActive
+  settings.isManualModeActive = !settings.isManualModeActive
 }
 
 /**
@@ -176,6 +176,10 @@ function handleSampleSizeChange () {
   })
   getTotalNbOfQuestions()
   updateExercices()
+}
+
+function updateData () {
+  dispatch('updateData', settings)
 }
 
 </script>
@@ -230,7 +234,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
     </div>
     <div class="flex px-4 pb-8">
       <FormRadio
-        bind:valueSelected={stringNbOfVues}
+        bind:valueSelected={settings.stringNbOfVues}
         on:newvalue={updateExercices}
         title="multivue"
         labelsValues={labelsForMultivue}
@@ -394,8 +398,8 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           imageId="QRCodeCanvas-1"
           url={document.URL}
           tooltipMessage="QR-code du diaporama"
-          width={QRCodeWidth}
-          format={formatQRCodeIndex}
+          width={settings.QRCodeWidth}
+          format={settings.formatQRCodeIndex}
         />
       </div>
     </div>
@@ -415,7 +419,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           id="diaporama-defilement-manuel-checkbox"
           aria-describedby="diaporama-defilement-manuel-checkbox"
           type="checkbox"
-          checked={isManualModeActive}
+          checked={settings.isManualModeActive}
           class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
           on:change={handleCheckManualMode}
         />
@@ -430,17 +434,17 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           aria-describedby="diaporama-meme-duree-checkbox"
           type="checkbox"
           class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
-          {exercices.length === 1 || isManualModeActive
+          {exercices.length === 1 || settings.isManualModeActive
             ? 'border-opacity-30 dark:border-opacity-30'
             : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
-          bind:checked={isSameDurationForAll}
+          bind:checked={settings.isSameDurationForAll}
           on:change={handleCheckSameDurationForAll}
-          disabled={exercices.length === 1 || isManualModeActive}
+          disabled={exercices.length === 1 || settings.isManualModeActive}
         />
         <label
           for="diaporama-meme-duree-checkbox"
           class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
-          {exercices.length === 1 || isManualModeActive
+          {exercices.length === 1 || settings.isManualModeActive
             ? 'text-opacity-30 dark:text-opacity-30'
             : 'text-opacity-100 dark:text-opacity-100'} "
         >
@@ -449,12 +453,12 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
             type="number"
             id="diaporama-meme-duree-input"
             min="1"
-            on:change={handleChangeDurationGlobal}
-            bind:value={durationGlobal}
-            class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll
+            on:change={() => handleChangeDurationGlobal(settings.durationGlobal)}
+            bind:value={settings.durationGlobal}
+            class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {settings.isSameDurationForAll
               ? ''
               : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-            disabled={!isSameDurationForAll || isManualModeActive}
+            disabled={!settings.isSameDurationForAll || settings.isManualModeActive}
           />
         </label>
       </div>
@@ -462,7 +466,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
 
     <div
       class="flex flex-col min-w-full h-[100vh] px-4 align-middle"
-      bind:this={divTableDurationsQuestions}
+      bind:this={settings.divTableDurationsQuestions}
     >
       <div
         class="table-wrp block shadow ring-1 ring-coopmaths-struct dark:ring-coopmathsdark-struct ring-opacity-10 dark:ring-opacity-20 md:rounded-lg"
@@ -488,15 +492,15 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
               scope="col"
               class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
             >
-              <div class={isManualModeActive ? 'opacity-20' : ''}>
+              <div class={settings.isManualModeActive ? 'opacity-20' : ''}>
                 Durées par question (s)
               </div>
               <div
                 class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs"
               >
-                {#if !isManualModeActive}
+                {#if !settings.isManualModeActive}
                   Durée diapo :<span class="font-light ml-1"
-                    >{stringDureeTotale}</span
+                    >{settings.stringDureeTotale}</span
                   >
                 {:else}
                   <span class="font-light ml-1" />
@@ -543,8 +547,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
                       on:change={updateExercices}
                       bind:value={exercice.duration}
                       class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                      disabled={isSameDurationForAll ||
-                        isManualModeActive}
+                      disabled={settings.isSameDurationForAll || settings.isManualModeActive}
                     />
                   </span>
                 </td>
@@ -571,20 +574,8 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           type="button"
           id="diaporama-play-button"
           class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
-          on:click={() => {
-            if (!isManualModeActive) {
-              dispatch('updateData', { timer: durationGlobal ?? durations[currentQuestion] ?? 10, questionNumber: 0 })
-            } else {
-              dispatch('updateData', { questionNumber: 0 })
-            }
-          }}
-          on:keydown={() => {
-            if (!isManualModeActive) {
-              dispatch('updateData', { timer: durationGlobal ?? durations[currentQuestion] ?? 10, questionNumber: 0 })
-            } else {
-              dispatch('updateData', { questionNumber: 0 })
-            }
-          }}
+          on:click={updateData}
+          on:keydown={updateData}
         >
           Play<i class="bx bx-play" />
         </button>

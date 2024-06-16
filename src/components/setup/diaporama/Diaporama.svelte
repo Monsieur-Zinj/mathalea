@@ -1,5 +1,13 @@
 <script lang="ts">
+  import type Exercice from '../../../exercices/Exercice'
+  import type { InterfaceParams } from '../../../lib/types'
+  import type { DataFromSettings } from '../../../lib/types/slideshow'
+  import seedrandom from 'seedrandom'
+  import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
+  import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
   import { onMount, tick, onDestroy, afterUpdate } from 'svelte'
+  import { formattedTimeStamp } from '../../../lib/components/time'
+  import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import {
     mathaleaFormatExercice,
     mathaleaHandleExerciceSimple,
@@ -17,34 +25,31 @@
     transitionsBetweenQuestions,
     darkMode
   } from '../../../lib/stores/generalStore'
-  import type Exercice from '../../../exercices/Exercice'
-  import seedrandom from 'seedrandom'
   import { context } from '../../../modules/context.js'
-  import {
-    formattedTimeStamp
-  } from '../../../lib/components/time'
-  import type { InterfaceParams, NumberRange } from '../../../lib/types'
-  import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
-  import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
-  import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
-    import type { DataFromSettings } from '../../../lib/types/slideshow'
 
-  const divQuestion: HTMLDivElement[] = []
-  let divTableDurationsQuestions: HTMLDivElement
-  let isSameDurationForAll = false
-  const userZoom = 1
-  let exercices: Exercice[] = []
-  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
-  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
-  let sizes: number[] = []
+  const transitionSounds = {
+    0: new Audio('assets/sounds/transition_sound_01.mp3'),
+    1: new Audio('assets/sounds/transition_sound_02.mp3'),
+    2: new Audio('assets/sounds/transition_sound_03.mp3'),
+    3: new Audio('assets/sounds/transition_sound_04.mp3')
+  }
+
   let consignes: [string[], string[], string[], string[]] = [[], [], [], []]
-  let durations: number[] = []
-  let durationGlobal: number | undefined = $globalOptions.durationGlobal
-  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
-  $: isManualModeActive = false
+  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
   let currentDuration: number
+  let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
+  let dataFromSettings: DataFromSettings
+  let divTableDurationsQuestions: HTMLDivElement
+  let durationGlobal: number | undefined = $globalOptions.durationGlobal
+  let durations: number[] = []
+  let exercices: Exercice[] = []
+  let isSameDurationForAll = false
   let nbOfVues = $globalOptions.nbVues || 1
-  const stringNbOfVues = nbOfVues.toString()
+  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
+  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
+  let sizes: number[] = []
+  let stringDureeTotale = '0'
+
   $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
   $selectedExercises.count = $globalOptions.choice
   if ($selectedExercises.count !== undefined) {
@@ -55,22 +60,10 @@
   if ($transitionsBetweenQuestions.tune !== undefined) {
     $transitionsBetweenQuestions.isNoisy = true
   }
-  let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
-  const formatQRCodeIndex: NumberRange<0, 2> = 0
-  const QRCodeWidth = 100
-  let stringDureeTotale = '0'
-  // variables pour les transitions entre questions
-  const transitionSounds = {
-    0: new Audio('assets/sounds/transition_sound_01.mp3'),
-    1: new Audio('assets/sounds/transition_sound_02.mp3'),
-    2: new Audio('assets/sounds/transition_sound_03.mp3'),
-    3: new Audio('assets/sounds/transition_sound_04.mp3')
-  }
-  let dataFromSettings: DataFromSettings
 
   function updateDataFromSettings (event: {detail: DataFromSettings}) {
     dataFromSettings = event.detail
-    if (dataFromSettings !== undefined && dataFromSettings.questionNumber !== undefined) {
+    if (dataFromSettings !== undefined) {
       currentQuestion = dataFromSettings.questionNumber
     }
   }
@@ -203,7 +196,7 @@
     }
   }
 
-  function handleChangeDurationGlobal () {
+  function handleChangeDurationGlobal (durationGlobal: number | undefined) {
     globalOptions.update((l) => {
       l.durationGlobal = durationGlobal
       return l
@@ -236,7 +229,6 @@
   }
 
   $: {
-    nbOfVues = parseInt(stringNbOfVues) as 1 | 2 | 3 | 4
     if (divTableDurationsQuestions) {
       mathaleaRenderDiv(divTableDurationsQuestions)
     }
@@ -264,41 +256,24 @@
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
   {#if currentQuestion === -1}
     <SlideshowSettings on:updateData="{updateDataFromSettings}"
-    bind:currentQuestion={currentQuestion}
-      {divTableDurationsQuestions}
-      {durations}
-      {durationGlobal}
-      {exercices}
-      {formatQRCodeIndex}
+      bind:exercices={exercices}
       {handleChangeDurationGlobal}
-      {isManualModeActive}
-      {isSameDurationForAll}
-      {QRCodeWidth}
-      {stringDureeTotale}
-      {stringNbOfVues}
-      {transitionSounds}
       {updateExercices}
+      {transitionSounds}
     />
   {/if}
   {#if currentQuestion > -1}
     <SlideshowPlay
       {dataFromSettings}
-      {durations}
       {consignes}
       {corrections}
       {currentDuration}
+      {durations}
       bind:currentQuestion={currentQuestion}
-      {divQuestion}
-      bind:durationGlobal={durationGlobal}
-      {formatQRCodeIndex}
       {handleChangeDurationGlobal}
-      {isManualModeActive}
-      {isSameDurationForAll}
       {nbOfVues}
-      {QRCodeWidth}
       {questions}
       {updateExercices}
-      {userZoom}
       {transitionSounds}
     />
   {/if}
