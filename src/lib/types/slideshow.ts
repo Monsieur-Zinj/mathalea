@@ -9,7 +9,7 @@ export type DataFromSettings = {
   isSameDurationForAll: boolean
   QRCodeWidth: number
   questionNumber: number
-  stringNbOfVues: string
+  nbOfVues: NumberRange<1, 4>
   stringDureeTotale: string
   timer: number | undefined
 }

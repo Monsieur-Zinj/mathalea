@@ -44,7 +44,6 @@
   let durations: number[] = []
   let exercices: Exercice[] = []
   let isSameDurationForAll = false
-  let nbOfVues = $globalOptions.nbVues || 1
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
   let sizes: number[] = []
@@ -66,6 +65,7 @@
     if (dataFromSettings !== undefined) {
       currentQuestion = dataFromSettings.questionNumber
     }
+    updateExercices()
   }
 
   if ($globalOptions && $globalOptions.durationGlobal) {
@@ -112,6 +112,7 @@
   })
 
   async function updateExercices () {
+    const nbOfVues = dataFromSettings ? dataFromSettings.nbOfVues : 1
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -271,7 +272,6 @@
       {durations}
       bind:currentQuestion={currentQuestion}
       {handleChangeDurationGlobal}
-      {nbOfVues}
       {questions}
       {updateExercices}
       {transitionSounds}

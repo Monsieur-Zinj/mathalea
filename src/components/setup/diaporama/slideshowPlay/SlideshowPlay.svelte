@@ -19,7 +19,6 @@
   export let dataFromSettings: DataFromSettings
   export let durations: number[]
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
-  export let nbOfVues: number
   export let questions: string[][]
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let updateExercices: () => void
@@ -36,6 +35,7 @@
   let isQuestionVisible = true
   let isSameDurationForAll: boolean
   let messageDuree: string
+  let nbOfVues: number
   let myInterval: number
   let QRCodeWidth: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
@@ -61,6 +61,7 @@
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
       isSameDurationForAll = dataFromSettings.isSameDurationForAll
+      nbOfVues = dataFromSettings.nbOfVues
       QRCodeWidth = dataFromSettings.QRCodeWidth
     }
   }
@@ -125,7 +126,6 @@
     currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
   }
   function timer (timeQuestion = 5, reset = true) {
-    console.log(timeQuestion)
     // timeQuestion est le temps de la question exprimé en secondes
     if (timeQuestion === 0) {
       pause()

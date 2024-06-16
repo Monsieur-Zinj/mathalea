@@ -33,10 +33,10 @@
     { label: 'Son 4', value: '3' }
   ]
   const labelsForMultivue = [
-    { label: 'Pas de multivue', value: '1' },
-    { label: 'Deux vues', value: '2' },
-    { label: 'Trois vues', value: '3' },
-    { label: 'Quatre vues', value: '4' }
+    { label: 'Pas de multivue', value: 1 },
+    { label: 'Deux vues', value: 2 },
+    { label: 'Trois vues', value: 3 },
+    { label: 'Quatre vues', value: 4 }
   ]
   const settings: DataFromSettings = {
     currentQuestion: 0,
@@ -48,7 +48,7 @@
     QRCodeWidth: 100,
     questionNumber: 0,
     stringDureeTotale: '0',
-    stringNbOfVues: '',
+    nbOfVues: $globalOptions.nbVues || 1,
     timer: $globalOptions.durationGlobal ?? 10
   }
 
@@ -234,8 +234,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
     </div>
     <div class="flex px-4 pb-8">
       <FormRadio
-        bind:valueSelected={settings.stringNbOfVues}
-        on:newvalue={updateExercices}
+        bind:valueSelected={settings.nbOfVues}
         title="multivue"
         labelsValues={labelsForMultivue}
       />
