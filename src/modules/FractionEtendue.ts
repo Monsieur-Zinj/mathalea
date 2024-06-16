@@ -25,6 +25,15 @@ import Decimal from 'decimal.js'
 
 type FractionRepresentationType = 'gateau'|'barre'|'segment'
 
+// Fonction écrite par Daniel Caillibaud pour créer ajouter les propriétés à la première utilisation de celles-ci.
+const definePropRo = (obj: FractionEtendue, prop: string, get: (args?: unknown)=>unknown) => {
+  Object.defineProperty(obj, prop, {
+    enumerable: true,
+    get,
+    set: () => { throw Error(`${prop} est en lecture seule`) }
+  })
+}
+
 /**
  * Une fonction pour transformer en FractionEtendue
  * @param x
@@ -170,96 +179,99 @@ class FractionEtendue {
    * Dénominateur réduit // le dénominateur réduit est toujours positif.
    */
   denIrred: number
-  signe: -1|1|0
-  sign: -1|1|0
-  signeString: '+'|'-'|''
   n: number
   d: number
   s: -1|1|0
   type: 'FractionEtendue'
+  signe!: -1|1|0
+  sign!: -1|1|0
+  signeString!: '+'|'-'|''
   /**
    * Valeur de la  FractionMathjs  × 100 arrondi au centième
    */
-  pourcentage: number
+  pourcentage!: number
   /**
    * num/den mais sans traitement des signes des numérateur et dénominateur
    */
-  texFraction: string
+  texFraction!: string
   /**
    * le code LaTeX de la  FractionMathjs  simplifiée
    */
-  texFractionSimplifiee: string
+  texFractionSimplifiee!: string
   /**
    * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
    * littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
    */
-  texFSD: string
+  texFSD!: string
   /**
    * retourne la  Fraction avec signe devant  mis entre parenthèses notamment pour l'exponentiation.
    */
-  texParentheses: string
+  texParentheses!: string
   /**
    * num/den avec mise en évidence des signes - s'il y en a au numérateur et au dénominateur
    */
-  texFractionSR: string
+  texFractionSR!: string
   /**
    * + n/d si positif, - n/d si négatif
    * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
    */
-  texFractionSignee: string
+  texFractionSignee!: string
   /**
    * -1 => '-'
    * 1 => ''
    * inchangé sinon
    * permet d'écrire le coefficient devant une lettre ou une parenthèse
    */
-  texFractionSaufUn: string
+  texFractionSaufUn!: string
   /**
    * Valeur décimale de la  FractionMathjs  (arrondie à la sixième décimale)
    */
-  valeurDecimale: number
+  valeurDecimale!: number
   /**
    * -1 => '-'
    * 1 => '+'
    * texFractionSignee sinon
    * permet d'écrire le coefficient devant une lettre ou une parenthèse
    */
-  texFractionSaufUnSignee: string
+  texFractionSaufUnSignee!: string
   /**
    * num/den si positif, (- num/den) sinon
    * @property texFSP littéralement texFractionSigneParentheses
    * @type {string}
    */
-  texFSP: string
+  texFSP!: string
   /**
    * le code LaTeX de l'écriture algébrique de la fraction
    * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
    */
-  ecritureAlgebrique: string
+  ecritureAlgebrique!: string
   /**
    * le code LaTeX de l'écriture avec parenthèse si négatif
    */
-  ecritureParentheseSiNegatif: string
+  ecritureParentheseSiNegatif!: string
   /**
    * true si la  FractionMathjs  est un entier false sinon
    */
-  estEntiere: boolean
+  estEntiere!: boolean
   /**
    * true si la FractionEtendue est le carré d'une FractionEtendue
    */
-  estParfaite: boolean
+  estParfaite!: boolean
   /**
    * @return true si la FractionEtendue est irréductible
    */
-  estIrreductible: boolean
+  estIrreductible!: boolean
+  /**
+   * le code LaTeX de l'écriture avec parenthèse si négatif
+   */
 
   constructor (n: number, d: number) {
     const [num, den] = normalizeFraction(n, d)
     if (isNaN(num) || isNaN(den)) throw Error(`Fraction Etendue les données ne permettent pas de définir une fraction : n=${n}, d=${d}`)
     const pgcd = (Math.abs(num) === 1 && Math.abs(den) === 1) ? 1 : gcd(Math.abs(num), Math.abs(den))
     const prodNumDen = num * den
-    const signe = prodNumDen === 0 ? 0 : prodNumDen < 0 ? -1 : 1
-    const numIrred = signe * Math.abs(num / pgcd)
+    this.s = prodNumDen === 0 ? 0 : prodNumDen < 0 ? -1 : 1
+    const numIrred = this.s * Math.abs(num / pgcd)
     const denIrred = Math.abs(den / pgcd)
     this.num = num
     this.den = den
@@ -270,56 +282,220 @@ class FractionEtendue {
      * Au cas où quelqu'un oublie le e de this.signe
      * @type {number}
      */
-    this.s = signe// pour compatibilité avec les Fraction de mathjs
-    this.signe = signe
-    this.sign = signe // Pour le cas où on utilise signe en anglais
+    /**
+     * le signe de la fraction : -1 pour négatif , 0 ou 1 pour positif
+     * @type {number}
+     */
+    let sign: 0 | 1 | -1 // Au cas où quelqu'un le demande en anglais
+    definePropRo(this, 'sign', () => {
+      if (!sign) sign = this.s
+      return sign
+    })
+    let signe: 0 | 1 | -1
+    definePropRo(this, 'signe', () => {
+      if (!signe) signe = this.s
+      return signe
+    })
     this.type = 'FractionEtendue'
+    this.numIrred = numIrred
+    this.denIrred = denIrred
 
-    this.numIrred = this.signe * Math.abs(num / pgcd)
+    // this.pourcentage = arrondi(num * 100 / den, 2)
+    // pour ne pas faire ces calculs à chaque instanciation de Fraction, on passe par defineProperty
+    // (qui permet de ne faire le calcul qu'à la première lecture de la propriété)
+    /**
+     * Valeur de la fraction × 100
+     * @property pourcentage
+     * @type {number}
+     */
+    let pourcentage: number
+    definePropRo(this, 'pourcentage', () => {
+      if (!pourcentage) pourcentage = arrondi(this.s * this.n * 100 / this.d, 2)
+      return pourcentage
+    })
+    // Le signe en string
+    let signeString: string
+    definePropRo(this, 'signeString', () => {
+      if (!signeString) signeString = this.s === -1 ? '-' : '+'
+      return signeString
+    })
 
-    this.denIrred = Math.abs(den / pgcd)
+    /**
+     * num/den
+     * @property texFraction
+     * @type {string}
+     */
+    let texFraction: string // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFraction', () => {
+      if (!texFraction) texFraction = this.s === 0 ? '0' : den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
+      return texFraction
+    })
 
-    this.pourcentage = arrondi(num * 100 / den, 2)
+    /**
+     * num/den
+     * @property texFractionSR
+     * @type {string}
+     */
+    let texFractionSR: string // num/den mais sans traitement des signes des numérateur et dénominateur
+    definePropRo(this, 'texFractionSR', () => {
+      if (!texFractionSR) texFractionSR = `\\dfrac{${signeMoinsEnEvidence(this.num)}}{${signeMoinsEnEvidence(this.den)}}`
+      return texFractionSR
+    })
 
-    this.signeString = signe === -1 ? '-' : signe === 1 ? '+' : ''
+    /**
+     * num/den mais avec simplification des signes (numérateur et dénominateur positifs, signe - eventuellement devant.)
+     * @property texFSD littéralement texFractionSigneDevant (si c'est un moins sinon rien... pour avoir le + devant, utiliser ecritureAlgebrique)
+     * @type {string}
+     */
+    let texFSD: string
+    definePropRo(this, 'texFSD', () => {
+      if (!texFSD) {
+        texFSD = this.s === 0
+          ? '0'
+          : this.s === -1
+            ? (Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
+            : (Math.abs(den) === 1 ? texNombre(Math.abs(num), 0) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
+      }
+      return texFSD
+    })
 
-    this.texFraction = signe === 0 ? '0' : den === 1 ? `${texNombre(num, 0)}` : `\\dfrac{${texNombre(num, 0)}}{${texNombre(den, 0)}}`
+    /**
+     * + n/d si positif, - n/d si négatif
+     * propriété qui n'est pas très utile puisque ecritureAlgebrique gère les fractions maintenant (défini pour compatibilité avec les exos qui l'utilisent)
+     * @property texFractionSignee
+     * @type {string}
+     */
+    let texFractionSignee: string
+    definePropRo(this, 'texFractionSignee', () => {
+      if (!texFractionSignee) texFractionSignee = (this.s === -1) ? this.texFSD : '+' + this.texFSD
+      return texFractionSignee
+    })
 
-    this.texFractionSR = `\\dfrac{${signeMoinsEnEvidence(num)}}{${signeMoinsEnEvidence(den)}}`
+    /**
+     * Valeur décimale de la fraction (arrondie à la sixième décimale)
+     * @property valeurDecimale
+     * @type {number}
+     */
+    let valeurDecimale: number
+    definePropRo(this, 'valeurDecimale', () => {
+      if (!valeurDecimale) valeurDecimale = Number((this.num / this.den).toFixed(6))
+      return valeurDecimale
+    })
 
-    this.texFSD = signe === 0
-      ? '0'
-      : signe === -1
-        ? (Math.abs(den) === 1 ? '-' + texNombre(Math.abs(num), 0) : `-\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
-        : (Math.abs(den) === 1 ? texNombre(Math.abs(num), 0) : `\\dfrac{${texNombre(Math.abs(num), 0)}}{${texNombre(Math.abs(den), 0)}}`)
+    /**
+     * -1 => '-'
+     * 1 => ''
+     * inchangé sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUn
+     * @type {string}
+     */
+    let texFractionSaufUn: string
+    definePropRo(this, 'texFractionSaufUn', () => {
+      if (!texFractionSaufUn) texFractionSaufUn = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '' : this.texFSD
+      return texFractionSaufUn
+    })
 
-    this.texFractionSignee = signe === -1 ? this.texFSD : '+' + this.texFSD
+    /**
+     * -1 => '-'
+     * 1 => '+'
+     * texFractionSignee sinon
+     * permet d'écrire le coefficient devant une lettre ou une parenthèse
+     * @property texFractionSaufUnSignee
+     * @type {string}
+     */
+    let texFractionSaufUnSignee: string
+    definePropRo(this, 'texFractionSaufUnSignee', () => {
+      if (!texFractionSaufUnSignee) texFractionSaufUnSignee = (this.valeurDecimale === -1) ? '-' : (this.valeurDecimale === 1) ? '+' : this.texFractionSignee
+      return texFractionSaufUnSignee
+    })
 
-    this.valeurDecimale = arrondi(num / den, 6)
+    /**
+     * num/den si positif, (- num/den) sinon
+     * @property texFSP littéralement texFractionSigneParentheses
+     * @type {string}
+     */
+    let texFSP: string
+    definePropRo(this, 'texFSP', () => {
+      if (!texFSP) texFSP = this.s === 0 ? '0' : this.s > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+      return texFSP
+    })
 
-    this.texFractionSaufUn = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '' : this.texFSD
+    /**
+     * retourne la fraction mis entre parenthèses notamment pour l'exponentiation.
+     */
+    let texParentheses: string
+    definePropRo(this, 'texParentheses', () => {
+      if (!texParentheses) texParentheses = this.s === 0 ? '0' : den === 1 && this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+      return texParentheses
+    })
 
-    this.texFractionSaufUnSignee = this.valeurDecimale === -1 ? '-' : this.valeurDecimale === 1 ? '+' : this.texFractionSignee
+    /**
+     * le code LaTeX de la fraction simplifiée
+     * @property texFractionSimplifiee
+     * @type {string}
+     */
+    let texFractionSimplifiee: string
+    definePropRo(this, 'texFractionSimplifiee', () => {
+      if (!texFractionSimplifiee) {
+        texFractionSimplifiee = this.s === 0
+          ? '0'
+          : this.denIrred === 1
+            ? `${this.s === -1 ? '-' : ''}${texNombre(Math.abs(numIrred), 0)}`
+            : `${this.s === -1 ? '-' : ''}\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}`
+      }
+      return texFractionSimplifiee
+    })
 
-    this.texFSP = signe === 0 ? '0' : signe > 0 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    /**
+     * le code LaTeX de l'écriture algébrique de la fraction
+     * Pour compatibilité avec les anciens exos... la fonction de outils.js ecritureAlgebrique() est compatible avec les fractions
+     * @property ecritureAlgebrique
+     * @type {string}
+     */
+    let ecritureAlgebrique: string
+    definePropRo(this, 'ecritureAlgebrique', () => {
+      if (!ecritureAlgebrique) ecritureAlgebrique = this.s === 0 ? '' : this.s === 1 ? '+' + this.texFSD : this.texFSD
+      return ecritureAlgebrique
+    })
 
-    this.texParentheses = signe === 0 ? '0' : den === 1 && signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+    /**
+     * le code LaTeX de l'écriture avec parenthèse si négatif
+     * @property ecritureParentheseSiNegatif
+     * @type {string}
+     */
+    let ecritureParentheseSiNegatif: string
+    definePropRo(this, 'ecritureParentheseSiNegatif', () => {
+      if (!ecritureParentheseSiNegatif) ecritureParentheseSiNegatif = this.s === 0 ? '0' : this.s === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
+      return ecritureParentheseSiNegatif
+    })
 
-    this.texFractionSimplifiee = signe === 0
-      ? '0'
-      : this.denIrred === 1
-        ? `${signe === -1 ? '-' : ''}${texNombre(Math.abs(numIrred), 0)}`
-        : `${signe === -1 ? '-' : ''}\\dfrac{${texNombre(Math.abs(numIrred), 0)}}{${texNombre(Math.abs(denIrred), 0)}}`
+    /**
+     * true si la fraction est un entier false sinon
+     */
+    let estEntiere: boolean
+    definePropRo(this, 'estEntiere', () => {
+      if (!estEntiere) estEntiere = this.d === 1
+      return estEntiere
+    })
 
-    this.ecritureAlgebrique = signe === 0 ? '' : signe === 1 ? '+' + this.texFSD : this.texFSD
+    /**
+     * @returns true si la FractionX est le carré d'une fractionX
+     */
+    let estParfaite: boolean
+    definePropRo(this, 'estParfaite', () => {
+      if (!estParfaite) estParfaite = Number.isInteger(Math.sqrt(this.n)) && Number.isInteger(Math.sqrt(this.d))
+      return estParfaite
+    })
 
-    this.ecritureParentheseSiNegatif = signe === 0 ? '0' : signe === 1 ? this.texFSD : '\\left(' + this.texFSD + '\\right)'
-
-    this.estEntiere = denIrred === 1
-
-    this.estParfaite = Number.isInteger(Math.sqrt(num)) && Number.isInteger(Math.sqrt(den))
-
-    this.estIrreductible = gcd(num, den) === 1 && den !== 1
+    /**
+     * @returns true si la FractionX est irréductible
+     */
+    let estIrreductible: boolean
+    definePropRo(this, 'estIrreductible', () => {
+      if (!estIrreductible) estIrreductible = gcd(this.n, this.d) === 1 && this.d !== 1
+      return estIrreductible
+    })
   }
 
   /**
