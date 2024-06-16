@@ -21,7 +21,7 @@
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let questions: string[][]
   export let transitionSounds: Record<string, HTMLAudioElement>
-  export let updateExercices: () => void
+  export let updateExercises: () => void
 
   let currentZoom: number
   let displayCurrentCorrectionMode: () => string
@@ -401,7 +401,7 @@ $: displayCurrentCorrectionMode = () => {
 function handleQuit () {
   mathaleaHandleComponentChange('diaporama', '')
   // $selectedExercises.isActive = false
-  updateExercices()
+  updateExercises()
 }
 
 /**

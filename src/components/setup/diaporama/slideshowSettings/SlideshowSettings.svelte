@@ -21,8 +21,8 @@
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
     import { formattedTimeStamp } from '../../../../lib/components/time'
 
-  export let exercices: Exercice[]
-  export let updateExercices: () => void
+  export let exercises: Exercice[]
+  export let updateExercises: () => void
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
 
@@ -54,7 +54,7 @@
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let isSameDurationForAll = !!$globalOptions.durationGlobal
 
-  $: if (exercices && exercices.length > 0) {
+  $: if (exercises && exercises.length > 0) {
     updateDisplayedTotalDuration()
   }
 
@@ -82,7 +82,7 @@ function handleTuneChange () {
     l.sound = $transitionsBetweenQuestions.tune
     return l
   })
-  updateExercices()
+  updateExercises()
 }
 
 /**
@@ -95,7 +95,7 @@ function handleTransitionsMode () {
     l.trans = $transitionsBetweenQuestions.isActive
     return l
   })
-  updateExercices()
+  updateExercises()
 }
 
 /**
@@ -118,7 +118,7 @@ function handleTransitionSound () {
       return l
     })
   }
-  updateExercices()
+  updateExercises()
 }
 
 /**
@@ -126,7 +126,7 @@ function handleTransitionSound () {
  */
 function handleRandomQuestionOrder () {
   $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
-  updateExercices()
+  updateExercises()
 }
 
 function updateDurations () {
@@ -138,7 +138,7 @@ function updateDurations () {
  */
 $: getTotalNbOfQuestions = () => {
   let sum = 0
-  for (const [i, exercice] of exercices.entries()) {
+  for (const [i, exercice] of exercises.entries()) {
     if ($selectedExercises.isActive) {
       if ($selectedExercises.indexes.includes(i)) {
         sum += exercice.nbQuestions
@@ -158,16 +158,16 @@ function handleCheckManualMode () {
  * Gestion de la sélection du choix des exercices dans la liste
  */
 function handleSampleChecked () {
-  $selectedExercises.count = exercices.length - 1
+  $selectedExercises.count = exercises.length - 1
   $selectedExercises.isActive = !$selectedExercises.isActive
   if (!$selectedExercises.isActive) {
-    $selectedExercises.indexes = [...Array(exercices.length).keys()]
+    $selectedExercises.indexes = [...Array(exercises.length).keys()]
     globalOptions.update((l) => {
       l.choice = undefined
       return l
     })
     getTotalNbOfQuestions()
-    updateExercices()
+    updateExercises()
   } else {
     handleSampleSizeChange()
   }
@@ -184,7 +184,7 @@ function handleSampleChecked () {
 function handleSampleSizeChange () {
   if ($selectedExercises.count) {
     $selectedExercises.indexes = [
-      ...listOfRandomIndexes(exercices.length, $selectedExercises.count)
+      ...listOfRandomIndexes(exercises.length, $selectedExercises.count)
     ]
   }
   globalOptions.update((l) => {
@@ -192,7 +192,7 @@ function handleSampleSizeChange () {
     return l
   })
   getTotalNbOfQuestions()
-  updateExercices()
+  updateExercises()
 }
 
 function updateData () {
@@ -209,7 +209,7 @@ function updateData () {
  */
 function getTotalDuration () {
   let sum = 0
-  for (const [i, exercice] of exercices.entries()) {
+  for (const [i, exercice] of exercises.entries()) {
     if ($selectedExercises.isActive) {
       if ($selectedExercises.indexes.includes(i)) {
         sum +=
@@ -288,6 +288,12 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
     <div class="flex px-4 pb-8">
       <FormRadio
         bind:valueSelected={settings.nbOfVues}
+        on:newvalue={() => {
+          globalOptions.update((l) => {
+            l.nbVues = settings.nbOfVues
+            return l
+          })
+        }}
         title="multivue"
         labelsValues={labelsForMultivue}
       />
@@ -385,7 +391,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
     <div class="pb-6">
       <div
         class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
-        {exercices.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
+        {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
       >
         Choix aléatoire
       </div>
@@ -394,17 +400,17 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           id="checkbox-choice-6"
           aria-describedby="checkbox-choice"
           type="checkbox"
-          class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercices.length ===
+          class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercises.length ===
           1
             ? 'border-opacity-10'
             : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
           checked={$selectedExercises.isActive}
           on:change={handleSampleChecked}
-          disabled={exercices.length === 1}
+          disabled={exercises.length === 1}
         />
         <label
           for="checkbox-choice-6"
-          class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercices.length ===
+          class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercises.length ===
           1
             ? 'text-opacity-10 dark:text-opacity-10'
             : 'text-opacity-70 dark:text-opacity-70'}"
@@ -417,7 +423,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           type="number"
           id="diaporama-nb-exos-dans-liste-input"
           min="1"
-          max={exercices.length}
+          max={exercises.length}
           bind:value={$selectedExercises.count}
           on:change={handleSampleSizeChange}
           class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canvas-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
@@ -428,7 +434,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
             ? 'text-opacity-100 dark:text-opacity-100'
             : 'text-opacity-0 dark:text-opacity-0'}"
         >
-          parmi {exercices.length}</span
+          parmi {exercises.length}</span
         >
       </div>
     </div>
@@ -486,17 +492,17 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           aria-describedby="diaporama-meme-duree-checkbox"
           type="checkbox"
           class="bg-coopmaths-canvas border-coopmaths-action text-coopmaths-action dark:bg-coopmathsdark-canvas dark:border-coopmathsdark-action dark:text-coopmathsdark-action
-          {exercices.length === 1 || settings.isManualModeActive
+          {exercises.length === 1 || settings.isManualModeActive
             ? 'border-opacity-30 dark:border-opacity-30'
             : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
           bind:checked={isSameDurationForAll}
           on:change={updateDurations}
-          disabled={exercices.length === 1 || settings.isManualModeActive}
+          disabled={exercises.length === 1 || settings.isManualModeActive}
         />
         <label
           for="diaporama-meme-duree-checkbox"
           class="ml-3 font-medium text-coopmaths-corpus dark:text-coopmathsdark-corpus
-          {exercices.length === 1 || settings.isManualModeActive
+          {exercises.length === 1 || settings.isManualModeActive
             ? 'text-opacity-30 dark:text-opacity-30'
             : 'text-opacity-100 dark:text-opacity-100'} "
         >
@@ -537,7 +543,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
                 class="pl-2 font-extralight text-opacity-60 {$selectedExercises.isActive
                   ? ''
                   : 'invisible'}"
-                >({$selectedExercises.count} parmi {exercices.length})</span
+                >({$selectedExercises.count} parmi {exercises.length})</span
               >
             </th>
             <th
@@ -574,7 +580,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
             </th>
           </thead>
           <tbody class="overflow-y-auto" id="exercisesList">
-            {#each exercices as exercice, i}
+            {#each exercises as exercice, i}
               <tr>
                 <td
                   class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
@@ -610,7 +616,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
                       id="diaporama-exo-nb-questions-{i}"
                       min="1"
                       bind:value={exercice.nbQuestions}
-                      on:change={updateExercices}
+                      on:change={updateExercises}
                       class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0"
                     />
                   </span>
