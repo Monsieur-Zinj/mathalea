@@ -6,7 +6,7 @@ import { texteGras } from '../../lib/format/style'
 import { context } from '../../modules/context.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -379,13 +379,8 @@ export default function PuissancesDunRelatif1 () {
       }
       cpt++
     }
-    listeQuestionsToContenuSansNumero(this)
+    listeQuestionsToContenu(this)
   }
-  /*  this.besoinFormulaireNumerique = [
-    'Règle à travailler',
-    5,
-    '1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange'
-  ] */
   this.besoinFormulaireTexte = ['Règle à travailler', 'Nombres séparés par des tirets\n1 : Produit de deux puissances de même base\n2 : Quotient de deux puissances de même base\n3 : Puissance de puissances\n4 : Produit de puissances positives de même exposant\n5 : Mélange']
 
   this.besoinFormulaire2Numerique = [
