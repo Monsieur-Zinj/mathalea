@@ -298,5 +298,5 @@ export default function Pythagore2D () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Peu importe']
+  this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Mélange']
 }
