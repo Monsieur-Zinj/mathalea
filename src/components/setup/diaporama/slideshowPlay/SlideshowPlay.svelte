@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DataFromSettings } from '../../../../lib/types/slideshow'
+  import type { DataFromSettings } from '../types'
   import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
   import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
   import ModalForQrCode from '../../../shared/modal/ModalForQRCode.svelte'
@@ -10,7 +10,7 @@
   import { setPhraseDuree } from '../../../../lib/components/time'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { globalOptions, questionsOrder, transitionsBetweenQuestions } from '../../../../lib/stores/generalStore'
+  import { globalOptions, questionsOrder } from '../../../../lib/stores/generalStore'
 
   export let consignes: string[][]
   export let corrections: string[][]
@@ -49,8 +49,7 @@
 
   function applyDataFromSettings () {
     if (dataFromSettings) {
-      goToQuestion(dataFromSettings.questionNumber)
-      currentQuestion = dataFromSettings.currentQuestion
+      goToQuestion(currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
       nbOfVues = dataFromSettings.nbOfVues
@@ -102,10 +101,10 @@
     }
     if (!isManualModeActive) {
       if (!isPause) {
-        if ($transitionsBetweenQuestions.isNoisy) {
-          transitionSounds[$transitionsBetweenQuestions.tune].play()
+        if (dataFromSettings.transitionsBetweenQuestions.isNoisy) {
+          transitionSounds[dataFromSettings.transitionsBetweenQuestions.tune].play()
         }
-        if ($transitionsBetweenQuestions.isActive) {
+        if (dataFromSettings.transitionsBetweenQuestions.isActive) {
           showDialogForLimitedTime('transition', 1000).then(() => {
             timer(durationGlobal ?? durations[currentQuestion] ?? 10)
           })
@@ -268,7 +267,7 @@
     } else {
       isCorrectionVisible = true
       isQuestionVisible =
-        !!$transitionsBetweenQuestions.questThenQuestAndSolDisplay
+        !!dataFromSettings.transitionsBetweenQuestions.questThenQuestAndSolDisplay
     }
     await tick()
     setSize()
@@ -290,7 +289,7 @@ function handleShortcut (e: KeyboardEvent) {
 }
 
 function prevQuestion () {
-  if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+  if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
     if (isQuestionVisible) {
       if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
     } else {
@@ -304,7 +303,7 @@ function prevQuestion () {
 }
 
 function nextQuestion () {
-  if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+  if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
     if (isQuestionVisible && !isCorrectionVisible) {
       switchPause()
       switchQuestionToCorrection()
@@ -562,7 +561,7 @@ data-theme="daisytheme"
       <button
         type="button"
         on:click={() => {
-          if ($transitionsBetweenQuestions.isQuestThenSolModeActive) {
+          if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
             nextQuestion()
           } else {
             switchPause()
@@ -648,7 +647,7 @@ data-theme="daisytheme"
         </div>
       </div>
       <div
-        class={$transitionsBetweenQuestions.isQuestThenSolModeActive
+        class={dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive
           ? 'hidden'
           : 'block'}
       >

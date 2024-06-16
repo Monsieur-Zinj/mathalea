@@ -1,8 +1,10 @@
 <script lang="ts">
   import type Exercice from '../../../../exercices/Exercice'
-  import type { DataFromSettings } from '../../../../lib/types/slideshow'
-  import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
-  import FormRadio from '../../../shared/forms/FormRadio.svelte'
+  import type { DataFromSettings, TransitionsBetweenQuestions } from '../types'
+  import type { NumberRange } from '../../../../lib/types'
+  import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
+  import NbOfViewsSettings from './presentationalComponents/NbOfViewsSettings.svelte'
+  import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
   import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
@@ -10,16 +12,15 @@
   import { createEventDispatcher, tick } from 'svelte'
   import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
+  import { formattedTimeStamp } from '../../../../lib/components/time'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
-  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import {
     questionsOrder,
     selectedExercises,
-    transitionsBetweenQuestions,
     globalOptions
   } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
-    import { formattedTimeStamp } from '../../../../lib/components/time'
 
   export let exercises: Exercice[]
   export let updateExercises: () => void
@@ -27,26 +28,20 @@
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
 
   const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
-  const labelsForSounds = [
-    { label: 'Son 1', value: '0' },
-    { label: 'Son 2', value: '1' },
-    { label: 'Son 3', value: '2' },
-    { label: 'Son 4', value: '3' }
-  ]
-  const labelsForMultivue = [
-    { label: 'Pas de multivue', value: 1 },
-    { label: 'Deux vues', value: 2 },
-    { label: 'Trois vues', value: 3 },
-    { label: 'Quatre vues', value: 4 }
-  ]
   const settings: DataFromSettings = {
-    currentQuestion: 0,
+    currentQuestion: -1,
     formatQRCodeIndex: 0,
     isManualModeActive: false,
     QRCodeWidth: 100,
-    questionNumber: 0,
     nbOfVues: $globalOptions.nbVues || 1,
-    timer: $globalOptions.durationGlobal ?? 10
+    timer: $globalOptions.durationGlobal ?? 10,
+    transitionsBetweenQuestions: {
+      isActive: $globalOptions.trans || false,
+      isNoisy: true,
+      isQuestThenSolModeActive: false,
+      questThenQuestAndSolDisplay: false,
+      tune: $globalOptions.sound || '1'
+    }
   }
   let stringDureeTotale = '0'
   let divTableDurationsQuestions: HTMLDivElement
@@ -72,54 +67,6 @@
       durationGlobal = undefined
     }
   }
-
-/**
- * Met à jour le numéro du son dans l'URL
- * @author sylvain
- */
-function handleTuneChange () {
-  globalOptions.update((l) => {
-    l.sound = $transitionsBetweenQuestions.tune
-    return l
-  })
-  updateExercises()
-}
-
-/**
- * Gérer le choix de cartons entre les questions
- * @author sylvain
- */
-function handleTransitionsMode () {
-  // $transitionsBetweenQuestions.isActive = !$transitionsBetweenQuestions.isActive  <- inutile avec ButtonToggle
-  globalOptions.update((l) => {
-    l.trans = $transitionsBetweenQuestions.isActive
-    return l
-  })
-  updateExercises()
-}
-
-/**
- * Gérer le choix de sons entre les questions
- * @author sylvain
- */
-function handleTransitionSound () {
-  if ($transitionsBetweenQuestions.isNoisy) {
-    if (typeof $transitionsBetweenQuestions.tune === 'undefined') {
-      $transitionsBetweenQuestions.tune = '0'
-    }
-    globalOptions.update((l) => {
-      l.sound = $transitionsBetweenQuestions.tune
-      return l
-    })
-  } else {
-    // $transitionsBetweenQuestions.tune = undefined
-    globalOptions.update((l) => {
-      l.sound = undefined
-      return l
-    })
-  }
-  updateExercises()
-}
 
 /**
  * Gestion du bouton demandant de changer l'ordre des questions
@@ -235,141 +182,37 @@ async function updateDisplayedTotalDuration () {
   }
 }
 
+function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
+  settings.nbOfVues = nbOfViews
+  globalOptions.update((l) => {
+    l.nbVues = nbOfViews
+    return l
+  })
+}
+
+function updateTransition (transitionsBetweenQuestions: TransitionsBetweenQuestions) {
+  settings.transitionsBetweenQuestions = transitionsBetweenQuestions
+  updateData()
+}
+
+function start () {
+  settings.currentQuestion = 0
+  updateData()
+}
+
 </script>
 
 <div
-id="start"
-class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+  id="start"
+  class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
 >
-<!-- <div class="flex flex-row justify-between p-6">
-  <div class="text-4xl text-coopmaths-struct font-bold">Réglages du Diaporama</div>
-  <button type="button">
-    <i
-      class="relative bx ml-2 bx-lg bx-x text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer"
-      on:click={() => mathaleaHandleComponentChange("diaporama", "")}
-      on:keydown={() => mathaleaHandleComponentChange("diaporama", "")}
-    />
-  </button>
-</div> -->
 <NavBar subtitle="Réglages du diaporama" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
 <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
   <!-- Multivue + Liens -->
   <div class="flex flex-col w-1/5 justify-start">
-    <div class="flex flex-row justify-start items-center pb-6">
-      <div
-        class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        Aperçu
-        <div class="flex flex-row px-4 justify-start">
-          <div
-            class="tooltip tooltip-bottom tooltip-neutral"
-            data-tip="Aperçu des questions/réponses"
-          >
-            <button
-              type="button"
-              id="diaporama-apercu"
-              class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-              on:click={() => {
-                mathaleaHandleComponentChange('diaporama', 'overview')
-              }}
-            >
-              <i class="bx text-2xl bx-detail" />
-            </button>
-          </div>
-        </div>
-      </div>
-      <FullscreenButton/>
-    </div>
-    <div
-      class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
-    >
-      Multivue
-    </div>
-    <div class="flex px-4 pb-8">
-      <FormRadio
-        bind:valueSelected={settings.nbOfVues}
-        on:newvalue={() => {
-          globalOptions.update((l) => {
-            l.nbVues = settings.nbOfVues
-            return l
-          })
-        }}
-        title="multivue"
-        labelsValues={labelsForMultivue}
-      />
-    </div>
-
-    <div class="pb-8">
-      <div
-        class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        Transitions
-      </div>
-      <div class="flex flex-row justify-start items-center px-4">
-        <ButtonToggle
-          id="diaporama-transition-toggle"
-          bind:value={$transitionsBetweenQuestions.isQuestThenSolModeActive}
-          titles={[
-            'Question <em>puis</em> correction',
-            'Question / Question+Correction / Correction'
-          ]}
-        />
-      </div>
-      <div
-        class="{$transitionsBetweenQuestions.isQuestThenSolModeActive
-          ? 'flex'
-          : 'hidden'} flex-row justify-start items-center pr-4 pl-6"
-      >
-        <input
-          id="checkbox-choice-8"
-          aria-describedby="checkbox-choice"
-          type="checkbox"
-          class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!$transitionsBetweenQuestions.isQuestThenSolModeActive
-            ? 'border-opacity-10'
-            : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
-          bind:checked={$transitionsBetweenQuestions.questThenQuestAndSolDisplay}
-          disabled={!$transitionsBetweenQuestions.isQuestThenSolModeActive}
-        />
-        <label
-          for="checkbox-choice-8"
-          class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!$transitionsBetweenQuestions.isQuestThenSolModeActive
-            ? 'text-opacity-10 dark:text-opacity-10'
-            : 'text-opacity-70 dark:text-opacity-70'}"
-        >
-          Afficher la question avec la correction
-        </label>
-      </div>
-      <div class="flex flex-row justify-start items-center px-4">
-        <ButtonToggle
-          id="diaporama-transition-correction-toggle"
-          bind:value={$transitionsBetweenQuestions.isActive}
-          titles={[
-            'Carton entre questions',
-            'Pas de carton entre questions'
-          ]}
-          on:toggle={handleTransitionsMode}
-        />
-      </div>
-      <div class="flex flex-row justify-start items-center px-4">
-        <ButtonToggle
-          id="diaporama-transition-sons-toggle"
-          bind:value={$transitionsBetweenQuestions.isNoisy}
-          titles={['Son entre questions', 'Pas de son entre questions']}
-          on:toggle={handleTransitionSound}
-        />
-      </div>
-      <FormRadio
-        title="son"
-        isDisabled={!$transitionsBetweenQuestions.isNoisy}
-        bind:valueSelected={$transitionsBetweenQuestions.tune}
-        labelsValues={labelsForSounds}
-        orientation="row"
-        on:newvalue={() => {
-          transitionSounds[$transitionsBetweenQuestions.tune].play()
-          handleTuneChange()
-        }}
-      />
-    </div>
+    <DisplaySettings />
+    <NbOfViewsSettings nbOfViews={settings.nbOfVues} {updateNbOfViews} />
+    <TransitionSettings {transitionSounds} transitionsBetweenQuestions={settings.transitionsBetweenQuestions} {updateTransition} />
     <div class="pb-6">
       <div
         class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct"
@@ -632,8 +475,8 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           type="button"
           id="diaporama-play-button"
           class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
-          on:click={updateData}
-          on:keydown={updateData}
+          on:click={start}
+          on:keydown={start}
         >
           Play<i class="bx bx-play" />
         </button>

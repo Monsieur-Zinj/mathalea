@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../lib/types'
-  import type { DataFromSettings } from '../../../lib/types/slideshow'
+  import type { DataFromSettings } from './types'
   import seedrandom from 'seedrandom'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
@@ -22,7 +22,6 @@
     globalOptions,
     questionsOrder,
     selectedExercises,
-    transitionsBetweenQuestions,
     darkMode
   } from '../../../lib/stores/generalStore'
   import { context } from '../../../modules/context.js'
@@ -64,11 +63,6 @@
     if ($selectedExercises.count !== undefined) {
       $selectedExercises.isActive = true
     }
-    $transitionsBetweenQuestions.isActive = $globalOptions.trans || false
-    $transitionsBetweenQuestions.tune = $globalOptions.sound || '1'
-    if ($transitionsBetweenQuestions.tune !== undefined) {
-      $transitionsBetweenQuestions.isNoisy = true
-    }
   }
 
   async function forceUpdate () {
@@ -99,9 +93,11 @@
   function updateDataFromSettings (event: {detail: DataFromSettings}) {
     dataFromSettings = event.detail
     if (dataFromSettings !== undefined) {
-      currentQuestion = dataFromSettings.questionNumber
+      currentQuestion = dataFromSettings.currentQuestion
       globalOptions.update((l) => {
         l.nbVues = dataFromSettings.nbOfVues
+        l.trans = dataFromSettings.transitionsBetweenQuestions.isActive
+        l.sound = dataFromSettings.transitionsBetweenQuestions.isNoisy ? dataFromSettings.transitionsBetweenQuestions.tune ?? '0' : undefined
         return l
       })
     }

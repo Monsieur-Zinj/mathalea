@@ -81,23 +81,6 @@ export const selectedExercises = writable<InterfaceSelectedExercises>({
   count: 1
 })
 
-interface InterfaceTransitionsBetweenQuestions {
-  isActive: boolean
-  isNoisy: boolean
-  isQuestThenSolModeActive: boolean
-  questThenQuestAndSolDisplay: boolean
-  tune: '0' | '1' | '2' | '3'
-}
-
-export const transitionsBetweenQuestions =
-  writable<InterfaceTransitionsBetweenQuestions>({
-    isActive: true,
-    isNoisy: false,
-    isQuestThenSolModeActive: false,
-    questThenQuestAndSolDisplay: false,
-    tune: '0'
-  })
-
 // pour la gestion du mode sombre
 export const darkMode = writable({ isActive: false })
 
