@@ -49,12 +49,7 @@
 
   function applyDataFromSettings () {
     if (dataFromSettings) {
-      if (dataFromSettings.timer !== undefined) {
-        timer(dataFromSettings.timer)
-      }
-      if (dataFromSettings.questionNumber !== undefined) {
-        goToQuestion(dataFromSettings.questionNumber)
-      }
+      goToQuestion(dataFromSettings.questionNumber)
       currentQuestion = dataFromSettings.currentQuestion
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
@@ -105,7 +100,6 @@
         setSize()
       }
     }
-
     if (!isManualModeActive) {
       if (!isPause) {
         if ($transitionsBetweenQuestions.isNoisy) {

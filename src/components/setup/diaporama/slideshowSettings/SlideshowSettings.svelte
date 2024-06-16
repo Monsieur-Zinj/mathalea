@@ -196,6 +196,10 @@ function handleSampleSizeChange () {
 }
 
 function updateData () {
+  globalOptions.update((l) => {
+    l.durationGlobal = durationGlobal
+    return l
+  })
   dispatch('updateData', settings)
 }
 

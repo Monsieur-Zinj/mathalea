@@ -5,10 +5,11 @@
   import seedrandom from 'seedrandom'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
-  import { onMount, onDestroy, afterUpdate } from 'svelte'
+  import { onMount, onDestroy } from 'svelte'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import {
     mathaleaFormatExercice,
+    mathaleaGenerateSeed,
     mathaleaHandleExerciceSimple,
     mathaleaHandleParamOfOneExercice,
     mathaleaHandleSup,
@@ -44,15 +45,55 @@
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
   let sizes: number[] = []
 
-  $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
-  $selectedExercises.count = $globalOptions.choice
-  if ($selectedExercises.count !== undefined) {
-    $selectedExercises.isActive = true
+  onMount(async () => {
+    context.vue = 'diap'
+    updateDataFromGlobalOptions()
+    document.addEventListener('updateAsyncEx', forceUpdate)
+    exercices = await getExercisesFromExercicesParams()
+    applyRandomSelectionOfExercises()
+    updateExercices()
+  })
+
+  onDestroy(() => {
+    document.removeEventListener('updateAsyncEx', forceUpdate)
+  })
+
+  function updateDataFromGlobalOptions () {
+    $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
+    $selectedExercises.count = $globalOptions.choice
+    if ($selectedExercises.count !== undefined) {
+      $selectedExercises.isActive = true
+    }
+    $transitionsBetweenQuestions.isActive = $globalOptions.trans || false
+    $transitionsBetweenQuestions.tune = $globalOptions.sound || '1'
+    if ($transitionsBetweenQuestions.tune !== undefined) {
+      $transitionsBetweenQuestions.isNoisy = true
+    }
   }
-  $transitionsBetweenQuestions.isActive = $globalOptions.trans || false
-  $transitionsBetweenQuestions.tune = $globalOptions.sound || '1'
-  if ($transitionsBetweenQuestions.tune !== undefined) {
-    $transitionsBetweenQuestions.isNoisy = true
+
+async function forceUpdate () {
+  updateExercices()
+}
+
+  async function getExercisesFromExercicesParams () {
+    const exercises = []
+    for (const paramsExercice of $exercicesParams) {
+      const exercise: Exercice = await mathaleaLoadExerciceFromUuid(paramsExercice.uuid)
+      mathaleaHandleParamOfOneExercice(exercise, paramsExercice)
+      exercise.duration = paramsExercice.duration ?? 10
+      exercises.push(exercise)
+    }
+    return exercises
+  }
+
+  function applyRandomSelectionOfExercises () {
+    if (!$selectedExercises.isActive) {
+      $selectedExercises.indexes = [...Array(exercices.length).keys()]
+    } else {
+      $selectedExercises.indexes = [
+        ...listOfRandomIndexes(exercices.length, $selectedExercises.count!)
+      ]
+    }
   }
 
   function updateDataFromSettings (event: {detail: DataFromSettings}) {
@@ -63,44 +104,12 @@
     updateExercices()
   }
 
-  onDestroy(() => {
-    document.removeEventListener('updateAsyncEx', forceUpdate)
-  })
-
-  async function forceUpdate () {
-    updateExercices()
-  }
-
-  afterUpdate(() => {
-  })
-
-  onMount(async () => {
-    context.vue = 'diap'
-    document.addEventListener('updateAsyncEx', forceUpdate)
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
-        paramsExercice.uuid
-      )
-      if (exercice === undefined) return
-      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      exercice.duration = paramsExercice.duration ?? 10
-      exercices.push(exercice)
-    }
-    exercices = exercices
-    if (!$selectedExercises.isActive) {
-      $selectedExercises.indexes = [...Array(exercices.length).keys()]
-    } else {
-      $selectedExercises.indexes = [
-        ...listOfRandomIndexes(exercices.length, $selectedExercises.count!)
-      ]
-    }
-    updateExercices()
-  })
-
   async function updateExercices () {
     const nbOfVues = dataFromSettings ? dataFromSettings.nbOfVues : 1
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    globalOptions.update((l) => {
+      l.nbVues = nbOfVues
+      return l
+    })
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
     consignes = [[], [], [], []]
@@ -111,22 +120,14 @@
       questions[idVue] = []
       corrections[idVue] = []
       for (const [k, exercice] of exercices.entries()) {
-        if (idVue > 0) {
-          if (exercice.seed != null) {
-            exercice.seed = exercice.seed.substring(0, 4) + idVue
-          }
-        } else {
-          if (exercice.seed != null) {
-            exercice.seed = exercice.seed.substring(0, 4)
-          }
-        }
+        if (exercice.seed === undefined) exercice.seed = mathaleaGenerateSeed()
+        exercice.seed = exercice.seed.substring(0, 4) + (idVue > 0 ? idVue : '')
         if (exercice.typeExercice === 'simple') {
           mathaleaHandleExerciceSimple(exercice, false)
         } else {
           seedrandom(exercice.seed, { global: true })
           exercice.nouvelleVersionWrapper?.()
         }
-
         let consigne: string = ''
         if ($selectedExercises.indexes.includes(k)) {
           if (exercice.introduction) {
@@ -149,7 +150,7 @@
       }
     }
     const newParams: InterfaceParams[] = []
-    for (const exercice of exercices.values()) {
+    for (const exercice of exercices) {
       for (let i = 0; i < exercice.listeQuestions.length; i++) {
         sizes.push(exercice.tailleDiaporama)
         durations.push(exercice.duration || 10)
@@ -166,17 +167,13 @@
         sup4: mathaleaHandleSup(exercice.sup4)
       })
     }
-    globalOptions.update((l) => {
-      l.nbVues = nbOfVues
-      return l
-    })
     // préparation des indexes si l'ordre aléatoire est demandé
     if ($questionsOrder.isQuestionsShuffled) {
       $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
     } else {
       $questionsOrder.indexes = [...Array(questions[0].length).keys()]
     }
-    exercicesParams.update(() => newParams)
+    exercicesParams.set(newParams)
     mathaleaUpdateUrlFromExercicesParams(newParams)
     if (divTableDurationsQuestions) {
       mathaleaRenderDiv(divTableDurationsQuestions)
