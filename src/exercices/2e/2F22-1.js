@@ -128,8 +128,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, false, false), 1)
       } while (isNaN(y0) || isNaN(y1) || isNaN(y2) || y0 === 0 || y2 === 0)
 
-      const solutions0 = theSpline.solve(y0)
-      const solutions1 = theSpline.solve(y1)
+      const solutions0 = theSpline.solve(y0, 0)
+      const solutions1 = theSpline.solve(y1, 0)
       const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
@@ -146,7 +146,7 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
       }
 
-      for (const antecedentY2 of theSpline.solve(y2)) {
+      for (const antecedentY2 of theSpline.solve(y2, 0)) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
 

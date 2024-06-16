@@ -96,7 +96,7 @@ function aleatoiriseCourbe (choix) {
       deltaY = randint(-2, +2)
       break
     default:
-      deltaY = choice([randint(-2, +2), 0])
+      deltaY = choice([randint(-4, +4), 0]) / 2
       break
   }
   return { coeffX, coeffY, deltaX, deltaY }
@@ -207,8 +207,8 @@ export default class BetaModeleSpline extends Exercice {
       const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
 
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.01 })
-      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.01 })
+      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1 })
+      const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
       if (choixInteractif === 0) {
