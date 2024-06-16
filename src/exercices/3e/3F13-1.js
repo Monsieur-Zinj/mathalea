@@ -19,7 +19,6 @@ export const amcType = 'AMCHybride'
 /**
  * Lecture d'images et antécédents sur un graphe sinusoidale
  * @author Rémi Angot
- * Référence 3F13-1
  */
 export const uuid = '4b121'
 export const ref = '3F13-1'
@@ -29,7 +28,6 @@ export const refs = {
 }
 export default function AntecedentEtImageGraphique () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
@@ -217,9 +215,6 @@ export default function AntecedentEtImageGraphique () {
       setReponse(this, 2, [`${x0 + 2};${x0 + 6}`, `${x0 + 6};${x0 + 2}`])
       this.contenuCorrection += `<br>${numAlpha(3)} $${b}$ a pour unique antécédent $${x0 + 4}$, on note $f(${x0 + 4})=${b}$.`
       setReponse(this, 3, x0 + 4)
-    }
-    if (this.interactif && context.isHtml) {
-      this.contenu += `<br><button class="ui button checkReponses" type="submit" style="margin-bottom: 20px" id="btnValidationEx${this.numeroExercice}-${this.id}">Vérifier les réponses</button>`
     }
     if (!context.isHtml) {
       this.contenu = texConsigne('') + this.contenu.replace(/<br><br>/g, '\n\n\\medskip\n').replace(/<br>/g, '\\\\\n')
