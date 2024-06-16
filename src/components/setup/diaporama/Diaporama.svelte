@@ -6,7 +6,7 @@
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
   import { onMount, onDestroy } from 'svelte'
-  import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
+  import { shuffle } from '../../../lib/components/shuffle'
   import {
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
@@ -49,7 +49,6 @@
     updateDataFromGlobalOptions()
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
-    applyRandomSelectionOfExercises()
     updateExercises()
   })
 
@@ -60,9 +59,6 @@
   function updateDataFromGlobalOptions () {
     $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
     $selectedExercises.count = $globalOptions.choice
-    if ($selectedExercises.count !== undefined) {
-      $selectedExercises.isActive = true
-    }
   }
 
   async function forceUpdate () {
@@ -78,16 +74,6 @@
       exercises.push(exercise)
     }
     return exercises
-  }
-
-  function applyRandomSelectionOfExercises () {
-    if (!$selectedExercises.isActive) {
-      $selectedExercises.indexes = [...Array(exercises.length).keys()]
-    } else {
-      $selectedExercises.indexes = [
-        ...listOfRandomIndexes(exercises.length, $selectedExercises.count!)
-      ]
-    }
   }
 
   function updateDataFromSettings (event: {detail: DataFromSettings}) {

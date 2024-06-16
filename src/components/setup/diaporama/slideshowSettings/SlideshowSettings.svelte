@@ -3,22 +3,23 @@
   import type { DataFromSettings, TransitionsBetweenQuestions } from '../types'
   import type { NumberRange } from '../../../../lib/types'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
+  import LinksSettings from './presentationalComponents/LinksSettings.svelte'
   import NbOfViewsSettings from './presentationalComponents/NbOfViewsSettings.svelte'
+  import OrderSettings from './presentationalComponents/OrderSettings.svelte'
+  import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
-  import ButtonToggle from '../../../shared/forms/ButtonToggle.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
-  import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
-  import ModalForQRCode from '../../../shared/modal/ModalForQRCode.svelte'
   import { createEventDispatcher, tick } from 'svelte'
-  import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
   import { formattedTimeStamp } from '../../../../lib/components/time'
-  import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import {
     questionsOrder,
     selectedExercises,
-    globalOptions
+    globalOptions,
+
+    type InterfaceSelectedExercises
+
   } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
 
@@ -49,8 +50,17 @@
   let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let isSameDurationForAll = !!$globalOptions.durationGlobal
 
+  function applyRandomSelectionOfExercises () {
+    if ($selectedExercises.count) {
+      $selectedExercises.indexes = [...listOfRandomIndexes(exercises.length, $selectedExercises.count!)]
+    } else {
+      $selectedExercises.indexes = [...Array(exercises.length).keys()]
+    }
+  }
+
   $: if (exercises && exercises.length > 0) {
     updateDisplayedTotalDuration()
+    applyRandomSelectionOfExercises()
   }
 
   $: {
@@ -68,14 +78,6 @@
     }
   }
 
-/**
- * Gestion du bouton demandant de changer l'ordre des questions
- */
-function handleRandomQuestionOrder () {
-  $globalOptions.shuffle = $questionsOrder.isQuestionsShuffled
-  updateExercises()
-}
-
 function updateDurations () {
   handleChangeDurationGlobal(isSameDurationForAll ? durationGlobal : undefined)
 }
@@ -86,7 +88,7 @@ function updateDurations () {
 $: getTotalNbOfQuestions = () => {
   let sum = 0
   for (const [i, exercice] of exercises.entries()) {
-    if ($selectedExercises.isActive) {
+    if ($selectedExercises.count) {
       if ($selectedExercises.indexes.includes(i)) {
         sum += exercice.nbQuestions
       }
@@ -99,47 +101,6 @@ $: getTotalNbOfQuestions = () => {
 
 function handleCheckManualMode () {
   settings.isManualModeActive = !settings.isManualModeActive
-}
-
-/**
- * Gestion de la sélection du choix des exercices dans la liste
- */
-function handleSampleChecked () {
-  $selectedExercises.count = exercises.length - 1
-  $selectedExercises.isActive = !$selectedExercises.isActive
-  if (!$selectedExercises.isActive) {
-    $selectedExercises.indexes = [...Array(exercises.length).keys()]
-    globalOptions.update((l) => {
-      l.choice = undefined
-      return l
-    })
-    getTotalNbOfQuestions()
-    updateExercises()
-  } else {
-    handleSampleSizeChange()
-  }
-}
-
-/**
- * Gestion du changement du nombre d'exercices à utiliser
- * dans la liste de ceux sélectionnées
- *
- * 1/ on génère une liste d'indexes aléatoires sur laquelle
- * sera batie la liste des exercices à utiliser
- * 2/ on met à jours les paramètres dans les options et l'URL
- */
-function handleSampleSizeChange () {
-  if ($selectedExercises.count) {
-    $selectedExercises.indexes = [
-      ...listOfRandomIndexes(exercises.length, $selectedExercises.count)
-    ]
-  }
-  globalOptions.update((l) => {
-    l.choice = $selectedExercises.count
-    return l
-  })
-  getTotalNbOfQuestions()
-  updateExercises()
 }
 
 function updateData () {
@@ -157,7 +118,7 @@ function updateData () {
 function getTotalDuration () {
   let sum = 0
   for (const [i, exercice] of exercises.entries()) {
-    if ($selectedExercises.isActive) {
+    if ($selectedExercises.count) {
       if ($selectedExercises.indexes.includes(i)) {
         sum +=
           (isSameDurationForAll
@@ -195,6 +156,22 @@ function updateTransition (transitionsBetweenQuestions: TransitionsBetweenQuesti
   updateData()
 }
 
+function updateQuestionsOrder (isQuestionsShuffled: boolean) {
+  $questionsOrder.isQuestionsShuffled = isQuestionsShuffled
+  updateData()
+}
+
+function updateSelectedExercises (newSelectedExercises: InterfaceSelectedExercises) {
+  selectedExercises.set(newSelectedExercises)
+  applyRandomSelectionOfExercises()
+  globalOptions.update((l) => {
+    l.choice = $selectedExercises.count
+    return l
+  })
+  getTotalNbOfQuestions()
+  updateData()
+}
+
 function start () {
   settings.currentQuestion = 0
   updateData()
@@ -213,97 +190,9 @@ function start () {
     <DisplaySettings />
     <NbOfViewsSettings nbOfViews={settings.nbOfVues} {updateNbOfViews} />
     <TransitionSettings {transitionSounds} transitionsBetweenQuestions={settings.transitionsBetweenQuestions} {updateTransition} />
-    <div class="pb-6">
-      <div
-        class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct"
-      >
-        Ordre
-      </div>
-      <div class="flex flex-row justify-start items-center px-4">
-        <ButtonToggle
-          id="diaporama-ordre-questions-toggle"
-          bind:value={$questionsOrder.isQuestionsShuffled}
-          titles={[
-            'Questions dans le désordre',
-            "Questions dans l'ordre"
-          ]}
-          on:toggle={handleRandomQuestionOrder}
-        />
-      </div>
-    </div>
-    <div class="pb-6">
-      <div
-        class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
-        {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
-      >
-        Choix aléatoire
-      </div>
-      <div class="flex flex-row justify-start items-center px-4">
-        <input
-          id="checkbox-choice-6"
-          aria-describedby="checkbox-choice"
-          type="checkbox"
-          class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {exercises.length ===
-          1
-            ? 'border-opacity-10'
-            : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
-          checked={$selectedExercises.isActive}
-          on:change={handleSampleChecked}
-          disabled={exercises.length === 1}
-        />
-        <label
-          for="checkbox-choice-6"
-          class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {exercises.length ===
-          1
-            ? 'text-opacity-10 dark:text-opacity-10'
-            : 'text-opacity-70 dark:text-opacity-70'}"
-        >
-          Seulement certains exercices de la liste
-        </label>
-      </div>
-      <div class="pl-8">
-        <input
-          type="number"
-          id="diaporama-nb-exos-dans-liste-input"
-          min="1"
-          max={exercises.length}
-          bind:value={$selectedExercises.count}
-          on:change={handleSampleSizeChange}
-          class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canvas-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
-          disabled={!$selectedExercises.isActive}
-        />
-        <span
-          class="text-coopmaths-corpus dark:text-coopmathsdark-corpus {$selectedExercises.isActive
-            ? 'text-opacity-100 dark:text-opacity-100'
-            : 'text-opacity-0 dark:text-opacity-0'}"
-        >
-          parmi {exercises.length}</span
-        >
-      </div>
-    </div>
-    <div
-      class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
-    >
-      Liens
-      <div class="flex flex-row px-4 -mt-2 justify-start">
-        <ModalActionWithDialog
-          on:display={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
-          message="Le lien est copié dans le presse-papier !"
-          dialogId="linkCopiedDialog-1"
-          tooltipMessage="Lien du Diaporama"
-          classForButton="mr-4 my-2"
-        />
-        <ModalForQRCode
-          classForButton="mr-4 my-2"
-          dialogId="QRCodeModal-1"
-          imageId="QRCodeCanvas-1"
-          url={document.URL}
-          tooltipMessage="QR-code du diaporama"
-          width={settings.QRCodeWidth}
-          format={settings.formatQRCodeIndex}
-        />
-      </div>
-    </div>
+    <OrderSettings isQuestionsShuffled={$questionsOrder.isQuestionsShuffled} {updateQuestionsOrder} />
+    <SelectedExercisesSettings {exercises} selectedExercises={$selectedExercises} {updateSelectedExercises} />
+    <LinksSettings QRCodeWidth={settings.QRCodeWidth} formatQRCodeIndex={settings.formatQRCodeIndex} />
   </div>
   <!-- Tableau réglages -->
   <div class="flex flex-col w-4/6 justify-start">
@@ -383,7 +272,7 @@ function start () {
               class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct sm:pl"
             >
               Exercices<span
-                class="pl-2 font-extralight text-opacity-60 {$selectedExercises.isActive
+                class="pl-2 font-extralight text-opacity-60 {$selectedExercises.count
                   ? ''
                   : 'invisible'}"
                 >({$selectedExercises.count} parmi {exercises.length})</span
@@ -429,7 +318,7 @@ function start () {
                   class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus"
                 >
                   <span
-                    class="{$selectedExercises.isActive &&
+                    class="{$selectedExercises.count &&
                     $selectedExercises.indexes.includes(i)
                       ? ''
                       : 'invisible'} pr-2"

@@ -399,7 +399,6 @@ $: displayCurrentCorrectionMode = () => {
 
 function handleQuit () {
   mathaleaHandleComponentChange('diaporama', '')
-  // $selectedExercises.isActive = false
   updateExercises()
 }
 

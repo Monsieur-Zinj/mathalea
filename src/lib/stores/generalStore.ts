@@ -69,14 +69,12 @@ export const questionsOrder = writable<{
   indexes: []
 })
 
-interface InterfaceSelectedExercises {
-  isActive: boolean
+export interface InterfaceSelectedExercises {
   indexes: number[]
   count?: number
 }
 
 export const selectedExercises = writable<InterfaceSelectedExercises>({
-  isActive: false,
   indexes: [],
   count: 1
 })
