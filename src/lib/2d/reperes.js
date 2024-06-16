@@ -1486,13 +1486,13 @@ export function Repere ({
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = latex2d(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
+          l = latex2d(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'scriptsize', opacity: 0.8, color: 'black' })
           //   l.isVisible = false
           objets.push(l)
         }
       } else {
         if (x.valeur <= xMax && x.valeur >= xMin) {
-          l = latex2d(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'tiny', color: 'black', opacity: 0.8 })
+          l = latex2d(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'footnotesize', color: 'black', opacity: 0.8 })
           //  l.isVisible = false
           objets.push(l)
         }
@@ -1509,13 +1509,13 @@ export function Repere ({
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = latex2d(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
+          l = latex2d(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite + 0.1, { letterSize: 'footnotesize', opacity: 0.8, color: 'black' })
           //  l.isVisible = false
           objets.push(l)
         }
       } else {
         if (y.valeur >= yMin && y.valeur <= yMax) {
-          l = latex2d(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite + 0.1, { letterSize: 'tiny', opacity: 0.8, color: 'black' })
+          l = latex2d(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite + 0.1, { letterSize: 'footnotesize', opacity: 0.8, color: 'black' })
           //     l.isVisible = false
           objets.push(l)
         }
