@@ -6,7 +6,114 @@ import Decimal from 'decimal.js'
 import { texNombre } from '../outils/texNombre'
 import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { generateCleaner } from '../interactif/comparisonFunctions'
+/**
+ *
+ * @param {Polynome} poly degré maximum = 3
+ * @param {number} xG xG<xD
+ * @param {number} xD
+ * @return {{minLocal: number, maxLocal:number}}
+ */
+export function chercheMinMaxLocal ({ poly, xG, xD }) {
+  const derivee = poly.derivee()
+  const yG = poly.fonction(xG)
+  const yD = poly.fonction(xD)
+  let minLocal, maxLocal
+  if (derivee.deg === 2) {
+    const a = Number(derivee.monomes[2])
+    const b = Number(derivee.monomes[1])
+    const c = Number(derivee.monomes[0])
+    const delta = b ** 2 - 4 * a * c
+    if (delta < 0) { // la dérivée ne s'annule pas donc la fonction est monotone du signe de a
+      if (a > 0) { // la fonction est croissante don le max est atteint en x[i+1]
+        maxLocal = yD
+        minLocal = yG
+      } else {
+        maxLocal = yG
+        minLocal = yD
+      }
+    } else if (delta === 0) { // la dérivée s'annule une seule fois mais il faut vérifier que c'est sur l'intervalle x[i] x[i+1]
+      const racine = -b / 2 / a
+      if (racine > xG && racine < xG) { // ça peut encore être un max ou un min !
+        if (a > 0) { // c'est un minimum
+          maxLocal = Math.max(yG, yD)
+          minLocal = poly.fonction(racine)
+        } else { // c'est un maximum
+          maxLocal = poly.fonction(racine)
+          minLocal = Math.min(yG, Number(yD))
+        }
+      } else { // la racine n'est pas dans cet intervalle, donc la dérivée est monotone ici
+        maxLocal = Math.max(yG, Number(yD))
+        minLocal = Math.min(yG, Number(yD))
+      }
+    } else { // delta >0 deux racines !
+      const ptiDelta = Math.sqrt(delta)
+      const r1 = a > 0 ? (-b - ptiDelta) / 2 / a : (-b + ptiDelta) / 2 / a
+      const r2 = a > 0 ? (-b + ptiDelta) / 2 / a : (-b - ptiDelta) / 2 / a
+      if (xG < r1 && r1 < xD) { // r1 est dans l'intervalle
+        if (xG < r2 && r2 < xD) { // r2 aussi !
+          if (a > 0) { // croissant puis decroissant puis croissant : le max est soit en r1 soit en x[i+1]
+            maxLocal = Math.max(poly.fonction(r1), yD)
+            minLocal = Math.min(yG, poly.fonction(r2))
+          } else { // a<0 décroissant puis croissant puis décroissant
+            minLocal = Math.min(poly.fonction(r1), yD)
+            maxLocal = Math.max(yG, poly.fonction(r2))
+          }
+        } else { // r1 est dedans mais pas r2
+          if (a > 0) { // on a un max en r1 et le min est soit en x[i] soit en x[i+1]
+            maxLocal = poly.fonction(r1)
+            minLocal = Math.min(yG, yD)
+          } else { // minimum en r1, max en x[i] ou x[i+1]
+            minLocal = poly.fonction(r1)
+            maxLocal = Math.max(Number(yG, yD))
+          }
+        }
+      } else { // r1 n'est pas dans l'intervalle mais peut-être r2 y est
+        if (xG < r2 && r2 < xD) {
+          if (a > 0) { // on a le min en r2 et le max en x[i] ou en x[i+1]
+            minLocal = poly.fonction(r2)
+            maxLocal = Math.max(xG, yD)
+          } else { // on a le max en r2 et le min en x[i] ou en x[i+1]
+            maxLocal = poly.fonction(r2)
+            minLocal = Math.min(xG, yD)
+          }
+        } else { // ni r1, ni r2 ne sont dans l'intervalle. La fonction est monotone
+          if (a > 0) {
+            if (r2 < xG || r1 > xD) { // strictement croissante
+              maxLocal = yD
+              minLocal = yG
+            } else { // normalemennt r1<x[i] et r2>x[i+1] strictement décroissante
+              maxLocal = yG
+              minLocal = yD
+            }
+          } else {
+            if (r2 < xG || r1 > xD) { // strictement décroissante
+              maxLocal = yG
+              minLocal = yD
+            } else { // normalemennt r1<x[i] et r2>x[i+1] strictement croissante
+              maxLocal = yD
+              minLocal = yG
+            }
+          }
+        }
+      }
+    }
+  } else if (derivee.deg === 1) { // derivée affine, monotone croissante ou décroissante selon le signe de derivee[i].monomes[1]
+    const a = derivee.monomes[1]
+    if (a > 0) {
+      maxLocal = yD
+      minLocal = yG
+    } else {
+      maxLocal = yG
+      minLocal = yD
+    }
+  } else { // constante !
+    minLocal = yG
+    maxLocal = yG
+  }
+  return { minLocal, maxLocal }
+}
 
+// un cleaner pour la méthode toMathExpr
 const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
 // une fonction pour ajouter deux nombres dont on ne connait pas le type
 const somme = function (a, b) {
