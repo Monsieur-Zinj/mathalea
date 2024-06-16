@@ -7,11 +7,11 @@
   import NavBar from '../../../shared/header/NavBar.svelte'
   import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
   import ModalForQRCode from '../../../shared/modal/ModalForQRCode.svelte'
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher, tick } from 'svelte'
   import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
-  import { mathaleaHandleComponentChange } from '../../../../lib/mathalea'
+  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
   import {
     questionsOrder,
     selectedExercises,
@@ -19,6 +19,7 @@
     globalOptions
   } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
+    import { formattedTimeStamp } from '../../../../lib/components/time'
 
   export let exercices: Exercice[]
   export let updateExercices: () => void
@@ -40,16 +41,36 @@
   ]
   const settings: DataFromSettings = {
     currentQuestion: 0,
-    divTableDurationsQuestions: undefined,
-    durationGlobal: undefined,
     formatQRCodeIndex: 0,
     isManualModeActive: false,
-    isSameDurationForAll: false,
     QRCodeWidth: 100,
     questionNumber: 0,
-    stringDureeTotale: '0',
     nbOfVues: $globalOptions.nbVues || 1,
     timer: $globalOptions.durationGlobal ?? 10
+  }
+  let stringDureeTotale = '0'
+  let divTableDurationsQuestions: HTMLDivElement
+  let durationGlobal = $globalOptions.durationGlobal
+  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
+  let isSameDurationForAll = !!$globalOptions.durationGlobal
+
+  $: if (exercices && exercices.length > 0) {
+    updateDisplayedTotalDuration()
+  }
+
+  $: {
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
+    }
+    if (durationGlobal) previousDurationGlobal = durationGlobal
+    if (isSameDurationForAll && previousDurationGlobal) {
+      durationGlobal = previousDurationGlobal
+    }
+    if (isSameDurationForAll && typeof durationGlobal === 'undefined') {
+      durationGlobal = 10
+    } else if (!isSameDurationForAll) {
+      durationGlobal = undefined
+    }
   }
 
 /**
@@ -108,12 +129,8 @@ function handleRandomQuestionOrder () {
   updateExercices()
 }
 
-function handleCheckSameDurationForAll () {
-  globalOptions.update((l) => {
-    l.durationGlobal = undefined
-    return l
-  })
-  handleChangeDurationGlobal(undefined)
+function updateDurations () {
+  handleChangeDurationGlobal(isSameDurationForAll ? durationGlobal : undefined)
 }
 
 /**
@@ -180,6 +197,38 @@ function handleSampleSizeChange () {
 
 function updateData () {
   dispatch('updateData', settings)
+}
+
+/**
+ * Calcule la durée totale du diaporama
+ * (durée par question x nombre de questions)
+ */
+function getTotalDuration () {
+  let sum = 0
+  for (const [i, exercice] of exercices.entries()) {
+    if ($selectedExercises.isActive) {
+      if ($selectedExercises.indexes.includes(i)) {
+        sum +=
+          (isSameDurationForAll
+            ? durationGlobal ?? 10
+            : exercice.duration ?? 10) * exercice.nbQuestions
+      }
+    } else {
+      sum +=
+        (isSameDurationForAll
+          ? durationGlobal ?? 10
+          : exercice.duration ?? 10) * exercice.nbQuestions
+    }
+  }
+  return sum
+}
+
+async function updateDisplayedTotalDuration () {
+  stringDureeTotale = formattedTimeStamp(getTotalDuration())
+  await tick()
+  if (divTableDurationsQuestions) {
+    mathaleaRenderDiv(divTableDurationsQuestions)
+  }
 }
 
 </script>
@@ -436,8 +485,8 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
           {exercices.length === 1 || settings.isManualModeActive
             ? 'border-opacity-30 dark:border-opacity-30'
             : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
-          bind:checked={settings.isSameDurationForAll}
-          on:change={handleCheckSameDurationForAll}
+          bind:checked={isSameDurationForAll}
+          on:change={updateDurations}
           disabled={exercices.length === 1 || settings.isManualModeActive}
         />
         <label
@@ -452,12 +501,12 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
             type="number"
             id="diaporama-meme-duree-input"
             min="1"
-            on:change={() => handleChangeDurationGlobal(settings.durationGlobal)}
-            bind:value={settings.durationGlobal}
-            class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {settings.isSameDurationForAll
+            on:change={() => handleChangeDurationGlobal(durationGlobal)}
+            bind:value={durationGlobal}
+            class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll
               ? ''
               : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"
-            disabled={!settings.isSameDurationForAll || settings.isManualModeActive}
+            disabled={!isSameDurationForAll || settings.isManualModeActive}
           />
         </label>
       </div>
@@ -465,7 +514,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
 
     <div
       class="flex flex-col min-w-full h-[100vh] px-4 align-middle"
-      bind:this={settings.divTableDurationsQuestions}
+      bind:this={divTableDurationsQuestions}
     >
       <div
         class="table-wrp block shadow ring-1 ring-coopmaths-struct dark:ring-coopmathsdark-struct ring-opacity-10 dark:ring-opacity-20 md:rounded-lg"
@@ -499,7 +548,7 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
               >
                 {#if !settings.isManualModeActive}
                   Durée diapo :<span class="font-light ml-1"
-                    >{settings.stringDureeTotale}</span
+                    >{stringDureeTotale}</span
                   >
                 {:else}
                   <span class="font-light ml-1" />
@@ -543,10 +592,10 @@ class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-
                       type="number"
                       id="diaporama-exo-duration-{i}"
                       min="1"
-                      on:change={updateExercices}
+                      on:change={updateDurations}
                       bind:value={exercice.duration}
                       class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                      disabled={settings.isSameDurationForAll || settings.isManualModeActive}
+                      disabled={isSameDurationForAll || settings.isManualModeActive}
                     />
                   </span>
                 </td>

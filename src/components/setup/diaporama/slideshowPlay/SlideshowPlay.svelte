@@ -10,7 +10,7 @@
   import { setPhraseDuree } from '../../../../lib/components/time'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { questionsOrder, transitionsBetweenQuestions } from '../../../../lib/stores/generalStore'
+  import { globalOptions, questionsOrder, transitionsBetweenQuestions } from '../../../../lib/stores/generalStore'
 
   export let consignes: string[][]
   export let corrections: string[][]
@@ -27,13 +27,12 @@
   let displayCurrentCorrectionMode: () => string
   let displayCurrentDuration: () => string
   const divQuestion: HTMLDivElement[] = []
-  let durationGlobal: number | undefined
+  let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let formatQRCodeIndex: 0 | 1 | 2
   let isCorrectionVisible = false
   let isManualModeActive: boolean
   let isPause = false
   let isQuestionVisible = true
-  let isSameDurationForAll: boolean
   let messageDuree: string
   let nbOfVues: number
   let myInterval: number
@@ -57,10 +56,8 @@
         goToQuestion(dataFromSettings.questionNumber)
       }
       currentQuestion = dataFromSettings.currentQuestion
-      durationGlobal = dataFromSettings.durationGlobal
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
-      isSameDurationForAll = dataFromSettings.isSameDurationForAll
       nbOfVues = dataFromSettings.nbOfVues
       QRCodeWidth = dataFromSettings.QRCodeWidth
     }
@@ -349,12 +346,12 @@ function handleTimerChange () {
   pause()
   if (cursorTimeValue === 0) {
     isManualModeActive = true
+    durationGlobal = undefined
   } else {
     isManualModeActive = false
     durationGlobal = cursorTimeValue
-    isSameDurationForAll = true
-    handleChangeDurationGlobal(durationGlobal)
   }
+  handleChangeDurationGlobal(durationGlobal)
   goToQuestion(currentQuestion)
 }
 

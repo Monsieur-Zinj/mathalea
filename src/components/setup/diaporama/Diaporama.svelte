@@ -5,8 +5,7 @@
   import seedrandom from 'seedrandom'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
-  import { onMount, tick, onDestroy, afterUpdate } from 'svelte'
-  import { formattedTimeStamp } from '../../../lib/components/time'
+  import { onMount, onDestroy, afterUpdate } from 'svelte'
   import { shuffle, listOfRandomIndexes } from '../../../lib/components/shuffle'
   import {
     mathaleaFormatExercice,
@@ -40,14 +39,10 @@
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
   let dataFromSettings: DataFromSettings
   let divTableDurationsQuestions: HTMLDivElement
-  let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let durations: number[] = []
   let exercices: Exercice[] = []
-  let isSameDurationForAll = false
-  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
   let sizes: number[] = []
-  let stringDureeTotale = '0'
 
   $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
   $selectedExercises.count = $globalOptions.choice
@@ -66,10 +61,6 @@
       currentQuestion = dataFromSettings.questionNumber
     }
     updateExercices()
-  }
-
-  if ($globalOptions && $globalOptions.durationGlobal) {
-    isSameDurationForAll = true
   }
 
   onDestroy(() => {
@@ -105,10 +96,6 @@
       ]
     }
     updateExercices()
-    await tick()
-    if (divTableDurationsQuestions) {
-      mathaleaRenderDiv(divTableDurationsQuestions)
-    }
   })
 
   async function updateExercices () {
@@ -191,58 +178,24 @@
     }
     exercicesParams.update(() => newParams)
     mathaleaUpdateUrlFromExercicesParams(newParams)
-    stringDureeTotale = formattedTimeStamp(getTotalDuration())
     if (divTableDurationsQuestions) {
       mathaleaRenderDiv(divTableDurationsQuestions)
     }
   }
 
+  /**
+   * @fixme Cette fonction fait trop de choses :
+   * elle met à jour un paramètre global,
+   * elle met à jour les exercices,
+   * et après avoir mis à jour les exercices, la durée du diaporama est recalculée
+   * @param durationGlobal
+   */
   function handleChangeDurationGlobal (durationGlobal: number | undefined) {
     globalOptions.update((l) => {
       l.durationGlobal = durationGlobal
       return l
     })
     updateExercices()
-  }
-
-  /**
-   * Calcule la durée totale du diaporama
-   * (durée par question x nombre de questions)
-   */
-  function getTotalDuration () {
-    let sum = 0
-    for (const [i, exercice] of exercices.entries()) {
-      if ($selectedExercises.isActive) {
-        if ($selectedExercises.indexes.includes(i)) {
-          sum +=
-            (isSameDurationForAll
-              ? durationGlobal ?? 10
-              : exercice.duration ?? 10) * exercice.nbQuestions
-        }
-      } else {
-        sum +=
-          (isSameDurationForAll
-            ? durationGlobal ?? 10
-            : exercice.duration ?? 10) * exercice.nbQuestions
-      }
-    }
-    return sum
-  }
-
-  $: {
-    if (divTableDurationsQuestions) {
-      mathaleaRenderDiv(divTableDurationsQuestions)
-    }
-    if (durationGlobal) previousDurationGlobal = durationGlobal
-    if (isSameDurationForAll && previousDurationGlobal) {
-      durationGlobal = previousDurationGlobal
-    }
-
-    if (isSameDurationForAll && typeof durationGlobal === 'undefined') {
-      durationGlobal = 10
-    } else if (!isSameDurationForAll) {
-      durationGlobal = undefined
-    }
   }
 </script>
 
