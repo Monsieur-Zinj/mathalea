@@ -289,7 +289,7 @@
       {currentDuration}
       bind:currentQuestion={currentQuestion}
       {divQuestion}
-      {durationGlobal}
+      bind:durationGlobal={durationGlobal}
       {formatQRCodeIndex}
       {handleChangeDurationGlobal}
       {isManualModeActive}

@@ -95,9 +95,9 @@
     )
   }
 
-  async function goToQuestion (i: number) {
-    if (i >= -1 && i <= questions[0].length) currentQuestion = i
-    if (i === -1 || i === questions[0].length) pause()
+  async function goToQuestion (questionNumber: number) {
+    if (questionNumber >= -1 && questionNumber <= questions[0].length) currentQuestion = questionNumber
+    if (questionNumber === -1 || questionNumber === questions[0].length) pause()
     await tick()
     for (let k = 0; k < nbOfVues; k++) {
       if (divQuestion[k]) {
@@ -249,6 +249,7 @@
                 questionHeight + consigneHeight + correctionHeight > textcellHeight)) {
               zoom -= (zoom > 5 ? 0.5 : 0.2)
             }
+          // eslint-disable-next-line no-unmodified-loop-condition
           } while (zoom > 0.6 && kk === 0 &&
               (questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
@@ -641,14 +642,14 @@ data-theme="daisytheme"
             </div>
           </div>
           <div class="modal-action">
-            <label
-              for="timerSettings"
+            <button
+              type="button"
               class="btn btn-neutral"
               on:click={switchPause}
               on:keydown={switchPause}
             >
               Fermer
-            </label>
+            </button>
           </div>
         </div>
       </div>
