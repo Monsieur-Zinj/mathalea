@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -37,24 +37,21 @@ export default function PourcentageDunNombre () {
   this.sup = 1
   this.interactif = false
   this.sup2 = false
-  this.sup3 = false
-  this.sup4 = '10'
+  this.sup3 = 10
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const pourcentages = !this.sup3
-      ? combinaisonListes(this.sup === 1 ? [10, 20, 30, 40, 50] : [10, 20, 25, 30, 40, 50, 60, 90], this.nbQuestions)
-      : gestionnaireFormulaireTexte({
-        saisie: this.sup4,
-        min: 1,
-        max: 8,
-        defaut: 9,
-        melange: 9,
-        nbQuestions: this.nbQuestions,
-        listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
-      })
+    const pourcentages = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      min: 1,
+      max: 8,
+      defaut: 9,
+      melange: 9,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
+    })
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -130,7 +127,6 @@ $${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\
     ' 1 : Pourcentages 10, 20, 30, 40, 50 \n 2 : Pourcentages 10, 20, 25, 30, 40, 50, 60, 90'
   ]
   this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes']
-  this.besoinFormulaire3CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
   this.besoinFormulaire4Texte = ['Choix des pourcentages', `Nombres séparés par des tirets
 1 : 10%
 2 : 20%

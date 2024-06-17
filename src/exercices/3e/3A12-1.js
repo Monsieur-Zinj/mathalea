@@ -12,15 +12,13 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const dateDePublication = '17/08/2021'
 
 /**
- * Description didactique de l'exercice
  * 3 problèmes : Trouver le nombre maximal de groupes, de bouquets ou de corbeilles
  * en cherchant le plus grand diviseur commun de deux nombres.
  * Donner ensuite la composition de chaque groupe, bouquet ou corbeille.
  * @author Laurence Candille et Jean-Claude Lhote (pour l'export AMC)
- * Référence 3A12-1
- * Date août 2021
  */
 export const uuid = '8c05e'
 export const ref = '3A12-1'
@@ -30,13 +28,9 @@ export const refs = {
 }
 export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   Exercice.call(this)
-  this.consigne = ''
   this.nbQuestionsModifiable = true
   this.nbQuestions = 3
-  this.nbCols = 2 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
   this.interactifType = 'mathLive'
   this.sup = '4'
 

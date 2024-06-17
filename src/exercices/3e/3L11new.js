@@ -83,7 +83,7 @@ export default function ExerciceDevelopper () {
       melange: 7
     })
 
-    const couleurCorrection = this.sup2 === 1 ? ['f15929', 'blue'] : ['blue', 'f15929']
+    const couleurCorrection = this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
 
     for (let i = 0, texte, texteCorr, reponse, reponseDev, reponseRed, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesDeQuestions = listeTypeDeQuestions[i]

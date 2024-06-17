@@ -181,7 +181,7 @@ export default function ReciproqueThales () {
           }
         } else if (randint(1, 2) === 1) {
           // triangles imbriqués sans figure
-          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois point distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
+          texte = `$${s1}$, $${s2}$ et $${s3}$ sont trois points distincts. $${s4} \\in [${s1 + s2}]$ et $${s5} \\in [${s1 + s3}]$. <br> $${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
           texteCorr = ''
         } else {
           // papillon sans figure
@@ -264,19 +264,19 @@ export default function ReciproqueThales () {
           // niveau 1 : Calcul direct
           texte =
                         '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2}=${s12} cm \n\t \\item ${s1 + s3}=${s13} cm\n\t \\item ${s1 + s5}=${s15} cm\n\t \\item ${s1 + s4}=${s14} cm.`
+          texte += `\n\t \\item $${s1 + s2}=${s12}$ cm \n\t \\item $${s1 + s3}=${s13}$ cm\n\t \\item $${s1 + s5}=${s15}$ cm\n\t \\item $${s1 + s4}=${s14}$ cm`
           texte +=
                         '\\end{itemize}  ' +
-                        `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
+                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
                         '\\end{minipage}'
         } else if (this.sup === 2) {
           // niveau 2 : Calcul intermédiaire nécessaire
           texte =
                         '\\begin{minipage}[t]{.6 \\linewidth} \\vspace{0cm} Sur la figure ci-contre, on a  : \\begin{itemize}'
-          texte += `\n\t \\item ${s1 + s2} = ${s12} cm\n\t \\item ${s1 + s3} = ${s13} cm\n\t \\item ${s3 + s5} = ${s35} cm\n\t \\item ${s2 + s4} = ${s24} cm.`
+          texte += `\n\t \\item $${s1 + s2} = ${s12}$ cm\n\t \\item $${s1 + s3} = ${s13}$ cm\n\t \\item $${s3 + s5} = ${s35}$ cm\n\t \\item $${s2 + s4} = ${s24}$ cm`
           texte +=
                         '\\end{itemize}  ' +
-                        `Les droites (${s2 + s3}) et (${s4 + s5}) sont-elles parallèles ?<br>` +
+                        `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>` +
                         '\\end{minipage}'
           if (k.isPos()) {
             // triangles imbriqués
@@ -364,7 +364,7 @@ export default function ReciproqueThales () {
             // Nomme les points au dessus avec above, dessous avec below...
           } else {
             // position papillon -> position du nom inversée et nécessité de tracer le triangle secondaire
-            texte += '\n\t \\tkzLabelPoints[below](' + s1 + ')' // nomme les points
+            texte += '\n\t \\tkzLabelPoints[below right](' + s1 + ')' // nomme les points
             texte += '\n\t \\tkzLabelPoints[below](' + s3 + ',' + s4 + ')' // nomme les points
             texte += '\n\t \\tkzLabelPoints[above](' + s2 + ',' + s5 + ')' // nomme les points
             texte += '\n\t \\tkzDrawPolygon(' + s1 + ',' + s4 + ',' + s5 + ')' // Trace le triangle secondaire
