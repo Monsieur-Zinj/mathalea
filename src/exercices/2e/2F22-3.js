@@ -207,7 +207,7 @@ export default class BetaModeleSpline extends Exercice {
       const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
 
-      const tableau = tableauSignesFonction(maSpline.fonction, xMin, xMax, { step: 1, tolerance: 0.1 })
+      const tableau = maSpline.tableauSignes()
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
