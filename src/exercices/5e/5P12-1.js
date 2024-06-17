@@ -171,7 +171,7 @@ export default function ProblemeDeRatio () {
               texte += `Montrer que le ratio correspond bien à la présence de $${p1}\\%$ de produit concentré dans le mélange final.`
               texteCorr += `Une dilution selon le ratio $~${x}~:~${y}~$ signifie qu'on dilue $${x}$ unités de volume de ${produits[index % 5]} dans $${y}$ unités de volume d'eau.<br>`
               texteCorr += `Ce qui fait donc un total de $${x + y}$ unités de volume de produit dilué.<br>`
-              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$`
+              texteCorr += `La proportion de ${produits[index % 5]} est donc : $${texFractionFromString(x + '\\text{ unités de volume}', x + y + '\\text{ unités de volume}')}\\approx ${texNombre2(arrondi(x / (x + y)), 3)}$ soit environ $${Math.round(100 * x / (x + y))}\\%$.`
             } else {
               total = k * (x + y)
               texte += `Si on veut préparer $${total}\\text{ cL} $ de produit dilué, quel volume d\`eau et de ${produits[index % 5]} faut-il mélanger ?`
@@ -190,7 +190,7 @@ export default function ProblemeDeRatio () {
               texteCorr += 'Conclusion : les pourcentages et les ratios annoncés correspondent bien.'
             } else {
               total = k * (x + y)
-              texte += ` ${numAlpha(0)} Si on veut préparer $${total}\\text{ cL} $ de produit dilué selon le ratio $~${x}~:~${y}$, quel volume d\`eau et de ${produits[index % 5]} faut-il mélanger ?<br>`
+              texte += ` ${numAlpha(0)} Si on veut préparer $${total}\\text{ cL} $ de produit dilué selon le ratio $~${x}~:~${y}$, quel volume d'eau et de ${produits[index % 5]} faut-il mélanger ?<br>`
               texte += ` ${numAlpha(1)} Avec $${k * x}\\text{ cL} $ de ${produits[index % 5]}, quel volume d'eau faut-il ajouter pour obtenir un produit dilué selon le ratio $~${x}~:~${z}$ ?`
               texteCorr += ` ${numAlpha(0)} Selon le ratio donné, pour $${x}$ unités de volume de ${produits[index % 5]} il faut $${y}$ unités de volume d'eau soit au total un volume de $${x + y}$ unités de volume.<br>`
               texteCorr += `${sp(4)}Or $${total}\\text{ cL} $ $=${miseEnEvidence(k)}\\times ${x + y}$ donc il faut $${miseEnEvidence(k)}\\times ${x}=${k * x}\\text{ cL} $ de ${produits[index % 5]} et $${miseEnEvidence(k)}\\times ${y}=${k * y}\\text{ cL} $ d'eau.<br>`
