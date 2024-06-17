@@ -96,7 +96,7 @@ export default class Exercice {
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
-  html?: HTMLElement
+  private _html: HTMLElement = document.createElement('div')
   score?: number
   constructor () {
   // ////////////////////////////////////////////////
@@ -200,6 +200,14 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
+  }
+
+  get html (): HTMLElement {
+    return this._html
+  }
+
+  set html (value: HTMLElement) {
+    this._html = value
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)

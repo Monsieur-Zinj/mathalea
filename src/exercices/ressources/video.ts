@@ -2,16 +2,12 @@ import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { get } from 'svelte/store'
 import { createButon, createIButton, createTextInput } from './_components'
 import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time'
+import Exercice from '../Exercice'
 
 export const uuid = 'video'
 export const titre = 'Vidéo'
 
-class ressourceVideo {
-  typeExercice: string
-  numeroExercice!: number
-  sup!: string
-  sup2?: string
-  titre: string
+class ressourceVideo extends Exercice {
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   fieldUrl: HTMLInputElement
@@ -20,6 +16,7 @@ class ressourceVideo {
   iTooltip: HTMLButtonElement
   button: HTMLButtonElement
   constructor () {
+    super()
     this.typeExercice = 'html'
     this.titre = 'Vidéo'
     this.container = document.createElement('div')
@@ -81,9 +78,11 @@ class ressourceVideo {
         this.sup2 = encodeURIComponent(this.fieldText.value)
       }
       exercicesParams.update((l) => {
-        l[this.numeroExercice].sup = this.sup
-        if (this.fieldText.value !== '') {
-          l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldText.value)
+        if (this.numeroExercice !== undefined && l[this.numeroExercice] !== undefined) {
+          l[this.numeroExercice].sup = this.sup
+          if (this.fieldText.value !== '') {
+            l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldText.value)
+          }
         }
         return l
       })
