@@ -27,12 +27,12 @@
 
   export let exercises: Exercice[]
   export let updateExercises: () => void
-  export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
 
   const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
   const settings: DataFromSettings = {
     currentQuestion: -1,
+    durationGlobal: undefined,
     formatQRCodeIndex: 0,
     isManualModeActive: false,
     QRCodeWidth: 100,
@@ -46,11 +46,104 @@
       tune: $globalOptions.sound || '1'
     }
   }
-  let stringDureeTotale = '0'
+
   let divTableDurationsQuestions: HTMLDivElement
   let durationGlobal = $globalOptions.durationGlobal
-  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
   let isSameDurationForAll = !!$globalOptions.durationGlobal
+  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
+  let stringDureeTotale = '0'
+
+  let firstExercisesUpdate = true
+  settings.durationGlobal = isSameDurationForAll ? durationGlobal : undefined
+
+  $: if (exercises && exercises.length > 0) {
+    updateDisplayedTotalDuration()
+    if (firstExercisesUpdate) {
+      applyRandomSelectionOfExercises()
+      firstExercisesUpdate = false
+    }
+  }
+
+  $: if (divTableDurationsQuestions) {
+    mathaleaRenderDiv(divTableDurationsQuestions)
+  }
+
+  $: {
+    if (durationGlobal) previousDurationGlobal = durationGlobal
+    if (isSameDurationForAll) {
+      if (previousDurationGlobal) {
+        durationGlobal = previousDurationGlobal
+      } else if (durationGlobal === undefined) {
+        durationGlobal = 10
+      }
+    } else {
+      durationGlobal = undefined
+    }
+  }
+
+  function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
+    settings.nbOfVues = nbOfViews
+    globalOptions.update((l) => {
+      l.nbVues = nbOfViews
+      return l
+    })
+  }
+
+  function updateTransition (transitionsBetweenQuestions: TransitionsBetweenQuestions) {
+    settings.transitionsBetweenQuestions = transitionsBetweenQuestions
+    dispatchUpdateSettings()
+  }
+
+  function updateQuestionsOrder (isQuestionsShuffled: boolean) {
+    $questionsOrder.isQuestionsShuffled = isQuestionsShuffled
+    dispatchUpdateSettings()
+  }
+
+  function updateSelectedExercises (newSelectedExercises: InterfaceSelectedExercises) {
+    selectedExercises.set(newSelectedExercises)
+    applyRandomSelectionOfExercises()
+    globalOptions.update((l) => {
+      l.choice = $selectedExercises.count
+      return l
+    })
+    dispatchUpdateSettings()
+  }
+
+  function updateManualMode (isManualModeActive: boolean) {
+    settings.isManualModeActive = isManualModeActive
+    dispatchUpdateSettings()
+  }
+
+  function updateIsSameDurationForAll (newIsSameDurationForAll: boolean) {
+    isSameDurationForAll = newIsSameDurationForAll
+    dispatchUpdateSettings()
+  }
+
+  function updateDurationGlobal (newDurationGlobal: number | undefined) {
+    durationGlobal = newDurationGlobal
+    dispatchUpdateSettings()
+  }
+
+  function start () {
+    settings.currentQuestion = 0
+    dispatchUpdateSettings()
+  }
+
+  function dispatchUpdateSettings () {
+    globalOptions.update((l) => {
+      l.durationGlobal = durationGlobal
+      return l
+    })
+    dispatch('updateSettings', settings)
+  }
+
+  async function updateDisplayedTotalDuration () {
+    stringDureeTotale = formattedTimeStamp(getTotalDuration())
+    await tick()
+    if (divTableDurationsQuestions) {
+      mathaleaRenderDiv(divTableDurationsQuestions)
+    }
+  }
 
   function applyRandomSelectionOfExercises () {
     if ($selectedExercises.count) {
@@ -60,117 +153,29 @@
     }
   }
 
-  $: if (exercises && exercises.length > 0) {
-    updateDisplayedTotalDuration()
-    applyRandomSelectionOfExercises()
-  }
-
-  $: {
-    if (divTableDurationsQuestions) {
-      mathaleaRenderDiv(divTableDurationsQuestions)
-    }
-    if (durationGlobal) previousDurationGlobal = durationGlobal
-    if (isSameDurationForAll && previousDurationGlobal) {
-      durationGlobal = previousDurationGlobal
-    }
-    if (isSameDurationForAll && typeof durationGlobal === 'undefined') {
-      durationGlobal = 10
-    } else if (!isSameDurationForAll) {
-      durationGlobal = undefined
-    }
-  }
-
-function updateDurations () {
-  handleChangeDurationGlobal(isSameDurationForAll ? durationGlobal : undefined)
-}
-
-function updateData () {
-  globalOptions.update((l) => {
-    l.durationGlobal = durationGlobal
-    return l
-  })
-  dispatch('updateData', settings)
-}
-
-/**
- * Calcule la durée totale du diaporama
- * (durée par question x nombre de questions)
- */
-function getTotalDuration () {
-  let sum = 0
-  for (const [i, exercice] of exercises.entries()) {
-    if ($selectedExercises.count) {
-      if ($selectedExercises.indexes.includes(i)) {
+  /**
+   * Calcule la durée totale du diaporama
+   * (durée par question x nombre de questions)
+   */
+  function getTotalDuration () {
+    let sum = 0
+    for (const [i, exercice] of exercises.entries()) {
+      if ($selectedExercises.count) {
+        if ($selectedExercises.indexes.includes(i)) {
+          sum +=
+            (isSameDurationForAll
+              ? durationGlobal ?? 10
+              : exercice.duration ?? 10) * exercice.nbQuestions
+        }
+      } else {
         sum +=
           (isSameDurationForAll
             ? durationGlobal ?? 10
             : exercice.duration ?? 10) * exercice.nbQuestions
       }
-    } else {
-      sum +=
-        (isSameDurationForAll
-          ? durationGlobal ?? 10
-          : exercice.duration ?? 10) * exercice.nbQuestions
     }
+    return sum
   }
-  return sum
-}
-
-async function updateDisplayedTotalDuration () {
-  stringDureeTotale = formattedTimeStamp(getTotalDuration())
-  await tick()
-  if (divTableDurationsQuestions) {
-    mathaleaRenderDiv(divTableDurationsQuestions)
-  }
-}
-
-function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
-  settings.nbOfVues = nbOfViews
-  globalOptions.update((l) => {
-    l.nbVues = nbOfViews
-    return l
-  })
-}
-
-function updateTransition (transitionsBetweenQuestions: TransitionsBetweenQuestions) {
-  settings.transitionsBetweenQuestions = transitionsBetweenQuestions
-  updateData()
-}
-
-function updateQuestionsOrder (isQuestionsShuffled: boolean) {
-  $questionsOrder.isQuestionsShuffled = isQuestionsShuffled
-  updateData()
-}
-
-function updateSelectedExercises (newSelectedExercises: InterfaceSelectedExercises) {
-  selectedExercises.set(newSelectedExercises)
-  applyRandomSelectionOfExercises()
-  globalOptions.update((l) => {
-    l.choice = $selectedExercises.count
-    return l
-  })
-  updateData()
-}
-
-function updateManualMode (isManualModeActive: boolean) {
-  settings.isManualModeActive = isManualModeActive
-  updateData()
-}
-
-function updateIsSameDurationForAll (newIsSameDurationForAll: boolean) {
-  isSameDurationForAll = newIsSameDurationForAll
-  updateData()
-}
-
-function updateDurationGlobal (newDurationGlobal: number | undefined) {
-  durationGlobal = newDurationGlobal
-  updateData()
-}
-
-function start () {
-  settings.currentQuestion = 0
-  updateData()
-}
 
 </script>
 
@@ -210,7 +215,6 @@ function start () {
           isManualModeActive={settings.isManualModeActive}
           {stringDureeTotale}
           {updateExercises}
-          {updateDurations}
           {isSameDurationForAll}
         />
         <div class="flex flex-row items-center justify-end w-full my-4">

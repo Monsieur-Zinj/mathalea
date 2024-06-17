@@ -7,7 +7,6 @@
   export let isManualModeActive: boolean
   export let stringDureeTotale: string
   export let updateExercises: () => void
-  export let updateDurations: () => void
   export let isSameDurationForAll: boolean
 
   $: getTotalNbOfQuestions = () => {
@@ -84,8 +83,8 @@
                 type="number"
                 id="diaporama-exo-duration-{i}"
                 min="1"
-                on:change={updateDurations}
                 bind:value={exercice.duration}
+                on:change={updateExercises}
                 class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
                 disabled={isSameDurationForAll || isManualModeActive}
               />

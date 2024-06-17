@@ -10,6 +10,7 @@ export type TransitionsBetweenQuestions = {
 
 export type DataFromSettings = {
   currentQuestion: number
+  durationGlobal: number | undefined
   formatQRCodeIndex: NumberRange<0, 2>
   isManualModeActive: boolean
   QRCodeWidth: number

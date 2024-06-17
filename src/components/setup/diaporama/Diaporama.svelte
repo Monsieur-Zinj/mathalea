@@ -14,7 +14,6 @@
     mathaleaHandleParamOfOneExercice,
     mathaleaHandleSup,
     mathaleaLoadExerciceFromUuid,
-    mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
   } from '../../../lib/mathalea'
   import {
@@ -38,7 +37,6 @@
   let currentDuration: number
   let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
   let dataFromSettings: DataFromSettings
-  let divTableDurationsQuestions: HTMLDivElement
   let durations: number[] = []
   let exercises: Exercice[] = []
   let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
@@ -76,7 +74,7 @@
     return exercises
   }
 
-  function updateDataFromSettings (event: {detail: DataFromSettings}) {
+  function updateSettings (event: {detail: DataFromSettings}) {
     dataFromSettings = event.detail
     if (dataFromSettings !== undefined) {
       currentQuestion = dataFromSettings.currentQuestion
@@ -84,6 +82,8 @@
         l.nbVues = dataFromSettings.nbOfVues
         l.trans = dataFromSettings.transitionsBetweenQuestions.isActive
         l.sound = dataFromSettings.transitionsBetweenQuestions.isNoisy ? dataFromSettings.transitionsBetweenQuestions.tune ?? '0' : undefined
+        l.shuffle = $questionsOrder.isQuestionsShuffled
+        l.durationGlobal = dataFromSettings.durationGlobal
         return l
       })
     }
@@ -96,7 +96,7 @@
     updateSizesAndDurations()
     updateExerciseParams()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    mathaleaRenderDiv(divTableDurationsQuestions)
+    exercises = exercises // Pour forcer la mise à jour des $: if (exercises) { ... }
   }
 
   function setSlidesContent () {
@@ -206,9 +206,8 @@
 
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
   {#if currentQuestion === -1}
-    <SlideshowSettings on:updateData="{updateDataFromSettings}"
+    <SlideshowSettings on:updateSettings="{updateSettings}"
       bind:exercises={exercises}
-      {handleChangeDurationGlobal}
       {updateExercises}
       {transitionSounds}
     />
