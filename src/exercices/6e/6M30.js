@@ -106,12 +106,13 @@ export default function CalculDeVolumes () {
           texte += ` d'un cube de $${texNombre(c, 1)} ${listeUnites[j][0]}$ d'arête.`
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
           texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
-          resultat = volume.round()
-          if (!c.eq(6)) resultat2 = c.pow(2).mul(6).round()
-          else resultat2 = c.mul(24).round()
-          if (!c.eq(2)) resultat3 = c.mul(4).round()
+          resultat = volume
+          texte += resultat
+          if (!c.eq(6)) resultat2 = c.pow(2).mul(6)
+          else resultat2 = c.mul(24)
+          if (!c.eq(2)) resultat3 = c.mul(4)
           else resultat3 = new Decimal(24)
-          resultat4 = c.mul(6).round()
+          resultat4 = c.mul(6)
           break
         case 2: // pavé droit
           if (this.sup === 1) { // sans conversion
