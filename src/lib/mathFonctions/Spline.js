@@ -6,11 +6,12 @@ import { egal, randint } from '../../modules/outils.js'
 import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { choice } from '../outils/arrayOutils'
-import { signesFonction, variationsFonction } from './etudeFonction.js'
+import { brent, tableauDeVariation, variationsFonction } from './etudeFonction.js'
 import { chercheMinMaxLocal, Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
 import { matrice } from './Matrice'
+import { stringNombre } from '../outils/texNombre'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -273,6 +274,20 @@ export class Spline {
     return new Spline(noeuds)
   }
 
+  zeros (precision = 1) {
+    const zeros = []
+    for (let x = this.x[0]; x < this.x[this.n - 1]; x += 0.5) {
+      if (this.#image(x) * this.image(x + 0.5) < 0) {
+        const { root } = brent(this.fonction, x, x + 0.5, 0.000000001, 100)
+        if (root != null) zeros.push(round(root, precision))
+      } else {
+        if (this.#image(x) === 0) zeros.push(round(x, precision))
+        if (this.#image(x + 0.5) === 0) zeros.push(round(x + 0.5, precision))
+      }
+    }
+    return Array.from((new Set(zeros)).values())
+  }
+
   /**
    * retourne les solutions de f(x) = y sur son domaine de définition
    * @param {number} y
@@ -337,8 +352,73 @@ export class Spline {
      * à améliorer... la fonction signesFonctions ne travaille pas proprement. on peut faire beaucoup mieux avec Spline
      * @returns {T[]}
      */
-  signes (step) {
-    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 10), 0.001)
+  signes () {
+    const signes = []
+    const zeros = this.zeros(1)
+    let x
+    if (zeros.length === 0) {
+      return [{ xG: this.x[0], xD: this.x[this.n - 1], signe: this.y[0] > 0 ? '+' : '-' }]
+    }
+    if (this.x[0] !== zeros[0]) signes.push({ xG: this.x[0], xD: zeros[0], signe: this.y[0] > 0 ? '+' : '-' })
+    x = zeros[0]
+    signes.push({ xG: zeros[0], xD: zeros[0], signe: 'z' })
+    for (let i = 1; i < zeros.length; i++) {
+      const y = this.#image((x + zeros[i]) / 2)
+      signes.push({ xG: x, xD: zeros[i], signe: y > 0 ? '+' : '-' })
+      signes.push({ xG: zeros[i], xD: zeros[i], signe: 'z' })
+      x = zeros[i]
+    }
+    if (zeros[zeros.length - 1] === this.x[this.n - 1]) return signes
+    const y = this.#image((zeros[zeros.length - 1] + this.x[this.n - 1]) / 2)
+    signes.push({ xG: zeros[zeros.length - 1], xD: this.x[this.n - 1], signe: y > 0 ? '+' : '-' })
+    return signes // signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 10), 0.001)
+  }
+
+  /**
+   * renvoie le tableau de signes d'une fonction
+   * @param fonction
+   * @param {object} options
+   * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+   * @param {string} [options.nomFonction] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+   * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
+   */
+  tableauSignes (
+    nomVariable = 'x',
+    nomFonction = 'f(x)'
+  ) {
+    const signes = this.signes()
+    const premiereLigne = []
+    for (let i = 0; i < signes.length; i++) {
+      if (i === 0) {
+        premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
+      }
+      if (i > 0 && signes[i].xG !== signes[i - 1].xG) {
+        premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+      }
+    }
+    if (signes[signes.length - 1].xD !== signes[signes.length - 1].xG) premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+    const tabLine = ['Line', 30]
+    if (!egal(this.#image(this.x[0]), 0)) {
+      tabLine.push('', 10)
+    }
+
+    for (let i = 0; i < signes.length; i++) {
+      tabLine.push(signes[i].signe, 10)
+    }
+
+    return tableauDeVariation({
+      tabInit: [
+        [
+          [nomVariable, 2, 10], [nomFonction, 2, 10]
+        ],
+        premiereLigne
+      ],
+      tabLines: [tabLine],
+      colorBackground: '',
+      escpl: 3.5, // taille en cm entre deux antécédents
+      deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+      lgt: 8 // taille de la première colonne en cm
+    })
   }
 
   /**

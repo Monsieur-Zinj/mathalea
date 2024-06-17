@@ -1,11 +1,11 @@
-import { Courbe } from '../../../lib/2d/courbes.js'
-import { Repere } from '../../../lib/2d/reperes.js'
-import { tableauSignesFonction, tableauVariationsFonction } from '../../../lib/mathFonctions/etudeFonction.js'
+import { Courbe } from '../../lib/2d/courbes.js'
+import { Repere } from '../../lib/2d/reperes.js'
+import { brent, tableauSignesFonction, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction.js'
 // import { Polynome } from '../../lib/mathFonctions/Polynome.js'
-import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu } from '../../../modules/outils.js'
-import Exercice from '../../Exercice.js'
-import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
+import Exercice from '../Exercice.ts'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 
 export const titre = 'Recherche d\'antécédents'
 export const interactifReady = true
@@ -56,6 +56,16 @@ export default class BetaEtudeFonction extends Exercice {
     const derivee = x => 1 + Math.log(Math.abs(x)) // pour le tableau de variations
     const latexFonction = 'x\\ln(|x|)' // pour l'énoncé
 
+    // Exemple d'utilisation
+    function exampleFunction (x) {
+      return Math.log(x / 5)
+    }
+
+    const time = Date.now()
+    const { root, iter } = brent(exampleFunction, 1, 10, 1e-13)
+    const duree = Date.now() - time
+    console.log(`Racine trouvée : ${root} en ${iter} itérations : f(${root})=${exampleFunction(root)} en ${duree}ms `)
+    /*
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({
       xMin,
@@ -103,5 +113,7 @@ export default class BetaEtudeFonction extends Exercice {
     this.listeQuestions.push(texteEnonce)
     this.listeCorrections.push(texteCorrection)
     listeQuestionsToContenu(this)// On envoie l'exercice à la fonction de mise en page
+
+ */
   }
 }

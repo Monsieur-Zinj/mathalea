@@ -1170,3 +1170,68 @@ export function derivee (fonction, variable) {
   const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
   return engine.box(['D', laFonction, variable]).evaluate().latex
 }
+
+export function brent (f, a, b, tol = 1e-5, maxIter = 100) {
+  if (f(a) * f(b) >= 0) {
+    throw new Error("La fonction doit changer de signe sur l'intervalle [a, b]")
+  }
+
+  let fa = f(a); let fb = f(b)
+  let c = a; let fc = fa
+  let d = b - a; let e = d
+
+  for (let iter = 0; iter < maxIter; iter++) {
+    if (fb * fc > 0) {
+      c = a
+      fc = fa
+      d = e = b - a
+    }
+
+    if (Math.abs(fc) < Math.abs(fb)) {
+      [a, b, c] = [b, c, b];
+      [fa, fb, fc] = [fb, fc, fb]
+    }
+
+    const tol1 = 2.0 * tol * Math.abs(b) + 0.5 * tol
+    const xm = 0.5 * (c - b)
+
+    if (Math.abs(xm) <= tol1 || fb === 0.0) {
+      return { root: b, iter }
+    }
+
+    if (Math.abs(e) >= tol1 && Math.abs(fa) > Math.abs(fb)) {
+      const s = fb / fa
+      let p, q
+      if (a === c) {
+        p = 2.0 * xm * s
+        q = 1.0 - s
+      } else {
+        q = fa / fc
+        const r = fb / fc
+        p = s * (2.0 * xm * q * (q - r) - (b - a) * (r - 1.0))
+        q = (q - 1.0) * (r - 1.0) * (s - 1.0)
+      }
+      if (p > 0) q = -q
+      p = Math.abs(p)
+      if (2.0 * p < Math.min(3.0 * xm * q - Math.abs(tol1 * q), Math.abs(e * q))) {
+        e = d
+        d = p / q
+      } else {
+        d = e = xm
+      }
+    } else {
+      d = e = xm
+    }
+
+    a = b
+    fa = fb
+    if (Math.abs(d) > tol1) {
+      b += d
+    } else {
+      b += xm >= 0 ? tol1 : -tol1
+    }
+    fb = f(b)
+  }
+
+  throw new Error('Maximum number of iterations exceeded')
+}
