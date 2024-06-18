@@ -493,7 +493,7 @@ class FractionEtendue {
      */
     let estIrreductible: boolean
     definePropRo(this, 'estIrreductible', () => {
-      if (!estIrreductible) estIrreductible = gcd(this.n, this.d) === 1 && this.d !== 1
+      if (!estIrreductible) estIrreductible = gcd(Math.abs(this.num), Math.abs(this.den)) === 1 && this.den !== 1
       return estIrreductible
     })
   }
