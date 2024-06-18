@@ -7,7 +7,7 @@ import { rotation } from '../../lib/2d/transformations.js'
 import { triangle2points1hauteur } from '../../lib/2d/triangle.js'
 import { combinaisonListes, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { abs, arrondi } from '../../lib/outils/nombres'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
@@ -24,7 +24,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '04/04/2024'
+export const dateDeModifImportante = '18/06/2024'
 
 /**
  * Calculer l'aire de 3 triangles dont une hauteur est tracée.
@@ -133,9 +133,9 @@ export default function AireDeTriangles () {
       } else texteCorr = ''
       texteCorr += `$\\mathcal{A}_{${A.nom}${B.nom}${C.nom}}=\\dfrac{1}{2}\\times ${A.nom}${B.nom}\\times ${H.nom}${C.nom}=\\dfrac{1}{2}\\times${cotes[i]}~\\text{cm}\\times ${hauteurs[i]}~\\text{cm}=${miseEnEvidence(texNombre(
                 calculANePlusJamaisUtiliser((cotes[i] * hauteurs[i]) / 2)
-            ))}~\\text{cm}^2$`
+            ) + '~\\text{cm}^2')}$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore unites[aires]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :` })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore unites[volumes]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`, texteApres: sp(6) + 'Il faut penser à indiquer l\'unité à la réponse.' })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.

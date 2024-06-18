@@ -11,12 +11,11 @@ import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '06/02/2021'
 
 /**
  * Résoudre des équations (ax+b)(cx+d)=0
 * @author Stéphane Guyon & Jean-claude Lhote
-* 2N52-1, ex 2L12
-* publié le 6/02/2021
 */
 export const uuid = '53762'
 export const ref = '2N52-1'

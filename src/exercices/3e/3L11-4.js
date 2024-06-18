@@ -7,6 +7,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Factoriser une expression'
 export const interactifReady = true
@@ -145,6 +146,18 @@ export default function FactoriserParNombreOux () {
           propositions: [{ texte: texteCorr, statut: 3, feedback: '' }]
         }
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, k, n, m)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
