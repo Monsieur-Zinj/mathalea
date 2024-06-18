@@ -1,5 +1,5 @@
 import { abs, random, round } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { Cercle } from './cercle.js'
 import { afficheCoteSegment } from './codages.js'
 import { point, pointAdistance } from './points.js'
@@ -44,6 +44,8 @@ export function Pave (L = 10, l = 5, h = 5, origine = point(0, 0), cote = true, 
     objets.push(afficheCoteSegment(segment(A, D), '', 1))
     objets.push(afficheCoteSegment(segment(F, B), h + ' cm', 1))
   }
+  const { xmin, xmax, ymin, ymax } = fixeBordures(objets)
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
     let code = ''
     for (const objet of objets) {

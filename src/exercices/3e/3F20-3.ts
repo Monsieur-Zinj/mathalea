@@ -14,6 +14,7 @@ export default class TracerDroite extends TracerDroite2nde {
   constructor () {
     super()
     this.level = 3
+    this.consigne = 'Représenter graphiquement la fonction affine définie par :'
     this.besoinFormulaireNumerique = ['Types de question ', 3, '1 : Valeurs entières\n2 : Valeurs entières et demis pour le coefficient directeur\n3 : Mélange des deux cas précédents']
   }
 }
