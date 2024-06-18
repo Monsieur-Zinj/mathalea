@@ -277,7 +277,7 @@ export class Spline {
   zeros (precision = 1) {
     const zeros = []
     for (let x = this.x[0]; x < this.x[this.n - 1]; x += 0.5) {
-      if (this.#image(x) * this.image(x + 0.5) < 0) {
+      if (this.#image(x) * this.#image(x + 0.5) < 0) {
         const { root } = brent(this.fonction, x, x + 0.5, 0.000000001, 100)
         if (root != null) zeros.push(round(root, precision))
       } else {
