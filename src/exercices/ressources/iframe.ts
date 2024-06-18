@@ -1,26 +1,21 @@
 import { exercicesParams, globalOptions } from '../../lib/stores/generalStore'
 import { get } from 'svelte/store'
 import { createButon, createTextInput } from './_components'
+import Exercice from '../Exercice'
 
 export const uuid = 'iframe'
 export const titre = 'Ressource externe'
-class ressourceVideo {
-  typeExercice: string
-  numeroExercice: number
-  sup: string
-  sup2: string
-  sup3: string
-  titre: string
+class ressourceVideo extends Exercice {
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   fieldUrl: HTMLInputElement
   fieldLargeur: HTMLInputElement
   fieldHauteur: HTMLInputElement
   button: HTMLButtonElement
-  url: URL
+  url: URL = new URL('https://coopmaths.fr/alea')
   constructor () {
+    super()
     this.typeExercice = 'html'
-    this.titre = ''
     this.container = document.createElement('div')
     this.iframe = document.createElement('iframe')
     this.iframe.setAttribute('width', '100%')
@@ -42,9 +37,11 @@ class ressourceVideo {
       }
       this.sup = encodeURIComponent(this.fieldUrl.value)
       exercicesParams.update(l => {
-        l[this.numeroExercice].sup = encodeURIComponent(this.fieldUrl.value)
-        l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldLargeur.value)
-        l[this.numeroExercice].sup3 = encodeURIComponent(this.fieldHauteur.value)
+        if (this.numeroExercice !== undefined && l[this.numeroExercice] !== undefined) {
+          l[this.numeroExercice].sup = encodeURIComponent(this.fieldUrl.value)
+          l[this.numeroExercice].sup2 = encodeURIComponent(this.fieldLargeur.value)
+          l[this.numeroExercice].sup3 = encodeURIComponent(this.fieldHauteur.value)
+        }
         return l
       })
     })
