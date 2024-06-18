@@ -107,7 +107,7 @@ export default function CalculDeVolumes () {
           texteCorr = `$\\mathcal{V}= c^3 =c \\times c \\times c = ${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}\\times${texNombre(c, 1)}${context.isAmc ? listeUnites[j][2] : listeUnites[j][0]}=`
           texteCorr += `${miseEnEvidence(`${texNombre(volume)}${listeUnites[j][1]}`)}$`
           resultat = volume
-          texte += resultat
+          //  texte += resultat C'est gentil, ça de donner la réponse ;-)
           if (!c.eq(6)) resultat2 = c.pow(2).mul(6)
           else resultat2 = c.mul(24)
           if (!c.eq(2)) resultat3 = c.mul(4)
