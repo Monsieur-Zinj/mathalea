@@ -108,7 +108,7 @@ export default function ExprimerCosSinTan () {
       const pointNomH = pointSurSegment(H, A, -0.5)
       const codage2 = codageAngleDroit(A, H, B)
       H.nom = nom[3]
-      const t4 = texteParPoint(H.nom, pointNomH)
+      const t4 = texteParPoint(`$${H.nom}$`, pointNomH, 1, 'milieu', true)
       const sAH = segment(A, H)
       const t13 = texteSurSegment('hypoténuse', B, A)
       let t23
