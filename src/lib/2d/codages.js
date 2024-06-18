@@ -1,5 +1,5 @@
 import { isNumber, isNumeric } from 'mathjs'
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import { colorToLatexOrHTML, fixeBordures, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { arrondi, nombreDeChiffresDe } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
@@ -618,65 +618,40 @@ export function AfficheCoteSegment (
   horizontal = false
 ) {
   ObjetMathalea2D.call(this, {})
-  const positionCoteSVG = positionCote * 20 / context.pixelsParCm
-  const positionCoteTIKZ = positionCote / context.scale
-
+  let valeur
+  const A = s.extremite1
+  const B = s.extremite2
+  const v = similitude(vecteur(A, B), A, 90, positionCote / s.longueur)
+  const cote = segment(translation(A, v), translation(B, v), couleurCote)
+  if (longueur(A, B) > 1) cote.styleExtremites = '<->'
+  else cote.styleExtremites = '>-<'
+  cote.epaisseur = epaisseurCote
+  if (Cote === '') {
+    valeur = afficheLongueurSegment(
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur,
+      'cm',
+      horizontal
+    )
+  } else {
+    valeur = texteSurSegment(
+      Cote,
+      cote.extremite1,
+      cote.extremite2,
+      couleurValeur,
+      positionValeur,
+      horizontal
+    )
+  }
+  const { xmin, xmax, ymin, ymax } = fixeBordures([cote, valeur])
+  this.bordures = [xmin, ymin, xmax, ymax]
   this.svg = function (coeff) {
-    let valeur
-    const A = s.extremite1
-    const B = s.extremite2
-    const v = similitude(vecteur(A, B), A, 90, positionCoteSVG / s.longueur)
-    const cote = segment(translation(A, v), translation(B, v), couleurCote)
-    if (longueur(A, B) > 1) cote.styleExtremites = '<->'
-    else cote.styleExtremites = '>-<'
-    cote.epaisseur = epaisseurCote
-    if (Cote === '') {
-      valeur = afficheLongueurSegment(
-        cote.extremite1,
-        cote.extremite2,
-        couleurValeur,
-        positionValeur,
-        'cm',
-        horizontal
-      )
-    } else {
-      valeur = texteSurSegment(
-        Cote,
-        cote.extremite1,
-        cote.extremite2,
-        couleurValeur,
-        positionValeur,
-        horizontal
-      )
-    }
     return '\n\t' + cote.svg(coeff) + '\n\t' + valeur.svg(coeff)
   }
 
   this.tikz = function () {
-    let valeur
-    const A = s.extremite1
-    const B = s.extremite2
-    const v = similitude(vecteur(A, B), A, 90, positionCoteTIKZ / s.longueur)
-    const cote = segment(translation(A, v), translation(B, v), couleurCote)
-    if (longueur(A, B) > 1) cote.styleExtremites = '<->'
-    else cote.styleExtremites = '>-<'
-    cote.epaisseur = epaisseurCote
-    if (Cote === '') {
-      valeur = afficheLongueurSegment(
-        cote.extremite1,
-        cote.extremite2,
-        couleurValeur,
-        positionValeur
-      )
-    } else {
-      valeur = texteSurSegment(
-        Cote,
-        cote.extremite1,
-        cote.extremite2,
-        couleurValeur,
-        positionValeur
-      )
-    }
     return '\n\t' + cote.tikz() + '\n\t' + valeur.tikz()
   }
 }
