@@ -47,7 +47,9 @@ class LireImageParApiGeom extends Exercice {
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.formatChampTexte = 'largeur15 inline'
     this.besoinFormulaireNumerique = ['Nombre d\'images à trouver (de 1 à 5)', 5]
+    this.besoinFormulaire2CaseACocher = ['Utiliser des valeurs entières', false]
     this.sup = 3
+    this.sup2 = false
     this.nbImages = 3
     this.X = []
     this.Y = []
@@ -59,7 +61,7 @@ class LireImageParApiGeom extends Exercice {
     // on va chercher une spline aléatoire
     this.listeCorrections = []
     this.listeQuestions = []
-    const noeuds = noeudsSplineAleatoire(12, false, -6, 2)
+    const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
     this.idApigeom = `apigeomEx${numeroExercice}F0`
@@ -96,7 +98,7 @@ class LireImageParApiGeom extends Exercice {
     this.Y = []
     for (let i = 0; i < this.nbImages; i++) {
       do {
-        if (spline.x && spline.n) {
+        if (!this.sup2 && spline.x && spline.n) {
           this.X[i] = Math.round((spline.x[0] + Math.random() * (spline.x[spline.n - 1] - spline.x[0])) * 10) / 10
         } else {
           this.X[i] = randint(-6, 6, this.X)
