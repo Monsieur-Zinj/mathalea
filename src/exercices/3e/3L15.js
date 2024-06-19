@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { sp } from '../../lib/outils/outilString.js'
 import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -30,8 +30,6 @@ export const refs = {
 }
 export default function ExerciceEquations () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
   this.nbQuestions = 6
   this.nbCols = 2
   this.nbColsCorr = 1
@@ -44,23 +42,19 @@ export default function ExerciceEquations () {
   this.comment += 'Dans le niveau moins facile, l\'énoncé contient aléatoirement des entiers positifs ou négatifs. <br>'
 
   this.nouvelleVersion = function () {
+    this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let typeQuestionsDisponibles = []
-    switch (this.sup) {
-      case 1 :
-        typeQuestionsDisponibles = ['ax2+bx', 'ax2+bxAvec1']
-        break
-      case 2 :
-        typeQuestionsDisponibles = ['ax2-b2', 'ax2=b2']
-        break
-      case 3 :
-        typeQuestionsDisponibles = ['bcx2+a=bx(cx+d)', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2']
-        break
-      case 4 :
-        typeQuestionsDisponibles = ['ax2+bx', 'ax2+bxAvec1', 'bcx2+a=bx(cx+d)', 'ax2-b2', 'ax2=b2', '(ax+b)(cx+d)=acx2']
-    }
+    const typeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 7,
+      defaut: 8,
+      melange: 8,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: ['ax2+bx', 'ax2+bxAvec1', 'ax2-b2', 'ax2=b2', 'bcx2+a=bx(cx+d)', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2', 'mélange']
+    })
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let increment
@@ -78,22 +72,16 @@ export default function ExerciceEquations () {
           increment = 2
           break
         case 'ax2+bxAvec1':
-          if (this.sup2) {
-            if (randint(1, 2) === 1) {
-              a = 1
-              b = randint(2, 9)
-            } else {
-              b = 1
-              a = randint(2, 9)
-            }
+          if (choice([true, false])) {
+            a = 1
+            b = randint(2, 9)
           } else {
-            if (randint(1, 2) === 1) {
-              a = choice([-1, 1])
-              b = randint(-9, 9, [-1, 0, 1])
-            } else {
-              b = choice([-1, 1])
-              a = randint(-9, 9, [-1, 0, 1])
-            }
+            b = 1
+            a = randint(2, 9)
+          }
+          if (!this.sup2) {
+            a = choice([-1, 1]) * a
+            b = choice([-1, 1]) * b
           }
           texte = ax2plusbx(a, b)[0]
           texteCorr = ax2plusbx(a, b)[1]
@@ -263,7 +251,8 @@ export default function ExerciceEquations () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ["Type d'équations", 4, "1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
+  // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
+  this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: bcx2+a=bx(cx+d)\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
   this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
 }
 
