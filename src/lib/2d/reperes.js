@@ -1244,7 +1244,7 @@ export function Repere ({
   yLabelMax = yThickMax,
   precisionLabelX = 1,
   precisionLabelY = 1,
-  xLabelEcart = 0.2,
+  xLabelEcart = 0.5,
   yLabelEcart = 0.5,
   xLegende = '',
   xLegendePosition = [],
