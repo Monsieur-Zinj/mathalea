@@ -16,7 +16,6 @@ export const interactifType = 'mathLive'
 /**
  * Calculer la dérivée d'un polynome
  * @author Jean-Claude Lhote
- * Référence 1AN14-3
  */
 
 export const uuid = 'ec088'

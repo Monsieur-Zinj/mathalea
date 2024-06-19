@@ -5,21 +5,21 @@ import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntie
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import FractionEtendue from '../../modules/FractionEtendue'
 
+export const dateDePublication = '29/08/2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const titre = 'Calculer images (et antécédents) de fonctions'
+export const titre = 'Calculer des images (et antécédents) dans diverses fonctions'
 
 /**
  * Répondre à des questions sur les fonctions.
- * Aout 2021
  * @author Jean-Claude Lhote
  */
 export const uuid = 'ba520'
@@ -33,48 +33,52 @@ export default function CalculsImagesFonctions () {
   this.sup = 2
   this.sup2 = 1
   this.sup3 = 1
-  this.consigne = ''
-  this.correctionDetailleeDisponible = true
-  this.correctionDetaillee = false
   this.spacing = 2
   this.nbQuestions = 3
-  this.nbQuestionsModifiable = true
+  this.fonctions = 'toutesLesFonctions'
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    let typesDeQuestionsDisponibles
-    this.sup = contraindreValeur(1, 5, this.sup, 1)
-    this.sup2 = contraindreValeur(1, 3, this.sup2, 1)
-    this.sup3 = contraindreValeur(1, 5, this.sup3, 1)
-    switch (this.sup) {
-      case 1:
-        typesDeQuestionsDisponibles = ['linéaire']
-        break
-      case 2:
-        typesDeQuestionsDisponibles = ['affine']
-        break
-      case 3:
-        typesDeQuestionsDisponibles = ['polynôme']
-        break
-      case 4:
-        typesDeQuestionsDisponibles = ['fraction']
-        break
-      case 5:
-        typesDeQuestionsDisponibles = ['linéaire', 'affine', 'polynôme', 'fraction']
-        break
-    }
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
+
+    const listeTypeDeQuestions = this.fonctions === 'affinesOuLineaires'
+      ? gestionnaireFormulaireTexte({
+        saisie: this.sup,
+        min: 1,
+        max: 2,
+        defaut: 3,
+        melange: 3,
+        nbQuestions: this.nbQuestions,
+        listeOfCase: ['linéaire', 'affine']
+      })
+      : this.fonctions === 'polynomialesOuRationnelles'
+        ? gestionnaireFormulaireTexte({
+          saisie: this.sup,
+          min: 1,
+          max: 2,
+          defaut: 3,
+          melange: 3,
+          nbQuestions: this.nbQuestions,
+          listeOfCase: ['polynôme', 'fraction']
+        })
+        : gestionnaireFormulaireTexte({
+          saisie: this.sup,
+          min: 1,
+          max: 4,
+          defaut: 5,
+          melange: 5,
+          nbQuestions: this.nbQuestions,
+          listeOfCase: ['linéaire', 'affine', 'polynôme', 'fraction']
+        })
+
     let sousChoix
-    if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question
-      if (this.sup3 < 3 || this.sup3 === 4) {
+    if (this.sup2 === 1) { // Pour paramétrer plus finement le type de question pour les questions
+      if (this.sup3 !== 3) {
         sousChoix = combinaisonListes([0], this.nbQuestions)
-      } else if (this.sup3 === 3) {
-        sousChoix = combinaisonListes([1], this.nbQuestions)
       } else {
-        sousChoix = combinaisonListes([0, 1], this.nbQuestions)
+        sousChoix = combinaisonListes([1], this.nbQuestions)
       }
-    } else if (this.sup2 === 2) {
+    } else if (this.sup2 === 2) { // Que pour les fonctions affines et linéaires
       if (this.sup3 < 3 || this.sup3 === 4) {
         sousChoix = combinaisonListes([2, 3], this.nbQuestions)
       } else if (this.sup3 === 3) {
@@ -82,7 +86,7 @@ export default function CalculsImagesFonctions () {
       } else {
         sousChoix = combinaisonListes([2, 3, 4], this.nbQuestions)
       }
-    } else {
+    } else { // Que pour les fonctions affines et linéaires
       if (this.sup3 < 3 || this.sup3 === 4) {
         sousChoix = combinaisonListes([0, 2, 3], this.nbQuestions)
       } else if (this.sup3 === 3) {
@@ -93,6 +97,7 @@ export default function CalculsImagesFonctions () {
     }
     for (let i = 0, texte, texteCorr, x, y, m, n, enonce, correction, reponses = [], tagImage, ant, img, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
+      if (this.sup3 > 2 && this.fonctions === 'polynomialesOuRationnelles') this.sup3++
       if (this.sup3 === 1) {
         x = randint(2, 9)
         y = randint(-9, 9, [x, 0])
@@ -233,7 +238,9 @@ export default function CalculsImagesFonctions () {
           break
         case 'fraction':
           ant = x
-          switch (sousChoix[i] % 4) {
+          // switch (sousChoix[i] % 4) {
+          sousChoix[i] = randint(0, 3)
+          switch (sousChoix[i]) {
             case 0:
               if (n !== x) m = n - x // n différent de 0 donc m + x différent de zéro
               else m = n ** 2 - x // idem
@@ -266,7 +273,6 @@ export default function CalculsImagesFonctions () {
               correction += `=\\dfrac{${x - m}}{${x ** 2}${ecritureAlgebrique(-2 * m * x)}+${m * m}}=\\dfrac{${x - m}}{${x ** 2 - 2 * m * x + m * m}}`
               reponses[i] = new FractionEtendue(1, x - m)
               correction += `=${reponses[i].texFSD}$`
-
               break
           }
           setReponse(this, i, reponses[i], { formatInteractif: 'fractionEgale' })
@@ -313,10 +319,8 @@ export default function CalculsImagesFonctions () {
       }
     }
   }
-  this.besoinFormulaireNumerique = [
-    'Choix des questions',
-    5,
-    '1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
+  this.besoinFormulaireTexte = [
+    'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 : Polynome de degré 2 \n4 : Fonction rationnelle \n5 : Mélange'
   ]
   this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent (uniquement pour linéaire et affine)\n3 : Mélange"]
   this.besoinFormulaire3Numerique = ['Niveau de difficulté', 5, '1 : Que des entiers positifs\n2 : Avec des entiers relatifs\n3 : Avec des fractions dans les coefficients (antécédents positifs)\n4 : Avec des antécédents tous négatifs (pas de fraction)\n5 : Mélange']
