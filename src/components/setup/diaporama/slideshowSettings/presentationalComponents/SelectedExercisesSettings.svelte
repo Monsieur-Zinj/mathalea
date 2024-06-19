@@ -1,12 +1,12 @@
 <script lang="ts">
-  import type { InterfaceSelectedExercises } from '../../../../../lib/stores/generalStore'
   import type Exercice from '../../../../../exercices/Exercice'
 
   export let exercises: Exercice[]
-  export let selectedExercises: InterfaceSelectedExercises
-  export let updateSelectedExercises: (selectedExercises: InterfaceSelectedExercises) => void
+  export let selectedExercisesIndexes: number[]
+  export let applyRandomSelectionOfExercises: (numberOfSelectedExercises: number) => void
 
-  let isActive: boolean = !!selectedExercises.count
+  let isActive: boolean = selectedExercisesIndexes.length > 0
+  let selectedExercisesCount: number = selectedExercisesIndexes.length
 
 </script>
 
@@ -29,8 +29,8 @@
         focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
       bind:checked={isActive}
       on:change={() => {
-        selectedExercises.count = isActive ? exercises.length - 1 : undefined
-        updateSelectedExercises(selectedExercises)
+        selectedExercisesCount = isActive ? exercises.length - 1 : 0
+        applyRandomSelectionOfExercises(selectedExercisesCount)
       }}
       disabled={exercises.length === 1}
     />
@@ -49,13 +49,13 @@
       id="diaporama-nb-exos-dans-liste-input"
       min="1"
       max={exercises.length}
-      bind:value={selectedExercises.count}
-      on:change={() => updateSelectedExercises(selectedExercises)}
+      bind:value={selectedExercisesCount}
+      on:change={() => applyRandomSelectionOfExercises(selectedExercisesCount)}
       class="ml-3 w-14 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-canvas-darkest focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-0"
-      disabled={!selectedExercises.count}
+      disabled={!selectedExercisesCount}
     />
     <span
-      class="text-coopmaths-corpus dark:text-coopmathsdark-corpus {selectedExercises.count
+      class="text-coopmaths-corpus dark:text-coopmathsdark-corpus {selectedExercisesCount
         ? 'text-opacity-100 dark:text-opacity-100'
         : 'text-opacity-0 dark:text-opacity-0'}"
     >

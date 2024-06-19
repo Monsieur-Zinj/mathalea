@@ -10,7 +10,7 @@
   import { setPhraseDuree } from '../../../../lib/components/time'
   import { buildMathAleaURL } from '../../../../lib/components/urls'
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import { globalOptions, questionsOrder } from '../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../lib/stores/generalStore'
 
   export let consignes: string[][]
   export let corrections: string[][]
@@ -41,6 +41,9 @@
   let stepsUl: HTMLUListElement
   let userZoom = 1
 
+  let order: number[]
+  $: order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
+
   currentZoom = userZoom
 
   onMount(() => {
@@ -52,7 +55,7 @@
       goToQuestion(currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
-      nbOfVues = dataFromSettings.nbOfVues
+      nbOfVues = $globalOptions.nbVues ?? 1
       QRCodeWidth = dataFromSettings.QRCodeWidth
     }
   }
@@ -101,15 +104,15 @@
     }
     if (!isManualModeActive) {
       if (!isPause) {
-        if (dataFromSettings.transitionsBetweenQuestions.isNoisy) {
-          transitionSounds[dataFromSettings.transitionsBetweenQuestions.tune].play()
+        if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
+          transitionSounds[$globalOptions.sound - 1].play()
         }
-        if (dataFromSettings.transitionsBetweenQuestions.isActive) {
+        if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+            timer(durationGlobal || (durations[currentQuestion] ?? 10))
           })
         } else {
-          timer(durationGlobal ?? durations[currentQuestion] ?? 10)
+          timer(durationGlobal || (durations[currentQuestion] ?? 10))
         }
       }
     }
@@ -266,8 +269,7 @@
       isQuestionVisible = true
     } else {
       isCorrectionVisible = true
-      isQuestionVisible =
-        !!dataFromSettings.transitionsBetweenQuestions.questThenQuestAndSolDisplay
+      isQuestionVisible = $globalOptions.flow !== undefined && $globalOptions.flow === 2
     }
     await tick()
     setSize()
@@ -289,7 +291,7 @@ function handleShortcut (e: KeyboardEvent) {
 }
 
 function prevQuestion () {
-  if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
+  if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
     if (isQuestionVisible) {
       if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
     } else {
@@ -303,7 +305,7 @@ function prevQuestion () {
 }
 
 function nextQuestion () {
-  if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
+  if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
     if (isQuestionVisible && !isCorrectionVisible) {
       switchPause()
       switchQuestionToCorrection()
@@ -487,13 +489,13 @@ data-theme="daisytheme"
             <div class="font-light" id="consigne{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html consignes[i][
-                $questionsOrder.indexes[currentQuestion]
+                order[currentQuestion]
               ]}
             </div>
             <div class="py-4" id="question{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html questions[i][
-                $questionsOrder.indexes[currentQuestion]
+                order[currentQuestion]
               ]}
             </div>
           {/if}
@@ -506,7 +508,7 @@ data-theme="daisytheme"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {@html corrections[i][
-                $questionsOrder.indexes[currentQuestion]
+                order[currentQuestion]
               ]}
             </div>
           {/if}
@@ -560,7 +562,7 @@ data-theme="daisytheme"
       <button
         type="button"
         on:click={() => {
-          if (dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive) {
+          if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
             nextQuestion()
           } else {
             switchPause()
@@ -646,7 +648,7 @@ data-theme="daisytheme"
         </div>
       </div>
       <div
-        class={dataFromSettings.transitionsBetweenQuestions.isQuestThenSolModeActive
+        class={($globalOptions.flow !== undefined && $globalOptions.flow > 0)
           ? 'hidden'
           : 'block'}
       >

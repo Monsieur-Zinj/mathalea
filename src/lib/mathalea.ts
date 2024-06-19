@@ -27,6 +27,8 @@ import Grandeur from '../modules/Grandeur'
 import { canOptions } from './stores/canStore.js'
 import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentielLocale } from './stores/languagesStore.js'
 import { delay } from './components/time.js'
+import { contraindreValeur } from '../modules/outils.js'
+import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -424,15 +426,20 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let v: VueType | undefined
   let z = '1'
   let durationGlobal = 0
-  let nbVues = 1
+  let ds
+  let nbVues
+  let flow
+  let screenBetweenSlides
+  let sound
   let shuffle = false
-  let trans = false
+  let select: number[] = []
+  let order: number[] = []
   let title = ''
   let iframe = ''
   let answers = ''
   let recorder: 'capytale' | 'moodle' | 'labomep' | 'anki'
   let done: '1'
-  let choice, sound, es
+  let es
   let presMode: 'liste_exos' | 'un_exo_par_page' | 'liste_questions' | 'une_question_par_page' | 'recto' | 'verso' = 'liste_exos'
   let setInteractive = '2'
   let isSolutionAccessible = true
@@ -510,16 +517,14 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       z = entry[1]
     } else if (entry[0] === 'dGlobal') {
       durationGlobal = parseInt(entry[1])
-    } else if (entry[0] === 'nbVues') {
-      nbVues = parseInt(entry[1])
     } else if (entry[0] === 'shuffle') {
       shuffle = true
-    } else if (entry[0] === 'choice') {
-      choice = parseInt(entry[1])
-    } else if (entry[0] === 'trans') {
-      trans = true
-    } else if (entry[0] === 'sound') {
-      sound = entry[1] as '0' | '1' | '2' | '3'
+    } else if (entry[0] === 'select') {
+      select = entry[1].split('-').map((e) => parseInt(e))
+    } else if (entry[0] === 'order') {
+      order = entry[1].split('-').map((e) => parseInt(e))
+    } else if (entry[0] === 'ds') {
+      ds = entry[1]
     } else if (entry[0] === 'es') {
       es = entry[1]
     } else if (entry[0] === 'title') {
@@ -564,6 +569,17 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     })
   }
 
+  if (ds) {
+    const nbVuesCandidate = contraindreValeur(1, 4, ds.charAt(0), 1)
+    const flowCandidate = contraindreValeur(0, 2, ds.charAt(1), 0)
+    const soundCandidate = contraindreValeur(0, 4, ds.charAt(3), 0)
+    if (isIntegerInRange1to4(nbVuesCandidate)) nbVues = nbVuesCandidate
+    if (isIntegerInRange0to2(flowCandidate)) flow = flowCandidate
+    if (isIntegerInRange0to4(soundCandidate)) sound = soundCandidate
+    screenBetweenSlides = ds.charAt(2) === '1'
+    shuffle = ds.charAt(4) === '1'
+  }
+
   /**
      * es permet de résumer les réglages de la vue élève
      * Il est de la forme 210110
@@ -589,11 +605,14 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     v,
     z,
     durationGlobal,
+    ds,
     nbVues,
-    shuffle,
-    choice,
-    trans,
+    flow,
+    screenBetweenSlides,
     sound,
+    shuffle,
+    select,
+    order,
     title,
     presMode,
     setInteractive,

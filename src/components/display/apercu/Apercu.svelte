@@ -1,8 +1,6 @@
 <script lang="ts">
   import {
     globalOptions,
-    questionsOrder,
-    selectedExercises,
     darkMode,
     exercicesParams
   } from '../../../lib/stores/generalStore'
@@ -35,8 +33,10 @@
   let divExercice: HTMLElement
   let correctionsSteps: number[] = []
 
+  let order: number[]
+  $: order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
+
   async function forceUpdate () {
-    // console.log('forceUpdate')
     updateExercices()
     isCorrectionVisible = isCorrectionVisible
   }
@@ -55,20 +55,6 @@
 
   onMount(async () => {
     document.addEventListener('updateAsyncEx', forceUpdate)
-    const url = new URL(window.location.href)
-    selectedExercises.update(() => {
-      const paramsSelectedExercises = url.searchParams.get('selectedExercises')
-      if (paramsSelectedExercises) {
-        return JSON.parse(paramsSelectedExercises)
-      }
-    })
-    questionsOrder.update(() => {
-      const paramsQuestionsOrder = url.searchParams.get('questionsOrder')
-      if (paramsQuestionsOrder) {
-        return JSON.parse(paramsQuestionsOrder)
-      }
-    })
-    mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     for (const paramsExercice of $exercicesParams) {
       const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
         paramsExercice.uuid
@@ -111,7 +97,7 @@
           exercice.nouvelleVersionWrapper?.()
         }
         seedrandom(exercice.seed, { global: true })
-        if ($selectedExercises.indexes.includes(k)) {
+        if ($globalOptions.select === undefined || $globalOptions.select.length === 0 || $globalOptions.select.includes(k)) {
           questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
           corrections[idVue] = [
             ...corrections[idVue],
@@ -183,8 +169,8 @@
       }
     }
     if (button === 'forward') {
-      if (correctionsSteps.length < $questionsOrder.indexes.length) {
-        correctionsSteps.push($questionsOrder.indexes[correctionsSteps.length])
+      if (correctionsSteps.length < order.length) {
+        correctionsSteps.push(order[correctionsSteps.length])
       }
       correctionsSteps = correctionsSteps
     }
@@ -396,11 +382,11 @@
                         <div>
                           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                           {@html mathaleaFormatExercice(
-                            questions[currentVue][$questionsOrder.indexes[i]]
+                            questions[currentVue][order[i]]
                           )}
                         </div>
                       {/if}
-                      {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
+                      {#if isCorrectionVisible || correctionsSteps.includes(order[i])}
                         <div
                           class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                             ? 'my-8'
@@ -412,7 +398,7 @@
                             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                             {@html mathaleaFormatExercice(
                               corrections[currentVue][
-                                $questionsOrder.indexes[i]
+                                order[i]
                               ]
                             )}
                           </div>
@@ -468,12 +454,12 @@
                               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                               {@html mathaleaFormatExercice(
                                 questions[currentVueId][
-                                  $questionsOrder.indexes[i]
+                                  order[i]
                                 ]
                               )}
                             </div>
                           {/if}
-                          {#if isCorrectionVisible || correctionsSteps.includes($questionsOrder.indexes[i])}
+                          {#if isCorrectionVisible || correctionsSteps.includes(order[i])}
                             <div
                               class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                                 ? 'my-8'
@@ -485,7 +471,7 @@
                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                                 {@html mathaleaFormatExercice(
                                   corrections[currentVueId][
-                                    $questionsOrder.indexes[i]
+                                    order[i]
                                   ]
                                 )}
                               </div>

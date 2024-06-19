@@ -4,10 +4,18 @@
   export let exercises: Exercice[]
   export let isManualModeActive: boolean
   export let updateManualMode: (isManualModeActive: boolean) => void
-  export let isSameDurationForAll: boolean
-  export let updateIsSameDurationForAll: (isSameDurationForAll: boolean) => void
   export let durationGlobal: number | undefined
   export let updateDurationGlobal: (durationGlobal: number | undefined) => void
+
+  let previousDurationGlobal = durationGlobal || 10
+  let isSameDurationForAll = !!durationGlobal
+  function handleChangeIsSameDurationForAll () {
+    if (isSameDurationForAll) {
+      updateDurationGlobal(previousDurationGlobal)
+    } else {
+      updateDurationGlobal(undefined)
+    }
+  }
 
 </script>
 
@@ -39,7 +47,7 @@
         ? 'border-opacity-30 dark:border-opacity-30'
         : 'border-opacity-100 dark:border-opacity-100'} focus:ring-3 focus:ring-coopmaths-action h-4 w-4 rounded"
       bind:checked={isSameDurationForAll}
-      on:change={() => updateIsSameDurationForAll(isSameDurationForAll)}
+      on:change={handleChangeIsSameDurationForAll}
       disabled={exercises.length === 1 || isManualModeActive}
     />
     <label
@@ -54,8 +62,8 @@
         type="number"
         id="diaporama-meme-duree-input"
         min="1"
-        on:change={() => updateDurationGlobal(durationGlobal)}
-        bind:value={durationGlobal}
+        on:change={() => updateDurationGlobal(previousDurationGlobal)}
+        bind:value={previousDurationGlobal}
         class="ml-3 w-20 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border {isSameDurationForAll
           ? ''
           : 'border-transparent'} border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:opacity-30"

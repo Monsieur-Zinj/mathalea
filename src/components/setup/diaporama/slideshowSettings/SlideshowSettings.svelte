@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../../exercices/Exercice'
-  import type { DataFromSettings, TransitionsBetweenQuestions } from '../types'
-  import type { NumberRange } from '../../../../lib/types'
+  import { type DataFromSettings } from '../types'
+  import { type NumberRange } from '../../../../lib/types'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
   import GlobalDurationSettings from './presentationalComponents/GlobalDurationSettings.svelte'
@@ -11,19 +11,12 @@
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
-  import { createEventDispatcher, tick } from 'svelte'
+  import { createEventDispatcher } from 'svelte'
   import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
-  import { formattedTimeStamp } from '../../../../lib/components/time'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
-  import {
-    questionsOrder,
-    selectedExercises,
-    globalOptions,
-
-    type InterfaceSelectedExercises
-
-  } from '../../../../lib/stores/generalStore'
+  import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
+    import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
 
   export let exercises: Exercice[]
   export let updateExercises: () => void
@@ -32,78 +25,56 @@
   const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
   const settings: DataFromSettings = {
     currentQuestion: -1,
-    durationGlobal: undefined,
     formatQRCodeIndex: 0,
     isManualModeActive: false,
-    QRCodeWidth: 100,
-    nbOfVues: $globalOptions.nbVues || 1,
-    timer: $globalOptions.durationGlobal ?? 10,
-    transitionsBetweenQuestions: {
-      isActive: $globalOptions.trans || false,
-      isNoisy: true,
-      isQuestThenSolModeActive: false,
-      questThenQuestAndSolDisplay: false,
-      tune: $globalOptions.sound || '1'
-    }
+    QRCodeWidth: 100
   }
 
   let divTableDurationsQuestions: HTMLDivElement
-  let durationGlobal = $globalOptions.durationGlobal
-  let isSameDurationForAll = !!$globalOptions.durationGlobal
-  let previousDurationGlobal = 10 // Utile si on décoche puis recoche "Même durée pour toutes les questions"
-  let stringDureeTotale = '0'
-
-  let firstExercisesUpdate = true
-  settings.durationGlobal = isSameDurationForAll ? durationGlobal : undefined
-
-  $: if (exercises && exercises.length > 0) {
-    updateDisplayedTotalDuration()
-    if (firstExercisesUpdate) {
-      applyRandomSelectionOfExercises()
-      firstExercisesUpdate = false
-    }
-  }
 
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
   }
 
-  $: {
-    if (durationGlobal) previousDurationGlobal = durationGlobal
-    if (isSameDurationForAll) {
-      if (previousDurationGlobal) {
-        durationGlobal = previousDurationGlobal
-      } else if (durationGlobal === undefined) {
-        durationGlobal = 10
-      }
-    } else {
-      durationGlobal = undefined
-    }
-  }
-
   function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
-    settings.nbOfVues = nbOfViews
     globalOptions.update((l) => {
       l.nbVues = nbOfViews
       return l
     })
+    dispatchUpdateSettings()
   }
 
-  function updateTransition (transitionsBetweenQuestions: TransitionsBetweenQuestions) {
-    settings.transitionsBetweenQuestions = transitionsBetweenQuestions
+  function updateFlow (flow: 0 | 1 | 2) {
+    globalOptions.update((l) => {
+      l.flow = flow
+      return l
+    })
+    dispatchUpdateSettings()
+  }
+
+  function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
+    globalOptions.update((l) => {
+      l.screenBetweenSlides = screenBetweenSlides
+      return l
+    })
+    dispatchUpdateSettings()
+  }
+
+  function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
+    const soundCandidate = tune + 1
+    if (isIntegerInRange0to4(soundCandidate)) {
+      globalOptions.update((l) => {
+        l.sound = soundCandidate
+        return l
+      })
+    }
     dispatchUpdateSettings()
   }
 
   function updateQuestionsOrder (isQuestionsShuffled: boolean) {
-    $questionsOrder.isQuestionsShuffled = isQuestionsShuffled
-    dispatchUpdateSettings()
-  }
-
-  function updateSelectedExercises (newSelectedExercises: InterfaceSelectedExercises) {
-    selectedExercises.set(newSelectedExercises)
-    applyRandomSelectionOfExercises()
     globalOptions.update((l) => {
-      l.choice = $selectedExercises.count
+      l.shuffle = isQuestionsShuffled
+      l.order = undefined
       return l
     })
     dispatchUpdateSettings()
@@ -114,13 +85,11 @@
     dispatchUpdateSettings()
   }
 
-  function updateIsSameDurationForAll (newIsSameDurationForAll: boolean) {
-    isSameDurationForAll = newIsSameDurationForAll
-    dispatchUpdateSettings()
-  }
-
-  function updateDurationGlobal (newDurationGlobal: number | undefined) {
-    durationGlobal = newDurationGlobal
+  function updateDurationGlobal (durationGlobal: number | undefined) {
+    globalOptions.update((l) => {
+      l.durationGlobal = durationGlobal
+      return l
+    })
     dispatchUpdateSettings()
   }
 
@@ -130,51 +99,19 @@
   }
 
   function dispatchUpdateSettings () {
-    globalOptions.update((l) => {
-      l.durationGlobal = durationGlobal
-      return l
-    })
     dispatch('updateSettings', settings)
   }
 
-  async function updateDisplayedTotalDuration () {
-    stringDureeTotale = formattedTimeStamp(getTotalDuration())
-    await tick()
-    if (divTableDurationsQuestions) {
-      mathaleaRenderDiv(divTableDurationsQuestions)
+  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
+    let selection: number[] | undefined
+    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
+      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
     }
-  }
-
-  function applyRandomSelectionOfExercises () {
-    if ($selectedExercises.count) {
-      $selectedExercises.indexes = [...listOfRandomIndexes(exercises.length, $selectedExercises.count!)]
-    } else {
-      $selectedExercises.indexes = [...Array(exercises.length).keys()]
-    }
-  }
-
-  /**
-   * Calcule la durée totale du diaporama
-   * (durée par question x nombre de questions)
-   */
-  function getTotalDuration () {
-    let sum = 0
-    for (const [i, exercice] of exercises.entries()) {
-      if ($selectedExercises.count) {
-        if ($selectedExercises.indexes.includes(i)) {
-          sum +=
-            (isSameDurationForAll
-              ? durationGlobal ?? 10
-              : exercice.duration ?? 10) * exercice.nbQuestions
-        }
-      } else {
-        sum +=
-          (isSameDurationForAll
-            ? durationGlobal ?? 10
-            : exercice.duration ?? 10) * exercice.nbQuestions
-      }
-    }
-    return sum
+    globalOptions.update((l) => {
+      l.select = selection
+      return l
+    })
+    updateExercises()
   }
 
 </script>
@@ -188,10 +125,23 @@
     <!-- Left Side -->
     <div class="flex flex-col w-1/5 justify-start">
       <DisplaySettings />
-      <NbOfViewsSettings nbOfViews={settings.nbOfVues} {updateNbOfViews} />
-      <TransitionSettings {transitionSounds} transitionsBetweenQuestions={settings.transitionsBetweenQuestions} {updateTransition} />
-      <OrderSettings isQuestionsShuffled={$questionsOrder.isQuestionsShuffled} {updateQuestionsOrder} />
-      <SelectedExercisesSettings {exercises} selectedExercises={$selectedExercises} {updateSelectedExercises} />
+      <NbOfViewsSettings nbOfViews={$globalOptions.nbVues ?? 1} {updateNbOfViews} />
+      <TransitionSettings
+        {transitionSounds}
+        screenBetweenSlides={!!$globalOptions.screenBetweenSlides}
+        sound={$globalOptions.sound ?? 0}
+        {updateFlow}
+        {updateScreenBetweenSlides}
+        {updateTune}
+        questionThenCorrectionToggle={$globalOptions.flow === 1 || $globalOptions.flow === 2}
+        questionWithCorrectionToggle={$globalOptions.flow === 2}
+      />
+      <OrderSettings isQuestionsShuffled={!!$globalOptions.shuffle} {updateQuestionsOrder} />
+      <SelectedExercisesSettings
+        {exercises}
+        selectedExercisesIndexes={$globalOptions.select ?? []}
+        {applyRandomSelectionOfExercises}
+      />
       <LinksSettings QRCodeWidth={settings.QRCodeWidth} formatQRCodeIndex={settings.formatQRCodeIndex} />
     </div>
     <!-- Right Side -->
@@ -200,9 +150,7 @@
         {exercises}
         isManualModeActive={settings.isManualModeActive}
         {updateManualMode}
-        {isSameDurationForAll}
-        {updateIsSameDurationForAll}
-        {durationGlobal}
+        durationGlobal={$globalOptions.durationGlobal}
         {updateDurationGlobal}
       />
       <div
@@ -211,11 +159,10 @@
       >
         <ExercisesSettings
           {exercises}
-          selectedExercises={$selectedExercises}
           isManualModeActive={settings.isManualModeActive}
-          {stringDureeTotale}
           {updateExercises}
-          {isSameDurationForAll}
+          durationGlobal={$globalOptions.durationGlobal}
+          selectedExercisesIndexes={$globalOptions.select ?? []}
         />
         <div class="flex flex-row items-center justify-end w-full my-4">
           <button

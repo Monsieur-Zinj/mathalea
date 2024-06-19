@@ -19,8 +19,6 @@
   import {
     exercicesParams,
     globalOptions,
-    questionsOrder,
-    selectedExercises,
     darkMode
   } from '../../../lib/stores/generalStore'
   import { context } from '../../../modules/context.js'
@@ -44,7 +42,6 @@
 
   onMount(async () => {
     context.vue = 'diap'
-    updateDataFromGlobalOptions()
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
     updateExercises()
@@ -53,11 +50,6 @@
   onDestroy(() => {
     document.removeEventListener('updateAsyncEx', forceUpdate)
   })
-
-  function updateDataFromGlobalOptions () {
-    $questionsOrder.isQuestionsShuffled = $globalOptions.shuffle || false
-    $selectedExercises.count = $globalOptions.choice
-  }
 
   async function forceUpdate () {
     updateExercises()
@@ -78,21 +70,13 @@
     dataFromSettings = event.detail
     if (dataFromSettings !== undefined) {
       currentQuestion = dataFromSettings.currentQuestion
-      globalOptions.update((l) => {
-        l.nbVues = dataFromSettings.nbOfVues
-        l.trans = dataFromSettings.transitionsBetweenQuestions.isActive
-        l.sound = dataFromSettings.transitionsBetweenQuestions.isNoisy ? dataFromSettings.transitionsBetweenQuestions.tune ?? '0' : undefined
-        l.shuffle = $questionsOrder.isQuestionsShuffled
-        l.durationGlobal = dataFromSettings.durationGlobal
-        return l
-      })
     }
     updateExercises()
   }
 
   async function updateExercises () {
     setSlidesContent()
-    setQuestionsOrder()
+    adjustQuestionsOrder()
     updateSizesAndDurations()
     updateExerciseParams()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -100,7 +84,7 @@
   }
 
   function setSlidesContent () {
-    const nbOfVues = dataFromSettings ? dataFromSettings.nbOfVues : 1
+    const nbOfVues = $globalOptions.nbVues ?? 1
     consignes = [[], [], [], []]
     questions = [[], [], [], []]
     corrections = [[], [], [], []]
@@ -120,7 +104,7 @@
           exercise.nouvelleVersionWrapper?.()
         }
         let consigne: string = ''
-        if ($selectedExercises.indexes.includes(k)) {
+        if ($globalOptions.select === undefined || $globalOptions.select.length === 0 || $globalOptions.select.includes(k)) {
           if (exercise.introduction) {
             consigne = exercise.consigne + '\n' + exercise.introduction
           } else {
@@ -145,11 +129,9 @@
   /**
    * Préparation des indexes si l'ordre aléatoire est demandé
    */
-  function setQuestionsOrder () {
-    if ($questionsOrder.isQuestionsShuffled) {
-      $questionsOrder.indexes = shuffle([...Array(questions[0].length).keys()])
-    } else {
-      $questionsOrder.indexes = [...Array(questions[0].length).keys()]
+  function adjustQuestionsOrder () {
+    if ($globalOptions.shuffle && !$globalOptions.order) {
+      $globalOptions.order = shuffle([...Array(questions[0].length).keys()])
     }
   }
 

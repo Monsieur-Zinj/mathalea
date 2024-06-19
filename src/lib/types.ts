@@ -23,11 +23,14 @@ export interface InterfaceGlobalOptions {
   v?: VueType
   z?: string
   durationGlobal?: number
+  ds?: string
   nbVues?: 1 | 2 | 3 | 4
+  flow?: 0 | 1 | 2
+  screenBetweenSlides?: boolean
+  sound?: 0 | 1 | 2 | 3 | 4
   shuffle?: boolean
-  choice?: number
-  trans?: boolean
-  sound?: '0' | '1' | '2' | '3'
+  select?: number[]
+  order?: number[]
   es?: string
   title: string
   presMode:

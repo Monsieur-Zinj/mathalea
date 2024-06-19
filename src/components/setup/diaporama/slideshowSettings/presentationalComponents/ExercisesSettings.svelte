@@ -1,23 +1,41 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
-  import type { InterfaceSelectedExercises } from '../../../../../lib/stores/generalStore'
+  import { formattedTimeStamp } from '../../../../../lib/components/time'
 
   export let exercises: Exercice[]
-  export let selectedExercises: InterfaceSelectedExercises
+  export let selectedExercisesIndexes: number[]
   export let isManualModeActive: boolean
-  export let stringDureeTotale: string
   export let updateExercises: () => void
-  export let isSameDurationForAll: boolean
+  export let durationGlobal: number | undefined
+  let stringDureeTotale = '0'
 
   $: getTotalNbOfQuestions = () => {
     let sum = 0
     for (const [i, exercice] of exercises.entries()) {
-      if (selectedExercises.count) {
-        if (selectedExercises.indexes.includes(i)) {
+      if (selectedExercisesIndexes.length > 0) {
+        if (selectedExercisesIndexes.includes(i)) {
           sum += exercice.nbQuestions
         }
       } else {
         sum += exercice.nbQuestions
+      }
+    }
+    return sum
+  }
+
+  $: if (exercises && exercises.length > 0) {
+    stringDureeTotale = formattedTimeStamp(getTotalDuration())
+  }
+
+  function getTotalDuration () {
+    let sum = 0
+    for (const [i, exercice] of exercises.entries()) {
+      if (selectedExercisesIndexes !== undefined && selectedExercisesIndexes.length > 0) {
+        if (selectedExercisesIndexes.includes(i)) {
+          sum += (durationGlobal || (exercice.duration || 10)) * exercice.nbQuestions
+        }
+      } else {
+        sum += (durationGlobal || (exercice.duration || 10)) * exercice.nbQuestions
       }
     }
     return sum
@@ -33,10 +51,10 @@
         class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct sm:pl"
       >
         Exercices<span
-          class="pl-2 font-extralight text-opacity-60 {selectedExercises.count
+          class="pl-2 font-extralight text-opacity-60 {selectedExercisesIndexes.length > 0
             ? ''
             : 'invisible'}"
-          >({selectedExercises.count} parmi {exercises.length})</span>
+          >({selectedExercisesIndexes.length} parmi {exercises.length})</span>
       </th>
       <th
         scope="col"
@@ -68,8 +86,8 @@
         <tr>
           <td class="whitespace-normal px-3 py-4 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus">
             <span
-              class="{selectedExercises.count &&
-              selectedExercises.indexes.includes(i)
+              class="{selectedExercisesIndexes.length > 0 && selectedExercisesIndexes.length < exercises.length &&
+              selectedExercisesIndexes.includes(i)
                 ? ''
                 : 'invisible'} pr-2"
             >
@@ -86,7 +104,7 @@
                 bind:value={exercice.duration}
                 on:change={updateExercises}
                 class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                disabled={isSameDurationForAll || isManualModeActive}
+                disabled={!!durationGlobal || isManualModeActive}
               />
             </span>
           </td>
