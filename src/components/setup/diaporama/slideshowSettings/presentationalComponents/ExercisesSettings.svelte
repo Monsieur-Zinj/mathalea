@@ -61,7 +61,7 @@
         class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         <div class={isManualModeActive ? 'opacity-20' : ''}>
-          Durées par question (s)
+          Durée par question
         </div>
         <div class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
           {#if !isManualModeActive}

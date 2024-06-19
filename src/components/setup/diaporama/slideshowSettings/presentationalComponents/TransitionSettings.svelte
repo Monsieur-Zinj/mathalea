@@ -35,8 +35,8 @@
       id="diaporama-transition-toggle"
       bind:value={questionThenCorrectionToggle}
       titles={[
-        'Question <em>puis</em> correction',
-        'Question / Question+Correction / Correction'
+        'Alterner questions et corrections',
+        'Ne pas alterner questions et corrections'
       ]}
       on:toggle={() => updateFlow(questionThenCorrectionToggle ? 1 : 0)}
     />
@@ -63,7 +63,7 @@
         ? 'text-opacity-10 dark:text-opacity-10'
         : 'text-opacity-70 dark:text-opacity-70'}"
     >
-      Afficher la question avec la correction
+      En gardant les questions affichées
     </label>
   </div>
   <div class="flex flex-row justify-start items-center px-4">
@@ -71,8 +71,8 @@
       id="diaporama-transition-correction-toggle"
       bind:value={screenBetweenSlides}
       titles={[
-        'Carton entre questions',
-        'Pas de carton entre questions'
+        'Afficher des cartons entre les questions',
+        'Ne pas afficher de carton'
       ]}
       on:toggle={() => updateScreenBetweenSlides(screenBetweenSlides)}
     />
@@ -81,7 +81,7 @@
     <ButtonToggle
       id="diaporama-transition-sons-toggle"
       bind:value={soundToggle}
-      titles={['Son entre questions', 'Pas de son entre questions']}
+      titles={['Avec un son entre les questions', 'Pas de son entre les questions']}
       on:toggle={() => {
         if (soundToggle) {
           transitionSounds[tune].play()

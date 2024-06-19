@@ -15,7 +15,7 @@
     class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
     {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
   >
-    Choix aléatoire
+    Sélection aléatoire d'exercices
   </div>
   <div class="flex flex-row justify-start items-center px-4">
     <input
