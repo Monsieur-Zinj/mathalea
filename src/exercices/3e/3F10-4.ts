@@ -6,7 +6,7 @@ import figureApigeom from '../../lib/figureApigeom'
 import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
@@ -15,6 +15,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { lectureImage } from '../../lib/2d/courbes'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -172,9 +173,12 @@ class LireImageParApiGeom extends Exercice {
         },
         grilleY: { dy: 0.2, yMin: -6, yMax: 6 }
       })
+      .setLabelX({ dx: 1, xMin: -6, xMax: 6 })
       .buildStandard()
+    const figureCorrection = mathalea2d(Object.assign({ pixelsParCm: 25, scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe(), lectureImage(this.X[0], this.Y[0], 1, 1, 'green'), lectureImage(this.X[1], this.Y[1], 1, 1, 'blue'), lectureImage(this.X[2], this.Y[2], 1, 1, 'purple')])
     if (context.isHtml) {
-      this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + tableauValeur.output
+      this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + tableauValeur.output + '<br>' + figureCorrection
+
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
@@ -183,12 +187,11 @@ class LireImageParApiGeom extends Exercice {
       reponses.push(['bareme', toutAUnPoint])
       handleAnswers(this, 0, Object.fromEntries(reponses), { formatInteractif: 'mathlive' })
     } else {
-      this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) +
-        '\\\\' +
+      this.listeCorrections[0] = figureCorrection + '\\\\' +
         'Les images sont tolérées à $0{,}1$ près :' +
         '\\\\' +
         tabValeurTex
-      this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
+      this.listeQuestions = [mathalea2d(Object.assign({ scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
     }
   }
 }
