@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   texFractionFromString, fractionSimplifiee,
   simplificationDeFractionAvecEtapes,
@@ -8,9 +8,10 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 import { prenomF, prenomM } from '../../lib/outils/Personne'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, ppcm } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint, ppcm, gestionnaireFormulaireTexte } from '../../modules/outils.js'
 
 export const titre = 'Calculer des probabilités dans une expérience aléatoire à deux épreuves'
+export const dateDeModifImportante = '20/06/2024'
 
 /**
  * Calculs de probabilités sur une expérience aléatoire à deux épreuves
@@ -24,6 +25,7 @@ export const refs = {
 }
 export default function FonctionsProbabilite2 () {
   Exercice.call(this)
+  this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Yaourts\n2 : Cartes\n3 : Chaussettes\n4 : Dé\n5 : Mélange']
   this.nbQuestions = 2
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -35,8 +37,16 @@ export default function FonctionsProbabilite2 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const indexDisponibles = [0, 1, 2, 3]
-    const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
+    // const indexDisponibles = [0, 1, 2, 3]
+    // const listeIndex = combinaisonListes(indexDisponibles, this.nbQuestions)
+    const listeIndex = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5
+    })
     const qualites = [[]]
     const Initiale = []
     const Couleurs = ['red', 'green', 'blue', 'gray', 'brown', 'orange', 'magenta', 'pink', 'black', 'lightgray']
@@ -50,7 +60,7 @@ export default function FonctionsProbabilite2 () {
     for (let i = 0, p, q, r, e, f, g, somme1, somme2, quidame, quidam, n = [], m = [], fra1 = [], fra2 = [], p1 = [], p2 = [], p3 = [], den, trouve, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       quidame = prenomF()
       quidam = prenomM()
-      switch (listeIndex[i]) {
+      switch (listeIndex[i] - 1) {
         case 0:
           Initiale[0] = 'F'
           Initiale[1] = 'V'

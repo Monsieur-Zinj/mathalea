@@ -25,7 +25,7 @@ export const dateDePublication = '17/04/2024'
 class DerivationGRondF extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : (ax+b)^n\n2 : ln(ax+b)\n3 : exp(ax+b)\n4 : rac(ax+b)\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : (ax+b)^n\n2 : ln(ax+b)\n3 : exp(ax+b)\n4 : rac(ax+b)\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

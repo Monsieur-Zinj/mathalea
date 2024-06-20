@@ -27,7 +27,7 @@ class DerivationSimple extends Exercice {
   constructor () {
     super()
     this.titre = titre
-    this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : Fonctions affines\n2 : Polynomes de degré 2\n3 : Polynomes de degré 3\n4 : Monomes de degré quelconque\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : Fonctions affines\n2 : Polynomes de degré 2\n3 : Polynomes de degré 3\n4 : Monomes de degré quelconque\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 2
     this.correctionDetailleeDisponible = true
