@@ -21,7 +21,7 @@ import {
   // texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
   // expressionDeveloppeeEtReduiteCompare,
-  type CompareFunction
+  type CompareFunction, type OptionsComparaisonType
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -47,7 +47,7 @@ digits?: number
 export type AnswerType = {
   value: string,
   compare: CompareFunction,
-  options?: Record<string, unknown>
+  options?: OptionsComparaisonType
 }
 
 type ResultOfExerciceInteractif = {

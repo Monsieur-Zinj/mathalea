@@ -133,7 +133,7 @@ export default class CalculsHomothetie extends Exercice {
       OB = OB.multiplieEntier(10 ** (valeursSimples) * absk.d ** (kNonDecimal))
       let OhB = k.produitFraction(OB)
 
-      let AhA = OhA.differenceFraction(OA)
+      let AhA = OhA.differenceFraction(OA).simplifie()
       AhA = AhA.valeurAbsolue()
 
       let kAire = new FractionEtendue(choice([randint(1, 4) * 10 + 5 + choice([0, 5]), randint(1, 9)]), 1)
