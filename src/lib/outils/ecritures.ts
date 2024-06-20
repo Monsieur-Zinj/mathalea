@@ -70,18 +70,18 @@ export function ecritureNombreRelatif (a: string | number) {
  * Idem ecritureNombreRelatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
  * @param {number} a
  */
-export function ecritureNombreRelatifc (a: string | number) {
+export function ecritureNombreRelatifc (a: string | number, { color = null } = {}) {
   if (typeof a === 'string') {
     window.notify('ecritureNombreRelatifc() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('(+' + texNombre(a, 7) + ')', 'blue')
+    result = miseEnEvidence('(+' + texNombre(a, 7) + ')', color ?? 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence('(' + texNombre(a, 7) + ')')
+    result = miseEnEvidence('(' + texNombre(a, 7) + ')', color ?? 'green') // EE : Je change cette couleur pour ne pas avoir le orange de la correction.
   } else { // ne pas mettre de parenthèses pour le nnombre 0.
-    result = miseEnEvidence('0', 'black')
+    result = miseEnEvidence('0', color ?? 'black')
   }
   return result
 }
