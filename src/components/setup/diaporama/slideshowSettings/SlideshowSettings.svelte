@@ -69,7 +69,6 @@
   function updateQuestionsOrder (isQuestionsShuffled: boolean) {
     globalOptions.update((l) => {
       l.shuffle = isQuestionsShuffled
-      l.order = undefined
       return l
     })
   }

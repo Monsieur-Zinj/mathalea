@@ -130,8 +130,10 @@
    * Préparation des indexes si l'ordre aléatoire est demandé
    */
   function adjustQuestionsOrder () {
-    if ($globalOptions.shuffle && !$globalOptions.order) {
+    if ($globalOptions.shuffle) {
       $globalOptions.order = shuffle([...Array(questions[0].length).keys()])
+    } else {
+      $globalOptions.order = undefined
     }
   }
 

@@ -81,7 +81,7 @@
     <ButtonToggle
       id="diaporama-transition-sons-toggle"
       bind:value={soundToggle}
-      titles={['Avec un son entre les questions', 'Pas de son entre les questions']}
+      titles={['Jouer un son entre les questions', 'Ne pas jouer de son entre les questions']}
       on:toggle={() => {
         if (soundToggle) {
           transitionSounds[tune].play()

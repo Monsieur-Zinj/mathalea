@@ -41,17 +41,11 @@
   let stepsUl: HTMLUListElement
   let userZoom = 1
 
-  let order: number[]
-  $: order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
+  let order: number[] = []
 
-  currentZoom = userZoom
-
-  onMount(() => {
-    applyDataFromSettings()
-  })
-
-  function applyDataFromSettings () {
+  $: {
     if (dataFromSettings) {
+      order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
       goToQuestion(currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
@@ -59,6 +53,9 @@
       QRCodeWidth = dataFromSettings.QRCodeWidth
     }
   }
+
+  currentZoom = userZoom
+
   $: {
     if (stepsUl) {
       const steps = stepsUl.querySelectorAll('li')
