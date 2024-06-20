@@ -1,6 +1,12 @@
-import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
+import {
+  choice,
+  combinaisonListes,
+  combinaisonListesSansChangerOrdre,
+  enleveElement,
+  shuffle
+} from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { nombreDeChiffresDansLaPartieEntiere, range1, rangeMinMax } from '../../lib/outils/nombres'
+import { nombreDeChiffresDansLaPartieEntiere, range1 } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
@@ -15,8 +21,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '21/05/2023'
-
+export const dateDeModifImportante = '20/06/2024' // Ajout de l'équilibre entre les questions et suppression du doublon de paramètre
 /**
  * Plusieurs type de calcul avec des entiers.
  *
@@ -54,7 +59,7 @@ export const uuid = '4c10a'
 export const ref = '6C33'
 export const refs = {
   'fr-fr': ['6C33'],
-  'fr-ch': ['9NO6-1']
+  'fr-ch': []
 }
 export default function Priorites () {
   Exercice.call(this)
@@ -69,10 +74,13 @@ export default function Priorites () {
   this.sup4 = true
 
   this.nouvelleVersion = function () {
+    const deuxOperations = [1, 2, 3, 4, 5, 6, 7, 13, 14, 15, 16, 17] // 12 possibilités
+    const troisOperations = [8, 9, 10, 11, 12, 18, 19, 20, 21, 22] // 10 possibilités
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    let listeTypeDeQuestions
     let questionsDisponibles = [] //
     if (parseInt(this.sup) === 1) {
       questionsDisponibles = range1(12)
@@ -81,12 +89,28 @@ export default function Priorites () {
     } else {
       questionsDisponibles = range1(22)
     }
-    if (!this.sup3) questionsDisponibles = questionsDisponibles.filter(el => !rangeMinMax(13, 22).includes(el))
+    // if (!this.sup3) questionsDisponibles = questionsDisponibles.filter(el => !rangeMinMax(13, 22).includes(el))
     if (!this.sup4) questionsDisponibles = questionsDisponibles.filter(el => ![2, 3, 5, 8, 11, 12, 15, 16, 17, 21, 22].includes(el))
-    const listeTypeDeQuestions = combinaisonListes(
-      questionsDisponibles,
-      this.nbQuestions
-    )
+    if (this.sup3) {
+      const question2op = shuffle(questionsDisponibles.filter(el => deuxOperations.includes(el)))
+      const question3op = shuffle(questionsDisponibles.filter(el => troisOperations.includes(el)))
+      const minimumLength = Math.min(question2op.length, question3op.length)
+      const listeTypes = []
+      for (let i = 0; i < minimumLength; i++) {
+        listeTypes.push(question2op[i], question3op[i])
+      }
+      questionsDisponibles = listeTypes.slice()
+      listeTypeDeQuestions = combinaisonListesSansChangerOrdre(
+        questionsDisponibles,
+        this.nbQuestions
+      )
+    } else {
+      listeTypeDeQuestions = combinaisonListes(
+        questionsDisponibles,
+        this.nbQuestions
+      )
+    }
+
     for (
       let i = 0, texte, texteCorr, liste, somme, a, b, c, d, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -98,7 +122,7 @@ export default function Priorites () {
           c = randint(2, 11)
           texte = `$${a}+${b}\\times${c}$`
           texteCorr = `$${a}+${miseEnEvidence(b + '\\times' + c)}=${a}+${b * c
-                    }=${a + b * c}$`
+          }=${a + b * c}$`
           setReponse(this, i, a + b * c)
           break
         case 2:
@@ -107,7 +131,7 @@ export default function Priorites () {
           b = c * randint(2, 11)
           texte = `$${a}+${b}\\div${c}$`
           texteCorr = `$${a}+${miseEnEvidence(b + '\\div' + c)}=${a}+${b / c
-                    }=${a + b / c}$`
+          }=${a + b / c}$`
           setReponse(this, i, a + b / c)
           break
         case 3:
@@ -116,7 +140,7 @@ export default function Priorites () {
           a = b * randint(2, 11)
           texte = `$${a}\\div${b}\\times${c}$`
           texteCorr = `$${miseEnEvidence(a + '\\div' + b)}\\times${c}=${a / b
-                    }\\times${c}=${(a / b) * c}$`
+          }\\times${c}=${(a / b) * c}$`
           setReponse(this, i, (a / b) * c)
           break
         case 4:
@@ -125,7 +149,7 @@ export default function Priorites () {
           a = b * c + randint(2, 11)
           texte = `$${a}-${b}\\times${c}$`
           texteCorr = `$${a}-${miseEnEvidence(b + '\\times' + c)}=${a}-${b * c
-                    }=${a - b * c}$`
+          }=${a - b * c}$`
           setReponse(this, i, a - b * c)
           break
         case 5:
@@ -142,7 +166,7 @@ export default function Priorites () {
           }
           texte = `$${a}\\times${b}\\div${c}$`
           texteCorr = `$${miseEnEvidence(a + '\\times' + b)}\\div${c}=${a * b
-                    }\\div${c}=${(a * b) / c}$`
+          }\\div${c}=${(a * b) / c}$`
           setReponse(this, i, (a * b) / c)
           break
         case 6:
@@ -151,7 +175,7 @@ export default function Priorites () {
           c = randint(2, 11)
           texte = `$${a}\\times${b}+${c}$`
           texteCorr = `$${miseEnEvidence(a + '\\times' + b)}+${c}=${a * b
-                    }+${c}=${a * b + c}$`
+          }+${c}=${a * b + c}$`
           setReponse(this, i, a * b + c)
           break
         case 7:
@@ -169,8 +193,8 @@ export default function Priorites () {
           d = randint(2, 11)
           texte = `$${a}+${b}+${c}\\times${d}$`
           texteCorr = `$${a}+${b}+${miseEnEvidence(
-                        c + '\\times' + d
-                    )}=${a}+${b}+${c * d}=${a + b + c * d}$`
+            c + '\\times' + d
+          )}=${a}+${b}+${c * d}=${a + b + c * d}$`
           setReponse(this, i, a + b + c * d)
           break
         case 9:
@@ -180,8 +204,8 @@ export default function Priorites () {
           d = randint(2, 11)
           texte = `$${a}\\times${b}+${c}\\times${d}$`
           texteCorr = `$${miseEnEvidence(
-                        a + '\\times' + b
-                    )}+${miseEnEvidence(c + '\\times' + d)}=${a * b}+${c * d}=${a * b + c * d}$`
+            a + '\\times' + b
+          )}+${miseEnEvidence(c + '\\times' + d)}=${a * b}+${c * d}=${a * b + c * d}$`
           setReponse(this, i, a * b + c * d)
           break
         case 10:
@@ -191,8 +215,8 @@ export default function Priorites () {
           d = randint(2, a * b * c - 1)
           texte = `$${a}\\times${b}\\times${c}-${d}$`
           texteCorr = `$${miseEnEvidence(
-                        a + '\\times' + b
-                    )}\\times${c}-${d}=${miseEnEvidence(a * b + '\\times' + c)}-${d}=${a * b * c - d}$`
+            a + '\\times' + b
+          )}\\times${c}-${d}=${miseEnEvidence(a * b + '\\times' + c)}-${d}=${a * b * c - d}$`
           setReponse(this, i, a * b * c - d)
           break
         case 11:
@@ -202,8 +226,8 @@ export default function Priorites () {
           c = d * randint(2, 8)
           texte = `$${a}\\times${b}-${c}\\div${d}$`
           texteCorr = `$${miseEnEvidence(
-                        a + '\\times' + b
-                    )}-${miseEnEvidence(c + '\\div' + d)}=${a * b}-${c / d}=${a * b - c / d}$`
+            a + '\\times' + b
+          )}-${miseEnEvidence(c + '\\div' + d)}=${a * b}-${c / d}=${a * b - c / d}$`
           setReponse(this, i, a * b - c / d)
           break
         case 12:
@@ -213,8 +237,8 @@ export default function Priorites () {
           c = d * randint(2, 8)
           texte = `$${a}\\times${b}+${c}\\div${d}$`
           texteCorr = `$${miseEnEvidence(
-                        a + '\\times' + b
-                    )}+${miseEnEvidence(c + '\\div' + d)}=${a * b}+${c / d}=${a * b + c / d}$`
+            a + '\\times' + b
+          )}+${miseEnEvidence(c + '\\div' + d)}=${a * b}+${c / d}=${a * b + c / d}$`
           setReponse(this, i, a * b + c / d)
           break
         case 13:
@@ -223,8 +247,8 @@ export default function Priorites () {
           b = c + randint(2, 11)
           texte = `$${a}\\times(${b}-${c})$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
-                        b + '-' + c
-                    )})=${a}\\times${b - c}=${a * (b - c)}$`
+            b + '-' + c
+          )})=${a}\\times${b - c}=${a * (b - c)}$`
           setReponse(this, i, a * (b - c))
           break
         case 14:
@@ -233,7 +257,7 @@ export default function Priorites () {
           c = randint(2, 11)
           texte = `$(${a}-${b})\\times${c}$`
           texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\times${c}=${a - b
-                    }\\times${c}=${(a - b) * c}$`
+          }\\times${c}=${(a - b) * c}$`
           setReponse(this, i, (a - b) * c)
           break
         case 15:
@@ -242,7 +266,7 @@ export default function Priorites () {
           a = b + c * randint(2, 9)
           texte = `$(${a}-${b})\\div${c}$`
           texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\div${c}=${a - b
-                    }\\div${c}=${(a - b) / c}$`
+          }\\div${c}=${(a - b) / c}$`
           setReponse(this, i, (a - b) / c)
           break
         case 16:
@@ -251,7 +275,7 @@ export default function Priorites () {
           a = (b + c) * randint(2, 9)
           texte = `$${a}\\div(${b}+${c})$`
           texteCorr = `$${a}\\div(${miseEnEvidence(b + '+' + c)})=${a}\\div${b + c
-                    }=${a / (b + c)}$`
+          }=${a / (b + c)}$`
           setReponse(this, i, a / (b + c))
           break
         case 17:
@@ -260,7 +284,7 @@ export default function Priorites () {
           a = b + c * randint(2, 9)
           texte = `$(${a}-${b})\\div${c}$`
           texteCorr = `$(${miseEnEvidence(a + '-' + b)})\\div${c}=${a - b
-                    }\\div${c}=${(a - b) / c}$`
+          }\\div${c}=${(a - b) / c}$`
           setReponse(this, i, (a - b) / c)
           break
         case 18:
@@ -270,8 +294,8 @@ export default function Priorites () {
           d = randint(2, 5)
           texte = `$${a}\\times(${b}-${c})\\times${d}$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
-                        b + '-' + c
-                    )})\\times${d}=${a}\\times${b - c}\\times${d}=${a * (b - c) * d}$`
+            b + '-' + c
+          )})\\times${d}=${a}\\times${b - c}\\times${d}=${a * (b - c) * d}$`
           setReponse(this, i, a * (b - c) * d)
           break
         case 19:
@@ -281,8 +305,8 @@ export default function Priorites () {
           b = randint(2, 5)
           texte = `$${a}\\times${b}\\times(${c}-${d})$`
           texteCorr = `$${a}\\times${b}\\times(${miseEnEvidence(
-                        c + '-' + d
-                    )})=${a}\\times${b}\\times${c - d}=${a * b * (c - d)}$`
+            c + '-' + d
+          )})=${a}\\times${b}\\times${c - d}=${a * b * (c - d)}$`
           setReponse(this, i, a * b * (c - d))
           break
         case 20:
@@ -292,9 +316,9 @@ export default function Priorites () {
           b = c * d + randint(2, 11)
           texte = `$${a}\\times(${b}-${c}\\times${d})$`
           texteCorr = `$${a}\\times(${b}-${miseEnEvidence(
-                        c + '\\times' + d
-                    )})=${a}\\times(${miseEnEvidence(b + '-' + c * d)})=${a}\\times${b - c * d
-                    }=${a * (b - c * d)}$`
+            c + '\\times' + d
+          )})=${a}\\times(${miseEnEvidence(b + '-' + c * d)})=${a}\\times${b - c * d
+          }=${a * (b - c * d)}$`
           setReponse(this, i, a * (b - c * d))
           break
         case 21:
@@ -313,9 +337,9 @@ export default function Priorites () {
           d = somme - c
           texte = `$${a}\\times${b}\\div(${c}+${d})$`
           texteCorr = `$${a}\\times${b}\\div(${miseEnEvidence(
-                        c + '+' + d
-                    )})=${miseEnEvidence(a + '\\times' + b)}\\div${c + d}=${a * b
-                    }\\div${c + d}=${(a * b) / (c + d)}$`
+            c + '+' + d
+          )})=${miseEnEvidence(a + '\\times' + b)}\\div${c + d}=${a * b
+          }\\div${c + d}=${(a * b) / (c + d)}$`
           setReponse(this, i, (a * b) / (c + d))
           break
         case 22:
@@ -325,15 +349,15 @@ export default function Priorites () {
           d = randint(2, 6)
           texte = `$${a}\\times(${b}\\div${c}+${d})$`
           texteCorr = `$${a}\\times(${miseEnEvidence(
-                        b + '\\div' + c
-                    )}+${d})=${a}\\times(${miseEnEvidence(
-                        b / c + '+' + d
-                    )})=${a}\\times${b / c + d}=${a * (b / c + d)}$`
+            b + '\\div' + c
+          )}+${d})=${a}\\times(${miseEnEvidence(
+            b / c + '+' + d
+          )})=${a}\\times${b / c + d}=${a * (b / c + d)}$`
           setReponse(this, i, a * (b / c + d))
           break
       }
+      texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
       if (this.sup2) {
-        texte = `${lettreDepuisChiffre(i + 1)} = ${texte}`
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''
@@ -368,6 +392,6 @@ export default function Priorites () {
     '1 : Sans parenthèses\n2 : Avec parenthèses\n3 : Mélange'
   ]
   this.besoinFormulaire2CaseACocher = ['Présentation des corrections en colonnes']
-  this.besoinFormulaire3CaseACocher = ['Inclure des parenthèses']
+  this.besoinFormulaire3CaseACocher = ['Équilibre entre les questions']
   this.besoinFormulaire4CaseACocher = ['Inclure des divisions']
 }
