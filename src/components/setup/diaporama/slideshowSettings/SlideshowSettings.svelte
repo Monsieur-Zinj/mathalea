@@ -12,11 +12,10 @@
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
   import { createEventDispatcher } from 'svelte'
-  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
-    import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
 
   export let exercises: Exercice[]
   export let updateExercises: () => void
@@ -41,7 +40,6 @@
       l.nbVues = nbOfViews
       return l
     })
-    dispatchUpdateSettings()
   }
 
   function updateFlow (flow: 0 | 1 | 2) {
@@ -49,7 +47,6 @@
       l.flow = flow
       return l
     })
-    dispatchUpdateSettings()
   }
 
   function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
@@ -57,7 +54,6 @@
       l.screenBetweenSlides = screenBetweenSlides
       return l
     })
-    dispatchUpdateSettings()
   }
 
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
@@ -68,7 +64,6 @@
         return l
       })
     }
-    dispatchUpdateSettings()
   }
 
   function updateQuestionsOrder (isQuestionsShuffled: boolean) {
@@ -77,12 +72,17 @@
       l.order = undefined
       return l
     })
-    dispatchUpdateSettings()
+  }
+
+  function updateSelect (selectedExercisesIndexes: number[] | undefined) {
+    globalOptions.update((l) => {
+      l.select = selectedExercisesIndexes
+      return l
+    })
   }
 
   function updateManualMode (isManualModeActive: boolean) {
     settings.isManualModeActive = isManualModeActive
-    dispatchUpdateSettings()
   }
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
@@ -90,28 +90,11 @@
       l.durationGlobal = durationGlobal
       return l
     })
-    dispatchUpdateSettings()
   }
 
   function start () {
     settings.currentQuestion = 0
-    dispatchUpdateSettings()
-  }
-
-  function dispatchUpdateSettings () {
     dispatch('updateSettings', settings)
-  }
-
-  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
-    let selection: number[] | undefined
-    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
-      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
-    }
-    globalOptions.update((l) => {
-      l.select = selection
-      return l
-    })
-    updateExercises()
   }
 
 </script>
@@ -140,7 +123,7 @@
       <SelectedExercisesSettings
         {exercises}
         selectedExercisesIndexes={$globalOptions.select ?? []}
-        {applyRandomSelectionOfExercises}
+        {updateSelect}
       />
       <LinksSettings QRCodeWidth={settings.QRCodeWidth} formatQRCodeIndex={settings.formatQRCodeIndex} />
     </div>
