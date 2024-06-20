@@ -1034,7 +1034,7 @@ function unitsCompare (input: string, goodAnswer: string, { precision = 1 } = {}
   input = input.replace('^\\circ', '°').replace('\\degree', '°')
   const cleaner = generateCleaner(['virgules', 'espaces', 'fractions', 'parentheses', 'mathrm'])
   const inputGrandeur = inputToGrandeur(cleaner(input))
-  const goodAnswerGrandeur = Grandeur.fromString(goodAnswer)
+  const goodAnswerGrandeur = Grandeur.fromString(cleaner(goodAnswer).replace('^\\circ', '°').replace('\\degree', '°'))
   if (inputGrandeur) {
     if (inputGrandeur.uniteDeReference !== goodAnswerGrandeur.uniteDeReference) {
       return { isOk: false, feedback: `Il faut donner la réponse en $${goodAnswerGrandeur.latexUnit}$.` }
