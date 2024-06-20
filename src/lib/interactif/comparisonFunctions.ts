@@ -10,7 +10,26 @@ const engine = new ComputeEngine()
 export default engine
 
 export type ResultType = {isOk: boolean, feedback?: string}
-export type CompareFunction = (input: string, goodAnswer:string, options: Record<string, unknown>) => ResultType
+export type OptionsComparaisonType = {
+  expressionsForcementReduites: boolean,
+    avecSigneMultiplier?: boolean,
+  avecFractions?: boolean,
+  fractionIrreductibleSeulement?: boolean,
+  operationSeulementEtNonCalcul?: boolean,
+  HMS?: boolean,
+  intervalle?: boolean,
+  estDansIntervalle?: boolean,
+  ecritureScientifique?: boolean,
+  unite?: boolean,
+  precisionUnite?: number,
+  puissance?: boolean,
+  texteAvecCasse?: boolean,
+  texteSansCasse?: boolean,
+  nombreAvecEspace?: boolean,
+  fractionIdentique?: boolean,
+  egaliteExpression?: boolean
+}
+export type CompareFunction = (input: string, goodAnswer:string, options: OptionsComparaisonType) => ResultType
 
 type CleaningOperation = 'fractions' | 'virgules' | 'espaces' | 'parentheses' | 'puissances' | 'divisions' | 'latex' | 'foisUn' | 'unites' | 'doubleEspaces'| 'mathrm'
 
@@ -385,26 +404,44 @@ engine.latexDictionary = [
  * @author Eric Elter
  * @return ResultType
  */
-export function fonctionComparaison (input: string, goodAnswer:string,
-  {
-    expressionsForcementReduites = true,
-    avecSigneMultiplier = true,
-    avecFractions = true,
-    fractionIrreductibleSeulement = false,
-    operationSeulementEtNonCalcul = false,
-    HMS = false,
-    intervalle = false,
-    estDansIntervalle = false,
-    ecritureScientifique = false,
-    unite = false,
-    precisionUnite = 0,
-    puissance = false,
-    texteAvecCasse = false,
-    texteSansCasse = false,
-    nombreAvecEspace = false,
-    fractionIdentique = false,
-    egaliteExpression = false
-  } = { }) : ResultType {
+export function fonctionComparaison (input: string, goodAnswer:string, {
+  expressionsForcementReduites,
+  avecSigneMultiplier,
+  avecFractions,
+  fractionIrreductibleSeulement,
+  operationSeulementEtNonCalcul,
+  HMS,
+  intervalle,
+  estDansIntervalle,
+  ecritureScientifique,
+  unite,
+  precisionUnite,
+  puissance,
+  texteAvecCasse,
+  texteSansCasse,
+  nombreAvecEspace,
+  fractionIdentique,
+  egaliteExpression
+}: OptionsComparaisonType
+= {
+  expressionsForcementReduites: true,
+  avecSigneMultiplier: true,
+  avecFractions: true,
+  fractionIrreductibleSeulement: false,
+  operationSeulementEtNonCalcul: false,
+  HMS: false,
+  intervalle: false,
+  estDansIntervalle: false,
+  ecritureScientifique: false,
+  unite: false,
+  precisionUnite: 0,
+  puissance: false,
+  texteAvecCasse: false,
+  texteSansCasse: false,
+  nombreAvecEspace: false,
+  fractionIdentique: false,
+  egaliteExpression: false
+}) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)

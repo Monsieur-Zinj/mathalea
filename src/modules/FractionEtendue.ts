@@ -541,7 +541,7 @@ class FractionEtendue {
     let s = new FractionEtendue(this.num, this.den)
     if (s != null) {
       for (const f of fractions) {
-        s = s.sommeFraction(f).simplifie()
+        s = s.sommeFraction(f)
       }
     }
     if (s == null) {
@@ -599,7 +599,7 @@ class FractionEtendue {
     if (!(f instanceof FractionEtendue)) {
       f = new FractionEtendue(f, 1)
     }
-    return new FractionEtendue(this.num * f.den - f.num * this.den, f.den * this.den).simplifie()
+    return this.sommeFraction(f.oppose())
   }
 
   /**
