@@ -23,7 +23,7 @@ export default function CalculsImagesFonctionsLineairesOuAffines () {
     'Choix des questions', 'Nombres séparés par des tirets\n1 : Fonction linéaire\n2 : Fonction affine \n3 :  Mélange'
   ]
   this.besoinFormulaire2Numerique = ['Image ou antécédent', 3, "1 : Calcul d'image\n2 : Calcul d'antécédent\n3 : Mélange"]
-  this.niveau = 'affinesOuLineaires'
+  this.fonctions = 'affinesOuLineaires'
   this.sup = 3
   this.sup2 = 1
   this.sup3 = 1
