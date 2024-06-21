@@ -54,7 +54,7 @@
   ```
  -->
 
-<div class="flex flex-{orientation} justify-start items-start">
+<div class="flex flex-{orientation} justify-start items-start mt-1">
   {#each labelsValues as labelValue, i}
     <div class="form-check flex flex-row ml-4 items-center">
       <input
@@ -77,7 +77,7 @@
           : 'font-light'}
         {isDisabled || labelValue.isDisabled
           ? 'text-opacity-10 dark:text-opacity-10'
-          : 'text-opacity-70 dark:text-opacity-70'}"
+          : 'text-opacity-70 dark:text-opacity-70 cursor-pointer'}"
         for={name + i.toString()}
       >
         {labelValue.label}

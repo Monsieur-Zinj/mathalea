@@ -3,7 +3,7 @@
   import FullscreenButton from '../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
   import ModalActionWithDialog from '../../../shared/modal/ModalActionWithDialog.svelte'
   import ModalForQrCode from '../../../shared/modal/ModalForQRCode.svelte'
-  import { onDestroy, onMount, tick } from 'svelte'
+  import { onDestroy, tick } from 'svelte'
   import { copyLinkToClipboard } from '../../../../lib/components/clipboard'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { updateFigures } from '../../../../lib/components/sizeTools'

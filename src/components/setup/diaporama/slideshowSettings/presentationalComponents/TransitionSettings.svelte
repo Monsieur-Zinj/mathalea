@@ -1,6 +1,6 @@
 <script lang="ts">
   import { isIntegerInRange0to3 } from '../../../../../lib/types/integerInRange'
-  import ButtonToggle from '../../../../shared/forms/ButtonToggle.svelte'
+  import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
   import FormRadio from '../../../../shared/forms/FormRadio.svelte'
 
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
@@ -20,6 +20,7 @@
   ]
 
   let soundToggle = sound > 0
+  $: soundToggle = sound > 0
 
   const tuneCandidate = Math.max(sound - 1, 0)
   let tune: 0 | 1 | 2 | 3 = isIntegerInRange0to3(tuneCandidate) ? tuneCandidate : 0
@@ -30,68 +31,50 @@
   <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">
     Transitions
   </div>
-  <div class="flex flex-row justify-start items-center px-4">
-    <ButtonToggle
-      id="diaporama-transition-toggle"
-      bind:value={questionThenCorrectionToggle}
-      titles={[
-        'Alterner questions et corrections',
-        'Ne pas alterner questions et corrections'
-      ]}
-      on:toggle={() => updateFlow(questionThenCorrectionToggle ? 1 : 0)}
-    />
-  </div>
-  <div
-    class="{questionThenCorrectionToggle
-      ? 'flex'
-      : 'hidden'} flex-row justify-start items-center pr-4 pl-6"
-  >
-    <input
-      id="checkbox-choice-8"
-      aria-describedby="checkbox-choice"
-      type="checkbox"
-      class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {!questionThenCorrectionToggle
-        ? 'border-opacity-10'
-        : 'border-opacity-100'} border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
-      bind:checked={questionWithCorrectionToggle}
-      disabled={!questionThenCorrectionToggle}
-      on:change={() => updateFlow(questionWithCorrectionToggle ? 2 : 1)}
-    />
-    <label
-      for="checkbox-choice-8"
-      class="ml-3 text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus {!questionThenCorrectionToggle
-        ? 'text-opacity-10 dark:text-opacity-10'
-        : 'text-opacity-70 dark:text-opacity-70'}"
-    >
-      En gardant les questions affichées
-    </label>
-  </div>
-  <div class="flex flex-row justify-start items-center px-4">
-    <ButtonToggle
-      id="diaporama-transition-correction-toggle"
-      bind:value={screenBetweenSlides}
-      titles={[
-        'Afficher des cartons entre les questions',
-        'Ne pas afficher de carton'
-      ]}
-      on:toggle={() => updateScreenBetweenSlides(screenBetweenSlides)}
-    />
-  </div>
-  <div class="flex flex-row justify-start items-center px-4">
-    <ButtonToggle
-      id="diaporama-transition-sons-toggle"
-      bind:value={soundToggle}
-      titles={['Jouer un son entre les questions', 'Ne pas jouer de son entre les questions']}
-      on:toggle={() => {
-        if (soundToggle) {
-          transitionSounds[tune].play()
-          updateTune(tune)
-        } else {
-          updateTune(-1)
-        }
+  <CheckboxWithLabel
+    id="slideshow-transition-alternate-checkbox"
+    isChecked={questionThenCorrectionToggle}
+    label="Alterner questions et corrections"
+    on:change={(e) => {
+      const isChecked = e.detail
+      updateFlow(isChecked ? 1 : 0)
+    }}
+  />
+  <div class="ml-3">
+    <CheckboxWithLabel
+      id="slideshow-transition-with-question-checkbox"
+      isChecked={questionWithCorrectionToggle}
+      isDisabled={!questionThenCorrectionToggle}
+      label="En gardant les questions affichées"
+      on:change={(e) => {
+        const isChecked = e.detail
+        updateFlow(isChecked ? 2 : 1)
       }}
     />
   </div>
+  <CheckboxWithLabel
+    id="slideshow-transition-screen-between-checkbox"
+    isChecked={screenBetweenSlides}
+    label="Avec des cartons entre les questions"
+    on:change={(e) => {
+      const isChecked = e.detail
+      updateScreenBetweenSlides(isChecked)
+    }}
+  />
+  <CheckboxWithLabel
+    id="slideshow-transition-sound-checkbox"
+    isChecked={soundToggle}
+    label="Jouer un son entre les questions"
+    on:change={(e) => {
+      const isChecked = e.detail
+      if (isChecked) {
+        transitionSounds[tune].play()
+        updateTune(tune)
+      } else {
+        updateTune(-1)
+      }
+    }}
+  />
   <FormRadio
     title="son"
     isDisabled={!soundToggle}

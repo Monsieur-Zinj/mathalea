@@ -1,8 +1,8 @@
 <script lang="ts">
-  import ButtonToggle from '../../../../shared/forms/ButtonToggle.svelte'
+  import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
 
-  export let isQuestionsShuffled: boolean
-  export let updateQuestionsOrder: (isQuestionsShuffled: boolean) => void
+  export let isQuestionsOrdered: boolean
+  export let updateQuestionsOrder: (isQuestionsOrdered: boolean) => void
 
 </script>
 
@@ -10,15 +10,13 @@
   <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">
     Ordre
   </div>
-  <div class="flex flex-row justify-start items-center px-4">
-    <ButtonToggle
-      id="diaporama-ordre-questions-toggle"
-      bind:value={isQuestionsShuffled}
-      titles={[
-        'Questions dans le désordre',
-        "Questions dans l'ordre"
-      ]}
-      on:toggle={() => updateQuestionsOrder(isQuestionsShuffled)}
-    />
-  </div>
+  <CheckboxWithLabel
+    id="slideshow-order-checkbox"
+    isChecked={isQuestionsOrdered}
+    label="Questions dans l'ordre"
+    on:change={(e) => {
+      const isChecked = e.detail
+      updateQuestionsOrder(isChecked)
+    }}
+  />
 </div>

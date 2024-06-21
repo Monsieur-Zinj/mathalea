@@ -1,5 +1,6 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
+  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
   import { formattedTimeStamp } from '../../../../../lib/components/time'
 
   export let exercises: Exercice[]
@@ -39,6 +40,16 @@
       }
     }
     return sum
+  }
+
+  function updateQuestionsNb (i: number, value: number) {
+    exercises[i].nbQuestions = value
+    updateExercises()
+  }
+
+  function updateDuration (i: number, value: number) {
+    exercises[i].duration = value
+    updateExercises()
   }
 
 </script>
@@ -96,29 +107,25 @@
             {exercice.id} - {exercice.titre}
           </td>
           <td class="whitespace-normal px-3 py-4 text-sm">
-            <span class="flex justify-center">
-              <input
-                type="number"
-                id="diaporama-exo-duration-{i}"
-                min="1"
-                bind:value={exercice.duration}
-                on:change={updateExercises}
-                class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 disabled:opacity-30"
-                disabled={!!durationGlobal || isManualModeActive}
-              />
-            </span>
+            <NumberInput
+              id="diaporama-exo-duration-{i}"
+              value={exercice.duration || 10}
+              isDisabled={!!durationGlobal || isManualModeActive}
+              on:change={(e) => {
+                const duration = e.detail
+                updateDuration(i, duration)
+              }}
+            />
           </td>
           <td class="whitespace-normal px-3 py-4 text-sm">
-            <span class="flex justify-center">
-              <input
-                type="number"
-                id="diaporama-exo-nb-questions-{i}"
-                min="1"
-                bind:value={exercice.nbQuestions}
-                on:change={updateExercises}
-                class="ml-3 w-16 h-8 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-1 focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0"
-              />
-            </span>
+            <NumberInput
+              id="diaporama-exo-nb-questions-{i}"
+              value={exercice.nbQuestions}
+              on:change={(e) => {
+                const nbQuestions = e.detail
+                updateQuestionsNb(i, nbQuestions)
+              }}
+            />
           </td>
         </tr>
       {/each}

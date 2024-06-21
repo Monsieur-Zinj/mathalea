@@ -66,9 +66,9 @@
     }
   }
 
-  function updateQuestionsOrder (isQuestionsShuffled: boolean) {
+  function updateQuestionsOrder (isQuestionsOrdered: boolean) {
     globalOptions.update((l) => {
-      l.shuffle = isQuestionsShuffled
+      l.shuffle = !isQuestionsOrdered
       return l
     })
   }
@@ -118,7 +118,7 @@
         questionThenCorrectionToggle={$globalOptions.flow === 1 || $globalOptions.flow === 2}
         questionWithCorrectionToggle={$globalOptions.flow === 2}
       />
-      <OrderSettings isQuestionsShuffled={!!$globalOptions.shuffle} {updateQuestionsOrder} />
+      <OrderSettings isQuestionsOrdered={!$globalOptions.shuffle} {updateQuestionsOrder} />
       <SelectedExercisesSettings
         {exercises}
         selectedExercisesIndexes={$globalOptions.select ?? []}
