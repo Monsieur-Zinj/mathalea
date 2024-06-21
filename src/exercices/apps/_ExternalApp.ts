@@ -1,20 +1,19 @@
 import { get } from 'svelte/store'
 import { globalOptions, resultsByExercice, exercicesParams } from '../../lib/stores/generalStore'
 import { sendToCapytaleSaveStudentAssignment } from '../../lib/handleCapytale'
+import Exercice from '../Exercice'
 
 const titre = 'Application externe'
 
-class ExternalApp {
+class ExternalApp extends Exercice {
   typeExercice: string
-  numeroExercice!: number
-  sup!: string
-  titre: string
   container: HTMLDivElement
   iframe: HTMLIFrameElement
   url: URL
   state: 'done' | ''
   type = 'app'
   constructor (url: string) {
+    super()
     this.url = new URL(url)
     this.titre = titre
     this.typeExercice = 'html'
@@ -42,7 +41,9 @@ class ExternalApp {
       if (event.data?.type === 'mathaleaSettings' && event.data?.numeroExercice === this.numeroExercice) {
         this.sup = event.data.urlParams
         exercicesParams.update((l) => {
-          l[this.numeroExercice].sup = event.data.urlParams
+          if (this.numeroExercice !== undefined) {
+            l[this.numeroExercice].sup = event.data.urlParams
+          }
           return l
         })
       }
@@ -51,7 +52,9 @@ class ExternalApp {
 
   get html () {
     exercicesParams.update((l) => {
-      l[this.numeroExercice].type = 'app'
+      if (this.numeroExercice !== undefined) {
+        l[this.numeroExercice].type = 'app'
+      }
       return l
     })
     this.handleScore()
@@ -64,7 +67,9 @@ class ExternalApp {
     if (get(globalOptions).v === 'eleve') {
       this.url.searchParams.append('v', 'eleve')
     }
-    this.url.searchParams.append('numeroExercice', this.numeroExercice.toString())
+    if (this.numeroExercice !== undefined) {
+      this.url.searchParams.append('numeroExercice', this.numeroExercice.toString())
+    }
     this.iframe.setAttribute('src', this.url.toString())
     return this.container
   }
