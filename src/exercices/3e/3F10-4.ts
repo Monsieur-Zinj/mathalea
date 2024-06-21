@@ -12,7 +12,7 @@ import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import type Point from 'apigeom/src/elements/points/Point'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { lectureImage } from '../../lib/2d/courbes'
@@ -94,7 +94,7 @@ class LireImageParApiGeom extends Exercice {
       textY.dynamicText.maximumFractionDigits = 1
     }
 
-    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeur ci-dessous :<br>'
+    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeurs ci-dessous :<br>'
     this.X = []
     this.Y = []
     for (let i = 0; i < this.nbImages; i++) {
@@ -146,12 +146,18 @@ class LireImageParApiGeom extends Exercice {
         const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'clavierDeBase', false, {})
         enonce += tabMathlive.output
       } else {
-        const tabVideTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs.map(() => ''), 1, true, this.numeroExercice, 0)
+        const tableauVideForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', '', '', ''].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
+        const tabVideTex = mathalea2d(Object.assign({}, fixeBordures(tableauVideForLatex)), tableauVideForLatex)
         enonce += tabVideTex
       }
     }
     const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'clavierDeBase', false, {})
-    const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
+
+    // const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
+    // contenu des cellules { texte: string, gras?: boolean, math?: boolean, latex?: boolean, color?: string }
+    const tableauValeursForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', ...yGrecs].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
+    const tabValeurTex = mathalea2d(Object.assign({}, fixeBordures(tableauValeursForLatex)), tableauValeursForLatex)
+
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
