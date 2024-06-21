@@ -1,5 +1,5 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { prenom } from '../../lib/outils/Personne'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -7,6 +7,7 @@ import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { lister } from '../../lib/outils/ecritures'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -22,12 +23,14 @@ export const refs = {
   'fr-fr': ['6C33-1'],
   'fr-ch': []
 }
-export default class TraduireDependanceGrandeursTableau extends Exercice {
+export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
+    this.sup2 = 4
+    this.besoinFormulaire2Numerique = ['Nombre de calculs (2 à 4)', 4]
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
   }
@@ -38,8 +41,11 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
     this.autoCorrection = []
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
+    const nombreDeCalculs = contraindreValeur(2, 4, this.sup2, 4)
 
-    const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
+    const typeQuestionsDisponibles = ['Enchaînement simple']
+    if (nombreDeCalculs > 3) typeQuestionsDisponibles.push('1 -> 4', '2 -> 4')
+
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
       const A = randint(1, 4)
@@ -48,6 +54,7 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
       const D = randint(1, 12)
       const E = randint(1, 20)
       const nombres = shuffle([A, B, C, D, E])
+      let nombresUtilises = nombres.slice(0, 3)
       const signes = avecDivision ? shuffle(['+', '-', '\\times', '\\div']) : combinaisonListes(['+', '-', '\\times'], 4)
       const calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
       const resultat1 = computeEngine.parse(calcul1).simplify().latex
@@ -56,15 +63,32 @@ export default class TraduireDependanceGrandeursTableau extends Exercice {
       let calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
       let resultat3 = computeEngine.parse(calcul3).simplify().latex
       let calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
-      let nombreCible = computeEngine.parse(calcul4).simplify().latex
-      let redaction = rediger(rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString()), signes[3], nombres[4].toString())
+      let nombreCible = computeEngine.parse(calcul2).simplify().latex
+      let redaction = rediger(calcul1, signes[1], nombres[2].toString())
       let texteCorr = `
 $${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
-$${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
-$${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
-<br>
-$${miseEnCouleur(`(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
+`
+      if (nombreDeCalculs > 2) {
+        nombresUtilises = nombres.slice(0, 4)
+        redaction = rediger(redaction, signes[2], nombres[3].toString())
+        nombreCible = computeEngine.parse(calcul3).simplify().latex
+        texteCorr += `$${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
+`
+      }
+      if (nombreDeCalculs > 3) {
+        nombresUtilises = nombres
+        redaction = rediger(redaction, signes[3], nombres[4].toString())
+        nombreCible = computeEngine.parse(calcul4).simplify().latex
+        texteCorr += `$${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
+`
+      }
+      texteCorr += `<br>
+`
+      let derniereLigneCorrection = miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')
+      if (nombreDeCalculs > 2) derniereLigneCorrection = miseEnCouleur(`(${derniereLigneCorrection}${signes[2]}${nombres[3]})`, 'green')
+      if (nombreDeCalculs > 3) derniereLigneCorrection = `${derniereLigneCorrection}${signes[3]}${nombres[4]}`
+      texteCorr += `$ ${derniereLigneCorrection} = ${nombreCible}$<br>
 <br>
 `
       switch (listeTypeQuestions[i]) {
@@ -123,14 +147,22 @@ $${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombre
 `
           break
       }
-      const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${A}, ${B}, ${C}, ${D} et ${E}.<br>
-Voici ses calculs :<br>
-$${calcul1} = ${resultat1}$<br>
+      let calculs = `$${calcul1} = ${resultat1}$<br>
 $${calcul2} = ${resultat2}$<br>
-$${calcul3} = ${resultat3}$<br>
-$${calcul4} = ${nombreCible}$<br>
+`
+      if (nombreDeCalculs > 2) {
+        calculs += `$${calcul3} = ${resultat3}$<br>
+`
+      }
+      if (nombreDeCalculs > 3) {
+        calculs += `$${calcul4} = ${nombreCible}$<br>
+`
+      }
+      const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
+Voici ses calculs :<br>
+${calculs}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true, expressionsForcementReduites: false } } })
       if (!this.correctionDetaillee) texteCorr = ''
       texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
 
