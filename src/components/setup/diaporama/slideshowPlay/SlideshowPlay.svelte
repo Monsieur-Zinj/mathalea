@@ -45,7 +45,7 @@
 
   $: {
     if (dataFromSettings) {
-      order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
+      order = $globalOptions.order || [...Array(questions[0].length).keys()]
       goToQuestion(currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       isManualModeActive = dataFromSettings.isManualModeActive
@@ -106,14 +106,14 @@
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (durations[currentQuestion] ?? 10))
+            timer(durationGlobal || (durations[currentQuestion] || 10))
           })
         } else {
-          timer(durationGlobal || (durations[currentQuestion] ?? 10))
+          timer(durationGlobal || (durations[currentQuestion] || 10))
         }
       }
     }
-    currentDuration = durationGlobal ?? durations[currentQuestion] ?? 10
+    currentDuration = durationGlobal || durations[currentQuestion] || 10
   }
   function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
@@ -137,7 +137,7 @@
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal ?? durations[currentQuestion] ?? 10, false)
+    } else timer(durationGlobal || durations[currentQuestion] || 10, false)
   }
 
   function pause () {
