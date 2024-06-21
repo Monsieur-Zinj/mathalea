@@ -53,7 +53,7 @@ function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
     <span
       class="ml-2 my-auto text-coopmaths-corpus dark:text-coopmathsdark-corpus {selectedExercisesCount
         ? 'text-opacity-100 dark:text-opacity-100'
-        : 'text-opacity-0 dark:text-opacity-0'}"
+        : 'text-opacity-10 dark:text-opacity-10'}"
     >
       parmi {exercises.length}
     </span>
