@@ -25,7 +25,6 @@
   const settings: DataFromSettings = {
     currentQuestion: -1,
     formatQRCodeIndex: 0,
-    isManualModeActive: false,
     QRCodeWidth: 100
   }
 
@@ -81,7 +80,10 @@
   }
 
   function updateManualMode (isManualModeActive: boolean) {
-    settings.isManualModeActive = isManualModeActive
+    globalOptions.update((l) => {
+      l.manualMode = isManualModeActive
+      return l
+    })
   }
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
@@ -130,7 +132,7 @@
     <div class="flex flex-col w-4/6 justify-start">
       <GlobalDurationSettings
         {exercises}
-        isManualModeActive={settings.isManualModeActive}
+        isManualModeActive={!!$globalOptions.manualMode}
         {updateManualMode}
         durationGlobal={$globalOptions.durationGlobal}
         {updateDurationGlobal}
@@ -141,7 +143,7 @@
       >
         <ExercisesSettings
           {exercises}
-          isManualModeActive={settings.isManualModeActive}
+          isManualModeActive={!!$globalOptions.manualMode}
           {updateExercises}
           durationGlobal={$globalOptions.durationGlobal}
           selectedExercisesIndexes={$globalOptions.select ?? []}

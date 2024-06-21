@@ -432,6 +432,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let screenBetweenSlides
   let sound
   let shuffle = false
+  let manualMode
   let select: number[] = []
   let order: number[] = []
   let title = ''
@@ -578,6 +579,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (isIntegerInRange0to4(soundCandidate)) sound = soundCandidate
     screenBetweenSlides = ds.charAt(2) === '1'
     shuffle = ds.charAt(4) === '1'
+    manualMode = ds.charAt(5) === '1'
   }
 
   /**
@@ -611,6 +613,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     screenBetweenSlides,
     sound,
     shuffle,
+    manualMode,
     select,
     order,
     title,

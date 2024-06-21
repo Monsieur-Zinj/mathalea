@@ -31,6 +31,7 @@ export interface InterfaceGlobalOptions {
   shuffle?: boolean
   select?: number[]
   order?: number[]
+  manualMode?: boolean
   es?: string
   title: string
   presMode:

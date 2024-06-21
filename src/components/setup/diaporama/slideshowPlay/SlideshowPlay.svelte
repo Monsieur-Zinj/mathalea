@@ -30,7 +30,6 @@
   let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let formatQRCodeIndex: 0 | 1 | 2
   let isCorrectionVisible = false
-  let isManualModeActive: boolean
   let isPause = false
   let isQuestionVisible = true
   let messageDuree: string
@@ -48,7 +47,6 @@
       order = $globalOptions.order || [...Array(questions[0].length).keys()]
       goToQuestion(currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
-      isManualModeActive = dataFromSettings.isManualModeActive
       nbOfVues = $globalOptions.nbVues ?? 1
       QRCodeWidth = dataFromSettings.QRCodeWidth
     }
@@ -99,7 +97,7 @@
         setSize()
       }
     }
-    if (!isManualModeActive) {
+    if (!$globalOptions.manualMode) {
       if (!isPause) {
         if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
           transitionSounds[$globalOptions.sound - 1].play()
@@ -337,10 +335,16 @@ function handleTimerChange () {
   durationGlobal = 0
   pause()
   if (cursorTimeValue === 0) {
-    isManualModeActive = true
+    globalOptions.update((l) => {
+      l.manualMode = true
+      return l
+    })
     durationGlobal = undefined
   } else {
-    isManualModeActive = false
+    globalOptions.update((l) => {
+      l.manualMode = false
+      return l
+    })
     durationGlobal = cursorTimeValue
   }
   handleChangeDurationGlobal(durationGlobal)
@@ -350,7 +354,7 @@ function handleTimerChange () {
 $: messageDuree = setPhraseDuree(cursorTimeValue)
 
 $: displayCurrentDuration = () => {
-  return isManualModeActive ? 'Manuel' : currentDuration + 's'
+  return $globalOptions.manualMode ? 'Manuel' : currentDuration + 's'
 }
 
 function zoomPlus () {
@@ -424,7 +428,7 @@ data-theme="daisytheme"
   class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1"
 >
   <div
-    class:invisible={isManualModeActive}
+    class:invisible={$globalOptions.manualMode}
     class="flex flex-row flex-shrink-0 h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn"
   >
     <div
@@ -565,7 +569,7 @@ data-theme="daisytheme"
             switchPause()
           }
         }}
-        class:invisible={isManualModeActive}
+        class:invisible={$globalOptions.manualMode}
       >
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg
