@@ -26,7 +26,7 @@ export const dateDePublication = '17/04/2024'
 class DerivationFonctionRationnelles extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : k/(ax+b)\n2 : (ax+b)/(cx+d)\n3 : ax²/(ax+b)\n4 : (ax²+bx+c)/(dx+e)\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : k/(ax+b)\n2 : (ax+b)/(cx+d)\n3 : ax²/(ax+b)\n4 : (ax²+bx+c)/(dx+e)\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

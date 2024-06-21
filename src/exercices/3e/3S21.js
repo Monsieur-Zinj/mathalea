@@ -1,9 +1,8 @@
-import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { rangeMinMax } from '../../lib/outils/nombres'
+import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import { Arbre } from '../../modules/arbres.js'
 
@@ -14,6 +13,7 @@ import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Expérience aléatoire à deux épreuves'
 export const dateDePublication = '15/01/2022'
+export const dateDeModifImportante = '20/06/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -30,8 +30,10 @@ export const refs = {
 export default function CalculProbaExperience2Epreuves3e () {
   Exercice.call(this)
 
-  this.besoinFormulaireTexte = ['Type de question', '1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
+  this.besoinFormulaireTexte = ['Type de questions : ', 'Nombres séparés par des tirets\n1 : Deux épreuves\n2 : Deux épreuves avec Remise\n3 : Deux épreuves sans remise\n4 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Avec un arbre', false]
   this.sup = 1
+  this.sup2 = true
   this.tailleDiaporama = 1
   this.nbQuestions = 1
   this.spacing = context.isHtml ? 2 : 1.5
@@ -40,26 +42,21 @@ export default function CalculProbaExperience2Epreuves3e () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let QuestionsDisponibles = []
 
-    if (!this.sup) { // Si aucune liste n'est saisie
-      QuestionsDisponibles = rangeMinMax(1, 3)
-    } else {
-      if (typeof (this.sup) === 'number') { // Si c'est un nombre c'est que le nombre a été saisi dans la barre d'adresses
-        QuestionsDisponibles[0] = contraindreValeur(1, 3, this.sup, 2)
-      } else {
-        QuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-        for (let i = 0; i < QuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-          QuestionsDisponibles[i] = contraindreValeur(1, 3, parseInt(QuestionsDisponibles[i]), 2) // parseInt en fait un tableau d'entiers
-        }
-        this.nbQuestions = Math.max(this.nbQuestions, QuestionsDisponibles.length)
-      }
-    }
-    QuestionsDisponibles = combinaisonListesSansChangerOrdre(QuestionsDisponibles, this.nbQuestions)
+    const QuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 5,
+      melange: 6,
+      defaut: 1,
+      shuffle: false
+    })
+
     for (let i = 0, cpt = 0, NoQuestion = 0, question; i < this.nbQuestions && cpt < 50;) {
       switch (QuestionsDisponibles[i]) {
         case 1:
-          question = unePieceDeuxUrnes(this, NoQuestion, true, false, true)
+          question = unePieceDeuxUrnes(this, NoQuestion, this.sup2, false, true)
           break
         case 2:
           question = urneDeuxTiragesAvecRemise(this, NoQuestion, true, false, true)
@@ -188,9 +185,11 @@ function unePieceDeuxUrnes (exercice, NoQuestion, sup, sup2, sup3) {
     texte += `${n2[j]} boule${n2[j] > 1 ? 's' : ''} ${boules[j]}${n2[j] > 1 ? 's' : ''}, `
   }
   texte += ` et ${n2[2]} boule${n2[2] > 1 ? 's' : ''} ${boules[2]}${n2[2] > 1 ? 's' : ''}.<br>`
-  texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous :<br>' : ''
-  texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.3, scale: 0.5 }, ...objets) + '<br>' : ''
-  texte += `Légende : ${B[0]} = ${boules[0]} ; ${B[1]} = ${boules[1]} ; ${B[2]} = ${boules[2]}<br>`
+  if (sup) {
+    texte += 'On a représenté l\'expérience par l\'arbre ci-dessous :<br>'
+    texte += mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.3, scale: 0.5 }, ...objets) + '<br>'
+    texte += `Légende : ${B[0]} = ${boules[0]} ; ${B[1]} = ${boules[1]} ; ${B[2]} = ${boules[2]}<br>`
+  }
   let q = 0
   if (!exercice.interactif && !context.isAmc) {
     texte += `${numAlpha(q)} Construire un tableau à double entrée des issues de cette expérience aléatoire.<br>`
