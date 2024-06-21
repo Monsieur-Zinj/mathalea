@@ -84,7 +84,7 @@ export default function ExerciceOperationsRelatifs () {
             texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a * b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)}$`
-            texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b)} $`
+            texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b, { color: '#f15929' })} $`
           }
           setReponse(this, i, a * b, {
             signe: true,
@@ -98,7 +98,7 @@ export default function ExerciceOperationsRelatifs () {
             texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a / b)}$`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)}$`
-            texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)}${ecritureNombreRelatifc(a / b)}$`
+            texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a / b, { color: '#f15929' })}$`
           }
           setReponse(this, i, calculANePlusJamaisUtiliser(a / b), {
             signe: true,
@@ -112,7 +112,7 @@ export default function ExerciceOperationsRelatifs () {
             texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calculANePlusJamaisUtiliser(a + b)} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)} $`
-            texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b)} $`
+            texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b, { color: '#f15929' })} $`
           }
           setReponse(this, i, a + b, {
             signe: true,
@@ -126,7 +126,7 @@ export default function ExerciceOperationsRelatifs () {
             texteCorr = `$ ${a} - ${ecritureNombreRelatif(b)} = ${a - b} $`
           } else {
             texte = `$ ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} $`
-            texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b)} $`
+            texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b, { color: '#f15929' })} $`
           }
           setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
             signe: true,
@@ -136,19 +136,22 @@ export default function ExerciceOperationsRelatifs () {
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '$=$' })
+
+      if (this.sup) {
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
 
-      const textCorrSplit = texteCorr.split('=')
-      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
-      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
 
-      texteCorr = ''
-      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-        texteCorr += textCorrSplit[ee] + '='
-      }
-      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
 
       // Fin de cette uniformisation
+      }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
