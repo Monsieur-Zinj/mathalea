@@ -1,30 +1,35 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  export let title: string = ''
-  export let filterValue: string
-  export let filtersGroup: string
+  export let id: string
   export let isChecked: boolean
+  export let isDisabled: boolean = false
+  export let label: string
 
   const dispatch = createEventDispatcher()
-  function triggerAction () {
-    dispatch('filterChecked', {
-      msg: 'Action triggered !'
-    })
-  }
-  // bind:checked={isAmcOnlySelected}
-  //   on:change={triggerAction}
 </script>
 
-<div class="flex-row justify-start items-center pr-4 pl-6">
+<div class="flex flex-row justify-start items-center px-4 mt-1">
   <input
-    id="checkbox-{filterValue}"
-    aria-describedby="{title}"
+    id="{id}"
+    aria-describedby="{id}"
     type="checkbox"
-    class="w-3 h-3 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action rounded"
-    value={filterValue}
-    bind:group={filtersGroup}
-    on:change={triggerAction}
-    checked={isChecked}
+    class="w-4 h-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas { isDisabled
+      ? 'border-opacity-10 text-coopmaths-action-100'
+      : 'border-opacity-100 cursor-pointer'}
+      border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action
+      focus:ring-3 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded"
+    bind:checked={isChecked}
+    on:change={() => dispatch('change', isChecked)}
+    disabled={isDisabled}
   />
-  <label for="checkbox-{filterValue}" class="ml-2 text-xs font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus"> {title} </label>
+  <label
+    for="{id}"
+    class="ml-3 text-sm text-coopmaths-corpus dark:text-coopmathsdark-corpus {isDisabled
+      ? 'text-opacity-10 dark:text-opacity-10'
+      : 'text-opacity-70 dark:text-opacity-70 cursor-pointer'} {isChecked
+        ? 'font-semibold'
+        : 'font-light'}"
+  >
+    {label}
+  </label>
 </div>
