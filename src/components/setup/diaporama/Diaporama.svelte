@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../lib/types'
-  import type { DataFromSettings } from './types'
+  import type { DataFromSettings, Slide, Slideshow } from './types'
   import seedrandom from 'seedrandom'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
@@ -30,15 +30,13 @@
     3: new Audio('assets/sounds/transition_sound_04.mp3')
   }
 
-  let consignes: [string[], string[], string[], string[]] = [[], [], [], []]
-  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
-  let currentDuration: number
-  let currentQuestion = -1 // -1 pour l'intro et questions[0].length pour l'outro
   let dataFromSettings: DataFromSettings
-  let durations: number[] = []
   let exercises: Exercice[] = []
-  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
-  let sizes: number[] = []
+  let slideshow: Slideshow = {
+    slides: [],
+    currentQuestion: -1,
+    selectedQuestionsNumber: 0
+  }
 
   onMount(async () => {
     context.vue = 'diap'
@@ -69,7 +67,7 @@
   function updateSettings (event: {detail: DataFromSettings}) {
     dataFromSettings = event.detail
     if (dataFromSettings !== undefined) {
-      currentQuestion = dataFromSettings.currentQuestion
+      slideshow.currentQuestion = dataFromSettings.currentQuestion
     }
     updateExercises()
   }
@@ -77,52 +75,57 @@
   async function updateExercises () {
     setSlidesContent()
     adjustQuestionsOrder()
-    updateSizesAndDurations()
     updateExerciseParams()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     exercises = exercises // Pour forcer la mise à jour des $: if (exercises) { ... }
   }
 
   function setSlidesContent () {
-    const nbOfVues = $globalOptions.nbVues ?? 1
-    consignes = [[], [], [], []]
-    questions = [[], [], [], []]
-    corrections = [[], [], [], []]
-    sizes = []
-    durations = []
-    for (let idVue = 0; idVue < nbOfVues; idVue++) {
-      consignes[idVue] = []
-      questions[idVue] = []
-      corrections[idVue] = []
-      for (const [k, exercise] of exercises.entries()) {
-        if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
-        exercise.seed = exercise.seed.substring(0, 4) + (idVue > 0 ? idVue : '')
-        if (exercise.typeExercice === 'simple') {
-          mathaleaHandleExerciceSimple(exercise, false)
-        } else {
-          seedrandom(exercise.seed, { global: true })
-          exercise.nouvelleVersionWrapper?.()
+    const slides = []
+    const nbOfVues = $globalOptions.nbVues || 1
+    let selectedQuestionsNumber = 0
+    for (const [k, exercise] of [...exercises].entries()) {
+      reroll(exercise)
+      const isSelected = $globalOptions.select?.includes(k) ?? true
+      if (isSelected) selectedQuestionsNumber += exercise.listeQuestions.length
+      for (let i = 0; i < exercise.listeQuestions.length; i++) {
+        const slide: Slide = {
+          exercise,
+          isSelected,
+          vues: []
         }
-        let consigne: string = ''
-        if ($globalOptions.select === undefined || $globalOptions.select.length === 0 || $globalOptions.select.includes(k)) {
-          if (exercise.introduction) {
-            consigne = exercise.consigne + '\n' + exercise.introduction
+        for (let idVue = 0; idVue < nbOfVues; idVue++) {
+          if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+          if (exercise.typeExercice === 'simple') {
+            mathaleaHandleExerciceSimple(exercise, false)
           } else {
-            consigne = exercise.consigne
+            seedrandom(exercise.seed, { global: true })
+            exercise.nouvelleVersionWrapper?.()
           }
-          for (let j = 0; j < exercise.listeQuestions.length; j++) {
-            consignes[idVue].push(consigne) // même consigne pour toutes les questions
-          }
-          questions[idVue] = [...questions[idVue], ...exercise.listeQuestions]
-          corrections[idVue] = [
-            ...corrections[idVue],
-            ...exercise.listeCorrections
-          ]
-          consignes[idVue] = consignes[idVue].map(mathaleaFormatExercice)
-          questions[idVue] = questions[idVue].map(mathaleaFormatExercice)
-          corrections[idVue] = corrections[idVue].map(mathaleaFormatExercice)
+          slide.vues.push({
+            consigne: mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : ''),
+            question: mathaleaFormatExercice(exercise.listeQuestions[i]),
+            correction: mathaleaFormatExercice(exercise.listeCorrections[i])
+          })
         }
+        slides.push(slide)
       }
+    }
+    slideshow = {
+      slides,
+      currentQuestion: dataFromSettings?.currentQuestion ?? -1,
+      selectedQuestionsNumber
+    }
+  }
+
+  function reroll (exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
+    if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
+    if (idVue !== undefined && idVue > 0) exercise.seed += idVue
+    if (exercise.typeExercice === 'simple') {
+      mathaleaHandleExerciceSimple(exercise, false)
+    } else {
+      seedrandom(exercise.seed, { global: true })
+      exercise.nouvelleVersionWrapper?.()
     }
   }
 
@@ -130,20 +133,22 @@
    * Préparation des indexes si l'ordre aléatoire est demandé
    */
   function adjustQuestionsOrder () {
+    const selectedIndexes = ($globalOptions.select && $globalOptions.select.length > 0) ? getSelectedQuestionsIndexes() : [...Array(slideshow.slides.length).keys()]
     if ($globalOptions.shuffle) {
-      $globalOptions.order = shuffle([...Array(questions[0].length).keys()])
+      $globalOptions.order = shuffle(selectedIndexes)
     } else {
-      $globalOptions.order = undefined
+      $globalOptions.order = $globalOptions.select ? selectedIndexes : undefined
     }
   }
 
-  function updateSizesAndDurations () {
-    for (const exercise of exercises) {
-      for (let i = 0; i < exercise.listeQuestions.length; i++) {
-        sizes.push(exercise.tailleDiaporama)
-        durations.push(exercise.duration || 10)
+  function getSelectedQuestionsIndexes () {
+    const indexes = []
+    for (const [i, slide] of [...slideshow.slides].entries()) {
+      if (slide.isSelected) {
+        indexes.push(i)
       }
     }
+    return indexes
   }
 
   function updateExerciseParams () {
@@ -189,23 +194,19 @@
 </svelte:head>
 
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
-  {#if currentQuestion === -1}
+  {#if slideshow.currentQuestion === -1}
     <SlideshowSettings on:updateSettings="{updateSettings}"
       bind:exercises={exercises}
       {updateExercises}
       {transitionSounds}
     />
   {/if}
-  {#if currentQuestion > -1}
+  {#if slideshow.currentQuestion > -1}
     <SlideshowPlay
       {dataFromSettings}
-      {consignes}
-      {corrections}
-      slideDuration={currentDuration}
-      {durations}
-      bind:currentQuestionNumber={currentQuestion}
+      bind:currentQuestionNumber={slideshow.currentQuestion}
       {handleChangeDurationGlobal}
-      {questions}
+      {slideshow}
       {updateExercises}
       {transitionSounds}
     />

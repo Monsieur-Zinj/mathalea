@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DataFromSettings } from '../types'
+  import type { DataFromSettings, Slideshow } from '../types'
   import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
@@ -10,14 +10,9 @@
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
-  export let consignes: string[][]
-  export let questions: string[][]
-  export let corrections: string[][]
-
-  export let slideDuration: number
+  export let slideshow: Slideshow
   export let currentQuestionNumber: number
   export let dataFromSettings: DataFromSettings
-  export let durations: number[]
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let updateExercises: () => void
@@ -38,7 +33,8 @@
   let order: number[] = []
   $: {
     if (dataFromSettings) {
-      order = $globalOptions.order || [...Array(questions[0].length).keys()]
+      const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
+      order = $globalOptions.order || [...Array(questionsNb).keys()]
       goToQuestion(currentQuestionNumber)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       nbOfVues = $globalOptions.nbVues ?? 1
@@ -53,8 +49,8 @@
   })
 
   async function goToQuestion (questionNumber: number) {
-    if (questionNumber >= -1 && questionNumber <= questions[0].length) currentQuestionNumber = questionNumber
-    if (questionNumber === -1 || questionNumber === questions[0].length) pause()
+    if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) currentQuestionNumber = questionNumber
+    if (questionNumber === -1 || questionNumber === slideshow.selectedQuestionsNumber) pause()
     await tick()
     for (let k = 0; k < nbOfVues; k++) {
       if (divQuestion[k]) {
@@ -69,14 +65,13 @@
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (durations[order[currentQuestionNumber]] || 10))
+            timer(durationGlobal || (slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10))
           })
         } else {
-          timer(durationGlobal || (durations[order[currentQuestionNumber]] || 10))
+          timer(durationGlobal || (slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10))
         }
       }
     }
-    slideDuration = durationGlobal || durations[order[currentQuestionNumber]] || 10
   }
   function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
@@ -100,7 +95,7 @@
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || durations[order[currentQuestionNumber]] || 10, false)
+    } else timer(durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10, false)
   }
 
   function pause () {
@@ -273,12 +268,12 @@ function nextQuestion () {
     } else {
       switchQuestionToCorrection()
       switchPause()
-      if (currentQuestionNumber < questions[0].length) {
+      if (currentQuestionNumber < slideshow.selectedQuestionsNumber) {
         goToQuestion(currentQuestionNumber + 1)
       }
     }
   } else {
-    if (currentQuestionNumber < questions[0].length) {
+    if (currentQuestionNumber < slideshow.selectedQuestionsNumber) {
       goToQuestion(currentQuestionNumber + 1)
     }
   }
@@ -347,7 +342,7 @@ function returnToStart () {
 
 <svelte:window on:keyup={handleShortcut} />
 
-{#if currentQuestionNumber < questions[0].length}
+{#if currentQuestionNumber < slideshow.selectedQuestionsNumber}
   <div
     id="diap"
     class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -356,18 +351,16 @@ function returnToStart () {
     <SlideshowPlaySteps
       {currentQuestionNumber}
       isManualModeActive={$globalOptions.manualMode}
-      totalQuestionsNumber={questions[0].length}
+      totalQuestionsNumber={slideshow.selectedQuestionsNumber}
       {ratioTime}
-      {slideDuration}
+      slideDuration={durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10}
       {goToQuestion}
     />
     <SlideshowPlayQuestion
       {currentQuestionNumber}
       {nbOfVues}
       {divQuestion}
-      {consignes}
-      {questions}
-      {corrections}
+      {slideshow}
       {isQuestionVisible}
       {isCorrectionVisible}
       {order}
@@ -377,7 +370,7 @@ function returnToStart () {
       isManualModeActive={$globalOptions.manualMode}
       {isQuestionVisible}
       {isCorrectionVisible}
-      currentDuration={slideDuration}
+      currentDuration={durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10}
       {handleTimerChange}
       {handleQuit}
       {isPause}
