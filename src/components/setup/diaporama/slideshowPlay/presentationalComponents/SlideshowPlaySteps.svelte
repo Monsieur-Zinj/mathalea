@@ -38,9 +38,7 @@ function isInViewport (element: HTMLElement): boolean {
 }
 </script>
 
-<header
-  class="flex flex-col h-[10%] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1"
->
+<header class="flex flex-col bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1 w-full">
   <div
     class:invisible={isManualModeActive}
     class="flex flex-row flex-shrink-0 h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn"
@@ -51,22 +49,23 @@ function isInViewport (element: HTMLElement): boolean {
       style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear"
     />
   </div>
-  <div class="flex flex-row h-full mt-6 w-full justify-center">
-    <ul class="steps w-11/12" bind:this={stepsUl}>
-      {#each [...questions.keys()] as i}
-        <span
-          on:click={() => goToQuestion(i)}
-          on:keydown={() => goToQuestion(i)}
-          role="button"
-          tabindex="0"
-        >
-          <li
-            class="step step-neutral dark:step-info {currentQuestion >= i
-              ? 'step-primary'
-              : ''} cursor-pointer"
-          />
-        </span>
-      {/each}
-    </ul>
-  </div>
+  <ul class="steps w-full mt-3">
+    {#each [...questions.keys()] as i}
+      <button
+        on:click={() => goToQuestion(i)}
+        on:keydown={() => goToQuestion(i)}
+        tabindex="0"
+          class="step dark:step-info {currentQuestion >= i
+            ? 'step-primary'
+            : ''} cursor-pointer"
+      >
+      </button>
+    {/each}
+  </ul>
 </header>
+
+<style>
+  .step::after {
+    color: white;
+  }
+</style>
