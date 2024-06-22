@@ -1,10 +1,10 @@
 <script lang="ts">
   export let isManualModeActive: boolean | undefined
-  export let currentQuestion: number
-  export let questions: string[]
+  export let currentQuestionNumber: number
+  export let questionNumbers: number[]
   export let goToQuestion: (index: number) => void
   export let ratioTime: number
-  export let currentDuration: number
+  export let slideDuration: number
 
   let stepsUl: HTMLUListElement
 
@@ -12,15 +12,15 @@
     if (stepsUl) {
       const steps = stepsUl.querySelectorAll('li')
       if (typeof steps !== 'undefined') {
-        if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
-        if (steps[currentQuestion + 5]) {
-          steps[currentQuestion + 5].scrollIntoView()
+        if (steps[currentQuestionNumber]) steps[currentQuestionNumber].scrollIntoView()
+        if (steps[currentQuestionNumber + 5]) {
+          steps[currentQuestionNumber + 5].scrollIntoView()
         }
         if (
-          steps[currentQuestion - 5] &&
-          !isInViewport(steps[currentQuestion - 5])
+          steps[currentQuestionNumber - 5] &&
+          !isInViewport(steps[currentQuestionNumber - 5])
         ) {
-          steps[currentQuestion - 5].scrollIntoView()
+          steps[currentQuestionNumber - 5].scrollIntoView()
         }
       }
     }
@@ -46,18 +46,18 @@ function isInViewport (element: HTMLElement): boolean {
     <div
       id="diapoProgressBar"
       class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
-      style="width: {ratioTime}%; transition: width {currentDuration / 100}s linear"
+      style="width: {ratioTime}%; transition: width {slideDuration / 100}s linear"
     />
   </div>
   <ul class="steps w-full mt-3">
-    {#each [...questions.keys()] as i}
+    {#each questionNumbers as i}
       <button
         on:click={() => goToQuestion(i)}
         on:keydown={() => goToQuestion(i)}
         tabindex="0"
-          class="step dark:step-info {currentQuestion >= i
+          class="step dark:step-info {currentQuestionNumber >= i
             ? 'step-primary'
-            : ''} cursor-pointer {currentQuestion === i
+            : ''} cursor-pointer {currentQuestionNumber === i
               ? 'step-current'
               : ''}"
       >

@@ -201,9 +201,9 @@
       {dataFromSettings}
       {consignes}
       {corrections}
-      {currentDuration}
+      slideDuration={currentDuration}
       {durations}
-      bind:currentQuestion={currentQuestion}
+      bind:currentQuestionNumber={currentQuestion}
       {handleChangeDurationGlobal}
       {questions}
       {updateExercises}

@@ -14,8 +14,8 @@
   export let questions: string[][]
   export let corrections: string[][]
 
-  export let currentDuration: number
-  export let currentQuestion: number
+  export let slideDuration: number
+  export let currentQuestionNumber: number
   export let dataFromSettings: DataFromSettings
   export let durations: number[]
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
@@ -39,7 +39,7 @@
   $: {
     if (dataFromSettings) {
       order = $globalOptions.order || [...Array(questions[0].length).keys()]
-      goToQuestion(currentQuestion)
+      goToQuestion(currentQuestionNumber)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       nbOfVues = $globalOptions.nbVues ?? 1
       QRCodeWidth = dataFromSettings.QRCodeWidth
@@ -53,7 +53,7 @@
   })
 
   async function goToQuestion (questionNumber: number) {
-    if (questionNumber >= -1 && questionNumber <= questions[0].length) currentQuestion = questionNumber
+    if (questionNumber >= -1 && questionNumber <= questions[0].length) currentQuestionNumber = questionNumber
     if (questionNumber === -1 || questionNumber === questions[0].length) pause()
     await tick()
     for (let k = 0; k < nbOfVues; k++) {
@@ -69,14 +69,14 @@
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (durations[currentQuestion] || 10))
+            timer(durationGlobal || (durations[currentQuestionNumber] || 10))
           })
         } else {
-          timer(durationGlobal || (durations[currentQuestion] || 10))
+          timer(durationGlobal || (durations[currentQuestionNumber] || 10))
         }
       }
     }
-    currentDuration = durationGlobal || durations[currentQuestion] || 10
+    slideDuration = durationGlobal || durations[currentQuestionNumber] || 10
   }
   function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
@@ -100,7 +100,7 @@
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || durations[currentQuestion] || 10, false)
+    } else timer(durationGlobal || durations[currentQuestionNumber] || 10, false)
   }
 
   function pause () {
@@ -253,14 +253,14 @@ function handleShortcut (e: KeyboardEvent) {
 function prevQuestion () {
   if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
     if (isQuestionVisible) {
-      if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+      if (currentQuestionNumber > -1) goToQuestion(currentQuestionNumber - 1)
     } else {
       switchQuestionToCorrection()
       switchPause()
-      goToQuestion(currentQuestion)
+      goToQuestion(currentQuestionNumber)
     }
   } else {
-    if (currentQuestion > -1) goToQuestion(currentQuestion - 1)
+    if (currentQuestionNumber > -1) goToQuestion(currentQuestionNumber - 1)
   }
 }
 
@@ -269,17 +269,17 @@ function nextQuestion () {
     if (isQuestionVisible && !isCorrectionVisible) {
       switchPause()
       switchQuestionToCorrection()
-      goToQuestion(currentQuestion)
+      goToQuestion(currentQuestionNumber)
     } else {
       switchQuestionToCorrection()
       switchPause()
-      if (currentQuestion < questions[0].length) {
-        goToQuestion(currentQuestion + 1)
+      if (currentQuestionNumber < questions[0].length) {
+        goToQuestion(currentQuestionNumber + 1)
       }
     }
   } else {
-    if (currentQuestion < questions[0].length) {
-      goToQuestion(currentQuestion + 1)
+    if (currentQuestionNumber < questions[0].length) {
+      goToQuestion(currentQuestionNumber + 1)
     }
   }
 }
@@ -304,7 +304,7 @@ function handleTimerChange (cursorTimeValue: number) {
     durationGlobal = cursorTimeValue
   }
   handleChangeDurationGlobal(durationGlobal)
-  goToQuestion(currentQuestion)
+  goToQuestion(currentQuestionNumber)
 }
 
 function zoomPlus () {
@@ -347,7 +347,7 @@ function returnToStart () {
 
 <svelte:window on:keyup={handleShortcut} />
 
-{#if currentQuestion < questions[0].length}
+{#if currentQuestionNumber < questions[0].length}
   <div
     id="diap"
     class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -355,11 +355,11 @@ function returnToStart () {
   >
     <SlideshowSteps
       isManualModeActive={$globalOptions.manualMode}
-      {currentQuestion}
-      questions={questions[0]}
-      {goToQuestion}
+      {currentQuestionNumber}
+      questionNumbers={[...questions[0].keys()]}
       {ratioTime}
-      {currentDuration}
+      {slideDuration}
+      {goToQuestion}
     />
     <SlideshowQuestion
       {nbOfVues}
@@ -368,7 +368,7 @@ function returnToStart () {
       {questions}
       {corrections}
       {order}
-      {currentQuestion}
+      currentQuestion={currentQuestionNumber}
       {isQuestionVisible}
       {isCorrectionVisible}
     />
@@ -377,7 +377,7 @@ function returnToStart () {
       isManualModeActive={$globalOptions.manualMode}
       {isQuestionVisible}
       {isCorrectionVisible}
-      {currentDuration}
+      currentDuration={slideDuration}
       {handleTimerChange}
       {handleQuit}
       {isPause}
