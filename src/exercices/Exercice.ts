@@ -62,7 +62,6 @@ export default class Exercice {
   spacingCorrModifiable: boolean
   listeAvecNumerotation?: boolean
   beamer: boolean
-  tailleDiaporama: number
   nbQuestions: number
   pointsParQuestions: number
   correctionDetailleeDisponible: boolean
@@ -152,7 +151,6 @@ export default class Exercice {
     // Gestion de la sortie autre que LateX
     // ////////////////////////////////////////////
     this.beamer = false // booléen pour savoir si la sortie devra être un diaporama beamer
-    this.tailleDiaporama = 1 // Facteur par lequel multiplier la police pour la vue 'diap'
 
     // ////////////////////////////////////////////
     // Paramètres
