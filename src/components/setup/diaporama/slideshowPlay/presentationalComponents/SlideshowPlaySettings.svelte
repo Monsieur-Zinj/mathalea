@@ -1,6 +1,8 @@
 <script lang="ts">
-  import { setPhraseDuree } from '../../../../../lib/components/time'
+  import ModalMessageBeforeAction from '../../../../shared/modal/ModalMessageBeforeAction.svelte'
   import FullscreenButton from '../../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
+  import { onDestroy, onMount } from 'svelte'
+  import { setPhraseDuree } from '../../../../../lib/components/time'
 
   export let flow: number | undefined
   export let isManualModeActive: boolean | undefined
@@ -21,6 +23,21 @@
   let displayCurrentDuration: () => string
   let cursorTimeValue = 10
   let messageDuree: string
+  let timerSettingsModal: HTMLElement
+
+  onMount(() => {
+    const timerSettingsModalCandidate = document.getElementById('timer-settings-modal')
+    if (timerSettingsModalCandidate) {
+      timerSettingsModal = timerSettingsModalCandidate
+    } else {
+      console.error('timer-settings-modal not found')
+    }
+    window.addEventListener('click', handleClick)
+  })
+
+  onDestroy(() => {
+    window.removeEventListener('click', handleClick)
+  })
 
   $: displayCurrentDuration = () => {
     return isManualModeActive ? 'Manuel' : currentDuration + 's'
@@ -40,6 +57,20 @@
       displayMode = 'C'
     }
     return displayMode
+  }
+
+  function handleClick (event: MouseEvent) {
+    if (event.target === timerSettingsModal) {
+      timerSettingsModal.style.display = 'none'
+    }
+  }
+
+  function displayTimerSettingsModal () {
+    const modal = document.getElementById('timer-settings-modal')
+    if (modal) {
+      modal.style.display = 'block'
+      pause()
+    }
   }
 
 </script>
@@ -85,11 +116,10 @@
     </div>
     <!-- boutons timers correction quitter -->
     <div class="flex flex-row justify-end mr-10 w-[33%] items-center">
-      <label for="timerSettings" class="modal-button">
         <i
           class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-stopwatch"
-          on:click={pause}
-          on:keydown={pause}
+          on:click={displayTimerSettingsModal}
+          on:keydown={displayTimerSettingsModal}
           role="button"
           tabindex="0"
         >
@@ -97,17 +127,24 @@
             {displayCurrentDuration()}
           </div>
         </i>
-      </label>
-      <input
-        type="checkbox"
-        id="timerSettings"
-        class="modal-toggle bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
-      />
-      <div class="modal modal-bottom sm:modal-middle">
-        <div class="modal-box">
-          <h3 class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">
-            Temps par question
-          </h3>
+      <ModalMessageBeforeAction
+        modalId="timer-settings-modal"
+        modalButtonId="timerSettings"
+        modalButtonTitle="Fermer"
+        icon="bx-stopwatch"
+        classForButton="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+        on:action={() => {
+          const modal = document.getElementById('timer-settings-modal')
+          if (modal) {
+            modal.style.display = 'none'
+          }
+          switchPause()
+        }}
+      >
+        <h3 slot="header" class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">
+          Temps par question
+        </h3>
+        <div slot="content">
           <p class="py-4 text-coopmaths-corpus dark:text-coopmathsdark-corpus">
             Régler la durée de projection en secondes
           </p>
@@ -129,18 +166,8 @@
               >
             </div>
           </div>
-          <div class="modal-action">
-            <label
-              for="timerSettings"
-              class="btn btn-neutral"
-              on:click={switchPause}
-              on:keydown={switchPause}
-            >
-              Fermer
-            </label>
-          </div>
         </div>
-      </div>
+      </ModalMessageBeforeAction>
       <div>
         <button type="button" on:click={switchCorrectionMode}>
           <i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show">
