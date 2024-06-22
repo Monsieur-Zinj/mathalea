@@ -11,18 +11,18 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
   export let consignes: string[][]
+  export let questions: string[][]
   export let corrections: string[][]
+
   export let currentDuration: number
   export let currentQuestion: number
   export let dataFromSettings: DataFromSettings
   export let durations: number[]
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
-  export let questions: string[][]
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let updateExercises: () => void
 
   let currentZoom: number
-  let displayCurrentCorrectionMode: () => string
   const divQuestion: HTMLDivElement[] = []
   let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let formatQRCodeIndex: 0 | 1 | 2
@@ -33,11 +33,9 @@
   let myInterval: number
   let QRCodeWidth: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
-  let stepsUl: HTMLUListElement
   let userZoom = 1
 
   let order: number[] = []
-
   $: {
     if (dataFromSettings) {
       order = $globalOptions.order || [...Array(questions[0].length).keys()]
@@ -50,38 +48,9 @@
 
   currentZoom = userZoom
 
-  $: {
-    if (stepsUl) {
-      const steps = stepsUl.querySelectorAll('li')
-      if (typeof steps !== 'undefined') {
-        if (steps[currentQuestion]) steps[currentQuestion].scrollIntoView()
-        if (steps[currentQuestion + 5]) {
-          steps[currentQuestion + 5].scrollIntoView()
-        }
-        if (
-          steps[currentQuestion - 5] &&
-          !isInViewport(steps[currentQuestion - 5])
-        ) {
-          steps[currentQuestion - 5].scrollIntoView()
-        }
-      }
-    }
-  }
-
   onDestroy(() => {
     pause()
   })
-
-  function isInViewport (element: HTMLElement): boolean {
-    const rect = element.getBoundingClientRect()
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <=
-        (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    )
-  }
 
   async function goToQuestion (questionNumber: number) {
     if (questionNumber >= -1 && questionNumber <= questions[0].length) currentQuestion = questionNumber
@@ -316,14 +285,6 @@ function nextQuestion () {
 }
 
 /**
- * Gestion du clic sur l'étape dans la progression
- * @param {number} index index de l'étape
- */
-function clickOnStep (index: number) {
-  goToQuestion(index)
-}
-
-/**
  * Gère la récupération de la valeur du curseur de temps
  */
 function handleTimerChange (cursorTimeValue: number) {
@@ -358,7 +319,6 @@ function zoomMoins () {
   setSize(true)
 }
   async function switchCorrectionMode () {
-    // isCorrectionVisible = !isCorrectionVisible
     if (isQuestionVisible && !isCorrectionVisible) {
       isCorrectionVisible = !isCorrectionVisible
     } else {
@@ -375,31 +335,12 @@ function zoomMoins () {
     setSize()
   }
 
-$: displayCurrentCorrectionMode = () => {
-  let mode = ''
-  if (isQuestionVisible && !isCorrectionVisible) {
-    mode = 'Q'
-  }
-  if (isQuestionVisible && isCorrectionVisible) {
-    mode = 'Q+C'
-  }
-  if (!isQuestionVisible && isCorrectionVisible) {
-    mode = 'C'
-  }
-  return mode
-}
-
 function handleQuit () {
   mathaleaHandleComponentChange('diaporama', '')
   updateExercises()
 }
 
-/**
- * Pour le bouton de retour de la page de fin
- */
 function returnToStart () {
-  durationGlobal = 0
-  pause()
   goToQuestion(0)
 }
 </script>
@@ -414,35 +355,35 @@ function returnToStart () {
   >
     <SlideshowSteps
       isManualModeActive={$globalOptions.manualMode}
-      currentQuestion={currentQuestion}
+      {currentQuestion}
       questions={questions[0]}
-      clickOnStep={clickOnStep}
-      ratioTime={ratioTime}
-      currentDuration={currentDuration}
-      stepsUl={stepsUl}
+      {goToQuestion}
+      {ratioTime}
+      {currentDuration}
     />
     <SlideshowQuestion
       {nbOfVues}
       {divQuestion}
       {consignes}
-      {corrections}
       {questions}
+      {corrections}
       {order}
       {currentQuestion}
       {isQuestionVisible}
       {isCorrectionVisible}
     />
     <SlideshowPlaySettings
-      {displayCurrentCorrectionMode}
       flow={$globalOptions.flow}
       isManualModeActive={$globalOptions.manualMode}
+      {isQuestionVisible}
+      {isCorrectionVisible}
       {currentDuration}
       {handleTimerChange}
       {handleQuit}
       {isPause}
+      {prevQuestion}
       {nextQuestion}
       {pause}
-      {prevQuestion}
       {switchCorrectionMode}
       {switchPause}
       {zoomMoins}
