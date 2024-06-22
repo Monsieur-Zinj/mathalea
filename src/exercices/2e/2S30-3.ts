@@ -93,15 +93,15 @@ export default class ProbaUnionInter extends Exercice {
             texte = `Lors d'un match de ${sport}, l'équipe qui reçoit un adversaire a une probabilité de $${texNombre(pG, 2)}$ de gagner son match et $${texNombre(pN, 2)}$ de faire un match nul.`
             if (choix === true) {
               reponse = texNombre(NG, 2)
-              texte += '<br>Quelle est la probabilité $P$, pour cette équipe, de ne pas perdre le match ?'
+              texte += '<br>Quelle est la probabilité, pour cette équipe, de ne pas perdre le match ?'
               texteCorr = 'Ne pas perdre un match, c\'est, soit le gagner, soit faire un match nul. La probabilité est donc : <br> <br>'
               texteCorr += `$P=$ P(«${sp(1)}Gagner le match${sp(1)}») + P(«${sp(1)}Match nul${sp(1)}») <br>`
               texteCorr += `$P= ${texNombre(pG, 2)} + ${texNombre(pN, 2)}$ <br> `
               texteCorr += `$P= ${miseEnEvidence(reponse)}$  <br>`
             } else {
               reponse = texNombre(pP, 2)
-              texte += '<br>Quelle est la probabilité $P$, pour cette équipe, de perdre le match ?'
-              texteCorr = `L'évènement  «${sp(1)}Perdre le match${sp(1)}» est l'évènement contraire de  «${sp(1)}Ne pas perdre le match${sp(1)}». On peut donc affirmer que : <br> <br>`
+              texte += '<br>Quelle est la probabilité, pour cette équipe, de perdre le match ?'
+              texteCorr = `L'événement  «${sp(1)}Perdre le match${sp(1)}» est l'événement contraire de  «${sp(1)}Ne pas perdre le match${sp(1)}». On peut donc affirmer que : <br> <br>`
               texteCorr += `P(«${sp(1)}Perdre le match${sp(1)}») $+$ P(«${sp(1)}Ne pas perdre le match${sp(1)}») $= 1$ <br>`
               texteCorr += `$P=1-$ P(«${sp(1)}Ne pas perdre le match${sp(1)}»)<br>`
               texteCorr += `$P=1-$(P(«${sp(1)}Gagner le match${sp(1)}») + P(«${sp(1)}Match nul${sp(1)}»))<br>`
@@ -110,7 +110,7 @@ export default class ProbaUnionInter extends Exercice {
               texteCorr += `$P=${miseEnEvidence(reponse)}$<br>`
             }
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: ' $P=$' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -120,7 +120,7 @@ export default class ProbaUnionInter extends Exercice {
             reponse = new FractionEtendue(cribleEratostheneN(a).length, a).texFraction
             texte = `Une urne contient $${a}$  boules numérotées de $1$ à $${a}$. <br>
         On choisit une boule au hasard. <br>
-        Quelle est la probabilité $P$ d'obtenir  un nombre premier ? `
+        Quelle est la probabilité d'obtenir  un nombre premier ? `
             texteCorr = `Les nombres premiers inférieurs à $${a}$ sont : ` + cribleEratostheneN(a)[0]
             for (let k = 1; k < cribleEratostheneN(a).length; k++) {
               texteCorr += ', ' + cribleEratostheneN(a)[k]
@@ -133,7 +133,7 @@ export default class ProbaUnionInter extends Exercice {
         La probabilité d'obtenir un nombre premier est donc : $${miseEnEvidence(reponse)}${new FractionEtendue(cribleEratostheneN(a).length, a).texSimplificationAvecEtapes()}$. `
             }
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -158,7 +158,7 @@ export default class ProbaUnionInter extends Exercice {
                 On a donc $${miseEnEvidence(choix1 ? `${a}` : `${b}`)}$ chances sur $${miseEnEvidence(nbBoules)}$ de tirer une boule ${choix1 ? 'rouge' : 'bleue'}.<br>
                 Ainsi, la probabilité de tirer une boule ${choix1 ? 'rouge' : 'bleue'} est $\\dfrac{${miseEnEvidence(choix1 ? `${a}` : `${b}`)}}{${miseEnEvidence(nbBoules)}}$.`
 
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -167,30 +167,30 @@ export default class ProbaUnionInter extends Exercice {
             const c = choice([2, 3, 11, 12])
             const choix = choice(['a', 'b', 'c', 'd'])
             if (choix === 'a') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient au moins une fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $3$ issues qui comportent au moins une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{3}{4}')}$.`
               reponse = new FractionEtendue(3, 4).texFraction
             }
             if (choix === 'b') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient au plus une fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $3$ issues qui comportent au plus une fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{3}{4}')}$.`
               reponse = new FractionEtendue(3, 4).texFraction
             }
 
             if (choix === 'c') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient une seule fois ${c ? 'pile' : 'face'}" ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $2$ issues qui comportent une seule fois ${c ? 'pile' : 'face'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{2}')}$.`
               reponse = new FractionEtendue(1, 2).texFraction
             } else { // if (choix === 'd') {
-              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’évènement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
+              texte = `On lance deux fois de suite une pièce de monnaie parfaitement équilibrée.<br>Quelle est la probabilité  de l’événement : " On obtient deux fois ${c ? 'piles' : 'faces'} " ?`
               texteCorr = `Il y a $4$ issues équiprobables : $(P,P)$, $(P,F)$, $(F,P)$ et $(F,F)$.<br>
               Il y a $1$ issue qui comporte deux fois ${c ? 'piles' : 'faces'}. Ainsi, la probabilité cherchée est : $${miseEnEvidence('\\dfrac{1}{4}')}$.`
               reponse = new FractionEtendue(1, 4).texFraction
             }
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: '$P=$' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(5) })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
           break
@@ -207,11 +207,12 @@ export default class ProbaUnionInter extends Exercice {
           une boule et on regarde sa couleur. <br>
           La probabilité d’obtenir une boule verte est $${proba1}$.<br>
           Déterminer le nombre de boules bleues dans cette urne sachant qu’il y a $${nbBoulesV}$
-          boules vertes. `
+          boules vertes`
+          texte += this.interactif ? ' : ' : '.'
           texteCorr = `La probabilité d’obtenir une boule verte est $${proba1}$, soit $\\dfrac{${k * choixProba[0]}}{${k * choixProba[1]}}$.<br>
           Il y a donc $${k * choixProba[1]}$ boules au total dans l'urne et donc $${k * choixProba[1]}-${k * choixProba[0]}=${miseEnEvidence(reponse)}$ boules bleues.`
 
-          texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteApres: 'boules bleues' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecFraction, { texteAvant: sp(), texteApres: 'boules bleues' })
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         }
           break

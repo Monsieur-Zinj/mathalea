@@ -47,8 +47,8 @@ export default function CalculProbaExperience2Epreuves3e () {
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       min: 1,
-      max: 5,
-      melange: 6,
+      max: 3,
+      melange: 4,
       defaut: 1,
       shuffle: false
     })
@@ -65,7 +65,6 @@ export default function CalculProbaExperience2Epreuves3e () {
           question = urneDeuxTiragesSansRemise(this, NoQuestion, true, false, true)
           break
       }
-
       if (this.questionJamaisPosee(i, ...question.alea)) {
         this.listeQuestions.push(question.texte)
         this.listeCorrections.push(question.texteCorr)
