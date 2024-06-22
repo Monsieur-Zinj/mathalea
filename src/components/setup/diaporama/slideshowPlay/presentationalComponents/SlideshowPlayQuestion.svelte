@@ -5,7 +5,7 @@
   export let corrections: string[][]
   export let questions: string[][]
   export let order: number[]
-  export let currentQuestion: number
+  export let currentQuestionNumber: number
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
 
@@ -37,11 +37,11 @@
           {#if isQuestionVisible}
             <div class="font-light" id="consigne{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html consignes[i][order[currentQuestion]]}
+              {@html consignes[i][order[currentQuestionNumber]]}
             </div>
             <div class="py-4" id="question{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html questions[i][order[currentQuestion]]}
+              {@html questions[i][order[currentQuestionNumber]]}
             </div>
           {/if}
           {#if isCorrectionVisible}
@@ -50,7 +50,7 @@
               class="bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html corrections[i][order[currentQuestion]]}
+              {@html corrections[i][order[currentQuestionNumber]]}
             </div>
           {/if}
         </div>
@@ -64,9 +64,9 @@
     <div class="flex w-full min-h-full h-full justify-center items-center">
       <div
         class="radial-progress"
-        style="--value:{((currentQuestion + 1) / questions[0].length) * 100};"
+        style="--value:{((currentQuestionNumber + 1) / questions[0].length) * 100};"
       >
-        {currentQuestion + 1} / {questions[0].length}
+        {currentQuestionNumber + 1} / {questions[0].length}
       </div>
     </div>
   </dialog>

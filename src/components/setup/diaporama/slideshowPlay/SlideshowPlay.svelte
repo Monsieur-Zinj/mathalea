@@ -69,14 +69,14 @@
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (durations[currentQuestionNumber] || 10))
+            timer(durationGlobal || (durations[order[currentQuestionNumber]] || 10))
           })
         } else {
-          timer(durationGlobal || (durations[currentQuestionNumber] || 10))
+          timer(durationGlobal || (durations[order[currentQuestionNumber]] || 10))
         }
       }
     }
-    slideDuration = durationGlobal || durations[currentQuestionNumber] || 10
+    slideDuration = durationGlobal || durations[order[currentQuestionNumber]] || 10
   }
   function timer (timeQuestion = 5, reset = true) {
     // timeQuestion est le temps de la question exprimé en secondes
@@ -100,7 +100,7 @@
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || durations[currentQuestionNumber] || 10, false)
+    } else timer(durationGlobal || durations[order[currentQuestionNumber]] || 10, false)
   }
 
   function pause () {
@@ -354,23 +354,23 @@ function returnToStart () {
     data-theme="daisytheme"
   >
     <SlideshowPlaySteps
-      isManualModeActive={$globalOptions.manualMode}
       {currentQuestionNumber}
+      isManualModeActive={$globalOptions.manualMode}
       totalQuestionsNumber={questions[0].length}
       {ratioTime}
       {slideDuration}
       {goToQuestion}
     />
     <SlideshowPlayQuestion
+      {currentQuestionNumber}
       {nbOfVues}
       {divQuestion}
       {consignes}
       {questions}
       {corrections}
-      {order}
-      currentQuestion={currentQuestionNumber}
       {isQuestionVisible}
       {isCorrectionVisible}
+      {order}
     />
     <SlideshowPlaySettings
       flow={$globalOptions.flow}
