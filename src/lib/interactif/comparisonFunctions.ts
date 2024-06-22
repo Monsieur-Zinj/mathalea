@@ -5,13 +5,14 @@ import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
 import type { ParserOptions } from 'svelte/types/compiler/interfaces'
+import { areSameArray } from '../outils/arrayOutils'
 
 const engine = new ComputeEngine()
 export default engine
 
 export type ResultType = {isOk: boolean, feedback?: string}
 export type OptionsComparaisonType = {
-  expressionsForcementReduites: boolean,
+  expressionsForcementReduites?: boolean,
     avecSigneMultiplier?: boolean,
   avecFractions?: boolean,
   fractionIrreductibleSeulement?: boolean,
@@ -27,7 +28,8 @@ export type OptionsComparaisonType = {
   texteSansCasse?: boolean,
   nombreAvecEspace?: boolean,
   fractionIdentique?: boolean,
-  egaliteExpression?: boolean
+  egaliteExpression?: boolean,
+  noUselessParen?: boolean
 }
 export type CompareFunction = (input: string, goodAnswer:string, options: OptionsComparaisonType) => ResultType
 
@@ -1280,4 +1282,40 @@ export function numberWithSpaceCompare (input: string, goodAnswer: string): Resu
     feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
   }
   return { isOk: input === goodAnswer, feedback }
+}
+
+export function exprCompare (input: string, goodAnswer: string, { noUselessParen = false }): ResultType {
+  const clean = generateCleaner(['virgules', 'parentheses', 'divisions', 'fractions', 'puissances', 'fractions', 'mathrm'])
+  const inputClean = clean(input) ?? ''
+  const answerClean = clean(goodAnswer) ?? ''
+  let feedback = ''
+  let isOk = true
+  const nbParenInput = inputClean.match(/([()])/g)?.length
+  const nbParenAnswer = answerClean.match(/([()])/g)?.length
+  const numbersInput = inputClean.match(/\d+/g)?.sort((a, b) => Number(a) - Number(b))
+  const numbersAnswer = answerClean.match(/\d+/g)?.sort((a, b) => Number(a) - Number(b))
+  const opsInput = inputClean.match(/[+\-/*]|(times)|(div)|(frac)/g)?.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
+  const opsAnswer = answerClean.match(/[+\-/*]|(times)|(div)|(frac)/g)?.sort((a, b) => a.charCodeAt(0) - b.charCodeAt(0))
+  const isOk1 = nbParenAnswer === nbParenInput // doit être true si noUselessParen est true
+  const isOk2 = numbersInput != null && numbersAnswer != null && areSameArray(numbersInput, numbersAnswer) // doit être obligatoirement true
+  const isOk3 = opsInput != null && opsAnswer != null && areSameArray(opsInput, opsAnswer) // doit obligatoirement être true
+  const isOk4 = engine.parse(inputClean).isEqual(engine.parse(clean(goodAnswer))) // doit obligatoirement être true
+  if (noUselessParen && inputClean != null && answerClean !== null) {
+    isOk = isOk1 && isOk2 && isOk3 && isOk4
+    if (!isOk1 && isOk4) {
+      feedback = 'L\'expression donne le bon résultat mais n\'a pas la forme attendue.'
+    }
+  } else {
+    isOk = isOk2 && isOk3 && isOk4
+    if (!isOk) {
+      if (!isOk4) {
+        feedback = 'L\'expression ne donne pas le bon résultat.'
+      } else if (!isOk3) {
+        feedback = 'L\'expression ne contient pas les bonnes opérations.'
+      } else {
+        feedback = 'L\'expression ne contient pas les bons nombres.'
+      }
+    }
+  }
+  return { isOk, feedback }
 }

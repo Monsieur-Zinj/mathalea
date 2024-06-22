@@ -45,7 +45,7 @@ digits?: number
 }
 
 export type AnswerType = {
-  value: string,
+  value: string|string[],
   compare: CompareFunction,
   options?: OptionsComparaisonType
 }

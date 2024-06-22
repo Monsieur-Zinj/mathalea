@@ -5,8 +5,8 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
 import { lister } from '../../lib/outils/ecritures'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -29,8 +29,11 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.sup2 = 4
     this.besoinFormulaire2Numerique = ['Nombre de calculs (2 à 4)', 4]
+    this.sup2 = 4
+    // Ce paramètre n'aura de sens que si la correction fournie ne comporte pas de parenthèses inutiles conformément au paramètre
+    // this.besoinFormulaire3CaseACocher = ['Sanctionner les parenthèses inutiles', false]
+    // this.sup3 = false
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
   }
@@ -42,8 +45,9 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
     const nombreDeCalculs = contraindreValeur(2, 4, this.sup2, 4)
-
+    const noUselessParen = false // Pour l'instant, on ne peu pas se permettre de ne pas les accepter car elles figurent dans la correction.
     const typeQuestionsDisponibles = ['Enchaînement simple']
+    if (nombreDeCalculs > 1) typeQuestionsDisponibles.push('1 -> 3')
     if (nombreDeCalculs > 3) typeQuestionsDisponibles.push('1 -> 4', '2 -> 4')
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
@@ -56,51 +60,101 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
       const nombres = shuffle([A, B, C, D, E])
       let nombresUtilises = nombres.slice(0, 3)
       const signes = avecDivision ? shuffle(['+', '-', '\\times', '\\div']) : combinaisonListes(['+', '-', '\\times'], 4)
-      const calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
-      const resultat1 = computeEngine.parse(calcul1).simplify().latex
-      let calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
-      let resultat2 = computeEngine.parse(calcul2).simplify().latex
-      let calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
-      let resultat3 = computeEngine.parse(calcul3).simplify().latex
-      let calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
-      let nombreCible = computeEngine.parse(calcul2).simplify().latex
-      let redaction = rediger(calcul1, signes[1], nombres[2].toString())
-      let texteCorr = `
-$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+      let calcul1: string = `${nombres[0]} ${signes[0]} ${nombres[1]}`
+      let resultat1: string = computeEngine.parse(calcul1).simplify().latex
+      let calcul2: string = `${resultat1} ${signes[1]} ${nombres[2]}`
+      let resultat2: string = computeEngine.parse(calcul2).simplify().latex
+      let calcul3: string = `${resultat2} ${signes[2]} ${nombres[3]}`
+      let resultat3: string = computeEngine.parse(calcul3).simplify().latex
+      let calcul4: string = `${resultat3} ${signes[3]} ${nombres[4]}`
+      let nombreCible: string = computeEngine.parse(calcul2).simplify().latex
+      let redaction: string = rediger(calcul1, signes[1], nombres[2].toString())
+      let texteCorr: string
+      let derniereLigneCorrection: string
+      let calculs
+      switch (nombreDeCalculs) {
+        case 2:
+          switch (listeTypeQuestions[i]) {
+            case '1 -> 3':
+              calcul1 = `${nombres[1]} ${signes[0]} ${nombres[2]}`
+              resultat1 = computeEngine.parse(calcul1).simplify().latex
+              calcul2 = `${nombres[0]} ${signes[1]} ${resultat1}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              nombreCible = resultat2
+              redaction = `${nombres[0]} ${signes[1]} (${calcul1})`
+              texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${nombres[0]} ${signes[1]}${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} = ${resultat2}`, 'green')}$<br><br>`
+              break
+            case 'Enchaînement simple':
+            default:
+              calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
+              nombreCible = computeEngine.parse(calcul2).simplify().latex
+              redaction = rediger(calcul1, signes[1], nombres[2].toString())
+              texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
 `
-      if (nombreDeCalculs > 2) {
-        nombresUtilises = nombres.slice(0, 4)
-        redaction = rediger(redaction, signes[2], nombres[3].toString())
-        nombreCible = computeEngine.parse(calcul3).simplify().latex
-        texteCorr += `$${miseEnCouleur(`${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>
+              break
+          }
+          calculs = `$${calcul1}=${resultat1}$<br>$${calcul2}=${resultat2}$<br>`
+          nombresUtilises = nombres.slice(0, 3)
+          break
+        case 3:
+          switch (listeTypeQuestions[i]) {
+            case '1 -> 3':
+              calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
+              resultat1 = computeEngine.parse(calcul1).simplify().latex
+              calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat1} ${signes[2]} ${resultat2}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              // calcul4 = `${resultat2} ${signes[3]} ${resultat3}`
+              nombreCible = resultat3
+              redaction = rediger(calcul1, signes[2], calcul2)
+              texteCorr = `
+$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[2]} ${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} = ${resultat3}`, 'green')}$<br>
+$${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${miseEnCouleur(`${miseEnCouleur(`(${calcul2})`, 'blue')} = ${nombreCible}`, 'green')}$<br><br>`
+              break
+            case 'Enchaînement simple':
+            default:
+              calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              nombreCible = computeEngine.parse(calcul3).simplify().latex
+              redaction = rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString())
+              texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br><br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]}}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[2]} = ${resultat3}`, 'green')}$<br><br>
 `
-      }
-      if (nombreDeCalculs > 3) {
-        nombresUtilises = nombres
-        redaction = rediger(redaction, signes[3], nombres[4].toString())
-        nombreCible = computeEngine.parse(calcul4).simplify().latex
-        texteCorr += `$${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br>
-`
-      }
-      texteCorr += `<br>
-`
-      let derniereLigneCorrection = miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')
-      if (nombreDeCalculs > 2) derniereLigneCorrection = miseEnCouleur(`(${derniereLigneCorrection}${signes[2]}${nombres[3]})`, 'green')
-      if (nombreDeCalculs > 3) derniereLigneCorrection = `${derniereLigneCorrection}${signes[3]}${nombres[4]}`
-      texteCorr += `$ ${derniereLigneCorrection} = ${nombreCible}$<br>
-<br>
-`
-      switch (listeTypeQuestions[i]) {
-        case '1 -> 3':
-          calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
-          resultat2 = computeEngine.parse(calcul2).simplify().latex
-          calcul3 = `${resultat1} ${signes[2]} ${nombres[4]}`
-          resultat3 = computeEngine.parse(calcul3).simplify().latex
-          calcul4 = `${resultat2} ${signes[3]} ${resultat3}`
-          nombreCible = computeEngine.parse(calcul4).simplify().latex
-          redaction = rediger(calcul2, signes[3], rediger(calcul1, signes[2], nombres[4].toString()))
-          texteCorr = `
+
+              derniereLigneCorrection = miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')
+              derniereLigneCorrection = miseEnCouleur(`(${derniereLigneCorrection}${signes[2]}${nombres[3]})`, 'green')
+              texteCorr += `$ ${derniereLigneCorrection} = ${nombreCible}$<br><br>`
+              break
+          }
+          calculs = `$${calcul1}=${resultat1}$<br>$${calcul2}=${resultat2}$<br>$${calcul3}=${resultat3}$<br>`
+          nombresUtilises = nombres.slice(0, 4)
+          break
+        case 4:
+        default:
+          switch (listeTypeQuestions[i]) {
+            case '1 -> 3':
+              calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
+              resultat1 = computeEngine.parse(calcul1).simplify().latex
+              calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat1} ${signes[2]} ${nombres[4]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              calcul4 = `${resultat2} ${signes[3]} ${resultat3}`
+              nombreCible = computeEngine.parse(calcul4).simplify().latex
+              redaction = rediger(calcul2, signes[3], rediger(calcul1, signes[2], nombres[4].toString()))
+              texteCorr = `
 $${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[2]} ${nombres[4]} = ${resultat3}`, 'green')}$<br>
@@ -109,16 +163,16 @@ $${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} ${signes[3]} ${
 $${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$<br>
 <br>
 `
-          break
-        case '1 -> 4':
-          calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
-          resultat2 = computeEngine.parse(calcul2).simplify().latex
-          calcul3 = `${resultat2} ${signes[2]} ${nombres[4]}`
-          resultat3 = computeEngine.parse(calcul3).simplify().latex
-          calcul4 = `${resultat1} ${signes[3]} ${resultat3}`
-          nombreCible = computeEngine.parse(calcul4).simplify().latex
-          redaction = rediger(calcul1, signes[3], rediger(calcul2, signes[2], nombres[4].toString()))
-          texteCorr = `
+              break
+            case '1 -> 4':
+              calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat2} ${signes[2]} ${nombres[4]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              calcul4 = `${resultat1} ${signes[3]} ${resultat3}`
+              nombreCible = computeEngine.parse(calcul4).simplify().latex
+              redaction = rediger(calcul1, signes[3], rediger(calcul2, signes[2], nombres[4].toString()))
+              texteCorr = `
 $${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} ${signes[2]} ${nombres[4]} = ${resultat3}`, 'green')}$<br>
@@ -127,16 +181,16 @@ $${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[3]} ${m
 $${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[3]} ${miseEnCouleur(`(${miseEnCouleur(`(${calcul2})`, 'blue')} ${signes[2]} ${nombres[4]})`, 'green')} = ${nombreCible}$<br>
 <br>
 `
-          break
-        case '2 -> 4':
-          calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
-          resultat2 = computeEngine.parse(calcul2).simplify().latex
-          calcul3 = `${nombres[3]} ${signes[2]} ${nombres[4]}`
-          resultat3 = computeEngine.parse(calcul3).simplify().latex
-          calcul4 = `${resultat2} ${signes[3]} ${resultat3}`
-          nombreCible = computeEngine.parse(calcul4).simplify().latex
-          redaction = rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[3], calcul3)
-          texteCorr = `
+              break
+            case '2 -> 4':
+              calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${nombres[3]} ${signes[2]} ${nombres[4]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              calcul4 = `${resultat2} ${signes[3]} ${resultat3}`
+              nombreCible = computeEngine.parse(calcul4).simplify().latex
+              redaction = rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[3], calcul3)
+              texteCorr = `
 $${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${calcul3} = ${resultat3}`, 'green')}$<br>
@@ -145,26 +199,47 @@ $${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]}
 $${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]})`, 'blue')} ${signes[3]} ${miseEnCouleur(`(${calcul3})`, 'green')} = ${nombreCible}$<br>
 <br>
 `
+              break
+            case 'Enchaînement simple':
+            default:
+              calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+              resultat2 = computeEngine.parse(calcul2).simplify().latex
+              calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
+              resultat3 = computeEngine.parse(calcul3).simplify().latex
+              calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
+              texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
+$${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[1]} ${nombres[2]} = ${resultat2}`, 'blue')}$<br>`
+
+              texteCorr += `$${miseEnCouleur(`\\overset{${miseEnCouleur(`${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombres[2]}`, 'blue')}}{${miseEnCouleur(resultat2, 'blue')}} ${signes[2]} ${nombres[3]} = ${resultat3}`, 'green')}$<br>`
+
+              texteCorr += `$${miseEnCouleur(`\\overset{(${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')}${signes[2]}${nombres[3]})}{${resultat3}}`, 'green')} ${signes[3]} ${nombres[4]} = ${nombreCible}$<br><br>`
+              derniereLigneCorrection = miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')}${signes[1]}${nombres[2]})`, 'blue')
+              derniereLigneCorrection = miseEnCouleur(`(${derniereLigneCorrection}${signes[2]}${nombres[3]})`, 'green')
+              derniereLigneCorrection = `${derniereLigneCorrection}${signes[3]}${nombres[4]}`
+              texteCorr += `$ ${derniereLigneCorrection} = ${nombreCible}$<br><br>`
+              redaction = rediger(rediger(rediger(calcul1, signes[1], nombres[2].toString()), signes[2], nombres[3].toString()), signes[3], nombres[4].toString())
+              nombreCible = computeEngine.parse(calcul4).simplify().latex
+
+              break
+          }
+          calculs = `$${calcul1}=${resultat1}$<br>$${calcul2}=${resultat2}$<br>$${calcul3}=${resultat3}$<br>$${calcul4}=${nombreCible}$<br>`
+          nombresUtilises = nombres.slice()
           break
-      }
-      let calculs = `$${calcul1} = ${resultat1}$<br>
-$${calcul2} = ${resultat2}$<br>
-`
-      if (nombreDeCalculs > 2) {
-        calculs += `$${calcul3} = ${resultat3}$<br>
-`
-      }
-      if (nombreDeCalculs > 3) {
-        calculs += `$${calcul4} = ${nombreCible}$<br>
-`
       }
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
 Voici ses calculs :<br>
 ${calculs}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}`
-      handleAnswers(this, i, { reponse: { value: redaction, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true, expressionsForcementReduites: false } } })
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}${ajouteFeedback(this, i)}`
+      const expressionReduite = engine.parse(redaction, { canonical: true }).latex
+      console.log(redaction, expressionReduite)
+      handleAnswers(this, i, { reponse: { value: [expressionReduite, redaction], compare: exprCompare, options: { noUselessParen } } })
       if (!this.correctionDetaillee) texteCorr = ''
       texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
+      /* On ne peut pas proposer cette expression à des 6e car computeEngine n'écrit pas les multiplications implicites et place les négatifs en premier dans une somme
+      if (noUselessParen) {
+        texteCorr += `<br>En supprimant les parenthèses inutiles, on peut écrire : $${miseEnEvidence(expressionReduite)} = ${nombreCible}$`
+      }
+       */
 
       const nombreCibleValide = Number(nombreCible) < 100 && Number(nombreCible) > 0
       const aucunResultatIntermediaireNegatif = Number(resultat1) >= 0 && Number(resultat2) >= 0 && Number(resultat3) >= 0
