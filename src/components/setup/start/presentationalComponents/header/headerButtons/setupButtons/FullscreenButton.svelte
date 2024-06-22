@@ -1,6 +1,7 @@
 <script lang="ts">
   import { showDialogForLimitedTime } from '../../../../../../../lib/components/dialogs'
   import TwoStatesIcon from '../../../../../../../components/shared/icons/TwoStatesIcon.svelte'
+  import { onMount, onDestroy } from 'svelte'
 
   // eslint dit que ce n'est pas nécessaire de l'initialiser à undefined mais si on ne le fait pas, typescript n'est pas d'accord dans les components parents
   // eslint-disable-next-line no-undef-init
@@ -8,6 +9,20 @@
 
   const appId = 'appComponent'
   let isFullScreen = false
+
+  onMount(() => {
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+  })
+
+  onDestroy(() => {
+    document.removeEventListener('fullscreenchange', handleFullscreenChange)
+  })
+
+  const handleFullscreenChange = () => { // pour gérer le cas où l'utilisateur sort du plein écran avec la touche ESC
+    const isInFullScreen = document.fullscreenElement != null
+    isFullScreen = isInFullScreen
+    if (typeof callback === 'function') callback(isFullScreen)
+  }
 
   const switchFullScreen = () => {
     isFullScreen = !isFullScreen
