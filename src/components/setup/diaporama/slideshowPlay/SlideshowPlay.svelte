@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { DataFromSettings } from '../types'
-  import SlideshowSteps from './presentationalComponents/SlideshowPlaySteps.svelte'
-  import SlideshowQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
+  import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/SlideshowPlaySettings.svelte'
+  import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
@@ -353,15 +353,15 @@ function returnToStart () {
     class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
-    <SlideshowSteps
+    <SlideshowPlaySteps
       isManualModeActive={$globalOptions.manualMode}
       {currentQuestionNumber}
-      questionNumbers={[...questions[0].keys()]}
+      totalQuestionsNumber={questions[0].length}
       {ratioTime}
       {slideDuration}
       {goToQuestion}
     />
-    <SlideshowQuestion
+    <SlideshowPlayQuestion
       {nbOfVues}
       {divQuestion}
       {consignes}

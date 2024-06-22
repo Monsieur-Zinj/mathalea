@@ -20,8 +20,7 @@
     {#each [...Array(nbOfVues).keys()] as i}
       <div
         id="diapocell{i}"
-        class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues >
-        1
+        class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 {nbOfVues > 1
           ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
           : ''} text-center"
       >

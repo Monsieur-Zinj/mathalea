@@ -1,7 +1,7 @@
 <script lang="ts">
   export let isManualModeActive: boolean | undefined
   export let currentQuestionNumber: number
-  export let questionNumbers: number[]
+  export let totalQuestionsNumber: number
   export let goToQuestion: (index: number) => void
   export let ratioTime: number
   export let slideDuration: number
@@ -50,7 +50,7 @@ function isInViewport (element: HTMLElement): boolean {
     />
   </div>
   <ul class="steps w-full mt-3">
-    {#each questionNumbers as i}
+    {#each [...Array(totalQuestionsNumber).keys()] as i}
       <button
         on:click={() => goToQuestion(i)}
         on:keydown={() => goToQuestion(i)}
