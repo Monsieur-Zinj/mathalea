@@ -57,7 +57,9 @@ function isInViewport (element: HTMLElement): boolean {
         tabindex="0"
           class="step dark:step-info {currentQuestion >= i
             ? 'step-primary'
-            : ''} cursor-pointer"
+            : ''} cursor-pointer {currentQuestion === i
+              ? 'step-current'
+              : ''}"
       >
       </button>
     {/each}
@@ -65,7 +67,19 @@ function isInViewport (element: HTMLElement): boolean {
 </header>
 
 <style>
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+  }
   .step::after {
     color: white;
+  }
+  .step-current::after {
+    animation: pulse 1s infinite ease-in-out;
+
   }
 </style>
