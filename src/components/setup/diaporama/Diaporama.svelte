@@ -116,14 +116,15 @@
 
   function reroll (exercise: Exercice, idVue?: 0 | 1 | 2 | 3) {
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
-    if (idVue !== undefined && idVue > 0) exercise.seed += idVue
+    const oldSeed = exercise.seed
+    if (idVue !== undefined && idVue > 0) exercise.seed = mathaleaGenerateSeed()
     if (exercise.typeExercice === 'simple') {
       mathaleaHandleExerciceSimple(exercise, false)
     } else {
       seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper?.()
     }
-    exercise.seed = exercise.seed.slice(0, 4)
+    exercise.seed = oldSeed
   }
 
   function adjustQuestionsOrder () {
