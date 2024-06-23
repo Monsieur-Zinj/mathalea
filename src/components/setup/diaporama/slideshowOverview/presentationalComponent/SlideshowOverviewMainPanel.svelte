@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { tick } from 'svelte'
   import { mathaleaFormatExercice, mathaleaRenderDiv } from '../../../../../lib/mathalea'
 
   export let isQuestionsVisible: boolean | undefined
@@ -11,7 +12,7 @@
   export let correctionsSteps: number[]
   export let zoomStr: string
 
-$: if (divExercice) mathaleaRenderDiv(divExercice)
+$: if (divExercice && (isQuestionsVisible || isCorrectionVisible || correctionsSteps.length > 0)) tick().then(() => mathaleaRenderDiv(divExercice))
 
 </script>
 

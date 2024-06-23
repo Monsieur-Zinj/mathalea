@@ -7,7 +7,7 @@
   export let nbOfVues: number
   export let setQuestionsVisible: (value: boolean) => void
   export let setCorrectionVisible: (value: boolean) => void
-  export let updateDisplay: (e: Event) => void
+  export let updateDisplay: () => void
   export let handleCorrectionsStepsClick: (button: 'backward' | 'forward') => void
   export let newDataForAll: () => void
 
@@ -18,14 +18,19 @@
     <button
       type="button"
       class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-      on:click={() => mathaleaHandleComponentChange('can', 'diaporama')}
-      ><i class="bx bx-sm bx-arrow-back" /></button
+      on:click={() => mathaleaHandleComponentChange('apercu', 'diaporama')}
     >
+      <i class="bx bx-sm bx-arrow-back" /></button>
     <button
       type="button"
       class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-      on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button
+      on:click={() => {
+        newDataForAll()
+        updateDisplay()
+      }}
     >
+      <i class="bx bx-sm bx-refresh" />
+    </button>
     <!-- <button type="button" class="hover:text-coopmaths-dark" on:click={newDataForAll}><i class="bx bx-sm bx-refresh" /></button> -->
 
     <span
