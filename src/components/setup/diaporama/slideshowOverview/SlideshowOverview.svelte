@@ -5,8 +5,7 @@
   import BtnZoom from '../../../shared/ui/btnZoom.svelte'
   import SlideshowOverviewLeftPanel from './presentationalComponent/SlideshowOverviewLeftPanel.svelte'
   import SlideshowOverviewMainPanel from './presentationalComponent/SlideshowOverviewMainPanel.svelte'
-  import { tick } from 'svelte'
-  import { mathaleaGenerateSeed, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
+  import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
   import { globalOptions, darkMode, exercicesParams } from '../../../../lib/stores/generalStore'
 
   export let exercises: Exercice[] = []
@@ -18,7 +17,7 @@
     questions: string[]
     corrections: string[]
   }
-  const currentVue: 0 | 1 | 2 | 3 = 0
+  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -55,23 +54,18 @@
     isCorrectionVisible = correctionVisibility
     if (!isCorrectionVisible) {
       setQuestionsVisible(true)
-    } else {
-      updateDisplay()
     }
+  }
+
+  function setCurrentVue (vue: 0 | 1 | 2 | 3 | 4) {
+    currentVue = vue
   }
 
   async function setQuestionsVisible (questionsVisibility: boolean) {
     isQuestionsVisible = questionsVisibility
     if (!isQuestionsVisible) {
       setCorrectionVisible(true)
-    } else {
-      updateDisplay()
     }
-  }
-
-  async function updateDisplay () {
-    await tick()
-    if (divExercice) mathaleaRenderDiv(divExercice)
   }
 
   function newDataForAll () {
@@ -89,7 +83,6 @@
     exercicesParams.update(() => newParams)
     updateExercises()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    updateDisplay()
   }
 
   /**
@@ -109,7 +102,6 @@
       }
       correctionsSteps = correctionsSteps
     }
-    updateDisplay()
   }
 </script>
 
@@ -125,9 +117,9 @@
       {isCorrectionVisible}
       {currentVue}
       {nbOfVues}
+      {setCurrentVue}
       {setQuestionsVisible}
       {setCorrectionVisible}
-      {updateDisplay}
       {handleCorrectionsStepsClick}
       {newDataForAll}
     />

@@ -3,11 +3,11 @@
 
   export let isQuestionsVisible: boolean | undefined
   export let isCorrectionVisible: boolean | undefined
-  export let currentVue: number | undefined
+  export let currentVue: number
   export let nbOfVues: number
+  export let setCurrentVue: (value: 0 | 1 | 2 | 3 | 4) => void
   export let setQuestionsVisible: (value: boolean) => void
   export let setCorrectionVisible: (value: boolean) => void
-  export let updateDisplay: () => void
   export let handleCorrectionsStepsClick: (button: 'backward' | 'forward') => void
   export let newDataForAll: () => void
 
@@ -24,10 +24,7 @@
     <button
       type="button"
       class="pb-8 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-      on:click={() => {
-        newDataForAll()
-        updateDisplay()
-      }}
+      on:click={newDataForAll}
     >
       <i class="bx bx-sm bx-refresh" />
     </button>
@@ -94,7 +91,7 @@
         id="tab1"
         value={0}
         bind:group={currentVue}
-        on:change={updateDisplay}
+        on:change={() => setCurrentVue(0)}
         class="peer/tab1 items-center justify-center hidden"
       />
       <label
@@ -106,7 +103,7 @@
         id="tab2"
         value={1}
         bind:group={currentVue}
-        on:change={updateDisplay}
+        on:change={() => setCurrentVue(1)}
         class="peer/tab2 items-center justify-center hidden"
       />
       <label
@@ -120,7 +117,7 @@
         id="tab3"
         value={2}
         bind:group={currentVue}
-        on:change={updateDisplay}
+        on:change={() => setCurrentVue(2)}
         class="peer/tab3 items-center justify-center hidden"
       />
       <label
@@ -134,7 +131,7 @@
         id="tab4"
         value={3}
         bind:group={currentVue}
-        on:change={updateDisplay}
+        on:change={() => setCurrentVue(3)}
         class="peer/tab4 items-center justify-center hidden"
       />
       <label
@@ -148,7 +145,7 @@
         id="tab5"
         value={4}
         bind:group={currentVue}
-        on:change={updateDisplay}
+        on:change={() => setCurrentVue(4)}
         class="hidden peer/tab5 items-center justify-center"
       />
       <label

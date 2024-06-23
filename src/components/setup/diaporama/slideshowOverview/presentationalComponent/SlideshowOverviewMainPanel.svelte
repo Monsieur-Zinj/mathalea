@@ -12,7 +12,7 @@
   export let correctionsSteps: number[]
   export let zoomStr: string
 
-$: if (divExercice && (isQuestionsVisible || isCorrectionVisible || correctionsSteps.length > 0)) tick().then(() => mathaleaRenderDiv(divExercice))
+$: if (divExercice && (isQuestionsVisible || isCorrectionVisible || correctionsSteps.length > 0) && currentVue !== undefined) tick().then(() => mathaleaRenderDiv(divExercice))
 
 </script>
 
