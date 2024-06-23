@@ -83,6 +83,9 @@
     exercicesParams.update(() => newParams)
     updateExercises()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    isQuestionsVisible = true
+    isCorrectionVisible = false
+    correctionsSteps = []
   }
 
   /**
