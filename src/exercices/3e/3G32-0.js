@@ -11,7 +11,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, lettreDepuisChiffre, numAlpha, sp } from '../../lib/outils/outilString.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -44,13 +44,14 @@ export const refs = {
   'fr-fr': ['3G32-0'],
   'fr-ch': []
 }
-export default function ProblemesTrigoLongueur () {
-  Exercice.call(this)
-  this.titre = titre
-  this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
-  this.sup = true
-  this.besoinFormulaire2Texte = [
-    'Type de questions',
+export default class ProblemesTrigoLongueur extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    this.besoinFormulaireCaseACocher = ['Afficher des questions intermédiaires et éventuellement un schéma']
+    this.sup = true
+    this.besoinFormulaire2Texte = [
+      'Type de questions',
         `Cet exercice regroupe les exercices 3G32 et 3G32-X (X : 1 à 5)
     Nombres séparés par des tirets :
     1 : Calculer la largeur d'une rivière
@@ -60,13 +61,14 @@ export default function ProblemesTrigoLongueur () {
     5 : Calculer la hauteur d'une montagne
     6 : Calculer une longueur dans des triangles rectangles imbriqués
     7 : Mélange`
-  ]
-  this.sup2 = 7
-  this.nbQuestions = 2
-  this.spacingCorr = 3
-  this.spacing = 2
+    ]
+    this.sup2 = 7
+    this.nbQuestions = 2
+    this.spacingCorr = 3
+    this.spacing = 2
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones
@@ -385,8 +387,8 @@ export default function ProblemesTrigoLongueur () {
             scale: 0.5
           }, objets) + '<br>'
           texte += `Quelle est la longueur du $${alpha}$e parallèle Nord au kilomètre près ?`
+          texte += `<br>On prendra $${texNombre(6400)}$${sp()}km comme rayon de la Terre.<br>`
           enonceAMC = texte
-          enonceAMC += ` On prendra $${texNombre(6400)}$${sp()}km comme rayon de la Terre.<br>`
           texteCorr = mathalea2d({
             xmin: -8,
             ymin: -6,

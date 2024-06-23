@@ -15,9 +15,10 @@ export const refs = {
   'fr-fr': ['3G32-1'],
   'fr-ch': []
 }
-export default function CalculParalleleTerrestre () {
-  problemesTrigoLongueur.call(this)
-  this.titre = titre
-  this.sup2 = 2
-  this.besoinFormulaireCaseACocher = false
+export default class CalculParalleleTerrestre extends problemesTrigoLongueur {
+  constructor () {
+    super()
+    this.sup2 = 2
+    this.besoinFormulaireCaseACocher = false
+  }
 }

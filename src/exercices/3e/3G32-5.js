@@ -15,10 +15,11 @@ export const refs = {
   'fr-fr': ['3G32-5'],
   'fr-ch': []
 }
-export default function CalculHauteurMontagne () {
-  problemesTrigoLongueur.call(this)
-  this.titre = titre
-  this.sup2 = 6
-  this.nbQuestions = 1
-  this.besoinFormulaireCaseACocher = false
+export default class CalculHauteurMontagne extends problemesTrigoLongueur {
+  constructor () {
+    super()
+    this.sup2 = 6
+    this.nbQuestions = 1
+    this.besoinFormulaireCaseACocher = false
+  }
 }
