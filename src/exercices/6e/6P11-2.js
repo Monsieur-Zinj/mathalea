@@ -9,8 +9,9 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { Decimal } from 'decimal.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre des problèmes de proportionnalité avec la linéarité (avec ou sans un tableau)'
 export const interactifReady = true
@@ -18,7 +19,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 
-export const dateDeModifImportante = '30/04/2023' // EE : Rajout de 2 paramètres
+export const dateDeModifImportante = '23/06/2024' // Nouveau clavier
 export const dateDePublication = '30/05/2021'
 
 /**
@@ -31,22 +32,27 @@ export const refs = {
   'fr-fr': ['6P11-2'],
   'fr-ch': ['9FA3-11']
 }
-export default function ProportionnaliteParLineariteTableau () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.nbCols = 1 // Uniquement pour la sortie LaTeX
-  this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
-  this.sup = 4 // Niveau de difficulté
-  this.sup2 = false
-  this.sup3 = false
-  this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.video = '' // Id YouTube ou url
+export default class ProportionnaliteParLineariteTableau extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 5
+    this.sup = 4 // Niveau de difficulté
+    this.sup2 = false
+    this.sup3 = false
+    this.tailleDiaporama = 3
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
+    this.besoinFormulaire2CaseACocher = ['Avec tableau dans la correction']
+    this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.consigne = `On considère que ${this.nbQuestions > 1 ? 'les' : 'la'} situation${this.nbQuestions > 1 ? 's' : ''} suivante${this.nbQuestions > 1 ? 's' : ''}`
     this.consigne += this.sup3 ? ', sauf cas flagrant,' : ''
     this.consigne += ` ${this.nbQuestions > 1 ? 'sont des' : 'est une'} situation${this.nbQuestions > 1 ? 's' : ''} de proportionnalité.`
     this.consigne += this.sup2 ? ` ${context.isHtml ? '<br>' : '\\\\\n'}On demande de ${this.nbQuestions > 1 ? 'les' : 'la'} résoudre à l'aide d'un tableau.` : ''
+    if (context.isHtml && this.interactif && this.sup3) {
+      this.consigne += '<br><br><div style="font-style: italic; margin-bottom: 2em;">Si ce n\'est pas une situation de proportionnalité, écrire : N.</div>'
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -454,7 +460,7 @@ export default function ProportionnaliteParLineariteTableau () {
             texteCorr = 'On ne peut pas savoir car la pointure n\'est pas proportionnelle à l\'âge.'
             texteApres = ''
           }
-          setReponse(this, i, 'non')
+          setReponse(this, i, ['\\text{N}', 'n', 'N'])
           break
       }
       if (listeTypeQuestions[i] !== 4) {
@@ -464,10 +470,7 @@ export default function ProportionnaliteParLineariteTableau () {
           style: 'display:block'
         }), monTableau)
       }
-      if (this.interactif && this.sup3) {
-        this.consigne += 'Si ce n\'est pas une situation de proportionnalité, écrire : non proportionnel.'
-      }
-      texte += ajouteChampTexteMathLive(this, i, ' inline', { texteApres: sp(2) + texteApres })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON, { texteApres: sp(2) + texteApres })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
@@ -478,7 +481,4 @@ export default function ProportionnaliteParLineariteTableau () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Multiplication\n2 : Division\n3 : Passage par l\'unité\n4 : Mélange']
-  this.besoinFormulaire2CaseACocher = ['Avec tableau dans la correction']
-  this.besoinFormulaire3CaseACocher = ['Avec des situations de non-proportionnalité']
 }

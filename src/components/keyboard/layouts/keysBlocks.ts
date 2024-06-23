@@ -133,6 +133,11 @@ const xToZCaps: CompleteKeysList = {
   block: ['X', 'Y', 'Z']
 }
 
+const vFONCaps: CompleteKeysList = {
+  inline: ['V', 'F', 'O', 'N'],
+  block: ['V', 'F', 'O', 'N']
+}
+
 // @ts-expect-error Problème de typage
 const lengthUnitsKeys = Object.keys(keys).filter(k => k.includes('LENGTH')).reduce((prev, k) => Object.assign(prev, { [k]: keys[k] }), {})
 const lengthsCaps: CompleteKeysList = {
@@ -217,6 +222,13 @@ export const variables: KeyboardBlock = {
   keycaps: variableCaps,
   cols: 3,
   title: 'Variables',
+  isUnits: false
+}
+
+export const vFON: KeyboardBlock = {
+  keycaps: vFONCaps,
+  cols: 1,
+  title: 'Vrai/Faux/Impossible',
   isUnits: false
 }
 
@@ -408,6 +420,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   trigo,
   variables,
   volumes,
+  vFON,
   uppercaseAToH,
   uppercaseIToP,
   uppercaseQToW,

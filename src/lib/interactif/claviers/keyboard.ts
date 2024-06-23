@@ -1,53 +1,6 @@
 import type { MathfieldElement } from 'mathlive'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
 
-// export enum KeyboardType {
-//   // eslint-disable-next-line no-unused-vars
-//   clavierHms = 'clavierHms',
-//   // eslint-disable-next-line no-unused-vars
-//   lycee = 'lycee',
-//   // eslint-disable-next-line no-unused-vars
-//   grecTrigo = 'grecTrigo',
-//   // eslint-disable-next-line no-unused-vars
-//   college6eme = 'college6eme',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBase = 'clavierDeBase',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierCompare = 'clavierCompare',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBaseAvecX = 'clavierDeBaseAvecX',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBaseAvecFraction = 'clavierDeBaseAvecFraction',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBaseAvecFractionPuissanceCrochets = 'clavierDeBaseAvecFractionPuissanceCrochets',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBaseAvecEgal = 'clavierDeBaseAvecEgal',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierDeBaseAvecVariable = 'clavierDeBaseAvecVariable',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierNumbers = 'clavierNumbers',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierEnsemble = 'clavierEnsemble',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierFullOperations = 'clavierFullOperations',
-//   // eslint-disable-next-line no-unused-vars
-//   alphanumericAvecEspace = 'alphanumericAvecEspace',
-//   // eslint-disable-next-line no-unused-vars
-//   alphanumeric = 'alphanumeric',
-//   // eslint-disable-next-line no-unused-vars
-//   longueur = 'longueur',
-//   // eslint-disable-next-line no-unused-vars
-//   aire = 'aire',
-//   // eslint-disable-next-line no-unused-vars
-//   volume = 'volume',
-//   // eslint-disable-next-line no-unused-vars
-//   masse = 'masse',
-//   // eslint-disable-next-line no-unused-vars
-//   clavierProbabilite = 'clavierProbabilite',
-//   // eslint-disable-next-line no-unused-vars
-//   angles = 'angles'
-// }
-
 const KEYBOARD_CATEGORIES = [
   'clavierHms',
   'lycee',
@@ -73,7 +26,8 @@ const KEYBOARD_CATEGORIES = [
   'angles',
   'nombresEtDegre',
   'nombresEtDegreCelsius',
-  'numbersSpace'
+  'numbersSpace',
+  'vFON'
 ] as const
 
 export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
@@ -112,6 +66,8 @@ export const convertKeyboardTypeToBlocks = (
   switch (type) {
     case KeyboardType.clavierDeBase:
       return ['numbersOperations']
+    case KeyboardType.vFON:
+      return ['numbersOperations', 'vFON']
     case KeyboardType.clavierDeBaseAvecX:
       return ['numbersOperationsX']
     case KeyboardType.grecTrigo:
