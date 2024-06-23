@@ -3,7 +3,6 @@ export const titre = 'Calculer des probabilités dans une expérience aléatoire
 export const interactifReady = false
 
 /**
- * Clone de 5S21 pour les 2nde
  * @author Sébastien LOZANO
  */
 export const uuid = '28dfd'
@@ -12,6 +11,5 @@ export const refs = {
   'fr-fr': ['2S30-2'],
   'fr-ch': []
 }
-export default function FonctionsProbabilite12nde () {
-  FonctionsProbabilite1.call(this)
+export default class FonctionsProbabilite12nde extends FonctionsProbabilite1 {
 }

@@ -116,8 +116,7 @@ export default function Exercice () {
     exportedNouvelleVersionWrapper.call(this, numeroExercice)
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
-    console.log(numeroExercice)
+  this.nouvelleVersion = function () {
   }
 
   this.reinit = function () {

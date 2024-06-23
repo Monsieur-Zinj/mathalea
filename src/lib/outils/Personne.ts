@@ -41,7 +41,7 @@ export function prenom (n = 1) {
  * @author Jean-Claude Lhote
  * le 14/03/2021
  */
-class Personne {
+export class Personne {
   prenom: string
   genre: string
   pronom: string
