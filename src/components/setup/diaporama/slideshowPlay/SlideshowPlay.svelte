@@ -244,7 +244,7 @@ function handleShortcut (e: KeyboardEvent) {
   }
   if (e.key === ' ') {
     e.preventDefault()
-    if (durationGlobal !== 0) switchPause()
+    if (!$globalOptions.manualMode) switchPause()
   }
 }
 
