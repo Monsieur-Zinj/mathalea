@@ -23,6 +23,7 @@
     darkMode
   } from '../../../lib/stores/generalStore'
   import { context } from '../../../modules/context.js'
+  import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -96,13 +97,7 @@
           vues: []
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
-          if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
-          if (exercise.typeExercice === 'simple') {
-            mathaleaHandleExerciceSimple(exercise, false)
-          } else {
-            seedrandom(exercise.seed, { global: true })
-            exercise.nouvelleVersionWrapper?.()
-          }
+          if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
           slide.vues.push({
             consigne: mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : ''),
             question: mathaleaFormatExercice(exercise.listeQuestions[i]),
@@ -128,6 +123,7 @@
       seedrandom(exercise.seed, { global: true })
       exercise.nouvelleVersionWrapper?.()
     }
+    exercise.seed = exercise.seed.slice(0, 4)
   }
 
   function adjustQuestionsOrder () {
