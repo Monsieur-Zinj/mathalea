@@ -1,5 +1,9 @@
 import Exercice from '../Exercice'
-import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
+} from '../../modules/outils.js'
 import { prenom } from '../../lib/outils/Personne'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
@@ -29,7 +33,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Numerique = ['Nombre de calculs (2 à 4)', 4]
+    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets']
     this.sup2 = 4
     // Ce paramètre n'aura de sens que si la correction fournie ne comporte pas de parenthèses inutiles conformément au paramètre
     // this.besoinFormulaire3CaseACocher = ['Sanctionner les parenthèses inutiles', false]
@@ -44,7 +48,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.autoCorrection = []
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
-    const nombreDeCalculs = contraindreValeur(2, 4, this.sup2, 4)
+    const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4 })
     const noUselessParen = false // Pour l'instant, on ne peu pas se permettre de ne pas les accepter car elles figurent dans la correction.
     const typeQuestionsDisponibles = ['Enchaînement simple']
     if (nombreDeCalculs > 1) typeQuestionsDisponibles.push('1 -> 3')
@@ -72,7 +76,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
       let texteCorr: string
       let derniereLigneCorrection: string
       let calculs
-      switch (nombreDeCalculs) {
+      switch (Number(nombreDeCalculs[i])) {
         case 2:
           switch (listeTypeQuestions[i]) {
             case '1 -> 3':
