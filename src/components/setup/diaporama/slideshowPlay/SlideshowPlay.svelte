@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DataFromSettings, Slideshow } from '../types'
+  import type { DataFromSettings, Slide, Slideshow } from '../types'
   import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
@@ -42,6 +42,9 @@
     }
   }
 
+  let currentSlide: Slide
+  $: currentSlide = slideshow.slides[order[currentQuestionNumber]]
+
   currentZoom = userZoom
 
   onDestroy(() => {
@@ -65,10 +68,10 @@
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10))
+            timer(durationGlobal || (currentSlide.exercise.duration || 10))
           })
         } else {
-          timer(durationGlobal || (slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10))
+          timer(durationGlobal || (currentSlide.exercise.duration || 10))
         }
       }
     }
@@ -95,7 +98,7 @@
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10, false)
+    } else timer(durationGlobal || currentSlide.exercise.duration || 10, false)
   }
 
   function pause () {
@@ -353,24 +356,24 @@ function returnToStart () {
       isManualModeActive={$globalOptions.manualMode}
       totalQuestionsNumber={slideshow.selectedQuestionsNumber}
       {ratioTime}
-      slideDuration={durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10}
+      slideDuration={durationGlobal || currentSlide.exercise.duration || 10}
       {goToQuestion}
     />
     <SlideshowPlayQuestion
+      {currentSlide}
       {currentQuestionNumber}
       {nbOfVues}
       {divQuestion}
       {slideshow}
       {isQuestionVisible}
       {isCorrectionVisible}
-      {order}
     />
     <SlideshowPlaySettings
       flow={$globalOptions.flow}
       isManualModeActive={$globalOptions.manualMode}
       {isQuestionVisible}
       {isCorrectionVisible}
-      currentDuration={durationGlobal || slideshow.slides[order[currentQuestionNumber]].exercise.duration || 10}
+      currentDuration={durationGlobal || currentSlide.exercise.duration || 10}
       {handleTimerChange}
       {handleQuit}
       {isPause}

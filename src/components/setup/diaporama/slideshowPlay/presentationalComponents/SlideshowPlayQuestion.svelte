@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Slideshow } from '../../types'
+  import type { Slide, Slideshow } from '../../types'
 
   export let nbOfVues: 1 | 2 | 3 | 4
+  export let currentSlide: Slide
   export let divQuestion: HTMLDivElement[]
   export let slideshow: Slideshow
-  export let order: number[]
   export let currentQuestionNumber: number
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
@@ -37,11 +37,11 @@
           {#if isQuestionVisible}
             <div class="font-light" id="consigne{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html slideshow.slides[order[currentQuestionNumber]].vues[i].consigne}
+              {@html currentSlide.vues[i].consigne}
             </div>
             <div class="py-4" id="question{i}">
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html slideshow.slides[order[currentQuestionNumber]].vues[i].question}
+              {@html currentSlide.vues[i].question}
             </div>
           {/if}
           {#if isCorrectionVisible}
@@ -50,7 +50,7 @@
               class="bg-coopmaths-warn-light bg-opacity-30 dark:bg-coopmathsdark-warn-light dark:bg-opacity-30 my-10"
             >
               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html slideshow.slides[order[currentQuestionNumber]].vues[i].correction}
+              {@html currentSlide.vues[i].correction}
             </div>
           {/if}
         </div>
