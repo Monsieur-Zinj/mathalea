@@ -110,7 +110,7 @@
     slideshow = {
       slides,
       currentQuestion: dataFromSettings?.currentQuestion ?? -1,
-      selectedQuestionsNumber
+      selectedQuestionsNumber: selectedQuestionsNumber || slides.length
     }
   }
 
