@@ -79,6 +79,12 @@ export default function EgalitesEntreFractions () {
       let i = 0, cpt = 0, fraction, a, b, c, d, k, choix, texte, texteCorr;
       i < this.nbQuestions && cpt < 50;
     ) {
+      if (this.sup2 === 3) {
+        choix = i % 2
+      } else {
+        choix = this.sup2 % 2
+      }
+
       if (listeTypeDeQuestions[i] === 1) {
         // égalité entre 2 fractions
         fraction = listeFractions[i % listeFractions.length] //
@@ -92,11 +98,6 @@ export default function EgalitesEntreFractions () {
         c = k * a
         d = k * b
 
-        if (this.sup2 === 3) {
-          choix = i % 2
-        } else {
-          choix = this.sup2 % 2
-        }
         switch (choix) {
           case 0 :
             texte = `$${stringTexFraction(a, b)} = ${stringTexFraction('\\phantom{00000000000000}', '\\phantom{00000000000000}')} = $`
@@ -190,11 +191,51 @@ export default function EgalitesEntreFractions () {
           d = randint(2, 9)
         }
         c = a * d
-        if (this.sup2 === 3) {
-          choix = i % 2
-        } else {
-          choix = this.sup2 % 2
+
+        const callback = (exercice, question) => {
+          let feedback
+          const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
+          const prompts = mfe.getPrompts()
+          const [num1, den1, champ3] = prompts.map(el => engine.parse(mfe.getPromptValue(el)).evaluate().numericValue)
+          const num2 = choix === 0 ? champ3 : c
+          const den2 = choix === 1 ? champ3 : d
+
+          const isOk1 = num1 * den2 === num2 * den1 && num1 * den1 * num2 * den2 !== 0
+          if (isOk1) {
+            mfe.setPromptState('champ1', 'correct', true)
+            mfe.setPromptState('champ2', 'correct', true)
+          } else {
+            mfe.setPromptState('champ1', 'incorrect', true)
+            mfe.setPromptState('champ2', 'incorrect', true)
+          }
+          const isOk2 = num2 === a * d
+          if (isOk2) {
+            mfe.setPromptState('champ3', 'correct', true)
+          } else {
+            mfe.setPromptState('champ3', 'incorrect', true)
+          }
+          feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
+          feedback += isOk2 ? '' : 'Le résultat final est faux.'
+          const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+          if (spanReponseLigne != null) {
+            spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
+          }
+
+          const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+          if (feedback != null && spanFeedback != null && feedback.length > 0) {
+            spanFeedback.innerHTML = '💡 ' + feedback
+            spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+          }
+          return {
+            isOk: isOk1 && isOk2,
+            feedback,
+            score: {
+              nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0),
+              nbReponses: 2
+            }
+          }
         }
+
         switch (choix) {
           case 0 : // Recherche du numérateur
             if (this.interactif && context.isHtml) {
@@ -205,48 +246,7 @@ export default function EgalitesEntreFractions () {
                 champ1: { value: String(a) },
                 champ2: { value: '1' },
                 champ3: { value: String(a * d) },
-                callback: (exercice, question) => {
-                  let isOk1, feedback
-                  const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
-                  const num1 = mfe.getPromptValue('champ1')
-                  const den1 = mfe.getPromptValue('champ2')
-                  const num2 = mfe.getPromptValue('champ3')
-                  if (num1.includes('\\times')) {
-                    const n = engine.parse(num1)
-                    const d = engine.parse(den1)
-                    const n2 = engine.parse(`${a * d}`)
-                    const d2 = engine.parse(`${d}`)
-                    isOk1 = n.isEqual(n2) && d.isEqual(d2)
-                  } else {
-                    isOk1 = num1 === String(a) && den1 === '1'
-                  }
-                  if (isOk1) {
-                    mfe.setPromptState('champ1', 'correct', true)
-                    mfe.setPromptState('champ2', 'correct', true)
-                  } else {
-                    mfe.setPromptState('champ1', 'incorrect', false)
-                    mfe.setPromptState('champ2', 'incorrect', false)
-                  }
-                  const isOk2 = engine.parse(`${a}\\times ${d}`).isEqual(engine.parse(num2))
-                  if (isOk2) {
-                    mfe.setPromptState('champ3', 'correct', true)
-                  } else {
-                    mfe.setPromptState('champ3', 'incorrect', false)
-                  }
-                  feedback = isOk1 ? '' : 'Le calcul intermédiaire est faux.<br>'
-                  feedback += isOk2 ? '' : 'Le résultat final est faux.'
-                  const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
-                  if (spanReponseLigne != null) {
-                    spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
-                  }
-
-                  const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
-                  if (feedback != null && spanFeedback != null && feedback.length > 0) {
-                    spanFeedback.innerHTML = '💡 ' + feedback
-                    spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
-                  }
-                  return { isOk: isOk1 && isOk2, feedback, score: { nbBonnesReponses: (isOk1 ? 1 : 0) + (isOk2 ? 1 : 0), nbReponses: 2 } }
-                }
+                callback
               })
               texte += ajouteFeedback(this, i)
             } else {
@@ -291,7 +291,8 @@ export default function EgalitesEntreFractions () {
                 bareme: (listePoints) => [listePoints[0] * listePoints[1] + listePoints[2], 2],
                 champ1: { value: String(a) },
                 champ2: { value: '1' },
-                champ3: { value: String(d) }
+                champ3: { value: String(d) },
+                callback
               })
             } else {
               texte += `$${stringTexFraction(c, '\\phantom{0000}')}$`
