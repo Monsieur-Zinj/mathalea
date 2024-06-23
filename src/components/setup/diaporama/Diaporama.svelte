@@ -189,7 +189,7 @@
 </svelte:head>
 
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
-  {#if $globalOptions.v === 'overview'}
+  {#if $globalOptions.v === 'overview' && slideshow.slides.length > 0}
     <SlideshowOverview
       {exercises}
       {slideshow}
