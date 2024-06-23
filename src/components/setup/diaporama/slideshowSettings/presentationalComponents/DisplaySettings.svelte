@@ -1,6 +1,7 @@
 <script lang="ts">
   import FullscreenButton from '../../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
-  import { mathaleaHandleComponentChange } from '../../../../../lib/mathalea'
+
+  export let goToOverview: () => void
 
 </script>
 
@@ -18,9 +19,7 @@
           type="button"
           id="diaporama-apercu"
           class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-          on:click={() => {
-            mathaleaHandleComponentChange('diaporama', 'overview')
-          }}
+          on:click={goToOverview}
         >
           <i class="bx text-2xl bx-detail" />
         </button>

@@ -3,6 +3,7 @@
   import type { InterfaceParams } from '../../../lib/types'
   import type { DataFromSettings, Slide, Slideshow } from './types'
   import seedrandom from 'seedrandom'
+  import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
   import SlideshowSettings from './slideshowSettings/SlideshowSettings.svelte'
   import { onMount, onDestroy } from 'svelte'
@@ -129,11 +130,9 @@
     }
   }
 
-  /**
-   * Préparation des indexes si l'ordre aléatoire est demandé
-   */
   function adjustQuestionsOrder () {
-    const selectedIndexes = ($globalOptions.select && $globalOptions.select.length > 0) ? getSelectedQuestionsIndexes() : [...Array(slideshow.slides.length).keys()]
+    const areSomeExercisesSelected = $globalOptions.select && $globalOptions.select.length > 0
+    const selectedIndexes = areSomeExercisesSelected ? getSelectedQuestionsIndexes() : [...Array(slideshow.slides.length).keys()]
     if ($globalOptions.shuffle) {
       $globalOptions.order = shuffle(selectedIndexes)
     } else {
@@ -194,21 +193,29 @@
 </svelte:head>
 
 <div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
-  {#if slideshow.currentQuestion === -1}
-    <SlideshowSettings on:updateSettings="{updateSettings}"
-      bind:exercises={exercises}
-      {updateExercises}
-      {transitionSounds}
-    />
-  {/if}
-  {#if slideshow.currentQuestion > -1}
-    <SlideshowPlay
-      {dataFromSettings}
-      bind:currentQuestionNumber={slideshow.currentQuestion}
-      {handleChangeDurationGlobal}
+  {#if $globalOptions.v === 'overview'}
+    <SlideshowOverview
+      {exercises}
       {slideshow}
       {updateExercises}
-      {transitionSounds}
     />
+  {:else}
+    {#if slideshow.currentQuestion === -1}
+      <SlideshowSettings on:updateSettings="{updateSettings}"
+        bind:exercises={exercises}
+        {updateExercises}
+        {transitionSounds}
+      />
+    {/if}
+    {#if slideshow.currentQuestion > -1}
+      <SlideshowPlay
+        {dataFromSettings}
+        bind:currentQuestionNumber={slideshow.currentQuestion}
+        {handleChangeDurationGlobal}
+        {slideshow}
+        {updateExercises}
+        {transitionSounds}
+      />
+    {/if}
   {/if}
 </div>

@@ -1,6 +1,5 @@
 <script lang="ts">
   import Diaporama from './setup/diaporama/Diaporama.svelte'
-  import Apercu from './display/apercu/Apercu.svelte'
   import Eleve from './display/eleve/Eleve.svelte'
   import ConfigEleve from './setup/configEleve/ConfigEleve.svelte'
   import Latex from './setup/latex/Latex.svelte'
@@ -135,10 +134,8 @@
 <div class=" {$darkMode.isActive
   ? 'dark'
   : ''} subpixel-antialiased bg-coopmaths-canvas dark:bg-coopmathsdark-canvas" id="appComponent">
-  {#if $globalOptions.v === 'diaporama'}
+  {#if $globalOptions.v === 'diaporama' || $globalOptions.v === 'overview'}
     <Diaporama />
-  {:else if $globalOptions.v === 'overview'}
-    <Apercu />
   {:else if $globalOptions.v === 'can'}
     <Can />
   {:else if $globalOptions.v === 'eleve'}

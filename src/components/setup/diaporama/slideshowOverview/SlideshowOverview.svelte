@@ -3,119 +3,63 @@
     globalOptions,
     darkMode,
     exercicesParams
-  } from '../../../lib/stores/generalStore'
-  import { onMount, tick, onDestroy, afterUpdate, beforeUpdate } from 'svelte'
+  } from '../../../../lib/stores/generalStore'
+  import { tick } from 'svelte'
   import {
     mathaleaFormatExercice,
     mathaleaGenerateSeed,
     mathaleaHandleComponentChange,
-    mathaleaHandleExerciceSimple,
-    mathaleaHandleParamOfOneExercice,
-    mathaleaLoadExerciceFromUuid,
     mathaleaRenderDiv,
     mathaleaUpdateUrlFromExercicesParams
-  } from '../../../lib/mathalea'
-  import type Exercice from '../../../exercices/Exercice'
-  import seedrandom from 'seedrandom'
-  import type { InterfaceParams } from '../../../lib/types'
-  import BtnZoom from '../../shared/ui/btnZoom.svelte'
+  } from '../../../../lib/mathalea'
+  import type Exercice from '../../../../exercices/Exercice'
+  import type { InterfaceParams } from '../../../../lib/types'
+  import BtnZoom from '../../../shared/ui/btnZoom.svelte'
+  import type { Slideshow } from '../types'
 
-  let exercices: Exercice[] = []
-  let questions: [string[], string[], string[], string[]] = [[], [], [], []] // Concaténation de toutes les questions des exercices de exercicesParams, vue par vue
-  let corrections: [string[], string[], string[], string[]] = [[], [], [], []]
-  let consignes: string[] = []
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-  let durations: number[] = []
-  const nbOfVues = $globalOptions.nbVues ? $globalOptions.nbVues : 1
+  export let exercises: Exercice[] = []
+  export let slideshow: Slideshow
+  export let updateExercises: () => void
+
+  type Serie = {
+    consignes: string[]
+    questions: string[]
+    corrections: string[]
+  }
   let currentVue: 0 | 1 | 2 | 3 = 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
   let correctionsSteps: number[] = []
 
+  let nbOfVues: number
+  $: nbOfVues = slideshow.slides[0].vues.length
+
   let order: number[]
-  $: order = $globalOptions.order ?? [...Array(questions[0].length).keys()]
-
-  async function forceUpdate () {
-    updateExercices()
-    isCorrectionVisible = isCorrectionVisible
+  $: {
+    const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
+    order = $globalOptions.order || [...Array(questionsNb).keys()]
   }
 
-  onDestroy(() => {
-    document.removeEventListener('updateAsyncEx', forceUpdate)
-  })
-
-  beforeUpdate(() => {
-    // console.log('beforeUpdate')
-  })
-
-  afterUpdate(() => {
-    // console.log('afterUpdate')
-  })
-
-  onMount(async () => {
-    document.addEventListener('updateAsyncEx', forceUpdate)
-    for (const paramsExercice of $exercicesParams) {
-      const exercice: Exercice = await mathaleaLoadExerciceFromUuid(
-        paramsExercice.uuid
-      )
-      if (exercice === undefined) return
-      mathaleaHandleParamOfOneExercice(exercice, paramsExercice)
-      exercice.duration = paramsExercice.duration ?? 10
-      exercices.push(exercice)
-    }
-    exercices = exercices
-    updateExercices()
-  })
-
-  /**
-   * Met à jour le code des exercices pour autant de vue qu'il faut à l'aide des params trouvés dans exercices
-   */
-  async function updateExercices () {
-    questions = [[], [], [], []]
-    corrections = [[], [], [], []]
-    consignes = []
-    durations = []
-    for (let idVue = 0; idVue < nbOfVues; idVue++) {
-      questions[idVue] = []
-      corrections[idVue] = []
-      for (const [k, exercice] of exercices.entries()) {
-        const seed = exercice.seed
-        if (idVue > 0) {
-          if (seed) {
-            exercice.seed = seed.substring(0, 4) + idVue
-          }
-        } else {
-          if (seed) {
-            exercice.seed = seed.substring(0, 4)
-          }
-        }
-        if (exercice.typeExercice === 'simple') {
-          mathaleaHandleExerciceSimple(exercice, false)
-        } else {
-          seedrandom(exercice.seed, { global: true })
-          exercice.nouvelleVersionWrapper?.()
-        }
-        seedrandom(exercice.seed, { global: true })
-        if ($globalOptions.select === undefined || $globalOptions.select.length === 0 || $globalOptions.select.includes(k)) {
-          questions[idVue] = [...questions[idVue], ...exercice.listeQuestions]
-          corrections[idVue] = [
-            ...corrections[idVue],
-            ...exercice.listeCorrections
-          ]
-          questions[idVue] = questions[idVue].map(mathaleaFormatExercice)
-          corrections[idVue] = corrections[idVue].map(mathaleaFormatExercice)
-        }
+  let series: Serie[] = []
+  $: {
+    series = []
+    for (let i = 0; i < nbOfVues; i++) {
+      const serie: Serie = {
+        consignes: [],
+        questions: [],
+        corrections: []
       }
-    }
-    for (const exercice of exercices) {
-      for (let i = 0; i < exercice.listeQuestions.length; i++) {
-        consignes.push(exercice.consigne)
+      for (const slide of slideshow.slides) {
+        serie.consignes.push(slide.vues[i].consigne)
+        serie.questions.push(slide.vues[i].question)
+        serie.corrections.push(slide.vues[i].correction)
       }
+      series.push(serie)
     }
-    await tick()
-    if (divExercice) mathaleaRenderDiv(divExercice)
   }
+
+  $: if (divExercice) mathaleaRenderDiv(divExercice)
 
   async function setCorrectionVisible (correctionVisibility: boolean) {
     isCorrectionVisible = correctionVisibility
@@ -142,7 +86,7 @@
 
   function newDataForAll () {
     const newParams: InterfaceParams[] = []
-    for (const exercice of exercices) {
+    for (const exercice of exercises) {
       exercice.seed = mathaleaGenerateSeed()
       newParams.push({
         uuid: exercice.uuid,
@@ -153,8 +97,9 @@
       })
     }
     exercicesParams.update(() => newParams)
-    updateExercices()
+    updateExercises()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    updateDisplay()
   }
 
   /**
@@ -342,9 +287,6 @@
                 class="flex flex-row items-center justify-start text-3xl font-black text-coopmaths-struct dark:text-coopmathsdark-struct p-6"
               >
                 Série {currentVue + 1}
-                <!-- <button type="button" class="pl-4">
-                  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
-                </button> -->
               </div>
             {:else}
               <div
@@ -354,15 +296,12 @@
                 isQuestionsVisible
                   ? ' / '
                   : ''}{isCorrectionVisible ? 'Réponses' : ''}
-                <!-- <button type="button" class="pl-4">
-                  <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
-                </button> -->
               </div>
             {/if}
             <div
               class="list-inside list-decimal mt-2 mx-2 lg:mx-6 marker:text-coopmaths-struct dark:text-coopmathsdark-struct marker:font-bold"
             >
-              {#each [...questions[currentVue].keys()] as i}
+              {#each order as i}
                 <div>
                   <div
                     class="flex flex-row my-4"
@@ -381,12 +320,10 @@
                       {#if isQuestionsVisible}
                         <div>
                           <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                          {@html mathaleaFormatExercice(
-                            questions[currentVue][order[i]]
-                          )}
+                          {@html mathaleaFormatExercice(series[currentVue].questions[i])}
                         </div>
                       {/if}
-                      {#if isCorrectionVisible || correctionsSteps.includes(order[i])}
+                      {#if isCorrectionVisible || correctionsSteps.includes(i)}
                         <div
                           class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                             ? 'my-8'
@@ -396,11 +333,7 @@
                             class="container overflow-x-auto overflow-y-hidden"
                           >
                             <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                            {@html mathaleaFormatExercice(
-                              corrections[currentVue][
-                                order[i]
-                              ]
-                            )}
+                            {@html mathaleaFormatExercice(series[currentVue].corrections[i])}
                           </div>
                           <div
                             class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
@@ -429,7 +362,7 @@
                       <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-sm bx-refresh" />
                     </button> -->
                   </div>
-                  {#each [...questions[currentVueId].keys()] as i}
+                  {#each order as i}
                     <div class="pl-6">
                       <div
                         class="flex flex-row items-start my-4"
@@ -452,14 +385,10 @@
                           {#if isQuestionsVisible}
                             <div>
                               <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                              {@html mathaleaFormatExercice(
-                                questions[currentVueId][
-                                  order[i]
-                                ]
-                              )}
+                              {@html mathaleaFormatExercice(series[currentVueId].questions[i])}
                             </div>
                           {/if}
-                          {#if isCorrectionVisible || correctionsSteps.includes(order[i])}
+                          {#if isCorrectionVisible || correctionsSteps.includes(i)}
                             <div
                               class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus {isQuestionsVisible
                                 ? 'my-8'
@@ -469,11 +398,7 @@
                                 class="container overflow-x-auto overflow-y-hidden"
                               >
                                 <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                                {@html mathaleaFormatExercice(
-                                  corrections[currentVueId][
-                                    order[i]
-                                  ]
-                                )}
+                                {@html mathaleaFormatExercice(series[currentVueId].corrections[i])}
                               </div>
                               <div
                                 class="absolute flex flex-row py-[1.5px] px-3 rounded-t-md justify-center items-center -left-[3px] -top-[15px] bg-coopmaths-struct dark:bg-coopmathsdark-struct font-semibold text-xs text-coopmaths-canvas dark:text-coopmathsdark-canvas"
