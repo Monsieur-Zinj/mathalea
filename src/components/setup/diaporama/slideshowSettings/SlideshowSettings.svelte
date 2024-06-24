@@ -12,7 +12,7 @@
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
   import { createEventDispatcher } from 'svelte'
-  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
@@ -32,6 +32,11 @@
 
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
+  }
+
+  function goToOverview () {
+    dispatch('updateSettings', settings)
+    mathaleaHandleComponentChange('diaporama', 'overview')
   }
 
   function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
@@ -108,7 +113,7 @@
   <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
     <!-- Left Side -->
     <div class="flex flex-col w-1/5 justify-start">
-      <DisplaySettings />
+      <DisplaySettings {goToOverview} />
       <NbOfViewsSettings nbOfViews={$globalOptions.nbVues ?? 1} {updateNbOfViews} />
       <TransitionSettings
         {transitionSounds}
