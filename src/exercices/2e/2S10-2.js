@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer une proportion ou appliquer un pourcentage'
 export const interactifReady = true
@@ -46,7 +47,6 @@ export default function Proportions () {
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
@@ -99,7 +99,7 @@ export default function Proportions () {
                   texte = `$${texNombre(totale, 0)}$ personnes assistent à un concert. $${taux}~\\%$ ont moins de $18$ ans. <br>Calculer le nombre de personnes mineures dans le public.`
                   texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme $${taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont mineures, le nombre de personnes mineures est donné par :`
                   texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
-                  texteCorr += `<br>Il y a donc $${texNombre(sous)}$ personnes mineures dans le public.`
+                  texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous))}$ personnes mineures dans le public.`
                   reponse = sous
                   break
                 case 2:
@@ -108,7 +108,7 @@ export default function Proportions () {
                   texteCorr += 'Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$.'
                   texteCorr += `<br>Comme $${100 - taux}~\\%$ des $${texNombre(totale, 0)}$ personnes sont majeures, le nombre de personnes majeures est donné par :`
                   texteCorr += `<br>$\\dfrac{${100 - taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p.mul(-1).add(1))} \\times ${texNombre(totale, 0)} = ${texNombre(sous2, 2)}$`
-                  texteCorr += `<br>Il y a donc $${texNombre(sous2, 2)}$ personnes majeures dans le public.`
+                  texteCorr += `<br>Il y a donc $${miseEnEvidence(texNombre(sous2, 2))}$ personnes majeures dans le public.`
                   reponse = sous2
                   break
               }
@@ -123,14 +123,14 @@ export default function Proportions () {
               x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
               x &= ${texNombre(totale, 0)}
               \\end{aligned}$`
-              texteCorr += `<br>Il y avait donc $${texNombre(totale, 0)}$ spectateurs.`
+              texteCorr += `<br>Il y avait donc $${miseEnEvidence(texNombre(totale, 0))}$ spectateurs.`
               reponse = totale
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // Le nombre attendu a bien 4 chiffres maxi
               break
             case 'proportion':
               texte = `Parmi les $${texNombre(totale, 0)}$ spectateurs d'un concert, $${texNombre(sous, 2)}$ ont moins de $18$ ans. <br>Calculer la proportion en pourcentage des personnes mineures dans le public en pourcentage.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
-              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}~\\%$ de personnes mineures dans le public.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}~\\%$ de personnes mineures dans le public.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
@@ -160,7 +160,7 @@ export default function Proportions () {
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${taux}~\\%$ du prix total. <br>Combien ai-je donné pour le cadeau de ${prénom} ?`
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme ma participation représente $${taux}~\\%$ de $${texPrix(totale)}$, j'ai donné :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
-              texteCorr += `<br>Ma participation au cadeau est de $${texPrix(sous)}$ €.`
+              texteCorr += `<br>Ma participation au cadeau est de $${miseEnEvidence(texPrix(sous))}$ €.`
               reponse = sous
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
               break
@@ -173,14 +173,14 @@ export default function Proportions () {
               x &= \\dfrac{${texPrix(sous, 2)}}{${texNombre(p, 2)}} \\\\
               x &= ${texPrix(totale)}
               \\end{aligned}$`
-              texteCorr += `<br>Le cadeau coûte $${texPrix(totale)}$ €.`
+              texteCorr += `<br>Le cadeau coûte $${miseEnEvidence(texPrix(totale))}$ €.`
               reponse = totale
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
               texte = `Le cadeau commun que nous souhaitons faire à ${prénom} coûte $${texPrix(totale)}$ €. Je participe à hauteur de $${texPrix(sous)}$ €. <br>Calculer la proportion en pourcentage de ma participation sur le prix total du cadeau.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texPrix(sous)}}{${texPrix(totale)}} = ${texNombre(p, 2)}$.`
-              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${taux}~\\%$ du montant total du cadeau.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. J'ai donc donné $${miseEnEvidence(taux)}~\\%$ du montant total du cadeau.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
@@ -211,7 +211,7 @@ export default function Proportions () {
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${taux}~\\%$ de ${espèces}.<br>Quel est le nombre de ${espèces} ?`
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme les ${espèces} représentent $${taux}~\\%$ de $${texNombre(totale, 0)}$, leur nombre est donné par :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
-              texteCorr += `<br>Il y a $${texNombre(sous, 2)}$ ${espèces} dans la réserve.`
+              texteCorr += `<br>Il y a $${miseEnEvidence(texNombre(sous, 2))}$ ${espèces} dans la réserve.`
               reponse = sous
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // on mets 4 chiffres même si la plupart des réponses n'en ont que 3 pour ne pas contraindre les réponses
 
@@ -225,7 +225,7 @@ export default function Proportions () {
                 x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
                 x &= ${texNombre(totale, 0)}
                 \\end{aligned}$`
-              texteCorr += `<br>Il y a $${texNombre(totale, 0)}$ oiseaux dans la réserve.`
+              texteCorr += `<br>Il y a $${miseEnEvidence(texNombre(totale, 0))}$ oiseaux dans la réserve.`
               reponse = totale
               paramAMC = { digits: 4, decimals: 0, signe: false, approx: 0 } // population à 4 chiffres (souvent)
 
@@ -233,7 +233,7 @@ export default function Proportions () {
             case 'proportion':
               texte = `Une réserve de protection d'oiseaux contient $${texNombre(totale, 0)}$ individus d'oiseaux. On dénombre $${texNombre(sous, 2)}$ ${espèces}. <br>Calculer la proportion en pourcentage de ${espèces} dans la réserve.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous, 2)}}{${texNombre(totale, 0)}} = ${texNombre(p, 2)}$.`
-              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${taux}~\\%$.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Le pourcentage de ${espèces} dans la réserve est donc de $${miseEnEvidence(taux)}~\\%$.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 } // Le taux est ici inférieur à 100%
               break
@@ -263,7 +263,7 @@ export default function Proportions () {
               texte = `Dans une entreprise de $${texNombre(totale, 0)}$ salariés, il y a  $${taux}\\,\\%$ de cadres. <br>Combien y a-t-il de cadres dans cette entreprise ?`
               texteCorr = `Pour appliquer une proportion à une valeur, on multiplie celle-ci par la proportion $p$. <br>Comme il y a  $${taux}\\,\\%$ des $${texNombre(totale, 0)}$ salariés qui sont cadres, le nombre de cadres est donné par :`
               texteCorr += `<br>$\\dfrac{${taux}}{100} \\times ${texNombre(totale, 0)} = ${texNombre(p, 2)} \\times ${texNombre(totale, 0)}=${texNombre(sous, 2)}$`
-              texteCorr += `<br>Il y a donc  $${texNombre(sous)}$  cadres dans cette entreprise.`
+              texteCorr += `<br>Il y a donc  $${miseEnEvidence(texNombre(sous))}$  cadres dans cette entreprise.`
               reponse = sous
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 } // la participation n'a que 2 chiffres mais on ne contraint pas la réponse
               break
@@ -276,14 +276,14 @@ export default function Proportions () {
                 x &= \\dfrac{${texNombre(sous, 2)}}{${texNombre(p, 2)}} \\\\
                 x &= ${texNombre(totale, 2)}
                 \\end{aligned}$`
-              texteCorr += `<br>Le nombre total de salariés dans l'entreprise est $${texNombre(totale)}$.`
+              texteCorr += `<br>Le nombre total de salariés dans l'entreprise est $${miseEnEvidence(texNombre(totale))}$.`
               reponse = totale
               paramAMC = { digits: 3, decimals: 0, signe: false, approx: 0 }
               break
             case 'proportion':
               texte = `Dans une entreprise, il y a $${texNombre(totale)}$ salariés au total. Parmi eux, on dénombre  $${texNombre(sous)}$ cadres. <br>Calculer la proportion en pourcentage de cadres dans cette entreprise.`
               texteCorr = `La proportion $p$ est donnée par le quotient : $\\dfrac{${texNombre(sous)}}{${texNombre(totale)}} = ${texNombre(p, 2)}$.`
-              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${taux}\\,\\%$ de cadres dans cette entreprise.`
+              texteCorr += `<br>$${texNombre(p, 2)}=\\dfrac{${texNombre(taux, 0)}}{100}$. Il y a donc $${miseEnEvidence(taux)}\\,\\%$ de cadres dans cette entreprise.`
               reponse = taux
               paramAMC = { digits: 2, decimals: 0, signe: false, approx: 0 }
               break
