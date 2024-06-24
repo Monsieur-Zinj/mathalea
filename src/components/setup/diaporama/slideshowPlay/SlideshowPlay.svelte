@@ -362,7 +362,6 @@ function returnToStart () {
     <SlideshowPlayQuestion
       {currentSlide}
       {currentQuestionNumber}
-      {nbOfVues}
       {divQuestion}
       {slideshow}
       {isQuestionVisible}

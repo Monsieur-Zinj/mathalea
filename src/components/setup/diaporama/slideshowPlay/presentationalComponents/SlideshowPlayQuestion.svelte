@@ -1,13 +1,22 @@
 <script lang="ts">
   import type { Slide, Slideshow } from '../../types'
+  import { onMount } from 'svelte'
+  import { isIntegerInRange1to4 } from '../../../../../lib/types/integerInRange'
 
-  export let nbOfVues: 1 | 2 | 3 | 4
   export let currentSlide: Slide
   export let divQuestion: HTMLDivElement[]
   export let slideshow: Slideshow
   export let currentQuestionNumber: number
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
+
+  let nbOfVues: 1 | 2 | 3 | 4 = 1
+  onMount(() => {
+    const nbOfVuesCandidate = currentSlide.vues.length
+    if (isIntegerInRange1to4(nbOfVuesCandidate)) {
+      nbOfVues = nbOfVuesCandidate
+    }
+  })
 
 </script>
 
