@@ -202,7 +202,7 @@
   setContext('thirdAppsChoiceContext', {
     toggleThirdAppsChoiceDialog: () => {
       showThirdAppsChoiceDialog = !showThirdAppsChoiceDialog
-      if (showThirdAppsChoiceDialog === false) {
+      if (showThirdAppsChoiceDialog === false && thirdAppsChoiceModal) {
         thirdAppsChoiceModal.closeModal()
       }
     }
