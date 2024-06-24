@@ -81,7 +81,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
 
     let M1, N1, O1, P1, p1, s1, s2, s3, s4
 
-    const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.5 }
+    const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: false, amplitude: 0.5 }
 
     let nomsDejaUtilises
     let nom

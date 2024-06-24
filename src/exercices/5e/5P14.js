@@ -16,7 +16,6 @@ export const uuid = '4db23'
 export default class ExercicePourcentage5e extends ExercicePourcentage {
   constructor () {
     super()
-    this.titre = titre
     this.sup = 2
     this.besoinFormulaireNumerique = false
   }
