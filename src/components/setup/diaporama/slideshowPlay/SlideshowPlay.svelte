@@ -234,6 +234,14 @@
   }
 
 function handleShortcut (e: KeyboardEvent) {
+  if (e.key === '+') {
+    e.preventDefault()
+    zoomPlus()
+  }
+  if (e.key === '-') {
+    e.preventDefault()
+    zoomMoins()
+  }
   if (e.key === 'ArrowLeft') {
     e.preventDefault()
     prevQuestion()
@@ -245,6 +253,10 @@ function handleShortcut (e: KeyboardEvent) {
   if (e.key === ' ') {
     e.preventDefault()
     if (!$globalOptions.manualMode) switchPause()
+  }
+  if (e.key === 'Enter') {
+    e.preventDefault()
+    switchCorrectionMode()
   }
 }
 
@@ -343,7 +355,7 @@ function returnToStart () {
 }
 </script>
 
-<svelte:window on:keyup={handleShortcut} />
+<svelte:window on:keydown={handleShortcut} />
 
 {#if currentQuestionNumber < slideshow.selectedQuestionsNumber}
   <div

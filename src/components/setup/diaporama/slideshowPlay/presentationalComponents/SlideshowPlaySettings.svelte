@@ -83,16 +83,25 @@
     <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
     <FullscreenButton/>
       <button type="button" on:click={zoomPlus}>
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus"/>
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-plus"
+          title="Raccourci clavier : +"
+        />
       </button>
       <button type="button" on:click={zoomMoins}>
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus"/>
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-minus"
+          title="Raccourci clavier : -"
+        />
       </button>
     </div>
     <!-- boutons contrôle défilement -->
     <div class="flex flex-row justify-center w-[33%] items-center">
       <button type="button" on:click={prevQuestion}>
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"/>
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-previous"
+          title="Raccourci clavier : flèche gauche"
+        />
       </button>
       <button
         type="button"
@@ -107,11 +116,15 @@
       >
         <i
           class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg
-          {isPause ? 'bx-play' : 'bx-pause'}"
+            {isPause ? 'bx-play' : 'bx-pause'}"
+          title="Raccourci clavier : espace"
         />
       </button>
       <button type="button" on:click={nextQuestion}>
-        <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next"/>
+        <i
+          class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-skip-next"
+          title="Raccourci clavier : flèche droite"
+        />
       </button>
     </div>
     <!-- boutons timers correction quitter -->
@@ -170,7 +183,10 @@
       </ModalMessageBeforeAction>
       <div>
         <button type="button" on:click={switchCorrectionMode}>
-          <i class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show">
+          <i
+            class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-show"
+            title="Raccourci clavier : Entrée"
+          >
             <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">
               {getDisplayMode()}
             </div>
