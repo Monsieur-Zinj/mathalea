@@ -3,7 +3,7 @@ import { listeDeNotes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import { joursParMois } from '../../lib/outils/dateEtHoraires'
 import Exercice from '../deprecatedExercice.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -15,7 +15,7 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const titre = 'Calculer des moyennes'
 
-export const dateDeModifImportante = '28/02/2022'
+export const dateDeModifImportante = '24/06/2024'
 
 /**
  * Calcul de moyennes de série statistiques
@@ -41,9 +41,17 @@ export default function CalculerDesMoyennes () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions
+    })
 
     for (let i = 0, reponse, nombreTemperatures, temperatures, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      if (this.sup === 1) { // ici on trie des notes
+      if (typeDeQuestions[i] === 1) { // ici on trie des notes
         const nombreNotes = choice([8, 10, 12])
         const notes = listeDeNotes(nombreNotes, randint(0, 7), randint(13, 20)) // on récupère une liste de notes (série brute)
         texte = OutilsStats.texteNotes(notes)
@@ -51,7 +59,7 @@ export default function CalculerDesMoyennes () {
         const [, somme] = OutilsStats.computeMoyenne(notes)
         texteCorr = OutilsStats.texteCorrMoyenneNotes(notes, somme, nombreNotes)
         reponse = arrondi(somme / nombreNotes, 1)
-      } else if (this.sup === 2) { // ici on relève des températures
+      } else if (typeDeQuestions[i] === 2) { // ici on relève des températures
         const mois = randint(1, 12)
         const annee = randint(1980, 2019)
         const temperaturesDeBase = [3, 5, 9, 13, 19, 24, 26, 25, 23, 18, 10, 5]
@@ -127,5 +135,5 @@ export default function CalculerDesMoyennes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, '1 : Série de notes\n2 : Série de températures\n3 : Série de pointures (moyenne pondérée)']
+  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Liste de notes\n2 : Un mois de températures\n3 : Pointures de chaussures\n4 : Mélange']
 }

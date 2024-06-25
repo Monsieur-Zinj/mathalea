@@ -53,7 +53,7 @@ export default function ExerciceEquations () {
       defaut: 8,
       melange: 8,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['ax2+bx', 'ax2+bxAvec1', 'ax2-b2', 'ax2=b2', 'bcx2+a=bx(cx+d)', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2', 'mélange']
+      listeOfCase: ['ax2+bx', 'ax2+bxAvec1', 'ax2-b2', 'ax2=b2', '(ax+b)2=0', 'bcx2+a=bx(cx+d)', '(ax+b)(cx+d)=acx2', 'mélange']
     })
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     for (let i = 0, indiceQ = 0, fracReponse, a, b, c, d, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -252,7 +252,7 @@ export default function ExerciceEquations () {
     listeQuestionsToContenu(this)
   }
   // this.besoinFormulaireTexte = ["Type d'équations", "Nombres séparés par des tirets : \n1 : Factoriser avec x en facteur commun\n2 : Factoriser avec l'identité remarquable\n3 : Développer et réduire\n4 : Mélange"]
-  this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: bcx2+a=bx(cx+d)\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
+  this.besoinFormulaireTexte = ["Type d'équations", 'Nombres séparés par des tirets : \n1: ax2+bx=0\n2: ax2+bxAvec1=0\n3: ax2-b2=0\n4: ax2=b2\n5: (ax+b)2=0\n6: bcx2+a=bx(cx+d)\n7: (ax+b)(cx+d)=acx2\n8: Mélange']
   this.besoinFormulaire2CaseACocher = ['Niveau plus facile']
 }
 

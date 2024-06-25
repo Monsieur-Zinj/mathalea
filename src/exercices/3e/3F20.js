@@ -234,7 +234,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
           break
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
-          texte += `Calculer l'antécédent de $${imageString}$`
+          texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
           texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`

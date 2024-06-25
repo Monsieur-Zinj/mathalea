@@ -436,7 +436,7 @@ export default class ProblemesEnEquation extends Exercice {
           enonce += ` $AB=${c}\\text{mm}$, $AC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $OC$${context.isAmc ? ', en mm.' : '.'}`
           intro = 'Dans cette configuration de Thalès, on a l\'égalité suivante : $\\dfrac{OC}{OA}=\\dfrac{CD}{AB}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $OC\\times AB = CD\\times OA$.<br>'
-          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
+          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtient l\'équation suivante :<br>'
           conclusion = `<br>donc $OA=${x}\\text{mm}$.<br>`
           verification = `<br>Vérification :
             <br>
@@ -468,7 +468,7 @@ export default class ProblemesEnEquation extends Exercice {
           enonce += ` $AB=${c}\\text{mm}$, $OC=${b}\\text{mm}$ et $CD=${a}\\text{mm}$.<br> Déterminer la longueur $AC$${context.isAmc ? ', en mm.' : '.'}`
           intro = 'Dans cette configuration de Thalès, on a l\'égalité suivante : $\\dfrac{OA}{OC}=\\dfrac{AB}{CD}$.<br>'
           intro += 'Cette égalité est équivalente à l\'égalité des produits en croix : $CD\\times OA = OC\\times AB$.<br>'
-          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtiens l\'équation suivante :<br>'
+          intro += 'En remplaçant les longueurs par les données de l\'énoncé et en posant $x=OC$, on obtient l\'équation suivante :<br>'
           conclusion = `<br>donc $CA=${x}\\text{mm}$.<br>`
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
