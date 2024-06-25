@@ -210,7 +210,6 @@
         bind:currentQuestionNumber={slideshow.currentQuestion}
         {handleChangeDurationGlobal}
         {slideshow}
-        {updateExercises}
         {transitionSounds}
       />
     {/if}

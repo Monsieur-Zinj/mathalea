@@ -7,7 +7,7 @@
   import { onDestroy, onMount, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { updateFigures } from '../../../../lib/components/sizeTools'
-  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
   export let slideshow: Slideshow
@@ -15,7 +15,6 @@
   export let dataFromSettings: DataFromSettings
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: Record<string, HTMLAudioElement>
-  export let updateExercises: () => void
 
   let currentZoom: number
   const divQuestion: HTMLDivElement[] = []
@@ -358,8 +357,7 @@ function zoomMoins () {
   }
 
 function handleQuit () {
-  mathaleaHandleComponentChange('diaporama', '')
-  updateExercises()
+  currentQuestionNumber = -1
 }
 
 function returnToStart () {
