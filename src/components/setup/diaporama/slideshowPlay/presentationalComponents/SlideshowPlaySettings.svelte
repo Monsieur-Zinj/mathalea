@@ -1,7 +1,6 @@
 <script lang="ts">
   import ModalMessageBeforeAction from '../../../../shared/modal/ModalMessageBeforeAction.svelte'
   import FullscreenButton from '../../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
-  import { onDestroy, onMount } from 'svelte'
   import { setPhraseDuree } from '../../../../../lib/components/time'
 
   export let flow: number | undefined
@@ -23,21 +22,6 @@
   let displayCurrentDuration: () => string
   let cursorTimeValue = 10
   let messageDuree: string
-  let timerSettingsModal: HTMLElement
-
-  onMount(() => {
-    const timerSettingsModalCandidate = document.getElementById('timer-settings-modal')
-    if (timerSettingsModalCandidate) {
-      timerSettingsModal = timerSettingsModalCandidate
-    } else {
-      console.error('timer-settings-modal not found')
-    }
-    window.addEventListener('click', handleClick)
-  })
-
-  onDestroy(() => {
-    window.removeEventListener('click', handleClick)
-  })
 
   $: displayCurrentDuration = () => {
     return isManualModeActive ? 'Manuel' : currentDuration + 's'
@@ -57,12 +41,6 @@
       displayMode = 'C'
     }
     return displayMode
-  }
-
-  function handleClick (event: MouseEvent) {
-    if (event.target === timerSettingsModal) {
-      timerSettingsModal.style.display = 'none'
-    }
   }
 
   function displayTimerSettingsModal () {

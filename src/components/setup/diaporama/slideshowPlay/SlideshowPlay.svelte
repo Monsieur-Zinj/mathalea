@@ -4,7 +4,7 @@
   import SlideshowPlaySettings from './presentationalComponents/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
-  import { onDestroy, tick } from 'svelte'
+  import { onDestroy, onMount, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { updateFigures } from '../../../../lib/components/sizeTools'
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
@@ -47,9 +47,21 @@
 
   currentZoom = userZoom
 
+  onMount(() => {
+    window.addEventListener('click', handleClick)
+  })
+
   onDestroy(() => {
     pause()
+    window.removeEventListener('click', handleClick)
   })
+
+function handleClick (event: MouseEvent) {
+  const timerSettingsModal = document.getElementById('timer-settings-modal')
+  if (timerSettingsModal && event.target === timerSettingsModal) {
+    timerSettingsModal.style.display = 'none'
+  }
+}
 
   async function goToQuestion (questionNumber: number) {
     if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) currentQuestionNumber = questionNumber
