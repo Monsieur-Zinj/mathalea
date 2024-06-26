@@ -63,13 +63,15 @@
 
     isFullScreen = !isFullScreen
 
-    if (isFullScreen) {
+    const isInFullScreen = document.fullscreenElement != null
+    if (isFullScreen && !isInFullScreen) {
       if (isFullscreenRequestEnabled(element)) {
         await requestFullScreen(element)
       } else {
         handleFullScreenError(new Error('Plein écran non disponible'))
       }
-    } else {
+    }
+    if (!isFullScreen && isInFullScreen) {
       if (isFullscreenExitEnabled(document)) {
         await exitFullScreen()
       } else {
