@@ -184,7 +184,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         guide.opacite = 0.8
         guideDroites.push(guide)
       }
-      enonce = `Construire le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join('\',') + '\'' : (this.labels[i][0] + '\' ')}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1] + '\''}$` : '') + (this.nbPoints > 1 ? ' respectifs ' : '')
+      enonce = `${this.sup2 === 1 ? 'Placer' : 'Construire'} le${this.nbPoints > 1 ? 's' : ''} symétrique${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join('\',') + '\'' : (this.labels[i][0] + '\' ')}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1] + '\''}$` : '') + (this.nbPoints > 1 ? ' respectifs ' : '')
       enonce += `${this.nbPoints > 1 ? ' des' : ' du'} point${this.nbPoints > 1 ? 's' : ''} $${this.nbPoints > 1 ? this.labels[i].slice(0, this.nbPoints - 1).join(',') : (this.labels[i][0]) + '$ par rapport à la droite $(d).'}$` + (this.nbPoints > 1 ? ` et $${this.labels[i][this.nbPoints - 1]}$ par rapport à la droite $(d)$.<br>` : '<br>')
       const guidesArc = []
       for (let k = 0; k < this.nbPoints; k++) {
@@ -243,9 +243,10 @@ class ConstrctionsSymetriquesPoints extends Exercice {
 
         objetsCorrection.push(carre)
       }
-
+      const options = {}
+      if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figures[i] = new Figure({ xMin: -10, yMin: -10, width: 420, height: 420 })
+        this.figures[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 420, height: 420 }))
         this.figures[i].scale = 0.7
         this.figures[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
@@ -270,7 +271,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           (this.antecedents[i][k] as PointApigeom) = this.figures[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
         }
         if (this.sup2 === 1) {
-          this.figures[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 0.5, stepY: 0.5, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
+          this.figures[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
         }
         if (this.sup2 === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
