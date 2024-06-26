@@ -68,25 +68,26 @@
 
   function updateSettings (event: {detail: DataFromSettings}) {
     dataFromSettings = event.detail
+    updateExercises()
     if (dataFromSettings !== undefined) {
       slideshow.currentQuestion = dataFromSettings.currentQuestion
     }
-    updateExercises()
   }
 
-  async function updateExercises () {
-    setSlidesContent()
+  async function updateExercises (updatedExercises?: Exercice[]) {
+    const newExercises: Exercice[] = updatedExercises ?? exercises
+    setSlidesContent(newExercises)
     adjustQuestionsOrder()
-    updateExerciseParams()
+    updateExerciseParams(newExercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    exercises = exercises // Pour forcer la mise à jour des $: if (exercises) { ... }
+    exercises = newExercises // Pour ne mettre à jour qu'une seule fois les $: if (exercises) { ... }
   }
 
-  function setSlidesContent () {
+  function setSlidesContent (newExercises: Exercice[]) {
     const slides = []
     const nbOfVues = $globalOptions.nbVues || 1
     let selectedQuestionsNumber = 0
-    for (const [k, exercise] of [...exercises].entries()) {
+    for (const [k, exercise] of [...newExercises].entries()) {
       reroll(exercise)
       const isSelected = $globalOptions.select?.includes(k) ?? true
       if (isSelected) selectedQuestionsNumber += exercise.listeQuestions.length
@@ -109,7 +110,7 @@
     }
     slideshow = {
       slides,
-      currentQuestion: dataFromSettings?.currentQuestion ?? -1,
+      currentQuestion: -1,
       selectedQuestionsNumber: selectedQuestionsNumber || slides.length
     }
   }
@@ -147,9 +148,9 @@
     return indexes
   }
 
-  function updateExerciseParams () {
+  function updateExerciseParams (newExercises: Exercice[]) {
     const newParams: InterfaceParams[] = []
-    for (const exercice of exercises) {
+    for (const exercice of newExercises) {
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
@@ -199,7 +200,7 @@
   {:else}
     {#if slideshow.currentQuestion === -1}
       <SlideshowSettings on:updateSettings="{updateSettings}"
-        bind:exercises={exercises}
+        {exercises}
         {updateExercises}
         {transitionSounds}
       />
@@ -207,7 +208,6 @@
     {#if slideshow.currentQuestion > -1}
       <SlideshowPlay
         {dataFromSettings}
-        bind:currentQuestionNumber={slideshow.currentQuestion}
         {handleChangeDurationGlobal}
         {slideshow}
         {transitionSounds}

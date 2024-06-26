@@ -11,7 +11,6 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
   export let slideshow: Slideshow
-  export let currentQuestionNumber: number
   export let dataFromSettings: DataFromSettings
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: Record<string, HTMLAudioElement>
@@ -34,7 +33,7 @@
     if (dataFromSettings) {
       const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
       order = $globalOptions.order || [...Array(questionsNb).keys()]
-      goToQuestion(currentQuestionNumber)
+      goToQuestion(slideshow.currentQuestion)
       formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       nbOfVues = $globalOptions.nbVues ?? 1
       QRCodeWidth = dataFromSettings.QRCodeWidth
@@ -42,7 +41,7 @@
   }
 
   let currentSlide: Slide
-  $: currentSlide = slideshow.slides[order[currentQuestionNumber]]
+  $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
 
   currentZoom = userZoom
 
@@ -63,7 +62,7 @@ function handleClick (event: MouseEvent) {
 }
 
   async function goToQuestion (questionNumber: number) {
-    if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) currentQuestionNumber = questionNumber
+    if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) slideshow.currentQuestion = questionNumber
     if (questionNumber === -1 || questionNumber === slideshow.selectedQuestionsNumber) pause()
     await tick()
     for (let k = 0; k < nbOfVues; k++) {
@@ -244,101 +243,106 @@ function handleClick (event: MouseEvent) {
     setSize()
   }
 
-function handleShortcut (e: KeyboardEvent) {
-  if (e.key === '+') {
-    e.preventDefault()
-    zoomPlus()
-  }
-  if (e.key === '-') {
-    e.preventDefault()
-    zoomMoins()
-  }
-  if (e.key === 'ArrowLeft') {
-    e.preventDefault()
-    prevQuestion()
-  }
-  if (e.key === 'ArrowRight') {
-    e.preventDefault()
-    nextQuestion()
-  }
-  if (e.key === ' ') {
-    e.preventDefault()
-    if (!$globalOptions.manualMode) switchPause()
-  }
-  if (e.key === 'Enter') {
-    e.preventDefault()
-    switchCorrectionMode()
-  }
-}
-
-function prevQuestion () {
-  if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
-    if (isQuestionVisible) {
-      if (currentQuestionNumber > -1) goToQuestion(currentQuestionNumber - 1)
-    } else {
-      switchQuestionToCorrection()
-      switchPause()
-      goToQuestion(currentQuestionNumber)
+  function handleShortcut (e: KeyboardEvent) {
+    if (e.key === '+') {
+      e.preventDefault()
+      zoomPlus()
     }
-  } else {
-    if (currentQuestionNumber > -1) goToQuestion(currentQuestionNumber - 1)
+    if (e.key === '-') {
+      e.preventDefault()
+      zoomMoins()
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault()
+      prevQuestion()
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault()
+      nextQuestion()
+    }
+    if (e.key === ' ') {
+      e.preventDefault()
+      if (!$globalOptions.manualMode) switchPause()
+    }
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      switchCorrectionMode()
+    }
   }
-}
 
-function nextQuestion () {
-  if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
-    if (isQuestionVisible && !isCorrectionVisible) {
-      switchPause()
-      switchQuestionToCorrection()
-      goToQuestion(currentQuestionNumber)
+  function prevQuestion () {
+    if (slideshow.currentQuestion === 0) {
+      pause()
+      handleQuit()
+      return
+    }
+    if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
+      if (isQuestionVisible) {
+        if (slideshow.currentQuestion > -1) goToQuestion(slideshow.currentQuestion - 1)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        goToQuestion(slideshow.currentQuestion)
+      }
     } else {
-      switchQuestionToCorrection()
-      switchPause()
-      if (currentQuestionNumber < slideshow.selectedQuestionsNumber) {
-        goToQuestion(currentQuestionNumber + 1)
+      if (slideshow.currentQuestion > -1) goToQuestion(slideshow.currentQuestion - 1)
+    }
+  }
+
+  function nextQuestion () {
+    if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
+      if (isQuestionVisible && !isCorrectionVisible) {
+        switchPause()
+        switchQuestionToCorrection()
+        goToQuestion(slideshow.currentQuestion)
+      } else {
+        switchQuestionToCorrection()
+        switchPause()
+        if (slideshow.currentQuestion < slideshow.selectedQuestionsNumber) {
+          goToQuestion(slideshow.currentQuestion + 1)
+        }
+      }
+    } else {
+      if (slideshow.currentQuestion < slideshow.selectedQuestionsNumber) {
+        goToQuestion(slideshow.currentQuestion + 1)
       }
     }
-  } else {
-    if (currentQuestionNumber < slideshow.selectedQuestionsNumber) {
-      goToQuestion(currentQuestionNumber + 1)
+  }
+
+  /**
+   * Gère la récupération de la valeur du curseur de temps
+   */
+  function handleTimerChange (cursorTimeValue: number) {
+    durationGlobal = 0
+    pause()
+    if (cursorTimeValue === 0) {
+      globalOptions.update((l) => {
+        l.manualMode = true
+        return l
+      })
+      durationGlobal = undefined
+    } else {
+      globalOptions.update((l) => {
+        l.manualMode = false
+        return l
+      })
+      durationGlobal = cursorTimeValue
     }
+    handleChangeDurationGlobal(durationGlobal)
+    goToQuestion(slideshow.currentQuestion)
   }
-}
 
-/**
- * Gère la récupération de la valeur du curseur de temps
- */
-function handleTimerChange (cursorTimeValue: number) {
-  durationGlobal = 0
-  pause()
-  if (cursorTimeValue === 0) {
-    globalOptions.update((l) => {
-      l.manualMode = true
-      return l
-    })
-    durationGlobal = undefined
-  } else {
-    globalOptions.update((l) => {
-      l.manualMode = false
-      return l
-    })
-    durationGlobal = cursorTimeValue
+  function zoomPlus () {
+    userZoom += 0.05
+    setSize(true)
   }
-  handleChangeDurationGlobal(durationGlobal)
-  goToQuestion(currentQuestionNumber)
-}
 
-function zoomPlus () {
-  userZoom += 0.05
-  setSize(true)
-}
-
-function zoomMoins () {
-  if (userZoom > 0.5) {
-    userZoom -= 0.05
+  function zoomMoins () {
+    if (userZoom > 0.5) {
+      userZoom -= 0.05
+    }
+    setSize(true)
   }
-  setSize(true)
-}
   async function switchCorrectionMode () {
     if (isQuestionVisible && !isCorrectionVisible) {
       isCorrectionVisible = !isCorrectionVisible
@@ -356,25 +360,25 @@ function zoomMoins () {
     setSize()
   }
 
-function handleQuit () {
-  currentQuestionNumber = -1
-}
+  function returnToStart () {
+    goToQuestion(0)
+  }
 
-function returnToStart () {
-  goToQuestion(0)
-}
+  function handleQuit () {
+    slideshow.currentQuestion = -1
+  }
 </script>
 
 <svelte:window on:keydown={handleShortcut} />
 
-{#if currentQuestionNumber < slideshow.selectedQuestionsNumber}
+{#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber}
   <div
     id="diap"
     class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
     <SlideshowPlaySteps
-      {currentQuestionNumber}
+      currentQuestionNumber={slideshow.currentQuestion}
       isManualModeActive={$globalOptions.manualMode}
       totalQuestionsNumber={slideshow.selectedQuestionsNumber}
       {ratioTime}
@@ -383,7 +387,7 @@ function returnToStart () {
     />
     <SlideshowPlayQuestion
       {currentSlide}
-      {currentQuestionNumber}
+      currentQuestionNumber={slideshow.currentQuestion}
       {divQuestion}
       {slideshow}
       {isQuestionVisible}

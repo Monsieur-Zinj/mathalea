@@ -6,7 +6,7 @@
   export let exercises: Exercice[]
   export let selectedExercisesIndexes: number[]
   export let isManualModeActive: boolean
-  export let updateExercises: () => void
+  export let updateExercises: (exercises: Exercice[]) => void
   export let durationGlobal: number | undefined
   let stringDureeTotale = '0'
 
@@ -44,12 +44,12 @@
 
   function updateQuestionsNb (i: number, value: number) {
     exercises[i].nbQuestions = value
-    updateExercises()
+    updateExercises(exercises)
   }
 
   function updateDuration (i: number, value: number) {
     exercises[i].duration = value
-    updateExercises()
+    updateExercises(exercises)
   }
 
 </script>

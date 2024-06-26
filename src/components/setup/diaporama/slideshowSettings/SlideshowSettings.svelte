@@ -18,7 +18,7 @@
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
 
   export let exercises: Exercice[]
-  export let updateExercises: () => void
+  export let updateExercises: (updatedExercises: Exercice[]) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
 
   const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
