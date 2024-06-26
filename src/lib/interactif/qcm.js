@@ -50,6 +50,7 @@ export function verifQuestionQcm (exercice, i) {
         label.classList.add('bg-coopmaths-action-200', 'rounded-lg', 'p-1')
         nbMauvaisesReponses++
       }
+      check.disabled = true
     }
   })
   let typeFeedback = 'positive'
