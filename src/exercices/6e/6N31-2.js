@@ -5,7 +5,11 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Trouver un ordre de grandeur d\'opérations sur les décimaux'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * * Ordre de grandeur d'une opération entre décimaux
@@ -13,6 +17,7 @@ export const titre = 'Trouver un ordre de grandeur d\'opérations sur les décim
  * @author Sébastien Lozano
  */
 
+export const dateDeModificationImportante = '27/06/2024' // suppression de coquilles, nettoyage du code et interactivité. Jean-Claude Lhote
 export const uuid = '843e5'
 export const ref = '6N31-2'
 export const refs = {
@@ -21,26 +26,26 @@ export const refs = {
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 1
 function myOrdreOpe1 (c, d) {
-  if (c * d >= 60) {
-    return ['', '', '', '', '', miseEnEvidence('X')]
+  if (c * d > 50000) {
+    return ['', '', '', '', '', `${miseEnEvidence('\\text{X}')}`]
   } else {
-    return ['', '', '', '', miseEnEvidence('X'), '']
+    return ['', '', '', '', `${miseEnEvidence('\\text{X}')}`, '']
   }
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 2
 function myOrdreOpe2 (c1, c2) {
-  if (c1 + c2 / 10 >= 600) {
-    return ['', '', '', miseEnEvidence('X'), '', '']
+  if (c1 + c2 >= 500) {
+    return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
   } else {
-    return ['', '', miseEnEvidence('X'), '', '', '']
+    return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
   }
 }
 // une fonction pour ordre de grandeur en fonction de ... opération 3
 function myOrdreOpe3 (n) {
-  if (n >= 7) {
-    return ['', '', '', miseEnEvidence('X'), '', '']
+  if (n > 500) {
+    return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
   } else {
-    return ['', '', miseEnEvidence('X'), '', '', '']
+    return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
   }
 }
 export default function OrdreDeGrandeurOperationsDecimaux () {
@@ -56,24 +61,24 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     let sortie
     switch (d) {
       case 0.1:
-        if (n >= 7) {
-          sortie = ['', '', '', miseEnEvidence('X'), '', '']
+        if (n > 5000) {
+          sortie = ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
         } else {
-          sortie = ['', '', miseEnEvidence('X'), '', '', '']
+          sortie = ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
         }
         break
       case 0.01:
-        if (n >= 7) {
-          sortie = ['', '', miseEnEvidence('X'), '', '', '']
+        if (n > 5000) {
+          sortie = ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
         } else {
-          sortie = ['', miseEnEvidence('X'), '', '', '', '']
+          sortie = ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
         }
         break
       case 0.001:
-        if (n >= 7) {
-          sortie = ['', miseEnEvidence('X'), '', '', '', '']
+        if (n > 5000) {
+          sortie = ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
         } else {
-          sortie = [miseEnEvidence('X'), '', '', '', '', '']
+          sortie = [`${miseEnEvidence('\\text{X}')}`, '', '', '', '', '']
         }
         break
     }
@@ -84,13 +89,13 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
     let sortie
     switch (mult) {
       case 1:
-        return ['', '', '', miseEnEvidence('X'), '', '']
+        return ['', '', '', `${miseEnEvidence('\\text{X}')}`, '', '']
       case 10:
-        return ['', '', miseEnEvidence('X'), '', '', '']
+        return ['', '', `${miseEnEvidence('\\text{X}')}`, '', '', '']
       case 100:
-        return ['', miseEnEvidence('X'), '', '', '', '']
+        return ['', `${miseEnEvidence('\\text{X}')}`, '', '', '', '']
       case 1000:
-        return [miseEnEvidence('X'), '', '', '', '', '']
+        return [`\\text{${miseEnEvidence(('X'))}`, '', '', '', '', '']
     }
     return sortie
   }
@@ -125,8 +130,8 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
       const ligneEnteteCorr = ['\\text{Opération}', '\\phantom{000}' + texNombre(1) + '\\phantom{000}', '\\phantom{00}' + texNombre(10) + '\\phantom{00}', '\\phantom{00}' + texNombre(100) + '\\phantom{00}', '\\phantom{0}' + texNombre(1000) + '\\phantom{0}', texNombre(10000), texNombre(100000)]
 
       const m = randint(1, 9, [4, 5, 6])
-      const c1 = randint(1, 9)
-      const c2 = randint(1, 9)
+      const c1 = randint(1, 9, 5)
+      const c2 = randint(1, 9, 5)
       const c3 = randint(1, 9, [4, 5, 6])
       const c4 = randint(1, 4)
       const d = randint(1, 9)
@@ -147,84 +152,97 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
       const divAleatoireOpe3 = choice([10, 100])
       const divAleatoireOpe5 = choice([1, 10, 100, 1000])
       const multAleatoireOpe4 = choice([0.1, 0.01, 0.001])
+      const nb11 = cbis * 100 + d * 10 + u
+      const nb11Rounded = (cbis + (d > 4 ? 1 : 0)) * 100
+      const nb12 = d1bis * 10 + u1
+      const nb12Rounded = (d1bis + (u1 > 4 ? 1 : 0)) * 10
+      const nb21 = (c2 * 100 + d2 * 10 + u1) / 10
+      const nb21Rounded = 10 * (c2 + (d2 > 4 ? 1 : 0))
+      const nb22 = c1 * 100 + d1 * 10 + u1
+      const nb22Rounded = 100 * (c1 + (d1 > 4 ? 1 : 0))
+      const nb31 = c3 * 100 + d3 * 10 + u3
+      const nb31Rounded = 100 * (c3 + (d3 > 4 ? 1 : 0))
+      const nb32 = (c2 * 100 + d2 * 10 + u2) / divAleatoireOpe3
+      const nb32Rounded = 100 * (c2 + (d2 > 4 ? 1 : 0)) / divAleatoireOpe3
+      const nb41 = m * 1000 + c3 * 100 + d2 * 10 + u1
+      const nb41Rounded = 1000 * (m + (c3 > 4 ? 1 : 0))
+      const nb51 = (m * 1000 + c4 * 100 + d3 * 10 + u) / divAleatoireOpe5
+      const nb51Rounded = 1000 * (m + (c4 > 4 ? 1 : 0)) / divAleatoireOpe5
 
-      let situations = [
+      const situations = [
         {
-          operation: `${cbis * 100 + d * 10 + u * 1}\\times ${d1bis * 10 + u1 * 1}`,
-          operation_corr: `${cbis * 100 + d * 10 + u * 1}\\times ${d1bis * 10 + u1 * 1} \\simeq  ${(cbis * 100)}\\times ${(d1bis * 10)} \\text{ soit } ${texNombre((cbis * 100) * (d1bis * 10))}`,
-          operation_coche: myOrdreOpe1(cbis, d1bis)
+          operation: `${nb11}\\times ${nb12}`,
+          operation_corr: `${nb11}\\times ${nb12} \\approx  ${nb11Rounded}\\times ${nb12Rounded} \\text{, soit } ${texNombre(nb11Rounded * nb12Rounded, 0)}`,
+          operation_coche: myOrdreOpe1(nb11Rounded, nb12Rounded)
         },
         {
-          operation: `${texNombre((c2 * 100 + d2 * 10 + u1 * 1) / 10)}+${c1 * 100 + d1 * 10 + u1 * 1}`,
-          operation_corr: `${texNombre((c2 * 100 + d2 * 10 + u1 * 1) / 10)}+${c1 * 100 + d1 * 10 + u1 * 1} \\simeq ${c2 * 100 / 10}+${c1 * 100} \\text{ soit } ${c2 * 100 / 10 + c1 * 100}`,
-          operation_coche: myOrdreOpe2(c1 * 100, c2 * 100)
+          operation: `${texNombre(nb21, 1)}+${nb22}`,
+          operation_corr: `${texNombre(nb21, 1)}+${nb22} \\approx ${nb21Rounded}+${nb22Rounded} \\text{, soit } ${nb21Rounded + nb22Rounded}`,
+          operation_coche: myOrdreOpe2(nb21Rounded, nb22Rounded)
         },
         {
-          operation: `${c3 * 100 + d3 * 10 + u3 * 1}-${texNombre((c2 * 100 + d2 * 10 + u2 * 1) / divAleatoireOpe3)}`,
-          operation_corr: `${c3 * 100 + d3 * 10 + u3 * 1}-${texNombre((c2 * 100 + d2 * 10 + u2 * 1) / divAleatoireOpe3)} \\simeq ${c3 * 100 + d3 * 10}-${texNombre((c2 * 100) / divAleatoireOpe3)} \\text{ soit } ${c3 * 100 + d3 * 10 - (c2 * 100) / divAleatoireOpe3}`,
-          operation_coche: myOrdreOpe3(c3)
+          operation: `${nb31}-${texNombre(nb32, 2)}`,
+          operation_corr: `${nb31}-${texNombre(nb32, 2)} \\approx ${nb31Rounded}-${nb32Rounded} \\text{, soit } ${nb31Rounded - nb32Rounded}`,
+          operation_coche: myOrdreOpe3(nb31Rounded - nb32Rounded)
         },
         {
-          operation: `${texNombre(m * 1000 + c3 * 100 + d2 * 10 + u1 * 1)}\\times ${texNombre(multAleatoireOpe4)}`,
-          operation_corr: `${texNombre(m * 1000 + c3 * 100 + d2 * 10 + u1 * 1)}\\times ${texNombre(multAleatoireOpe4)} \\simeq ${texNombre(m * 1000)}\\times ${texNombre(multAleatoireOpe4)} \\text{ soit } ${texNombre(m * 1000 * multAleatoireOpe4)}`,
-          operation_coche: myOrdreOpe4(multAleatoireOpe4, m)
+          operation: `${texNombre(nb41)}\\times ${texNombre(multAleatoireOpe4, 3)}`,
+          operation_corr: `${texNombre(nb41, 0)}\\times ${texNombre(multAleatoireOpe4, 3)} \\approx ${texNombre(nb41Rounded)}\\times ${texNombre(multAleatoireOpe4, 3)} \\text{, soit } ${texNombre(nb41Rounded * multAleatoireOpe4, 0)}`,
+          operation_coche: myOrdreOpe4(multAleatoireOpe4, nb41Rounded)
         },
         {
-          operation: `${texNombre((m * 1000 + c4 * 100 + d3 * 10 + u * 1) / divAleatoireOpe5)}\\div ${m}`,
-          operation_corr: `${texNombre((m * 1000 + c4 * 100 + d3 * 10 + u * 1) / divAleatoireOpe5)}\\div ${m} \\simeq ${texNombre((m * 1000) / divAleatoireOpe5)}\\div ${m} \\text{ soit } ${texNombre((m * 1000) / divAleatoireOpe5 / m)}`,
+          operation: `${texNombre(nb51, 3)}\\div ${m}`,
+          operation_corr: `${texNombre(nb51, 3)}\\div ${m} \\approx ${texNombre(nb51Rounded, 3)}\\div ${m} \\text{, soit } ${texNombre(nb51Rounded / m, 0)}`,
           operation_coche: myOrdreOpe5(divAleatoireOpe5)
         }
-
       ]
 
-      situations = shuffle(situations)
-
-      const enonces = []
-      for (let k = 0; k < 1; k++) {
-        enonces.push({
-          enonce: `
-          ${tableauColonneLigne(ligneEntete, [situations[0].operation, situations[1].operation, situations[2].operation, situations[3].operation, situations[4].operation],
-            [
-              '', '', '', '', '', '',
-              '', '', '', '', '', '',
-              '', '', '', '', '', '',
-              '', '', '', '', '', '',
-              '', '', '', '', '', ''
-            ]
-          )}
-          `,
-          question: '',
-          correction: `
+      const tabValue = AddTabDbleEntryMathlive.convertTclToTableauMathlive(ligneEntete, [situations[0].operation, situations[1].operation, situations[2].operation, situations[3].operation, situations[4].operation],
+        [
+          '', '', '', '', '', '',
+          '', '', '', '', '', '',
+          '', '', '', '', '', '',
+          '', '', '', '', '', '',
+          '', '', '', '', '', ''
+        ]
+      )
+      const coches = [
+        situations[0].operation_coche[0], situations[0].operation_coche[1], situations[0].operation_coche[2], situations[0].operation_coche[3], situations[0].operation_coche[4], situations[0].operation_coche[5],
+        situations[1].operation_coche[0], situations[1].operation_coche[1], situations[1].operation_coche[2], situations[1].operation_coche[3], situations[1].operation_coche[4], situations[1].operation_coche[5],
+        situations[2].operation_coche[0], situations[2].operation_coche[1], situations[2].operation_coche[2], situations[2].operation_coche[3], situations[2].operation_coche[4], situations[2].operation_coche[5],
+        situations[3].operation_coche[0], situations[3].operation_coche[1], situations[3].operation_coche[2], situations[3].operation_coche[3], situations[3].operation_coche[4], situations[3].operation_coche[5],
+        situations[4].operation_coche[0], situations[4].operation_coche[1], situations[4].operation_coche[2], situations[4].operation_coche[3], situations[4].operation_coche[4], situations[4].operation_coche[5]
+      ]
+      const tableau = AddTabDbleEntryMathlive.create(this.numeroExercice, i, tabValue, 'tableauMathlive', this.interactif, {})
+      const material = {
+        enonce: tableau.output,
+        question: '',
+        correction: `
           Commençons par calculer un ordre de grandeur du résultat de chaque opération dans la première colonne du tableau.
           <br>
           ${tableauColonneLigne(ligneEnteteCorr, [situations[0].operation_corr, situations[1].operation_corr, situations[2].operation_corr, situations[3].operation_corr, situations[4].operation_corr],
-            [
-              situations[0].operation_coche[0], situations[0].operation_coche[1], situations[0].operation_coche[2], situations[0].operation_coche[3], situations[0].operation_coche[4], situations[0].operation_coche[5],
-              situations[1].operation_coche[0], situations[1].operation_coche[1], situations[1].operation_coche[2], situations[1].operation_coche[3], situations[1].operation_coche[4], situations[1].operation_coche[5],
-              situations[2].operation_coche[0], situations[2].operation_coche[1], situations[2].operation_coche[2], situations[2].operation_coche[3], situations[2].operation_coche[4], situations[2].operation_coche[5],
-              situations[3].operation_coche[0], situations[3].operation_coche[1], situations[3].operation_coche[2], situations[3].operation_coche[3], situations[3].operation_coche[4], situations[3].operation_coche[5],
-              situations[4].operation_coche[0], situations[4].operation_coche[1], situations[4].operation_coche[2], situations[4].operation_coche[3], situations[4].operation_coche[4], situations[4].operation_coche[5]
-            ]
+            coches
           )}`
-        })
       }
-
+      const reponses = Object.assign({}, Object.fromEntries(coches.map((el, index) => [`L${Math.floor(index / 6) + 1}C${(index % 6) + 1}`, Object.assign({}, { value: el !== '' ? '\\times' : '' })]).filter(el => el[1].value !== '')))
+      console.log(reponses)
+      handleAnswers(this, i, reponses)
       // autant de case que d'elements dans le tableau des situations
       switch (listeTypeDeQuestions[i]) {
         case 0:
-          texte = `${enonces[0].enonce}`
+          texte = `${material.enonce}`
           if (this.beta) {
             texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
+            texte += `<br> =====CORRECTION======<br>${material.correction}`
             texte += '             '
             texteCorr = ''
           } else {
-            texteCorr = `${enonces[0].correction}`
+            texteCorr = `${material.correction}`
           }
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, nb11, nb21, nb31, nb41)) { // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
