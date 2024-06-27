@@ -1,5 +1,25 @@
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable comma-dangle */
+/* Thèmes
+   Combinatoire
+   Convexité
+   Équations différentielles
+   Espace
+   Exponentielle
+   Fonctions trigonométriques
+   Logarithme
+   Loi binomiale
+   Primitives
+   Probabilités conditionnelles
+   Python
+   QCM
+   Suites
+   Variables aléatoires
+   Vrai/Faux
+   TVI
+   Tableur
+   Dénombrement
+*/
 export const dictionnaireBAC = {
   bac_2021_01_sujet0_1: {
     annee: '2021',
@@ -2978,7 +2998,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2024_05_sujet1_ameriquenord_2: {
     annee: '2024',
@@ -2991,7 +3011,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_2_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_05_sujet1_ameriquenord_3: {
     annee: '2024',
@@ -3004,7 +3024,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_3_cor.tex',
-    tags: ['']
+    tags: ['Logaritme', 'TVI']
   },
   bac_2024_05_sujet1_ameriquenord_4: {
     annee: '2024',
@@ -3017,7 +3037,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet1_ameriquenord_4_cor.tex',
-    tags: ['']
+    tags: ['Primitives', 'Suites', 'Python']
   },
   bac_2024_05_sujet2_ameriquenord_1: {
     annee: '2024',
@@ -3030,7 +3050,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2024_05_sujet2_ameriquenord_2: {
     annee: '2024',
@@ -3043,7 +3063,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_2_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_05_sujet2_ameriquenord_3: {
     annee: '2024',
@@ -3056,7 +3076,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_3_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
   bac_2024_05_sujet2_ameriquenord_4: {
     annee: '2024',
@@ -3069,7 +3089,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_05_sujet2_ameriquenord_4_cor.tex',
-    tags: ['']
+    tags: ['Logarithme', 'Primitives']
   },
   bac_2024_06_sujet1_etrangers_1: {
     annee: '2024',
@@ -3082,7 +3102,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles']
   },
   bac_2024_06_sujet1_etrangers_2: {
     annee: '2024',
@@ -3095,7 +3115,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_2_cor.tex',
-    tags: ['']
+    tags: ['Exponentielle', 'Suites', 'Python']
   },
   bac_2024_06_sujet1_etrangers_3: {
     annee: '2024',
@@ -3108,7 +3128,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_3_cor.tex',
-    tags: ['']
+    tags: ['Équations différentielles', 'Fonctions trigonométriques']
   },
   bac_2024_06_sujet1_etrangers_4: {
     annee: '2024',
@@ -3121,7 +3141,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_etrangers_4_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet2_etrangers_1: {
     annee: '2024',
@@ -3134,7 +3154,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binoniale', 'Variables aléatoires']
   },
   bac_2024_06_sujet2_etrangers_2: {
     annee: '2024',
@@ -3147,7 +3167,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_2_cor.tex',
-    tags: ['']
+    tags: ['Exponentielle', 'Convexité', 'TVI']
   },
   bac_2024_06_sujet2_etrangers_3: {
     annee: '2024',
@@ -3160,7 +3180,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_3_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet2_etrangers_4: {
     annee: '2024',
@@ -3173,7 +3193,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_etrangers_4_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
 
 }
