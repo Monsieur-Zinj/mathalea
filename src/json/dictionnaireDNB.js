@@ -1,5 +1,40 @@
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable comma-dangle */
+/*
+  Vrai-faux
+  Agrandissement-réduction
+  Aires et périmètres
+  Algorithmique-programmation
+  Arithmétique
+  Calcul littéral
+  Calcul numérique
+  Coordonnées terrestres
+  Durées
+  Équations
+  Fonctions
+  Fractions
+  Géométrie dans l'espace
+  Géométrie plane
+  Grandeurs composées
+  Lecture graphique
+  Recherche d\'informations
+  Statistiques
+  Pourcentages
+  Prise d\'initiatives
+  Probabilités
+  Programme de calculs
+  Proportionnalité
+  Puissances
+  Pythagore
+  QCM
+  Tableur
+  Thalès
+  Transformations
+  Trigonométrie
+  Volumes
+  Vitesses
+*/
+
 export const dictionnaireDNB = {
   dnb_2013_04_pondichery_1: {
     annee: '2013',
@@ -8212,7 +8247,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1_cor.tex',
-    tags: ['']
+    tags: ['Vrai-faux', 'Statistiques', 'Vitesses', 'Probabilités', 'Agrandissement-réduction']
   },
   dnb_2024_05_ameriquenord_2: {
     annee: '2024',
@@ -8224,7 +8259,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
-    tags: ['']
+    tags: ['Programme de calcul', 'Calcul littéral', 'Équations']
   },
   dnb_2024_05_ameriquenord_3: {
     annee: '2024',
@@ -8236,7 +8271,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3_cor.tex',
-    tags: ['']
+    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
   },
   dnb_2024_05_ameriquenord_4: {
     annee: '2024',
@@ -8248,7 +8283,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4_cor.tex',
-    tags: ['']
+      tags: ['Géométrie plane', 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
   },
   dnb_2024_05_ameriquenord_5: {
     annee: '2024',
@@ -8260,7 +8295,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5_cor.tex',
-    tags: ['']
+    tags: ['Thalès', 'Programme de calculs']
   },
 
 }
