@@ -1,4 +1,4 @@
-import { codageAngle } from '../../lib/2d/angles.js'
+import { codageAngle } from '../../lib/2d/angles'
 import { droite } from '../../lib/2d/droites.js'
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { polygone } from '../../lib/2d/polygones.js'
@@ -6,19 +6,25 @@ import { demiDroite, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { labelPoint, texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { texcolors, texteGras } from '../../lib/format/style'
-import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
+import { lettreDepuisChiffre, numAlpha, reverseString } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
+const cleaner = generateCleaner(['parentheses', 'espaces'])
 export const titre = 'Appliquer les propriétés de conservation de la symétrie axiale'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '26/10/2020'
-export const dateDeModifImportante = '23/04/2023' // EE : Rajout du paramètre du nombre de symétriques
+export const dateDeModifImportante = '27/06/2024' // EE : Rajout du paramètre du nombre de symétriques // interactivité ajouté par Jean-Claude Lhote
 
 /**
  * @author Jean-Claude Lhote
@@ -145,6 +151,7 @@ export default function SymetrieAxialeConservation1 () {
 
       texte = 'Dans la symétrie d\'axe (d), répondre aux questions suivantes.<br>'
       for (let ii = 0, s1, s2, texteAMC, choix; ii < this.sup3;) {
+        let reponse
         switch (listeTypeDeQuestions[ii]) {
           case 'Segment':
             choix = randint(0, 10) + randint(0, 1) * 12
@@ -155,6 +162,7 @@ export default function SymetrieAxialeConservation1 () {
             s1.epaisseur = 2
             s2.epaisseur = 2
             objetsCorrection.push(s1, s2)
+            reponse = `[${noms[index(choix + 12)]}${noms[index(choix + 13)]}]`
             break
           case 'Droite':
             choix = randint(0, 10) + randint(0, 1) * 12
@@ -162,6 +170,7 @@ export default function SymetrieAxialeConservation1 () {
             texteCorr += numAlpha(ii) + `Le symétrique de la droite $(${noms[index(choix)]}${noms[index(choix + 1)]})$ est la droite $(${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.<br>`
             objetsCorrection.push(droite(points[index(choix)], points[index(choix + 1)], '', texcolors(ii * 3 + 2)))
             objetsCorrection.push(droite(points[index(choix + 12)], points[index(choix + 13)], '', texcolors(ii * 3 + 2)))
+            reponse = `(${noms[index(choix + 12)]}${noms[index(choix + 13)]})`
             break
           case '1/2droite':
             choix = randint(0, 10) + randint(0, 1) * 12
@@ -169,6 +178,7 @@ export default function SymetrieAxialeConservation1 () {
             texteCorr += numAlpha(ii) + `Le symétrique de la demi-droite $[${noms[index(choix)]}${noms[index(choix + 1)]})$ est la demi-droite $[${noms[index(choix + 12)]}${noms[index(choix + 13)]})$.<br>`
             objetsCorrection.push(demiDroite(points[index(choix)], points[index(choix + 1)], texcolors(ii * 3 + 2)))
             objetsCorrection.push(demiDroite(points[index(choix + 12)], points[index(choix + 13)], texcolors(ii * 3 + 2)))
+            reponse = `[${noms[index(choix + 12)]}${noms[index(choix + 13)]})`
             break
           case 'Triangle':
             choix = randint(0, 9) + randint(0, 1) * 12
@@ -179,6 +189,7 @@ export default function SymetrieAxialeConservation1 () {
             texteCorr += numAlpha(ii) + `Le symétrique du triangle $${noms[index(choix)]}${noms[index(choix + 1)]}${noms[index(choix + 2)]}$ est le triangle $${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}$.<br>`
             objetsCorrection.push(polygone([points[index(choix)], points[index(choix + 1)], points[index(choix + 2)]], texcolors(ii * 3 + 2)))
             objetsCorrection.push(polygone([points[index(choix + 12)], points[index(choix + 13)], points[index(choix + 14)]], texcolors(ii * 3 + 2)))
+            reponse = `${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}`
             break
           case 'Angle':
             choix = randint(0, 9) + randint(0, 1) * 12
@@ -193,10 +204,126 @@ export default function SymetrieAxialeConservation1 () {
             objetsCorrection.push(segment(points[index(choix + 1)], points[index(choix + 2)], texcolors(ii * 3 + 2)))
             objetsCorrection.push(segment(points[index(choix + 12)], points[index(choix + 13)], texcolors(ii * 3 + 2)))
             objetsCorrection.push(segment(points[index(choix + 13)], points[index(choix + 14)], texcolors(ii * 3 + 2)))
-
+            reponse = `\\whidehat{${noms[index(choix + 12)]}${noms[index(choix + 13)]}${noms[index(choix + 14)]}}`
             break
         }
 
+        if (this.interactif) {
+          const typeDeQuestion = listeTypeDeQuestions[ii]
+          const callback = function (exercice, question) {
+            let feedback = ''
+            const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`)
+            let saisie = cleaner(mfe.value)
+            let isOk = false
+            switch (typeDeQuestion) {
+              case 'Segment':
+                if (saisie.startsWith('[') && saisie.endsWith(']')) {
+                  saisie = saisie.slice(1, -1)
+                  reponse = reponse.slice(1, -1)
+                  if (saisie === reponse || saisie === reverseString(reponse)) {
+                    isOk = true
+                    feedback = ''
+                    break
+                  } else {
+                    isOk = false
+                    feedback = ''
+                    break
+                  }
+                }
+                isOk = false
+                feedback = 'Un segment doit se noter entre crochets.'
+                break
+              case 'Droite':
+                if (saisie.startsWith('(') && saisie.endsWith(')')) {
+                  saisie = saisie.slice(1, -1)
+                  reponse = reponse.slice(1, -1)
+                  if (saisie === reponse || saisie === reverseString(reponse)) {
+                    isOk = true
+                    feedback = ''
+                    break
+                  } else {
+                    isOk = false
+                    feedback = ''
+                    break
+                  }
+                }
+                isOk = false
+                feedback = 'Une droite doit se noter entre parenthèses.'
+                break
+
+              case '1/2droite':
+                if (saisie.startsWith('[') && saisie.endsWith(')')) {
+                  saisie = saisie.slice(1, -1)
+                  reponse = reponse.slice(1, -1)
+                  if (saisie === reponse) {
+                    isOk = true
+                    feedback = ''
+                    break
+                  } else {
+                    isOk = false
+                    feedback = ''
+                    break
+                  }
+                }
+                isOk = false
+                feedback = 'Une demi-droite doit se noter avec un crochet et une parenthèse.'
+                break
+
+              case 'Triangle':
+                if (saisie.length === 3) {
+                  if (reponse.includes(saisie[0]) && reponse.includes(saisie[1]) && reponse.includes(saisie[2])) {
+                    isOk = true
+                    feedback = ''
+                    break
+                  } else {
+                    isOk = false
+                    feedback = ''
+                    break
+                  }
+                }
+                isOk = false
+                feedback = 'Un triangle est défini par trois points'
+                break
+
+              case 'Angle':
+                if (saisie.startsWith('\\widehat{')) {
+                  saisie = saisie.slice(9, -1)
+                  if (saisie.length === 3) {
+                    if (reponse.includes(saisie[0]) && reponse.includes(saisie[1]) && reponse.includes(saisie[2])) {
+                      isOk = true
+                      feedback = ''
+                      break
+                    } else {
+                      isOk = false
+                      feedback = ''
+                      break
+                    }
+                  }
+                  isOk = false
+                  feedback = 'Un triangle est défini par trois points'
+                  break
+                }
+                isOk = false
+                feedback = 'Un angle doit avoir un chapeau.'
+                break
+            }
+            const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+            if (spanReponseLigne != null) {
+              spanReponseLigne.innerHTML = isOk ? '😎' : '☹️'
+            }
+
+            return {
+              isOk,
+              feedback,
+              score: {
+                nbBonnesReponses: isOk ? 1 : 0,
+                nbReponses: 1
+              }
+            }
+          }
+          texteAMC += ajouteChampTexteMathLive(this, i * this.sup3 + ii, 'inline largeur01 angles') + ajouteFeedback(this, i * this.sup3 + ii)
+          handleAnswers(this, i * this.sup3 + ii, { reponse: { value: reponse }, callback })
+        }
         if (context.isAmc) {
           this.autoCorrection[i].propositions.push(
             {
@@ -224,8 +351,7 @@ export default function SymetrieAxialeConservation1 () {
         objetsEnonce.push(labelPoint(points[ii]), tracePoint(points[ii], 'blue'))
         objetsCorrection.push(labelPoint(points[ii]), tracePoint(points[ii], 'blue'))
       }
-
-      const enonceAMC = ('<br>' + mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' }, objetsEnonce))
+      const enonceAMC = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objetsEnonce)), objetsEnonce)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = 'Pour chaque question ci-dessous, placer sur cette figure, l\'objet mathématique cité puis tracer son symétrique. Répondre ensuite à la question.<br>' + enonceAMC + '<br>'
         this.autoCorrection[i].enonceAvant = false
@@ -233,7 +359,7 @@ export default function SymetrieAxialeConservation1 () {
       }
 
       texte += enonceAMC
-      texteCorr += (mathalea2d({ xmin: -6, ymin: -6, xmax: 6, ymax: 6, pixelsParCm: 40, scale: 1 }, objetsCorrection))
+      texteCorr += (mathalea2d(Object.assign({ pixelsParCm: 30, scale: 1 }, fixeBordures(objetsCorrection)), objetsCorrection))
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

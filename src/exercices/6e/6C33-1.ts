@@ -33,7 +33,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets']
+    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets', '']
     this.sup2 = 4
     // Ce paramètre n'aura de sens que si la correction fournie ne comporte pas de parenthèses inutiles conformément au paramètre
     // this.besoinFormulaire3CaseACocher = ['Sanctionner les parenthèses inutiles', false]
