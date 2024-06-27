@@ -129,36 +129,24 @@ function handleClick (event: MouseEvent) {
    */
   async function setSize (force : boolean = false) {
     const zoomByVues = Array.apply(null, Array(nbOfVues)).map(Number.prototype.valueOf, 0)
-    for (let kk = 0; kk < 3; kk++) {
+    for (let vueNumber = 0; vueNumber < 3; vueNumber++) {
       // premiere passe : on selectionne le meilleur zoom par vue (size)
       // deuxième passe : on applique le zoom minimum des différentes vues
       // troisième passe : on applique le zoom de l'utilisateur
       const zoomMin = Math.min(...zoomByVues)
-      if (force) { kk = 2 }
+      if (force) { vueNumber = 2 }
       for (let i = 0; i < nbOfVues; i++) {
         if (typeof divQuestion[i] !== 'undefined') {
           mathaleaRenderDiv(divQuestion[i], -1)
-          const diapocellDiv = document.getElementById(
-            'diapocell' + i
-          ) as HTMLDivElement
-          const textcellDiv = document.getElementById(
-            'textcell' + i
-          ) as HTMLDivElement
-          const consigneDiv = document.getElementById(
-            'consigne' + i
-          ) as HTMLDivElement
-          const questionDiv = document.getElementById(
-            'question' + i
-          ) as HTMLDivElement
-          const correctionDiv = document.getElementById(
-            'correction' + i
-          ) as HTMLDivElement
-
+          const diapocellDiv = document.getElementById('diapocell' + i) as HTMLDivElement
+          const textcellDiv = document.getElementById('textcell' + i) as HTMLDivElement
+          const consigneDiv = document.getElementById('consigne' + i) as HTMLDivElement
+          const questionDiv = document.getElementById('question' + i) as HTMLDivElement
+          const correctionDiv = document.getElementById('correction' + i) as HTMLDivElement
           if (diapocellDiv === null) {
             // ca sert à rien de continuer
             continue
           }
-
           // Donner la bonne taille au texte
           let consigneHeight,
             correctionHeight,
@@ -167,8 +155,8 @@ function handleClick (event: MouseEvent) {
             consigneWidth,
             correctionWidth: number
 
-          let zoom = kk === 0 ? 10 : kk === 1 ? zoomMin : userZoom * currentZoom
-          if (kk === 1) currentZoom = zoomMin
+          let zoom = vueNumber === 0 ? 10 : vueNumber === 1 ? zoomMin : userZoom * currentZoom
+          if (vueNumber === 1) currentZoom = zoom
           const svgContainers = textcellDiv.getElementsByClassName('svgContainer')
           const textcellWidth = textcellDiv.clientWidth
           const textcellHeight = textcellDiv.clientHeight
@@ -180,7 +168,7 @@ function handleClick (event: MouseEvent) {
                 updateFigures(svgContainer as HTMLDivElement, zoom)
               }
             }
-            if (zoom >= 1) textcellDiv.style.fontSize = `${zoom}rem`
+            textcellDiv.style.fontSize = `${zoom > 1 ? zoom : 1}rem`
 
             if (questionDiv !== null) {
               questionHeight = questionDiv.clientHeight
@@ -213,12 +201,14 @@ function handleClick (event: MouseEvent) {
                 questionHeight + consigneHeight + correctionHeight > textcellHeight)) {
               zoom -= (zoom > 5 ? 0.5 : 0.2)
             }
-          // eslint-disable-next-line no-unmodified-loop-condition
-          } while (zoom > 0.6 && kk === 0 &&
-              (questionWidth > textcellWidth ||
+          } while ( // eslint-disable-next-line no-unmodified-loop-condition
+            zoom > 0.6 && vueNumber === 0 &&
+              (
+                questionWidth > textcellWidth ||
                 consigneWidth > textcellWidth ||
                 correctionWidth > textcellWidth ||
-                questionHeight + consigneHeight + correctionHeight > textcellHeight)
+                questionHeight + consigneHeight + correctionHeight > textcellHeight
+              )
           )
           zoomByVues[i] = zoom
         }
@@ -244,11 +234,11 @@ function handleClick (event: MouseEvent) {
   }
 
   function handleShortcut (e: KeyboardEvent) {
-    if (e.key === '+') {
+    if (e.key === '+' && !e.metaKey && !e.ctrlKey) {
       e.preventDefault()
       zoomPlus()
     }
-    if (e.key === '-') {
+    if (e.key === '-' && !e.metaKey && !e.ctrlKey) {
       e.preventDefault()
       zoomMoins()
     }
@@ -345,16 +335,14 @@ function handleClick (event: MouseEvent) {
   }
   async function switchCorrectionMode () {
     if (isQuestionVisible && !isCorrectionVisible) {
-      isCorrectionVisible = !isCorrectionVisible
-    } else {
-      if (isQuestionVisible && isCorrectionVisible) {
-        isQuestionVisible = !isQuestionVisible
-      } else {
-        if (!isQuestionVisible && isCorrectionVisible) {
-          isQuestionVisible = !isQuestionVisible
-          isCorrectionVisible = !isCorrectionVisible
-        }
-      }
+      isQuestionVisible = false
+      isCorrectionVisible = true
+    } else if (isQuestionVisible && isCorrectionVisible) {
+      isQuestionVisible = true
+      isCorrectionVisible = false
+    } else if (!isQuestionVisible && isCorrectionVisible) {
+      isQuestionVisible = true
+      isCorrectionVisible = true
     }
     await tick()
     setSize()
