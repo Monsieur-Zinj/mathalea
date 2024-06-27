@@ -11,13 +11,13 @@
   const isSelectedExercises: boolean = selectedExercisesIndexes.length > 0
   let selectedExercisesCount: number = selectedExercisesIndexes.length
 
-function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
-  let selection: number[] | undefined
-  if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
-    selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
+    let selection: number[] | undefined
+    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
+      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+    }
+    updateSelect(selection)
   }
-  updateSelect(selection)
-}
 
 </script>
 

@@ -75,12 +75,11 @@
   }
 
   async function updateExercises (updatedExercises?: Exercice[]) {
-    const newExercises: Exercice[] = updatedExercises ?? exercises
-    setSlidesContent(newExercises)
+    if (updatedExercises) exercises = updatedExercises
+    setSlidesContent(exercises)
     adjustQuestionsOrder()
-    updateExerciseParams(newExercises)
+    updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    exercises = newExercises // Pour ne mettre à jour qu'une seule fois les $: if (exercises) { ... }
   }
 
   function setSlidesContent (newExercises: Exercice[]) {
