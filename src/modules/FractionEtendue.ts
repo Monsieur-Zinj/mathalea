@@ -593,7 +593,7 @@ class FractionEtendue {
 
   /**
  * @param {FractionEtendue  | number} f
- * @return {FractionEtendue} la FractionEtendue - f résultat simplifié
+ * @return {FractionEtendue} la FractionEtendue - f résultat non simplifié
  */
   differenceFraction (f: FractionEtendue|number) {
     if (!(f instanceof FractionEtendue)) {
