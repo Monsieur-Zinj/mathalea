@@ -363,7 +363,7 @@ export default class ProblemesEnEquation extends Exercice {
           x = variables.x
           equation = `x*${b}+(${a}-x)*${c}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
-          enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et pour un enfant il est de $${texPrix(c)}$ €.<br>`
+          enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et, pour un enfant, il est de $${texPrix(c)}$ €.<br>`
           enonce += `Le spectacle de ce soir s'est déroulé devant une salle pleine et la recette est de $${texPrix(d)}$ €.<br>`
           enonce += 'Combien d\'adultes y avait-il dans la salle ?'
           intro = 'Posons $x$ le nombre de places adultes vendues.<br>'
@@ -389,9 +389,9 @@ export default class ProblemesEnEquation extends Exercice {
           d = variables.d
           enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
           if (c > 0) { // La base est le plus grand côté
-            enonce += `Sa base est plus grande que les côtés égaux de $${c}$ mm.`
+            enonce += `Sa base est plus longue de $${c}$ mm que chacun des côtés égaux.`
           } else { // La base est plus petite que les autres côtés
-            enonce += `Sa base est plus petite que les côtés égaux de $${-c}$ mm.`
+            enonce += `Sa base est plus courte de $${-c}$ mm que chacun des côtés égaux.`
           }
           if (choice([true, false])) {
             enonce += '<br>Quelle est la mesure de sa base' + (context.isAmc ? ', en mm' : '') + ' ? (La figure n\'est pas en vraie grandeur.)'
