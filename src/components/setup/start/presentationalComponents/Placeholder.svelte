@@ -10,9 +10,9 @@
   <div
     class="flex flex-col justify-between h-full text-coopmaths-corpus dark:text-coopmathsdark-corpus md:px-10 py-6"
   >
-    <div class="bg-coopmaths-canvas">
-      <span class="text-coopmaths-canvas">&nbsp;</span>
-    </div>
+    <!-- <div class="bg-coopmaths-canvas">
+      <span class="text-coopmaths-canvas">&nbsp;</span>  <- Décommenter si pas d'Advertising
+    </div> -->
     <div>
       <Advertising />
     </div>
