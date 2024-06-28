@@ -205,7 +205,7 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
   const proba1 = fraction(nbBouleC, card)
   const proba2 = fraction(n1[choix2] + n2[choix2], card1 + card2)
   const urne = pileOuFace === 'Pile' ? 'première' : 'deuxième'
-  texte += `${numAlpha(q)} On vient de faire «${pileOuFace}». Donner la probabilité d'obtenir une boule ${boules[choix1]}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur15 inline') + '<br>'
+  texte += `${numAlpha(q)} La pièce vient de tomber sur «${pileOuFace}». Donner la probabilité d'obtenir une boule ${boules[choix1]}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur15 inline') + '<br>'
   q++
   texte += `${numAlpha(q)} On recommence l'expérience au début. Donner la probabilité d'obtenir une boule ${boules[choix2]}.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur15 inline') + '<br>'
   q++
