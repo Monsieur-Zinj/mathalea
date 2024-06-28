@@ -1,5 +1,6 @@
 <script lang="ts">
   import Footer from '../../../Footer.svelte'
+  import Advertising from './Advertising.svelte'
 
   export let text: string
 
@@ -11,6 +12,9 @@
   >
     <div class="bg-coopmaths-canvas">
       <span class="text-coopmaths-canvas">&nbsp;</span>
+    </div>
+    <div>
+      <Advertising />
     </div>
     <div
       class="animate-pulse flex flex-col md:flex-row justify-start space-x-6 items-center"
