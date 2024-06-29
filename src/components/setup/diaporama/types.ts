@@ -11,6 +11,12 @@ export type Vue = {
   consigne: string
   question: string
   correction: string
+  consigneSvgs: string[]
+  questionSvgs: string[]
+  correctionSvgs: string[]
+  consigneText: string
+  questionText: string
+  correctionText: string
 }
 
 export type Slide = {

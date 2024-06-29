@@ -98,10 +98,22 @@
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
           if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
+          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : '')
+          const question = mathaleaFormatExercice(exercise.listeQuestions[i])
+          const correction = mathaleaFormatExercice(exercise.listeCorrections[i])
+          const { svgs: questionSvgs, text: questionText } = splitSvgFromText(question)
+          const { svgs: consigneSvgs, text: consigneText } = splitSvgFromText(consigne)
+          const { svgs: correctionSvgs, text: correctionText } = splitSvgFromText(correction)
           slide.vues.push({
-            consigne: mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : ''),
-            question: mathaleaFormatExercice(exercise.listeQuestions[i]),
-            correction: mathaleaFormatExercice(exercise.listeCorrections[i])
+            consigne,
+            question,
+            correction,
+            consigneSvgs,
+            consigneText,
+            questionSvgs,
+            questionText,
+            correctionSvgs,
+            correctionText
           })
         }
         slides.push(slide)
@@ -125,6 +137,26 @@
       exercise.nouvelleVersionWrapper?.()
     }
     exercise.seed = oldSeed
+  }
+
+  function splitSvgFromText (sourceText: string) {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(sourceText, 'text/html')
+    const containers = doc.querySelectorAll('div.svgContainer')
+    const svgs = Array.from(containers).map(container => container.outerHTML)
+    const text = removeSvgContainers(doc.body.innerHTML, svgs)
+    return {
+      svgs,
+      text
+    }
+  }
+
+  function removeSvgContainers (wholeQuestion: string, svgContainers: string[]) {
+    let questionWithoutSvgContainers = wholeQuestion
+    svgContainers.forEach(svgContainer => {
+      questionWithoutSvgContainers = questionWithoutSvgContainers.replace(svgContainer, '')
+    })
+    return questionWithoutSvgContainers
   }
 
   function adjustQuestionsOrder () {
@@ -179,6 +211,16 @@
     })
     updateExercises()
   }
+
+  function handleQuit () {
+    if ($globalOptions.v !== 'diaporama') {
+      globalOptions.update((l) => {
+        l.v = 'diaporama'
+        return l
+      })
+    }
+    slideshow.currentQuestion = -1
+  }
 </script>
 
 <svelte:head>
@@ -195,6 +237,7 @@
       {exercises}
       {slideshow}
       {updateExercises}
+      {handleQuit}
     />
   {:else}
     {#if slideshow.currentQuestion === -1}
@@ -210,6 +253,7 @@
         {handleChangeDurationGlobal}
         {slideshow}
         {transitionSounds}
+        {handleQuit}
       />
     {/if}
   {/if}

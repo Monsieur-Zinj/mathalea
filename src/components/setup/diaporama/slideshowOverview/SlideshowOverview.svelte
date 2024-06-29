@@ -11,6 +11,7 @@
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
   export let updateExercises: () => void
+  export let handleQuit: () => void
 
   type Serie = {
     consignes: string[]
@@ -125,6 +126,7 @@
       {setCorrectionVisible}
       {handleCorrectionsStepsClick}
       {newDataForAll}
+      {handleQuit}
     />
     <SlideshowOverviewMainPanel
       {isQuestionsVisible}

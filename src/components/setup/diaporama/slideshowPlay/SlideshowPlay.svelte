@@ -14,6 +14,7 @@
   export let dataFromSettings: DataFromSettings
   export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: Record<string, HTMLAudioElement>
+  export let handleQuit: () => void
 
   let currentZoom: number
   const divQuestion: HTMLDivElement[] = []
@@ -351,15 +352,11 @@ function handleClick (event: MouseEvent) {
   function returnToStart () {
     goToQuestion(0)
   }
-
-  function handleQuit () {
-    slideshow.currentQuestion = -1
-  }
 </script>
 
 <svelte:window on:keydown={handleShortcut} />
 
-{#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber}
+{#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber && slideshow.currentQuestion > -1}
   <div
     id="diap"
     class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
@@ -374,12 +371,12 @@ function handleClick (event: MouseEvent) {
       {goToQuestion}
     />
     <SlideshowPlayQuestion
-      {currentSlide}
-      currentQuestionNumber={slideshow.currentQuestion}
       {divQuestion}
-      {slideshow}
       {isQuestionVisible}
       {isCorrectionVisible}
+      {currentSlide}
+      currentQuestion={slideshow.currentQuestion}
+      selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
     />
     <SlideshowPlaySettings
       flow={$globalOptions.flow}
@@ -412,6 +409,7 @@ function handleClick (event: MouseEvent) {
       {QRCodeWidth}
       {formatQRCodeIndex}
       {returnToStart}
+      {handleQuit}
     />
   </div>
 {/if}
