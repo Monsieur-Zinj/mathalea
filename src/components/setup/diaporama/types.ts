@@ -30,3 +30,9 @@ export type Slideshow = {
   currentQuestion: number
   selectedQuestionsNumber: number
 }
+
+export type Serie = {
+  consignes: string[]
+  questions: string[]
+  corrections: string[]
+}

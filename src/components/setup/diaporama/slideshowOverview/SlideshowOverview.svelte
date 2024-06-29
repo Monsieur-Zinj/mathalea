@@ -1,10 +1,10 @@
 <script lang="ts">
   import type Exercice from '../../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../../lib/types'
-  import type { Slideshow } from '../types'
+  import type { Serie, Slideshow } from '../types'
   import BtnZoom from '../../../shared/ui/btnZoom.svelte'
   import SlideshowOverviewLeftPanel from './presentationalComponent/SlideshowOverviewLeftPanel.svelte'
-  import SlideshowOverviewMainPanel from './presentationalComponent/SlideshowOverviewMainPanel.svelte'
+  import SlideshowOverviewMainPanel from './presentationalComponent/mainPanel/SlideshowOverviewMainPanel.svelte'
   import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
   import { globalOptions, darkMode, exercicesParams } from '../../../../lib/stores/generalStore'
 
@@ -13,12 +13,7 @@
   export let updateExercises: () => void
   export let handleQuit: () => void
 
-  type Serie = {
-    consignes: string[]
-    questions: string[]
-    corrections: string[]
-  }
-  let currentVue: 0 | 1 | 2 | 3 | 4 = 0
+  let currentSeriesIndex: 0 | 1 | 2 | 3 | 4 = 0
   let isCorrectionVisible = false
   let isQuestionsVisible = true
   let divExercice: HTMLElement
@@ -59,7 +54,7 @@
   }
 
   function setCurrentVue (vue: 0 | 1 | 2 | 3 | 4) {
-    currentVue = vue
+    currentSeriesIndex = vue
   }
 
   async function setQuestionsVisible (questionsVisibility: boolean) {
@@ -119,7 +114,7 @@
     <SlideshowOverviewLeftPanel
       {isQuestionsVisible}
       {isCorrectionVisible}
-      {currentVue}
+      currentVue={currentSeriesIndex}
       {nbOfVues}
       {setCurrentVue}
       {setQuestionsVisible}
@@ -131,8 +126,7 @@
     <SlideshowOverviewMainPanel
       {isQuestionsVisible}
       {isCorrectionVisible}
-      {currentVue}
-      {nbOfVues}
+      {currentSeriesIndex}
       {order}
       {series}
       {divExercice}
