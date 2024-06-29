@@ -33,7 +33,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.nbQuestions = 1
     this.sup = false
     this.besoinFormulaireCaseACocher = ['Inclure des divisions']
-    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets', '']
+    this.besoinFormulaire2Texte = ['Nombre de calculs (2 à 4) séparés par des tirets', '2 : 2 opérations successives\n3 : 3 opérations successives\n4 : 4 opérations successives\n5 : Mélange']
     this.sup2 = 4
     // Ce paramètre n'aura de sens que si la correction fournie ne comporte pas de parenthèses inutiles conformément au paramètre
     // this.besoinFormulaire3CaseACocher = ['Sanctionner les parenthèses inutiles', false]
@@ -48,11 +48,9 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
     this.autoCorrection = []
     const computeEngine = new ComputeEngine()
     const avecDivision = !!this.sup
-    const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4 })
+    const nombreDeCalculs = gestionnaireFormulaireTexte({ shuffle: false, saisie: this.sup2, nbQuestions: this.nbQuestions, min: 2, max: 4, defaut: 4, melange: 5 })
     const noUselessParen = false // Pour l'instant, on ne peu pas se permettre de ne pas les accepter car elles figurent dans la correction.
-    const typeQuestionsDisponibles = ['Enchaînement simple']
-    if (nombreDeCalculs > 1) typeQuestionsDisponibles.push('1 -> 3')
-    if (nombreDeCalculs > 3) typeQuestionsDisponibles.push('1 -> 4', '2 -> 4')
+    const typeQuestionsDisponibles = ['Enchaînement simple', '1 -> 3', '1 -> 4', '2 -> 4']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
@@ -80,6 +78,7 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
         case 2:
           switch (listeTypeQuestions[i]) {
             case '1 -> 3':
+            case '2 -> 4': // c'est juste pour équilibrer les cas
               calcul1 = `${nombres[1]} ${signes[0]} ${nombres[2]}`
               resultat1 = computeEngine.parse(calcul1).simplify().latex
               calcul2 = `${nombres[0]} ${signes[1]} ${resultat1}`
@@ -109,6 +108,7 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
         case 3:
           switch (listeTypeQuestions[i]) {
             case '1 -> 3':
+            case '2 -> 4': // c'est juste pour équilibrer les cas
               calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
               resultat1 = computeEngine.parse(calcul1).simplify().latex
               calcul2 = `${nombres[2]} ${signes[1]} ${nombres[3]}`
