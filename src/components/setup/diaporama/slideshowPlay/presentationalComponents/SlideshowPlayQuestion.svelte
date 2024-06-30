@@ -21,7 +21,6 @@
   >
     {#each [...Array(nbVues).keys()] as i}
       <div
-        id="diapocell{i}"
         class="relative min-h-[100%] max-h-[100%] flex flex-col justify-center justify-self-stretch place-items-stretch p-2 text-center {nbVues > 1
           ? 'bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark'
           : ''}"
@@ -32,7 +31,7 @@
           </div>
         {/if}
         <div
-          id="textcell{i}"
+          id="exerciseContainer{i}"
           bind:this={divQuestion[i]}
           class="flex flex-col justify-center items-center px-4 w-full min-h-[100%] max-h-[100%]"
         >

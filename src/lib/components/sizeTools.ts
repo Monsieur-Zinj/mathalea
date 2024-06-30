@@ -30,7 +30,7 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
       for (const svgContainer of svgContainers) {
         svgContainer.classList.add('flex')
         svgContainer.classList.add('justify-center')
-        updateFigures(svgContainer as HTMLDivElement, zoom)
+        updateFigures(svgContainer, zoom)
       }
     }
     if (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth) {
@@ -40,7 +40,7 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
 
-export function updateFigures (svgContainer: HTMLDivElement, zoom: number) {
+export function updateFigures (svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
     if (svgDiv.clientWidth > 0 && svgDiv instanceof SVGElement) {

@@ -16,7 +16,6 @@
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let handleQuit: () => void
 
-  let currentZoom: number
   const divQuestion: HTMLDivElement[] = []
   let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let formatQRCodeIndex: 0 | 1 | 2
@@ -28,6 +27,7 @@
   let QRCodeWidth: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let userZoom = 1
+  let optimalZoom = 1
 
   let order: number[] = []
   $: {
@@ -43,8 +43,6 @@
 
   let currentSlide: Slide
   $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
-
-  currentZoom = userZoom
 
   onMount(() => {
     window.addEventListener('click', handleClick)
@@ -66,12 +64,7 @@ function handleClick (event: MouseEvent) {
     if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) slideshow.currentQuestion = questionNumber
     if (questionNumber === -1 || questionNumber === slideshow.selectedQuestionsNumber) pause()
     await tick()
-    for (let k = 0; k < nbOfVues; k++) {
-      if (divQuestion[k]) {
-        currentZoom = userZoom
-        setSize()
-      }
-    }
+    resizeAllViews()
     if (!$globalOptions.manualMode) {
       if (!isPause) {
         if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
@@ -116,110 +109,75 @@ function handleClick (event: MouseEvent) {
     clearInterval(myInterval)
     isPause = true
   }
-  /**
-   * Déterminer les tailles optimales de la fonte et des illustrations dans chaque question.<br>
-   * <u>Principe :</u>
-   * <ul>
-   *  <li> on récupère les dimensions carton (id='textcell...')</li>
-   *  <li> on détermine la hauteur et la largeur optimale pour les figures (class='mathalea2d')</li>
-   *  <li> on ajuste hauteur/largeur des figures en préservant le ratio</li>
-   *  <li> on applique une taille de caractère volontairement grosse aux textes (consigne+question+correction)</li>
-   *  <li> on réduit cette taille jsqu'à ce que la hauteur ne dépasse pas celle du container (id='textcell...')</li>
-   * </ul>
-   * @author sylvain
-   */
-  async function setSize (force : boolean = false) {
-    const zoomByVues = Array.apply(null, Array(nbOfVues)).map(Number.prototype.valueOf, 0)
-    for (let vueNumber = 0; vueNumber < 3; vueNumber++) {
-      // premiere passe : on selectionne le meilleur zoom par vue (size)
-      // deuxième passe : on applique le zoom minimum des différentes vues
-      // troisième passe : on applique le zoom de l'utilisateur
-      const zoomMin = Math.min(...zoomByVues)
-      if (force) { vueNumber = 2 }
-      for (let i = 0; i < nbOfVues; i++) {
-        if (typeof divQuestion[i] !== 'undefined') {
-          mathaleaRenderDiv(divQuestion[i], -1)
-          const diapocellDiv = document.getElementById('diapocell' + i) as HTMLDivElement
-          const textcellDiv = document.getElementById('textcell' + i) as HTMLDivElement
-          const consigneDiv = document.getElementById('consigne' + i) as HTMLDivElement
-          const questionDiv = document.getElementById('question' + i) as HTMLDivElement
-          const correctionDiv = document.getElementById('correction' + i) as HTMLDivElement
-          if (diapocellDiv === null) {
-            // ca sert à rien de continuer
-            continue
-          }
-          // Donner la bonne taille au texte
-          let consigneHeight,
-            correctionHeight,
-            questionHeight,
-            questionWidth,
-            consigneWidth,
-            correctionWidth: number
 
-          let zoom = vueNumber === 0 ? 10 : vueNumber === 1 ? zoomMin : userZoom * currentZoom
-          if (vueNumber === 1) currentZoom = zoom
-          const svgContainers = textcellDiv.getElementsByClassName('svgContainer')
-          const textcellWidth = textcellDiv.clientWidth
-          const textcellHeight = textcellDiv.clientHeight
-          do {
-            if (svgContainers.length > 0) {
-              for (const svgContainer of svgContainers) {
-                svgContainer.classList.add('flex')
-                svgContainer.classList.add('justify-center')
-                updateFigures(svgContainer as HTMLDivElement, zoom)
-              }
-            }
-            textcellDiv.style.fontSize = `${zoom > 1 ? zoom : 1}rem`
+  async function resizeAllViews (optimalZoomUpdate : boolean = true) {
+    if (optimalZoomUpdate) {
+      optimalZoom = findOptimalZoom()
+    }
+    for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
+      resize(vueIndex, optimalZoom * userZoom)
+    }
+  }
 
-            if (questionDiv !== null) {
-              questionHeight = questionDiv.clientHeight
-              questionWidth =
-                questionDiv.scrollWidth > questionDiv.clientWidth
-                  ? questionDiv.scrollWidth
-                  : questionDiv.clientWidth
-            } else {
-              questionHeight = 0
-              questionWidth = 0
-            }
-            if (consigneDiv !== null) {
-              consigneHeight = consigneDiv.clientHeight
-              consigneWidth = consigneDiv.clientWidth
-            } else {
-              consigneHeight = 0
-              consigneWidth = 0
-            }
-            if (correctionDiv !== null) {
-              correctionHeight = correctionDiv.clientHeight
-              correctionWidth = correctionDiv.clientWidth
-            } else {
-              correctionHeight = 0
-              correctionWidth = 0
-            }
+  function findOptimalZoom () {
+    const optimalZoomForViews = new Array(nbOfVues).fill(0)
+    for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
+      optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
+    }
+    return Math.min(...optimalZoomForViews)
+  }
 
-            if ((questionWidth > textcellWidth ||
-                consigneWidth > textcellWidth ||
-                correctionWidth > textcellWidth ||
-                questionHeight + consigneHeight + correctionHeight > textcellHeight)) {
-              zoom -= (zoom > 5 ? 0.5 : 0.2)
-            }
-          } while ( // eslint-disable-next-line no-unmodified-loop-condition
-            zoom > 0.6 && vueNumber === 0 &&
-              (
-                questionWidth > textcellWidth ||
-                consigneWidth > textcellWidth ||
-                correctionWidth > textcellWidth ||
-                questionHeight + consigneHeight + correctionHeight > textcellHeight
-              )
-          )
-          zoomByVues[i] = zoom
-        }
+  function findOptimalZoomForView (vueIndex: number) {
+    const MIN_ZOOM = 0.5
+    const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
+    const questionDiv = document.getElementById('question' + vueIndex)
+    const correctionDiv = document.getElementById('correction' + vueIndex)
+    if (!exerciseContainerDiv) return
+    const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
+    mathaleaRenderDiv(divQuestion[vueIndex], -1)
+    for (const svgContainer of svgContainers) {
+      svgContainer.classList.add('flex')
+      svgContainer.classList.add('justify-center')
+    }
+    resize(vueIndex, 1)
+    const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
+    const { height: correctionHeight, width: correctionWidth } = getSizes(correctionDiv)
+    const containerWidth = exerciseContainerDiv.clientWidth
+    const containerHeight = exerciseContainerDiv.clientHeight
+    const questionWidthOptimalZoom = containerWidth / questionWidth
+    const correctionWidthOptimalZoom = containerWidth / correctionWidth
+    const questionCorrectionHeightOptimalZoom = containerHeight / (questionHeight + correctionHeight)
+    return Math.max(Math.min(questionWidthOptimalZoom, correctionWidthOptimalZoom, questionCorrectionHeightOptimalZoom), MIN_ZOOM)
+  }
+
+  function resize (vueIndex: number, zoom: number) {
+    const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
+    if (!exerciseContainerDiv) return
+    const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
+    for (const svgContainer of svgContainers) {
+      updateFigures(svgContainer, zoom)
+    }
+    exerciseContainerDiv.style.fontSize = `${Math.max(zoom, 1)}rem`
+  }
+
+  function getSizes (element: HTMLElement | null) {
+    if (element === null) {
+      return { height: 0, width: 0 }
+    } else {
+      return {
+        height: element.scrollHeight > element.clientHeight
+          ? element.scrollHeight
+          : element.clientHeight,
+        width: element.scrollWidth > element.clientWidth
+          ? element.scrollWidth
+          : element.clientWidth
       }
     }
   }
 
   // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = () => {
-    setSize()
+    resizeAllViews()
   }
 
   async function switchQuestionToCorrection () {
@@ -231,7 +189,7 @@ function handleClick (event: MouseEvent) {
       isQuestionVisible = $globalOptions.flow !== undefined && $globalOptions.flow === 2
     }
     await tick()
-    setSize()
+    resizeAllViews()
   }
 
   function handleShortcut (e: KeyboardEvent) {
@@ -325,14 +283,14 @@ function handleClick (event: MouseEvent) {
 
   function zoomPlus () {
     userZoom += 0.05
-    setSize(true)
+    resizeAllViews(false)
   }
 
   function zoomMoins () {
     if (userZoom > 0.5) {
       userZoom -= 0.05
     }
-    setSize(true)
+    resizeAllViews(false)
   }
   async function switchCorrectionMode () {
     if (isQuestionVisible && !isCorrectionVisible) {
@@ -346,7 +304,7 @@ function handleClick (event: MouseEvent) {
       isCorrectionVisible = true
     }
     await tick()
-    setSize()
+    resizeAllViews()
   }
 
   function returnToStart () {
