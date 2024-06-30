@@ -25,14 +25,14 @@
     {/if}
   </div>
   <div class="mt-2 mx-2 lg:mx-6">
-    {#each order as i}
+    {#each order as i, index}
       <div
         class="flex flex-row my-4"
         style="font-size: {zoomStr}rem"
       >
         <div class="pr-2">
           <span class="font-black text-coopmaths-struct dark:text-coopmathsdark-struct">
-            {i + 1}.
+            {index + 1}.
           </span>
         </div>
         <div class="flex flex-col justify-start items-start">
