@@ -13,7 +13,7 @@ import { mathalea2d } from './2dGeneralites.js'
  * Le paramètre précision précise pour divisiond, le nombre de chiffres après la virgule dans le quotient.
  */
 
-export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, calculer = true }) { // precision est pour le quotient décimal
+export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addition', precision = 0, base = 10, retenuesOn = true, style = 'display: block', methodeParCompensation = true, calculer = true, colore = '' }) { // precision est pour le quotient décimal
   let Code
   const nombreDeChiffresApresLaVirgule = function (x) {
     const s = x.toString()
@@ -486,19 +486,19 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   operande2 = new Decimal(operande2)
   switch (type) {
     case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer) } else { Code = `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer) } else { Code = ` \\Addition${colore}{${operande1}}{${operande2}}` }// { Code = `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'soustraction':
-      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer) } else { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
+      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer) } else { Code = `\\Soustraction${colore}{${operande1}}{${operande2}}` }// { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base, calculer) } else { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base, calculer) } else { Code = `\\Multiplication${colore}{${operande1}}{${operande2}}` }// { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
       break
     case 'division':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, calculer) } else { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, calculer) } else { Code = `\\Division${colore}{${operande1}}{${operande2}}` }// { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
       break
     case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, calculer) } else { Code = `\\opidiv[voperation=top]{${operande1}}{${operande2}}` }
+      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, calculer) } else { Code = `\\Division${colore}{${operande1}}{${operande2}}` }// { Code = `\\opidiv[voperation=top]{${operande1}}{${operande2}}` }
       break
   }
   return Code
