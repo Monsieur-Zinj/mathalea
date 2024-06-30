@@ -49,8 +49,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
+  this.besoinFormulaire3CaseACocher = ['Opérations posées dans l\'énoncé', false]
   this.sup = 6
   this.sup2 = 3
+  this.sup3 = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -95,6 +97,9 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte += grilletxt
           reponse = a + b
           texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          if (this.sup3) {
+            texte = Operation({ operande1: a, operande2: b, type: 'addition', calculer: false })
+          }
           break
         case 2: // abc0 - efg
           a = randint(1, 9)
@@ -111,6 +116,9 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte += grilletxt
           reponse = x - y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
+          if (this.sup3) {
+            texte = Operation({ operande1: x, operande2: y, type: 'soustraction', calculer: false, style: 'display: inline' })
+          }
           break
         case 3: // 1abc - def
           a = randint(1, 9)
@@ -142,6 +150,9 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte += grilletxt
           reponse = x * y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
+          if (this.sup3) {
+            texte = Operation({ operande1: x, operande2: y, type: 'multiplication', calculer: false })
+          }
           break
         case 5: // abc * de tables de 5 à 9
           a = randint(5, 9)
@@ -157,6 +168,9 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           texte += grilletxt
           reponse = x * y
           texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
+          if (this.sup3) {
+            texte = Operation({ operande1: x, operande2: y, type: 'multiplication', calculer: false })
+          }
           break
       }
 
