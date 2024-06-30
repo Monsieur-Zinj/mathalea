@@ -112,7 +112,7 @@ export default function DivisionsEuclidiennes () {
           operande1: a,
           operande2: b,
           type: 'divisionE',
-          calculer: false
+          options: { solutions: false }
         })
         : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {

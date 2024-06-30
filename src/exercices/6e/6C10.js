@@ -102,7 +102,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           reponse = a + b
           texteCorr = Operation({ colore, operande1: a, operande2: b, type: 'addition' })
           if (this.sup3) {
-            texte = Operation({ colore, operande1: a, operande2: b, type: 'addition', calculer: false })
+            texte = Operation({ colore, operande1: a, operande2: b, type: 'addition', options: { solution: false } })
           }
           break
         case 2: // abc0 - efg
@@ -121,7 +121,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           reponse = x - y
           texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'soustraction' })
           if (this.sup3) {
-            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', calculer: false })
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', options: { solution: false } })
           }
           break
         case 3: // 1abc - def
@@ -140,7 +140,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           reponse = x - y
           texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'soustraction' })
           if (this.sup3) {
-            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', calculer: false })
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', options: { solution: false } })
           }
           break
         case 4: // abc * d0e tables de 2 à 5
@@ -158,7 +158,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           reponse = x * y
           texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'multiplication' })
           if (this.sup3) {
-            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', calculer: false })
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', options: { solution: false } })
           }
           break
         case 5: // abc * de tables de 5 à 9
@@ -176,7 +176,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           reponse = x * y
           texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'multiplication' })
           if (this.sup3) {
-            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', calculer: false })
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', options: { solution: false } })
           }
           break
       }
