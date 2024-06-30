@@ -46,6 +46,8 @@ export default function PavagesEtTransformations () {
     const objetsEnonce = []
     const objetsCorrection = []
     if (this.level === 3) {
+      this.besoinFormulaireNumerique = false
+      this.besoinFormulaire2Texte = false
       this.sup = 4
     } else if (this.level === 4) {
       this.sup = 3

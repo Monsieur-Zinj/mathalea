@@ -56,7 +56,7 @@ function positionneLabel (pointA: Point, pointB: Point) {
  */
 function checkDistance (points: {x: number, y:number}[]) {
   for (const point of points) {
-    if (point.x < -7 || point.x > 7 || point.y < -7 || point.y > 7) {
+    if (point.x < -7.5 || point.x > 7.5 || point.y < -7.5 || point.y > 7.5 || point.x === point.y || point.x === -point.y) {
       return false
     }
   }
@@ -130,8 +130,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       let nuage: {x: number, y:number}[] = []
       // On construit les points
       do {
-        for (let x = -3; x < 3; x += 1) {
-          nuage.push({ y: randint(1, 6) * choice([-0.5, 0.5]), x })
+        for (let x = -4; x < 4; x += 2) {
+          nuage.push({ y: ((randint(1, 3) * 2) + 1) * choice([-0.5, 0.5]), x })
         }
         // On transforme les points en fonction du choix de l'axe
         if (choixDeLaxe[i] === 1) {
@@ -157,6 +157,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         nuage = shuffle(nuage)
         nuage = nuage.slice(0, this.nbPoints)
       } while (!checkDistance(nuage))
+
       this.labels[i] = Array.from(choisitLettresDifferentes(nuage.length, 'Q', true))
 
       // Les antécédents sont des points nommés
@@ -246,8 +247,8 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const options = {}
       if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figures[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 420, height: 420 }))
-        this.figures[i].scale = 0.7
+        this.figures[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+        this.figures[i].scale = 0.5
         this.figures[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
