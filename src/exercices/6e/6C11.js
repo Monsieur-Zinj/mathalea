@@ -49,7 +49,7 @@ export default function DivisionsEuclidiennes () {
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
-  this.listePackages = 'xlop'
+  this.listePackages = 'ProfCollege'
   this.classe = 6
 
   this.nouvelleVersion = function () {
