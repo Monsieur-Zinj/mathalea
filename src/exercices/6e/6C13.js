@@ -10,7 +10,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
-export const dateDeModifImportante = '08/05/2023'
+export const dateDeModifImportante = '30/06/2024' // Ajout de l'interactivité par Jean-Claude Lhote
 export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
@@ -36,6 +36,7 @@ export default function VocabulaireEtOperations () {
   this.nbColsCorr = 2
   this.sup = 4
   this.sup2 = false
+  this.sup3 = '5'
   this.spacing = 2
   this.listeAvecNumerotation = false
 
@@ -43,7 +44,7 @@ export default function VocabulaireEtOperations () {
     let decimal
     let expf, expn, expc, resultats
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions })
-
+    const sousCas = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions }).map(el => Number(el) - 1)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     if (this.sup2) decimal = 10 ** randint(1, 2)
@@ -54,7 +55,7 @@ export default function VocabulaireEtOperations () {
       i < this.nbQuestions && cpt < 50;
 
     ) {
-      resultats = choisirExpressionNumerique(1, decimal)
+      resultats = choisirExpressionNumerique(1, decimal, true, true, sousCas[i])
       expf = resultats[0]
       expn = resultats[1]
       expc = resultats[2]
@@ -182,5 +183,6 @@ export default function VocabulaireEtOperations () {
     'Type de questions (nombres séparés par des tirets)',
     '1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
   ]
+  this.besoinFormulaire3Texte = ['Opérations', '1 : Somme\n2 : Différence\n3 : Produit\n4 : Quotient\n5 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Décimaux', false]
 }
