@@ -157,6 +157,7 @@ export function propositionsQcm (exercice, i) {
     texte = '<div class="my-3">'
     texteCorr = '<div class="my-3">'
     for (let rep = 0; rep < exercice.autoCorrection[i].propositions.length; rep++) {
+      if (nbCols > 1 && rep % nbCols === 0) texte += '<br>'
       texte += `<div class="ex${exercice.numeroExercice} ${vertical ? '' : 'inline'} my-2">
       <input type="checkbox" 
         ${!exercice.interactif ? 'disabled' : ''} 
