@@ -9,7 +9,7 @@
     Nouveau
   </h5>
   <img
-    src="public/assets/images/cahier_vers_la_1ere_spe.png"
+    src="/alea/assets/images/cahier_vers_la_1ere_spe.png"
     alt="Cahier de vacances vers la première spécialité"
     class="max-w-48 mb-4"
   />
