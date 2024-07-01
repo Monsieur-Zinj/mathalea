@@ -44,11 +44,12 @@ export const refs = {
 export default function DivisionsEuclidiennes () {
   Exercice.call(this)
   this.sup = 1
+  this.sup2 = false
   this.titre = titre
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
-  this.listePackages = 'xlop'
+  this.listePackages = 'ProfCollege'
   this.classe = 6
 
   this.nouvelleVersion = function () {
@@ -106,7 +107,14 @@ export default function DivisionsEuclidiennes () {
       }
       r = randint(0, b - 1) // reste inférieur au diviseur
       a = b * q + r
-      texte = `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
+      texte = this.sup2
+        ? Operation({
+          operande1: a,
+          operande2: b,
+          type: 'divisionE',
+          options: { solutions: false }
+        })
+        : `La division euclidienne de $${texNombre(a)}$ par $${b}$.`
       if (r === 0) {
         texteCorr = Operation({
           operande1: a,
@@ -143,7 +151,7 @@ export default function DivisionsEuclidiennes () {
         this.autoCorrection[i].propositions[0].statut = 3
         this.autoCorrection[i].propositions[0].pointilles = false
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -153,6 +161,6 @@ export default function DivisionsEuclidiennes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres'
-  ]
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, '1 : Divisions par 2, 3, 4 ou 5\n2 : Diviseur à 1 chiffre\n3 : Diviseur à 2 chiffres']
+  this.besoinFormulaire2CaseACocher = ['Opérations posées dans l\'énoncé', false]
 }

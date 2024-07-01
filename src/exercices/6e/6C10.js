@@ -40,7 +40,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 5
-  this.listePackages = 'xlop'
+  this.listePackages = 'ProfCollege'
   this.tailleDiaporama = 3
 
   this.besoinFormulaireTexte = ['Types de calculs', 'Nombres séparés par des tirets\n1 : abcde + fgh\n2 : abc0 - efg\n3 : 1abc - def\n4 : abc * d0e (tables de 2 à 5)\n5 : abc * de (tables de 5 à 9)\n6 : Mélange']
@@ -49,14 +49,20 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
   ]
+  this.besoinFormulaire3CaseACocher = ['Opérations posées dans l\'énoncé', false]
+  // this.besoinFormulaire4CaseACocher = ['Couleurs pour élève dys', false]
   this.sup = 6
   this.sup2 = 3
+  this.sup3 = false
+  this.sup4 = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestions, reponse
+    this.consigne = this.sup3 ? 'effectuer les opérations suivantes' : 'Poser et effectuer les calculs suivants.'
+    const colore = this.sup4 ? 'Colore' : ''
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
@@ -94,7 +100,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           else texte += '$'
           texte += grilletxt
           reponse = a + b
-          texteCorr = Operation({ operande1: a, operande2: b, type: 'addition' })
+          texteCorr = Operation({ colore, operande1: a, operande2: b, type: 'addition' })
+          if (this.sup3) {
+            texte = Operation({ colore, operande1: a, operande2: b, type: 'addition', options: { solution: false } })
+          }
           break
         case 2: // abc0 - efg
           a = randint(1, 9)
@@ -110,7 +119,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           else texte += '$'
           texte += grilletxt
           reponse = x - y
-          texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
+          texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'soustraction' })
+          if (this.sup3) {
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', options: { solution: false } })
+          }
           break
         case 3: // 1abc - def
           a = randint(1, 9)
@@ -126,7 +138,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           else texte += '$'
           texte += grilletxt
           reponse = x - y
-          texteCorr = Operation({ operande1: x, operande2: y, type: 'soustraction' })
+          texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'soustraction' })
+          if (this.sup3) {
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'soustraction', options: { solution: false } })
+          }
           break
         case 4: // abc * d0e tables de 2 à 5
           a = randint(2, 5)
@@ -141,7 +156,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           else texte += '$'
           texte += grilletxt
           reponse = x * y
-          texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
+          texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'multiplication' })
+          if (this.sup3) {
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', options: { solution: false } })
+          }
           break
         case 5: // abc * de tables de 5 à 9
           a = randint(5, 9)
@@ -156,7 +174,10 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           else texte += '$'
           texte += grilletxt
           reponse = x * y
-          texteCorr = Operation({ operande1: x, operande2: y, type: 'multiplication' })
+          texteCorr = Operation({ colore, operande1: x, operande2: y, type: 'multiplication' })
+          if (this.sup3) {
+            texte = Operation({ colore, operande1: x, operande2: y, type: 'multiplication', options: { solution: false } })
+          }
           break
       }
 
