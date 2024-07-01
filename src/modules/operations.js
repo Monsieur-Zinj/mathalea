@@ -512,7 +512,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
           ? `\\Addition${colore}[${solution}]{${operande1}}{${operande2}}`
           : options.solution
             ? `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-            : `\\opadd[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\whitedecimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opadd[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\whitedecimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
         break
       case 'soustraction':
         if (!methodeParCompensation) {
@@ -522,7 +522,7 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
             ? `Addition${colore}[${solution}]{${operande1}}{${operande2}}`
             : options.solution
               ? `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-              : `\\opsub[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+              : `\\opsub[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
         }// { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
         break
       case 'multiplication':
@@ -530,21 +530,21 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
           ? `\\Multiplication${colore}[${solution}]{${operande1}}{${operande2}}`
           : options.solution
             ? `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
-            : `\\opmul[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opmul[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
         break
       case 'division':
         Code = options.colore
           ? `\\Division${colore}[${solution}]{${operande1}}{${operande2}}`
           : options.solution
             ? `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}`
-            : `\\opdiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}`
+            : `\\opdiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}`
         break
       case 'divisionE':
         Code = options.colore
           ? `\\Division${colore}{${operande1}}{${operande2}}`
           : options.solution
             ? `\\opidiv[voperation=top]{${operande1}}{${operande2}}`
-            : `\\opidiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opidiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,remainderstyle=\\white,voperation=top]{${operande1}}{${operande2}}`
         break
     }
   }
