@@ -487,22 +487,67 @@ export default function Operation ({ operande1 = 1, operande2 = 2, type = 'addit
   operande2 = new Decimal(operande2)
   const colore = options.colore ? 'Colore' : ''
   const solution = options.solution ? 'Solution' : ''
-  switch (type) {
-    case 'addition':
-      if (context.isHtml) { Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer) } else { Code = ` \\Addition${colore}[${solution}]{${operande1}}{${operande2}}` }// { Code = `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
-      break
-    case 'soustraction':
-      if (context.isHtml || !methodeParCompensation) { Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer) } else { Code = `\\Soustraction${colore}[${solution}]{${operande1}}{${operande2}}` }// { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
-      break
-    case 'multiplication':
-      if (context.isHtml) { Code = MultiplicationPosee3d(operande1, operande2, base, calculer) } else { Code = `\\Multiplication${colore}[${solution}]{${operande1}}{${operande2}}` }// { Code = `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
-      break
-    case 'division':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, precision, calculer) } else { Code = `\\Division${colore}[${solution}]{${operande1}}{${operande2}}` }// { Code = `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}` }
-      break
-    case 'divisionE':
-      if (context.isHtml) { Code = DivisionPosee3d(operande1, operande2, 0, calculer) } else { Code = `\\Division${colore}{${operande1}}{${operande2}}` }// { Code = `\\opidiv[voperation=top]{${operande1}}{${operande2}}` }
-      break
+  if (context.isHtml) {
+    switch (type) {
+      case 'addition':
+        Code = AdditionPosee3d(operande1, operande2, base, retenuesOn, calculer)
+        break
+      case 'soustraction':
+        Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer)
+        break
+      case 'multiplication':
+        Code = MultiplicationPosee3d(operande1, operande2, base, calculer)
+        break
+      case 'division':
+        Code = DivisionPosee3d(operande1, operande2, precision, calculer)
+        break
+      case 'divisionE':
+        Code = DivisionPosee3d(operande1, operande2, 0, calculer)
+        break
+    }
+  } else {
+    switch (type) {
+      case 'addition':
+        Code = options.colore
+          ? `\\Addition${colore}[${solution}]{${operande1}}{${operande2}}`
+          : options.solution
+            ? `\\opadd[decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opadd[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\whitedecimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+        break
+      case 'soustraction':
+        if (!methodeParCompensation) {
+          Code = SoustractionPosee3d(operande1, operande2, base, retenuesOn, methodeParCompensation, calculer)
+        } else {
+          Code = options.colore
+            ? `Addition${colore}[${solution}]{${operande1}}{${operande2}}`
+            : options.solution
+              ? `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+              : `\\opsub[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+        }// { Code = `\\opsub[carrysub,lastcarry,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}` }
+        break
+      case 'multiplication':
+        Code = options.colore
+          ? `\\Multiplication${colore}[${solution}]{${operande1}}{${operande2}}`
+          : options.solution
+            ? `\\opmul[displayshiftintermediary=all,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+            : `\\opmul[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,decimalsepsymbol={,},voperator=bottom,voperation=top]{${operande1}}{${operande2}}`
+        break
+      case 'division':
+        Code = options.colore
+          ? `\\Division${colore}[${solution}]{${operande1}}{${operande2}}`
+          : options.solution
+            ? `\\opdiv[displayintermediary=all,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}`
+            : `\\opdiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,voperation=top,period,decimalsepsymbol={,},shiftdecimalsep=none]{${operande1}}{${operande2}}`
+        break
+      case 'divisionE':
+        Code = options.colore
+          ? `\\Division${colore}{${operande1}}{${operande2}}`
+          : options.solution
+            ? `\\opidiv[voperation=top]{${operande1}}{${operande2}}`
+            : `\\opidiv[displayshiftintermediary=none,resultstyle=\\white,intermediarystyle=\\white,reminderstyle=\\white,voperation=top]{${operande1}}{${operande2}}`
+        break
+    }
   }
+
   return Code
 }
