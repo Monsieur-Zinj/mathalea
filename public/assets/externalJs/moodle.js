@@ -92,7 +92,11 @@ if (typeof window.iMathAlea === 'undefined') {
         if (DEBUG) {
           SERVEUR_URL = new URL(DEBUG)
         } else {
-          SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+          if (VERSION === 3) {
+            SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+          } else {
+            SERVEUR_URL = new URL('../../alea', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
+          }
         }
         if (SERVEUR_URL.protocol !== 'http:' && SERVEUR_URL.protocol !== 'https:') {
           throw new Error('Le serveur doit avoir un protocol en http ou https')
@@ -147,7 +151,15 @@ if (typeof window.iMathAlea === 'undefined') {
           exoUrl = exoUrl.replaceAll(/(uuid=[A-Za-z0-9]+(?:&id=[A-Za-z0-9-]+)?)(&|$)/g, '$1&alea=' + questionSeed + '$2') // on ajoute la graine
           iframe.setAttribute('src', SERVEUR_URL + '?' + exoUrl + '&i=1&v=eleve&recorder=moodle&title=&es=011010&iframe=' + iMoodle + (this.getAttribute('correction') !== null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&answers=' + answer : ''))
         } else {
-          iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
+          // 4A11-0,s\=3,s2\=true,s3\=false,s4\=false,n\=4,video\=0,cc\=1,cd\=1
+          // => (les slashs ne sont que dans le gift)
+          // id\=4A11-0&s\=3&s2\=true&s3\=false&s4\=false&n\=4&cd\=1
+          const exoParams = this.getAttribute('ex').split(',')
+          exoParams[0] = 'id=' + exoParams[0]
+          exoParams.push('alea=' + questionSeed)
+          const exoUrl = exoParams.join('&')
+          iframe.setAttribute('src', SERVEUR_URL + '?' + exoUrl + '&i=1&v=eleve&recorder=moodle&title=&es=011010&iframe=' + iMoodle + (this.getAttribute('correction') !== null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&answers=' + answer : ''))
+          // iframe.setAttribute('src', SERVEUR_URL + '/mathalea.html?ex=' + this.getAttribute('ex') + ',i=1&v=' + (this.getAttribute('correction') === null ? 'exMoodle' : 'correctionMoodle') + '&z=1&iMoodle=' + iMoodle + '&serie=' + questionSeed + (typeof answer !== 'undefined' ? '&moodleJson=' + answer : ''))
         }
         iframe.setAttribute('frameBorder', '0')
         iframe.setAttribute('allow', 'fullscreen')
