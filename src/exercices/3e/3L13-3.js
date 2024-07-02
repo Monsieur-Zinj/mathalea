@@ -12,8 +12,8 @@ import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { aleaVariables, resoudre } from '../../modules/outilsMathjs.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { resoudre } from '../../modules/outilsMathjs.js'
 import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Grandeur from '../../modules/Grandeur'
@@ -107,7 +107,7 @@ export default class ProblemesEnEquation extends Exercice {
       shuffle: true,
       nbQuestions: this.nbQuestions
     })
-    for (let i = 0, cpt = 0, uniteOptions, texte, x, a, b, c, d, variables, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0, uniteOptions, texte, x, a, b, c, d, enonce, figure, intro, conclusion, equation, resolution, verification, texteCorr; i < this.nbQuestions && cpt < 50;) {
       const quidam = prenom(2)
       // const n = 0 // un paramètre entier qui peut servir dans certains cas.
       const produit = choice(['fraises', 'pêches', 'poires', 'pommes', 'mangues', 'prunes', 'citrons'])
@@ -116,19 +116,11 @@ export default class ProblemesEnEquation extends Exercice {
       uniteOptions = ['', '', '']
       switch (listeDeProblemes[i]) {
         case 1: // basket
-          variables = aleaVariables(
-            {
-              x: 'randomInt(5,15)',
-              a: 'randomInt(5,12)',
-              b: 'randomInt(15,30)',
-              d: 'b+(a+x)*2+x*3'
-            }
-            , { valueOf: true, type: 'number' })
-          x = variables.x // nombre de paniers à trois points
-          a = variables.a // nombres de paniers à deux points de plus que x
-          b = variables.b // nombre de points marqués au lancer franc
+          x = randint(5, 15) // variables.x // nombre de paniers à trois points
+          a = randint(5, 12) // variables.a // nombres de paniers à deux points de plus que x
+          b = randint(15, 30) // variables.b // nombre de points marqués au lancer franc
           c = 0 // ne sert pas dans ce cas
-          d = variables.d // nombre de points de la partie
+          d = b + (a + x) * 2 + x * 3 // variables.d // nombre de points de la partie
           equation = `x*3+(${a}+x)*2+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
           enonce = `Une équipe de basket a marqué ${d} points lors d'un match. Au cours de ce match, elle a marqué ${b} points sur lancers francs.<br>`
@@ -141,18 +133,10 @@ export default class ProblemesEnEquation extends Exercice {
           // uniteOptions[2] = 'paniers à trois points'
           break
         case 2: // basket2
-          variables = aleaVariables(
-            {
-              x: 'randomInt(17,27)',
-              a: 'randomInt(5,12)',
-              b: 'randomInt(15,30)',
-              d: 'b+(x-a)*3+x*2'
-            }
-            , { valueOf: true })
-          x = variables.x // nombre de paniers à deux points
-          a = variables.a // nombres de paniers à trois points de moins que de paniers à 2 points
-          b = variables.b // nombre de points marqués au lancer franc
-          d = variables.d // nombre de points de la partie
+          x = randint(17, 27) // variables.x // nombre de paniers à deux points
+          a = randint(5, 12) // variables.a // nombres de paniers à trois points de moins que de paniers à 2 points
+          b = randint(15, 30) // variables.b // nombre de points marqués au lancer franc
+          d = b + (x - a) * 3 + x * 2 // variables.d // nombre de points de la partie
           c = 0 // ne sert pas dans ce cas
           equation = `x*2+(x-${a})*3+${b}=${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true, suppr1: false })
@@ -167,17 +151,11 @@ export default class ProblemesEnEquation extends Exercice {
           break
 
         case 3: // achats
-          variables = aleaVariables(
-            {
-              a: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,4)/5'}`,
-              x: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,1)/2'}`,
-              b: 'a*x',
-              test: 'b<100 and b>5 and b%10!=0'
-            }
-            , { valueOf: true })
-          x = variables.x // prix de 1kg de produit
-          a = variables.a // nombre de kg de produit
-          b = variables.b // prix total du produit
+          do {
+            x = randint(2, 5) + (this.sup2 ? 0 : randint(0, 4) / 5) // variables.x // prix de 1kg de produit
+            a = randint(2, 5) + (this.sup2 ? 0 : randint(0, 1) / 5)// variables.a // nombre de kg de produit
+            b = a * x // variables.b // prix total du produit
+          } while (b >= 100 || b <= 5 || b % 10 === 0)
           d = b > 50 ? 100 : b > 20 ? 50 : b > 10 ? 20 : 10 // valeur du billet donné
           c = 0 // ne sert pas dans ce cas
           equation = `${a}*x+${arrondi(d - b, 2)}=${d}`
@@ -191,18 +169,10 @@ export default class ProblemesEnEquation extends Exercice {
           uniteOptions[2] = '€'
           break
         case 4: // polygone
-          variables = aleaVariables(
-            {
-              x: `randomInt(2,4)${this.sup2 ? '' : '+randomInt(0,45)/5'}`,
-              a: `randomInt(2,5)${this.sup2 ? '' : '+randomInt(0,45)/5'}`,
-              b: 'randomInt(2,5)',
-              d: 'b*x+a'
-            }
-            , { valueOf: true })
-          x = variables.x // longueur d'un des côtés égaux
-          a = variables.a // longueur du côté différent
-          b = variables.b // nombre de côtés égaux du polygone
-          d = variables.d // périmètre du polygone
+          x = randint(2, 4) + (this.sup2 ? 0 : randint(0, 45) / 5)// variables.x // longueur d'un des côtés égaux
+          a = randint(2, 5) + (this.sup2 ? 0 : randint(0, 45) / 5) // variables.a // longueur du côté différent
+          b = randint(2, 5) // variables.b // nombre de côtés égaux du polygone
+          d = b * x + a // variables.d // périmètre du polygone
           c = 0 // ne sert pas dans ce cas
           equation = `${b}*x+${a}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: true, substeps: false, comment: true })
@@ -217,32 +187,23 @@ export default class ProblemesEnEquation extends Exercice {
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'cm'), '']
           break
         case 5: // programmes
-          variables = aleaVariables(
-            {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,15)',
-              d: 'randomInt(1,10)',
-              test: 'abs((c*d-a*b))%abs(a-c) == 0 and (c*d-a*b)*(a-c)>0'
-            }
-            , { valueOf: true })
+          do {
+            a = randint(2, 15)
+            b = randint(1, 10)
+            c = randint(2, 15)
+            d = randint(1, 10)
+          } while ((c * d - a * b) * (a - c) <= 0 || (Math.abs(c * d - a * b) % Math.abs(a - c)) !== 0)
+
           // falls through
         case 6: // programmes2
           if (listeDeProblemes[i] === 6) {
-            variables = aleaVariables(
-              {
-                a: 'randomInt(2,15)',
-                b: 'randomInt(1,10)',
-                c: 'randomInt(2,15)',
-                d: 'randomInt(1,10)',
-                test: 'abs((c*d-a*b))%abs(a-c) == 0 and (c*d-a*b)*(a-c)<0'
-              }
-              , { valueOf: true })
+            do {
+              a = randint(2, 15)
+              b = randint(1, 10)
+              c = randint(2, 15)
+              d = randint(1, 10)
+            } while ((c * d - a * b) * (a - c) >= 0 || (Math.abs((c * d - a * b)) % Math.abs(a - c)) !== 0)
           }
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
           x = Math.round((c * d - a * b) / (a - c))
           equation = `(x+${b})*${a}=(x+${d})*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
@@ -264,32 +225,22 @@ export default class ProblemesEnEquation extends Exercice {
           `
           break
         case 7: // programmes
-          variables = aleaVariables(
-            {
-              a: 'randomInt(2,15)',
-              b: 'randomInt(1,10)',
-              c: 'randomInt(2,15)',
-              d: 'randomInt(1,10)',
-              test: 'abs((d-a*b))%abs(a-c) == 0 and (d-a*b)*(a-c)>0'
-            }
-            , { valueOf: true })
+          do {
+            a = randint(2, 15)
+            b = randint(1, 10)
+            c = randint(2, 15)
+            d = randint(1, 10)
+          } while ((d - a * b) * (a - c) <= 0 || (Math.abs((d - a * b)) % Math.abs(a - c)) !== 0)
           // falls through
         case 8: // programmes
           if (listeDeProblemes[i] === 8) {
-            variables = aleaVariables(
-              {
-                a: 'randomInt(2,15)',
-                b: 'randomInt(1,10)',
-                c: 'randomInt(2,15)',
-                d: 'randomInt(1,10)',
-                test: 'abs((d-a*b))%abs(a-c) == 0 and (d-a*b)*(a-c)<0'
-              }
-              , { valueOf: true })
+            do {
+              a = randint(2, 15)
+              b = randint(1, 10)
+              c = randint(2, 15)
+              d = randint(1, 10)
+            } while ((d - a * b) * (a - c) >= 0 || (Math.abs((d - a * b)) % Math.abs(a - c)) !== 0)
           }
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
           x = Math.round((d - a * b) / (a - c))
           equation = `(x+${b})*${a}=${c}*x+${d}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
@@ -311,19 +262,12 @@ export default class ProblemesEnEquation extends Exercice {
           `
           break
         case 9: // tarifs
-          variables = aleaVariables(
-            {
-              a: 'randomInt(0,2)',
-              b: this.sup2 ? 'randomInt(5,8)' : 'randomInt(50,80)/10',
-              c: 'randomInt(4,10)*5',
-              d: `b-${this.sup2 ? 'randomInt(1,3)' : 'randomInt(2,6)*0.5'}`,
-              test: 'c/(b-d)<30 and c/(b-d)>10 and (c*2)%((b-d)*2)==0'
-            }
-            , { valueOf: true })
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
+          do {
+            a = randint(0, 2)
+            b = this.sup2 ? randint(5, 8) : randint(50, 80) / 10
+            c = randint(4, 10) * 5
+            d = b - (this.sup2 ? randint(1, 3) : randint(2, 6) * 0.5)
+          } while (c / (b - d) >= 30 || c / (b - d) <= 10 || ((c * 2) % ((b - d) * 2)) !== 0)
           x = Math.ceil(c / (b - d))
           equation = `x*${b}>=${c}+x*${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
@@ -346,21 +290,13 @@ export default class ProblemesEnEquation extends Exercice {
           //  verification = `<br>Vérification :<br>$${x}\\times ${texPrix(b)}=${texPrix(x * b)}$ et $${c}+${x}\\times ${texPrix(d)}=${c}+${texPrix(x * d)}= ${texPrix(c + x * d)}$.<br>`
           break
         case 10: // spectacle
-          variables = aleaVariables(
-            {
-              a: 'randomInt(200,300)*10',
-              b: this.sup2 ? 'randomInt(10,20)' : 'randomInt(100,200)/10',
-              c: this.sup2 ? 'randomInt(5,15)' : 'randomInt(50,150)/10',
-              x: 'randomInt(1000,a-500)',
-              d: 'b*x+(a-x)*c',
-              test: 'b>c'
-            }
-            , { valueOf: true })
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
-          x = variables.x
+          do {
+            a = randint(200, 300) * 10
+            b = this.sup2 ? randint(10, 20) : randint(100, 200) / 10
+            c = this.sup2 ? randint(5, 15) : randint(50, 150) / 10
+            x = randint(1000, a - 500)
+            d = b * x + (a - x) * c
+          } while (b <= c)
           equation = `x*${b}+(${a}-x)*${c}=${stringNombre(d).replace(',', '.').replace(/\s+/g, '')}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: true, comment: true })
           enonce = `Dans une salle de spectacle de $${texNombre(a)}$ places, le prix d'entrée pour un adulte est $${texPrix(b)}$ € et, pour un enfant, il est de $${texPrix(c)}$ €.<br>`
@@ -374,19 +310,12 @@ export default class ProblemesEnEquation extends Exercice {
           verification = `<br>Vérification :<br>$${resolution.verifLeftSide.printExpression}=${resolution.verifLeftSide.printResult}$`
           break
         case 11: // isocele
-          variables = aleaVariables(
-            {
-              a: 'randomInt(50,100)',
-              c: '(1-2*round(randomInt(0,2)))*randomInt(10,30)',
-              b: 'a+c',
-              d: 'd=2*a+b',
-              test: 'a+a>b and b>0'
-            }
-            , { valueOf: true })
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
+          do {
+            a = randint(50, 100)
+            c = (1 - 2 * randint(0, 2)) * randint(10, 30) // variables.b
+            b = a + c
+            d = 2 * a + b
+          } while (b <= 0 || 2 * a <= b)
           enonce = `Un triangle isocèle a pour périmètre $${d}$ mm. `
           if (c > 0) { // La base est le plus grand côté
             enonce += `Sa base est plus longue de $${c}$ mm que chacun des côtés égaux.`
@@ -415,19 +344,12 @@ export default class ProblemesEnEquation extends Exercice {
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
         case 12: // Thalès
-          variables = variables = aleaVariables(
-            {
-              a: 'randomInt(5,40)',
-              b: 'randomInt(5,40)',
-              c: 'randomInt(41,100)',
-              d: 'a*b/(c-a)',
-              test: 'd>0 and (a*b)%abs(c-a)==0'
-            }
-            , { valueOf: true })
-          a = variables.a
-          b = variables.b
-          c = variables.c
-          d = variables.d
+          do {
+            a = randint(5, 40)
+            b = randint(5, 40)
+            c = randint(41, 100)
+            d = a * b / (c - a)
+          } while (d <= 0 || ((a * b) % Math.abs(c - a)) !== 0)
           x = Math.round(d)
           equation = `(x+${b})*${a}=x*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
@@ -447,19 +369,12 @@ export default class ProblemesEnEquation extends Exercice {
           uniteOptions = [' unites[Longueurs]', new Grandeur(x, 'mm'), '']
           break
         case 13: // Thales2
-          variables = variables = aleaVariables(
-            {
-              a: 'randomInt(5,40)',
-              b: 'randomInt(5,40)',
-              c: 'randomInt(41,100)',
-              d: 'a*b/(c-a)',
-              test: 'd>0 and (a*b)%abs(c-a)==0'
-            }
-            , { valueOf: true })
-          a = variables.a
-          x = variables.b
-          c = variables.c
-          d = variables.d
+          do {
+            a = randint(5, 40)
+            x = randint(5, 40)
+            c = randint(41, 100)
+            d = a * x / (c - a)
+          } while (d <= 0 || ((a * x) % Math.abs(c - a)) !== 0)
           b = Math.round(d)
           equation = `(x+${b})*${a}=${b}*${c}`
           resolution = resoudre(equation, { reduceSteps: false, substeps: false, comment: true })
