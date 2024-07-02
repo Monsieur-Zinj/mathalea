@@ -92,11 +92,7 @@ if (typeof window.iMathAlea === 'undefined') {
         if (DEBUG) {
           SERVEUR_URL = new URL(DEBUG)
         } else {
-          if (VERSION === 3) {
-            SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
-          } else {
-            SERVEUR_URL = new URL('../../alea', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
-          }
+          SERVEUR_URL = new URL('../..', this.getAttribute('serveur') || document.currentScript?.src || import.meta.url) // ou origin + pathname
         }
         if (SERVEUR_URL.protocol !== 'http:' && SERVEUR_URL.protocol !== 'https:') {
           throw new Error('Le serveur doit avoir un protocol en http ou https')
