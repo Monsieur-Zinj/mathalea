@@ -42,8 +42,7 @@ export default function MultiplierDecimaux () {
   this.nbQuestions = 4
   this.sup = false
   this.sup2 = 3
-  this.listePackages = 'xlop'
-  this.besoinFormulaire2Numerique = [
+    this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'

@@ -44,7 +44,6 @@ export default function EqResolvantesThales () {
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
-  this.listePackages = 'bclogo'
 
   let typesDeQuestionsDisponibles
 

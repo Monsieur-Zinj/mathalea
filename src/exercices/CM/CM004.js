@@ -33,8 +33,7 @@ export default function QuatreOperations () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = 1 // niveau de difficulté
-  this.listePackages = 'xlop'
-  this.tailleDiaporama = 3
+    this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

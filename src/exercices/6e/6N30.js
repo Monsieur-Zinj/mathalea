@@ -37,7 +37,6 @@ export default function LireAbscisseDecimale () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 1
-  this.listePackages = 'tkz-euclide'
   this.interactif = false
   this.nouvelleVersion = function () {
     this.autoCorrection = []

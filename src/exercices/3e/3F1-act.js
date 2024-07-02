@@ -70,7 +70,6 @@ export default function FonctionNotionVocabulaire () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 5
-  this.listePackages = ['cmd\\usepackage[tikz]{bclogo}', 'cmd\\renewcommand{\\thempfootnote}{\\arabic{mpfootnote}}']
 
   const numEx = '3F1-act' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel
 

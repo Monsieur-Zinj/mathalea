@@ -41,7 +41,6 @@ export default function PremierOuPas5e () {
   this.nbCols = 2
   this.nbColsCorr = 1
   this.sup = 1
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions

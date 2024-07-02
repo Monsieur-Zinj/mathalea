@@ -57,7 +57,6 @@ export default function ScratchMultiScript () {
   this.sup = '1-2-3'
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
-  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
       titre: 'Information',

@@ -32,7 +32,7 @@ export default function EncadrerTableau () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
-  this.listePackages = ['tkz-tab']
+  
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {

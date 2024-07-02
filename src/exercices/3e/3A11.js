@@ -28,7 +28,6 @@ export default function FractionsIrreductibles () {
   this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'bclogo'
   this.sup = true
 
   this.nouvelleVersion = function (numeroExercice) {

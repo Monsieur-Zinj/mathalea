@@ -28,7 +28,7 @@ export default function TableauSignesSecondDegre () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1.3
-  this.listePackages = ['tkz-tab']
+  
   this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {

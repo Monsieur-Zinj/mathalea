@@ -40,7 +40,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 5
-  this.listePackages = 'ProfCollege'
   this.tailleDiaporama = 3
 
   this.besoinFormulaireTexte = ['Types de calculs', 'Nombres séparés par des tirets\n1 : abcde + fgh\n2 : abc0 - efg\n3 : 1abc - def\n4 : abc * d0e (tables de 2 à 5)\n5 : abc * de (tables de 5 à 9)\n6 : Mélange']

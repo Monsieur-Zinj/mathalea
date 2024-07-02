@@ -42,7 +42,6 @@ export default function IdentitesCalculs () {
   context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
   this.tailleDiaporama = 3
 
-  this.listePackages = 'bclogo'
   let typesDeQuestionsDisponibles
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant ' : 'Effectuer les calculs suivants '

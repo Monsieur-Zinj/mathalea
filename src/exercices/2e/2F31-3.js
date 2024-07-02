@@ -26,7 +26,6 @@ export default function Variationsapartirtableau () {
   Exercice.call(this)
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
-  this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

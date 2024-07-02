@@ -34,7 +34,6 @@ export default class ProduitEtSommeOuDifferenceDeDecimaux extends Exercice {
     this.sup = 3
     this.besoinFormulaire2CaseACocher = ['Mélanger additions et soustractions']
     this.sup2 = false
-    this.listePackages = 'xlop'
   }
 
   nouvelleVersion () {

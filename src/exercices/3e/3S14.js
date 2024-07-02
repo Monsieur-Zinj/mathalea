@@ -43,7 +43,6 @@ export default function CalculerCaracteristiques () {
   this.sup = 7
   this.sup2 = 4
   this.sup3 = true
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

@@ -76,7 +76,6 @@ export default function PuissancesDunRelatif1 () {
   this.sup2 = 1
   this.classe = 4
 
-  this.listePackages = 'bclogo'
 
   // une fonction pour des infos supp sur les exposants
   function remarquesPuissances (base, baseUtile, exposant) {

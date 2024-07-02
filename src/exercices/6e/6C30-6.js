@@ -37,7 +37,6 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
   this.sup = false
   this.sup2 = true
   this.sup3 = 3
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions

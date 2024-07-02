@@ -32,7 +32,6 @@ export default function SignefonctionaffineVariation () {
   this.spacing = 1.75
   this.spacingCorr = 1.75
   this.sup = 1
-  this.listePackages = ['tkz-tab']
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = []

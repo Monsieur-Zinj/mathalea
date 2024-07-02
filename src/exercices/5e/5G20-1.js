@@ -38,7 +38,6 @@ export default function VocabulaireDesTriangles () {
   }
   this.classe = 5
 
-  this.listePackages = 'bclogo'
 
   let typeDeQuestionsDisponibles
 

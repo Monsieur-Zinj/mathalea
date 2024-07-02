@@ -31,7 +31,6 @@ export default function PpcmEngrenages () {
   this.nbQuestions = 4
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'bclogo'
   this.sup = false
 
   const numEx = '3A12' // pour rendre unique les id des SVG, en cas d'utilisation dans plusieurs exercices y faisant appel

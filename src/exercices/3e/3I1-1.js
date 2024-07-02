@@ -96,7 +96,6 @@ export default function ConjectureDeSyracuse () {
   this.pasDeVersionLatex = false // mettre à true si on ne veut pas de l'exercice dans le générateur LaTeX
   this.pas_de_version_HMTL = false // mettre à true si on ne veut pas de l'exercice en ligne
   this.correctionDetailleeDisponible = true
-  this.listePackages = 'bclogo'
   // Voir la Classe Exercice pour une liste exhaustive des propriétés disponibles.
 
   //  this.sup = false; // A décommenter : valeur par défaut d'un premier paramètre

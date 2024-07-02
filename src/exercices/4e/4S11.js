@@ -35,7 +35,6 @@ export default function DeterminerDesMedianes () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  this.listePackages = 'bclogo'
   if (context.isHtml) {
     this.spacing = 2
     this.spacingCorr = 2

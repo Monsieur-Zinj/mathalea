@@ -33,7 +33,6 @@ export default function ConstructibiliteDesTriangles () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.listePackages = 'bclogo'
 
   let typesDeQuestionsDisponibles
 

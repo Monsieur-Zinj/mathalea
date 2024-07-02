@@ -47,7 +47,6 @@ export default function ReciproqueThales () {
   this.sup = 1
   this.sup2 = 3
   this.sup3 = 3
-  this.listePackages = 'tkz-euclide'
 
   // coefficient de l'homothétie compris entre -0,8 et -0,2 ou entre 0,2 et 0,8 pour éviter les constructions trop serrées
   this.nouvelleVersion = function (numeroExercice) {

@@ -35,8 +35,7 @@ export default function OperationsPosees () {
   this.sup = 1
   this.sup2 = '1234.5-789.2'
   this.sup3 = 0
-  this.listePackages = 'xlop'
-
+  
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

@@ -43,7 +43,6 @@ export default function PremierOuPas () {
   this.sup3 = false
   this.level = 2
   // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
-  this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
   this.nouvelleVersion = function () {
     this.consigne = this.level === 2

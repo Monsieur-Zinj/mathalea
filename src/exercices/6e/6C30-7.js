@@ -37,7 +37,6 @@ export default function DiviserUnNombreParPuissanceDeDix () {
   this.consigne = ''
   this.sup = false
   this.sup2 = true
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions

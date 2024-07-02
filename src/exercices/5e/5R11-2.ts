@@ -45,7 +45,6 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     this.spacingCorr = 1
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
-    this.listePackages = ['tkz-base']
   }
 
   nouvelleVersion () {

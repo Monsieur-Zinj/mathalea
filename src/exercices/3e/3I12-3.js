@@ -34,7 +34,6 @@ export default function CompleterScriptDiviseurs () {
   this.typeExercice = 'Scratch'
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
       titre: context.isHtml ? `${scratchblock('\\begin{scratch}[print,fill,blocks,scale=0.5]\n\\ovaloperator{\\ovalnum{ } modulo \\ovalnum{ }}\\end{scratch}')}` : 'Information',
