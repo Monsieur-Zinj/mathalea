@@ -35,7 +35,6 @@ export default function FeuilleDAxesGradues () {
   this.nbColsCorrModifiable = false
   this.spacingModifiable = false
   this.spacingCorrModifiable = false
-  this.listePackages = ['tkz-euclide']
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {

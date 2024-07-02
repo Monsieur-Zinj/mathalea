@@ -22,7 +22,6 @@ export default function EquationAvecUneValeurAbsolue () {
   this.video = '' // Id YouTube ou url
   this.typeExercice = 'xcas'
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
-  this.listePackages = 'tkz-tab' // Pour la compilation LateX des tableaux de signes
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

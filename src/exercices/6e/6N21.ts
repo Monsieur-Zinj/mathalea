@@ -40,7 +40,6 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     this.sup = 1
     this.exoCustomResultat = true
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Demis, tiers ou quarts avec zéro placé\n2 : Des cinquièmes aux neuvièmes avec zéro placé \n3 : Toutes les fractions précédentes mais zéro non visible\n4 : Mélange']
-    this.listePackages = ['tkz-fct']
   }
 
   nouvelleVersion () {

@@ -44,7 +44,6 @@ export default function NoteLaCouleurC3 () {
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
   this.sup = 1
   this.sup2 = true
   this.sup3 = 4

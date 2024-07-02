@@ -40,7 +40,6 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     this.nbQuestions = 5
     this.sup = '1-2-5-6'
     this.exoCustomResultat = true
-    this.listePackages = ['tkz-fct']
     this.besoinFormulaireTexte = [
       'Type de questions', [
         'Nombres séparés par des tirets',

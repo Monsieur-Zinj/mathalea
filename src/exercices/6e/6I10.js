@@ -39,7 +39,6 @@ export default function ColorierDeplacement () {
   this.nbQuestionsModifiable = false
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
-  this.listePackages = 'scratch3' // pour dessiner les blocs en LaTeX/Tikz
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

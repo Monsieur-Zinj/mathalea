@@ -43,7 +43,6 @@ export default function NoteLaCouleur6e () {
   this.pasDeVersionLatex = false
   this.pas_de_version_HMTL = false
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
   this.sup = 1
   this.sup2 = 1
   this.sup3 = 4

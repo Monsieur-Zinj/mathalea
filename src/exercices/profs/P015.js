@@ -33,7 +33,6 @@ export default function PuzzlesGeometriques () {
   this.sup = 1
   this.sup2 = true
   this.typeExercice = 'IEP'
-  this.listePackages = ['bclogo', 'yhmath']
 
   this.nouvelleVersion = function () {
     const type = parseInt(this.sup)

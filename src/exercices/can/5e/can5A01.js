@@ -29,7 +29,6 @@ export default function RepetitionScratch () {
   this.listeQuestions = []
   this.listeCorrections = []
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.listeAvecNumerotation = false
