@@ -72,6 +72,22 @@ class Trinome {
     this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
   }
 
+  add (trinome) {
+    return new Trinome(this.a.sommeFraction(trinome.a), this.b.sommeFraction(trinome.b), this.c.sommeFraction(trinome.c))
+  }
+
+  sub (trinome) {
+    return new Trinome(this.a.differenceFraction(trinome.a), this.b.differenceFraction(trinome.b), this.c.differenceFraction(trinome.c))
+  }
+
+  mul (k) {
+    return new Trinome(this.a.produitFraction(k), this.b.produitFraction(k), this.c.produitFraction(k))
+  }
+
+  isEqual (trinome) {
+    return this.a.isEqual(trinome.a) && this.b.isEqual(trinome.b) && this.c.isEqual(trinome.c)
+  }
+
   /**
    * Nombre de chiffres après la virgule pour les valeurs approchées (dans les calculs des racines)
    * @type {number}
@@ -94,11 +110,15 @@ class Trinome {
     }
 
     if (Math.abs(this.b.valeurDecimale) === 1) {
-      result += `${this.b.signeString}x`
+      if (result === '') {
+        result = this.b.valeurDecimale === 1 ? 'x' : '-x'
+      } else {
+        result += `${this.b.signeString}x`
+      }
     } else if (this.b.valeurDecimale === 0) {
       result += ''
     } else {
-      if (result && this.b.s === 1) result += '+'
+      if (result !== '' && this.b.s === 1) result += '+'
       result += `${this.b.texFSD}x`
     }
 
@@ -109,6 +129,15 @@ class Trinome {
       result += `${this.c.texFSD}`
     }
     return result
+  }
+
+  toString ({ parentheses = false } = {}) {
+    if (parentheses) return `(${this.tex})`
+    return this.tex
+  }
+
+  get isConstant () {
+    return this.a.valeurDecimale === 0 && this.b.valeurDecimale === 0
   }
 
   /**
