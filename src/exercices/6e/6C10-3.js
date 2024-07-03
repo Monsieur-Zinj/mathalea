@@ -140,8 +140,9 @@ export default function ExerciceTablesMultiplicationsEtDecimaux (
       this.autoCorrection[i].options = {
         ordered: false
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

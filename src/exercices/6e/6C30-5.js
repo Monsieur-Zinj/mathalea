@@ -164,8 +164,9 @@ export default function MultiplierPar001 () {
           }
           break
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
 
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

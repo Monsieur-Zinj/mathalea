@@ -351,8 +351,9 @@ export default function CalculDeVolumes () {
       resultat2 = resultat2.toNumber()
       resultat3 = resultat3.toNumber()
       resultat4 = resultat4.toNumber()
+      const props = propositionsQcm(this, i)
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       } else {
         setReponse(this, i, new Grandeur(resultat, listeUnites[j][2]), { formatInteractif: 'unites', precision: 0 })
         texte += ajouteChampTexteMathLive(this, i, 'unites[volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à indiquer l\'unité au volume-réponse : ' })

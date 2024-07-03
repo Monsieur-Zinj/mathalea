@@ -197,8 +197,10 @@ export default function MultiplicationMentalDecimaux () {
           }
           break
       }
+      const props = propositionsQcm(this, i)
+
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

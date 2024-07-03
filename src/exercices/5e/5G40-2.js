@@ -10,7 +10,6 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
 export const interactifReady = true
@@ -203,21 +202,22 @@ export default function ParallelogrammeAPartirDUneFigure () {
           texteCorr += `<br>Donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est un parallélogramme')}.`
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'Il s\'agit d\'un parallélogramme',
-            statut: estUnParallegramme
-          },
-          {
-            texte: 'Il ne s\'agit pas d\'un parallélogramme',
-            statut: !estUnParallegramme
-          }
-        ]
-        texte += propositionsQcm(this, i).texte
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Il s\'agit d\'un parallélogramme',
+          statut: estUnParallegramme
+        },
+        {
+          texte: 'Il ne s\'agit pas d\'un parallélogramme',
+          statut: !estUnParallegramme
+        }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

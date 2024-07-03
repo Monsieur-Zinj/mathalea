@@ -6,7 +6,6 @@ import { labelPoint } from '../../lib/2d/textes.ts'
 import { similitude, translation2Points } from '../../lib/2d/transformations.js'
 import { choice, combinaisonListes, enleveDoublonNum } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone } from '../../lib/outils/outilString.js'
-import { context } from '../../modules/context.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
@@ -489,35 +488,34 @@ export default function Solide6e () {
       )
 
       correction += mathalea2d(params, objetsCorrection)
-      if (this.interactif || context.isAmc) {
-        resultatCorrect = combinaisonListes(resultatCorrect, resultatCorrect.length)
-        resultatFaux = enleveDoublonNum(resultatFaux)
-        resultatFaux = combinaisonListes(resultatFaux, resultatFaux.length)
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = texte
-        this.autoCorrection[i].propositions = [{
-          texte: resultatCorrect[0],
-          statut: true
-        },
-        {
-          texte: resultatCorrect.length > 1 ? resultatCorrect[1] : resultatFaux[3],
-          statut: resultatCorrect.length > 1
-        },
-        {
-          texte: resultatFaux[0],
-          statut: false
-        },
-        {
-          texte: listeDeProblemes[i] === 4 ? resultatCorrect[2] : resultatFaux[1],
-          statut: listeDeProblemes[i] === 4
-        },
-        {
-          texte: listeDeProblemes[i] === 4 ? resultatCorrect[3] : resultatFaux[2],
-          statut: listeDeProblemes[i] === 4
-        }
-        ]
-        texte += propositionsQcm(this, i).texte
+      resultatCorrect = combinaisonListes(resultatCorrect, resultatCorrect.length)
+      resultatFaux = enleveDoublonNum(resultatFaux)
+      resultatFaux = combinaisonListes(resultatFaux, resultatFaux.length)
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = texte
+      this.autoCorrection[i].propositions = [{
+        texte: resultatCorrect[0],
+        statut: true
+      },
+      {
+        texte: resultatCorrect.length > 1 ? resultatCorrect[1] : resultatFaux[3],
+        statut: resultatCorrect.length > 1
+      },
+      {
+        texte: resultatFaux[0],
+        statut: false
+      },
+      {
+        texte: listeDeProblemes[i] === 4 ? resultatCorrect[2] : resultatFaux[1],
+        statut: listeDeProblemes[i] === 4
+      },
+      {
+        texte: listeDeProblemes[i] === 4 ? resultatCorrect[3] : resultatFaux[2],
+        statut: listeDeProblemes[i] === 4
       }
+      ]
+      const props = propositionsQcm(this, i)
+      texte += props.texte
       if (this.questionJamaisPosee(i, texte, k, l, s)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte + '<br>')

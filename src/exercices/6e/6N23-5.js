@@ -201,8 +201,9 @@ export default function SensDeLaFraction () {
         ordered: false,
         lastChoice: 5
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
         texte = texte.replace(`$${texFractionFromString('\\phantom{00000}', '\\phantom{00000}')}$`, '')
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

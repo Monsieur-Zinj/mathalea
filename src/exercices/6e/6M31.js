@@ -292,8 +292,9 @@ export default function ExerciceConversionsVolumes () {
         statut: false
       }
       ]
+      const props = propositionsQcm(this, i)
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       } else if (this.interactif && this.interactifType === 'mathLive') {
         texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur25')}$`)
         setReponse(this, i, resultat)

@@ -258,13 +258,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
           break
       }
       // if (this.modeQcm && !context.isAmc) {
-      //   if (texteCorr.lastIndexOf('\n') > 0) {
-      //     texteCorr = texteCorr.substring(0, texteCorr.lastIndexOf('\n'))
-      //   }
-      //   this.tableauSolutionsDuQcm[i] = tabicone
-      //   texte += propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texte
-      //   texteCorr += '<br>' + propositionsQcm(this.numeroExercice, i, tabrep, tabicone).texteCorr
-      // }
 
       this.autoCorrection[i].enonce = `${texte}\n`
 
@@ -283,8 +276,9 @@ export default function ReconnaitreQuadrilatereParticulier () {
 
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
+        const props = propositionsQcm(this, i)
         if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+          texte += props.texte
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
