@@ -108,7 +108,7 @@ default:
       - tests/e2e/logs
       - updatefile
     exclude:
-      - updatefile/output/*.zip
+      - updatefile/output/*.*
     expire_in: 20 day
 
 .testCI:
