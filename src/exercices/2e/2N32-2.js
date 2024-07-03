@@ -46,32 +46,30 @@ export default function Proprietesracinecarree () {
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}$<br>
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${d}\\times ${b}$<br>
                         $\\phantom{\\left(${a} \\sqrt{${b}}\\right)^{2}}=${c}$`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${c}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$${a ** 2} \\sqrt{${b}}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${abs(a) * b} $`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${c}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$${a ** 2} \\sqrt{${b}}$`,
+                statut: false
+              },
+              {
+                texte: `$${abs(a) * b} $`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 2:// calcul de (a sqrt b)*c sqrt b
 
@@ -85,32 +83,30 @@ export default function Proprietesracinecarree () {
           texteCorr = `$ ${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}=${c}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}} \\times \\sqrt{${b}}$<br>
                         $\\phantom{${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}}=${e}\\times ${b}$<br>
                         $\\phantom{${c} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)} \\sqrt{${b}}}=${e * b}$`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${e * b}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$${e} \\sqrt{${b}}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${-e} \\sqrt{${b}}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${e * b}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$${e} \\sqrt{${b}}$`,
+                statut: false
+              },
+              {
+                texte: `$${-e} \\sqrt{${b}}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 3://  calcul de (a sqrt b)*(c + d sqrt b)
           a = randint(2, 9) * choice([-1, 1])
@@ -124,32 +120,30 @@ export default function Proprietesracinecarree () {
                         ${a} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(c)}${ecritureAlgebrique(a)} \\sqrt{${b}}\\times ${ecritureParentheseSiNegatif(d)}\\sqrt{${b}}$<br>
                         $\\phantom{${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)}=${a * c}\\sqrt{${b}}${ecritureAlgebrique(a)}\\times ${ecritureParentheseSiNegatif(d)}\\times ${b}$<br>
                         $\\phantom{${a} \\sqrt{${b}}\\left( ${c}  ${ecritureAlgebrique(d)}\\sqrt{${b}}\\right)}=${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(-a * d * b)}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${rienSi1(a + c)}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$${a * c}\\sqrt{${b}}${ecritureAlgebrique(-a * d * b)}$`,
+                statut: false
+              },
+              {
+                texte: `$${rienSi1(a + c)}\\sqrt{${b}}${ecritureAlgebrique(a * d * b)}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 4://  calcul de sqrt b + sqrt c
 
@@ -162,32 +156,30 @@ export default function Proprietesracinecarree () {
 
           texte = `$\\sqrt{${b}}+\\sqrt{${c}}$`
           texteCorr = `$  \\sqrt{${b}}+\\sqrt{${c}}$ n'est pas simplifiable`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\sqrt{${b + c}}$`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: true
-                },
-                {
-                  texte: `$\\sqrt{${b * c}}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${b + c}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\sqrt{${b + c}}$`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: true
+              },
+              {
+                texte: `$\\sqrt{${b * c}}$`,
+                statut: false
+              },
+              {
+                texte: `$${b + c}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 5://  calcul de  sqrt b² + sqrt c²
 
@@ -197,32 +189,30 @@ export default function Proprietesracinecarree () {
 
           texte = `$  \\sqrt{${b * b}}+\\sqrt{${c * c}}$`
           texteCorr = `$  \\sqrt{${b * b}}+\\sqrt{${c * c}}=${b}+${c}=${b + c}$ `
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\sqrt{${b + c}}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${b + c}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$\\sqrt{${b * b + c * c}}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\sqrt{${b + c}}$`,
+                statut: false
+              },
+              {
+                texte: `$${b + c}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$\\sqrt{${b * b + c * c}}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 6://  calcul de  sqrt (b²c/c)
 
@@ -234,32 +224,30 @@ export default function Proprietesracinecarree () {
           texteCorr = `$ \\sqrt{\\dfrac{${d}}{${c}}}= \\sqrt{\\dfrac{${b}^{2}\\times${c}}{${c}}}$<br>
                         $\\phantom{\\sqrt{\\dfrac{${d}}{${c}}}}=\\sqrt{${b}^{2}}$<br>
                         $\\phantom{\\sqrt{\\dfrac{${d}}{${c}}}}=${b}$ `
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\sqrt{${b}}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${b}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$${b ** 2}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\sqrt{${b}}$`,
+                statut: false
+              },
+              {
+                texte: `$${b}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$${b ** 2}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
         case 7://  calcul de sqrt b * sqrt c
 
@@ -275,32 +263,30 @@ export default function Proprietesracinecarree () {
           texteCorr = `$ \\sqrt{${d}}\\times \\sqrt{${c}}=\\sqrt{${d}\\times${c}}$<br>
                         $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=\\sqrt{${b}\\times${c}\\times${c}}$<br>
                         $\\phantom{\\sqrt{${d}}\\times \\sqrt{${c}}}=${c}\\sqrt{${b}}$ `
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${c * b}$`,
-                  statut: false
-                },
-                {
-                  texte: `$${c}\\sqrt{${b}}$`,
-                  statut: true
-                },
-                {
-                  texte: 'On ne peut pas simplifier',
-                  statut: false
-                },
-                {
-                  texte: `$${b}\\sqrt{${c}}$`,
-                  statut: false
-                }
-              ]
-            }
-            monQcm = propositionsQcm(this, i)
-            texte += monQcm.texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${c * b}$`,
+                statut: false
+              },
+              {
+                texte: `$${c}\\sqrt{${b}}$`,
+                statut: true
+              },
+              {
+                texte: 'On ne peut pas simplifier',
+                statut: false
+              },
+              {
+                texte: `$${b}\\sqrt{${c}}$`,
+                statut: false
+              }
+            ]
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

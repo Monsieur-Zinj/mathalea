@@ -104,9 +104,8 @@ export default function CalculsAvecPuissancesDeDixBis () {
         lastChoice: 5
       }
 
-      if (this.interactif) {
-        texte += propositionsQcm(this, i).texte
-      }
+      const props = propositionsQcm(this, i)
+      if (this.interactif) texte += props.texte
       if (this.listeQuestions.indexOf(texte) === -1) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
