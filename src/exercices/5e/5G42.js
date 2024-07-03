@@ -139,7 +139,7 @@ export default function DemonstrationsParallelogrammes () {
       texte += `Déterminer la nature de ${nom}`
       texte += this.interactif ? '.' : ' en justifiant la réponse.'
       texteCorr = 'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
-      texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.3 }, objets) + '<br>'
+      texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
       texteCorr += `On sait que ${prop2}.<br>`
       texteCorr += `Si un parallélogramme ${prop1}, alors c'est un ${type}.<br>`
       texteCorr += `${nom} est donc un ${type}.`
@@ -161,13 +161,14 @@ export default function DemonstrationsParallelogrammes () {
           statut: false
         }
       ]
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: false }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = propositionsDuQCM
-        texte += propositionsQcm(this, i).texte
-      }
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: false }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = propositionsDuQCM
+
+      const props = propositionsQcm(this, i) // Il faut impérativement faire cela qu'on soit en interactif ou pas, sino cela décale le générateur aléatoire !
+      if (this.interactif || context.isAmc) texte += props.texte
+      // if (this.interactif) texte += propositionsQcm(this, i).texte
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nom)) {
         // Si la question n'a jamais été posée, on en crée une autre
