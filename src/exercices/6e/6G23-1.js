@@ -158,8 +158,9 @@ export default function MesurerUnAngle () {
         ordered: false,
         lastChoice: 6
       }
+      const props = propositionsQcm(this, i)
       if (!context.isAmc) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
       if (this.questionJamaisPosee(i, angle)) {
         this.listeQuestions.push(texte)

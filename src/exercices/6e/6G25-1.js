@@ -456,8 +456,9 @@ export default function SymetrieAxialePavageTriangulaire () {
       objetsEnonce.push(images[i])
       // On ajoute au texte de la correction, la figure de la correction
       // texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+      const props = propositionsQcm(this, i)
       if (this.interactif && !context.isAmc) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)

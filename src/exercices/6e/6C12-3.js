@@ -1317,9 +1317,11 @@ export default function ExerciceInformationsProblemes () {
         ordered: false,
         lastChoice: 5 // A creuser pour supprimer ou mettre nbquestions
       }
-      if (!context.isAmc) {
-        texte += propositionsQcm(this, i).texte
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }

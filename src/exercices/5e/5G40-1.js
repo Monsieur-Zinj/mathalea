@@ -87,58 +87,59 @@ export default function ProprietesDesParallelogrammes () {
           texteCorr = `Si un quadrilatère a ${texteEnCouleurEtGras('ses angles opposés égaux')}, alors c'est un parallélogramme.`
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = context.isAmc ? { ordered: false } : { ordered: false, vertical: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        if (listeTypeQuestions[i] < 5) {
-          this.autoCorrection[i].propositions = [
-            {
-              texte: 'opposés sont parallèles',
-              statut: listeTypeQuestions[i] === 1
-            },
-            {
-              texte: 'opposés sont de même longueur',
-              statut: listeTypeQuestions[i] === 1
-            },
-            {
-              texte: 'se coupent en leur milieu',
-              statut: listeTypeQuestions[i] === 2
-            },
-            {
-              texte: 'opposés sont égaux',
-              statut: listeTypeQuestions[i] === 3
-            },
-            {
-              texte: listeTypeQuestions[i] === 4 ? 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales' : ' sont le point d\'intersection de ses diagonales',
-              statut: listeTypeQuestions[i] === 4
-            }
-          ]
-        } else {
-          this.autoCorrection[i].propositions = [
-            {
-              texte: 'qui se coupent en leur milieu',
-              statut: listeTypeQuestions[i] === 5
-            },
-            {
-              texte: 'ses côtés opposés',
-              statut: listeTypeQuestions[i] === 6
-            },
-            {
-              texte: 'ses côtés opposés de même',
-              statut: listeTypeQuestions[i] === 7
-            },
-            {
-              texte: 'opposés parallèles et de même longueur',
-              statut: listeTypeQuestions[i] === 8
-            },
-            {
-              texte: 'ses angles opposés égaux',
-              statut: listeTypeQuestions[i] === 9
-            }
-          ]
-          texte += propositionsQcm(this, i).texte
-        }
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = context.isAmc ? { ordered: false } : { ordered: false, vertical: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      if (listeTypeQuestions[i] < 5) {
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'opposés sont parallèles',
+            statut: listeTypeQuestions[i] === 1
+          },
+          {
+            texte: 'opposés sont de même longueur',
+            statut: listeTypeQuestions[i] === 1
+          },
+          {
+            texte: 'se coupent en leur milieu',
+            statut: listeTypeQuestions[i] === 2
+          },
+          {
+            texte: 'opposés sont égaux',
+            statut: listeTypeQuestions[i] === 3
+          },
+          {
+            texte: listeTypeQuestions[i] === 4 ? 'il a un centre de symétrie qui est le point d\'intersection de ses diagonales' : ' sont le point d\'intersection de ses diagonales',
+            statut: listeTypeQuestions[i] === 4
+          }
+        ]
+      } else {
+        this.autoCorrection[i].propositions = [
+          {
+            texte: 'qui se coupent en leur milieu',
+            statut: listeTypeQuestions[i] === 5
+          },
+          {
+            texte: 'ses côtés opposés',
+            statut: listeTypeQuestions[i] === 6
+          },
+          {
+            texte: 'ses côtés opposés de même',
+            statut: listeTypeQuestions[i] === 7
+          },
+          {
+            texte: 'opposés parallèles et de même longueur',
+            statut: listeTypeQuestions[i] === 8
+          },
+          {
+            texte: 'ses angles opposés égaux',
+            statut: listeTypeQuestions[i] === 9
+          }
+        ]
+      }
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
 
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

@@ -174,10 +174,12 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
           this.autoCorrection[i].propositions[1].statut = true
           break
       }
+      const props = propositionsQcm(this, i)
+
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, N, a)) {
         this.autoCorrection[i].enonce = `${texte}\n`
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

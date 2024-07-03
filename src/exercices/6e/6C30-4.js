@@ -106,9 +106,11 @@ export default function PlacerLaVirgule () {
         ordered: false,
         lastChoice: 4
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += props.texte
       }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions
         this.listeQuestions.push(texte)

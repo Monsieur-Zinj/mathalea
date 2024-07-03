@@ -11,7 +11,6 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Déterminer la nature de parallélogrammes'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -167,7 +166,7 @@ export default function DemonstrationsParallelogrammes () {
       this.autoCorrection[i].propositions = propositionsDuQCM
 
       const props = propositionsQcm(this, i) // Il faut impérativement faire cela qu'on soit en interactif ou pas, sino cela décale le générateur aléatoire !
-      if (this.interactif || context.isAmc) texte += props.texte
+      if (this.interactif) texte += props.texte
       // if (this.interactif) texte += propositionsQcm(this, i).texte
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nom)) {

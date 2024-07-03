@@ -319,8 +319,10 @@ export default function ProportionnalitePasProportionnalite () {
               statut: false
             })
           }
+          const props = propositionsQcm(this, i)
+
           if (this.interactif) {
-            texte += propositionsQcm(this, i).texte
+            texte += props.texte
           }
         }
         // Si la question n'a jamais été posée, on en crée une autre

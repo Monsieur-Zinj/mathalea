@@ -324,8 +324,10 @@ export default function ExerciceConversionsAires () {
         statut: false
       }
       ]
+      const props = propositionsQcm(this, i)
+
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       }
 
       if (this.questionJamaisPosee(i, a, prefixe, div)) {

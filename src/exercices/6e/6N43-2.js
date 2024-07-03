@@ -467,9 +467,11 @@ export default function TableauCriteresDeDivisibilite () {
         ordered: true,
         lastChoice: 4
       }
+      const props = propositionsQcm(this, i)
+
       if (!context.isAmc && this.modeQcm) {
         texte += `$${texNombre2(tableauDeNombres[i])}$ est divisible par : `
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
         texte += '<br>'
       }
     } // fin de boucle de préparation des question

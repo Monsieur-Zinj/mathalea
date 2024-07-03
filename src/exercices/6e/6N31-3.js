@@ -282,10 +282,11 @@ export default function ArrondirUneValeur () {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      const props = propositionsQcm(this, i)
+      if (this.questionJamaisPosee(i, di, ci, mi)) {
         // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+          texte += props.texte
         }
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
         this.listeCorrections.push(texteCorr) // On fait pareil pour la correction

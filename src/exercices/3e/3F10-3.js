@@ -532,8 +532,9 @@ export default function VocabulaireNotationsFonctions2 () {
           }
           break
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       }
       if (this.questionJamaisPosee(i, x, y)) {
         this.listeQuestions.push(texte)

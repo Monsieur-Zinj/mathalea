@@ -241,10 +241,10 @@ export default class TraduireUnProgrammeDeCalcul extends Exercice {
           ]
           break
       }
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       }
-
       if (this.sup) {
         texteCorr += '<br><br>Le programme de calcul est équivalent à :'
         texteCorr += itemize([`Multiplier par $${A}$`, `${(B > 0) ? 'Ajouter' : 'Enlever'} $${Math.abs(B)}$`])

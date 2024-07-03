@@ -416,12 +416,10 @@ export default function ScratchMultiScript () {
           }
         }
       }
-      if (!context.isAmc && this.interactif) {
-        for (let k = 0; k < couleurs[i].length; k++) {
-          mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
-          texte += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
-          texteCorr += `Couleur N° ${k + 1} : ` + mesQcm[indexReponse + k].texteCorr
-        }
+      for (let k = 0; k < couleurs[i].length; k++) {
+        mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
+        texte += `Couleur N° ${k + 1} ? ` + (this.interactif ? mesQcm[indexReponse + k].texte : '')
+        texteCorr += `Couleur N° ${k + 1} : ` + (this.interactif ? mesQcm[indexReponse + k].texteCorr : '')
       }
       if (!context.isHtml && i !== this.nbQuestions - 1) {
         texte += '\\columnbreak'
