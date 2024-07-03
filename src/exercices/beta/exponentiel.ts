@@ -115,9 +115,9 @@ export default class SimplifierExponentielles extends Exercice {
         }
         case '(e^mx)p - e^nx * e^ox': {
           const [m, p, n, o] = choice([productEqualSum(), [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]])
-          const p1 = new Trinome(0, m, 0)
-          const p2 = new Trinome(0, n, 0)
-          const p3 = new Trinome(0, o, 0)
+          const p1 = new Trinome(0, 0, m)
+          const p2 = new Trinome(0, 0, n)
+          const p3 = new Trinome(0, 0, o)
           const e1 = new ExponentialOperande({ polynome: p1 })
           const e2 = new ExponentialOperande({ polynome: p2 })
           const e3 = new ExponentialOperande({ polynome: p3 })
