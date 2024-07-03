@@ -36,8 +36,8 @@ const numbersSpaceCaps: CompleteKeysList = {
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'SPACE']
 }
 const variableCaps: CompleteKeysList = {
-  inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'V', 'F'],
-  block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'V', 'F']
+  inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'e', 'V', 'F'],
+  block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'e', 'V', 'F']
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
