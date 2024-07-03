@@ -45,7 +45,7 @@ export default function SolInequation () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions)//, 2, 3
-    for (let i = 0, texte, texteCorr, cpt = 0, x0, a, b, c, d, e, m, p, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, monQcm, cpt = 0, x0, a, b, c, d, e, m, p, k = [], typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       x0 = randint(-6, 6)
@@ -83,40 +83,39 @@ export default function SolInequation () {
             texteCorr += `<br>$${d}$ n'est pas strictement inférieur à $${d}$.<br>
           On en déduit que $${x0}$ n'est pas solution de l'inéquation.`
           }
-          if (this.interactif) {
-            if (a * x0 * x0 + b * x0 + c < d) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'OUI',
-                    statut: true
-                  },
-                  {
-                    texte: 'NON',
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'NON',
-                    statut: true
-                  },
-                  {
-                    texte: 'OUI',
-                    statut: false
-                  }
-                ]
-              }
+          if (a * x0 * x0 + b * x0 + c < d) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'OUI',
+                  statut: true
+                },
+                {
+                  texte: 'NON',
+                  statut: false
+                }
+              ]
             }
-            texte += propositionsQcm(this, i).texte
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'NON',
+                  statut: true
+                },
+                {
+                  texte: 'OUI',
+                  statut: false
+                }
+              ]
+            }
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
 
         case 2://
@@ -140,40 +139,39 @@ export default function SolInequation () {
           On en déduit que $${x0}$ n'est pas solution de l'inéquation.`
           }
 
-          if (this.interactif) {
-            if (a * x0 * x0 + b * x0 + c > d || a * x0 * x0 + b * x0 + c === d) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'OUI',
-                    statut: true
-                  },
-                  {
-                    texte: 'NON',
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'NON',
-                    statut: true
-                  },
-                  {
-                    texte: 'OUI',
-                    statut: false
-                  }
-                ]
-              }
+          if (a * x0 * x0 + b * x0 + c > d || a * x0 * x0 + b * x0 + c === d) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'OUI',
+                  statut: true
+                },
+                {
+                  texte: 'NON',
+                  statut: false
+                }
+              ]
             }
-            texte += propositionsQcm(this, i).texte
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'NON',
+                  statut: true
+                },
+                {
+                  texte: 'OUI',
+                  statut: false
+                }
+              ]
+            }
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
 
         case 3://
@@ -201,40 +199,39 @@ export default function SolInequation () {
             texteCorr += `<br>Comme $${a * x0 * x0 + b * x0 + c} > ${m * x0 + p}$, le nombre $${x0}$ n'est pas solution de l'inéquation.`
           }
 
-          if (this.interactif) {
-            if (a * x0 * x0 + b * x0 + c < m * x0 + p || a * x0 * x0 + b * x0 + c === m * x0 + p) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'OUI',
-                    statut: true
-                  },
-                  {
-                    texte: 'NON',
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: 'NON',
-                    statut: true
-                  },
-                  {
-                    texte: 'OUI',
-                    statut: false
-                  }
-                ]
-              }
+          if (a * x0 * x0 + b * x0 + c < m * x0 + p || a * x0 * x0 + b * x0 + c === m * x0 + p) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'OUI',
+                  statut: true
+                },
+                {
+                  texte: 'NON',
+                  statut: false
+                }
+              ]
             }
-            texte += propositionsQcm(this, i).texte
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: 'NON',
+                  statut: true
+                },
+                {
+                  texte: 'OUI',
+                  statut: false
+                }
+              ]
+            }
           }
+          monQcm = propositionsQcm(this, i)
+          if (this.interactif) texte += monQcm.texte
           break
       }
 

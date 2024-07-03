@@ -8,7 +8,6 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
@@ -247,27 +246,27 @@ export default function EtudierPariteFonction () {
           bonneReponse = '$f$ est impaire'
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: '$f$ est paire',
-            statut: bonneReponse === '$f$ est paire'
-          },
-          {
-            texte: '$f$ est impaire',
-            statut: bonneReponse === '$f$ est impaire'
-          },
-          {
-            texte: '$f$ n\'est ni paire ni impaire',
-            statut: bonneReponse === '$f$ n\'est ni paire ni impaire'
-          }
-        ]
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: '$f$ est paire',
+          statut: bonneReponse === '$f$ est paire'
+        },
+        {
+          texte: '$f$ est impaire',
+          statut: bonneReponse === '$f$ est impaire'
+        },
+        {
+          texte: '$f$ n\'est ni paire ni impaire',
+          statut: bonneReponse === '$f$ n\'est ni paire ni impaire'
         }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
       if (this.questionJamaisPosee(i, k, a, b, c, d, e)) {
         // Si la question n'a jamais été posée, on en créé une autre
