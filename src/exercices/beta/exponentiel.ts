@@ -46,13 +46,13 @@ export default class SimplifierExponentielles extends Exercice {
       let p2 = new Trinome(0, 0, randint(-5, 5, [0, 1]))
       let p3 = new Trinome(0, 0, randint(-5, 5, [0, 1]))
       if (this.sup === 2) {
-        p1 = new Trinome(0, randint(1, 5), 0)
-        p2 = new Trinome(0, randint(1, 5), 0)
-        p3 = new Trinome(0, randint(1, 5), 0)
+        p1 = new Trinome(0, randint(-5, 5, [0]), 0)
+        p2 = new Trinome(0, randint(-5, 5, [0]), 0)
+        p3 = new Trinome(0, randint(-5, 5, [0]), 0)
       } else if (this.sup === 3) {
-        p1 = new Trinome(0, randint(1, 5), randint(1, 5))
-        p2 = new Trinome(0, randint(1, 5), randint(1, 5))
-        p3 = new Trinome(0, randint(1, 5), randint(1, 5))
+        p1 = new Trinome(0, randint(-5, 5, [0]), randint(-5, 5, [0]))
+        p2 = new Trinome(0, randint(-5, 5, [0]), randint(-5, 5, [0]))
+        p3 = new Trinome(0, randint(-5, 5, [0]), randint(-5, 5, [0]))
       }
       const e1 = new ExponentialOperande({ polynome: p1 })
       const e2 = new ExponentialOperande({ polynome: p2 })
@@ -115,9 +115,14 @@ export default class SimplifierExponentielles extends Exercice {
         }
         case '(e^mx)p - e^nx * e^ox': {
           const [m, p, n, o] = choice([productEqualSum(), [randint(2, 5), randint(2, 5), randint(2, 5), randint(2, 5)]])
-          const p1 = new Trinome(0, 0, m)
-          const p2 = new Trinome(0, 0, n)
-          const p3 = new Trinome(0, 0, o)
+          let p1 = new Trinome(0, 0, m)
+          let p2 = new Trinome(0, 0, n)
+          let p3 = new Trinome(0, 0, o)
+          if (this.sup > 1) {
+            p1 = new Trinome(0, m, 0)
+            p2 = new Trinome(0, n, 0)
+            p3 = new Trinome(0, o, 0)
+          }
           const e1 = new ExponentialOperande({ polynome: p1 })
           const e2 = new ExponentialOperande({ polynome: p2 })
           const e3 = new ExponentialOperande({ polynome: p3 })
@@ -165,7 +170,7 @@ export default class SimplifierExponentielles extends Exercice {
         }
       }
       if (this.interactif) {
-        texte += `<br><br> $${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+        texte += `<br><br> $${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
         // @ts-expect-error problème typage de handleAnswers
         handleAnswers(this, i, { reponse: { value: answer } })
       }
