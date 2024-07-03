@@ -23,9 +23,11 @@ export default class SimplifierExponentielles extends Exercice {
   constructor () {
     super()
     this.consigne = 'Simplifier les expressions suivantes.'
-    this.nbQuestions = 5
+    this.nbQuestions = 6
     this.spacing = 2
     this.spacingCorr = 3
+    this.sup = 1
+    this.besoinFormulaireNumerique = ['Niveaux de difficulté', 3, '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b']
   }
 
   nouvelleVersion () {
@@ -33,19 +35,30 @@ export default class SimplifierExponentielles extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const typeQuestionsDisponibles = ['mul', 'pow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPow']
+    const typeQuestionsDisponibles = ['mul', 'pow', 'powTimesPow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPowNum', 'fracMulNum']
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
       let answer = ''
+      let p1 = new Trinome(0, 0, randint(-5, 5, [0, 1]))
+      let p2 = new Trinome(0, 0, randint(-5, 5, [0, 1]))
+      let p3 = new Trinome(0, 0, randint(-5, 5, [0, 1]))
+      if (this.sup === 2) {
+        p1 = new Trinome(0, randint(1, 5), 0)
+        p2 = new Trinome(0, randint(1, 5), 0)
+        p3 = new Trinome(0, randint(1, 5), 0)
+      } else if (this.sup === 3) {
+        p1 = new Trinome(0, randint(1, 5), randint(1, 5))
+        p2 = new Trinome(0, randint(1, 5), randint(1, 5))
+        p3 = new Trinome(0, randint(1, 5), randint(1, 5))
+      }
+      const e1 = new ExponentialOperande({ polynome: p1 })
+      const e2 = new ExponentialOperande({ polynome: p2 })
+      const e3 = new ExponentialOperande({ polynome: p3 })
       switch (listeTypeQuestions[i]) {
         case 'mul': {
-          const p1 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const p2 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const e1 = new ExponentialOperande({ polynome: p1, k: randint(-3, 3, [0]) })
-          const e2 = new ExponentialOperande({ polynome: p2, k: randint(-3, 3, [0]) })
           const calcul = new Mul(e1, e2)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
           if (calcul.step !== '') {
@@ -56,9 +69,7 @@ export default class SimplifierExponentielles extends Exercice {
           break
         }
         case 'pow' : {
-          const p1 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const e = new ExponentialOperande({ polynome: p1, k: randint(-2, 2, [0]) })
-          const calcul = new Pow(e, randint(2, 4))
+          const calcul = new Pow(e1, randint(2, 4))
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
           texteCorr = ''
           if (calcul.step !== '') {
@@ -66,16 +77,22 @@ export default class SimplifierExponentielles extends Exercice {
           }
           texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${calcul.result}$`
           answer = calcul.result.toString()
-
+          break
+        }
+        case 'powTimesPow' : {
+          const facteur1 = new Pow(e1, randint(2, 4))
+          const facteur2 = new Pow(e2, randint(2, 4))
+          const calcul = new Mul(facteur1, facteur2)
+          const calculStep = new Mul(facteur1.result, facteur2.result)
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
+          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${new Mul(facteur1.step, facteur2.step)}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep.step}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calculStep.result}$`
+          answer = calculStep.result.toString()
           break
         }
         case 'k(a+b)': {
-          const p1 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const p2 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const p3 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const e1 = new ExponentialOperande({ polynome: p1 })
-          const e2 = new ExponentialOperande({ polynome: p2 })
-          const e3 = new ExponentialOperande({ polynome: p3 })
           const calcul = new Mul(e1, new Add(e2, e3))
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul.toString()}$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = `
@@ -117,14 +134,24 @@ export default class SimplifierExponentielles extends Exercice {
           answer = result.result.toString()
           break
         }
-        case 'fracPow': {
-          const p1 = new Trinome(0, randint(1, 5), randint(1, 5))
-          const p2 = new Trinome(0, randint(1, 5), randint(1, 5))
+        case 'fracPowNum': {
           const n = randint(2, 4)
-          const e1 = new ExponentialOperande({ polynome: p1 })
-          const e2 = new ExponentialOperande({ polynome: p2 })
           const num = new Pow(e1, n)
           const den = e2
+          const calcul = new Frac(num, den)
+          texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul}$`
+          const numStep = new Frac(num.step, den)
+          texteCorr = `$${lettreDepuisChiffre(i + 1)} = ${numStep}$`
+          const calcul2 = new Frac(num.result, den)
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2.step}$`
+          texteCorr += `<br>$${lettreDepuisChiffre(i + 1)} = ${calcul2.result}$`
+          answer = calcul2.result.toString()
+          break
+        }
+        case 'fracMulNum': {
+          const num = new Mul(e1, e2)
+          const den = e3
           const calcul = new Frac(num, den)
           texte = `$${lettreDepuisChiffre(i + 1)} = ${calcul}$`
           const numStep = new Frac(num.step, den)

@@ -30,7 +30,7 @@ export class ExponentialOperande extends Operande {
   }
 
   get string (): string {
-    if (this.polynome.toString() === '0') {
+    if (this.polynome.toString() === '') {
       return String(this.k)
     } else if (this.k === 0) {
       return '0'
@@ -105,7 +105,7 @@ export class Mul extends Calcul {
   type: 'mul'
   operande1: Operande | Calcul | string
   operande2: Operande | Calcul | string
-  constructor (operande1: Operande | Calcul, operande2: Operande | Calcul) {
+  constructor (operande1: Operande | Calcul | string, operande2: Operande | Calcul | string) {
     super()
     this.type = 'mul'
     this.operande1 = operande1
@@ -118,7 +118,7 @@ export class Mul extends Calcul {
         return ''
       }
       const kString = handle1(this.operande1.k * this.operande2.k)
-      return `${kString}e^{${this.operande1.polynome.toString()} + ${this.operande2.polynome.toString()}}`
+      return `${kString}e^{${this.operande1.polynome.toString()} + ${needParentheses(this.operande2.polynome.toString())}}`
     }
     return ''
   }
@@ -150,7 +150,7 @@ export class Frac extends Calcul {
 
   get step (): string {
     if (this.num instanceof ExponentialOperande && this.den instanceof ExponentialOperande) {
-      return `${handle1(this.num.k / this.den.k)}e^{${this.num.polynome.toString()} - ${this.den.polynome.toString({ parentheses: true })}}`
+      return `${handle1(this.num.k / this.den.k)}e^{${this.num.polynome.toString()} - ${needParentheses(this.den.polynome.toString())}}`
     }
     return ''
   }
@@ -188,7 +188,7 @@ export class Pow extends Calcul {
         return ''
       }
       const kString = handle1(this.operande.k ** this.exp)
-      return `${kString}e^{${this.operande.polynome.toString({ parentheses: true })} \\times ${this.exp}}`
+      return `${kString}e^{${needParentheses(this.operande.polynome.toString())} \\times ${needParentheses(this.exp)}}`
     }
     return ''
   }
@@ -221,4 +221,12 @@ function handle1 (k: number) {
     return '-'
   }
   return String(k)
+}
+
+function needParentheses (expression: string | Operande | Calcul | number) {
+  const string = expression.toString()
+  if (string.includes('+') || string.includes('-')) {
+    return `(${string})`
+  }
+  return string
 }
