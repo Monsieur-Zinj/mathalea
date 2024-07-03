@@ -1,18 +1,22 @@
 import Exercice from '../Exercice.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome'
-import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul'
-import { lettreDepuisChiffre } from '../../lib/outils/outilString'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Trinome from '../../modules/Trinome.js'
+import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 export const titre = 'Simplifier des expressions exponentielles'
 
 export const dateDePublication = '2/7/2024'
 export const interactifReady = true
 export const interactifType = 'mathlive'
-export const uuid = 'exp'
+export const uuid = '9325e'
+export const refs = {
+  'fr-fr': ['1AN30-2'],
+  'fr-ch': []
+}
 
 /**
  * Description didactique de l'exercice
