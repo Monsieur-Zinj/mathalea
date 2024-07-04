@@ -28,7 +28,6 @@
   import type { HeaderProps } from '../../../../../lib/types/ui'
   import HeaderExerciceVueProf from '../../shared/headerExerciceVueProf/HeaderExerciceVueProf.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
-  import { scratchZoomUpdate } from '../../../../../lib/renderScratch'
   import type { InterfaceParams } from '../../../../../lib/types'
   import { get } from 'svelte/store'
   import { uuidToLocaleRef } from '../../../../../lib/components/languagesUtils'
@@ -262,10 +261,6 @@
         isSettingsVisible = false
         // headerProps.settingsReady = false
       }
-    }
-    // affectation du zoom pour les figures scratch
-    if (divExercice != null) {
-      scratchZoomUpdate(divExercice)
     }
     // Evènement indispensable pour pointCliquable par exemple
     const exercicesAffiches = new window.Event('exercicesAffiches', {

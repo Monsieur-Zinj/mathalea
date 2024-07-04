@@ -31,7 +31,6 @@
   import HeaderButtons from './presentationalComponents/header/headerButtons/HeaderButtons.svelte'
   import Exercices from './presentationalComponents/Exercices.svelte'
   import Placeholder from './presentationalComponents/Placeholder.svelte'
-  import { scratchZoomUpdate } from '../../../lib/renderScratch'
   import type { InterfaceParams, VueType } from 'src/lib/types'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
@@ -143,7 +142,6 @@
       params.z = zoom.toString()
       return params
     })
-    scratchZoomUpdate()
   }
 
   function setAllInteractive (isAllInteractive: boolean) {
