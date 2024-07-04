@@ -26,7 +26,7 @@
   let languageChoiceModal: ModalGridOfCards
   let showLanguageChoiceModal: boolean = false
 
-  function goToMathalea(paramV: string | undefined) {
+  function goToMathalea (paramV: string | undefined) {
     if (paramV !== undefined) {
       mathaleaHandleComponentChange(paramV, $callerComponent)
     }
@@ -53,12 +53,15 @@
   ```
  -->
 
-<nav class="p-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas md:h-[120px]">
+<nav class="p-4 md:h-[120px]
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <!-- container -->
-  <div
-    class="flex flex-row justify-between items-start w-full mx-auto md:space-x-6"
+  <div class="flex flex-row justify-between items-start w-full mx-auto
+    space-x-0 md:space-x-6"
   >
-    <div class="flex flex-col md:flex-row justify-start space-x-0 md:space-x-2">
+    <div class="flex justify-start
+      flex-col md:flex-row
+      space-x-0 md:space-x-2">
       <!-- logo -->
       <div class="">
         <div
@@ -66,30 +69,39 @@
           on:keydown={() => goToMathalea($globalOptions.v)}
           role="link"
           tabindex="0"
-          class=" relative inline-flex text-3xl md:text-6xl font-logo9 tracking-tighter font-black
+          class="relative inline-flex font-logo9 tracking-tighter font-black
+          text-3xl md:text-6xl
           {subtitleType === 'design'
             ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
-            : 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest cursor-pointer '}"
+            : `cursor-pointer
+              text-coopmaths-action dark:text-coopmathsdark-action
+              hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest`}"
         >
           {title}
+        </div>
 
-          <div
-            class="absolute -bottom-4 left-1 font-light text-sm text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+        <div
+          class="relative bottom-1 left-1 font-light text-sm
+            text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+        >
+          <span class="font-light font-sans tracking-normal">par</span>
+          <a
+            href="https://coopmaths.fr"
+            target="_blank"
+            rel="noreferrer"
+            class="font-extrabold font-logo9 tracking-tighter
+              text-coopmaths-action dark:text-coopmathsdark-action
+              hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
           >
-            <span class="font-light font-sans mr-1 tracking-normal">par</span>
-            <a
-              href="https://coopmaths.fr"
-              target="_blank"
-              rel="noreferrer"
-              class="font-extrabold font-logo9 tracking-tighter text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-              >CoopMaths</a
-            >
-          </div>
+            CoopMaths
+          </a>
         </div>
       </div>
       <NavBarSubtitle {subtitle} type={subtitleType} />
     </div>
-    <div class="flex flex-row space-x-4 px-0 pt-2 md:px-4">
+    <div class="flex flex-row space-x-4 pt-2
+      px-0 md:px-4"
+    >
       {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
         <LanguageStatus {locale} />
       {:else}
@@ -110,7 +122,9 @@
         </div>
       {/if}
       <label
-        class="swap swap-rotate text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+        class="swap swap-rotate
+          text-coopmaths-action dark:text-coopmathsdark-action
+          hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
       >
         <!-- this hidden checkbox controls the state -->
         <input
