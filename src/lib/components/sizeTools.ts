@@ -53,8 +53,8 @@ export function resizeContent (container: HTMLElement | null, zoom: number) {
     const svgDivs = scratchDiv.getElementsByTagName('svg')
     resizeTags([...svgDivs], Math.max(zoom, ZOOM_MIN))
   }
-  // QCM
-  const checkboxes = container.querySelectorAll('[id^=checkEx')
+  // Checkboxes des QCM
+  const checkboxes = container.querySelectorAll('input[type="checkbox"]')
   for (const checkbox of checkboxes) {
     if (checkbox instanceof HTMLInputElement) {
       resizeTags([checkbox], Math.max(zoom, ZOOM_MIN))
