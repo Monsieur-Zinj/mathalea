@@ -55,6 +55,7 @@ function handleClick (event: MouseEvent) {
   const timerSettingsModal = document.getElementById('timer-settings-modal')
   if (timerSettingsModal && event.target === timerSettingsModal) {
     timerSettingsModal.style.display = 'none'
+    switchPause()
   }
 }
 
@@ -246,9 +247,6 @@ function handleClick (event: MouseEvent) {
     }
   }
 
-  /**
-   * Gère la récupération de la valeur du curseur de temps
-   */
   function handleTimerChange (cursorTimeValue: number) {
     pause()
     durationGlobal = cursorTimeValue || undefined
