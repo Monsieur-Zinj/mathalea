@@ -2,10 +2,11 @@
   import type Exercice from '../../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../../lib/types'
   import type { Serie, Slideshow } from '../types'
-  import BtnZoom from '../../../shared/ui/btnZoom.svelte'
   import SlideshowOverviewLeftPanel from './presentationalComponent/SlideshowOverviewLeftPanel.svelte'
   import SlideshowOverviewMainPanel from './presentationalComponent/mainPanel/SlideshowOverviewMainPanel.svelte'
-  import { mathaleaGenerateSeed, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
+  import ZoomButtons from '../../start/presentationalComponents/header/headerButtons/setupButtons/ZoomButtons.svelte'
+  import { tick } from 'svelte'
+  import { mathaleaGenerateSeed, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
   import { globalOptions, darkMode, exercicesParams } from '../../../../lib/stores/generalStore'
 
   export let exercises: Exercice[] = []
@@ -46,7 +47,11 @@
     }
   }
 
-  async function setCorrectionVisible (correctionVisibility: boolean) {
+  $: if ((isQuestionsVisible || isCorrectionVisible || correctionsSteps.length > 0) && currentSeriesIndex !== undefined) {
+    tick().then(() => mathaleaRenderDiv(divExercice))
+  }
+
+  function setCorrectionVisible (correctionVisibility: boolean) {
     isCorrectionVisible = correctionVisibility
     if (!isCorrectionVisible) {
       setQuestionsVisible(true)
@@ -57,7 +62,7 @@
     currentSeriesIndex = vue
   }
 
-  async function setQuestionsVisible (questionsVisibility: boolean) {
+  function setQuestionsVisible (questionsVisibility: boolean) {
     isQuestionsVisible = questionsVisibility
     if (!isQuestionsVisible) {
       setCorrectionVisible(true)
@@ -102,36 +107,54 @@
       correctionsSteps = correctionsSteps
     }
   }
+
+  function zoomUpdate (plusMinus: '+' | '-') {
+    const z = Number($globalOptions.z || 1)
+    const zoom = Number((plusMinus === '+' ? z + 0.1 : z - 0.1).toFixed(1))
+    globalOptions.update((params) => {
+      params.z = zoom.toString()
+      return params
+    })
+    const main = document.querySelector('main')
+    mathaleaRenderDiv(main, zoom)
+    mathaleaUpdateUrlFromExercicesParams()
+  }
 </script>
 
 <div class={$darkMode.isActive ? 'dark' : ''}>
   <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
     <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
-      <BtnZoom size="md" />
+      <ZoomButtons {zoomUpdate}/>
     </div>
   </div>
   <div class="flex bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <SlideshowOverviewLeftPanel
-      {isQuestionsVisible}
-      {isCorrectionVisible}
-      currentVue={currentSeriesIndex}
-      {nbOfVues}
-      {setCurrentVue}
-      {setQuestionsVisible}
-      {setCorrectionVisible}
-      {handleCorrectionsStepsClick}
-      {newDataForAll}
-      {handleQuit}
-    />
-    <SlideshowOverviewMainPanel
-      {isQuestionsVisible}
-      {isCorrectionVisible}
-      {currentSeriesIndex}
-      {order}
-      {series}
-      {divExercice}
-      {correctionsSteps}
-      zoomStr={($globalOptions.z || 1).toString()}
-    />
+    <aside class=" h-screen sticky top-0">
+      <SlideshowOverviewLeftPanel
+        {isQuestionsVisible}
+        {isCorrectionVisible}
+        currentVue={currentSeriesIndex}
+        {nbOfVues}
+        {setCurrentVue}
+        {setQuestionsVisible}
+        {setCorrectionVisible}
+        {handleCorrectionsStepsClick}
+        {newDataForAll}
+        {handleQuit}
+      />
+    </aside>
+    <main class="flex flex-row p-2
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+      text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+      bind:this={divExercice}
+    >
+      <SlideshowOverviewMainPanel
+        {isQuestionsVisible}
+        {isCorrectionVisible}
+        {currentSeriesIndex}
+        {order}
+        {series}
+        {correctionsSteps}
+      />
+    </main>
   </div>
 </div>

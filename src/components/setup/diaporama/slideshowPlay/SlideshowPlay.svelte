@@ -6,7 +6,6 @@
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
-  import { resizeContent } from '../../../../lib/components/sizeTools'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
@@ -115,7 +114,8 @@ function handleClick (event: MouseEvent) {
       optimalZoom = findOptimalZoom()
     }
     for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
-      resizeContent('exerciseContainer' + vueIndex, optimalZoom * userZoom)
+      const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
+      mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
     }
   }
 
@@ -134,12 +134,11 @@ function handleClick (event: MouseEvent) {
     const correctionDiv = document.getElementById('correction' + vueIndex)
     if (!exerciseContainerDiv) return
     const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
-    mathaleaRenderDiv(divQuestion[vueIndex], -1)
     for (const svgContainer of svgContainers) {
       svgContainer.classList.add('flex')
       svgContainer.classList.add('justify-center')
     }
-    resizeContent('exerciseContainer' + vueIndex, 1)
+    mathaleaRenderDiv(exerciseContainerDiv, 1)
     const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
     const { height: correctionHeight, width: correctionWidth } = getSizes(correctionDiv)
     const containerWidth = exerciseContainerDiv.clientWidth

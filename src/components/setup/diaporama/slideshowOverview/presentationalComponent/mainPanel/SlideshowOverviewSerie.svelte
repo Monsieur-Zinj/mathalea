@@ -8,7 +8,6 @@
   export let order: number[]
   export let series: Serie[]
   export let correctionsSteps: number[]
-  export let zoomStr: string
 
 </script>
 
@@ -26,10 +25,7 @@
   </div>
   <div class="mt-2 mx-2 lg:mx-6">
     {#each order as i, index}
-      <div
-        class="flex flex-row my-4"
-        style="font-size: {zoomStr}rem"
-      >
+      <div class="flex flex-row my-4">
         <div class="pr-2">
           <span class="font-black text-coopmaths-struct dark:text-coopmathsdark-struct">
             {index + 1}.

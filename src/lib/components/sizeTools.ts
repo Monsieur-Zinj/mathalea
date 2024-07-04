@@ -25,7 +25,6 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   const svgContainers = parent.getElementsByClassName('svgContainer')
 
   do {
-    // console.log('zoom:' + zoom)
     if (svgContainers.length > 0) {
       for (const svgContainer of svgContainers) {
         svgContainer.classList.add('flex')
@@ -40,25 +39,29 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
 
-export function resizeContent (containerId: string, zoom: number) {
-  const exerciseContainerDiv = document.getElementById(containerId)
-  if (!exerciseContainerDiv) return
+export function resizeContent (container: HTMLElement | null, zoom: number) {
+  const ZOOM_MIN = 0.2
+  if (!container) return
   // mathalea2d
-  const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
+  const svgContainers = container.getElementsByClassName('svgContainer') ?? []
   for (const svgContainer of svgContainers) {
-    updateFigures(svgContainer, zoom)
+    updateFigures(svgContainer, Math.max(zoom, ZOOM_MIN))
   }
   // Scratch
-  const scratchDivs = exerciseContainerDiv.getElementsByClassName('scratchblocks')
+  const scratchDivs = container.getElementsByClassName('scratchblocks')
   for (const scratchDiv of scratchDivs) {
     const svgDivs = scratchDiv.getElementsByTagName('svg')
-    resizeTags([...svgDivs], Math.max(zoom, 1)) // Il faut pouvoir lire le texte des blocs scratch
+    resizeTags([...svgDivs], Math.max(zoom, ZOOM_MIN))
   }
   // QCM
-  const checkboxes = exerciseContainerDiv.querySelectorAll('[id^=checkEx')
-  resizeTags([...checkboxes], zoom)
+  const checkboxes = container.querySelectorAll('[id^=checkEx')
+  for (const checkbox of checkboxes) {
+    if (checkbox instanceof HTMLInputElement) {
+      resizeTags([checkbox], Math.max(zoom, ZOOM_MIN))
+    }
+  }
   // Texte
-  exerciseContainerDiv.style.fontSize = `${Math.max(zoom, 1)}rem` // Il faut pouvoir lire le texte de l'énoncé
+  container.style.fontSize = `${Math.max(zoom, ZOOM_MIN)}rem`
 }
 
 export function updateFigures (svgContainer: Element, zoom: number) {
@@ -98,7 +101,7 @@ export function updateFigures (svgContainer: Element, zoom: number) {
  * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
  * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
  */
-export const resizeTags = (tags: HTMLElement[], factor:number = 1) => {
+export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1) => {
   let widthUnit, heightUnit: string
   for (const tag of tags) {
     const widthAttributeExists: boolean = tag.hasAttribute('width')
