@@ -81,7 +81,7 @@
         duration: exercice.duration
       })
     }
-    exercicesParams.update(() => newParams)
+    exercicesParams.set(newParams)
     updateExercises()
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
     isQuestionsVisible = true
@@ -109,14 +109,11 @@
   }
 
   function zoomUpdate (plusMinus: '+' | '-') {
-    const z = Number($globalOptions.z || 1)
-    const zoom = Number((plusMinus === '+' ? z + 0.1 : z - 0.1).toFixed(1))
-    globalOptions.update((params) => {
-      params.z = zoom.toString()
-      return params
-    })
+    const oldZoom = Number($globalOptions.z || 1)
+    const newZoom = Number((plusMinus === '+' ? oldZoom + 0.1 : oldZoom - 0.1).toFixed(1))
+    $globalOptions.z = newZoom.toString()
     const main = document.querySelector('main')
-    mathaleaRenderDiv(main, zoom)
+    mathaleaRenderDiv(main)
     mathaleaUpdateUrlFromExercicesParams()
   }
 </script>

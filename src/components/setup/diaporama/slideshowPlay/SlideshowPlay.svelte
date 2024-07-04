@@ -15,7 +15,6 @@
   export let handleQuit: () => void
 
   const divQuestion: HTMLDivElement[] = []
-  let durationGlobal: number | undefined = $globalOptions.durationGlobal
   let formatQRCodeIndex: 0 | 1 | 2
   let isCorrectionVisible = false
   let isPause = false
@@ -71,10 +70,10 @@ function handleClick (event: MouseEvent) {
         }
         if ($globalOptions.screenBetweenSlides) {
           showDialogForLimitedTime('transition', 1000).then(() => {
-            timer(durationGlobal || (currentSlide.exercise.duration || 10))
+            timer($globalOptions.durationGlobal || (currentSlide.exercise.duration || 10))
           })
         } else {
-          timer(durationGlobal || (currentSlide.exercise.duration || 10))
+          timer($globalOptions.durationGlobal || (currentSlide.exercise.duration || 10))
         }
       }
     }
@@ -101,7 +100,7 @@ function handleClick (event: MouseEvent) {
   function switchPause () {
     if (!isPause) {
       pause()
-    } else timer(durationGlobal || currentSlide.exercise.duration || 10, false)
+    } else timer($globalOptions.durationGlobal || currentSlide.exercise.duration || 10, false)
   }
 
   function pause () {
@@ -164,7 +163,6 @@ function handleClick (event: MouseEvent) {
     }
   }
 
-  // pour recalculer les tailles lors d'un changement de dimension de la fenêtre
   window.onresize = () => {
     resizeAllViews()
   }
@@ -249,12 +247,9 @@ function handleClick (event: MouseEvent) {
 
   function handleTimerChange (cursorTimeValue: number) {
     pause()
-    durationGlobal = cursorTimeValue || undefined
-    globalOptions.update((l) => {
-      l.manualMode = !durationGlobal
-      l.durationGlobal = durationGlobal
-      return l
-    })
+    const durationGlobal = cursorTimeValue || undefined
+    $globalOptions.manualMode = !durationGlobal
+    $globalOptions.durationGlobal = durationGlobal
   }
 
   function zoomPlus () {
@@ -301,7 +296,7 @@ function handleClick (event: MouseEvent) {
       isManualModeActive={$globalOptions.manualMode}
       totalQuestionsNumber={slideshow.selectedQuestionsNumber}
       {ratioTime}
-      slideDuration={durationGlobal || currentSlide.exercise.duration || 10}
+      slideDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
       {goToQuestion}
     />
     <SlideshowPlayQuestion
@@ -317,7 +312,7 @@ function handleClick (event: MouseEvent) {
       isManualModeActive={$globalOptions.manualMode}
       {isQuestionVisible}
       {isCorrectionVisible}
-      currentDuration={durationGlobal || currentSlide.exercise.duration || 10}
+      currentDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
       {handleTimerChange}
       {handleQuit}
       {isPause}

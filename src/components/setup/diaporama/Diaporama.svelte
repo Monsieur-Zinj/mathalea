@@ -200,12 +200,7 @@
   }
 
   function handleQuit () {
-    if ($globalOptions.v !== 'diaporama') {
-      globalOptions.update((l) => {
-        l.v = 'diaporama'
-        return l
-      })
-    }
+    $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = -1
   }
 </script>

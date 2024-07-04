@@ -39,63 +39,39 @@
     mathaleaHandleComponentChange('diaporama', 'overview')
   }
 
-  function updateNbOfViews (nbOfViews: NumberRange<1, 4>) {
-    globalOptions.update((l) => {
-      l.nbVues = nbOfViews
-      return l
-    })
+  function updateNbOfViews (nbVues: NumberRange<1, 4>) {
+    $globalOptions.nbVues = nbVues
   }
 
   function updateFlow (flow: 0 | 1 | 2) {
-    globalOptions.update((l) => {
-      l.flow = flow
-      return l
-    })
+    $globalOptions.flow = flow
   }
 
   function updateScreenBetweenSlides (screenBetweenSlides: boolean) {
-    globalOptions.update((l) => {
-      l.screenBetweenSlides = screenBetweenSlides
-      return l
-    })
+    $globalOptions.screenBetweenSlides = screenBetweenSlides
   }
 
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
     const soundCandidate = tune + 1
     if (isIntegerInRange0to4(soundCandidate)) {
-      globalOptions.update((l) => {
-        l.sound = soundCandidate
-        return l
-      })
+      $globalOptions.sound = soundCandidate
     }
   }
 
   function updateQuestionsOrder (isQuestionsOrdered: boolean) {
-    globalOptions.update((l) => {
-      l.shuffle = !isQuestionsOrdered
-      return l
-    })
+    $globalOptions.shuffle = !isQuestionsOrdered
   }
 
   function updateSelect (selectedExercisesIndexes: number[] | undefined) {
-    globalOptions.update((l) => {
-      l.select = selectedExercisesIndexes
-      return l
-    })
+    $globalOptions.select = selectedExercisesIndexes
   }
 
   function updateManualMode (isManualModeActive: boolean) {
-    globalOptions.update((l) => {
-      l.manualMode = isManualModeActive
-      return l
-    })
+    $globalOptions.manualMode = isManualModeActive
   }
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
-    globalOptions.update((l) => {
-      l.durationGlobal = durationGlobal
-      return l
-    })
+    $globalOptions.durationGlobal = durationGlobal
   }
 
   function start () {
