@@ -8,6 +8,7 @@
   import { tick } from 'svelte'
   import { mathaleaGenerateSeed, mathaleaRenderDiv, mathaleaUpdateUrlFromExercicesParams } from '../../../../lib/mathalea'
   import { globalOptions, darkMode, exercicesParams } from '../../../../lib/stores/generalStore'
+  import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
 
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
@@ -20,8 +21,13 @@
   let divExercice: HTMLElement
   let correctionsSteps: number[] = []
 
-  let nbOfVues: number
-  $: nbOfVues = slideshow.slides[0].vues.length
+  let nbVues: 0 | 1 | 2 | 3 | 4
+  $: {
+    const nbVuesCandidate = slideshow.slides[0].vues.length
+    if (isIntegerInRange0to4(nbVuesCandidate)) {
+      nbVues = nbVuesCandidate
+    }
+  }
 
   let order: number[]
   $: {
@@ -32,7 +38,7 @@
   let series: Serie[] = []
   $: {
     series = []
-    for (let i = 0; i < nbOfVues; i++) {
+    for (let i = 0; i < nbVues; i++) {
       const serie: Serie = {
         consignes: [],
         questions: [],
@@ -58,8 +64,10 @@
     }
   }
 
-  function setCurrentVue (vue: 0 | 1 | 2 | 3 | 4) {
-    currentSeriesIndex = vue
+  function setCurrentVue (vue: number) {
+    if (isIntegerInRange0to4(vue)) {
+      currentSeriesIndex = vue
+    }
   }
 
   function setQuestionsVisible (questionsVisibility: boolean) {
@@ -119,18 +127,25 @@
 </script>
 
 <div class={$darkMode.isActive ? 'dark' : ''}>
-  <div class="fixed z-20 bottom-2 lg:bottom-6 right-2 lg:right-6 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas rounded-b-full rounded-t-full bg-opacity-80">
-    <div class="flex flex-col space-y-2 scale-75 lg:scale-100">
+  <div class="fixed z-20 rounded-b-full rounded-t-full bg-opacity-80
+    bottom-2 lg:bottom-6
+    right-2 lg:right-6
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas "
+  >
+    <div class="flex flex-col space-y-2
+      scale-75 lg:scale-100"
+    >
       <ZoomButtons {zoomUpdate}/>
     </div>
   </div>
-  <div class="flex bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <aside class=" h-screen sticky top-0">
+  <div class="flex
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+    <aside class="h-screen sticky top-0">
       <SlideshowOverviewLeftPanel
         {isQuestionsVisible}
         {isCorrectionVisible}
         currentVue={currentSeriesIndex}
-        {nbOfVues}
+        nbOfVues={nbVues}
         {setCurrentVue}
         {setQuestionsVisible}
         {setCorrectionVisible}

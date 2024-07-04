@@ -83,12 +83,14 @@
 
 <div
   id="start"
-  class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas dark:text-coopmathsdark-corpus"
+  class="flex flex-col h-screen scrollbar-hide
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+    text-coopmaths-corpus dark:text-coopmathsdark-corpus"
 >
   <NavBar subtitle="Réglages du diaporama" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
-  <div class="flex flex-row w-full justify-center items-start mx-20 mt-10">
+  <div class="flex flex-row justify-center items-start w-full mx-20 mt-10">
     <!-- Left Side -->
-    <div class="flex flex-col w-1/5 justify-start">
+    <div class="flex flex-col justify-start w-1/5">
       <DisplaySettings {goToOverview} />
       <NbOfViewsSettings nbOfViews={$globalOptions.nbVues ?? 1} {updateNbOfViews} />
       <TransitionSettings
@@ -110,7 +112,7 @@
       <LinksSettings QRCodeWidth={settings.QRCodeWidth} formatQRCodeIndex={settings.formatQRCodeIndex} />
     </div>
     <!-- Right Side -->
-    <div class="flex flex-col w-4/6 justify-start">
+    <div class="flex flex-col justify-start w-4/6">
       <GlobalDurationSettings
         {exercises}
         isManualModeActive={!!$globalOptions.manualMode}
@@ -119,7 +121,7 @@
         {updateDurationGlobal}
       />
       <div
-        class="flex flex-col min-w-full h-[100vh] px-4 align-middle"
+        class="flex flex-col align-middle min-w-full h-[100vh] px-4"
         bind:this={divTableDurationsQuestions}
       >
         <ExercisesSettings
