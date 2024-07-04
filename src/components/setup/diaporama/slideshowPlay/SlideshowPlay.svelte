@@ -6,7 +6,7 @@
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
-  import { updateFigures } from '../../../../lib/components/sizeTools'
+  import { resizeContent } from '../../../../lib/components/sizeTools'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
@@ -115,7 +115,7 @@ function handleClick (event: MouseEvent) {
       optimalZoom = findOptimalZoom()
     }
     for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
-      resize(vueIndex, optimalZoom * userZoom)
+      resizeContent('exerciseContainer' + vueIndex, optimalZoom * userZoom)
     }
   }
 
@@ -139,7 +139,7 @@ function handleClick (event: MouseEvent) {
       svgContainer.classList.add('flex')
       svgContainer.classList.add('justify-center')
     }
-    resize(vueIndex, 1)
+    resizeContent('exerciseContainer' + vueIndex, 1)
     const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
     const { height: correctionHeight, width: correctionWidth } = getSizes(correctionDiv)
     const containerWidth = exerciseContainerDiv.clientWidth
@@ -148,16 +148,6 @@ function handleClick (event: MouseEvent) {
     const correctionWidthOptimalZoom = containerWidth / correctionWidth
     const questionCorrectionHeightOptimalZoom = containerHeight / (questionHeight + correctionHeight)
     return Math.max(Math.min(questionWidthOptimalZoom, correctionWidthOptimalZoom, questionCorrectionHeightOptimalZoom), MIN_ZOOM)
-  }
-
-  function resize (vueIndex: number, zoom: number) {
-    const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
-    if (!exerciseContainerDiv) return
-    const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
-    for (const svgContainer of svgContainers) {
-      updateFigures(svgContainer, zoom)
-    }
-    exerciseContainerDiv.style.fontSize = `${Math.max(zoom, 1)}rem`
   }
 
   function getSizes (element: HTMLElement | null) {

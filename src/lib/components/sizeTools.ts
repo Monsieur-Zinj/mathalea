@@ -40,6 +40,27 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
 
+export function resizeContent (containerId: string, zoom: number) {
+  const exerciseContainerDiv = document.getElementById(containerId)
+  if (!exerciseContainerDiv) return
+  // mathalea2d
+  const svgContainers = exerciseContainerDiv.getElementsByClassName('svgContainer') ?? []
+  for (const svgContainer of svgContainers) {
+    updateFigures(svgContainer, zoom)
+  }
+  // Scratch
+  const scratchDivs = exerciseContainerDiv.getElementsByClassName('scratchblocks')
+  for (const scratchDiv of scratchDivs) {
+    const svgDivs = scratchDiv.getElementsByTagName('svg')
+    resizeTags([...svgDivs], Math.max(zoom, 1)) // Il faut pouvoir lire le texte des blocs scratch
+  }
+  // QCM
+  const checkboxes = exerciseContainerDiv.querySelectorAll('[id^=checkEx')
+  resizeTags([...checkboxes], zoom)
+  // Texte
+  exerciseContainerDiv.style.fontSize = `${Math.max(zoom, 1)}rem` // Il faut pouvoir lire le texte de l'énoncé
+}
+
 export function updateFigures (svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
@@ -62,5 +83,65 @@ export function updateFigures (svgContainer: Element, zoom: number) {
         e.style.setProperty('left', (initialLeft * zoom).toString() + 'px')
       }
     }
+  }
+}
+
+/**
+ * Change la taille de tous les divs passés en paramètres.
+ *
+ * On teste l'existence des attributs directs `width` et`height`.
+ *
+ * - S'ils existent, on sauvegarde leurs valeurs initiales dans le data-set (si besoin)
+ *  et on applique le facteur d'échelle
+ * - S'ils n'existent pas, on travaillent avec le style directement
+ * (`width` et `height` peuvent avoir des unités différentes).
+ * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
+ * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
+ */
+export const resizeTags = (tags: HTMLElement[], factor:number = 1) => {
+  let widthUnit, heightUnit: string
+  for (const tag of tags) {
+    const widthAttributeExists: boolean = tag.hasAttribute('width')
+    const heightAttributeExists: boolean = tag.hasAttribute('height')
+    if (tag.hasAttribute('data-width') === false) {
+      let originalWidth: string|null
+      if (widthAttributeExists) {
+        originalWidth = tag.getAttribute('width')
+      } else {
+        const width = tag.style.width
+        const units = width.match(/\D/g) ?? []
+        widthUnit = units.join('')
+        originalWidth = String(parseFloat(tag.style.width.replace(widthUnit, '')))
+      }
+      tag.dataset.width = originalWidth ?? '50'
+    }
+    if (!widthAttributeExists && tag.hasAttribute('data-width-unit') === false) {
+      tag.dataset.widthUnit = widthUnit
+    }
+    if (tag.hasAttribute('data-height') === false) {
+      let originalHeight:string|null
+      if (heightAttributeExists) {
+        originalHeight = tag.getAttribute('height')
+        heightUnit = 'px'
+      } else {
+        const height = tag.style.height
+        const units = height.match(/\D/g) ?? []
+        heightUnit = units.join('')
+        originalHeight = String(parseFloat(tag.style.height.replace(heightUnit, '')))
+      }
+      tag.dataset.height = originalHeight ?? '30'
+    } else {
+      heightUnit = 'px'
+    }
+
+    if (!heightAttributeExists && tag.hasAttribute('data-height-unit') === false) {
+      tag.dataset.heightUnit = heightUnit
+    }
+    const w = Number(tag.getAttribute('data-width')) * factor
+    const h = Number(tag.getAttribute('data-height')) * factor
+    if (widthAttributeExists && heightAttributeExists) {
+      tag.setAttribute('width', String(w))
+      tag.setAttribute('height', String(h))
+    } else { tag.setAttribute('style', 'width:' + String(w) + tag.dataset.widthUnit + '; height:' + String(h) + tag.dataset.heightUnit + ';') }
   }
 }

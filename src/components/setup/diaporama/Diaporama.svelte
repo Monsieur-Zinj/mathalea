@@ -142,8 +142,10 @@
   function splitSvgFromText (sourceText: string) {
     const parser = new DOMParser()
     const doc = parser.parseFromString(sourceText, 'text/html')
-    const containers = doc.querySelectorAll('div.svgContainer')
-    const svgs = Array.from(containers).map(container => container.outerHTML)
+    const mathalea2dContainers = doc.querySelectorAll('div.svgContainer')
+    const scratchContainers = doc.querySelectorAll('pre.blocks')
+    const svgContainers = [...mathalea2dContainers, ...scratchContainers]
+    const svgs = Array.from(svgContainers).map(container => container.outerHTML)
     const text = removeSvgContainers(doc.body.innerHTML, svgs)
     return {
       svgs,
