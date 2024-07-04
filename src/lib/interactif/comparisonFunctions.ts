@@ -445,6 +445,7 @@ export function fonctionComparaison (input: string, goodAnswer:string, {
   egaliteExpression: false
 }) : ResultType {
   // ici, on met tous les tests particuliers (HMS, intervalle)
+  // if (HMS) return comparaisonExpressions(input, goodAnswer)
   if (HMS) return hmsCompare(input, goodAnswer)
   if (intervalle) return intervalsCompare(input, goodAnswer)
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
@@ -623,6 +624,13 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
   return { isOk: false }
 }
 
+function comparaisonExpressions (expr1:string, expr2:string):ResultType {
+  // Convertir les équations en MathJSON
+  const mathJson1 = engine.parse(expr1) as BoxedExpression
+  const mathJson2 = engine.parse(expr2) as BoxedExpression
+
+  return { isOk: mathJson1.isEqual(mathJson2) }
+}
 /**
  * comparaison de textes... ben parce qu'il en faut une
  * @param {string} input
