@@ -34,6 +34,7 @@ export function introLatex (entete = 'Exercices', listePackages = '') {
 \\usepackage{enumitem}
 \\usepackage{graphicx}
 \\usepackage{tabularx}
+\\usepackage{tabularray}
 %\\usepackage[autolanguage]{numprint}
 \\usepackage[autolanguage,np]{numprint}
 \\usepackage{hyperref}

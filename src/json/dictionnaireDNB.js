@@ -8298,4 +8298,125 @@ export const dictionnaireDNB = {
     tags: ['Thalès', 'Programme de calculs']
   },
 
+  dnb_2024_06_asie_1: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_2: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_3: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_4: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_5: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_5_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_1: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_2: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_3: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_4: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_5: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5_cor.tex',
+                tags: ['']
+            },
+
 }
