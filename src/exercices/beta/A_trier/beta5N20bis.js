@@ -138,9 +138,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         /** ****************** AMC question/questionmult ********************************/
         this.autoCorrection[i].enonce = `${texte}\n`
         /*******************************************************************************/
-
+        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
-          texte += '<br>' + propositionsQcm(this, i).texte
+          texte += '<br>' + props.texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3 && this.level !== 6) {
@@ -178,9 +178,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
           // Les fractions ont le même dénominateur (denominateur1=denominateur2)
           this.autoCorrection[i].propositions[0].texte = `$${texFractionFromString(Math.abs(numerateur1 - numerateur2), denominateur1)}$`
         }
-
+        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
-          texte += '<br>' + propositionsQcm(this, i).texte
+          texte += '<br>' + props.texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3 && this.level !== 6) {

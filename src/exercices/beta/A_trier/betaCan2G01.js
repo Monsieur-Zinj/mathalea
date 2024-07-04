@@ -59,8 +59,8 @@ export default function PerimetreCarreRectangle () {
           ],
           options: { ordered: true, vertical: false }
         }
+        monQcm = propositionsQcm(this, 0)
         if (!context.isAmc) {
-          monQcm = propositionsQcm(this, 0)
           question += monQcm.texte
           correction += monQcm.correction
         }

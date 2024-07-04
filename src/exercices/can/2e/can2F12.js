@@ -33,49 +33,49 @@ export default function ComparerAvecFctRef () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, a, b, N
+    let texte, texteCorr, a, b, N, props
     switch (choice([1, 2, 3])) { //
       case 1 :
         N = randint(1, 2)
         if (N === 1) {
           a = calculANePlusJamaisUtiliser(randint(1, 9) + randint(5, 9) / 10)
           b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
-          if (this.interactif) {
-            texte = 'Sélectionner l’affirmation correcte. '
-            if (a < b) {
-              this.autoCorrection[0] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[0] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
-              }
+          texte = 'Sélectionner l’affirmation correcte. '
+          if (a < b) {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: false
+                }
+              ]
             }
-
-            texte += propositionsQcm(this, 0).texte
           } else {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
           }
 
@@ -92,42 +92,42 @@ export default function ComparerAvecFctRef () {
         if (N === 2) {
           a = calculANePlusJamaisUtiliser(((randint(1, 9) + randint(5, 9) / 10)) * (-1))
           b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
-          if (this.interactif) {
-            texte = 'Sélectionner l’affirmation correcte. '
-            if (a < b) {
-              this.autoCorrection[0] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[0] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                    statut: false
-                  }
-                ]
-              }
+          texte = 'Sélectionner l’affirmation correcte. '
+          if (a < b) {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: false
+                }
+              ]
             }
-
-            texte += propositionsQcm(this, 0).texte
           } else {
+            this.autoCorrection[0] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
           }
 
@@ -147,42 +147,42 @@ export default function ComparerAvecFctRef () {
       case 2 :
         a = calculANePlusJamaisUtiliser(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
         b = calculANePlusJamaisUtiliser((a + randint(1, 9) / 10) * choice([-1, 1]))
-        if (this.interactif) {
-          texte = 'Sélectionner l’affirmation correcte. '
-          if (a < b) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
-                  statut: true
-                },
-                {
-                  texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
-                  statut: false
-                }
-              ]
-            }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
-                  statut: true
-                },
-                {
-                  texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
-                  statut: false
-                }
-              ]
-            }
+        texte = 'Sélectionner l’affirmation correcte. '
+        if (a < b) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
+                statut: true
+              },
+              {
+                texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
+                statut: false
+              }
+            ]
           }
-
-          texte += propositionsQcm(this, 0).texte
         } else {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
+                statut: true
+              },
+              {
+                texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
+                statut: false
+              }
+            ]
+          }
+        }
+
+        props = propositionsQcm(this, i)
+        if (this.interactif) texte += props.texte
+        else {
           texte = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
         }
 
@@ -200,42 +200,42 @@ export default function ComparerAvecFctRef () {
         a = calculANePlusJamaisUtiliser(randint(0, 10) + (randint(6, 9) / 10))
         b = calculANePlusJamaisUtiliser((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
         if (b === 1) { b = 2 }
-        if (this.interactif) {
-          texte = 'Sélectionner l’affirmation correcte. '
-          if (a < b) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                  statut: true
-                },
-                {
-                  texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
-                  statut: false
-                }
-              ]
-            }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
-                  statut: true
-                },
-                {
-                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                  statut: false
-                }
-              ]
-            }
+        texte = 'Sélectionner l’affirmation correcte. '
+        if (a < b) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
+                statut: true
+              },
+              {
+                texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
+                statut: false
+              }
+            ]
           }
-
-          texte += propositionsQcm(this, 0).texte
         } else {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
+                statut: true
+              },
+              {
+                texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
+                statut: false
+              }
+            ]
+          }
+        }
+
+        props = propositionsQcm(this, i)
+        if (this.interactif) texte += props.texte
+        else {
           texte = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
         }
 
