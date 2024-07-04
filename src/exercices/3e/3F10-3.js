@@ -21,9 +21,9 @@ export const dateDePublication = '29/09/2022'
 export const dateDeModifImportante = '15/03/2024'
 
 /**
-* Répondre à des questions sur les fonctions.
-* @author Gilles Mora
-*/
+ * Répondre à des questions sur les fonctions.
+ * @author Gilles Mora
+ */
 
 export const uuid = '4daef'
 export const ref = '3F10-3'
@@ -532,9 +532,8 @@ export default function VocabulaireNotationsFonctions2 () {
           }
           break
       }
-      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += props.texte
+        texte += propositionsQcm(this, i).texte
       }
       if (this.questionJamaisPosee(i, x, y)) {
         this.listeQuestions.push(texte)
