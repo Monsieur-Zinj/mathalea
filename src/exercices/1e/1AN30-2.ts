@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
 import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
@@ -27,21 +27,26 @@ export default class SimplifierExponentielles extends Exercice {
   constructor () {
     super()
     this.consigne = 'Simplifier les expressions suivantes.'
-    this.nbQuestions = 6
+    this.nbQuestions = 7
     this.spacing = 2
     this.spacingCorr = 3
     this.sup = 1
+    this.sup2 = 8
     this.besoinFormulaireNumerique = ['Niveaux de difficulté', 3, '1 : Exposants entiers\n2 : Exposants de la forme ax\n3 : Exposants de la forme ax + b']
+    this.besoinFormulaire2Texte = ['Types de calculs', 'Nombres séparés par des tirets : \n1 : Produit\n2 : Puissance\n3 : Produit et puisances\n4 : Distributivité simple\n5 : Différence de puissance et de produit \n6 : Fraction et puissance\n7 : Fraction et produit\n8 : Mélange']
+    this.comment = '7 types de calculs différents. Le résultat peut être une exponentielle ou une somme de deux exponentiels'
   }
 
   nouvelleVersion () {
-    this.listeQuestions = []
-    this.listeCorrections = []
-    this.autoCorrection = []
-
-    const typeQuestionsDisponibles = ['mul', 'pow', 'powTimesPow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPowNum', 'fracMulNum']
-
-    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 7,
+      defaut: 1,
+      melange: 8,
+      nbQuestions: this.nbQuestions,
+      listeOfCase: ['mul', 'pow', 'powTimesPow', 'k(a+b)', '(e^mx)p - e^nx * e^ox', 'fracPowNum', 'fracMulNum']
+    })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -189,8 +194,11 @@ export default class SimplifierExponentielles extends Exercice {
   }
 }
 
+/**
+ * @returns [a, b, c, d] avec a * b = c + d
+ */
 function productEqualSum () {
-  // return [a, b, c, d] such as
+  // return [a, b, c, d] avec
   // a * b = c + d
   return choice([
     [2, 3, 4, 2],
