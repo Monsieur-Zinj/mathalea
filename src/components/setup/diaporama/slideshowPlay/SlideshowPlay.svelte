@@ -11,7 +11,6 @@
 
   export let slideshow: Slideshow
   export let dataFromSettings: DataFromSettings
-  export let handleChangeDurationGlobal: (durationGlobal: number | undefined) => void
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let handleQuit: () => void
 
@@ -251,23 +250,13 @@ function handleClick (event: MouseEvent) {
    * Gère la récupération de la valeur du curseur de temps
    */
   function handleTimerChange (cursorTimeValue: number) {
-    durationGlobal = 0
     pause()
-    if (cursorTimeValue === 0) {
-      globalOptions.update((l) => {
-        l.manualMode = true
-        return l
-      })
-      durationGlobal = undefined
-    } else {
-      globalOptions.update((l) => {
-        l.manualMode = false
-        return l
-      })
-      durationGlobal = cursorTimeValue
-    }
-    handleChangeDurationGlobal(durationGlobal)
-    goToQuestion(slideshow.currentQuestion)
+    durationGlobal = cursorTimeValue || undefined
+    globalOptions.update((l) => {
+      l.manualMode = !durationGlobal
+      l.durationGlobal = durationGlobal
+      return l
+    })
   }
 
   function zoomPlus () {

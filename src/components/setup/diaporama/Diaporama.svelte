@@ -199,21 +199,6 @@
     exercicesParams.set(newParams)
   }
 
-  /**
-   * @fixme Cette fonction fait trop de choses :
-   * elle met à jour un paramètre global,
-   * elle met à jour les exercices,
-   * et après avoir mis à jour les exercices, la durée du diaporama est recalculée
-   * @param durationGlobal
-   */
-  function handleChangeDurationGlobal (durationGlobal: number | undefined) {
-    globalOptions.update((l) => {
-      l.durationGlobal = durationGlobal
-      return l
-    })
-    updateExercises()
-  }
-
   function handleQuit () {
     if ($globalOptions.v !== 'diaporama') {
       globalOptions.update((l) => {
@@ -252,7 +237,6 @@
     {#if slideshow.currentQuestion > -1}
       <SlideshowPlay
         {dataFromSettings}
-        {handleChangeDurationGlobal}
         {slideshow}
         {transitionSounds}
         {handleQuit}
