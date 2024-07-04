@@ -33,7 +33,7 @@ export default function NatureSuiteRec () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    let texte, texteCorr, a, b, u, listeFractions1, fraction1, n1, d1
+    let texte, texteCorr, a, b, u, listeFractions1, fraction1, n1, d1, props
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -42,29 +42,29 @@ export default function NatureSuiteRec () {
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
-          if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1}  -${s}_n =${a}$.<br>
+          texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1}  -${s}_n =${a}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `arithmétique de raison $${a}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${-a}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `arithmétique de raison $${a}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${-a}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1}  -${s}_n =${a}$.<br>
          
             Quelle est la nature de cette suite ?<br>
@@ -80,29 +80,29 @@ export default function NatureSuiteRec () {
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
 
-          if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_n=${s}_{n+1}  ${ecritureAlgebrique(a)} $.<br>
+          texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_n=${s}_{n+1}  ${ecritureAlgebrique(a)} $.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `arithmétique de raison $${-a}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${a}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${-a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `arithmétique de raison $${-a}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${a}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${-a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_n=${s}_{n+1}  ${ecritureAlgebrique(a)} $.<br>
           
             Quelle est la nature de cette suite ?<br>
@@ -118,30 +118,30 @@ export default function NatureSuiteRec () {
           a = randint(1, 10) * choice([-1, 1])
           u = randint(1, 10) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
-          if (this.interactif) {
-            texte = `Soit $(u_n)$ une suite définie par $${s}_0=${u}$ et pour tout  
+          texte = `Soit $(u_n)$ une suite définie par $${s}_0=${u}$ et pour tout  
             $n\\in\\mathbb{N}$ par $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `arithmétique de raison $${a}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${-a}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `arithmétique de raison $${a}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${-a}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par
              $${s}_{n+1}  =\\dfrac{${b} ${s}_n${ecritureAlgebrique(b * a)}}{${b}}$.<br>
           
@@ -160,29 +160,29 @@ export default function NatureSuiteRec () {
           a = calculANePlusJamaisUtiliser(randint(2, 99) * choice([-1, 1])) / 100
           u = randint(1, 10) * choice([-1, 1])
 
-          if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
+          texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `géométrique de raison $${texNombre(1 + a)}$`,
-                  statut: true
-                },
-                {
-                  texte: `géométrique de raison $${texNombre(a)}$`,
-                  statut: false
-                },
-                {
-                  texte: `arithmétique de raison $${texNombre(a)}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `géométrique de raison $${texNombre(1 + a)}$`,
+                statut: true
+              },
+              {
+                texte: `géométrique de raison $${texNombre(a)}$`,
+                statut: false
+              },
+              {
+                texte: `arithmétique de raison $${texNombre(a)}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} -${s}_{n}= ${texNombre(a)}${s}_n $.<br>
           
             Quelle est la nature de cette suite ? <br>
@@ -205,77 +205,74 @@ export default function NatureSuiteRec () {
           a = randint(2, 10)
           u = randint(1, 10) * choice([-1, 1])
           b = choice([-1, 1])
-          if (this.interactif) {
-            if (b < 0) {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}$.<br>
+          if (b < 0) {
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `géométrique de raison $${texFractionFromString(d1 - n1, d1)}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `arithmétique de raison $-${texFractionFromString(n1, d1)}$`,
-                    statut: false
-                  }
-                ]
-              }
-              texte += propositionsQcm(this, i).texte
-            } else {
-              texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}$.<br>
-          Alors, $(${s}_n)$ est une suite ...`
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `géométrique de raison $${texFractionFromString(d1 + n1, d1)}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `arithmétique de raison $${texFractionFromString(n1, d1)}$`,
-                    statut: false
-                  }
-                ]
-              }
-              texte += propositionsQcm(this, i).texte
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `géométrique de raison $${texFractionFromString(d1 - n1, d1)}$`,
+                  statut: true
+                },
+                {
+                  texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
+                  statut: false
+                },
+                {
+                  texte: `arithmétique de raison $-${texFractionFromString(n1, d1)}$`,
+                  statut: false
+                }
+              ]
             }
-          } else {
-            if (b < 0) {
+            props = propositionsQcm(this, i)
+            if (this.interactif) texte += props.texte
+            else {
               texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}$.<br>
               
               Quelle est la nature de cette suite ? <br>
               
               Donner sa raison.`
-            } else {
+            }
+            texteCorr = `$${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}=\\left(1-${texFractionFromString(n1, d1)}\\right)${s}_{n}=${texFractionFromString(d1 - n1, d1)}${s}_{n}$.<br>
+                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFractionFromString(d1 - n1, d1)}$.<br>
+        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractionFromString(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
+          } else {
+            texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}$.<br>
+          Alors, $(${s}_n)$ est une suite ...`
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `géométrique de raison $${texFractionFromString(d1 + n1, d1)}$`,
+                  statut: true
+                },
+                {
+                  texte: `géométrique de raison $${texFractionFromString(n1, d1)}$`,
+                  statut: false
+                },
+                {
+                  texte: `arithmétique de raison $${texFractionFromString(n1, d1)}$`,
+                  statut: false
+                }
+              ]
+            }
+            props = propositionsQcm(this, i)
+            if (this.interactif) texte += props.texte
+            else {
               texte = `Soit $(${s}_n)$ une suite définie par $${s}_0=${u}$ et pour tout  $n\\in\\mathbb{N}$ par $${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}$.<br>
              
               Quelle est la nature de cette suite ?<br>
               
               Donner sa raison.`
             }
-          }
-
-          if (b < 0) {
-            texteCorr = `$${s}_{n+1} =${s}_{n} -${texFractionFromString(n1, d1)}${s}_{n}=\\left(1-${texFractionFromString(n1, d1)}\\right)${s}_{n}=${texFractionFromString(d1 - n1, d1)}${s}_{n}$.<br>
-                        La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFractionFromString(d1 - n1, d1)}$.<br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractionFromString(d1 - n1, d1)}$ et de premier terme $${s}_0=${u}$.`
-          } else {
             texteCorr = `$${s}_{n+1} =${s}_{n} +${texFractionFromString(n1, d1)}${s}_{n}=\\left(1+${texFractionFromString(n1, d1)}\\right)${s}_{n}=${texFractionFromString(d1 + n1, d1)}${s}_{n}$.<br>
             La formule de récurrence est de la forme $${s}_{n+1}=q\\times ${s}_n$ avec $q=${texFractionFromString(d1 + n1, d1)}$.<br>
 On en déduit que $(${s}_n)$ est une suite géométrique de raison $${texFractionFromString(d1 + n1, d1)}$ et de premier terme $${s}_0=${u}$.`
           }
+
           break
       }
 

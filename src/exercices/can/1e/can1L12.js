@@ -27,14 +27,14 @@ export default function TableauSignesSecondDegre () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  
+
   this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     const coul0 = 'blue'
-    let texte, texteCorr, a, b, c, solution1, solution2, solution3, solution4, inegalite
+    let texte, texteCorr, a, b, c, solution1, solution2, solution3, solution4, inegalite, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 9) * choice([-1, 1])// coefficient a
       b = randint(1, 9) * choice([-1, 1])// racine1
@@ -68,35 +68,35 @@ export default function TableauSignesSecondDegre () {
             solution3 = [`$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`]
             solution4 = [`$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`]
           }
-          if (this.interactif) {
-            texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
+          texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ est :  `
 
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: solution1,
-                  statut: true
-                },
-                {
-                  texte: solution2,
-                  statut: false
-                },
-                {
-                  texte: solution3,
-                  statut: false
-                },
-                {
-                  texte: solution4,
-                  statut: false
-                }
-              ]
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: solution1,
+                statut: true
+              },
+              {
+                texte: solution2,
+                statut: false
+              },
+              {
+                texte: solution3,
+                statut: false
+              },
+              {
+                texte: solution4,
+                statut: false
+              }
+            ]
 
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Donner l'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ ?  `
           }
@@ -141,35 +141,35 @@ On en déduit que l'ensemble des solutions est `
             solution3 = [`$]${b > c ? `${c}` : `${b}`}\\,;\\,${b > c ? `${b}` : `${c}`}[$`]
             solution4 = [`$]-\\infty\\,;\\,${b > c ? `${-b}` : `${-c}`}]\\cup[${b > c ? `${-c}` : `${-b}`}\\,;\\,+\\infty[$`]
           }
-          if (this.interactif) {
-            texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
+          texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ est :  `
 
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: solution1,
-                  statut: true
-                },
-                {
-                  texte: solution2,
-                  statut: false
-                },
-                {
-                  texte: solution3,
-                  statut: false
-                },
-                {
-                  texte: solution4,
-                  statut: false
-                }
-              ]
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: solution1,
+                statut: true
+              },
+              {
+                texte: solution2,
+                statut: false
+              },
+              {
+                texte: solution3,
+                statut: false
+              },
+              {
+                texte: solution4,
+                statut: false
+              }
+            ]
 
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Donner l'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) ${inegalite} 0$ ?  `
           }

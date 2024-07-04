@@ -35,115 +35,51 @@ export default function ResoudreEquationsFonctionDeReference2 () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, k, b, c
+    let texte, texteCorr, k, b, c, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 4, 5, 6])) {
         case 1 :
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
           k = calculANePlusJamaisUtiliser(c - b)
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $x^2${ecritureAlgebrique(b)}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $x^2${ecritureAlgebrique(b)}=${c}$ est :
                  `
-            if (k > 0) {
-              if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                this.autoCorrection[i] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
-                      statut: true
-                    },
-                    {
-                      texte: '$S=\\emptyset$',
-                      statut: false
-                    },
-                    {
-                      texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
-                      statut: false
-                    }
-                  ]
-                }
-              } else {
-                if (extraireRacineCarree(k)[1] === k) {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: '$S=\\emptyset$',
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{\\sqrt{${c - b}}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                } else {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\{${Math.sqrt(k)}\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-
-            if (k === 0) {
+          if (k > 0) {
+            if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: '$S=\\{0\\}$',
+                    texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
                     statut: true
-                  },
-                  {
-                    texte: '$S=\\{1}\\}$',
-                    statut: false
                   },
                   {
                     texte: '$S=\\emptyset$',
                     statut: false
+                  },
+                  {
+                    texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
+                    statut: false
                   }
                 ]
               }
-            }
-            if (k < 0) {
-              if (k === -1 || k === -4 || k === -9 || k === -16 || k === -25) {
+            } else {
+              if (extraireRacineCarree(k)[1] === k) {
                 this.autoCorrection[i] = {
                   enonce: texte,
                   options: { horizontal: true },
                   propositions: [
                     {
-                      texte: '$S=\\emptyset$',
+                      texte: `$S=\\{-\\sqrt{${c - b}}${sp(1)};${sp(1)}\\sqrt{${c - b}}\\}$`,
                       statut: true
                     },
                     {
-                      texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
+                      texte: '$S=\\emptyset$',
                       statut: false
                     },
                     {
-                      texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
+                      texte: `$S=\\{\\sqrt{${c - b}}\\}$`,
                       statut: false
                     }
                   ]
@@ -154,24 +90,88 @@ export default function ResoudreEquationsFonctionDeReference2 () {
                   options: { horizontal: true },
                   propositions: [
                     {
-                      texte: '$S=\\emptyset$',
+                      texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
                       statut: true
                     },
                     {
-                      texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
+                      texte: `$S=\\{${Math.sqrt(k)}\\}$`,
                       statut: false
                     },
                     {
-                      texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                      texte: `$S=\\{${k}\\}$`,
                       statut: false
                     }
                   ]
                 }
               }
             }
+          }
 
-            texte += propositionsQcm(this, i).texte
-          } else {
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\{0\\}$',
+                  statut: true
+                },
+                {
+                  texte: '$S=\\{1}\\}$',
+                  statut: false
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                }
+              ]
+            }
+          }
+          if (k < 0) {
+            if (k === -1 || k === -4 || k === -9 || k === -16 || k === -25) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                    statut: false
+                  }
+                ]
+              }
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Résoudre dans $\\mathbb{R}$ :<br>
   
         $x^2${ecritureAlgebrique(b)}=${c}$`
@@ -230,108 +230,44 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           b = randint(-5, 5, 0)
           c = randint(-5, 5, 0)
           k = calculANePlusJamaisUtiliser(b - c)
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $-x^2${ecritureAlgebrique(b)}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $-x^2${ecritureAlgebrique(b)}=${c}$ est :
            `
-            if (k > 0) {
-              if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
-                this.autoCorrection[i] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
-                      statut: true
-                    },
-                    {
-                      texte: '$S=\\emptyset$',
-                      statut: false
-                    },
-                    {
-                      texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
-                      statut: false
-                    }
-                  ]
-                }
-              } else {
-                if (extraireRacineCarree(k)[1] === k) {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: '$S=\\emptyset$',
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{\\sqrt{${k}}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                } else {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\{${Math.sqrt(k)}\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-
-            if (k === 0) {
+          if (k > 0) {
+            if (k === 1 || k === 4 || k === 9 || k === 16 || k === 25) {
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: '$S=\\{0\\}$',
+                    texte: `$S=\\{-${extraireRacineCarree(k)[0]}${sp(1)};${sp(1)}${extraireRacineCarree(k)[0]}\\}$`,
                     statut: true
-                  },
-                  {
-                    texte: '$S=\\{1}\\}$',
-                    statut: false
                   },
                   {
                     texte: '$S=\\emptyset$',
                     statut: false
+                  },
+                  {
+                    texte: `$S=\\{${extraireRacineCarree(k)[0]}\\}$`,
+                    statut: false
                   }
                 ]
               }
-            }
-            if (k < 0) {
-              if (k === -1 || k === -4 || k === -9 || k === -16 || k === -25) {
+            } else {
+              if (extraireRacineCarree(k)[1] === k) {
                 this.autoCorrection[i] = {
                   enonce: texte,
                   options: { horizontal: true },
                   propositions: [
                     {
-                      texte: '$S=\\emptyset$',
+                      texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
                       statut: true
                     },
                     {
-                      texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
+                      texte: '$S=\\emptyset$',
                       statut: false
                     },
                     {
-                      texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
+                      texte: `$S=\\{\\sqrt{${k}}\\}$`,
                       statut: false
                     }
                   ]
@@ -342,24 +278,88 @@ export default function ResoudreEquationsFonctionDeReference2 () {
                   options: { horizontal: true },
                   propositions: [
                     {
-                      texte: '$S=\\emptyset$',
+                      texte: `$S=\\{-${Math.sqrt(k)};${Math.sqrt(k)}\\}$`,
                       statut: true
                     },
                     {
-                      texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
+                      texte: `$S=\\{${Math.sqrt(k)}\\}$`,
                       statut: false
                     },
                     {
-                      texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                      texte: `$S=\\{${k}\\}$`,
                       statut: false
                     }
                   ]
                 }
               }
             }
+          }
 
-            texte += propositionsQcm(this, i).texte
-          } else {
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\{0\\}$',
+                  statut: true
+                },
+                {
+                  texte: '$S=\\{1}\\}$',
+                  statut: false
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                }
+              ]
+            }
+          }
+          if (k < 0) {
+            if (k === -1 || k === -4 || k === -9 || k === -16 || k === -25) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\{-${Math.sqrt(-k)};${Math.sqrt(-k)}\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\{-${Math.sqrt(-k)}\\}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\{-\\sqrt{${-k}};\\sqrt{${-k}}\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                    statut: false
+                  }
+                ]
+              }
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Résoudre dans $\\mathbb{R}$ :<br>
   
    $-x^2${ecritureAlgebrique(b)}=${c}$`
@@ -423,94 +423,94 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
           k = calculANePlusJamaisUtiliser(c - b)
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$ est :
                        `
-            if (k > 0) {
-              if (k !== 1) {
-                this.autoCorrection[i] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$S=\\{${k ** 2}\\}$`,
-                      statut: true
-                    },
-                    {
-                      texte: `$S=\\{${2 * k}\\}$`,
-                      statut: false
-                    },
-                    {
-                      texte: `$S=\\{${k}\\}$`,
-                      statut: false
-                    }
-                  ]
-                }
-              } else {
-                this.autoCorrection[i] = {
-                  enonce: texte,
-                  options: { horizontal: true },
-                  propositions: [
-                    {
-                      texte: `$S=\\{${k}\\}$`,
-                      statut: true
-                    },
-                    {
-                      texte: '$S=\\emptyset$',
-                      statut: false
-                    },
-                    {
-                      texte: `$S=\\{${2 * k}\\}$`,
-                      statut: false
-                    }
-                  ]
-                }
-              }
-            }
-
-            if (k < 0) {
+          if (k > 0) {
+            if (k !== 1) {
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\{\\sqrt{${-k}}\\}$`,
-                    statut: false
-                  },
                   {
                     texte: `$S=\\{${k ** 2}\\}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\{${2 * k}\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: `$S=\\{${k}\\}$`,
                     statut: false
                   }
                 ]
               }
-            }
-            if (k === 0) {
+            } else {
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: '$S=\\{0\\}$',
+                    texte: `$S=\\{${k}\\}$`,
                     statut: true
                   },
                   {
-                    texte: `$S=\\{${k + 1}\\}$`,
+                    texte: '$S=\\emptyset$',
                     statut: false
                   },
                   {
-                    texte: '$S=\\emptyset$',
+                    texte: `$S=\\{${2 * k}\\}$`,
                     statut: false
                   }
                 ]
               }
             }
+          }
 
-            texte += propositionsQcm(this, i).texte
-          } else {
+          if (k < 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{${k ** 2}\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\{0\\}$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{${k + 1}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
   
                $\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
@@ -553,57 +553,17 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           b = randint(-5, 5, 0)
           c = randint(-5, 5)
           k = calculANePlusJamaisUtiliser(b - c)
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\sqrt{x}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\sqrt{x}=${c}$ est :
                            `
-            if (k > 0) {
-              if (k !== 1) {
-                if (k === 2) {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{${k ** 2}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: '$S=\\emptyset$',
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                } else {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\{${k ** 2}\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\{${2 * k}\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\{${k}\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
-                }
-              } else {
+          if (k > 0) {
+            if (k !== 1) {
+              if (k === 2) {
                 this.autoCorrection[i] = {
                   enonce: texte,
                   options: { horizontal: true },
                   propositions: [
                     {
-                      texte: `$S=\\{${k}\\}$`,
+                      texte: `$S=\\{${k ** 2}\\}$`,
                       statut: true
                     },
                     {
@@ -611,57 +571,97 @@ export default function ResoudreEquationsFonctionDeReference2 () {
                       statut: false
                     },
                     {
+                      texte: `$S=\\{${k}\\}$`,
+                      statut: false
+                    }
+                  ]
+                }
+              } else {
+                this.autoCorrection[i] = {
+                  enonce: texte,
+                  options: { horizontal: true },
+                  propositions: [
+                    {
+                      texte: `$S=\\{${k ** 2}\\}$`,
+                      statut: true
+                    },
+                    {
                       texte: `$S=\\{${2 * k}\\}$`,
+                      statut: false
+                    },
+                    {
+                      texte: `$S=\\{${k}\\}$`,
                       statut: false
                     }
                   ]
                 }
               }
-            }
-
-            if (k < 0) {
+            } else {
               this.autoCorrection[i] = {
                 enonce: texte,
                 options: { horizontal: true },
                 propositions: [
                   {
-                    texte: '$S=\\emptyset$',
+                    texte: `$S=\\{${k}\\}$`,
                     statut: true
                   },
                   {
-                    texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                    texte: '$S=\\emptyset$',
                     statut: false
                   },
                   {
-                    texte: `$S=\\{${k ** 2}\\}$`,
+                    texte: `$S=\\{${2 * k}\\}$`,
                     statut: false
                   }
                 ]
               }
             }
-            if (k === 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: '$S=\\{0\\}$',
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\{${k + 1}\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: false
-                  }
-                ]
-              }
-            }
+          }
 
-            texte += propositionsQcm(this, i).texte
-          } else {
+          if (k < 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{\\sqrt{${-k}}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{${k ** 2}\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\{0\\}$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{${k + 1}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Résoudre dans $[0${sp(1)};${sp(1)}+\\infty[$ :<br>
   
                   $-\\sqrt{x}${ecritureAlgebrique(b)}=${c}$`
@@ -700,11 +700,30 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           b = randint(-10, 10, 0)
           c = randint(-10, 10)
           k = c - b
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $\\dfrac{1}{x}${ecritureAlgebrique(b)}=${c}$ est :
                          `
-            if (k !== 0) {
-              if (k === 1) {
+          if (k !== 0) {
+            if (k === 1) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              if (k === -1) {
                 this.autoCorrection[i] = {
                   enonce: texte,
                   options: { horizontal: true },
@@ -724,70 +743,51 @@ export default function ResoudreEquationsFonctionDeReference2 () {
                   ]
                 }
               } else {
-                if (k === -1) {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: '$S=\\emptyset$',
-                        statut: false
-                      }
-                    ]
-                  }
-                } else {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\left\\{${k}\\right\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
+                this.autoCorrection[i] = {
+                  enonce: texte,
+                  options: { horizontal: true },
+                  propositions: [
+                    {
+                      texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
+                      statut: true
+                    },
+                    {
+                      texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
+                      statut: false
+                    },
+                    {
+                      texte: `$S=\\left\\{${k}\\right\\}$`,
+                      statut: false
+                    }
+                  ]
                 }
               }
             }
+          }
 
-            if (k === 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: true
-                  },
-                  {
-                    texte: '$S=\\left\\{0\\right\\}$',
-                    statut: false
-                  },
-                  {
-                    texte: '$S=\\left\\{-1\\right\\}$',
-                    statut: false
-                  }
-                ]
-              }
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: '$S=\\left\\{0\\right\\}$',
+                  statut: false
+                },
+                {
+                  texte: '$S=\\left\\{-1\\right\\}$',
+                  statut: false
+                }
+              ]
             }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `
                        Résoudre dans $\\mathbb{R}^*$ :<br>
   
@@ -819,11 +819,30 @@ export default function ResoudreEquationsFonctionDeReference2 () {
           b = randint(-10, 10, 0)
           c = randint(-10, 10)
           k = b - c
-          if (this.interactif) {
-            texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\dfrac{1}{x}=${c}$ est :
+          texte = `L'ensemble des solutions $S$ de l'équation $${b}-\\dfrac{1}{x}=${c}$ est :
                              `
-            if (k !== 0) {
-              if (k === 1) {
+          if (k !== 0) {
+            if (k === 1) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
+                    statut: false
+                  },
+                  {
+                    texte: '$S=\\emptyset$',
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              if (k === -1) {
                 this.autoCorrection[i] = {
                   enonce: texte,
                   options: { horizontal: true },
@@ -843,70 +862,51 @@ export default function ResoudreEquationsFonctionDeReference2 () {
                   ]
                 }
               } else {
-                if (k === -1) {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: '$S=\\emptyset$',
-                        statut: false
-                      }
-                    ]
-                  }
-                } else {
-                  this.autoCorrection[i] = {
-                    enonce: texte,
-                    options: { horizontal: true },
-                    propositions: [
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
-                        statut: true
-                      },
-                      {
-                        texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
-                        statut: false
-                      },
-                      {
-                        texte: `$S=\\left\\{${k}\\right\\}$`,
-                        statut: false
-                      }
-                    ]
-                  }
+                this.autoCorrection[i] = {
+                  enonce: texte,
+                  options: { horizontal: true },
+                  propositions: [
+                    {
+                      texte: `$S=\\left\\{${texFractionReduite(1, k)}\\right\\}$`,
+                      statut: true
+                    },
+                    {
+                      texte: `$S=\\left\\{${texFractionReduite(1, -k)}\\right\\}$`,
+                      statut: false
+                    },
+                    {
+                      texte: `$S=\\left\\{${k}\\right\\}$`,
+                      statut: false
+                    }
+                  ]
                 }
               }
             }
+          }
 
-            if (k === 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: true
-                  },
-                  {
-                    texte: '$S=\\left\\{0\\right\\}$',
-                    statut: false
-                  },
-                  {
-                    texte: '$S=\\left\\{-1\\right\\}$',
-                    statut: false
-                  }
-                ]
-              }
+          if (k === 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: '$S=\\left\\{0\\right\\}$',
+                  statut: false
+                },
+                {
+                  texte: '$S=\\left\\{-1\\right\\}$',
+                  statut: false
+                }
+              ]
             }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `
                            Résoudre dans $\\mathbb{R}^*$ :<br>
   

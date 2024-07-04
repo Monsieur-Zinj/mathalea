@@ -32,47 +32,47 @@ export default function ComparerAvecFctCarre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, a, b
+    let texte, texteCorr, a, b, props
     switch (choice([1, 2, 3])) { //
       case 1 :
         a = calculANePlusJamaisUtiliser(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
-          if (a < b) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                  statut: false
-                }
-              ]
-            }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                  statut: false
-                }
-              ]
-            }
+        texte = 'Sélectionner la réponse correcte. '
+        if (a < b) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
+                statut: true
+              },
+              {
+                texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
+                statut: false
+              }
+            ]
           }
-
-          texte += propositionsQcm(this, 0).texte
         } else {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
+                statut: true
+              },
+              {
+                texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
+                statut: false
+              }
+            ]
+          }
+        }
+
+        props = propositionsQcm(this, i)
+        if (this.interactif) texte += props.texte
+        else {
           texte = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
         }
 
@@ -92,42 +92,42 @@ export default function ComparerAvecFctCarre () {
       case 2 :
         a = calculANePlusJamaisUtiliser((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
         b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
-          if (a < b) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
-            }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
-            }
+        texte = 'Sélectionner la réponse correcte. '
+        if (a < b) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
+                statut: true
+              },
+              {
+                texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
+                statut: false
+              }
+            ]
           }
-
-          texte += propositionsQcm(this, 0).texte
         } else {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
+                statut: true
+              },
+              {
+                texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
+                statut: false
+              }
+            ]
+          }
+        }
+
+        props = propositionsQcm(this, i)
+        if (this.interactif) texte += props.texte
+        else {
           texte = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
         }
 
@@ -148,42 +148,42 @@ export default function ComparerAvecFctCarre () {
       case 3 :
         a = calculANePlusJamaisUtiliser(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
         b = calculANePlusJamaisUtiliser((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        if (this.interactif) {
-          texte = 'Sélectionner la réponse correcte. '
-          if (abs(a) < abs(b)) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                  statut: false
-                }
-              ]
-            }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                  statut: true
-                },
-                {
-                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                  statut: false
-                }
-              ]
-            }
+        texte = 'Sélectionner la réponse correcte. '
+        if (abs(a) < abs(b)) {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
+                statut: true
+              },
+              {
+                texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
+                statut: false
+              }
+            ]
           }
-
-          texte += propositionsQcm(this, 0).texte
         } else {
+          this.autoCorrection[0] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
+                statut: true
+              },
+              {
+                texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
+                statut: false
+              }
+            ]
+          }
+        }
+
+        props = propositionsQcm(this, i)
+        if (this.interactif) texte += props.texte
+        else {
           if (choice([true, false])) {
             texte = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
             this.canEnonce = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`

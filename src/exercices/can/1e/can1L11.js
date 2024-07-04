@@ -28,7 +28,7 @@ export default function TableauSignesSecondDegre () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1.3
-  
+
   this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
@@ -75,31 +75,32 @@ export default function TableauSignesSecondDegre () {
             { antVal: 10, antTex: '+\\infty' }
           ]
         })
-      if (this.interactif) {
-        texte = `Quel est le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par :
+      texte = `Quel est le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par :
         $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) $ ? `
 
-        this.autoCorrection[i] = {
-          enonce: texte,
-          options: { vertical: true },
-          propositions: [
-            {
-              texte: tableau1,
-              statut: true
-            },
-            {
-              texte: tableau2,
-              statut: false
-            },
-            {
-              texte: tableau3,
-              statut: false
-            }
-          ]
+      this.autoCorrection[i] = {
+        enonce: texte,
+        options: { vertical: true },
+        propositions: [
+          {
+            texte: tableau1,
+            statut: true
+          },
+          {
+            texte: tableau2,
+            statut: false
+          },
+          {
+            texte: tableau3,
+            statut: false
+          }
+        ]
 
-        }
-        texte += propositionsQcm(this, i).texte
-      } else {
+      }
+
+      const props = propositionsQcm(this, i)
+      if (this.interactif) texte += props.texte
+      else {
         texte = `Dresser le tableau de signes de la fonction $f$ définie sur  $\\mathbb R$ par :
         $f(x)=${rienSi1(a)}(x${ecritureAlgebrique(-b)})(x${ecritureAlgebrique(-c)}) $.`
       }
