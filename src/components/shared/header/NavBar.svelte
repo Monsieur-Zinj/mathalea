@@ -53,17 +53,20 @@
   ```
  -->
 
-<nav class="p-4 md:h-[120px]
-  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<nav class="p-4
+  md:h-[120px]
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+>
   <!-- container -->
   <div class="flex flex-row justify-between items-start w-full mx-auto
     space-x-0 md:space-x-6"
   >
     <div class="flex justify-start
-      flex-col md:flex-row
-      space-x-0 md:space-x-2">
+      flex-col
+      space-x-0 md:space-x-2"
+    >
       <!-- logo -->
-      <div class="">
+      <div class="flex align-middle">
         <div
           on:click={() => goToMathalea($globalOptions.v)}
           on:keydown={() => goToMathalea($globalOptions.v)}
@@ -79,7 +82,8 @@
         >
           {title}
         </div>
-
+        <NavBarSubtitle {subtitle} type={subtitleType} />
+      </div>
         <div
           class="relative bottom-1 left-1 font-light text-sm
             text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
@@ -97,8 +101,6 @@
           </a>
         </div>
       </div>
-      <NavBarSubtitle {subtitle} type={subtitleType} />
-    </div>
     <div class="flex flex-row space-x-4 pt-2
       px-0 md:px-4"
     >
