@@ -26,7 +26,7 @@ export const titre = 'Utiliser ou trouver l\'échelle d\'un plan'
 
 // Gestion de la date de publication initiale
 export const dateDePublication = '10/08/2022'
-export const dateDeModifImportante = '19/04/2024'
+export const dateDeModifImportante = '05/07/2024'
 
 /**
  * Utiliser ou trouver des échelles dans diverses situations
@@ -296,7 +296,8 @@ export default function EchellesProblemes () {
           unite1 = tableauUnites[1]
           nb2 = nb1 * echelleQ[0]
           unite2 = tableauUnites[Math.floor(min(Math.log10(nb2), 6))]
-          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 5))
+          // echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.floor(Math.log10(echelleQ[0])), 5)) // EE : Suppression au profit de la suivante sinon pb avec échelle 5000.
+          echelleQUnite2 = echelleQ[0] / Math.pow(10, min(Math.round(Math.log10(echelleQ[0])), 5))
           nb2Unite2 = nb1 * echelleQUnite2
           nb2Unite1 = nb2
           reponse = arrondi(nb1Unite1, 0)
