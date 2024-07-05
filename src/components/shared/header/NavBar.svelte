@@ -61,48 +61,48 @@
   <div class="flex flex-row justify-between items-start w-full mx-auto
     space-x-0 md:space-x-6"
   >
-    <div class="flex justify-start
-      flex-col
+    <div class="flex justify-start flex-col
       space-x-0 md:space-x-2"
     >
-      <!-- logo -->
-      <div class="flex align-middle">
-        <div
-          on:click={() => goToMathalea($globalOptions.v)}
-          on:keydown={() => goToMathalea($globalOptions.v)}
-          role="link"
-          tabindex="0"
-          class="relative inline-flex font-logo9 tracking-tighter font-black
-          text-3xl md:text-6xl
-          {subtitleType === 'design'
-            ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
-            : `cursor-pointer
-              text-coopmaths-action dark:text-coopmathsdark-action
-              hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest`}"
-        >
-          {title}
+      <div class="flex align-middle
+        flex-col md:flex-row">
+        <div>
+          <div
+            on:click={() => goToMathalea($globalOptions.v)}
+            on:keydown={() => goToMathalea($globalOptions.v)}
+            role="link"
+            tabindex="0"
+            class="relative inline-flex font-logo9 tracking-tighter font-black
+            text-3xl md:text-6xl
+            {subtitleType === 'design'
+              ? 'text-coopmaths-struct dark:text-coopmathsdark-struct'
+              : `cursor-pointer
+                text-coopmaths-action dark:text-coopmathsdark-action
+                hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest`}"
+          >
+            {title}
+          </div>
+          <div class="absolute ml-3 -mt-1 font-light text-sm
+              text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+          >
+            <span class="font-light font-sans tracking-normal">par</span>
+            <a
+              href="https://coopmaths.fr"
+              target="_blank"
+              rel="noreferrer"
+              class="font-extrabold font-logo9 tracking-tighter
+                text-coopmaths-action dark:text-coopmathsdark-action
+                hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
+            >
+              CoopMaths
+            </a>
+          </div>
         </div>
         <NavBarSubtitle {subtitle} type={subtitleType} />
       </div>
-        <div
-          class="relative bottom-1 left-1 font-light text-sm
-            text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
-        >
-          <span class="font-light font-sans tracking-normal">par</span>
-          <a
-            href="https://coopmaths.fr"
-            target="_blank"
-            rel="noreferrer"
-            class="font-extrabold font-logo9 tracking-tighter
-              text-coopmaths-action dark:text-coopmathsdark-action
-              hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-          >
-            CoopMaths
-          </a>
-        </div>
-      </div>
+    </div>
     <div class="flex flex-row space-x-4 pt-2
-      px-0 md:px-4"
+      pr-0 md:pr-4"
     >
       {#if $globalOptions.v && VUES_WITH_LANG_STATUS_ONLY.includes($globalOptions.v)}
         <LanguageStatus {locale} />

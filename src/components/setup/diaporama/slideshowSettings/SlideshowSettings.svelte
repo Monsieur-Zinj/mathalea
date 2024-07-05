@@ -87,12 +87,24 @@
     bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
     text-coopmaths-corpus dark:text-coopmathsdark-corpus"
 >
-  <NavBar subtitle="Réglages du diaporama" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
-  <div class="flex flex-row justify-center items-start w-full mx-20 mt-10">
+  <NavBar
+    subtitle="Réglages du diaporama"
+    subtitleType="export"
+    handleLanguage={() => {}}
+    locale={$referentielLocale}
+  />
+  <div class="flex justify-end items-start mt-10
+    flex-col md:flex-row"
+  >
     <!-- Left Side -->
-    <div class="flex flex-col justify-start w-1/5">
-      <DisplaySettings {goToOverview} />
-      <NbOfViewsSettings nbOfViews={$globalOptions.nbVues ?? 1} {updateNbOfViews} />
+    <div class="flex flex-col justify-start ml-4">
+      <DisplaySettings
+        {goToOverview}
+      />
+      <NbOfViewsSettings
+        nbOfViews={$globalOptions.nbVues ?? 1}
+        {updateNbOfViews}
+      />
       <TransitionSettings
         {transitionSounds}
         screenBetweenSlides={!!$globalOptions.screenBetweenSlides}
@@ -103,16 +115,25 @@
         questionThenCorrectionToggle={$globalOptions.flow === 1 || $globalOptions.flow === 2}
         questionWithCorrectionToggle={$globalOptions.flow === 2}
       />
-      <OrderSettings isQuestionsOrdered={!$globalOptions.shuffle} {updateQuestionsOrder} />
+      <OrderSettings
+        isQuestionsOrdered={!$globalOptions.shuffle}
+        {updateQuestionsOrder}
+      />
       <SelectedExercisesSettings
         {exercises}
         selectedExercisesIndexes={$globalOptions.select ?? []}
         {updateSelect}
       />
-      <LinksSettings QRCodeWidth={settings.QRCodeWidth} formatQRCodeIndex={settings.formatQRCodeIndex} />
+      <LinksSettings
+        QRCodeWidth={settings.QRCodeWidth}
+        formatQRCodeIndex={settings.formatQRCodeIndex}
+      />
     </div>
     <!-- Right Side -->
-    <div class="flex flex-col justify-start w-4/6">
+    <div class="flex flex-col justify-start
+      md:w-4/6
+      mr-0 md:mr-4"
+    >
       <GlobalDurationSettings
         {exercises}
         isManualModeActive={!!$globalOptions.manualMode}
@@ -135,7 +156,11 @@
           <button
             type="button"
             id="diaporama-play-button"
-            class="animate-pulse inline-flex items-center justify-center shadow-2xl w-2/12 bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest font-extrabold text-coopmaths-canvas dark:text-coopmathsdark-canvas text-3xl py-4 rounded-lg"
+            class="animate-pulse inline-flex items-center justify-center shadow-2xl rounded-lg p-4 pr-2
+              font-extrabold text-3xl
+              bg-coopmaths-action dark:bg-coopmathsdark-action
+              hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
+              text-coopmaths-canvas dark:text-coopmathsdark-canvas"
             on:click={start}
             on:keydown={start}
           >
