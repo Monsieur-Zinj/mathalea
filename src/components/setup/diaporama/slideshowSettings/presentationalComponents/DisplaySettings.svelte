@@ -6,8 +6,8 @@
 </script>
 
 <div class="flex flex-row justify-start items-center pb-6">
-  <div
-    class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct"
+  <div class="flex text-lg font-bold
+    text-coopmaths-struct dark:text-coopmathsdark-struct"
   >
     Aperçu
     <div class="flex flex-row px-4 justify-start">
@@ -18,7 +18,9 @@
         <button
           type="button"
           id="diaporama-apercu"
-          class="mr-4 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
+          class="mr-4
+            text-coopmaths-action dark:text-coopmathsdark-action
+            hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
           on:click={goToOverview}
         >
           <i class="bx text-2xl bx-detail" />

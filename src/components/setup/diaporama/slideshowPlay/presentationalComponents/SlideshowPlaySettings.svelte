@@ -53,12 +53,12 @@
 
 </script>
 
-<footer
-  class="w-full h-[10%] py-1 sticky bottom-0 opacity-100 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+<footer class="sticky w-full py-1 h-[10%] bottom-0 opacity-100
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   <div class="flex flex-row justify-between w-full">
     <!-- boutons réglagles zoom -->
-    <div class="flex flex-row justify-start ml-10 w-[33%] items-center">
+    <div class="flex flex-row justify-start items-center ml-10 w-[33%]">
     <FullscreenButton/>
       <button type="button" on:click={zoomPlus}>
         <i

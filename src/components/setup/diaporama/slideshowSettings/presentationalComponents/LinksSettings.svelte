@@ -3,11 +3,14 @@
   import ModalForQRCode from '../../../../shared/modal/ModalForQRCode.svelte'
   import { copyLinkToClipboard } from '../../../../../lib/components/clipboard'
   import { buildMathAleaURL } from '../../../../../lib/components/urls'
+  import { isIntegerInRange0to2 } from '../../../../../lib/types/integerInRange'
 
   export let QRCodeWidth: number
   export let formatQRCodeIndex: number
 </script>
-<div class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">
+<div class="flex text-lg font-bold pb-2
+  text-coopmaths-struct dark:text-coopmathsdark-struct"
+>
   Liens
   <div class="flex flex-row px-4 -mt-2 justify-start">
     <ModalActionWithDialog
@@ -24,7 +27,7 @@
       url={document.URL}
       tooltipMessage="QR-code du diaporama"
       width={QRCodeWidth}
-      format={formatQRCodeIndex}
+      format={isIntegerInRange0to2(formatQRCodeIndex) ? formatQRCodeIndex : 0}
     />
   </div>
 </div>

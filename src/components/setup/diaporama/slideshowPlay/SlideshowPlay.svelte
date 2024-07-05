@@ -288,7 +288,8 @@ function handleClick (event: MouseEvent) {
 {#if slideshow.currentQuestion < slideshow.selectedQuestionsNumber && slideshow.currentQuestion > -1}
   <div
     id="diap"
-    class="flex flex-col h-screen scrollbar-hide bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="flex flex-col h-screen scrollbar-hide
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
     <SlideshowPlaySteps
@@ -328,7 +329,9 @@ function handleClick (event: MouseEvent) {
 {:else}
   <div
     id="end"
-    class="flex flex-col h-screen scrollbar-hide justify-center text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    class="flex flex-col h-screen scrollbar-hide justify-center
+      text-coopmaths-struct dark:text-coopmathsdark-struct
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
     <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">

@@ -38,10 +38,12 @@ function isInViewport (element: HTMLElement): boolean {
 }
 </script>
 
-<header class="flex flex-col bg-coopmaths-canvas dark:bg-coopmathsdark-canvas pb-1 w-full">
+<header class="flex flex-col pb-1 w-full
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
   <div
     class:invisible={isManualModeActive}
-    class="flex flex-row flex-shrink-0 h-6 border border-coopmaths-warn dark:border-coopmathsdark-warn"
+    class="flex flex-row flex-shrink-0 h-6 border
+      border-coopmaths-warn dark:border-coopmathsdark-warn"
   >
     <div
       id="diapoProgressBar"
@@ -55,11 +57,10 @@ function isInViewport (element: HTMLElement): boolean {
         on:click={() => goToQuestion(i)}
         on:keydown={() => goToQuestion(i)}
         tabindex="0"
-          class="step dark:step-info {currentQuestionNumber >= i
-            ? 'step-primary'
-            : ''} cursor-pointer {currentQuestionNumber === i
-              ? 'step-current'
-              : ''}"
+        class="cursor-pointer
+          step dark:step-info
+          {currentQuestionNumber === i ? 'step-current' : ''}
+          {currentQuestionNumber >= i ? 'step-primary' : ''}"
       >
       </button>
     {/each}

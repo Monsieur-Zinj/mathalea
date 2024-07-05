@@ -28,7 +28,9 @@
 </script>
 
 <div class="pb-8">
-  <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">
+  <div class="flex text-lg font-bold mb-1
+    text-coopmaths-struct dark:text-coopmathsdark-struct"
+  >
     Transitions
   </div>
   <CheckboxWithLabel
