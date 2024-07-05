@@ -12,7 +12,7 @@
   export let slideshow: Slideshow
   export let dataFromSettings: DataFromSettings
   export let transitionSounds: Record<string, HTMLAudioElement>
-  export let handleQuit: () => void
+  export let backToSettings: () => void
 
   const divQuestion: HTMLDivElement[] = []
   let formatQRCodeIndex: 0 | 1 | 2
@@ -209,7 +209,7 @@ function handleClick (event: MouseEvent) {
   function prevQuestion () {
     if (slideshow.currentQuestion === 0) {
       pause()
-      handleQuit()
+      backToSettings()
       return
     }
     if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
@@ -314,7 +314,7 @@ function handleClick (event: MouseEvent) {
       {isCorrectionVisible}
       currentDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
       {handleTimerChange}
-      {handleQuit}
+      {backToSettings}
       {isPause}
       {prevQuestion}
       {nextQuestion}
@@ -338,7 +338,7 @@ function handleClick (event: MouseEvent) {
       {QRCodeWidth}
       {formatQRCodeIndex}
       {returnToStart}
-      {handleQuit}
+      {backToSettings}
     />
   </div>
 {/if}

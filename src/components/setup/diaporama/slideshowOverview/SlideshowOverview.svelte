@@ -13,7 +13,7 @@
   export let exercises: Exercice[] = []
   export let slideshow: Slideshow
   export let updateExercises: () => void
-  export let handleQuit: () => void
+  export let backToSettings: () => void
 
   let currentSeriesIndex: 0 | 1 | 2 | 3 | 4 = 0
   let isCorrectionVisible = false
@@ -151,7 +151,7 @@
         {setCorrectionVisible}
         {handleCorrectionsStepsClick}
         {newDataForAll}
-        {handleQuit}
+        {backToSettings}
       />
     </aside>
     <main class="flex flex-row p-2

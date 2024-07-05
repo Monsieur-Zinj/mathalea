@@ -8,7 +8,7 @@
   export let setCorrectionVisible: (value: boolean) => void
   export let handleCorrectionsStepsClick: (button: 'backward' | 'forward') => void
   export let newDataForAll: () => void
-  export let handleQuit: () => void
+  export let backToSettings: () => void
 
 </script>
 
@@ -21,7 +21,7 @@
     class="pb-8
       text-coopmaths-action dark:text-coopmathsdark-action
       hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest"
-    on:click={handleQuit}
+    on:click={backToSettings}
   >
     <i class="bx bx-sm bx-arrow-back" />
   </button>
@@ -129,7 +129,9 @@
     />
     <label
       class="flex flex-row rounded-l-lg border-y border-l border-coopmaths-struct dark:border-coopmathsdark-struct w-14 h-14 justify-center items-center text-center cursor-pointer bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark font-bold text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest peer-checked/tab5:bg-coopmaths-canvas dark:peer-checked/tab5:bg-coopmathsdark-canvas peer-checked/tab5:text-coopmaths-struct dark:peer-checked/tab5:text-coopmathsdark-struct peer-checked/tab5:cursor-default"
-      for="tab5">Tout</label
+      for="tab5"
     >
+      Tout
+    </label>
   {/if}
 </div>

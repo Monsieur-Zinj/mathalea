@@ -8,7 +8,7 @@
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
   export let handleTimerChange: (cursorTimeValue: number) => void
-  export let handleQuit: (event: Event) => void
+  export let backToSettings: (event: Event) => void
   export let isPause: boolean
   export let nextQuestion: () => void
   export let pause: () => void
@@ -171,7 +171,7 @@
           </i>
         </button>
       </div>
-      <button type="button" on:click={handleQuit} on:keydown={handleQuit}>
+      <button type="button" on:click={backToSettings} on:keydown={backToSettings}>
         <i class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx ml-2 bx-sm md:bx-lg bx-power-off"/>
       </button>
     </div>

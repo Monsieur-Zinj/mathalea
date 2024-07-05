@@ -199,7 +199,7 @@
     exercicesParams.set(newParams)
   }
 
-  function handleQuit () {
+  function backToSettings () {
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = -1
   }
@@ -219,7 +219,7 @@
       {exercises}
       {slideshow}
       {updateExercises}
-      {handleQuit}
+      {backToSettings}
     />
   {:else}
     {#if slideshow.currentQuestion === -1}
@@ -234,7 +234,7 @@
         {dataFromSettings}
         {slideshow}
         {transitionSounds}
-        {handleQuit}
+        {backToSettings}
       />
     {/if}
   {/if}

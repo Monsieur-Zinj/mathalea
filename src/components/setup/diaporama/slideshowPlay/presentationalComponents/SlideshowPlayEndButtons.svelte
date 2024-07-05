@@ -8,7 +8,7 @@
   export let QRCodeWidth: number
   export let formatQRCodeIndex: 0 | 1 | 2
   export let returnToStart: () => void
-  export let handleQuit: () => void
+  export let backToSettings: () => void
 
 </script>
 
@@ -62,7 +62,7 @@
     <button
       type="button"
       class="mx-12 my-2 text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-      on:click={handleQuit}
+      on:click={backToSettings}
     >
       <i class="bx text-[100px] bx-home-alt-2" />
     </button>
