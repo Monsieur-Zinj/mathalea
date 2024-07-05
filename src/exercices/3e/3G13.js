@@ -483,7 +483,6 @@ export default class CalculsHomothetie extends Exercice {
 
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$ (arrondi au $\\text{ mm}^2$ si besoin)' })
           else texte += ' (arrondir au $\\text{mm}^2$ près si besoin)'
-          texte += '.<br>' + fImage2etapes.enonce
 
           handleAnswers(this, i, { reponse: { value: hAireArrondie, compare: fonctionComparaison } })
 
