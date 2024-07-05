@@ -370,7 +370,7 @@
         on:click={() => {
           modal.style.display = 'block'
         }}
-        title="Compiler sur OverLeaf"
+        text="Compiler sur OverLeaf"
       />
     </div>
     <pre

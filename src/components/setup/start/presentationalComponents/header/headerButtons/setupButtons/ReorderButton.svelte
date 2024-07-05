@@ -6,7 +6,7 @@
 
 <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
   <Button
-    title=""
+    text=""
     icon="bx-transfer"
     class="flex items-center text-3xl rotate-90"
     on:click={() => {

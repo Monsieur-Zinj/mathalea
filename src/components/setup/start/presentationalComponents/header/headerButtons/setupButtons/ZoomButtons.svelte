@@ -10,7 +10,7 @@
   data-tip="Réduire la taille du texte"
 >
   <Button
-    title=""
+    text=""
     icon="bx-zoom-out"
     class="flex items-center text-3xl"
     on:click={() => zoomUpdate('-')}
@@ -21,7 +21,7 @@
   data-tip="Augmenter la taille du texte"
 >
   <Button
-    title=""
+    text=""
     icon="bx-zoom-in"
     class="flex items-center text-3xl"
     on:click={() => zoomUpdate('+')}

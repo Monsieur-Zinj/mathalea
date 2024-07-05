@@ -469,7 +469,7 @@
         <Button
           on:click={handleVueSetUp}
           class="px-2 py-1 rounded-md"
-          title="Visualiser"
+          text="Visualiser"
         />
       </div>
       <div

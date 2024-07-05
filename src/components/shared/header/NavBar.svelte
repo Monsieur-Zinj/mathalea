@@ -135,14 +135,11 @@
           class="invisible"
           bind:checked={$darkMode.isActive}
         />
-        <!-- sun icon -->
         <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
-        <!-- moon icon -->
         <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
       </label>
-      <!--  -->
       <Button
-        title=""
+        text=""
         icon="bx-x"
         class="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {

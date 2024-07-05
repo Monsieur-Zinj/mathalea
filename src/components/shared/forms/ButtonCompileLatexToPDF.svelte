@@ -253,7 +253,7 @@
         <Button
           isDisabled={clockAbled}
           class="px-2 py-1 rounded-md"
-          title="Compiler en PDF"
+          text="Compiler en PDF"
           on:click={compileToPDF}
         />
         <form id='form'>

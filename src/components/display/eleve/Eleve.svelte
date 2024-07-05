@@ -562,7 +562,7 @@
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
                   <Button
-                    title="Vérifier"
+                    text="Vérifier"
                     class="p-1 font-bold rounded-lg text-xs ml-2"
                     on:click={() => checkQuestion(k)}
                     isDisabled={isDisabledButton[k]}
@@ -743,7 +743,7 @@
                 {#if exercices[indiceExercice[k]].interactif}
                   <div class="pb-4 mt-10">
                     <Button
-                      title="Vérifier"
+                      text="Vérifier"
                       on:click={() => checkQuestion(k)}
                       isDisabled={isDisabledButton[k]}
                     />

@@ -335,7 +335,7 @@ function addExercise (uuid: string) {
                     data-tip="Réduire la taille du texte"
                   >
                     <Button
-                      title=""
+                      text=""
                       icon="bx-zoom-out"
                       class="flex items-center text-3xl"
                       on:click={zoomOut}
@@ -346,7 +346,7 @@ function addExercise (uuid: string) {
                     data-tip="Augmenter la taille du texte"
                   >
                     <Button
-                      title=""
+                      text=""
                       icon="bx-zoom-in"
                       class="flex items-center text-3xl"
                       on:click={zoomIn}
@@ -357,7 +357,7 @@ function addExercise (uuid: string) {
                     data-tip="Nouveaux énoncés"
                   >
                     <Button
-                      title=""
+                      text=""
                       icon="bx-refresh"
                       class="flex items-center text-3xl"
                       on:click={newDataForAll}
@@ -368,7 +368,7 @@ function addExercise (uuid: string) {
                     data-tip="Supprimer tous les exercices"
                   >
                     <Button
-                      title=""
+                      text=""
                       icon="bx-trash"
                       class="text-3xl"
                       on:click={() => {
@@ -386,7 +386,7 @@ function addExercise (uuid: string) {
                   />
                   <Button
                     class="text-sm py-1 px-2 rounded-md h-7"
-                    title="Ajouter"
+                    text="Ajouter"
                     icon=""
                     isDisabled={urlFeuilleEleve.length === 0}
                     on:click={() => {
@@ -424,7 +424,7 @@ function addExercise (uuid: string) {
                     data-tip="Régler l'affichage du mode élève"
                   >
                     <Button
-                      title=""
+                      text=""
                       icon="bx-cog"
                       class="text-3xl"
                       isDisabled={$exercicesParams.length === 0}
@@ -911,7 +911,7 @@ function addExercise (uuid: string) {
         <Button
           class="text-sm py-1 px-2 rounded-md h-7"
           on:click={validateSettings}
-          title="Valider"
+          text="Valider"
         />
       </div>
       <div class="pt-4 pb-8 px-4">
@@ -920,7 +920,7 @@ function addExercise (uuid: string) {
           on:click={() => {
             buildUrlAndOpenItInNewTab('eleve')
           }}
-          title="Aperçu"
+          text="Aperçu"
         />
       </div>
     </div>

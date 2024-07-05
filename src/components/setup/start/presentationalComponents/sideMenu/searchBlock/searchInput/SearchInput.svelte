@@ -384,7 +384,7 @@
     </div>
     <!-- Bouton pour effacer l'input de recherche -->
     <Button
-      title=""
+      text=""
       icon="bxs-tag-x"
       class="absolute right-2 top-1 text-2xl"
       isDisabled={inputSearch.length === 0}

@@ -12,7 +12,7 @@
 
 <div class="tooltip tooltip-bottom" data-tip="Diaporama">
   <Button
-    title=""
+    text=""
     icon="bx-slideshow"
     class="flex items-center text-3xl"
     on:click={() => handleExport('diaporama')}

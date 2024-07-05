@@ -548,7 +548,7 @@ import {
               {:then}
               <Button
                 class="px-2 py-1 rounded-md"
-                title="Code + préambule"
+                text="Code + préambule"
                 on:click={copyDocument}
               />
               {/await}
@@ -564,7 +564,7 @@ import {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
-                title="Archive complète"
+                text="Archive complète"
               />
             </div>
             <div slot="button2">
@@ -575,7 +575,7 @@ import {
                 class="inline-block px-2 py-1 rounded-md"
                 idLabel="downloadPicsButton"
                 on:click={handleDownloadPicsModalDisplay}
-                title="Uniquement les figures"
+                text="Uniquement les figures"
                 isDisabled={!picsWanted}
               />
               {/await}

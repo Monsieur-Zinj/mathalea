@@ -19,7 +19,7 @@
 <div class="flex flex-row justify-start items-center {indiceLastExercice > 1 && globalOptions.presMode !== 'un_exo_par_page' ? 'ml-2 lg:ml-6' : 'ml-2'} mb-2 lg:mb-6 {globalOptions.presMode === 'recto' || globalOptions.presMode === 'verso' ? 'hidden' : 'flex'}">
   <div class={!globalOptions.oneShot && globalOptions.done !== '1' ? 'flex' : 'hidden'}>
     <Button
-      title="Nouvel Énoncé"
+      text="Nouvel Énoncé"
       icon="bx-refresh"
       class="py-[2px] px-2 text-[0.7rem]"
       inverted={true}
@@ -30,7 +30,7 @@
   </div>
   <div class={globalOptions.isSolutionAccessible && !exercise.isDone && ((exercise.interactif && exercise.isDone) || !exercise.interactif) ? 'flex ml-2' : 'hidden'}>
     <Button
-      title={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
+      text={isCorrectionVisible ? 'Masquer la correction' : 'Voir la correction'}
       icon={isCorrectionVisible ? 'bx-hide' : 'bx-show'}
       class="py-[2px] px-2 text-[0.7rem] w-36"
       inverted={true}

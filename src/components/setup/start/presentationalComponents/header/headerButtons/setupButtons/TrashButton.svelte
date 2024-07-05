@@ -10,7 +10,7 @@
   data-tip="Supprimer tous les exercices"
 >
   <Button
-    title=""
+    text=""
     icon="bx-trash"
     class="text-3xl"
     on:click={trash}

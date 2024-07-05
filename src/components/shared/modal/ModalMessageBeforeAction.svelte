@@ -100,7 +100,7 @@
       <div class="items-center px-4 py-3">
         <Button
           class={classForButton}
-          title={modalButtonTitle}
+          text={modalButtonTitle}
           idLabel={modalButtonId}
           on:click={triggerAction}
         />
