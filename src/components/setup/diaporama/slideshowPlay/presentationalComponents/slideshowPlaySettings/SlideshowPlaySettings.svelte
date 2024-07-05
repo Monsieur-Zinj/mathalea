@@ -17,7 +17,7 @@
   export let switchPause: () => void
   export let zoomMinus: () => void
   export let zoomPlus: () => void
-  export let currentDuration: number
+  export let currentSlideDuration: number
 
   function displayTimerSettingsModal () {
     const modal = document.getElementById('timer-settings-modal')
@@ -55,6 +55,6 @@
     {isManualModeActive}
     {isQuestionVisible}
     {isCorrectionVisible}
-    {currentDuration}
+    currentDuration={currentSlideDuration}
   />
 </div>

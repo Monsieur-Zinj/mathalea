@@ -6,7 +6,7 @@
   export let totalQuestionsNumber: number
   export let goToQuestion: (index: number) => void
   export let ratioTime: number
-  export let slideDuration: number
+  export let currentSlideDuration: number
 
   let stepsUl: HTMLElement | null
   onMount(() => {
@@ -34,7 +34,7 @@
 >
   <div
     class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
-    style="width: {ratioTime}%; transition: width {slideDuration / 100}s linear"
+    style="width: {ratioTime}%; transition: width {currentSlideDuration / 100}s linear"
   />
 </div>
 <ul id="stepsUl" class="steps w-full mt-3">

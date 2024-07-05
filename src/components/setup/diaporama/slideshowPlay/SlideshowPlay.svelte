@@ -20,7 +20,7 @@
   let isPause = false
   let isQuestionVisible = true
   let nbOfVues: 1 | 2 | 3 | 4
-  let myInterval: number
+  let advanceRatioTimeInterval: number
   let QRCodeWidth: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let userZoom = 1
@@ -41,6 +41,8 @@
   let currentSlide: Slide
   $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
 
+  let currentSlideDuration: number
+  $: currentSlideDuration = $globalOptions.durationGlobal || currentSlide.exercise.duration || 10
   onMount(() => {
     window.addEventListener('click', handleClick)
   })
@@ -68,44 +70,33 @@ function handleClick (event: MouseEvent) {
         if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
           transitionSounds[$globalOptions.sound - 1].play()
         }
-        if ($globalOptions.screenBetweenSlides) {
-          showDialogForLimitedTime('transition', 1000).then(() => {
-            timer($globalOptions.durationGlobal || (currentSlide.exercise.duration || 10))
-          })
-        } else {
-          timer($globalOptions.durationGlobal || (currentSlide.exercise.duration || 10))
-        }
+        if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
+        play(true)
       }
     }
   }
-  function timer (timeQuestion = 5, reset = true) {
-    // timeQuestion est le temps de la question exprimé en secondes
-    if (timeQuestion === 0) {
-      pause()
-      ratioTime = 0
-    } else {
-      if (reset) ratioTime = 0
-      isPause = false
-      clearInterval(myInterval)
-      myInterval = window.setInterval(() => {
-        ratioTime = ratioTime + 1 // ratioTime est le pourcentage du temps écoulé
-        if (ratioTime >= 100) {
-          clearInterval(myInterval)
-          nextQuestion()
-        }
-      }, timeQuestion * 10)
-    }
-  }
 
-  function switchPause () {
-    if (!isPause) {
-      pause()
-    } else timer($globalOptions.durationGlobal || currentSlide.exercise.duration || 10, false)
+  function play (resetRatioTime = false) {
+    if (resetRatioTime) ratioTime = 0
+    isPause = false
+    clearInterval(advanceRatioTimeInterval)
+    advanceRatioTimeInterval = window.setInterval(() => {
+      ratioTime++
+      if (ratioTime >= 100) {
+        clearInterval(advanceRatioTimeInterval)
+        nextQuestion()
+      }
+    }, currentSlideDuration * 10)
   }
 
   function pause () {
-    clearInterval(myInterval)
+    clearInterval(advanceRatioTimeInterval)
     isPause = true
+  }
+
+  function switchPause () {
+    if (isPause) play()
+    else pause()
   }
 
   async function resizeAllViews (optimalZoomUpdate : boolean = true) {
@@ -300,7 +291,7 @@ function handleClick (event: MouseEvent) {
         isManualModeActive={$globalOptions.manualMode}
         totalQuestionsNumber={slideshow.selectedQuestionsNumber}
         {ratioTime}
-        slideDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
+        {currentSlideDuration}
         {goToQuestion}
       />
     </header>
@@ -325,7 +316,7 @@ function handleClick (event: MouseEvent) {
         isManualModeActive={$globalOptions.manualMode}
         {isQuestionVisible}
         {isCorrectionVisible}
-        currentDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
+        {currentSlideDuration}
         {handleTimerChange}
         {backToSettings}
         {isPause}
