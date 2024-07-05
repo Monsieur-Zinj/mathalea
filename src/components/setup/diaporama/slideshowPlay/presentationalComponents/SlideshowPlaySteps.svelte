@@ -38,34 +38,31 @@ function isInViewport (element: HTMLElement): boolean {
 }
 </script>
 
-<header class="flex flex-col pb-1 w-full
-  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+<div
+  class:invisible={isManualModeActive}
+  class="flex flex-row flex-shrink-0 h-6 border
+    border-coopmaths-warn dark:border-coopmathsdark-warn"
+>
   <div
-    class:invisible={isManualModeActive}
-    class="flex flex-row flex-shrink-0 h-6 border
-      border-coopmaths-warn dark:border-coopmathsdark-warn"
-  >
-    <div
-      id="diapoProgressBar"
-      class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
-      style="width: {ratioTime}%; transition: width {slideDuration / 100}s linear"
-    />
-  </div>
-  <ul class="steps w-full mt-3">
-    {#each [...Array(totalQuestionsNumber).keys()] as i}
-      <button
-        on:click={() => goToQuestion(i)}
-        on:keydown={() => goToQuestion(i)}
-        tabindex="0"
-        class="cursor-pointer
-          step dark:step-info
-          {currentQuestionNumber === i ? 'step-current' : ''}
-          {currentQuestionNumber >= i ? 'step-primary' : ''}"
-      >
-      </button>
-    {/each}
-  </ul>
-</header>
+    id="diapoProgressBar"
+    class="bg-coopmaths-warn dark:bg-coopmathsdark-warn"
+    style="width: {ratioTime}%; transition: width {slideDuration / 100}s linear"
+  />
+</div>
+<ul class="steps w-full mt-3">
+  {#each [...Array(totalQuestionsNumber).keys()] as i}
+    <button
+      on:click={() => goToQuestion(i)}
+      on:keydown={() => goToQuestion(i)}
+      tabindex="0"
+      class="cursor-pointer
+        step dark:step-info
+        {currentQuestionNumber === i ? 'step-current' : ''}
+        {currentQuestionNumber >= i ? 'step-primary' : ''}"
+    >
+    </button>
+  {/each}
+</ul>
 
 <style>
   @keyframes pulse {

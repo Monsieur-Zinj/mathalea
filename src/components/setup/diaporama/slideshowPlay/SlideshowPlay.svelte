@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { DataFromSettings, Slide, Slideshow } from '../types'
   import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
-  import SlideshowPlaySettings from './presentationalComponents/SlideshowPlaySettings.svelte'
+  import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
@@ -54,7 +54,7 @@ function handleClick (event: MouseEvent) {
   const timerSettingsModal = document.getElementById('timer-settings-modal')
   if (timerSettingsModal && event.target === timerSettingsModal) {
     timerSettingsModal.style.display = 'none'
-    switchPause()
+    if (!$globalOptions.manualMode) switchPause()
   }
 }
 
@@ -186,7 +186,7 @@ function handleClick (event: MouseEvent) {
     }
     if (e.key === '-' && !e.metaKey && !e.ctrlKey) {
       e.preventDefault()
-      zoomMoins()
+      zoomMinus()
     }
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
@@ -257,7 +257,7 @@ function handleClick (event: MouseEvent) {
     resizeAllViews(false)
   }
 
-  function zoomMoins () {
+  function zoomMinus () {
     if (userZoom > 0.5) {
       userZoom -= 0.05
     }
@@ -292,39 +292,52 @@ function handleClick (event: MouseEvent) {
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
-    <SlideshowPlaySteps
-      currentQuestionNumber={slideshow.currentQuestion}
-      isManualModeActive={$globalOptions.manualMode}
-      totalQuestionsNumber={slideshow.selectedQuestionsNumber}
-      {ratioTime}
-      slideDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
-      {goToQuestion}
-    />
-    <SlideshowPlayQuestion
-      {divQuestion}
-      {isQuestionVisible}
-      {isCorrectionVisible}
-      {currentSlide}
-      currentQuestion={slideshow.currentQuestion}
-      selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
-    />
-    <SlideshowPlaySettings
-      flow={$globalOptions.flow}
-      isManualModeActive={$globalOptions.manualMode}
-      {isQuestionVisible}
-      {isCorrectionVisible}
-      currentDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
-      {handleTimerChange}
-      {backToSettings}
-      {isPause}
-      {prevQuestion}
-      {nextQuestion}
-      {pause}
-      {switchCorrectionMode}
-      {switchPause}
-      {zoomMoins}
-      {zoomPlus}
-    />
+    <header class="flex flex-col pb-1 w-full
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <SlideshowPlaySteps
+        currentQuestionNumber={slideshow.currentQuestion}
+        isManualModeActive={$globalOptions.manualMode}
+        totalQuestionsNumber={slideshow.selectedQuestionsNumber}
+        {ratioTime}
+        slideDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
+        {goToQuestion}
+      />
+    </header>
+    <main class="h-[80%]
+      text-coopmaths-corpus dark:text-coopmathsdark-corpus
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <SlideshowPlayQuestion
+        {divQuestion}
+        {isQuestionVisible}
+        {isCorrectionVisible}
+        {currentSlide}
+        currentQuestion={slideshow.currentQuestion}
+        selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
+      />
+    </main>
+    <footer class="sticky flex flex-row justify-between w-full py-1 bottom-0 opacity-100
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+    >
+      <SlideshowPlaySettings
+        flow={$globalOptions.flow}
+        isManualModeActive={$globalOptions.manualMode}
+        {isQuestionVisible}
+        {isCorrectionVisible}
+        currentDuration={$globalOptions.durationGlobal || currentSlide.exercise.duration || 10}
+        {handleTimerChange}
+        {backToSettings}
+        {isPause}
+        {prevQuestion}
+        {nextQuestion}
+        {pause}
+        {switchCorrectionMode}
+        {switchPause}
+        {zoomPlus}
+        {zoomMinus}
+      />
+    </footer>
   </div>
 {:else}
   <div
