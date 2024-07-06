@@ -1,6 +1,7 @@
 import { context } from './context.js'
 import katex from 'katex'
 import { arrondi } from '../lib/outils/nombres'
+import { mathaleaGenerateSeed } from '../lib/mathalea'
 
 /*
   MathALEA2D
@@ -161,36 +162,37 @@ export function mathalea2d (
     }
     return codeTikz
   }
-  let codeSvg = ''
-  let codeTikz = ''
-  const divsLatex = []
+  const m2dId = 'M2D' + mathaleaGenerateSeed()
   if (context.isHtml) {
-    codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
-        }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
-        } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
-    codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
-    codeSvg += '\n</svg>'
-    codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
-    //  pixelsParCm = 20;
-    if (divsLatex.length > 0) {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div style="position: relative;${style}">
+    const divsLatex = []
+    document.addEventListener('exercicesAffiches', () => {
+      let codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
+      }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
+      } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
+      codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
+      codeSvg += '\n</svg>'
+      codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
+      const divM2D = document.querySelector(`div#${m2dId}`)
+      if (divM2D != null) {
+        if (divsLatex.length > 0) {
+          divM2D.innerHTML = `
           ${codeSvg}
-          ${divsLatex.join('\n')}
+          ${divsLatex.join('\n')}`
+        } else {
+          divM2D.innerHTML = `${codeSvg}`
+        }
+      }
+    })
+    return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+        <div id="${m2dId}" style="position: relative;${style}">
         </div>
       </div>`
-    } else {
-      return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
-        <div style="position: relative;${style}">
-          ${codeSvg}
-        </div>
-      </div>`
-    }
   } else { // le context est Latex
     // si scale existe autre que 1 il faut que le code reste comme avant
     // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
     // de cette manière d'autres options Tikz pourront aussi être ajoutées
     // si il n'y a qu'une optionsTikz on peut passer un string
+    let codeTikz
     const listeOptionsTikz = []
     if (optionsTikz !== undefined) {
       if (typeof optionsTikz === 'string') {
