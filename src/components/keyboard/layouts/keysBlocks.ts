@@ -52,8 +52,8 @@ const basicOperationCaps2: CompleteKeysList = {
   block: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')']
 }
 const fullOperationCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'SQRT', 'SQ', 'CUBE', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
-  block: ['ADD', 'SUB', 'SQ', 'SQRT', 'MULT', 'DIV', 'CUBE', 'DEG', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'xMath', 'SQRT', 'SQ', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
+  block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
 
 const probabiliteCaps: CompleteKeysList = {
@@ -74,8 +74,8 @@ const greekCaps: CompleteKeysList = {
 }
 
 const compareCaps: CompleteKeysList = {
-  inline: ['LESS', 'GREAT', 'LESSEQ', 'GREATEQ', '='],
-  block: ['LESS', 'GREAT', 'LESSEQ', 'GREATEQ', '=']
+  inline: ['LESS', 'GREAT', '='],
+  block: ['LESS', 'GREAT', '=']
 }
 
 const degreCaps: CompleteKeysList = {
