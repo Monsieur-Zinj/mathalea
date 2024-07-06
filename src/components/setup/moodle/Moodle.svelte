@@ -166,7 +166,7 @@
       xmlResource.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
       xmlResource.setAttribute("type", "webcontent");
       xmlResource.setAttribute("adlcp:scormtype", "sco");
-      xmlResource.setAttribute("href", `index.html#${paramUrl.replaceAll('\\=', '=')}`);
+      xmlResource.setAttribute("href", 'index.html#' + paramUrl.replaceAll('\\=', '=') + (useAlea ? '' : '&alea='+param.alea));
       let xmlDependency = xmlScorm.createElement("dependency");
       xmlDependency.setAttribute("identifierref", "COMMON_FILES");
       xmlResource.appendChild(xmlDependency);
