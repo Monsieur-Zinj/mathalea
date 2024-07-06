@@ -196,9 +196,10 @@
     // }
     exercices = await Promise.all(buildExercisesList())
 
-    await tick()
     if ($globalOptions.presMode === 'liste_questions' || $globalOptions.presMode === 'une_question_par_page') {
       buildQuestions()
+    } else {
+      await tick()
     }
 
     if ($globalOptions.recorder === 'capytale' || $globalOptions.recorder === 'moodle' || $globalOptions.recorder === 'anki' || $globalOptions.recorder === 'labomep') {

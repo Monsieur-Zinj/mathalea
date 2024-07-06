@@ -42,12 +42,18 @@
     headerExerciceProps = headerExerciceProps
   }
 
-  let numberOfAnswerFields: number = 0
-  async function countMathField () {
-    // IDs de la forme 'champTexteEx1Q0'
-    const answerFields = document.querySelectorAll(`[id^='champTexteEx${exerciseIndex}']`)
-    numberOfAnswerFields = answerFields.length
+  
+  function countMathField () {
+    let numbOfAnswerFields : number = 0 
+    exercise.autoCorrection.forEach( val => {
+      if (val.reponse.param.formatInteractif === 'mathlive' || val.reponse.param.formatInteractif === 'qcm') {
+        numbOfAnswerFields++
+      }
+    })
+    log('numberOfAnswerFields:' + numbOfAnswerFields)
+    return numbOfAnswerFields
   }
+  let numberOfAnswerFields: number = 0
 
   async function forceUpdate () {
     if (exercise == null) return
@@ -56,6 +62,7 @@
   }
 
   onMount(async () => {
+    log('onMount')
     document.addEventListener('newDataForAll', newData)
     document.addEventListener('setAllInteractif', setAllInteractif)
     document.addEventListener('removeAllInteractif', removeAllInteractif)
@@ -97,8 +104,9 @@
         }
       }
     }, 100)
-    await tick()
-    await countMathField()
+    if (isInteractif && !isCorrectionVisible) {
+      numberOfAnswerFields = countMathField()
+    } 
     if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
     } else if ($globalOptions.setInteractive === '0') {
@@ -107,10 +115,15 @@
   })
 
   afterUpdate(async () => {
+    log('afterUpdate')
     if (exercise) {
       await tick()
+      mathaleaRenderDiv(divExercice)
+      adjustMathalea2dFiguresWidth()
       if (exercise.interactif) {
-        loadMathLive()
+        log('loadMathLive')
+        loadMathLive(divExercice)
+        log('end loadMathLive')
         if (exercise.interactifType === 'cliqueFigure') {
           prepareExerciceCliqueFigure(exercise)
         }
@@ -122,9 +135,7 @@
         } catch (e) {
           console.error(e)
         }
-      }
-      mathaleaRenderDiv(divExercice)
-      adjustMathalea2dFiguresWidth()
+      }      
     }
     // affectation du zoom pour les figures scratch
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
@@ -166,7 +177,15 @@
     updateDisplay()
   }
 
+  let debug = false
+  function log (str: string) {
+    if (debug) {
+      console.log(str)
+    }
+  }
+
   async function updateDisplay () {
+    log('updateDisplay')
     if (exercise.seed === undefined) exercise.seed = mathaleaGenerateSeed()
     seedrandom(exercise.seed, { global: true })
     if (exercise.typeExercice === 'simple') mathaleaHandleExerciceSimple(exercise, !!isInteractif, exerciseIndex)
@@ -183,6 +202,7 @@
   }
 
   function verifExerciceVueEleve () {
+    log('verifExerciceVueEleve')
     exercise.isDone = true
     if ($globalOptions.isSolutionAccessible) isCorrectionVisible = true
     if (exercise.numeroExercice != null) {
@@ -285,7 +305,7 @@
              mathalea2dFigures[k].setAttribute('height', (Number(initialHeight) * zoom).toString())
              // les éléments Katex des figures SVG
              if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement != null) {
-               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
                for (const elt of eltsInFigures) {
                  const e = elt
                  e.style.setProperty('top', (Number(e.dataset.top) * zoom).toString() + 'px')
@@ -310,7 +330,7 @@
              mathalea2dFigures[k].setAttribute('width', (Number(mathalea2dFigures[k].dataset.widthInitiale) * zoom * coef).toString())
 
              if (mathalea2dFigures[k] != null && mathalea2dFigures[k].parentElement !== null) {
-               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex')
+               const eltsInFigures = mathalea2dFigures[k].parentElement?.querySelectorAll<HTMLElement>('div.divLatex') || []
                for (const elt of eltsInFigures) {
                  const e = elt
                  const initialTop = Number(e.dataset.top) ?? 0

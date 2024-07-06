@@ -87,7 +87,7 @@ async function checkSlideshow (page: Page, questionsNb: number, exerciseType: Ex
   await page.locator('div[data-tip="Diaporama"]').click()
   await checkSlideshowPlay(page, questionsNb, exerciseType)
   await checkSlideshowPreview(page, exerciseType)
-  await page.locator('.bx-x').first().click()
+  await page.locator('.bx-home-alt-2').first().click()
 }
 
 async function checkSlideshowPlay (page: Page, questionsNb: number, exerciseType: ExerciseType) {
@@ -269,5 +269,5 @@ if (process.env.CI) {
   prefs.headless = true
   runTest(test, import.meta.url, { pauseOnError: false })
 } else {
-  runTest(test, import.meta.url, { pauseOnError: false })
+  runTest(test, import.meta.url, { pauseOnError: true })
 }
