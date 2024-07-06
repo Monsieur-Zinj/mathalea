@@ -3,7 +3,7 @@
   import SlideshowPlayTimerSettingsModal from './SlideshowPlayTimerSettingsModal.svelte'
 
   export let displayTimerSettingsModal: () => void
-  export let switchPause: () => void
+  export let play: () => void
   export let handleTimerChange: (cursorTimeValue: number) => void
   export let switchCorrectionMode: () => void
   export let backToSettings: (event: Event) => void
@@ -40,7 +40,7 @@
   </div>
 </i>
 <SlideshowPlayTimerSettingsModal
-  {switchPause}
+  {play}
   {handleTimerChange}
 />
 <button type="button" on:click={switchCorrectionMode}>

@@ -392,10 +392,10 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let z = '1'
   let durationGlobal = 0
   let ds
-  let nbVues
-  let flow
+  let nbVues: 1 | 2 | 3 | 4 = 1
+  let flow: 0 | 1 | 2 = 0
   let screenBetweenSlides
-  let sound
+  let sound: 0 | 1 | 2 | 3 | 4 = 0
   let shuffle = false
   let manualMode
   let select: number[] = []

@@ -18,6 +18,7 @@
   let formatQRCodeIndex: 0 | 1 | 2
   let isCorrectionVisible = false
   let isPause = false
+  let isManualPause = false
   let isQuestionVisible = true
   let nbOfVues: 1 | 2 | 3 | 4
   let advanceRatioTimeInterval: number
@@ -25,6 +26,21 @@
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let userZoom = 1
   let optimalZoom = 1
+
+  let flow: 'Q->Q' | 'Q->R->Q' | 'Q->(Q+R)->Q'
+  $: {
+    switch ($globalOptions.flow) {
+      case 0:
+        flow = 'Q->Q'
+        break
+      case 1:
+        flow = 'Q->R->Q'
+        break
+      case 2:
+        flow = 'Q->(Q+R)->Q'
+        break
+    }
+  }
 
   let order: number[] = []
   $: {
@@ -42,7 +58,7 @@
   $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
 
   let currentSlideDuration: number
-  $: currentSlideDuration = $globalOptions.durationGlobal || currentSlide.exercise.duration || 10
+  $: currentSlideDuration = $globalOptions.durationGlobal || (currentSlide && currentSlide.exercise.duration) || 10
   onMount(() => {
     window.addEventListener('click', handleClick)
   })
@@ -52,56 +68,66 @@
     window.removeEventListener('click', handleClick)
   })
 
-function handleClick (event: MouseEvent) {
-  const timerSettingsModal = document.getElementById('timer-settings-modal')
-  if (timerSettingsModal && event.target === timerSettingsModal) {
-    timerSettingsModal.style.display = 'none'
-    if (!$globalOptions.manualMode) switchPause()
-  }
-}
-
-  async function goToQuestion (questionNumber: number) {
-    if (questionNumber >= -1 && questionNumber <= slideshow.selectedQuestionsNumber) slideshow.currentQuestion = questionNumber
-    if (questionNumber === -1 || questionNumber === slideshow.selectedQuestionsNumber) pause()
-    await tick()
-    resizeAllViews()
-    if (!$globalOptions.manualMode) {
-      if (!isPause) {
-        if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
-          transitionSounds[$globalOptions.sound - 1].play()
-        }
-        if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
-        play(true)
-      }
+  function handleClick (event: MouseEvent) {
+    const timerSettingsModal = document.getElementById('timer-settings-modal')
+    if (timerSettingsModal && event.target === timerSettingsModal) {
+      timerSettingsModal.style.display = 'none'
+      play()
     }
   }
 
-  function play (resetRatioTime = false) {
-    if (resetRatioTime) ratioTime = 0
-    isPause = false
-    clearInterval(advanceRatioTimeInterval)
-    advanceRatioTimeInterval = window.setInterval(() => {
-      ratioTime++
-      if (ratioTime >= 100) {
-        clearInterval(advanceRatioTimeInterval)
-        nextQuestion()
+  function prevQuestion () {
+    if (slideshow.currentQuestion === 0) {
+      pause()
+      backToSettings()
+      return
+    }
+    if (isManualPause) {
+      goToQuestion(slideshow.currentQuestion - 1)
+      return
+    }
+    isQuestionVisible = true
+    isCorrectionVisible = false
+    goToQuestion(slideshow.currentQuestion - 1)
+  }
+
+  function nextQuestion () {
+    if (isManualPause) {
+      goToQuestion(slideshow.currentQuestion + 1)
+      return
+    }
+    if (flow === 'Q->Q' || isCorrectionVisible) {
+      isQuestionVisible = true
+      isCorrectionVisible = false
+      goToQuestion(slideshow.currentQuestion + 1)
+      return
+    }
+    isQuestionVisible = flow === 'Q->(Q+R)->Q'
+    isCorrectionVisible = true
+    pause()
+    renderAllViews()
+  }
+
+  async function goToQuestion (questionNumber: number) {
+    ratioTime = 0
+    slideshow.currentQuestion = questionNumber
+    const isEndScreen = slideshow.currentQuestion === slideshow.selectedQuestionsNumber
+    if (isEndScreen) {
+      return
+    }
+    await renderAllViews()
+    if (!isManualPause) {
+      if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
+        transitionSounds[$globalOptions.sound - 1].play()
       }
-    }, currentSlideDuration * 10)
+      if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
+      play()
+    }
   }
 
-  function pause () {
-    clearInterval(advanceRatioTimeInterval)
-    isPause = true
-  }
-
-  function switchPause () {
-    if (isPause) play()
-    else pause()
-  }
-
-  async function resizeAllViews (optimalZoomUpdate : boolean = true) {
+  async function renderAllViews (optimalZoomUpdate : boolean = true) {
     if (optimalZoomUpdate) {
-      optimalZoom = findOptimalZoom()
+      optimalZoom = await findOptimalZoom()
     }
     for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
       const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
@@ -109,7 +135,8 @@ function handleClick (event: MouseEvent) {
     }
   }
 
-  function findOptimalZoom () {
+  async function findOptimalZoom () {
+    await tick()
     const optimalZoomForViews = new Array(nbOfVues).fill(0)
     for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
       optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
@@ -155,19 +182,7 @@ function handleClick (event: MouseEvent) {
   }
 
   window.onresize = () => {
-    resizeAllViews()
-  }
-
-  async function switchQuestionToCorrection () {
-    if (isCorrectionVisible) {
-      isCorrectionVisible = false
-      isQuestionVisible = true
-    } else {
-      isCorrectionVisible = true
-      isQuestionVisible = $globalOptions.flow !== undefined && $globalOptions.flow === 2
-    }
-    await tick()
-    resizeAllViews()
+    renderAllViews()
   }
 
   function handleShortcut (e: KeyboardEvent) {
@@ -189,7 +204,7 @@ function handleClick (event: MouseEvent) {
     }
     if (e.key === ' ') {
       e.preventDefault()
-      if (!$globalOptions.manualMode) switchPause()
+      switchPause(true)
     }
     if (e.key === 'Enter') {
       e.preventDefault()
@@ -197,62 +212,23 @@ function handleClick (event: MouseEvent) {
     }
   }
 
-  function prevQuestion () {
-    if (slideshow.currentQuestion === 0) {
-      pause()
-      backToSettings()
-      return
-    }
-    if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
-      if (isQuestionVisible) {
-        if (slideshow.currentQuestion > -1) goToQuestion(slideshow.currentQuestion - 1)
-      } else {
-        switchQuestionToCorrection()
-        switchPause()
-        goToQuestion(slideshow.currentQuestion)
-      }
-    } else {
-      if (slideshow.currentQuestion > -1) goToQuestion(slideshow.currentQuestion - 1)
-    }
-  }
-
-  function nextQuestion () {
-    if ($globalOptions.flow !== undefined && $globalOptions.flow > 0) {
-      if (isQuestionVisible && !isCorrectionVisible) {
-        switchPause()
-        switchQuestionToCorrection()
-        goToQuestion(slideshow.currentQuestion)
-      } else {
-        switchQuestionToCorrection()
-        switchPause()
-        if (slideshow.currentQuestion < slideshow.selectedQuestionsNumber) {
-          goToQuestion(slideshow.currentQuestion + 1)
-        }
-      }
-    } else {
-      if (slideshow.currentQuestion < slideshow.selectedQuestionsNumber) {
-        goToQuestion(slideshow.currentQuestion + 1)
-      }
-    }
-  }
-
   function handleTimerChange (cursorTimeValue: number) {
-    pause()
     const durationGlobal = cursorTimeValue || undefined
     $globalOptions.manualMode = !durationGlobal
     $globalOptions.durationGlobal = durationGlobal
+    pause(true)
   }
 
   function zoomPlus () {
     userZoom += 0.05
-    resizeAllViews(false)
+    renderAllViews(false)
   }
 
   function zoomMinus () {
     if (userZoom > 0.5) {
       userZoom -= 0.05
     }
-    resizeAllViews(false)
+    renderAllViews(false)
   }
   async function switchCorrectionMode () {
     if (isQuestionVisible && !isCorrectionVisible) {
@@ -266,10 +242,57 @@ function handleClick (event: MouseEvent) {
       isCorrectionVisible = true
     }
     await tick()
-    resizeAllViews()
+    renderAllViews()
+  }
+
+  function play () {
+    isPause = false
+    isManualPause = false
+    if (ratioTime === 0) { // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
+      isQuestionVisible = true
+      isCorrectionVisible = false
+      renderAllViews()
+    }
+    if ($globalOptions.manualMode) {
+      return
+    }
+    if (isCorrectionVisible) {
+      nextQuestion()
+      return
+    }
+    clearInterval(advanceRatioTimeInterval)
+    advanceRatioTimeInterval = window.setInterval(() => {
+      ratioTime++
+      if (ratioTime >= 100) {
+        clearInterval(advanceRatioTimeInterval)
+        nextQuestion()
+      }
+    }, currentSlideDuration * 10)
+  }
+
+  function pause (isUserAction: boolean = false) {
+    if ($globalOptions.manualMode) {
+      return
+    }
+    clearInterval(advanceRatioTimeInterval)
+    isPause = true
+    if (isUserAction) isManualPause = true
+  }
+
+  function switchPause (isUserAction: boolean = false) {
+    if ($globalOptions.manualMode) {
+      return
+    }
+    if (isPause) {
+      play()
+    } else {
+      pause(isUserAction)
+    }
   }
 
   function returnToStart () {
+    isQuestionVisible = true
+    isCorrectionVisible = false
     goToQuestion(0)
   }
 </script>
@@ -312,7 +335,6 @@ function handleClick (event: MouseEvent) {
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     >
       <SlideshowPlaySettings
-        flow={$globalOptions.flow}
         isManualModeActive={$globalOptions.manualMode}
         {isQuestionVisible}
         {isCorrectionVisible}
@@ -323,6 +345,7 @@ function handleClick (event: MouseEvent) {
         {prevQuestion}
         {nextQuestion}
         {pause}
+        {play}
         {switchCorrectionMode}
         {switchPause}
         {zoomPlus}

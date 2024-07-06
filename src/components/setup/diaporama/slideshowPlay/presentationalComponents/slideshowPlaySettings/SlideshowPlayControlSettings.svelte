@@ -1,12 +1,11 @@
 <script lang="ts">
   import Button from '../../../../../shared/forms/Button.svelte'
 
-  export let flow: number | undefined
   export let isPause: boolean
   export let isManualModeActive: boolean | undefined
   export let prevQuestion: () => void
   export let nextQuestion: () => void
-  export let switchPause: () => void
+  export let switchPause: (isUserAction?: boolean) => void
 </script>
 
 <Button
@@ -19,13 +18,7 @@
   icon="{isPause ? 'bx-play' : 'bx-pause'}"
   class="ml-2 bx-sm md:bx-lg {isManualModeActive ? 'invisible' : ''}"
   title="Raccourci clavier : espace"
-  on:click={() => {
-    if (flow !== undefined && flow > 0) {
-      nextQuestion()
-    } else {
-      switchPause()
-    }
-  }}
+  on:click={() => switchPause(true)}
 />
 <Button
   icon="bx-skip-next"

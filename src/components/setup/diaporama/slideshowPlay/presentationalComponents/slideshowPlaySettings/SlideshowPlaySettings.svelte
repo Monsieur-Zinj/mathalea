@@ -3,7 +3,6 @@
   import SlideshowPlayControlSettings from './SlideshowPlayControlSettings.svelte'
   import SlideshowPlayOtherSettings from './SlideshowPlayOtherSettings.svelte'
 
-  export let flow: number | undefined
   export let isManualModeActive: boolean | undefined
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
@@ -14,7 +13,8 @@
   export let pause: () => void
   export let prevQuestion: () => void
   export let switchCorrectionMode: () => void
-  export let switchPause: () => void
+  export let switchPause: (isUserAction?: boolean) => void
+  export let play: () => void
   export let zoomMinus: () => void
   export let zoomPlus: () => void
   export let currentSlideDuration: number
@@ -37,7 +37,6 @@
 </div>
 <div class="flex flex-row justify-center items-center w-[33%]">
   <SlideshowPlayControlSettings
-    {flow}
     {isPause}
     {isManualModeActive}
     {prevQuestion}
@@ -48,7 +47,7 @@
 <div class="flex flex-row justify-end items-center mr-10 w-[33%]">
   <SlideshowPlayOtherSettings
     {displayTimerSettingsModal}
-    {switchPause}
+    {play}
     {handleTimerChange}
     {switchCorrectionMode}
     {backToSettings}

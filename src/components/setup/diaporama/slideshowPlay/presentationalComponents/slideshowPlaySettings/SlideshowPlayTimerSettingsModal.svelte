@@ -2,7 +2,7 @@
   import { setPhraseDuree } from '../../../../../../lib/components/time'
   import ModalMessageBeforeAction from '../../../../../shared/modal/ModalMessageBeforeAction.svelte'
 
-  export let switchPause: () => void
+  export let play: (isUserAction: boolean) => void
   export let handleTimerChange: (cursorTimeValue: number) => void
 
   let cursorTimeValue = 10
@@ -21,8 +21,8 @@
     const modal = document.getElementById('timer-settings-modal')
     if (modal) {
       modal.style.display = 'none'
+      play(true)
     }
-    switchPause()
   }}
 >
   <h3 slot="header" class="font-bold text-lg text-coopmaths-struct dark:text-coopmathsdark-struct">
