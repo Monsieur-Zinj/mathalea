@@ -24,7 +24,7 @@ export const refs = {
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme suivant $P$ défini pour tout $x$ de $\\mathbb R$ par : '
+  this.consigne = 'Factoriser, si cela est possible, ' + (this.nbQuestions !== 1 ? 'chaque' : 'le') + ' polynôme $P$ suivant défini pour tout $x$ de $\\mathbb R$ par : '
   this.nbQuestions = 4
   this.nbCols = 2
   this.nbColsCorr = 2
