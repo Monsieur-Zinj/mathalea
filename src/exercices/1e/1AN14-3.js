@@ -110,7 +110,7 @@ export default function DeriveePoly () {
       if (expression.startsWith('+')) expression = expression.substring(1)
       // Enoncé
       nameF = ['f', 'g', 'h', 'l', 'm', 'p', 'r', 's', 't', 'u', 'v', 'w', 'b', 'c', 'd', 'e'][i % 16]
-      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$.<br>`
+      texte = `$${nameF}(x)=${engine.parse(expression).latex.replaceAll('.', '{,}')}$<br>`
       // Correction
       texteCorr = `$${nameF}$ est dérivable sur $\\R$.<br>`
       texteCorr += 'On rappelle le cours : si $u,v$ sont  deux fonctions dérivables sur un même intervalle $I$ alors leur somme est dérivable sur $I$ et on a la formule : '

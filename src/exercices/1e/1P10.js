@@ -109,7 +109,7 @@ export default function ProbabilitesConditionnelles () {
           texte += `<br> $\\bullet ${sp(3)}$Parmi les clients ayant choisi le train, $${v}${sp()}\\%$ choisissent aussi l'option  «${sp(1)}visites guidées${sp(1)}».`
           texte += `<br> $\\bullet ${sp(3)} ${av}${sp()}\\%$ des clients ont choisi à la fois l'avion et l'option  «${sp(1)}visites guidées${sp(1)}».<br>`
           texte += '<br> On interroge au hasard un client de l\'agence ayant souscrit à une formule week-end à Londres.'
-          texte += `<br> On considère les évènements suivants${sp(1)}:`
+          texte += `<br> On considère les événements suivants${sp(1)}:`
           texte += '<br> $\\bullet~~$ $A$ :  le client a choisi l\'avion.'
           texte += `<br> $\\bullet~~$ $V$ : le client a choisi l'option  «${sp(1)}visites guidées${sp(1)}».<br>`
           texte += `<br> ${texteGras('1.')} Déterminer $P_A(V)$.`
@@ -171,21 +171,21 @@ export default function ProbabilitesConditionnelles () {
           objets.push(latexParCoordonnees('\\bar E', 9, 4.3, 'black', 20, 12, 'white', 10))// 2ème noeud issu de A
           objets.push(latexParCoordonnees('E', 9, 3.1, 'black', 20, 12, 'white', 10)) // 2ème noeud issu de \bar A
           objets.push(latexParCoordonnees('\\bar E', 9, 0.2, 'black', 20, 12, 'white', 10))// 2ème noeud issu de \bar A
-          texte = `Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe deux prestations supplémentaires cumulables${sp()}:`
+          texte = `Une chaîne de salons de coiffure propose à ses clients qui viennent pour une coupe, deux prestations supplémentaires cumulables${sp()}:`
           texte += `<br>$\\bullet$ Une coloration naturelle à base de plantes appelée  «${sp(1)}couleur-soin${sp(1)}»,`
           texte += `<br>$\\bullet$  Des mèches blondes pour donner du relief à la chevelure, appelées   «${sp(1)}effet coup de soleil${sp(1)}».`
           texte += `<br><br> Il apparaît que : <br>$\\diamond ${sp(3)} ${c}${sp()}\\%$ des clients demandent une  «${sp(1)}couleur-soin${sp(1)}».`
           texte += `<br>$\\diamond ${sp(3)}$ Parmi ceux qui ne veulent pas de  «${sp(1)}couleur-soin${sp(1)}» , $${ec}${sp()}\\%$ des clients demandent un  «${sp(1)}effet coup de soleil${sp(1)}».`
           texte += `<br>$\\diamond ${sp(3)}$ Par ailleurs, $${ce}${sp()}\\%$ des clients demandent une  «${sp(1)}couleur-soin${sp(1)}»  et un  «${sp(1)}effet coup de soleil${sp(1)}».`
           texte += '<br>On interroge un client au hasard.'
-          texte += `<br>On notera $C$ l'évènement :  «${sp(1)}Le client souhaite une  «${sp(1)}couleur-soin${sp(1)}».`
-          texte += `<br>On notera $E$ l'évènement:  «${sp(1)}Le client souhaite un  «${sp(1)}effet coup de soleil${sp(1)}».<br>`
+          texte += `<br>On notera $C$ l'événement :  «${sp(1)}Le client souhaite une  «${sp(1)}couleur-soin${sp(1)}».`
+          texte += `<br>On notera $E$ l'événement :  «${sp(1)}Le client souhaite un  «${sp(1)}effet coup de soleil${sp(1)}».<br>`
 
           texte += texteGras('1.') + ' Donner les valeurs de $P(C)$, $P( C \\cap E)$ et $P_{\\bar{C}}(E)$.<br>'
           texte += texteGras('2.') + ` Calculer la probabilité que le client ne souhaite ni une  «${sp(1)}couleur-soin${sp(1)}» , ni un  «${sp(1)}effet coup de soleil${sp(1)}».<br>`
           texte += texteGras('3.') + ` Calculer la probabilité qu'un client choisisse l'«${sp(1)}effet coup de soleil${sp(1)}»  sachant qu'il a pris une  «${sp(1)}couleur-soin${sp(1)}».<br>`
-          texte += texteGras('4.') + ` Montrer que la probabilité de l'évènement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
-          texte += texteGras('5.') + ' Les évènements $C$ et $E$ sont-ils indépendants ?<br>'
+          texte += texteGras('4.') + ` Montrer que la probabilité de l'événement $E$ est égale à $${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$ (à $10^{-3}$ près).<br>`
+          texte += texteGras('5.') + ' Les événements $C$ et $E$ sont-ils indépendants ?<br>'
           texte += 'On donnera les résultats sous forme de valeurs approchées à $10^{-3}$ près.'
           texteCorr = `${texteGras('1.')} D'après l'énoncé, on a :<br>$\\bullet~~P(C)=${texProba(c / 100, this.sup)}$`
           texteCorr += `<br>$\\bullet~~P(C \\cap E)=${texProba(ce / 100, this.sup)}$`
@@ -203,11 +203,11 @@ export default function ProbabilitesConditionnelles () {
           texteCorr += '<br>$P(E)=P(E \\cap C)+P(E \\cap \\bar{C} )$'
           texteCorr += `<br>$P(E)=${texProba(ce / 100, false)}+${texProba(1 - c / 100, false)}\\times ${texProba(ec / 100, false)}$`
           texteCorr += `<br>$P(E)\\approx${texProba(ce / 100 + (1 - c / 100) * ec / 100, false)}$`
-          texteCorr += `<br>${texteGras('5.')}   Pour savoir si les évènements $C$ et $E$ sont indépendants, on calcule séparément `
+          texteCorr += `<br>${texteGras('5.')}   Pour savoir si les événements $C$ et $E$ sont indépendants, on calcule séparément `
           texteCorr += '$P(C \\cap E)$ et $P(C) \\times P(E)$, pour tester si elles sont égales.'
           texteCorr += `<br>On a $P(C \\cap E)=${texProba(ce / 100, false)}$ `
           texteCorr += `et $P(C) \\times P(E)\\approx${texProba(c / 100 * (ce / 100 + (1 - c / 100) * ec / 100), false)}$.`
-          texteCorr += '<br>On en déduit que les évènements $C$ et $E$ ne sont pas indépendants.'
+          texteCorr += '<br>On en déduit que les événements $C$ et $E$ ne sont pas indépendants.'
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre
