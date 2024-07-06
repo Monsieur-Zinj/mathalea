@@ -138,7 +138,7 @@ export default function DemonstrationsParallelogrammes () {
       texte += `Déterminer la nature de ${nom}`
       texte += this.interactif ? '.' : ' en justifiant la réponse.'
       texteCorr = 'Les segments de même couleur sont parallèles sur le schéma suivant :<br>'
-      texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5 }, objets) + '<br>'
+      texteCorr += mathalea2d({ xmin: -5, ymin: -4.5, xmax: 5, ymax: 4.5, pixelsParCm: 20, scale: 0.5, mainlevee: true }, objets) + '<br>'
       texteCorr += `On sait que ${prop2}.<br>`
       texteCorr += `Si un parallélogramme ${prop1}, alors c'est un ${type}.<br>`
       texteCorr += `${nom} est donc un ${type}.`
