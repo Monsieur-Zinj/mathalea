@@ -78,7 +78,21 @@
     contentGift = ''
     let xmlScorm = document.implementation.createDocument("", "", null);
     let xmlManifest = xmlScorm.createElement("manifest");
+    xmlManifest.setAttribute("identifier", "MathAlea");
+    xmlManifest.setAttribute("version", "1.0");
     xmlScorm.appendChild(xmlManifest);
+    /*<metadata>
+    <schema>ADL SCORM</schema>
+    <schemaversion>1.2</schemaversion>
+    </metadata>*/
+    let xmlMetadata = xmlScorm.createElement("metadata");
+    let xmlSchema = xmlScorm.createElement("schema");
+    xmlSchema.textContent = "ADL SCORM";
+    let xmlSchemaVersion = xmlScorm.createElement("schemaversion");
+    xmlSchemaVersion.textContent = "1.2";
+    xmlMetadata.appendChild(xmlSchema);
+    xmlMetadata.appendChild(xmlSchemaVersion);
+    xmlManifest.appendChild(xmlMetadata);
     let xmlOrganizations = xmlScorm.createElement("organizations");
     xmlOrganizations.setAttribute("default", "coopmaths.fr");
     let xmlOrganization = xmlScorm.createElement("organization");
@@ -140,7 +154,42 @@
       xmlResources.appendChild(xmlResource);
       i++
     }
+    let xmlResource = xmlScorm.createElement("resource");
+    xmlResource.setAttribute("identifier", "COMMON_FILES");
+    xmlResource.setAttribute("type", "webcontent");
+    xmlResource.setAttribute("adlcp:scormtype", "asset");
+    let xmlFile = xmlScorm.createElement("file");
+    xmlFile.setAttribute("href", "index.html");
+    xmlResource.appendChild(xmlFile);
+    xmlResources.appendChild(xmlResource);
     contentScorm = new XMLSerializer().serializeToString(xmlScorm)
+    let ident = '';
+    // Debut Beautify XML
+    // Remarque : il s'agit d'un code maison qui ne gère probablement pas tous les cas
+    //            mais suffit emplement ici 
+    let dir = 1;
+    contentScorm = '<' + contentScorm.split('<').slice(1).reduce((a,x)=>{
+        if(x[0]==='/'){
+            if(dir===1) {
+                a += '<' + x;   
+            } else {
+                a += '\n' + ident + '<' + x;
+            }
+            ident = ident.slice(1);
+            dir = -1;
+        } else {
+            ident += ' ';
+            a += '\n' + ident + '<' + x;
+            dir = 1;
+            if(x.includes('/>')) {
+                ident = ident.slice(1);
+                dir = -1;
+            }
+        }
+        return a;
+    });
+    // Fin Beautify XML
+    contentScorm = '<?xml version="1.0" encoding="UTF-8"?>\n' + contentScorm;
   }
   let useAlea = true
   $: {
