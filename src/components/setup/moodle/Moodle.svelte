@@ -306,7 +306,7 @@
               <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
                 MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. Vous trouverez de plus amples informations dans
                 notre <a
-                  href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
+                  href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
@@ -364,7 +364,7 @@
             <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
               MathALÉA vous permet de créer un fichier au format SCORM que vous pourrez ensuite importer dans votre cours Moodle. Vous trouverez de plus amples informations dans
               notre <a
-                href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
+                href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
