@@ -8419,4 +8419,101 @@ export const dictionnaireDNB = {
                 tags: ['']
             },
 
+  dnb_2020_02_caledonie_1: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '1',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_2: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '2',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_3: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '3',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_4: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '4',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_5: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '5',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_6: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '6',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_7: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '7',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_8: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '8',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8_cor.tex',
+                tags: ['']
+            },
+
 }
