@@ -52,7 +52,9 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - npm install playwright@1.44.0 --with-deps chromium
+    - pnpm exec playwright install --with-deps chromium
+    - ls /root/.cache/ms-playwright/
+    - pnpm add playwright@1.44.1 --save-dev
     - pnpm install
     - nohup pnpm start &
     - sleep 10
@@ -64,7 +66,7 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - npm install playwright@1.44.0 --with-deps chromium
+    - npm install playwright@1.45.0 --with-deps chromium
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - pnpm install
     - nohup pnpm start &
@@ -77,7 +79,7 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - npm install playwright@1.44.0 --with-deps chromium
+    - npm install playwright@1.45.0 --with-deps chromium
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
     - nohup pnpm start &
@@ -113,7 +115,7 @@ default:
 
 .testCI:
   extends: .install_dependencies
-  image: mcr.microsoft.com/playwright:v1.43.0-jammy
+  image: mcr.microsoft.com/playwright:v1.45.1-jammy
   stage: playwright-test
   allow_failure: true
   rules:

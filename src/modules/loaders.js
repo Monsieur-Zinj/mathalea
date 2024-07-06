@@ -155,8 +155,8 @@ export function loadScratchblocks () {
  * Charge MathLive et personnalise les réglages
  * MathLive est chargé dès qu'un tag math-field est créé
  */
-export async function loadMathLive () {
-  const champs = document.getElementsByTagName('math-field')
+export async function loadMathLive (divExercice) {
+  const champs = divExercice ? divExercice.getElementsByTagName('math-field') : document.getElementsByTagName('math-field')
   if (champs.length > 0) {
     await import('mathlive')
     for (const mf of champs) {
