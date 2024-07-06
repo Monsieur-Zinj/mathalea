@@ -74,8 +74,8 @@ const greekCaps: CompleteKeysList = {
 }
 
 const compareCaps: CompleteKeysList = {
-  inline: ['LESS', 'GREAT'],
-  block: ['LESS', 'GREAT']
+  inline: ['LESS', 'GREAT', 'LESSEQ', 'GREATEQ', '='],
+  block: ['LESS', 'GREAT', 'LESSEQ', 'GREATEQ', '=']
 }
 
 const degreCaps: CompleteKeysList = {
@@ -283,7 +283,7 @@ export const greek: KeyboardBlock = {
 
 export const compare: KeyboardBlock = {
   keycaps: compareCaps,
-  cols: 1,
+  cols: 2,
   title: 'Comparaison',
   isUnits: false
 }
