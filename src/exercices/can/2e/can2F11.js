@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { abs } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser la fonction carré pour comparer deux images'
 export const interactifReady = true
@@ -32,188 +32,194 @@ export default function ComparerAvecFctCarre () {
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, a, b, props
-    switch (choice([1, 2, 3])) { //
-      case 1 :
-        a = calculANePlusJamaisUtiliser(randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
-        b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        texte = 'Sélectionner la réponse correcte. '
-        if (a < b) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                statut: true
-              },
-              {
-                texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                statut: false
-              }
-            ]
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte, texteCorr, a, b, props
+      const choix = choice([1, 2, 3])
+      switch (choix) { //
+        case 1 :
+          a = randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000
+          b = a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+          texte = 'Sélectionner la réponse correcte. '
+          if (a < b) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
+                  statut: false
+                }
+              ]
+            }
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$${texNombre(a)}^2>${texNombre(b)}^2$`,
-                statut: true
-              },
-              {
-                texte: `$${texNombre(a)}^2<${texNombre(b)}^2$`,
-                statut: false
-              }
-            ]
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
+            texte = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
           }
-        }
 
-        props = propositionsQcm(this, i)
-        if (this.interactif) texte += props.texte
-        else {
-          texte = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
-        }
-
-        texteCorr = `            La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
+          texteCorr = `            La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
             Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
 
-        if (a < b) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
+          if (a < b) {
+            texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
           alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}^2$.`
-        } else {
-          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
+          } else {
+            texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
           alors  $${texNombre(b)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}^2$.`
-        }
-        this.canEnonce = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
-        this.canReponseACompleter = ''
-        break
-      case 2 :
-        a = calculANePlusJamaisUtiliser((randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1))
-        b = calculANePlusJamaisUtiliser(a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        texte = 'Sélectionner la réponse correcte. '
-        if (a < b) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                statut: true
-              },
-              {
-                texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                statut: false
-              }
-            ]
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
-                statut: true
-              },
-              {
-                texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
-                statut: false
-              }
-            ]
+          this.canEnonce = `Comparer $${texNombre(a)}^2$ et $${texNombre(b)}^2$.`
+          this.canReponseACompleter = ''
+          break
+        case 2 :
+          a = (randint(0, 5) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000) * (-1)
+          b = a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+          texte = 'Sélectionner la réponse correcte. '
+          if (a < b) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$(${texNombre(a)})^2<(${texNombre(b)})^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$(${texNombre(a)})^2>(${texNombre(b)})^2$`,
+                  statut: false
+                }
+              ]
+            }
           }
-        }
 
-        props = propositionsQcm(this, i)
-        if (this.interactif) texte += props.texte
-        else {
-          texte = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
-        }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
+            texte = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
+          }
 
-        texteCorr = ` La fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre. <br>
+          texteCorr = ` La fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre. <br>
             Cela signifie que deux nombres négatifs sont rangés dans l'ordre inverse de leurs carrés.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres  négatifs et si $a < b$, alors $a^2 > b^2$.`
 
-        if (a < b) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
+          if (a < b) {
+            texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
         alors  $(${texNombre(a)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(b)})^2$`
-        } else {
-          texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
+          } else {
+            texteCorr += `<br>Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
         alors  $(${texNombre(b)})^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}(${texNombre(a)})^2$.`
-        }
-        this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
-        this.canReponseACompleter = ''
-        break
-      case 3 :
-        a = calculANePlusJamaisUtiliser(randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000)
-        b = calculANePlusJamaisUtiliser((-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1]))
-        texte = 'Sélectionner la réponse correcte. '
-        if (abs(a) < abs(b)) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                statut: true
-              },
-              {
-                texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                statut: false
-              }
-            ]
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
-                statut: true
-              },
-              {
-                texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
-                statut: false
-              }
-            ]
-          }
-        }
-
-        props = propositionsQcm(this, i)
-        if (this.interactif) texte += props.texte
-        else {
-          if (choice([true, false])) {
-            texte = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
-            this.canEnonce = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
-            this.canReponseACompleter = ''
-          } else { texte = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.` }
-          this.canEnonce = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.`
+          this.canEnonce = `Comparer $(${texNombre(a)})^2$ et $(${texNombre(b)})^2$.`
           this.canReponseACompleter = ''
-        }
+          break
+        case 3 :
+          a = randint(1, 6) + randint(5, 9) / 10 + randint(5, 9) / 100 + randint(0, 2) / 1000
+          b = (-1) * a + (2 * randint(1, 9) / 1000) * choice([1, -1])
+          texte = 'Sélectionner la réponse correcte. '
+          if (abs(a) < abs(b)) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$${texNombre(a)}^2>(${texNombre(b)})^2$`,
+                  statut: true
+                },
+                {
+                  texte: `$(${texNombre(b)})^2>${texNombre(a)}^2$`,
+                  statut: false
+                }
+              ]
+            }
+          }
 
-        texteCorr = ` Le nombre $${texNombre(b)}$ est négatif, alors que le nombre $${texNombre(a)}$ est positif.
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
+            if (choice([true, false])) {
+              texte = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
+              this.canEnonce = `Comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$.`
+              this.canReponseACompleter = ''
+            } else { texte = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.` }
+            this.canEnonce = `Comparer  $(${texNombre(b)})^2$ et $${texNombre(a)}^2$.`
+            this.canReponseACompleter = ''
+          }
+
+          texteCorr = ` Le nombre $${texNombre(b)}$ est négatif, alors que le nombre $${texNombre(a)}$ est positif.
             Comme deux nombres opposés ont le même carré, comparer $${texNombre(a)}^2$ et $(${texNombre(b)})^2$
             revient à comparer $${texNombre(a)}^2$ et $${texNombre(-b)}^2$.<br>
              La fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre. <br>
              Cela signifie que deux nombres positifs sont rangés dans le même ordre que leurs carrés.   <br>
              Autrement dit, si $a$ et $b$ sont deux nombres  positifs et si $a < b$, alors $a^2 < b^2$.`
-        if (abs(a) < abs(b)) {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}$,
+          if (abs(a) < abs(b)) {
+            texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(-b)}^2$.<br>
         On en déduit que $${texNombre(a)}^2 < (${texNombre(b)})^2$.`
-        } else {
-          texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}$,
+          } else {
+            texteCorr += `<br>Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}$,
         alors  $${texNombre(a)}^2${miseEnEvidence('\\boldsymbol{>}', 'blue')}${texNombre(-b)}^2$.<br>
         On en déduit que $${texNombre(a)}^2 > (${texNombre(b)})^2$.`
-        }
+          }
 
-        break
+          break
+      }
+      if (this.questionJamaisPosee(i, choix, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
-
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
 }
