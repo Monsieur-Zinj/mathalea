@@ -7,8 +7,9 @@
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import { onMount } from 'svelte'
-    // pour les tabs
-  import { Tab, initTE } from 'tw-elements'
+  import { Tab, initTE } from 'tw-elements' // pour les tabs
+  import { saveAs } from 'file-saver'
+  import JSZip from 'jszip'
 
   onMount(() => {
     initTE({ Tab })
@@ -28,7 +29,7 @@
     }
   }
 
-  function downloadCode () {
+  function downloadGift () {
     const preElt = document.querySelector('pre')
     if (preElt) {
       const text = preElt.innerText
@@ -42,6 +43,24 @@
     } else {
       throw new Error("Can't find `pre` selector in document")
     }
+  }
+
+  function downloadScorm() {
+    const zip = new JSZip()
+    zip.file('imsmanifest.xml', contentScorm)
+    let indexHtml = ''
+    indexHtml += '<html>\n'
+    indexHtml += '  <head>\n'
+    indexHtml += '    <title>MathAlea</title>\n'
+    indexHtml += '    <scr'+'ipt type="text/javascript" src="http://localhost:5173/alea/assets/externalJs/SCORM_API_wrapper.js"></scr'+'ipt>\n'
+    indexHtml += '    <scr'+'ipt type="text/javascript" src="http://localhost:5173/alea/assets/externalJs/moodle.scorm.js"></scr'+'ipt>\n'
+    indexHtml += '  </head>\n'
+    indexHtml += '  <body></body>\n'
+    indexHtml += '</html>\n'
+    zip.file('index.html', indexHtml)
+    zip.generateAsync({type: 'blob'}).then(function (content) {
+      saveAs(content, 'mathalea.scorm.zip')
+    })
   }
 
   let contentGift = ''
@@ -309,7 +328,7 @@
           
                 <button
                   type="submit"
-                  on:click={downloadCode}
+                  on:click={downloadGift}
                   class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
                 >
                   <i class="bx bx-download mr-2" />Télécharger le fichier gift
@@ -367,7 +386,7 @@
         
               <button
                 type="submit"
-                on:click={()=>{}}
+                on:click={downloadScorm}
                 class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
               >
                 <i class="bx bx-download mr-2" />Télécharger le fichier SCORM

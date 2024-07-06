@@ -1,6 +1,12 @@
 const scorm = window.pipwerks.SCORM
 
 window.onload = function () {
+  const style = document.createElement('style')
+  style.innerHTML = 'body, html { margin: 0px; padding: 0px; height: 100%; overflow: auto; }'
+  document.head.appendChild(style)
+  const chargement = document.createElement('div')
+  chargement.innerHTML = 'Chargement en cours...'
+  document.body.appendChild(chargement)
   scorm.init()
   const exo = location.hash.slice(1)
   const iframe = document.createElement('iframe')
@@ -9,7 +15,12 @@ window.onload = function () {
   iframe.setAttribute('frameborder', '0')
   iframe.setAttribute('width', '100%')
   iframe.setAttribute('height', '100%')
-  document.getElementById('content').appendChild(iframe)
+  iframe.style.display = 'none'
+  iframe.onload = function () {
+    chargement.style.display = 'none'
+    iframe.style.display = 'block'
+  }
+  document.body.appendChild(iframe)
 
   try {
     // Pour éviter que les élèves ne se rendent pas compte qu'il y a plusieurs exercices, on déplie le menu si besoin
