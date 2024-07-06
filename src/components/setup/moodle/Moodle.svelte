@@ -44,11 +44,53 @@
     }
   }
 
-  let content = ''
+  let contentGift = ''
+  let contentScorm = ''
+  /*
+    <organizations default="coopmaths.fr">
+        <organization identifier="coopmaths.fr" structure="hierarchical">
+          <title>MathAlea</title>
+          <item identifier="MathAlea-Exo1" isvisible="true" identifierref="MathAlea-Exo1">
+            <title>Décomposer un nombre entier en produit de (petits) facteurs premiers</title>
+          </item>
+          <item identifier="MathAlea-Exo2" isvisible="true" identifierref="MathAlea-Exo2">
+            <title>Utiliser la simple distributivité</title>
+          </item>
+        </organization>
+      </organizations>
+      <resources>
+        <resource identifier="MathAlea-Exo1" type="webcontent" adlcp:scormtype="sco"
+          href="index.html#uuid=1eaf7&id=4A11-0&alea=3HRw">
+          <dependency identifierref="COMMON_FILES"/>
+        </resource>
+        <resource identifier="MathAlea-Exo2" type="webcontent" adlcp:scormtype="sco"
+          href="index.html#uuid=71dd8&id=4L10&alea=9QsD">
+          <dependency identifierref="COMMON_FILES"/>
+        </resource>
+        <resource identifier="COMMON_FILES" type="webcontent" adlcp:scormtype="asset">
+          <file href="index.html" />
+        </resource>
+      </resources>
+  */
   let exercices: TypeExercice[]
 
   async function initExercices () {
-    content = ''
+    contentGift = ''
+    let xmlScorm = document.implementation.createDocument("", "", null);
+    let xmlManifest = xmlScorm.createElement("manifest");
+    xmlScorm.appendChild(xmlManifest);
+    let xmlOrganizations = xmlScorm.createElement("organizations");
+    xmlOrganizations.setAttribute("default", "coopmaths.fr");
+    let xmlOrganization = xmlScorm.createElement("organization");
+    xmlOrganization.setAttribute("identifier", "coopmaths.fr");
+    xmlOrganization.setAttribute("structure", "hierarchical");
+    let xmlTitle = xmlScorm.createElement("title");
+    xmlTitle.textContent = "MathAlea";
+    xmlOrganization.appendChild(xmlTitle);
+    xmlOrganizations.appendChild(xmlOrganization);
+    xmlManifest.appendChild(xmlOrganizations);
+    let xmlResources = xmlScorm.createElement("resources");
+    xmlManifest.appendChild(xmlResources);
     mathaleaUpdateExercicesParamsFromUrl()
     exercices = await mathaleaGetExercicesFromParams($exercicesParams)
     let i = 0
@@ -71,16 +113,34 @@
       }
       paramUrl = paramUrl.slice(0, -1)
       const graine = useAlea ? '' : `graine\\="${param.alea}" `
-      content += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
-      content += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      content += `<mathalea-moodle url\\="${paramUrl}" ${graine}/>\n`
-      content += '{\n'
-      content += '=%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
-      content += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      content += `<mathalea-moodle url\\="${paramUrl}" ${graine}correction />\n`
-      content += '}\n\n'
+      contentGift += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
+      contentGift += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += `<mathalea-moodle url\\="${paramUrl}" ${graine}/>\n`
+      contentGift += '{\n'
+      contentGift += '=%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
+      contentGift += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
+      contentGift += `<mathalea-moodle url\\="${paramUrl}" ${graine}correction />\n`
+      contentGift += '}\n\n'
+      let xmlItem = xmlScorm.createElement("item");
+      xmlItem.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
+      xmlItem.setAttribute("isvisible", "true");
+      xmlItem.setAttribute("identifierref", `MathAlea-Exo${i + 1}`);
+      let xmlTitle = xmlScorm.createElement("title");
+      xmlTitle.textContent = exercices[i].titre;
+      xmlItem.appendChild(xmlTitle);
+      xmlOrganization.appendChild(xmlItem);
+      let xmlResource = xmlScorm.createElement("resource");
+      xmlResource.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
+      xmlResource.setAttribute("type", "webcontent");
+      xmlResource.setAttribute("adlcp:scormtype", "sco");
+      xmlResource.setAttribute("href", `index.html#${paramUrl.replaceAll('\\=', '=')}`);
+      let xmlDependency = xmlScorm.createElement("dependency");
+      xmlDependency.setAttribute("identifierref", "COMMON_FILES");
+      xmlResource.appendChild(xmlDependency);
+      xmlResources.appendChild(xmlResource);
       i++
     }
+    contentScorm = new XMLSerializer().serializeToString(xmlScorm)
   }
   let useAlea = true
   $: {
@@ -171,6 +231,7 @@
           <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
           >
+          <!-- DEBUT GIFT -->
             <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas w-full">
               <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
           
@@ -213,9 +274,10 @@
                 </button> -->
           
               <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
-              <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{content}
+              <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{contentGift}
             </pre>
             </section>
+            <!-- FIN GIFT -->
           </div>
         </div>
         <div
@@ -226,7 +288,47 @@
         >
         <div
             class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
-          >A</div>
+          >
+          <!-- DEBUT SCORM -->
+          <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas w-full">
+            <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
+        
+            <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
+              MathALÉA vous permet de créer un fichier au format SCORM que vous pourrez ensuite importer dans votre cours Moodle. Vous trouverez de plus amples informations dans
+              notre <a
+                href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
+              >.
+            </p>
+            <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
+        
+            <div class="flex flex-col justify-center items-center space-y-2">
+              <div class="pl-4 pt-4">
+                <ButtonToggleAlt
+                    title={'Utiliser des exercices aléatoires'}
+                    bind:value={useAlea}
+                    explanations={[
+                      'Chaque élève aura des exercices différents.',
+                      'Tous les élèves auront le même exercice'
+                    ]}
+                  />
+              </div>
+        
+              <button
+                type="submit"
+                on:click={()=>{}}
+                class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+              >
+                <i class="bx bx-download mr-2" />Télécharger le fichier SCORM
+              </button>
+            </div>
+            <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
+              <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{contentScorm}</pre>
+          </section>
+          <!-- FIN SCORM -->
+        </div>
         </div>
       </div>
 </div></div>
