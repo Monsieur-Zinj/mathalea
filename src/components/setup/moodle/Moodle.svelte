@@ -6,6 +6,13 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import { onMount } from 'svelte'
+    // pour les tabs
+  import { Tab, initTE } from 'tw-elements'
+
+  onMount(() => {
+    initTE({ Tab })
+  })
 
   const copyCode = async () => {
     const preElt = document.querySelector('pre')
@@ -81,56 +88,149 @@
     initExercices()
   }
 
+  let scormTab = false;
+
 </script>
 
 <main class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas {$darkMode.isActive ? 'dark' : ''}">
   <NavBar subtitle="Moodle" subtitleType="export" handleLanguage={() => {}} locale={$referentielLocale} />
-
-  <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
-    <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
-
-    <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
-      MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. Vous trouverez de plus amples informations dans
-      notre <a
-        href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
-      >.
-    </p>
-    <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
-
-    <div class="flex flex-col justify-center items-center space-y-2">
-      <div class="pl-4 pt-4">
-        <ButtonToggleAlt
-            title={'Utiliser des exercices aléatoires'}
-            bind:value={useAlea}
-            explanations={[
-              'Chaque élève aura des exercices différents.',
-              'Tous les élèves auront le même exercice'
-            ]}
-          />
+    <div
+    class="flex flex-col h-full w-full bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+  >
+    <div
+      class="h-full w-full md:w-2/3 lg:w-3/5 flex flex-col px-4 pb-4 md:py-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark mx-auto"
+    >
+      <!--
+      <div
+        class="flex flex-col md:flex-row justify-start px-4 py-4 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+      >
+        <h3
+          class="font-bold text-2xl text-coopmaths-struct dark:text-coopmathsdark-struct bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+        >
+          Choix du type d'export Moodle
+        </h3>
       </div>
-
-      <button
-        type="submit"
-        on:click={downloadCode}
-        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+      -->
+      <!-- Tabulations pour la présentation -->
+      <ul
+        class="flex list-none flex-row flex-wrap border-b-0 pl-0 pt-0 bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas"
+        role="tablist"
+        data-te-nav-ref
       >
-        <i class="bx bx-download mr-2" />Télécharger le fichier gift
-      </button>
-    </div>
-    <!-- <button
-        on:click={copyCode}
-        class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-      >
-      Copier le code
-      </button> -->
-
-    <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
-    <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{content}
-  </pre>
-  </section>
+        <li role="presentation" class="flex-grow basis-0 text-center">
+          <a
+            id="tabs-gift-btn"
+            href="#tabs-gift"
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            {scormTab
+              ? ' hover:bg-opacity-10'
+              : ' hover:bg-opacity-0'}"
+            data-te-toggle="pill"
+            data-te-target="#tabs-gift"
+            role="tab"
+            aria-controls="tabs-gift"
+            aria-selected="true"
+            data-te-nav-active=""
+            on:click={() => {
+             scormTab = false
+            }}
+          >
+            Export Gift (Quiz)
+          </a>
+        </li>
+        <li role="presentation" class="flex-grow basis-0 text-center">
+          <a
+            id="tabs-scorm-btn"
+            href="#tabs-scorm"
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            {scormTab
+              ? ' hover:bg-opacity-0'
+              : ' hover:bg-opacity-10'}"
+            data-te-toggle="pill"
+            data-te-target="#tabs-scorm"
+            role="tab"
+            aria-controls="tabs-scorm"
+            aria-selected="false"
+            on:click={() => {
+              scormTab = true
+            }}
+          >
+            Export SCORM
+          </a>
+        </li>
+      </ul>
+      <!-- Pages des réglages -->
+      <div class="pb-6 pt-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas">
+        <div
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          id="tabs-gift"
+          role="tabpanel"
+          aria-labelledby="tabs-gift"
+          data-te-tab-active=""
+        >
+          <div
+            class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          >
+            <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas w-full">
+              <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Comment l'utiliser ?</h1>
+          
+              <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
+                MathALÉA vous permet de créer un fichier au format gift que vous pourrez ensuite importer dans la banque de questions de votre plateforme Moodle. Vous trouverez de plus amples informations dans
+                notre <a
+                  href="https://github.com/mathalea/mathalea/wiki/Utilisation-de-Mathalea-avec-Moodle"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-coopmaths-action dark:text-coopmathsdark-action">documentation</a
+                >.
+              </p>
+              <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Exportation</h1>
+          
+              <div class="flex flex-col justify-center items-center space-y-2">
+                <div class="pl-4 pt-4">
+                  <ButtonToggleAlt
+                      title={'Utiliser des exercices aléatoires'}
+                      bind:value={useAlea}
+                      explanations={[
+                        'Chaque élève aura des exercices différents.',
+                        'Tous les élèves auront le même exercice'
+                      ]}
+                    />
+                </div>
+          
+                <button
+                  type="submit"
+                  on:click={downloadCode}
+                  class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+                >
+                  <i class="bx bx-download mr-2" />Télécharger le fichier gift
+                </button>
+              </div>
+              <!-- <button
+                  on:click={copyCode}
+                  class="p-2 rounded-xl text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
+                >
+                Copier le code
+                </button> -->
+          
+              <h1 class="mt-12 md:mt-8 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Code</h1>
+              <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{content}
+            </pre>
+            </section>
+          </div>
+        </div>
+        <div
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          id="tabs-scorm"
+          role="tabpanel"
+          aria-labelledby="tabs-scorm"
+        >
+        <div
+            class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          >A</div>
+        </div>
+      </div>
+</div></div>
+ 
   <footer>
     <Footer />
   </footer>
