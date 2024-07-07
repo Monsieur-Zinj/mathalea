@@ -3,60 +3,52 @@
   import SlideshowPlayTimerSettingsModal from './SlideshowPlayTimerSettingsModal.svelte'
 
   export let displayTimerSettingsModal: () => void
-  export let play: () => void
+  export let hideTimerSettingsModal: () => void
   export let handleTimerChange: (cursorTimeValue: number) => void
   export let switchDisplayMode: () => void
   export let backToSettings: (event: Event) => void
   export let isManualModeActive: boolean | undefined
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
-  export let currentDuration: number
+  export let currentSlideDuration: number
   export let BUTTONS_CLASS: string
 
   $: getDisplayMode = () => {
-    let displayMode = ''
     if (isQuestionVisible && !isCorrectionVisible) {
-      displayMode = 'Q'
+      return 'Q'
     }
     if (isQuestionVisible && isCorrectionVisible) {
-      displayMode = 'Q+C'
+      return 'Q+C'
     }
     if (!isQuestionVisible && isCorrectionVisible) {
-      displayMode = 'C'
+      return 'C'
     }
-    return displayMode
+    return ''
   }
 
 </script>
 
-<i
-  class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {BUTTONS_CLASS} bx-stopwatch"
+<Button
+  icon="bx-stopwatch"
+  class="{BUTTONS_CLASS}"
+  title="Régler la durée de chaque question"
+  floatUnderText={isManualModeActive ? 'Manuel' : currentSlideDuration + 's'}
   on:click={displayTimerSettingsModal}
-  on:keydown={displayTimerSettingsModal}
-  role="button"
-  tabindex="0"
->
-  <div class="absolute -bottom-[10px] left-1/2 -translate-x-1/2 text-sm font-sans text-coopmaths-struct dark:text-coopmathsdark-struct">
-    {isManualModeActive ? 'Manuel' : currentDuration + 's'}
-  </div>
-</i>
-<SlideshowPlayTimerSettingsModal
-  {play}
-  {handleTimerChange}
 />
-<button type="button" on:click={switchDisplayMode}>
-<i
-  class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {BUTTONS_CLASS} bx-show"
+<Button
+  icon="bx-show"
+  class="{BUTTONS_CLASS}"
   title="Raccourci clavier : Entrée"
->
-  <div class="absolute -bottom-[8px] left-1/2 -translate-x-1/2 text-sm font-extrabold font-sans">
-    {getDisplayMode()}
-  </div>
-</i>
-</button>
+  floatUnderText={getDisplayMode()}
+  on:click={switchDisplayMode}
+/>
 <Button
   icon="bx-power-off"
   class="{BUTTONS_CLASS}"
   title="Retour au paramétrage"
   on:click={backToSettings}
+/>
+<SlideshowPlayTimerSettingsModal
+  {handleTimerChange}
+  {hideTimerSettingsModal}
 />

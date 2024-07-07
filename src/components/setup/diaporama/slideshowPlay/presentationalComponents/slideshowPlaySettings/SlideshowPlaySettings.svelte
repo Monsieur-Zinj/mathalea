@@ -10,28 +10,20 @@
   export let backToSettings: (event: Event) => void
   export let isPause: boolean
   export let nextQuestion: () => void
-  export let pause: () => void
+  export let displayTimerSettingsModal: () => void
+  export let hideTimerSettingsModal: () => void
   export let prevQuestion: () => void
   export let switchDisplayMode: () => void
   export let switchPause: (isUserAction?: boolean) => void
-  export let play: () => void
   export let zoomMinus: () => void
   export let zoomPlus: () => void
   export let currentSlideDuration: number
 
-  const BUTTONS_CLASS = 'ml-2 bx-sm md:bx-lg'
-
-  function displayTimerSettingsModal () {
-    const modal = document.getElementById('timer-settings-modal')
-    if (modal) {
-      modal.style.display = 'block'
-      pause()
-    }
-  }
+  const BUTTONS_CLASS = 'mx-1.5 bx-sm md:bx-lg'
 
 </script>
 
-<div class="flex flex-row justify-start items-center ml-10 w-[33%]">
+<div class="flex flex-row justify-start items-center ml-7 w-[33%]">
   <SlideshowPlayDisplaySettings
     {BUTTONS_CLASS}
     {zoomPlus}
@@ -48,17 +40,17 @@
     {switchPause}
   />
 </div>
-<div class="flex flex-row justify-end items-center mr-10 w-[33%]">
+<div class="flex flex-row justify-end items-baseline mr-7 w-[33%]">
   <SlideshowPlayOtherSettings
     {BUTTONS_CLASS}
     {displayTimerSettingsModal}
-    {play}
+    {hideTimerSettingsModal}
     {handleTimerChange}
     {switchDisplayMode}
     {backToSettings}
     {isManualModeActive}
     {isQuestionVisible}
     {isCorrectionVisible}
-    currentDuration={currentSlideDuration}
+    {currentSlideDuration}
   />
 </div>

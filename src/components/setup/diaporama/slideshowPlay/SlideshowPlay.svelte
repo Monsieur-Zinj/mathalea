@@ -71,8 +71,23 @@
   function handleClick (event: MouseEvent) {
     const timerSettingsModal = document.getElementById('timer-settings-modal')
     if (timerSettingsModal && event.target === timerSettingsModal) {
+      hideTimerSettingsModal()
+    }
+  }
+
+  function hideTimerSettingsModal () {
+    const timerSettingsModal = document.getElementById('timer-settings-modal')
+    if (timerSettingsModal) {
       timerSettingsModal.style.display = 'none'
       play()
+    }
+  }
+
+  function displayTimerSettingsModal () {
+    const modal = document.getElementById('timer-settings-modal')
+    if (modal) {
+      modal.style.display = 'block'
+      pause()
     }
   }
 
@@ -345,8 +360,8 @@
         {isPause}
         {prevQuestion}
         {nextQuestion}
-        {pause}
-        {play}
+        {displayTimerSettingsModal}
+        {hideTimerSettingsModal}
         {switchDisplayMode}
         {switchPause}
         {zoomPlus}

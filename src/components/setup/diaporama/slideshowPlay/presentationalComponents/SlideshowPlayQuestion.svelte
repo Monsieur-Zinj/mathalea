@@ -37,7 +37,6 @@
         {#if isQuestionVisible && currentSlide.vues[i]}
           <div class="py-4 flex items-center" id="question{i}">
             <div>
-              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
               {#each currentSlide.vues[i].consigneSvgs as consigneSvg}
                 <div>
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
