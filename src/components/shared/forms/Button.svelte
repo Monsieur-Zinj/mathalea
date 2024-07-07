@@ -6,6 +6,7 @@
   export let icon: string = ''
   export let idLabel: string = getUniqueStringBasedOnTimeStamp('btn-')
   export let inverted: boolean = false
+  export let floatUnderText: string = ''
 </script>
 
 <!--
@@ -45,7 +46,13 @@
     disabled={isDisabled}
     on:click
   >
-    <i class="bx {icon}" />
+    <i class="relative bx {icon}">
+      {#if floatUnderText !== ''}
+        <div class="absolute left-1/2 -translate-x-1/2 -translate-y-2 text-sm font-extrabold font-sans">
+          {floatUnderText}
+        </div>
+      {/if}
+    </i>
   </button>
 {:else}
   <button
