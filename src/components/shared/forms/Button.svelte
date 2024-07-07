@@ -46,6 +46,7 @@
     disabled={isDisabled}
     on:click
   >
+    <slot></slot>
     <i class="relative bx {icon}">
       {#if floatUnderText !== ''}
         <div class="absolute left-1/2 -translate-x-1/2 -translate-y-2 text-sm font-extrabold font-sans">
@@ -67,6 +68,7 @@
     disabled={isDisabled}
     on:click
   >
+    <slot></slot>
     {#if icon !== ''}
       <i class="bx {icon}" />
     {/if}
