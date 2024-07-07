@@ -2,9 +2,9 @@
   import { copyLinkToClipboard } from '../../../../../lib/components/clipboard'
   import { buildMathAleaURL } from '../../../../../lib/components/urls'
   import { mathaleaHandleComponentChange } from '../../../../../lib/mathalea'
-  import Button from '../../../../shared/forms/Button.svelte';
+  import Button from '../../../../shared/forms/Button.svelte'
   import ModalActionWithDialog from '../../../../shared/modal/ModalActionWithDialog.svelte'
-  import ModalForQrCode from '../../../../shared/modal/ModalForQRCode.svelte';
+  import ModalForQrCode from '../../../../shared/modal/ModalForQRCode.svelte'
 
   export let QRCodeWidth: number;
   export let formatQRCodeIndex: 0 | 1 | 2

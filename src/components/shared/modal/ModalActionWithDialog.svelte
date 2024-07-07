@@ -1,7 +1,8 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  export let message: string = 'Default message'
-  export let messageError: string = 'Default error message'
+  import Button from '../forms/Button.svelte'
+  export let message: string
+  export let messageError: string
   export let dialogId: string = 'dialogbox'
   export let tooltipMessage: string = ''
   export let buttonSize: string = 'text-2xl'
@@ -12,9 +13,6 @@
 
   const dispatch = createEventDispatcher()
 
-  function fireMessage () {
-    dispatch('display')
-  }
 </script>
 
 <!--
@@ -57,36 +55,47 @@
  -->
 
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltipMessage}>
-  <button
-    type="button"
+  <Button
     id="modalaction-button"
     class="{classForButton} {title.length === 0
-      ? 'text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest'
-      : 'text-coopmaths-canvas  dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest'}"
-    on:click={fireMessage}
+      ? `text-coopmaths-action dark:text-coopmathsdark-action
+         hover:text-coopmaths-action-lightest dark:hover:text-coopmathsdark-action-lightest`
+      : `text-coopmaths-canvas dark:text-coopmathsdark-canvas
+         bg-coopmaths-action dark:bg-coopmathsdark-action
+         hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest`}"
+    on:click={() => dispatch('display')}
   >
     {#if title.length === 0}
       <i class="relative bx {buttonIcon} {buttonSize}" />
       {#if buttonSecondIcon.length !== 0}
-        <i
-          class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3 text-coopmaths-warn dark:text-coopmathsdark-warn"
+        <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3
+          text-coopmaths-warn dark:text-coopmathsdark-warn"
         />
       {/if}
     {:else}
       {title}
     {/if}
-  </button>
-  <dialog
-    class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
-    id={dialogId + '-1'}
-  >
-    <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-    <div class="container font-light">{@html message}</div>
-  </dialog>
-  <dialog
-    class="rounded-xl p-6 bg-coopmaths-canvas text-coopmaths-corpus dark:bg-coopmathsdark-canvas-dark dark:text-coopmathsdark-corpus-light shadow-lg"
-    id={dialogId + '-2'}
-  >
-    {messageError}
-  </dialog>
+  </Button>
 </div>
+
+<dialog
+  id={dialogId + '-success'}
+  class="rounded-xl p-6 shadow-lg
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark
+    text-coopmaths-corpus dark:text-coopmathsdark-corpus-light"
+>
+  <div class="container font-light">
+    {@html message}
+  </div>
+</dialog>
+
+<dialog
+  id={dialogId + '-error'}
+  class="rounded-xl p-6 shadow-lg
+    bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark
+    text-coopmaths-corpus dark:text-coopmathsdark-corpus-light"
+>
+  <div class="container font-light">
+    {messageError}
+  </div>
+</dialog>

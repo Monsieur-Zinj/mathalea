@@ -15,7 +15,7 @@ export async function downloadRedirectFile (dialogId: string, url: URL, fileName
     try {
       finalUrl = await getShortenedCurrentUrl(url.toString())
     } catch (error) {
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+      showDialogForLimitedTime(dialogId + '-error', 1000)
       throw error
     }
   } else {
@@ -31,9 +31,9 @@ export async function downloadRedirectFile (dialogId: string, url: URL, fileName
     document.body.appendChild(element)
     element.click()
     document.body.removeChild(element)
-    showDialogForLimitedTime(dialogId + '-1', 1000)
+    showDialogForLimitedTime(dialogId + '-success', 1000)
   } catch (error) {
-    showDialogForLimitedTime(dialogId + '-2', 1000)
+    showDialogForLimitedTime(dialogId + '-error', 1000)
     throw error
   }
 }

@@ -274,11 +274,11 @@ import {
     const text = pre.innerText
     navigator.clipboard.writeText(text).then(
       () => {
-        showDialogForLimitedTime(dialogId + '-1', 2000)
+        showDialogForLimitedTime(dialogId + '-success', 2000)
       },
       (err) => {
         console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-2', 1000)
+        showDialogForLimitedTime(dialogId + '-error', 1000)
       }
     )
   }

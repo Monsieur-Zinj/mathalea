@@ -136,11 +136,11 @@
   async function copyLaTeXCodeToClipBoard (dialogId: string) {
     navigator.clipboard.writeText(content).then(
       () => {
-        showDialogForLimitedTime(dialogId + '-1', 1000)
+        showDialogForLimitedTime(dialogId + '-success', 1000)
       },
       (err) => {
         console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-2', 1000)
+        showDialogForLimitedTime(dialogId + '-error', 1000)
       }
     )
   }

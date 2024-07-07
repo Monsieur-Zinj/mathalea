@@ -4,19 +4,19 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
 
 /**
    * Copy current URL to clipboard
-   * @param dialogId id of dialog widget where the info is displayed
+   * @param dialogId id of dialog from ModalActionWithDialog where the info is displayed
    * @param url string to be added at the end of the URL
-   * @param {boolean} shorten does the URL has to be shorten ?
-   * @param {boolean} crypted does the URL need to be crypted ?
+   * @param shorten does the URL has to be shorten ?
+   * @param crypted does the URL need to be crypted ?
    * @author sylvain
    */
-export async function copyLinkToClipboard (dialogId: string, url: URL, shorten = false, crypted = false) {
+export async function copyLinkToClipboard (dialogId: string, url: URL, shorten: boolean = false, crypted: boolean = false) {
   let finalUrl
   if (shorten) {
     try {
       finalUrl = await getShortenedCurrentUrl(url.toString())
     } catch (error) {
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+      showDialogForLimitedTime(dialogId + '-error', 1000)
       throw error
     }
   } else {
@@ -24,11 +24,11 @@ export async function copyLinkToClipboard (dialogId: string, url: URL, shorten =
   }
   navigator.clipboard.writeText(finalUrl.toString()).then(
     () => {
-      showDialogForLimitedTime(dialogId + '-1', 1000)
+      showDialogForLimitedTime(dialogId + '-success', 1000)
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+      showDialogForLimitedTime(dialogId + '-error', 1000)
     }
   )
 }
@@ -36,34 +36,34 @@ export async function copyLinkToClipboard (dialogId: string, url: URL, shorten =
 /**
    * Copy image of QR-Code contained in designated img tag
    * and displayed that the image has been copied in designated dialog widget
-   * @param imageId id of the canvas
-   * @param dialogId id of dialog widget where the info is displayed
+   * @param imageId id of the HTMLImageElement containing the QR-Code
+   * @param dialogId id of dialog from ModalActionWithDialog where the info is displayed
    * @author sylvain
    */
 export function copyQRCodeImageToClipboard (imageId: string, dialogId: string) {
-  if (canCopyImagesToClipboard()) {
-    const imageElement = document.getElementById(imageId) as HTMLImageElement
+  const imageElement = document.getElementById(imageId)
+  if (canCopyImagesToClipboard() && imageElement instanceof HTMLImageElement) {
     getBlobFromImageElement(imageElement)
       .then((blob) => {
         return copyBlobToClipboard(blob)
       })
       .then(() => {
-        showDialogForLimitedTime(dialogId + '-1', 1000)
+        showDialogForLimitedTime(dialogId + '-success', 1000)
       })
       .catch((e) => {
         console.error('Error: ', e.message)
       })
   } else {
-    showDialogForLimitedTime(dialogId + '-2', 2000)
+    showDialogForLimitedTime(dialogId + '-error', 2000)
   }
 }
 
 /**
  * Copy the code to be embedded into a webpage to the clipboard
- * @param {string} dialogId ID of dialog widget where the info is displayed
- * @param {string} url string to add to the URL
- * @param {boolean} shorten tag for shortening the URL
- * @param {boolean} crypted tag for encrypting the URL
+ * @param dialogId id of dialog from ModalActionWithDialog where the info is displayed
+ * @param url string to add to the URL
+ * @param shorten tag for shortening the URL
+ * @param crypted tag for encrypting the URL
  */
 export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, shorten = false, crypted = false) {
   let finalUrl
@@ -71,7 +71,7 @@ export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, s
     try {
       finalUrl = await getShortenedCurrentUrl(url.toString())
     } catch (error) {
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+      showDialogForLimitedTime(dialogId + '-error', 1000)
       throw error
     }
   } else {
@@ -85,11 +85,11 @@ export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, s
   </iframe>`
   navigator.clipboard.writeText(embeddedCode).then(
     () => {
-      showDialogForLimitedTime(dialogId + '-1', 1000)
+      showDialogForLimitedTime(dialogId + '-success', 1000)
     },
     (err) => {
       console.error('Async: Could not copy text: ', err)
-      showDialogForLimitedTime(dialogId + '-2', 1000)
+      showDialogForLimitedTime(dialogId + '-error', 1000)
     }
   )
 }
