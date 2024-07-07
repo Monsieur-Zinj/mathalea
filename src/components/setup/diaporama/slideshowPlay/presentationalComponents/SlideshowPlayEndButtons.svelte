@@ -2,11 +2,11 @@
   import { copyLinkToClipboard } from '../../../../../lib/components/clipboard'
   import { buildMathAleaURL } from '../../../../../lib/components/urls'
   import { mathaleaHandleComponentChange } from '../../../../../lib/mathalea'
-  import Button from '../../../../shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../shared/forms/ButtonIcon.svelte'
   import ModalActionWithDialog from '../../../../shared/modal/ModalActionWithDialog.svelte'
   import ModalForQrCode from '../../../../shared/modal/ModalForQRCode.svelte'
 
-  export let QRCodeWidth: number;
+  export let QRCodeWidth: number
   export let formatQRCodeIndex: 0 | 1 | 2
   export let returnToStart: () => void
   export let backToSettings: () => void
@@ -18,7 +18,7 @@
     class="tooltip tooltip-bottom tooltip-neutral"
     data-tip="Début du diaporama"
   >
-    <Button
+    <ButtonIcon
       icon="bx-arrow-back text-[100px]"
       class="mx-12 my-2"
       on:click={returnToStart}
@@ -28,15 +28,15 @@
     class="tooltip tooltip-bottom tooltip-neutral"
     data-tip="Questions + Réponses"
   >
-    <Button
+    <ButtonIcon
       icon="bx-detail text-[100px]"
       class="mx-12 my-2"
       on:click={() => mathaleaHandleComponentChange('diaporama', 'overview')}
     />
   </div>
   <ModalActionWithDialog
-    on:display={() => copyLinkToClipboard('linkCopiedDialog-2', buildMathAleaURL('diaporama'))}
-    message="Le lien est copié dans le presse-papier !"
+    on:click={() => copyLinkToClipboard('linkCopiedDialog-2', buildMathAleaURL('diaporama'))}
+    messageSuccess="Le lien est copié dans le presse-papier !"
     messageError="Impossible de copier le lien dans le presse-papier."
     dialogId="linkCopiedDialog-2"
     tooltipMessage="Lien du Diaporama"
@@ -57,7 +57,7 @@
     class="tooltip tooltip-bottom tooltip-neutral text-bg-coopmaths-canvas"
     data-tip="Sortir du diaporama"
   >
-    <Button
+    <ButtonIcon
       icon="bx-home-alt-2 text-[100px]"
       class="mx-12 my-2"
       on:click={backToSettings}

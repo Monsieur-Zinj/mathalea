@@ -14,7 +14,8 @@
   import { flip } from 'svelte/animate'
   import { onMount, setContext } from 'svelte'
   import Exercice from '../../shared/exercice/Exercice.svelte'
-  import Button from '../../shared/forms/Button.svelte'
+  import ButtonIcon from '../../shared/forms/ButtonIcon.svelte'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
   import ButtonsDeck from '../../shared/ui/ButtonsDeck.svelte'
   import Footer from '../../Footer.svelte'
   import SideMenu from '../start/presentationalComponents/sideMenu/SideMenu.svelte'
@@ -334,8 +335,7 @@ function addExercise (uuid: string) {
                     class="tooltip tooltip-bottom"
                     data-tip="Réduire la taille du texte"
                   >
-                    <Button
-                      text=""
+                    <ButtonIcon
                       icon="bx-zoom-out"
                       class="flex items-center text-3xl"
                       on:click={zoomOut}
@@ -345,8 +345,7 @@ function addExercise (uuid: string) {
                     class="tooltip tooltip-bottom"
                     data-tip="Augmenter la taille du texte"
                   >
-                    <Button
-                      text=""
+                    <ButtonIcon
                       icon="bx-zoom-in"
                       class="flex items-center text-3xl"
                       on:click={zoomIn}
@@ -356,8 +355,7 @@ function addExercise (uuid: string) {
                     class="tooltip tooltip-bottom"
                     data-tip="Nouveaux énoncés"
                   >
-                    <Button
-                      text=""
+                    <ButtonIcon
                       icon="bx-refresh"
                       class="flex items-center text-3xl"
                       on:click={newDataForAll}
@@ -367,8 +365,7 @@ function addExercise (uuid: string) {
                     class="tooltip tooltip-bottom"
                     data-tip="Supprimer tous les exercices"
                   >
-                    <Button
-                      text=""
+                    <ButtonIcon
                       icon="bx-trash"
                       class="text-3xl"
                       on:click={() => {
@@ -384,11 +381,10 @@ function addExercise (uuid: string) {
                     bind:value={urlFeuilleEleve}
                     classAddenda="w-50"
                   />
-                  <Button
+                  <ButtonText
                     class="text-sm py-1 px-2 rounded-md h-7"
                     text="Ajouter"
-                    icon=""
-                    isDisabled={urlFeuilleEleve.length === 0}
+                    disabled={urlFeuilleEleve.length === 0}
                     on:click={() => {
                       // exemple URL vue élève
                       // http://localhost:5173/alea/?uuid=01873&id=6C20&uuid=99522&id=6C22&uuid=64422&id=6C23&v=confeleve&v=eleve&title=&es=11101
@@ -423,11 +419,10 @@ function addExercise (uuid: string) {
                     class="tooltip tooltip-bottom"
                     data-tip="Régler l'affichage du mode élève"
                   >
-                    <Button
-                      text=""
+                    <ButtonIcon
                       icon="bx-cog"
                       class="text-3xl"
-                      isDisabled={$exercicesParams.length === 0}
+                      disabled={$exercicesParams.length === 0}
                       on:click={() => {
                         showSettingsDialog = true
                       }}
@@ -908,14 +903,14 @@ function addExercise (uuid: string) {
 
     <div slot="buttons" class="flex flex-row justify-end space-x-4 w-full">
       <div class="pt-4 pb-8 px-4">
-        <Button
+        <ButtonText
           class="text-sm py-1 px-2 rounded-md h-7"
           on:click={validateSettings}
           text="Valider"
         />
       </div>
       <div class="pt-4 pb-8 px-4">
-        <Button
+        <ButtonText
           class="text-sm py-1 px-2 rounded-md h-7"
           on:click={() => {
             buildUrlAndOpenItInNewTab('eleve')

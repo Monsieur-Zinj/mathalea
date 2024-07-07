@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Button from '../../../../../../../components/shared/forms/Button.svelte'
+    import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
 
     export let trash: () => void
 
@@ -9,8 +9,7 @@
   class="tooltip tooltip-bottom"
   data-tip="Supprimer tous les exercices"
 >
-  <Button
-    text=""
+  <ButtonIcon
     icon="bx-trash"
     class="text-3xl"
     on:click={trash}

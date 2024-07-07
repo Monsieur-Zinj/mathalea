@@ -14,8 +14,9 @@
   Liens
   <div class="flex flex-row px-4 -mt-2 justify-start">
     <ModalActionWithDialog
-      on:display={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
-      message="Le lien est copié dans le presse-papier !"
+      on:click={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
+      messageSuccess="Le lien est copié dans le presse-papier !"
+      messageError="Le lien n'a pas pu être copié."
       dialogId="linkCopiedDialog-1"
       tooltipMessage="Lien du Diaporama"
       classForButton="mr-4 my-2"

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from '../../../../../shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../../shared/forms/ButtonIcon.svelte'
   import FullscreenButton from '../../../../start/presentationalComponents/header/headerButtons/setupButtons/FullscreenButton.svelte'
 
   export let zoomPlus: () => void
@@ -9,13 +9,13 @@
 </script>
 
 <FullscreenButton/>
-<Button
+<ButtonIcon
   icon="bx-plus"
   class="{BUTTONS_CLASS}"
   title="Raccourci clavier : +"
   on:click={zoomPlus}
 />
-<Button
+<ButtonIcon
   icon="bx-minus"
   class="{BUTTONS_CLASS}"
   title="Raccourci clavier : -"

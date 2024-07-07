@@ -4,7 +4,7 @@
     darkMode,
     callerComponent
   } from '../../../lib/stores/generalStore'
-  import Button from '../forms/Button.svelte'
+  import ButtonIcon from '../forms/ButtonIcon.svelte'
   import { mathaleaHandleComponentChange } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
   import {
@@ -138,8 +138,7 @@
         <div class="swap-on"><i class="bx bx-sm bx-sun" /></div>
         <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
       </label>
-      <Button
-        text=""
+      <ButtonIcon
         icon="bx-x"
         class="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {

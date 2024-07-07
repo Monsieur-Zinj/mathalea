@@ -25,7 +25,7 @@ import {
     type LatexFileInfos
 
   } from '../../../lib/Latex'
-  import Button from '../../shared/forms/Button.svelte'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
@@ -530,10 +530,10 @@ import {
                 <p>Chargement en cours...</p>
               {:then}
               <ModalActionWithDialog
-                on:display={() => {
+                on:click={() => {
                   copyLaTeXCodeToClipBoard('copyPasteModal')
                 }}
-                message={messageForCopyPasteModal}
+                messageSuccess={messageForCopyPasteModal}
                 messageError="Impossible de copier le code LaTeX dans le presse-papier"
                 tooltipMessage="Code LaTeX dans presse-papier"
                 dialogId="copyPasteModal"
@@ -546,7 +546,7 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <Button
+              <ButtonText
                 class="px-2 py-1 rounded-md"
                 text="Code + préambule"
                 on:click={copyDocument}
@@ -557,9 +557,9 @@ import {
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
-              <Button
+              <ButtonText
                 class="px-2 py-1 rounded-md"
-                idLabel="downloadFullArchive"
+                id="downloadFullArchive"
                 on:click={async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
@@ -571,12 +571,12 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <Button
+              <ButtonText
                 class="inline-block px-2 py-1 rounded-md"
-                idLabel="downloadPicsButton"
+                id="downloadPicsButton"
                 on:click={handleDownloadPicsModalDisplay}
                 text="Uniquement les figures"
-                isDisabled={!picsWanted}
+                disabled={!picsWanted}
               />
               {/await}
             </div>

@@ -16,10 +16,10 @@
   import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
   import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import seedrandom from 'seedrandom'
-  import Button from '../../shared/forms/Button.svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
 
   const isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
@@ -359,14 +359,14 @@
         classForButton="px-2 py-1 rounded-md"
         message="Le code LaTeX a été copié dans le presse-papier"
         messageError="Impossible de copier le code dans le presse-papier !"
-        on:display={() => {
+        on:click={() => {
           copyLaTeXCodeToClipBoard('latexCopy')
         }}
         title="Copier le code LaTeX"
       />
-      <Button
+      <ButtonText
         class="px-2 py-1 rounded-md"
-        idLabel="open-btn"
+        id="open-btn"
         on:click={() => {
           modal.style.display = 'block'
         }}

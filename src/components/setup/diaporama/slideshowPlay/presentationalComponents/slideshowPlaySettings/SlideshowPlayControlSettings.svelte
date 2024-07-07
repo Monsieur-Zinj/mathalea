@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from '../../../../../shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../../shared/forms/ButtonIcon.svelte'
 
   export let isPause: boolean
   export let isManualModeActive: boolean | undefined
@@ -10,19 +10,19 @@
 
 </script>
 
-<Button
+<ButtonIcon
   icon="bx-skip-previous"
   class="{BUTTONS_CLASS}"
   title="Raccourci clavier : flèche gauche"
   on:click={prevQuestion}
 />
-<Button
+<ButtonIcon
   icon="{isPause ? 'bx-play' : 'bx-pause'}"
   class="{BUTTONS_CLASS} {isManualModeActive ? 'invisible' : ''}"
   title="Raccourci clavier : espace"
   on:click={() => switchPause(true)}
 />
-<Button
+<ButtonIcon
   icon="bx-skip-next"
   class="{BUTTONS_CLASS}"
   title="Raccourci clavier : flèche droite"

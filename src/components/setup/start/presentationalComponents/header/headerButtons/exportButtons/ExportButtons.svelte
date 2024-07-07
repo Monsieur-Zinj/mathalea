@@ -1,6 +1,6 @@
 <script lang="ts">
   import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
-  import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
@@ -11,8 +11,7 @@
 </script>
 
 <div class="tooltip tooltip-bottom" data-tip="Diaporama">
-  <Button
-    text=""
+  <ButtonIcon
     icon="bx-slideshow"
     class="flex items-center text-3xl"
     on:click={() => handleExport('diaporama')}
@@ -74,14 +73,8 @@
   />
 </button>
 <div class="tooltip tooltip-bottom" data-tip="Fichier">
-  <!--<Button
-    title=""
-    icon="bxs-file-export"
-    class="flex items-center text-3xl"
-    on:click={() => handleExport('redirectFile')}
-  />-->
   <ModalActionWithDialog
-    on:display={() =>
+    on:click={() =>
       downloadRedirectFile(
         'downlaodRedirectFileDialog',
         new URL(location.href),
@@ -89,7 +82,7 @@
         false,
         false
       )}
-    message="Le téléchargement va début dans quelques instants."
+    messageSuccess="Le téléchargement va début dans quelques instants."
     messageError="Impossible de télécharger le fichier !"
     dialogId="downlaodRedirectFileDialog"
     tooltipMessage={'Fichier de redirection'}

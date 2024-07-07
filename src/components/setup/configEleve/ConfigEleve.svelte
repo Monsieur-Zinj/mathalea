@@ -12,7 +12,6 @@
   } from '../../../lib/mathalea.js'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { onMount } from 'svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
@@ -27,6 +26,7 @@
   import type { NumericRange } from '../../../lib/types'
   // pour les tabs
   import { Tab, initTE } from 'tw-elements'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
 
   onMount(() => {
     initTE({ Tab })
@@ -466,7 +466,7 @@
       <div
         class="pt-4 pb-8 px-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <Button
+        <ButtonText
           on:click={handleVueSetUp}
           class="px-2 py-1 rounded-md"
           text="Visualiser"
@@ -514,14 +514,14 @@
             </div>
             <div class="my-1">
               <ModalActionWithDialog
-                on:display={() =>
+                on:click={() =>
                   copyLinkToClipboard(
                     'linkCopiedDialog',
                     buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
                     availableLinkFormats[currentLinkFormat].isShort,
                     availableLinkFormats[currentLinkFormat].isEncrypted
                   )}
-                message="Le lien de la fiche élève est copié dans le presse-papier !"
+                messageSuccess="Le lien de la fiche élève est copié dans le presse-papier !"
                 messageError="Impossible de créer le lien dans le presse-papier !"
                 dialogId="linkCopiedDialog"
                 tooltipMessage={'Lien ' +
@@ -561,14 +561,14 @@
             </div>
             <div class="my-1">
               <ModalActionWithDialog
-                on:display={() =>
+                on:click={() =>
                   copyEmbeddedCodeToClipboard(
                     'embeddedCodeCopiedDialog',
                     buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
                     availableLinkFormats[currentLinkFormat].isShort,
                     availableLinkFormats[currentLinkFormat].isEncrypted
                   )}
-                message="Le code de la fiche élève est copié dans le presse-papier !"
+                messageSuccess="Le code de la fiche élève est copié dans le presse-papier !"
                 messageError="Impossible de créer le code dans le presse-papier !"
                 dialogId="embeddedCodeCopiedDialog"
                 tooltipMessage={'Code (lien ' +
@@ -587,7 +587,7 @@
             </div>
             <div class="my-1">
               <ModalActionWithDialog
-                on:display={() =>
+                on:click={() =>
                   downloadRedirectFile(
                     'downlaodRedirectFileDialog',
                     buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
@@ -595,7 +595,7 @@
                     availableLinkFormats[currentLinkFormat].isShort,
                     availableLinkFormats[currentLinkFormat].isEncrypted
                   )}
-                message="Le téléchargement va début dans quelques instants."
+                messageSuccess="Le téléchargement va début dans quelques instants."
                 messageError="Impossible de télécharger le fichier !"
                 dialogId="downlaodRedirectFileDialog"
                 tooltipMessage={'Fichier de redirection (lien ' +

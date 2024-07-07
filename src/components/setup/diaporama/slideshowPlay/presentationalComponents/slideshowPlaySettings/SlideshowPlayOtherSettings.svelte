@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Button from '../../../../../shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../../shared/forms/ButtonIcon.svelte'
   import SlideshowPlayTimerSettingsModal from './SlideshowPlayTimerSettingsModal.svelte'
 
   export let displayTimerSettingsModal: () => void
@@ -28,21 +28,21 @@
 
 </script>
 
-<Button
+<ButtonIcon
   icon="bx-stopwatch"
   class="{BUTTONS_CLASS}"
   title="Régler la durée de chaque question"
   floatUnderText={isManualModeActive ? 'Manuel' : currentSlideDuration + 's'}
   on:click={displayTimerSettingsModal}
 />
-<Button
+<ButtonIcon
   icon="bx-show"
   class="{BUTTONS_CLASS}"
   title="Raccourci clavier : Entrée"
   floatUnderText={getDisplayMode()}
   on:click={switchDisplayMode}
 />
-<Button
+<ButtonIcon
   icon="bx-power-off"
   class="{BUTTONS_CLASS}"
   title="Retour au paramétrage"

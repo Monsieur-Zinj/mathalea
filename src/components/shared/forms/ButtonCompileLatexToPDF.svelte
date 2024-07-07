@@ -12,7 +12,7 @@
     getPicsNames,
     type LatexFileInfos
   } from '../../../lib/Latex'
-  import Button from '../../shared/forms/Button.svelte'
+  import ButtonText from './ButtonText.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
 
   export let latex: Latex
@@ -250,8 +250,8 @@
           </div>
         </div>
         <div id="imagesLatex"></div>
-        <Button
-          isDisabled={clockAbled}
+        <ButtonText
+          disabled={clockAbled}
           class="px-2 py-1 rounded-md"
           text="Compiler en PDF"
           on:click={compileToPDF}
