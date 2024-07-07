@@ -4,19 +4,20 @@
 
   export let zoomPlus: () => void
   export let zoomMinus: () => void
+  export let BUTTONS_CLASS: string
 
 </script>
 
 <FullscreenButton/>
 <Button
   icon="bx-plus"
-  class="ml-2 bx-sm md:bx-lg"
+  class="{BUTTONS_CLASS}"
   title="Raccourci clavier : +"
   on:click={zoomPlus}
 />
 <Button
   icon="bx-minus"
-  class="ml-2 bx-sm md:bx-lg"
+  class="{BUTTONS_CLASS}"
   title="Raccourci clavier : -"
   on:click={zoomMinus}
 />

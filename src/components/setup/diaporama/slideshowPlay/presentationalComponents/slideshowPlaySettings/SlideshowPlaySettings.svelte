@@ -19,6 +19,8 @@
   export let zoomPlus: () => void
   export let currentSlideDuration: number
 
+  const BUTTONS_CLASS = 'ml-2 bx-sm md:bx-lg'
+
   function displayTimerSettingsModal () {
     const modal = document.getElementById('timer-settings-modal')
     if (modal) {
@@ -31,12 +33,14 @@
 
 <div class="flex flex-row justify-start items-center ml-10 w-[33%]">
   <SlideshowPlayDisplaySettings
+    {BUTTONS_CLASS}
     {zoomPlus}
     {zoomMinus}
   />
 </div>
 <div class="flex flex-row justify-center items-center w-[33%]">
   <SlideshowPlayControlSettings
+    {BUTTONS_CLASS}
     {isPause}
     {isManualModeActive}
     {prevQuestion}
@@ -46,6 +50,7 @@
 </div>
 <div class="flex flex-row justify-end items-center mr-10 w-[33%]">
   <SlideshowPlayOtherSettings
+    {BUTTONS_CLASS}
     {displayTimerSettingsModal}
     {play}
     {handleTimerChange}
