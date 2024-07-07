@@ -208,7 +208,7 @@
     }
     if (e.key === 'Enter') {
       e.preventDefault()
-      switchCorrectionMode()
+      switchDisplayMode()
     }
   }
 
@@ -230,7 +230,8 @@
     }
     renderAllViews(false)
   }
-  async function switchCorrectionMode () {
+  async function switchDisplayMode () {
+    pause()
     if (isQuestionVisible && !isCorrectionVisible) {
       isQuestionVisible = false
       isCorrectionVisible = true
@@ -346,7 +347,7 @@
         {nextQuestion}
         {pause}
         {play}
-        {switchCorrectionMode}
+        {switchDisplayMode}
         {switchPause}
         {zoomPlus}
         {zoomMinus}

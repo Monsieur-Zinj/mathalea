@@ -12,7 +12,7 @@
   export let nextQuestion: () => void
   export let pause: () => void
   export let prevQuestion: () => void
-  export let switchCorrectionMode: () => void
+  export let switchDisplayMode: () => void
   export let switchPause: (isUserAction?: boolean) => void
   export let play: () => void
   export let zoomMinus: () => void
@@ -54,7 +54,7 @@
     {displayTimerSettingsModal}
     {play}
     {handleTimerChange}
-    {switchCorrectionMode}
+    {switchDisplayMode}
     {backToSettings}
     {isManualModeActive}
     {isQuestionVisible}

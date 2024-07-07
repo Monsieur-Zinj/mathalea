@@ -5,7 +5,7 @@
   export let displayTimerSettingsModal: () => void
   export let play: () => void
   export let handleTimerChange: (cursorTimeValue: number) => void
-  export let switchCorrectionMode: () => void
+  export let switchDisplayMode: () => void
   export let backToSettings: (event: Event) => void
   export let isManualModeActive: boolean | undefined
   export let isQuestionVisible: boolean
@@ -44,7 +44,7 @@
   {play}
   {handleTimerChange}
 />
-<button type="button" on:click={switchCorrectionMode}>
+<button type="button" on:click={switchDisplayMode}>
 <i
   class="relative text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx {BUTTONS_CLASS} bx-show"
   title="Raccourci clavier : Entrée"
