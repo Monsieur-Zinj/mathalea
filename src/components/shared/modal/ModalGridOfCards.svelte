@@ -1,6 +1,4 @@
 <script>
-  import { isModalForStaticsVisible } from '../../../lib/stores/generalStore'
-
   export let displayModal // boolean
   export const closeModal = () => {
     dialog.close()
@@ -36,7 +34,6 @@
       autofocus
       on:click={() => {
         dialog.close()
-        $isModalForStaticsVisible = false
       }}
     >
       <i

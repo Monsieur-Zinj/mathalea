@@ -3,9 +3,7 @@
     exercicesParams,
     globalOptions,
     darkMode,
-    bibliothequeDisplayedContent,
-    bibliothequePathToSection,
-    isModalForStaticsVisible
+    bibliothequeDisplayedContent
   } from '../../../lib/stores/generalStore'
   import {
     mathaleaUpdateExercicesParamsFromUrl,
@@ -35,12 +33,9 @@
   import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import Card from '../../shared/ui/Card.svelte'
-  import CardForStatic from '../../shared/ui/CardForStatic.svelte'
-  import { doesImageExist } from '../../../lib/components/images'
   import { buildEsParams } from '../../../lib/components/urls'
   import ButtonWithTooltip from './ButtonWithTooltip.svelte'
   import type { InterfaceParams } from 'src/lib/types'
-  import BreadcrumbHeader from '../start/presentationalComponents/sideMenu/referentielNode/ModalStaticExercices/BreadcrumbHeader.svelte'
   import handleCapytale from '../../../lib/handleCapytale'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
@@ -682,31 +677,6 @@ function addExercise (uuid: string) {
             </div>
           </div>
         {/each}
-      </div>
-    </div>
-  </ModalGridOfCards>
-  <!-- Fenêtre de dialogue pour le choix des exercices de la bibliothèque statique -->
-  <ModalGridOfCards
-    bind:this={bibliothequeChoiceModal}
-    bind:displayModal={$isModalForStaticsVisible}
-  >
-    <div slot="header">
-      <BreadcrumbHeader path={$bibliothequePathToSection} />
-    </div>
-    <div slot="content">
-      <div class="mx-2 pt-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {#each buildBiblioToBeDisplayed() as exercise}
-            {#if doesImageExist(exercise.png)}
-              <CardForStatic
-                {exercise}
-                selected={bibliothequeUuidInExercisesList.includes(
-                  exercise.uuid
-                )}
-              />
-            {/if}
-          {/each}
-        </div>
       </div>
     </div>
   </ModalGridOfCards>
