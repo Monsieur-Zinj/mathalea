@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte'
-  import ButtonIcon from '../forms/ButtonIcon.svelte'
+  import ButtonText from '../forms/ButtonText.svelte'
 
   export let modalId: string = 'my-modal'
   export let modalButtonId: string = 'ok-btn'
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="items-center px-4 py-3">
-        <ButtonIcon
+        <ButtonText
           class={classForButton}
           text={modalButtonTitle}
           id={modalButtonId}

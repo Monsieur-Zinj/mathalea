@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getUniqueStringBasedOnTimeStamp } from '../../../lib/components/time'
-  export let icon: string = ''
+  export let icon: string
   export let title: string = ''
   export let disabled: boolean = false
   export let id: string = getUniqueStringBasedOnTimeStamp('btn-')
