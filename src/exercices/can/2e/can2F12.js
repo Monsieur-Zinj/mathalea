@@ -3,7 +3,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../../lib/outils/ecritures'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 export const titre = 'Utiliser une fonction de référence (inverse, cube, racine) pour comparer deux images'
 export const interactifReady = true
@@ -34,91 +34,147 @@ export default function ComparerAvecFctRef () {
     this.listeQuestions = []
     this.listeCorrections = []
     let texte, texteCorr, a, b, N, props
-    switch (choice([1, 2, 3])) { //
-      case 1 :
-        N = randint(1, 2)
-        if (N === 1) {
-          a = calculANePlusJamaisUtiliser(randint(1, 9) + randint(5, 9) / 10)
-          b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
-          texte = 'Sélectionner l’affirmation correcte. '
-          if (a < b) {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                  statut: true
-                },
-                {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                  statut: false
-                }
-              ]
+    for (let i = 0; i < this.nbQuestions;) {
+      switch (choice([1, 2, 3])) { //
+        case 1 :
+          N = randint(1, 2)
+          if (N === 1) {
+            a = randint(1, 9) + randint(5, 9) / 10
+            b = a + (randint(1, 9) / 10) * choice([1, -1])
+            texte = 'Sélectionner l’affirmation correcte. '
+            if (a < b) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
             }
-          } else {
-            this.autoCorrection[0] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
-                  statut: true
-                },
-                {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
-                  statut: false
-                }
-              ]
+
+            props = propositionsQcm(this, i)
+            if (this.interactif) texte += props.texte
+            else {
+              texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
             }
-          }
 
-          props = propositionsQcm(this, i)
-          if (this.interactif) texte += props.texte
-          else {
-            texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
-          }
-
-          texteCorr = `         La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre.
+            texteCorr = `         La fonction inverse étant strictement décroissante sur $]0;+\\infty[$, elle change l'ordre.
         Cela signifie que deux nombres strictement positifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
         Autrement dit, si $a$ et $b$ sont deux nombres strictement positifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
 
-          if (a < b) {
-            texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
-          } else {
-            texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
+            if (a < b) {
+              texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
+            } else {
+              texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
+            }
           }
-        }
-        if (N === 2) {
-          a = calculANePlusJamaisUtiliser(((randint(1, 9) + randint(5, 9) / 10)) * (-1))
-          b = calculANePlusJamaisUtiliser(a + (randint(1, 9) / 10) * choice([1, -1]))
+          if (N === 2) {
+            a = ((randint(1, 9) + randint(5, 9) / 10)) * (-1)
+            b = a + (randint(1, 9) / 10) * choice([1, -1])
+            texte = 'Sélectionner l’affirmation correcte. '
+            if (a < b) {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            } else {
+              this.autoCorrection[i] = {
+                enonce: texte,
+                options: { horizontal: true },
+                propositions: [
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: true
+                  },
+                  {
+                    texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                    statut: false
+                  }
+                ]
+              }
+            }
+
+            props = propositionsQcm(this, i)
+            if (this.interactif) texte += props.texte
+            else {
+              texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
+            }
+
+            texteCorr = `     La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre.
+    Cela signifie que deux nombres strictement négatifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
+    Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
+
+            if (a < b) {
+              texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
+            } else {
+              texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
+            }
+          }
+          this.canEnonce = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
+          this.canReponseACompleter = ''
+          break
+        case 2 :
+          a = randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1])
+          b = (a + randint(1, 9) / 10) * choice([-1, 1])
           texte = 'Sélectionner l’affirmation correcte. '
           if (a < b) {
-            this.autoCorrection[0] = {
+            this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
                   statut: true
                 },
                 {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
                   statut: false
                 }
               ]
             }
           } else {
-            this.autoCorrection[0] = {
+            this.autoCorrection[i] = {
               enonce: texte,
               options: { horizontal: true },
               propositions: [
                 {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}<\\dfrac{1}{${texNombre(b)}}$`,
+                  texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
                   statut: true
                 },
                 {
-                  texte: `$\\dfrac{1}{${texNombre(a)}}>\\dfrac{1}{${texNombre(b)}}$`,
+                  texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
                   statut: false
                 }
               ]
@@ -128,134 +184,83 @@ export default function ComparerAvecFctRef () {
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
           else {
-            texte = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
+            texte = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
           }
 
-          texteCorr = `     La fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre.
-    Cela signifie que deux nombres strictement négatifs  sont rangés dans l'ordre inverse de leurs inverses.<br>
-    Autrement dit, si $a$ et $b$ sont deux nombres strictement négatifs et si $a < b$, alors $\\dfrac{1}{a} > \\dfrac{1}{b}$.<br>`
-
-          if (a < b) {
-            texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors  $\\dfrac{1}{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(b)}}$`
-          } else {
-            texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors  $\\dfrac{1}{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{>}', 'blue')}\\dfrac{1}{${texNombre(a)}}$`
-          }
-        }
-        this.canEnonce = `Comparer $\\dfrac{1}{${texNombre(a)}}$ et $\\dfrac{1}{${texNombre(b)}}$.`
-        this.canReponseACompleter = ''
-        break
-      case 2 :
-        a = calculANePlusJamaisUtiliser(randint(-10, 10) + (randint(-9, 9, 0) / 10) * choice([-1, 1]))
-        b = calculANePlusJamaisUtiliser((a + randint(1, 9) / 10) * choice([-1, 1]))
-        texte = 'Sélectionner l’affirmation correcte. '
-        if (a < b) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$${ecritureParentheseSiNegatif(b)}^3>${ecritureParentheseSiNegatif(a)}^3$`,
-                statut: true
-              },
-              {
-                texte: `$${ecritureParentheseSiNegatif(a)}^3>${ecritureParentheseSiNegatif(b)}^3$`,
-                statut: false
-              }
-            ]
-          }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$${ecritureParentheseSiNegatif(b)}^3<${ecritureParentheseSiNegatif(a)}^3$`,
-                statut: true
-              },
-              {
-                texte: `$(${ecritureParentheseSiNegatif(a)})^3<${ecritureParentheseSiNegatif(b)}^3$`,
-                statut: false
-              }
-            ]
-          }
-        }
-
-        props = propositionsQcm(this, i)
-        if (this.interactif) texte += props.texte
-        else {
-          texte = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
-        }
-
-        texteCorr = ` La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.
+          texteCorr = ` La fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.
             Cela signifie que deux nombres réels  sont rangés dans le même ordre que leurs cubes.<br>
             Autrement dit, si $a$ et $b$ sont deux nombres réels et si $a < b$, alors $a^3 < b^3$.<br>`
-        if (a < b) {
-          texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
+          if (a < b) {
+            texteCorr += `Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$,
             alors $${ecritureParentheseSiNegatif(a)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(b)}^3$.`
-        } else { texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
-        this.canEnonce = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
-        this.canReponseACompleter = ''
-        break
-      case 3 :
-        a = calculANePlusJamaisUtiliser(randint(0, 10) + (randint(6, 9) / 10))
-        b = calculANePlusJamaisUtiliser((a + (randint(1, 5, 0) / 10) * choice([-1, 1])))
-        if (b === 1) { b = 2 }
-        texte = 'Sélectionner l’affirmation correcte. '
-        if (a < b) {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                statut: true
-              },
-              {
-                texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
-                statut: false
-              }
-            ]
+          } else { texteCorr += `Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$, alors $${ecritureParentheseSiNegatif(b)}^3${miseEnEvidence('\\boldsymbol{<}', 'blue')}${ecritureParentheseSiNegatif(a)}^3$.` }
+          this.canEnonce = `Comparer $${ecritureParentheseSiNegatif(a)}^3$ et $${ecritureParentheseSiNegatif(b)}^3$.`
+          this.canReponseACompleter = ''
+          break
+        case 3 :
+          a = randint(0, 10) + (randint(6, 9) / 10)
+          b = (a + (randint(1, 5, 0) / 10) * choice([-1, 1]))
+          if (b === 1) { b = 2 }
+          texte = 'Sélectionner l’affirmation correcte. '
+          if (a < b) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\sqrt{${texNombre(a)}}>\\sqrt{${texNombre(b)}}$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
+                  statut: true
+                },
+                {
+                  texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
+                  statut: false
+                }
+              ]
+            }
           }
-        } else {
-          this.autoCorrection[0] = {
-            enonce: texte,
-            options: { horizontal: true },
-            propositions: [
-              {
-                texte: `$\\sqrt{${texNombre(b)}}<\\sqrt{${texNombre(a)}}$`,
-                statut: true
-              },
-              {
-                texte: `$\\sqrt{${texNombre(b)}}>\\sqrt{${texNombre(a)}}$`,
-                statut: false
-              }
-            ]
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
+            texte = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
           }
-        }
 
-        props = propositionsQcm(this, i)
-        if (this.interactif) texte += props.texte
-        else {
-          texte = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
-        }
-
-        texteCorr = `                La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre.
+          texteCorr = `                La fonction racine carrée étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre.
                 Cela signifie que deux nombres réels positifs sont rangés dans le même ordre que leurs racines carrées.<br>
                 Autrement dit, si $a$ et $b$ sont deux nombres réels positifs et si $a < b$, alors $\\sqrt{a} < \\sqrt{b}$.<br>`
-        if (a < b) {
-          texteCorr += ` Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors
+          if (a < b) {
+            texteCorr += ` Comme $${texNombre(a)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(b)}$, alors
                 $\\sqrt{${texNombre(a)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(b)}}$.`
-        } else {
-          texteCorr += ` Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
+          } else {
+            texteCorr += ` Comme $${texNombre(b)}${miseEnEvidence('\\boldsymbol{<}', 'blue')}${texNombre(a)}$,
                 alors $\\sqrt{${texNombre(b)}}${miseEnEvidence('\\boldsymbol{<}', 'blue')}\\sqrt{${texNombre(a)}}$.`
-        }
-        this.canEnonce = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
-        this.canReponseACompleter = ''
-        break
+          }
+          this.canEnonce = `Comparer $\\sqrt{${texNombre(a)}}$  et $\\sqrt{${texNombre(b)}}$.`
+          this.canReponseACompleter = ''
+          break
+      }
+      if (this.questionJamaisPosee(i, N, a, b)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
     }
 
-    this.listeQuestions.push(texte)
-    this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
 }
