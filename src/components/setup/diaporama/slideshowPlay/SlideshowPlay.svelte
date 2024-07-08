@@ -377,7 +377,7 @@
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
     data-theme="daisytheme"
   >
-    <div class="flex flex-row items-center justify-center w-full text-[300px] font-extrabold m-10">
+    <div class="flex flex-row items-center justify-center w-full text-[20vw] font-extrabold">
       Fin !
     </div>
     <SlideshowPlayEndButtons
