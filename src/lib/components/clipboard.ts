@@ -11,18 +11,9 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
    * @author sylvain
    */
 export async function copyLinkToClipboard (dialogId: string, url: URL, shorten: boolean = false, crypted: boolean = false) {
-  let finalUrl
-  if (shorten) {
-    try {
-      finalUrl = await getShortenedCurrentUrl(url.toString())
-    } catch (error) {
-      showDialogForLimitedTime(dialogId + '-error', 1000)
-      throw error
-    }
-  } else {
-    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
-  }
-  navigator.clipboard.writeText(finalUrl.toString()).then(
+  let finalUrl = crypted ? encrypt(url.toString()) : url.toString()
+  if (shorten) finalUrl = await getShortenedCurrentUrl(finalUrl)
+  navigator.clipboard.writeText(finalUrl).then(
     () => {
       showDialogForLimitedTime(dialogId + '-success', 1000)
     },
@@ -66,17 +57,8 @@ export function copyQRCodeImageToClipboard (imageId: string, dialogId: string) {
  * @param crypted tag for encrypting the URL
  */
 export async function copyEmbeddedCodeToClipboard (dialogId: string, url: URL, shorten = false, crypted = false) {
-  let finalUrl
-  if (shorten) {
-    try {
-      finalUrl = await getShortenedCurrentUrl(url.toString())
-    } catch (error) {
-      showDialogForLimitedTime(dialogId + '-error', 1000)
-      throw error
-    }
-  } else {
-    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
-  }
+  let finalUrl = crypted ? encrypt(url.toString()) : url.toString()
+  if (shorten) finalUrl = await getShortenedCurrentUrl(finalUrl)
   const embeddedCode =
   `<iframe
       height="400" 

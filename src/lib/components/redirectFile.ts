@@ -10,20 +10,11 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
    * @author Mathieu Degrange
    */
 export async function downloadRedirectFile (dialogId: string, url: URL, fileName: string, shorten = false, crypted = false) {
-  let finalUrl
-  if (shorten) {
-    try {
-      finalUrl = await getShortenedCurrentUrl(url.toString())
-    } catch (error) {
-      showDialogForLimitedTime(dialogId + '-error', 1000)
-      throw error
-    }
-  } else {
-    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
-  }
+  let finalUrl = crypted ? encrypt(url.toString()) : url.toString()
+  if (shorten) finalUrl = await getShortenedCurrentUrl(finalUrl)
 
   try {
-    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(finalUrl.toString())}"></head></html>`
+    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(finalUrl)}"></head></html>`
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
     element.setAttribute('download', fileName + '.html')
