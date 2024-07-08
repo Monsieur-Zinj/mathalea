@@ -3,8 +3,6 @@
   import {
     isExamItemInReferentiel,
     isJSONReferentielEnding,
-    isParentOfStaticEnding,
-    isRealJSONReferentielObject,
     type JSONReferentielObject
   } from '../../../../../../lib/types/referentiels'
   import { codeToLevelTitle } from '../../../../../../lib/components/refUtils'
@@ -15,12 +13,8 @@
   const themes = toMap(themesList)
   const themesCH = toMap(themesListCH)
   import ReferentielEnding from './ReferentielEnding.svelte'
-  import StaticEnding from './StaticEnding.svelte'
   import { onMount } from 'svelte'
-  import ModalStaticExercises from './ModalStaticExercices/ModalStaticExercises.svelte'
   import {
-    isModalForStaticsVisible,
-    bibliothequePathToSection,
     exercicesParams,
     bibliothequeDisplayedContent
   } from '../../../../../../lib/stores/generalStore'
@@ -197,28 +191,11 @@
       <ul transition:slide={{ duration: 500 }}>
         {#each items as [key, obj], i}
           <li>
-            {#if isRealJSONReferentielObject(obj) && isParentOfStaticEnding(obj)}
-              <!-- DEAD CODE -->
-              <StaticEnding
-                pathToThisNode={[...pathToThisNode, key]}
-                referentielToDisplay={obj}
-                nestedLevelCount={nestedLevelCount + 1}
-                isEmpty={false}
-              />
-            {:else if isJSONReferentielEnding(obj)}
+            {#if isJSONReferentielEnding(obj)}
               <ReferentielEnding
                 ending={obj}
                 nestedLevelCount={nestedLevelCount + 1}
                 class={i === items.length - 1 ? 'pb-6' : ''}
-              />
-            {:else if Object.keys(obj).length === 0}
-              <!-- DEAD CODE -->
-              <!-- Terminaison vide est affichée comme un bouton désactivé -->
-              <StaticEnding
-                pathToThisNode={[...pathToThisNode, key]}
-                referentielToDisplay={{}}
-                nestedLevelCount={nestedLevelCount + 1}
-                isEmpty={true}
               />
             {:else}
               <svelte:self
@@ -235,11 +212,3 @@
     {/if}
   </div>
 </div>
-
-<!-- DEAD CODE -->
-<ModalStaticExercises
-  isVisible={$isModalForStaticsVisible}
-  bibliothequePathToSection={$bibliothequePathToSection}
-  {bibliothequeUuidInExercisesList}
-  bibliothequeDisplayedContent={$bibliothequeDisplayedContent}
-/>
