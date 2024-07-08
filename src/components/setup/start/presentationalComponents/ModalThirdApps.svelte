@@ -1,10 +1,10 @@
 <script lang="ts">
   import Card from '../../../shared/ui/Card.svelte'
-  import ModalGridOfCards from '../../../shared/modal/ModalGridOfCards.svelte'
+  import BasicClassicModal from '../../../shared/modal/BasicClassicModal.svelte'
   import appsTierce from '../../../../json/referentielAppsTierce.json'
   import type { AppTierceGroup } from 'src/lib/types/referentiels'
 
-  export let thirdAppsChoiceModal: ModalGridOfCards
+  export let thirdAppsChoiceModal: BasicClassicModal
   export let showThirdAppsChoiceDialog: boolean
   export let appsTierceInExercisesList: string[]
 
@@ -12,9 +12,9 @@
 </script>
 
 <!-- Fenêtre de dialogue pour le choix des applications tierces -->
-<ModalGridOfCards
+<BasicClassicModal
   bind:this={thirdAppsChoiceModal}
-  bind:displayModal={showThirdAppsChoiceDialog}
+  bind:isDisplayed={showThirdAppsChoiceDialog}
 >
   <div slot="header">Applications</div>
   <div slot="content">
@@ -36,4 +36,4 @@
       {/each}
     </div>
   </div>
-</ModalGridOfCards>
+</BasicClassicModal>

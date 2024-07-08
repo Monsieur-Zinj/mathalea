@@ -2,18 +2,17 @@
   import { languages } from '../../../lib/components/languagesUtils'
   import type { Language } from '../../../lib/types/languages'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
-  import ModalGridOfCards from './ModalGridOfCards.svelte'
+  import BasicClassicModal from './BasicClassicModal.svelte'
 
   export let showLanguageChoiceModal: boolean
-  export let languageChoiceModal: ModalGridOfCards
+  export let languageChoiceModal: BasicClassicModal
   export let handleLanguage: (lang: string) => void
   export let locale: Language
 </script>
 
-<ModalGridOfCards
+<BasicClassicModal
   bind:this={languageChoiceModal}
-  bind:displayModal={showLanguageChoiceModal}
-  class="rounded-xl w-10/12 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+  bind:isDisplayed={showLanguageChoiceModal}
 >
   <div slot="header" class="text-2xl w-full">Langue du Référentiel</div>
   <div slot="content">
@@ -47,4 +46,4 @@
       {/each}
     </ul>
   </div>
-</ModalGridOfCards>
+</BasicClassicModal>

@@ -15,7 +15,7 @@
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
   import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
-  import ModalGridOfCards from '../modal/ModalGridOfCards.svelte'
+  import BasicClassicModal from '../modal/BasicClassicModal.svelte'
 
   export let title: string = 'MathALÉA'
   export let subtitle: string = ''
@@ -23,7 +23,7 @@
   export let locale: Language
   export let handleLanguage: (lang: string) => void
 
-  let languageChoiceModal: ModalGridOfCards
+  let languageChoiceModal: BasicClassicModal
   let showLanguageChoiceModal: boolean = false
 
   function goToMathalea (paramV: string | undefined) {

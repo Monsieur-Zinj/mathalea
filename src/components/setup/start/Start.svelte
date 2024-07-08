@@ -22,7 +22,7 @@
   import SideMenu from './presentationalComponents/sideMenu/SideMenu.svelte'
   import { Sidenav, Collapse, Ripple, initTE } from 'tw-elements'
   import { type AppTierceGroup } from '../../../lib/types/referentiels'
-  import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import Footer from '../../Footer.svelte'
   import ModalThirdApps from './presentationalComponents/ModalThirdApps.svelte'
@@ -48,7 +48,7 @@
   let innerWidth = 0
   let isBackToTopButtonVisible = false
   let selectedThirdApps: string[]
-  let thirdAppsChoiceModal: ModalGridOfCards
+  let thirdAppsChoiceModal: BasicClassicModal
   let showThirdAppsChoiceDialog = false
   let isMd: boolean
   let headerComponent: HeaderComponent

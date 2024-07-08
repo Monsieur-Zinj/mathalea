@@ -30,7 +30,7 @@
     type StaticItemInreferentiel,
     isStaticType
   } from '../../../lib/types/referentiels'
-  import ModalGridOfCards from '../../shared/modal/ModalGridOfCards.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
   import appsTierce from '../../../json/referentielAppsTierce.json'
   import Card from '../../shared/ui/Card.svelte'
   import { buildEsParams } from '../../../lib/components/urls'
@@ -52,7 +52,7 @@
    * Gestion des référentiels
    */
   // Contexte pour le modal des apps tierces
-  let thirdAppsChoiceModal: ModalGridOfCards
+  let thirdAppsChoiceModal: BasicClassicModal
   const appsTierceReferentielArray: AppTierceGroup[] = Object.values(appsTierce)
   let showThirdAppsChoiceDialog = false
   let appsTierceInExercisesList: string[]
@@ -82,7 +82,7 @@
   /**
    * Gestion la bibliothèque de statiques
    */
-  let bibliothequeChoiceModal: ModalGridOfCards
+  let bibliothequeChoiceModal: BasicClassicModal
   let bibliothequeUuidInExercisesList: string[]
   $: {
     bibliothequeUuidInExercisesList = []
@@ -655,9 +655,9 @@ function addExercise (uuid: string) {
     {/if}
   </div>
   <!-- Fenêtre de dialogue pour le choix des applications tierces -->
-  <ModalGridOfCards
+  <BasicClassicModal
     bind:this={thirdAppsChoiceModal}
-    bind:displayModal={showThirdAppsChoiceDialog}
+    bind:isDisplayed={showThirdAppsChoiceDialog}
   >
     <div slot="header">Applications</div>
     <div slot="content">
@@ -679,7 +679,7 @@ function addExercise (uuid: string) {
         {/each}
       </div>
     </div>
-  </ModalGridOfCards>
+  </BasicClassicModal>
   <ModalSettingsCapytale bind:showSettingsDialog bind:this={modal}>
     <div slot="header">Réglages de l'affichage des exercices</div>
     <div slot="content">
