@@ -357,7 +357,7 @@
       <ModalActionWithDialog
         dialogId="latexCopy"
         classForButton="px-2 py-1 rounded-md"
-        message="Le code LaTeX a été copié dans le presse-papier"
+        messageSuccess="Le code LaTeX a été copié dans le presse-papier"
         messageError="Impossible de copier le code dans le presse-papier !"
         on:click={() => {
           copyLaTeXCodeToClipBoard('latexCopy')
