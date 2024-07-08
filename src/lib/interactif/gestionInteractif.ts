@@ -67,7 +67,7 @@ export interface Valeur {
   L1C2?: AnswerType
   L2C1?: AnswerType
   L2C2?: AnswerType // idem on en ajoutera si besoin
-  callback?: ()=>ResultOfExerciceInteractif
+  callback?: (exo: Exercice, question: number)=> { isOk: boolean, feedback: string, score: {nbBonnesReponses: number, nbReponses: number} }
 }
 
 export interface AutoCorrection {
