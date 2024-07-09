@@ -11,7 +11,7 @@
 >
   <ButtonIcon
     icon="bx-trash"
-    class="text-3xl"
+    buttonClass="text-3xl"
     on:click={trash}
   />
 </div>

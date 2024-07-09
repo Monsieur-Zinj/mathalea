@@ -7,7 +7,7 @@
 <div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
   <ButtonIcon
     icon="bx-refresh"
-    class="flex items-center text-3xl"
+    buttonClass="flex items-center text-3xl"
     on:click={newDataForAll}
   />
 </div>

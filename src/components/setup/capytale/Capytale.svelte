@@ -26,9 +26,7 @@
 
   import {
     type AppTierceGroup,
-    isJSONReferentielEnding,
-    type StaticItemInreferentiel,
-    isStaticType
+    isJSONReferentielEnding
   } from '../../../lib/types/referentiels'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
   import appsTierce from '../../../json/referentielAppsTierce.json'
@@ -82,7 +80,6 @@
   /**
    * Gestion la bibliothèque de statiques
    */
-  let bibliothequeChoiceModal: BasicClassicModal
   let bibliothequeUuidInExercisesList: string[]
   $: {
     bibliothequeUuidInExercisesList = []
@@ -98,17 +95,6 @@
       }
     }
     bibliothequeUuidInExercisesList = bibliothequeUuidInExercisesList
-  }
-  const buildBiblioToBeDisplayed = (): StaticItemInreferentiel[] => {
-    const results: StaticItemInreferentiel[] = []
-    if ($bibliothequeDisplayedContent) {
-      Object.values($bibliothequeDisplayedContent).forEach((item) => {
-        if (isStaticType(item)) {
-          results.push(item)
-        }
-      })
-    }
-    return results
   }
 
   // Spécifique à Capytale
@@ -332,7 +318,7 @@ function addExercise (uuid: string) {
                   >
                     <ButtonIcon
                       icon="bx-zoom-out"
-                      class="flex items-center text-3xl"
+                      buttonClass="flex items-center text-3xl"
                       on:click={zoomOut}
                     />
                   </div>
@@ -342,7 +328,7 @@ function addExercise (uuid: string) {
                   >
                     <ButtonIcon
                       icon="bx-zoom-in"
-                      class="flex items-center text-3xl"
+                      buttonClass="flex items-center text-3xl"
                       on:click={zoomIn}
                     />
                   </div>
@@ -352,7 +338,7 @@ function addExercise (uuid: string) {
                   >
                     <ButtonIcon
                       icon="bx-refresh"
-                      class="flex items-center text-3xl"
+                      buttonClass="flex items-center text-3xl"
                       on:click={newDataForAll}
                     />
                   </div>
@@ -362,7 +348,7 @@ function addExercise (uuid: string) {
                   >
                     <ButtonIcon
                       icon="bx-trash"
-                      class="text-3xl"
+                      buttonClass="text-3xl"
                       on:click={() => {
                         $exercicesParams.length = 0
                       }}
@@ -416,7 +402,7 @@ function addExercise (uuid: string) {
                   >
                     <ButtonIcon
                       icon="bx-cog"
-                      class="text-3xl"
+                      buttonClass="text-3xl"
                       disabled={$exercicesParams.length === 0}
                       on:click={() => {
                         showSettingsDialog = true

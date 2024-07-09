@@ -5,7 +5,8 @@
   export let disabled: boolean = false
   export let id: string = getUniqueStringBasedOnTimeStamp('btn-')
   export let floatUnderText: string = ''
-  export let buttonSecondIcon: string = ''
+  export let buttonCornerIcon: string = ''
+  export let buttonClass: string = ''
 </script>
 
 <button
@@ -17,14 +18,14 @@
   {disabled}
   on:click
 >
-  <i class="relative bx {icon}">
+  <i class="relative bx {icon} {buttonClass}">
     {#if floatUnderText !== ''}
       <div class="absolute left-1/2 -translate-x-1/2 -translate-y-2 text-sm font-extrabold font-sans">
         {floatUnderText}
       </div>
     {/if}
-    {#if buttonSecondIcon !== ''}
-      <i class="absolute -bottom-1 bx {buttonSecondIcon} text-sm -translate-x-3
+    {#if buttonCornerIcon !== ''}
+      <i class="absolute -bottom-1 bx {buttonCornerIcon} text-sm -translate-x-3
         text-coopmaths-warn dark:text-coopmathsdark-warn"
       />
     {/if}

@@ -1,9 +1,9 @@
 <script lang="ts">
   import ButtonIcon from './ButtonIcon.svelte'
-  export let tooltip: string
   export let icon: string
-  export let classForButton: string
-  export let buttonSecondIcon: string = ''
+  export let tooltip: string
+  export let buttonClass: string = ''
+  export let buttonCornerIcon: string = ''
 
 </script>
 
@@ -12,8 +12,8 @@
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltip}>
   <ButtonIcon
     {icon}
-    class="{classForButton}"
-    {buttonSecondIcon}
+    {buttonClass}
+    {buttonCornerIcon}
     on:click
   />
 </div>

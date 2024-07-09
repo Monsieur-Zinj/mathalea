@@ -15,14 +15,12 @@
   export let backToSettings: () => void
 
   const divQuestion: HTMLDivElement[] = []
-  let formatQRCodeIndex: 0 | 1 | 2
   let isCorrectionVisible = false
   let isPause = false
   let isManualPause = false
   let isQuestionVisible = true
   let nbOfVues: 1 | 2 | 3 | 4
   let advanceRatioTimeInterval: number
-  let QRCodeWidth: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let userZoom = 1
   let optimalZoom = 1
@@ -48,9 +46,7 @@
       const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
       order = $globalOptions.order || [...Array(questionsNb).keys()]
       goToQuestion(slideshow.currentQuestion)
-      formatQRCodeIndex = dataFromSettings.formatQRCodeIndex
       nbOfVues = $globalOptions.nbVues ?? 1
-      QRCodeWidth = dataFromSettings.QRCodeWidth
     }
   }
 
@@ -381,8 +377,6 @@
       Fin !
     </div>
     <SlideshowPlayEndButtons
-      {QRCodeWidth}
-      {formatQRCodeIndex}
       {returnToStart}
       {backToSettings}
     />

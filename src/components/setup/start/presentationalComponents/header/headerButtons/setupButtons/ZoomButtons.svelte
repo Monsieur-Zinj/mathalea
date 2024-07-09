@@ -11,7 +11,7 @@
 >
   <ButtonIcon
     icon="bx-zoom-out"
-    class="flex items-center text-3xl"
+    buttonClass="flex items-center text-3xl"
     on:click={() => zoomUpdate('-')}
   />
 </div>
@@ -21,7 +21,7 @@
 >
   <ButtonIcon
     icon="bx-zoom-in"
-    class="flex items-center text-3xl"
+    buttonClass="flex items-center text-3xl"
     on:click={() => zoomUpdate('+')}
   />
 </div>

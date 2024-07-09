@@ -124,10 +124,7 @@
         selectedExercisesIndexes={$globalOptions.select ?? []}
         {updateSelect}
       />
-      <LinksSettings
-        QRCodeWidth={settings.QRCodeWidth}
-        formatQRCodeIndex={settings.formatQRCodeIndex}
-      />
+      <LinksSettings />
     </div>
     <!-- Right Side -->
     <div class="flex flex-col justify-start

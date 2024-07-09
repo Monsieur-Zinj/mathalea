@@ -13,7 +13,7 @@
 <div class="tooltip tooltip-bottom" data-tip="Diaporama">
   <ButtonIcon
     icon="bx-slideshow"
-    class="flex items-center text-3xl"
+    buttonClass="flex items-center text-3xl"
     on:click={() => handleExport('diaporama')}
   />
 </div>
@@ -78,9 +78,7 @@
       downloadRedirectFile(
         'downlaodRedirectFileDialog',
         new URL(location.href),
-        'mathAlea',
-        false,
-        false
+        'mathAlea'
       )}
     messageSuccess="Le téléchargement va début dans quelques instants."
     messageError="Impossible de télécharger le fichier !"

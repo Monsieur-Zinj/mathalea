@@ -17,9 +17,9 @@
   {#if title.length === 0}
     <ButtonIcon
       id="modalaction-button"
-      {buttonSecondIcon}
+      buttonCornerIcon={buttonSecondIcon}
       icon="{buttonIcon}"
-      class="{classForButton} {buttonSize}"
+      buttonClass="{classForButton} {buttonSize}"
       on:click
   />
   {:else}

@@ -140,7 +140,8 @@
       </label>
       <ButtonIcon
         icon="bx-x"
-        class="text-3xl {subtitleType === 'design' ? 'hidden' : ''}"
+        class="text-3xl"
+        buttonClass="{subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {
           goToMathalea($globalOptions.v)
         }}

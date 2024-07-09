@@ -61,15 +61,16 @@ export class MathAleaURL extends URL {
  * @param mode le mode de présentation des exercices
  * @returns l'URL correspondant à la feuille d'exercices avec tous les paramètres
  */
-export function buildMathAleaURL (
+export function buildMathAleaURL (options: {
   view: VueType,
-  mode?: InterfaceGlobalOptions['presMode']
+  mode?: InterfaceGlobalOptions['presMode'],
+  isEncrypted?: boolean, isShort?: boolean}
 ): URL {
   const url = new MathAleaURL()
-  const options = get(globalOptions)
+  const global = get(globalOptions)
   const can = get(canOptions)
-  url.setVue(view).addParam('es', buildEsParams(mode))
-  if (view === 'can') {
+  url.setVue(options.view).addParam('es', buildEsParams(options.mode))
+  if (options.view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
       .addParam('canD', (can.durationInMinutes ?? 1).toString())
@@ -78,12 +79,13 @@ export function buildMathAleaURL (
       .addParam('canSM', can.solutionsMode)
       .addParam('canI', can.isInteractive ? '1' : '0')
   } else {
-    url.addParam('title', options.title)
+    url.addParam('title', global.title)
   }
-  if (options.beta) {
+  if (global.beta) {
     url.addParam('beta', '1')
   }
-  return url
+  const cryptedUrl = options.isEncrypted ? encrypt(url.toString()) : url.toString()
+  return new URL(cryptedUrl)
 }
 
 /**

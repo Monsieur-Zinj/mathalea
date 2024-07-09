@@ -1,5 +1,4 @@
 import { showDialogForLimitedTime } from './dialogs'
-import { encrypt, getShortenedCurrentUrl } from './urls'
 
 /**
    * Download a file reddirecting to custom URL
@@ -9,12 +8,9 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
    * @param {boolean} crypted does the URL need to be crypted ?
    * @author Mathieu Degrange
    */
-export async function downloadRedirectFile (dialogId: string, url: URL, fileName: string, shorten = false, crypted = false) {
-  let finalUrl = crypted ? encrypt(url.toString()) : url.toString()
-  if (shorten) finalUrl = await getShortenedCurrentUrl(finalUrl)
-
+export async function downloadRedirectFile (dialogId: string, url: URL, fileName: string) {
   try {
-    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(finalUrl)}"></head></html>`
+    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(url.toString())}"></head></html>`
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
     element.setAttribute('download', fileName + '.html')
