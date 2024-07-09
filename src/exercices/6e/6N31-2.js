@@ -206,7 +206,6 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
           ${tableauColonneLigne(ligneEntete, tabEntetesLignesCorr, coches)}`
       }
       const reponses = Object.assign({}, Object.fromEntries(coches.map((el, index) => [`L${Math.floor(index / 6) + 1}C${(index % 6) + 1}`, Object.assign({}, { value: el !== '' ? '\\times' : '' })]).filter(el => el[1].value !== '')))
-      console.log(reponses)
       handleAnswers(this, i, reponses)
       texte = `${material.enonce}`
       texteCorr = `${material.correction}`
