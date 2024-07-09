@@ -32,9 +32,8 @@
     <div class="relative p-6 text-center">
       {#if isWithCloseButton}
         <ButtonIcon
+        icon="bx-x text-2xl"
         class="absolute top-3 right-3"
-        buttonClass="text-2xl"
-        icon="bx-x"
         on:click={() => dialog.close()}
         />
       {/if}

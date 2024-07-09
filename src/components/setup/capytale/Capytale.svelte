@@ -317,8 +317,7 @@ function addExercise (uuid: string) {
                     data-tip="Réduire la taille du texte"
                   >
                     <ButtonIcon
-                      icon="bx-zoom-out"
-                      buttonClass="flex items-center text-3xl"
+                      icon="bx-zoom-out text-3xl"
                       on:click={zoomOut}
                     />
                   </div>
@@ -327,8 +326,7 @@ function addExercise (uuid: string) {
                     data-tip="Augmenter la taille du texte"
                   >
                     <ButtonIcon
-                      icon="bx-zoom-in"
-                      buttonClass="flex items-center text-3xl"
+                      icon="bx-zoom-in text-3xl"
                       on:click={zoomIn}
                     />
                   </div>
@@ -337,8 +335,7 @@ function addExercise (uuid: string) {
                     data-tip="Nouveaux énoncés"
                   >
                     <ButtonIcon
-                      icon="bx-refresh"
-                      buttonClass="flex items-center text-3xl"
+                      icon="bx-refresh text-3xl"
                       on:click={newDataForAll}
                     />
                   </div>
@@ -347,8 +344,7 @@ function addExercise (uuid: string) {
                     data-tip="Supprimer tous les exercices"
                   >
                     <ButtonIcon
-                      icon="bx-trash"
-                      buttonClass="text-3xl"
+                      icon="bx-trash text-3xl"
                       on:click={() => {
                         $exercicesParams.length = 0
                       }}
@@ -401,8 +397,7 @@ function addExercise (uuid: string) {
                     data-tip="Régler l'affichage du mode élève"
                   >
                     <ButtonIcon
-                      icon="bx-cog"
-                      buttonClass="text-3xl"
+                      icon="bx-cog text-3xl"
                       disabled={$exercicesParams.length === 0}
                       on:click={() => {
                         showSettingsDialog = true

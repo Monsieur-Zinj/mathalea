@@ -8,8 +8,8 @@
   import { mathaleaGenerateSeed } from '../../../lib/mathalea'
 
   export let url: string
-  export let buttonClass: string = 'text-2xl'
-  export let buttonCornerIcon: string = ''
+  export let icon: string = 'bx-qr text-2xl'
+  export let cornerIcon: string = ''
   export let tooltip: string = ''
 
   const imageId: string = mathaleaGenerateSeed()
@@ -107,9 +107,8 @@
 </script>
 
 <ButtonIconTooltip
-  icon='bx-qr'
-  {buttonClass}
-  {buttonCornerIcon}
+  {icon}
+  {cornerIcon}
   tooltip={tooltip}
   on:click={() => {
     updateQRCodeImage()
@@ -131,14 +130,12 @@
   <div slot="footer">
     <div class="flex flex-row justify-center">
       <ButtonIconTooltip
-        icon="bx-copy-alt"
-        buttonClass="text-[30px] mx-3"
+        icon="bx-copy-alt text-[30px] mx-3"
         tooltip="Copier le QR-Code"
         on:click={copyQRCodeImageToClipboard}
       />
       <ButtonIconTooltip
-        icon="bx-download"
-        buttonClass="text-[30px] mx-3"
+        icon="bx-download text-[30px] mx-3"
         tooltip="Télécharger le QR-Code"
         on:click={downloadQRCodeImage}
       />

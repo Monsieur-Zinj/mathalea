@@ -139,9 +139,8 @@
         <div class="swap-off"><i class="bx bx-sm bx-moon" /></div>
       </label>
       <ButtonIcon
-        icon="bx-x"
+        icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
-        buttonClass="{subtitleType === 'design' ? 'hidden' : ''}"
         on:click={() => {
           goToMathalea($globalOptions.v)
         }}

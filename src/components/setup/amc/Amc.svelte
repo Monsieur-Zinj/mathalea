@@ -13,13 +13,12 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
-  import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import seedrandom from 'seedrandom'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
 
   const isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
@@ -126,23 +125,6 @@
       nbQuestions: nbQuestions.map((elt) => elt.nombre),
       nbExemplaires
     })
-  }
-
-  /**
-   * Copier le code LaTeX dans le presse-papier
-   * @param {string} dialogId id attaché au composant
-   * @author sylvain
-   */
-  async function copyLaTeXCodeToClipBoard (dialogId: string) {
-    navigator.clipboard.writeText(content).then(
-      () => {
-        showDialogForLimitedTime(dialogId + '-success', 1000)
-      },
-      (err) => {
-        console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-error', 1000)
-      }
-    )
   }
 
   /* =======================================================
@@ -354,15 +336,16 @@
     <div
       class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8"
     >
-      <ModalActionWithDialog
-        dialogId="latexCopy"
-        classForButton="px-2 py-1 rounded-md"
-        messageSuccess="Le code LaTeX a été copié dans le presse-papier"
-        messageError="Impossible de copier le code dans le presse-papier !"
-        on:click={() => {
-          copyLaTeXCodeToClipBoard('latexCopy')
-        }}
-        title="Copier le code LaTeX"
+      <ButtonActionInfo
+        action="copy"
+        textToCopy={content}
+        tooltip="Copier le code LaTeX dans le presse-papier"
+        text="Copier le code LaTeX"
+        inverted={false}
+        successMessage="Le code LaTeX a été copié dans le presse-papier"
+        errorMessage="Impossible de copier le code dans le presse-papier !"
+        displayDuration={3000}
+        class="px-2 py-1 rounded-md"
       />
       <ButtonText
         class="px-2 py-1 rounded-md"

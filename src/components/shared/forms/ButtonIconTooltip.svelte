@@ -2,8 +2,10 @@
   import ButtonIcon from './ButtonIcon.svelte'
   export let icon: string
   export let tooltip: string
-  export let buttonClass: string = ''
-  export let buttonCornerIcon: string = ''
+  export let title: string = ''
+  export let disabled: boolean = false
+  export let floatUnderText: string = ''
+  export let cornerIcon: string = ''
 
 </script>
 
@@ -11,9 +13,12 @@
 
 <div class="tooltip tooltip-bottom tooltip-neutral" data-tip={tooltip}>
   <ButtonIcon
+    class="{$$props.class || ''}"
     {icon}
-    {buttonClass}
-    {buttonCornerIcon}
+    {title}
+    {disabled}
+    {floatUnderText}
+    {cornerIcon}
     on:click
   />
 </div>

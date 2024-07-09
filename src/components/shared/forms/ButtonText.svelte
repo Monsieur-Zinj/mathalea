@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { getUniqueStringBasedOnTimeStamp } from '../../../lib/components/time'
-  export let text: string = ''
+  export let text: string
   export let title: string = ''
   export let disabled: boolean = false
   export let icon: string = ''
-  export let id: string = getUniqueStringBasedOnTimeStamp('btn-')
   export let inverted: boolean = false
 </script>
 
 <button
   type="button"
-  {id}
   {title}
   class="{$$props.class || ''}
     {disabled ? 'dark:bg-coopmathsdark-action bg-opacity-10 dark:bg-opacity-10' : ''}

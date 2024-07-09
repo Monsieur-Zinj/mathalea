@@ -10,14 +10,12 @@
 
 <FullscreenButton/>
 <ButtonIcon
-  icon="bx-plus"
-  buttonClass="{BUTTONS_CLASS}"
+  icon="bx-plus {BUTTONS_CLASS}"
   title="Raccourci clavier : +"
   on:click={zoomPlus}
 />
 <ButtonIcon
-  icon="bx-minus"
-  buttonClass="{BUTTONS_CLASS}"
+  icon="bx-minus {BUTTONS_CLASS}"
   title="Raccourci clavier : -"
   on:click={zoomMinus}
 />

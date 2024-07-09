@@ -6,8 +6,7 @@
 
 <div class="tooltip tooltip-bottom" data-tip="Réorganisation">
   <ButtonIcon
-    icon="bx-transfer"
-    buttonClass="flex items-center text-3xl rotate-90"
+    icon="bx-transfer text-3xl rotate-90"
     on:click={() => {
       reorderModalDisplayed = !reorderModalDisplayed
     }}

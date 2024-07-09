@@ -29,13 +29,12 @@ import {
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
-  import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
-  import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
 
   /**
    * Toutes les variables configurables par l'interface WEB
@@ -238,19 +237,6 @@ import {
     picsNames = getPicsNames(exosContentList)
     downloadPicsModal.style.display = 'block'
   }
-  //= ===================== Fin Modal figures ====================================
-
-  const copyDocument = async () => {
-    try {
-      await navigator.clipboard.writeText(latexFile.latexWithPreamble)
-      dialogLua.showModal()
-      setTimeout(() => {
-        dialogLua.close()
-      }, 3000)
-    } catch (err) {
-      console.error('Accès au presse-papier impossible: ', err)
-    }
-  }
 
   /**
    * Construction d'un message contextualisé indiquant le besoin de télécharger les images si besoin
@@ -262,25 +248,6 @@ import {
     } else {
       return 'Le code LaTeX a été copié dans le presse-papier.'
     }
-  }
-
-  /**
-   * Copier le code LaTeX dans le presse-papier
-   * @param {string} dialogId id attaché au composant
-   * @author sylvain
-   */
-  async function copyLaTeXCodeToClipBoard (dialogId: string) {
-    const pre = document.querySelector('pre') as HTMLPreElement
-    const text = pre.innerText
-    navigator.clipboard.writeText(text).then(
-      () => {
-        showDialogForLimitedTime(dialogId + '-success', 2000)
-      },
-      (err) => {
-        console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-error', 1000)
-      }
-    )
   }
 </script>
 
@@ -529,16 +496,13 @@ import {
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-              <ModalActionWithDialog
-                on:click={() => {
-                  copyLaTeXCodeToClipBoard('copyPasteModal')
-                }}
-                messageSuccess={messageForCopyPasteModal}
-                messageError="Impossible de copier le code LaTeX dans le presse-papier"
-                tooltipMessage="Code LaTeX dans presse-papier"
-                dialogId="copyPasteModal"
-                classForButton="px-2 py-1 rounded-md"
-                title="Code seul"
+              <ButtonActionInfo
+                action="copy"
+                textToCopy={latexFile.latexWithoutPreamble}
+                text="Code seul"
+                successMessage={messageForCopyPasteModal}
+                errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                class="px-2 py-1 rounded-md"
               />
               {/await}
             </div>
@@ -546,11 +510,14 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <ButtonText
-                class="px-2 py-1 rounded-md"
-                text="Code + préambule"
-                on:click={copyDocument}
-              />
+                <ButtonActionInfo
+                  action="copy"
+                  textToCopy={latexFile.latexWithPreamble}
+                  text="Code + préambule"
+                  successMessage={messageForCopyPasteModal}
+                  errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                  class="px-2 py-1 rounded-md"
+                />
               {/await}
             </div>
           </SimpleCard>

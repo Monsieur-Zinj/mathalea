@@ -5,15 +5,13 @@
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
   import type { VueType } from '../../../../../../../lib/types'
-  import ModalActionWithDialog from '../../../../../../../components/shared/modal/ModalActionWithDialog.svelte'
-  import { downloadRedirectFile } from '../../../../../../../lib/components/redirectFile'
+  import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
   export let handleExport: (vue: VueType) => void
 </script>
 
 <div class="tooltip tooltip-bottom" data-tip="Diaporama">
   <ButtonIcon
-    icon="bx-slideshow"
-    buttonClass="flex items-center text-3xl"
+    icon="bx-slideshow text-3xl"
     on:click={() => handleExport('diaporama')}
   />
 </div>
@@ -72,18 +70,10 @@
     class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
   />
 </button>
-<div class="tooltip tooltip-bottom" data-tip="Fichier">
-  <ModalActionWithDialog
-    on:click={() =>
-      downloadRedirectFile(
-        'downlaodRedirectFileDialog',
-        new URL(location.href),
-        'mathAlea'
-      )}
-    messageSuccess="Le téléchargement va début dans quelques instants."
-    messageError="Impossible de télécharger le fichier !"
-    dialogId="downlaodRedirectFileDialog"
-    tooltipMessage={'Fichier de redirection'}
-    buttonIcon={'bxs-file-export'}
-  />
-</div>
+<ButtonActionInfo
+  action="download"
+  urlToDownload={location.href}
+  fileName="mathAlea"
+  icon="bxs-file-export text-2xl"
+  tooltip="Fichier de redirection"
+/>

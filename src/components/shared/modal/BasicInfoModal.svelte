@@ -1,7 +1,7 @@
 <script lang="ts">
   import BasicClassicModal from './BasicClassicModal.svelte'
 
-  export let contentDisplayed: 'success' | 'error' | 'none'
+  export let contentDisplayed: 'success' | 'error' | 'none' // à bind avec le parent
   export let successMessage: string
   export let errorMessage: string
   export let displayDuration: number = 3000
