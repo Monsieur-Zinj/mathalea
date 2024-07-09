@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { modalPdf, modalUrl } from '../../../lib/outils/modales.js'
+import { createLink, modalPdf, modalUrl } from '../../../lib/outils/modales.js'
 import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -221,9 +221,10 @@ export default function CanNoteLaCouleur6 () {
       }
       pion.codeScratch += '\\end{scratch}'
       if (context.isHtml && context.vue !== 'diap') {
-        texte = `Cet exercice est tiré de l'excellente activité débranchée ${modalUrl(numeroExercice, 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', 'Note la couleur', 'info circle')} de Jean-Yves Labouche.<br>`
-        texte += `N'hésitez pas à vous rendre sur le site ${modalUrl(numeroExercice + 1, 'https://www.monclasseurdemaths.fr', 'Mon classeur de Maths.fr', 'info circle')} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
-        texte += `Pour jouer, regarder les règles du jeu${modalPdf(numeroExercice + 2, '../../pdf/reglesnlc.pdf', 'Règles du jeu', 'Règles - PDF', 'file pdf')} .<br>`
+        texte = `Cet exercice est tiré de l'excellente activité débranchée ${createLink({ url: 'https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/', text: 'Note la couleur' })} de Jean-Yves Labouche.<br>`
+        texte += 'Il a été conçu pour étendre les possibilités de fiches proposées.<br>'
+        texte += `N'hésitez pas à vous rendre sur le site ${createLink({ url: 'https://www.monclasseurdemaths.fr', text: 'Mon classeur de Maths.fr' })} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
+        texte += `Pour jouer, regarder les ${createLink({ url: 'https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', text: 'Règles du jeu' })} .<br>`
       } else { texte = '' }
       texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric largeur25 inline')}<br><br>`
       if (context.isHtml) {
