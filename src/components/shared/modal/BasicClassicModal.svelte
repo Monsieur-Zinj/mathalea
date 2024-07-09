@@ -2,7 +2,8 @@
   import { createEventDispatcher } from 'svelte'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
 
-  export let isDisplayed: boolean
+  export let isDisplayed: boolean // à bind avec le parent
+  export let icon: string = ''
   export let isWithCloseButton: boolean = true
 
   const dispatch = createEventDispatcher()
@@ -37,7 +38,14 @@
         on:click={() => dialog.close()}
         />
       {/if}
-      <div class="w-full mb-4 mt-2
+      {#if icon !== ''}
+        <div class="flex items-center justify-center h-12 w-12 mx-auto mt-2 mb-6 rounded-full
+          bg-coopmaths-warn-100 text-coopmaths-warn-darkest"
+        >
+            <i class="bx bx-sm {icon}" />
+        </div>
+      {/if}
+      <div class="w-full mb-4
         text-2xl font-bold
         text-coopmaths-struct dark:text-coopmathsdark-struct"
       >

@@ -9,7 +9,7 @@
 <button
   type="button"
   {title}
-  class="{$$props.class || ''}
+  class="{$$props.class || 'rounded-lg py-1 px-2'}
     {disabled ? 'dark:bg-coopmathsdark-action bg-opacity-10 dark:bg-opacity-10' : ''}
     {inverted
       ? `border border-coopmaths-action

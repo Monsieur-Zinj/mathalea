@@ -10,13 +10,13 @@
   export let backToSettings: (event: Event) => void
   export let isPause: boolean
   export let nextQuestion: () => void
-  export let displayTimerSettingsModal: () => void
-  export let hideTimerSettingsModal: () => void
   export let prevQuestion: () => void
   export let switchDisplayMode: () => void
   export let switchPause: (isUserAction?: boolean) => void
   export let zoomMinus: () => void
   export let zoomPlus: () => void
+  export let pause: () => void
+  export let play: () => void
   export let currentSlideDuration: number
 
   const BUTTONS_CLASS = 'mx-1.5 bx-sm md:bx-lg'
@@ -43,8 +43,8 @@
 <div class="flex flex-row justify-end items-baseline mr-7 w-[33%]">
   <SlideshowPlayOtherSettings
     {BUTTONS_CLASS}
-    {displayTimerSettingsModal}
-    {hideTimerSettingsModal}
+    {pause}
+    {play}
     {handleTimerChange}
     {switchDisplayMode}
     {backToSettings}

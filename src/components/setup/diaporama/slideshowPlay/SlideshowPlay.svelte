@@ -4,7 +4,7 @@
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
-  import { onDestroy, onMount, tick } from 'svelte'
+  import { onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
@@ -57,37 +57,9 @@
     playCurrentQuestion()
   }
 
-  onMount(() => {
-    window.addEventListener('click', handleClick)
-  })
-
   onDestroy(() => {
     pause()
-    window.removeEventListener('click', handleClick)
   })
-
-  function handleClick (event: MouseEvent) {
-    const timerSettingsModal = document.getElementById('timer-settings-modal')
-    if (timerSettingsModal && event.target === timerSettingsModal) {
-      hideTimerSettingsModal()
-    }
-  }
-
-  function hideTimerSettingsModal () {
-    const timerSettingsModal = document.getElementById('timer-settings-modal')
-    if (timerSettingsModal) {
-      timerSettingsModal.style.display = 'none'
-      play()
-    }
-  }
-
-  function displayTimerSettingsModal () {
-    const modal = document.getElementById('timer-settings-modal')
-    if (modal) {
-      modal.style.display = 'block'
-      pause()
-    }
-  }
 
   function prevQuestion () {
     if (slideshow.currentQuestion === 0) {
@@ -367,10 +339,10 @@
         {isPause}
         {prevQuestion}
         {nextQuestion}
-        {displayTimerSettingsModal}
-        {hideTimerSettingsModal}
         {switchDisplayMode}
         {switchPause}
+        {play}
+        {pause}
         {zoomPlus}
         {zoomMinus}
       />

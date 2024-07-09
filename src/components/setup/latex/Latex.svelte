@@ -28,13 +28,13 @@ import {
   import ButtonText from '../../shared/forms/ButtonText.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
-  import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   /**
    * Toutes les variables configurables par l'interface WEB
@@ -62,13 +62,13 @@ import {
   let exercices: TypeExercice[]
   let latexFile: latexFileType = { contents: { preamble: '', intro: '', content: '', contentCorr: '' }, latexWithoutPreamble: '', latexWithPreamble: '' }
   let isExerciceStaticInTheList = false
-  let downloadPicsModal: HTMLElement
   let picsWanted: boolean
   let messageForCopyPasteModal: string
   let picsNames: picFile[][] = []
   let exosContentList: Exo[] = []
   let divText: HTMLDivElement
   let promise: Promise<void>
+  let isDownloadPicsModalDisplayed = false
 
   const latex = new Latex()
 
@@ -185,9 +185,6 @@ import {
         log('Promise Rejected')
       }
     })
-    downloadPicsModal = document.getElementById(
-      'downloadPicsModal'
-    ) as HTMLElement
     document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaRenderDiv(divText)
     // console.log('fin onMount')
@@ -205,18 +202,6 @@ import {
     // console.log('afterUpdate')
   })
 
-  /* ============================================================================
-  *
-  *                Modal pour le téléchargement des figures
-  *
-  =============================================================================== */
-  // click en dehors du moda de téléchargement des figures le fait disparaître
-  window.onclick = function (event) {
-    if (event.target === downloadPicsModal) {
-      downloadPicsModal.style.display = 'none'
-    }
-  }
-
   /**
    * Gérer le téléchargement des images dans une archive `images.zip` lors du clic sur le bouton du modal
    * @author sylvain
@@ -225,7 +210,7 @@ import {
     // console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
-    downloadPicsModal.style.display = 'none'
+    isDownloadPicsModalDisplayed = false
   }
 
   /**
@@ -235,7 +220,7 @@ import {
     // console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
-    downloadPicsModal.style.display = 'block'
+    isDownloadPicsModalDisplayed = true
   }
 
   /**
@@ -549,13 +534,9 @@ import {
             </div>
           </SimpleCard>
         </div>
-        <ModalMessageBeforeAction
-          modalId="downloadPicsModal"
-          modalButtonId="downloadPicsModalButton"
-          modalButtonTitle="Télécharger les figures"
-          icon="bxs-file-png"
-          classForButton="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-          on:action={handleActionFromDownloadPicsModal}
+        <BasicClassicModal
+          bind:isDisplayed={isDownloadPicsModalDisplayed}
+          icon="bx-code"
         >
           <span slot="header"></span>
           <div slot='content' class="flex flex-col justify-start items-start">
@@ -582,7 +563,13 @@ import {
               </ul>
             {/each}
           </div>
-        </ModalMessageBeforeAction>
+          <div slot="footer">
+            <ButtonText
+              text="Télécharger les figures"
+              on:click={handleActionFromDownloadPicsModal}
+            />
+          </div>
+        </BasicClassicModal>
       </div>
     </div>
 

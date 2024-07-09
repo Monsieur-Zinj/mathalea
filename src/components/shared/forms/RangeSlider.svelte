@@ -10,21 +10,19 @@
   const dispatch = createEventDispatcher()
 </script>
 
-<div class="flex flex-row">
-  <span class="w-1/3 flex">
-    <input
-      class=""
-      type="range"
-      max="30"
-      min="0"
-      name="duration"
-      id="duration"
-      bind:value={cursorTimeValue}
-      on:change={() => dispatch('change', cursorTimeValue)}
-    />
-  </span>
+<div class="flex flex-col">
+  <input
+    class="py-3"
+    type="range"
+    max="30"
+    min="0"
+    name="duration"
+    id="duration"
+    bind:value={cursorTimeValue}
+    on:change={() => dispatch('change', cursorTimeValue)}
+  />
   <label
-    class="w-2/3 flex justify-center items-center
+    class="
       text-coopmaths-corpus dark:text-coopmathsdark-corpus"
     for="duration"
   >
@@ -128,7 +126,6 @@
       -webkit-appearance: none;
       margin-top: (math.div((-$track-border-width * 2 + $track-height), 2) - math.div($thumb-height, 2));
     }
-    
 
     &::-moz-range-track {
       @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);

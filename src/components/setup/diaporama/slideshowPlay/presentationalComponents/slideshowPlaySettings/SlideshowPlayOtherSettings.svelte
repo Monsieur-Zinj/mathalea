@@ -2,11 +2,11 @@
   import ButtonIcon from '../../../../../shared/forms/ButtonIcon.svelte'
   import SlideshowPlayTimerSettingsModal from './SlideshowPlayTimerSettingsModal.svelte'
 
-  export let displayTimerSettingsModal: () => void
-  export let hideTimerSettingsModal: () => void
   export let handleTimerChange: (cursorTimeValue: number) => void
   export let switchDisplayMode: () => void
   export let backToSettings: (event: Event) => void
+  export let pause: () => void
+  export let play: () => void
   export let isManualModeActive: boolean | undefined
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
@@ -24,6 +24,17 @@
       return 'C'
     }
     return ''
+  }
+
+  let isTimerSettingsModalDisplayed = false
+  function displayTimerSettingsModal () {
+    isTimerSettingsModalDisplayed = true
+  }
+
+  $: if (isTimerSettingsModalDisplayed) {
+    pause()
+  } else {
+    play()
   }
 
 </script>
@@ -46,6 +57,6 @@
   on:click={backToSettings}
 />
 <SlideshowPlayTimerSettingsModal
+  bind:isTimerSettingsModalDisplayed={isTimerSettingsModalDisplayed}
   {handleTimerChange}
-  {hideTimerSettingsModal}
 />
