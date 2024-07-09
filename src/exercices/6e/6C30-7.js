@@ -69,7 +69,7 @@ export default function DiviserUnNombreParPuissanceDeDix () {
       const dixieme = (this.sup) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite])
       const centieme = ((randint(0, 1) !== 0) || (this.sup)) ? 0 : choice(rangeMinMax(0, 9), [centaine, dizaine, unite, dixieme])
       const exemple = centaine * 100 + dizaine * 10 + unite + dixieme / 10 + centieme / 100
-      if (this.sup2 & !this.interactif) {
+      if (this.sup2 && !this.interactif) {
         texte = `Voici un nombre : $${texNombre(exemple, 2)}$.<br>`
         texte += `${numAlpha(0)} Entourer le chiffre des unités de ce nombre.<br>`
         texte += `${numAlpha(1)} Compléter les phrases suivantes.<br>`
@@ -86,32 +86,32 @@ export default function DiviserUnNombreParPuissanceDeDix () {
         texteCorr = `Prenons un exemple : ${texNombre(exemple, 2)}.<br>`
         texteCorr += `$${texNombre(exemple, 2)} \\div ${texNombre(10 ** (3 - choixAlea), 0)} = ${texNombre(exemple * 10 ** (choixAlea - 3), 0)}$<br>`
         texteCorr += `Si on veut que son chiffre des ${texteEnCouleurEtGras('unités')} devienne le chiffre des ${texteEnCouleurEtGras(choixUnites[choixAlea])}, on doit diviser le nombre par ${texteEnCouleurEtGras(texNombre(10 ** (3 - choixAlea), 0))}.`
-        const aleaFaux = range(6, [3, choixAlea])
-        // enleveElement(aleaFaux) cette commande est incomplète on ne sait pas quel item enlever par conséquent je la supprime ! J-C Lhote le 25/03-2024
-        const choixAleaFaux = []
-        for (let kk = 0; kk < 4; kk++) {
-          choixAleaFaux.push(texNombre(10 ** (3 - aleaFaux[kk]), 0))
+      }
+      const aleaFaux = range(6, [3, choixAlea])
+      // enleveElement(aleaFaux) cette commande est incomplète on ne sait pas quel item enlever par conséquent je la supprime ! J-C Lhote le 25/03-2024
+      const choixAleaFaux = []
+      for (let kk = 0; kk < 4; kk++) {
+        choixAleaFaux.push(texNombre(10 ** (3 - aleaFaux[kk]), 0))
+      }
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: `$${texNombre(10 ** (3 - choixAlea), 0)}$`,
+          statut: true
+        },
+        {
+          texte: `$${choixAleaFaux[0]}$`,
+          statut: false
+        },
+        {
+          texte: `$${choixAleaFaux[1]}$`,
+          statut: false
         }
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: `$${texNombre(10 ** (3 - choixAlea), 0)}$`,
-            statut: true
-          },
-          {
-            texte: `$${choixAleaFaux[0]}$`,
-            statut: false
-          },
-          {
-            texte: `$${choixAleaFaux[1]}$`,
-            statut: false
-          }
-        ]
-        this.autoCorrection[i].options = {
-          ordered: false,
-          lastChoice: 4
-        }
+      ]
+      this.autoCorrection[i].options = {
+        ordered: false,
+        lastChoice: 4
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {

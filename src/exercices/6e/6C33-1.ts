@@ -235,7 +235,6 @@ Voici ses calculs :<br>
 ${calculs}
 Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}${ajouteFeedback(this, i)}`
       const expressionReduite = engine.parse(redaction, { canonical: true }).latex
-      console.log(redaction, expressionReduite)
       handleAnswers(this, i, { reponse: { value: [expressionReduite, redaction], compare: exprCompare, options: { noUselessParen } } })
       if (!this.correctionDetaillee) texteCorr = ''
       texteCorr += `$${miseEnEvidence(redaction)} = ${nombreCible}$`
