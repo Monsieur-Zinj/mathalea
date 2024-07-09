@@ -18,16 +18,17 @@ export const interactifReady = false
 export const titre = 'Résoudre une équation du second degré avec le discriminant'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Résoudre une équation de degré 2
  * @author Stéphane Guyon
- * Référence 1E11
+ * Doublon avec 1AL23-21
  */
-export const uuid = '3de81'
-export const ref = '1E11-5'
-export const refs = {
-  'fr-fr': ['1E11-5'],
-  'fr-ch': ['11FA10-11']
-}
+// export const uuid = '3de81'
+// export const ref = '1E11-5'
+// export const refs = {
+//   'fr-fr': ['1E11-5'],
+//   'fr-ch': ['11FA10-11']
+// }
+
 export default function Resolutionavecdelta () {
   Exercice.call(this)
   this.titre = titre

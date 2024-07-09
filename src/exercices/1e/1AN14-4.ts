@@ -8,7 +8,7 @@ import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { rienSi1 } from '../../lib/outils/ecritures'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
-export const titre = 'Dérivation de sommes V1'
+export const titre = 'Dérivée de $u + v$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'a83c0'
@@ -19,7 +19,7 @@ export const refs = {
 export const dateDePublication = '17/04/2024'
 
 /**
- * Un deuxième exercice de dérivation
+ * Calculer la dérivée d'une somme
  * @author Jean-Claude Lhote
  *
  */

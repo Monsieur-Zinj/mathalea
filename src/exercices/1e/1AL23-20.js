@@ -10,17 +10,18 @@ import Exercice from '../deprecatedExercice.js'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
-export const titre = 'Résoudre une équation du second degré à partir de la forme canonique'
+export const titre = 'Équation du second degré (via forme canonique)'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Déterminer les solutions d'une équation du second degré
+ * sous forme développée en utilisant la forme canonique
+ * Légèrement hors programme ?
  * @author Stéphane Guyon
- * Référence 1E11
  */
 export const uuid = '89559'
-export const ref = '1E11-4'
+export const ref = '1AL23-20'
 export const refs = {
-  'fr-fr': ['1E11-4'],
+  'fr-fr': ['1AL23-20'],
   'fr-ch': []
 }
 export default function Resolutionavecformecanonique () {

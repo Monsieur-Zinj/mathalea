@@ -11,15 +11,18 @@ import { choice } from '../../lib/outils/arrayOutils'
 export const titre = 'Dériver des polynômes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '60229'
-export const refs = {
-  'fr-fr': ['1AN14-30'],
-  'fr-ch': []
-}
+
+// export const uuid = '60229'
+// export const refs = {
+//   'fr-fr': ['1AN14-30'],
+//   'fr-ch': []
+// }
+
 export const dateDePublication = '17/04/2024'
 
 /**
- * Un premier exercice de dérivation
+ * Dérivation de polynômes.
+ * Doublon avec 1AN3.
  * @author Jean-Claude Lhote et Gilles Mora pour la correction
  *
  */

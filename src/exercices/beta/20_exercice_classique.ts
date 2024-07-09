@@ -10,6 +10,14 @@ export const dateDePublication = '14/12/2023'
  * @author
 */
 
+export const uuid = // exécuter pnpm getNewUuid
+export const ref =  // Référence de l'exercice
+export const refs = {
+    'fr-fr': [ref],
+    'fr-ch': []
+}
+
+
 export default class nomExercice extends Exercice {
   constructor () {
     super()

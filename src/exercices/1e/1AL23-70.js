@@ -15,7 +15,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Trouver l\'équation d\'une parabole'
+export const titre = 'Déterminer une équation de parabole'
 
 /**
  * @author Jean-Claude Lhote (modifié par EE pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
@@ -23,12 +23,11 @@ export const titre = 'Trouver l\'équation d\'une parabole'
  * 1) passant par trois dont deux d'abscisses opposées et le troisième d'abscisse 0 (pour simplifier la résolution du système)
  * 2) passant par un point et dont on connaît le sommet
  * 3) connaissant les deux racines et un autre point de passage à coordonnées entières
- * référence 1E12
  */
 export const uuid = '392b3'
-export const ref = '1E12'
+export const ref = '1AL23-7'
 export const refs = {
-  'fr-fr': ['1E12'],
+  'fr-fr': ['1AL23-7'],
   'fr-ch': []
 }
 export default function TrouverEquationParabole () {

@@ -15,9 +15,9 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
 */
 export const uuid = '8fde1'
-export const ref = '1E17'
+export const ref = '1AL23-7'
 export const refs = {
-  'fr-fr': ['1E17'],
+  'fr-fr': ['1AL23-7'],
   'fr-ch': []
 }
 export default class EtudeTrinome extends Exercice {

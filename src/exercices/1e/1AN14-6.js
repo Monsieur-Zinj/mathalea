@@ -7,7 +7,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
 
-export const titre = 'Dérivée d\'un quotient'
+export const titre = 'Dérivée de $\\dfrac{u}{v}$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModificationImportante = '07/05/2024'
 export const interactifReady = true

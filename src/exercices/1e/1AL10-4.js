@@ -14,9 +14,9 @@ export const titre = 'Déterminer les termes d\'une suite définie par récurren
  * @author Gaelle Morvan
  */
 export const uuid = 'b8c14'
-export const ref = '1N11'
+export const ref = '1AL10-4'
 export const refs = {
-  'fr-fr': ['1N11'],
+  'fr-fr': ['1AL10-4'],
   'fr-ch': []
 }
 export default function TermeDUneSuiteDefinieParRecurrence () {

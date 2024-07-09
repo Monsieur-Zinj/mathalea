@@ -14,13 +14,12 @@ export const dateDePublication = '16/12/2021'
 export const dateDeModifImportante = '07/03/2024'
 
 /**
- * Description didactique de l'exercice
- * @author
+ * Déterminer une équation de tangente en utilisant un nombre dérivé
 */
 export const uuid = '4c8c7'
-export const ref = '1AN11'
+export const ref = '1AN11-3'
 export const refs = {
-  'fr-fr': ['1AN11'],
+  'fr-fr': ['1AN11-3'],
   'fr-ch': []
 }
 export default function Equationdetangente () {

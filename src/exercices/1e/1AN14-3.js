@@ -8,7 +8,7 @@ import engine, { functionCompare } from '../../lib/interactif/comparisonFunction
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 
-export const titre = 'Dérivée d\'un polynome'
+export const titre = 'Dérivée d\'un polynôme'
 export const dateDePublication = '06/05/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'

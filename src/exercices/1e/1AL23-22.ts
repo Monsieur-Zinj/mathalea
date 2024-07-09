@@ -3,19 +3,23 @@ import Exercice from '../Exercice'
 import FractionEtendue from '../../modules/FractionEtendue'
 import EquationSecondDegre from '../../modules/EquationSecondDegre'
 
-export const titre = 'Résoudre une équaton du second degré à l\'aide la racine carrée'
+export const titre = 'Équation du second degré (cas général)'
 export const dateDePublication = '14/05/2024'
 export const interactifReady = false
 export const uuid = '1be55'
+export const ref = '1AL23-22'
 export const refs = {
-  'fr-fr': ['1E19'],
+  'fr-fr': ['1AL23-22'],
   'fr-ch': ['11FA10-15']
 }
 
 // export const dateDeModifImportante = '24/10/2021'
 
 /**
- * Description didactique de l'exercice
+ * Résolution d'équation du degré 2 (cas général)
+ *  TODO : trouver comment
+ * supprimer les équations du type ax^2 + bx + c = 0
+ * (déjà présentes dans les autres exercices)
  * @author Nathan Scheinmann
 */
 

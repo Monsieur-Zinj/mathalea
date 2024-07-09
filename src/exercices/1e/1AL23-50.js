@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
-export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un trinôme'
+export const titre = 'Représentation graphique d\'un polynôme du second degré'
 
 /**
  * @author Jean-Léon Henry (modifié par EE pour corriger exo et remplacer Repere et Courbe par Repere2 et Courbe2 (juillet 2022))
@@ -19,9 +19,9 @@ export const titre = 'Lecture graphique d\'éléments caractéristiques d\'un tr
  * référence 1E12-1
  */
 export const uuid = 'a896e'
-export const ref = '1E12-1'
+export const ref = '1AL23-50'
 export const refs = {
-  'fr-fr': ['1E12-1'],
+  'fr-fr': ['1AL23-50'],
   'fr-ch': []
 }
 export default function LireElementsCarac () {
