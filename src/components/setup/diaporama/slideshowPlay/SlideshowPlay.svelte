@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DataFromSettings, Slide, Slideshow } from '../types'
+  import type { Slide, Slideshow } from '../types'
   import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
@@ -10,7 +10,6 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
 
   export let slideshow: Slideshow
-  export let dataFromSettings: DataFromSettings
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let backToSettings: () => void
 
@@ -19,7 +18,6 @@
   let isPause = false
   let isManualPause = false
   let isQuestionVisible = true
-  let nbOfVues: 1 | 2 | 3 | 4
   let advanceRatioTimeInterval: number
   let ratioTime = 0 // Pourcentage du temps écoulé (entre 1 et 100)
   let userZoom = 1
@@ -42,19 +40,23 @@
 
   let order: number[] = []
   $: {
-    if (dataFromSettings) {
-      const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
-      order = $globalOptions.order || [...Array(questionsNb).keys()]
-      goToQuestion(slideshow.currentQuestion)
-      nbOfVues = $globalOptions.nbVues ?? 1
-    }
+    const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
+    order = $globalOptions.order || [...Array(questionsNb).keys()]
   }
+
+  let nbVues: 1 | 2 | 3 | 4
+  $: nbVues = $globalOptions.nbVues ?? 1
 
   let currentSlide: Slide
   $: currentSlide = slideshow.slides[order[slideshow.currentQuestion]]
 
   let currentSlideDuration: number
   $: currentSlideDuration = $globalOptions.durationGlobal || (currentSlide && currentSlide.exercise.duration) || 10
+
+  $: if (slideshow.currentQuestion > -1) {
+    playCurrentQuestion()
+  }
+
   onMount(() => {
     window.addEventListener('click', handleClick)
   })
@@ -94,23 +96,25 @@
       return
     }
     if (isManualPause) {
-      goToQuestion(slideshow.currentQuestion - 1)
+      slideshow.currentQuestion--
       return
     }
     isQuestionVisible = true
     isCorrectionVisible = false
-    goToQuestion(slideshow.currentQuestion - 1)
+    ratioTime = 0
+    slideshow.currentQuestion--
   }
 
   function nextQuestion () {
     if (isManualPause) {
-      goToQuestion(slideshow.currentQuestion + 1)
+      slideshow.currentQuestion++
       return
     }
     if (flow === 'Q->Q' || isCorrectionVisible) {
       isQuestionVisible = true
       isCorrectionVisible = false
-      goToQuestion(slideshow.currentQuestion + 1)
+      ratioTime = 0
+      slideshow.currentQuestion++
       return
     }
     isQuestionVisible = flow === 'Q->(Q+R)->Q'
@@ -119,9 +123,7 @@
     renderAllViews()
   }
 
-  async function goToQuestion (questionNumber: number) {
-    ratioTime = 0
-    slideshow.currentQuestion = questionNumber
+  async function playCurrentQuestion () {
     const isEndScreen = slideshow.currentQuestion === slideshow.selectedQuestionsNumber
     if (isEndScreen) {
       return
@@ -140,7 +142,7 @@
     if (optimalZoomUpdate) {
       optimalZoom = await findOptimalZoom()
     }
-    for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
+    for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
       const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
       mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
     }
@@ -148,8 +150,8 @@
 
   async function findOptimalZoom () {
     await tick()
-    const optimalZoomForViews = new Array(nbOfVues).fill(0)
-    for (let vueIndex = 0; vueIndex < nbOfVues; vueIndex++) {
+    const optimalZoomForViews = new Array(nbVues).fill(0)
+    for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
       optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
     }
     return Math.min(...optimalZoomForViews)
@@ -300,6 +302,15 @@
     } else {
       pause(isUserAction)
     }
+  }
+
+  function goToQuestion (questionNumber: number) {
+    if (questionNumber < 0 || questionNumber > slideshow.selectedQuestionsNumber) {
+      return
+    }
+    slideshow.currentQuestion = questionNumber
+    ratioTime = 0
+    playCurrentQuestion()
   }
 
   function returnToStart () {

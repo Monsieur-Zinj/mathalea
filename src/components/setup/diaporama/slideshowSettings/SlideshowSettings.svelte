@@ -1,6 +1,5 @@
 <script lang="ts">
   import type Exercice from '../../../../exercices/Exercice'
-  import { type DataFromSettings } from '../types'
   import { type NumberRange } from '../../../../lib/types'
   import DisplaySettings from './presentationalComponents/DisplaySettings.svelte'
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
@@ -11,7 +10,6 @@
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
-  import { createEventDispatcher } from 'svelte'
   import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
@@ -20,13 +18,7 @@
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
-
-  const dispatch: (type: string, detail?: DataFromSettings) => void = createEventDispatcher()
-  const settings: DataFromSettings = {
-    currentQuestion: -1,
-    formatQRCodeIndex: 0,
-    QRCodeWidth: 100
-  }
+  export let start: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
 
@@ -35,7 +27,6 @@
   }
 
   function goToOverview () {
-    dispatch('updateSettings', settings)
     mathaleaHandleComponentChange('diaporama', 'overview')
   }
 
@@ -72,11 +63,6 @@
 
   function updateDurationGlobal (durationGlobal: number | undefined) {
     $globalOptions.durationGlobal = durationGlobal
-  }
-
-  function start () {
-    settings.currentQuestion = 0
-    dispatch('updateSettings', settings)
   }
 
 </script>

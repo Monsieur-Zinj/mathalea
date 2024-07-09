@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../lib/types'
-  import type { DataFromSettings, Slide, Slideshow } from './types'
+  import type { Slide, Slideshow } from './types'
   import seedrandom from 'seedrandom'
   import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
@@ -32,13 +32,14 @@
     3: new Audio('assets/sounds/transition_sound_04.mp3')
   }
 
-  let dataFromSettings: DataFromSettings
   let exercises: Exercice[] = []
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
     selectedQuestionsNumber: 0
   }
+
+  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises()
 
   onMount(async () => {
     context.vue = 'diap'
@@ -66,16 +67,7 @@
     return exercises
   }
 
-  function updateSettings (event: {detail: DataFromSettings}) {
-    dataFromSettings = event.detail
-    updateExercises()
-    if (dataFromSettings !== undefined) {
-      slideshow.currentQuestion = dataFromSettings.currentQuestion
-    }
-  }
-
-  async function updateExercises (updatedExercises?: Exercice[]) {
-    if (updatedExercises) exercises = updatedExercises
+  async function updateExercises () {
     setSlidesContent(exercises)
     adjustQuestionsOrder()
     updateExerciseParams(exercises)
@@ -199,6 +191,12 @@
     exercicesParams.set(newParams)
   }
 
+  function start () {
+    updateExercises()
+    $globalOptions.v = 'diaporama'
+    slideshow.currentQuestion = 0
+  }
+
   function backToSettings () {
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = -1
@@ -223,15 +221,15 @@
     />
   {:else}
     {#if slideshow.currentQuestion === -1}
-      <SlideshowSettings on:updateSettings="{updateSettings}"
+      <SlideshowSettings
         {exercises}
         {updateExercises}
         {transitionSounds}
+        {start}
       />
     {/if}
     {#if slideshow.currentQuestion > -1}
       <SlideshowPlay
-        {dataFromSettings}
         {slideshow}
         {transitionSounds}
         {backToSettings}
