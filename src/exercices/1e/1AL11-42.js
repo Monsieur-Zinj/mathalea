@@ -11,15 +11,16 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '28/12/2022'
 
 /**
- *
+ * Calculer \sum_{k=0}^n u_k, avec n et (u_n) (suite géométrique) données
  * @author Rémi Angot
  * Référence 1N13
 */
-export const ref = '1N13'
+export const ref = '1AL11-42'
 export const refs = {
-  'fr-fr': ['1N13'],
+  'fr-fr': ['1AL11-42'],
   'fr-ch': []
 }
+
 export const uuid = '974a9'
 export default class SommeSuiteGeometrique extends Exercice {
   constructor () {

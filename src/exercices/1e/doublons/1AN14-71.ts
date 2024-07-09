@@ -10,15 +10,18 @@ import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Dérivation de fonction composées V2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '25135'
-export const refs = {
-  'fr-fr': ['1AN14-72'],
-  'fr-ch': []
-}
+
+// export const uuid = '25135'
+// export const refs = {
+//   'fr-fr': ['1AN14-72'],
+//   'fr-ch': []
+// }
+
 export const dateDePublication = '17/04/2024'
 
 /**
- * Un deuxième exercice de dérivation
+ * Dérivée de u(mx + p)
+ * Doublon avec 1AN14-7
  * @author Jean-Claude Lhote
  *
  */

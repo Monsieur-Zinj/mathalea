@@ -11,15 +11,17 @@ import { fraction } from '../../modules/fractions'
 export const titre = 'Dérivation de fonction composées V1'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const uuid = '518d8'
-export const refs = {
-  'fr-fr': ['1AN14-71'],
-  'fr-ch': []
-}
+
+// export const uuid = '518d8'
+// export const refs = {
+//   'fr-fr': ['1AN14-61'],
+//   'fr-ch': []
+// }
 export const dateDePublication = '17/04/2024'
 
 /**
- * Un deuxième exercice de dérivation
+ * Dérivée de u/v
+ * Doublon avec 1AN14-6
  * @author Jean-Claude Lhote
  *
  */

@@ -13,10 +13,12 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Résoudre une équation du second degré'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Résoudre une équation du second degré : lorsque la factorisation est évidente
+ * TODO : enlever les cas où on a besoin du discriminant (déjà présent dans les autres exercices)
  * @author Rémi Angot
  * Référence 1E11
 */
+
 export const uuid = '0fbd1'
 export const ref = '1E11'
 export const refs = {

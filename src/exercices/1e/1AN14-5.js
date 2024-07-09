@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
-export const titre = 'Dérivée d\'un produit'
+export const titre = 'Dérivée de $u\\times v$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModifImportante = '06/05/2024'
 export const interactifReady = true

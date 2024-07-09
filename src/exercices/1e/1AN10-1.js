@@ -7,11 +7,15 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-export const titre = 'Nombre dérivé de fonctions de références'
+import { texNombre } from '../../lib/outils/texNombre'
+export const titre = 'Taux de variation des fonctions de référence'
 
-// Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
-export const dateDePublication = '16/12/2021' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDePublication = '16/12/2021' 
+export const dateDeModifImportante = '24/10/2021' 
+
+/*
+ * Calculer un taux de variation
+*/
 
 export const uuid = '29202'
 export const ref = '1AN10-1'
@@ -19,6 +23,8 @@ export const refs = {
   'fr-fr': ['1AN10-1'],
   'fr-ch': []
 }
+
+
 export default function Tauxvariation () {
   Exercice.call(this)
   this.consigne = ''

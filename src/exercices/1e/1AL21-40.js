@@ -15,18 +15,19 @@ import Exercice from '../deprecatedExercice.js'
 
 export const interactifReady = false
 // export const interactifType = 'mathLive'
-export const titre = 'Factoriser, si possible, un polynôme du second degré'
+export const titre = 'Factoriser un polynôme du second degré'
 
 /**
- *
+ * Factoriser, si possible, un polynôme du second degré
+ * On utilise un calcul intérmédiaire de discriminant
  * @author Stéphane Guyon
  * Référence 1E13
  */
 export const uuid = '334ca'
-export const ref = '1E13'
+export const ref = '1AL21-40'
 export const refs = {
-  'fr-fr': ['1E13'],
-  'fr-ch': ['11FA10-12']
+  'fr-fr': ['1AL21-40'],
+  'fr-ch': ['11FA10-12'] // OK?
 }
 export default function Resolutionavecformecanonique () {
   Exercice.call(this)

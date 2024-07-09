@@ -12,14 +12,14 @@ import Exercice from '../deprecatedExercice.js'
 export const titre = 'Résoudre une inéquation du second degré'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Résoudre une inéquation du second degré
  * @author Stéphane Guyon
  * Référence 1E11
  */
 export const uuid = '77bcc'
-export const ref = '1E16'
+export const ref = '1AL23-40'
 export const refs = {
-  'fr-fr': ['1E16'],
+  'fr-fr': ['1AL23-40'],
   'fr-ch': []
 }
 export default function ResoudreEquationDegre2 () {

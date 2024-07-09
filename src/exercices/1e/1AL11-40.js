@@ -2,6 +2,7 @@ import { texteGras } from '../../lib/format/style'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
+
 export const titre = 'Calculer une somme'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -9,14 +10,14 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '28/12/2022'
 
 /**
- *
+ * Calculer une somme du type S = 3 + 5 + 7 + ... + 29
  * @author Rémi Angot
  * Référence 1N14
 */
 export const uuid = '8ed19'
-export const ref = '1N12-1'
+export const ref = '1AL11-40'
 export const refs = {
-  'fr-fr': ['1N12-1'],
+  'fr-fr': ['1AL11-40'],
   'fr-ch': []
 }
 export default class SommeSuite extends Exercice {

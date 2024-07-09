@@ -16,14 +16,13 @@ export const interactifType = 'mathLive'
 export const titre = 'Déterminer la forme canonique d\'un polynôme du second degré'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Déterminer la forme canonique d'un polynôme du second degré
  * @author Stéphane Guyon
- * Référence 1E11
  */
 export const uuid = '60504'
-export const ref = '1E11-3'
+export const ref = '1AL23-1'
 export const refs = {
-  'fr-fr': ['1E11-3'],
+  'fr-fr': ['1AL23-1'],
   'fr-ch': []
 }
 export default function Formacanonique () {

@@ -18,14 +18,14 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 export const titre = 'Calcul du discriminant d\'une équation du second degré'
 
 /**
- * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
+ * Calculer le discriminant d'une équation
  * @author Rémi Angot
  * Référence 1E10
 */
 export const uuid = 'feb39'
-export const ref = '1E10'
+export const ref = '1AL20-11'
 export const refs = {
-  'fr-fr': ['1E10'],
+  'fr-fr': ['1AL20-11'],
   'fr-ch': ['11FA10-7']
 }
 export default function CalculDiscriminant () {

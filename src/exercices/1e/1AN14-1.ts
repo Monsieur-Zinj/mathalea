@@ -9,7 +9,7 @@ import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
-export const titre = 'Dérivation de fonctions usuelles'
+export const titre = 'Dérivée de $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
@@ -20,7 +20,8 @@ export const refs = {
 export const dateDePublication = '09/05/2024'
 const listFrac = obtenirListeFractionsIrreductibles()
 /**
- * Un deuxième exercice de dérivation
+ * Dérivation de fonctions du type x -> ku(x),
+ * avec u une fonction de référence.
  * @author Jean-Claude Lhote
  *
  */

@@ -12,7 +12,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Résoudre une équation du second degré'
+export const titre = 'Équation du second degré (égale 0)'
 
 /**
  * Calcul de discriminant pour identifier la forme graphique associée (0 solution dans IR, 1 ou 2)
@@ -20,9 +20,9 @@ export const titre = 'Résoudre une équation du second degré'
  * Référence 1E11
  */
 export const uuid = 'cf78f'
-export const ref = '1E11-2'
+export const ref = '1AL23-21'
 export const refs = {
-  'fr-fr': ['1E11-2'],
+  'fr-fr': ['1AL23-21'],
   'fr-ch': ['11FA10-10']
 }
 export default function ResoudreEquationDegre2 () {

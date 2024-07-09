@@ -4,18 +4,20 @@ import { texteGras } from '../../lib/format/style'
 import { xcas, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-export const titre = 'Déterminer le nombre de solutions d\'une équation du second degré avec paramètre'
+export const titre = 'Nombre de solutions d\'une équation du second degré à paramètre'
 export const dateDePublication = '30/10/2021'
 
 /**
- * Description didactique de l'exercice
+ * Deux fonctions polynômiales de degré 2 avec un paramètre sont données.
+ * On souhaite savoir quand ces fonctions possèdent deux racines distinctes.
+ * Il faut déterminer les valeurs de m telles que \Delta > 0
  * @author Eric Schrafstetter
  * Référence 1E15
 */
 export const uuid = 'fe4df'
-export const ref = '1E15'
+export const ref = '1AL23-23'
 export const refs = {
-  'fr-fr': ['1E15'],
+  'fr-fr': ['1AL23-23'],
   'fr-ch': []
 }
 export default function EquationDuSecondDegreAvecUnParametre () {

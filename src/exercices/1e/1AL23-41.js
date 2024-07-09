@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome.js'
 import Exercice from '../Exercice'
 
-export const titre = 'Équations et inéquations du second degré'
+export const titre = 'Bilan : équations et inéquations du second degré'
 export const interactifReady = false
 
 export const dateDePublication = '28/10/2022'
@@ -19,9 +19,9 @@ export const dateDeModifImportante = '5/11/2023'
  * @author Rémi Angot
  */
 export const uuid = 'b9252'
-export const ref = '1E18'
+export const ref = '1AL23-41'
 export const refs = {
-  'fr-fr': ['1E18'],
+  'fr-fr': ['1AL23-41'],
   'fr-ch': []
 }
 export default class EquationsEtInequations extends Exercice {

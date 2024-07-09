@@ -9,14 +9,14 @@ export const interactifType = 'mathLive'
 export const dateDePublication = '30/11/2021'
 
 /**
- *
+ * Calculer \sum_{k=0}^n u_k, avec n et (u_n) (suite arithmétique) données
  * @author Rémi Angot
  * Référence 1N12
 */
 export const uuid = 'cfac9'
-export const ref = '1N12'
+export const ref = '1AL11-41'
 export const refs = {
-  'fr-fr': ['1N12'],
+  'fr-fr': ['1AL11-41'],
   'fr-ch': []
 }
 export default class SommeSuiteArithmetique extends Exercice {
