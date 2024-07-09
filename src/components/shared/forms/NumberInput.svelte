@@ -15,9 +15,10 @@
     id={id}
     min={min}
     max={max}
+    step={$$props.step || 1}
     bind:value={value}
     on:change={() => dispatch('change', value)}
-    class="ml-3 w-16 h-8
+    class="{$$props.class} ml-3 w-16 h-8
       bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
       border-1
       border-coopmaths-action dark:border-coopmathsdark-action
