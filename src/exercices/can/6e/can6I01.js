@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { createLink, modalPdf, modalUrl } from '../../../lib/outils/modales.js'
+import { createLink } from '../../../lib/outils/modales.js'
 import { texteGras } from '../../../lib/format/style'
 import { stringNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
@@ -57,7 +57,7 @@ export default function CanNoteLaCouleur6 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     const damier = [
       ['Vert', 'Orange', 'Rose', 'Noir', 'Orange', 'Blanc'],
       ['Noir', 'Rouge', 'Rose', 'Vert', 'Orange', 'Rose'],
