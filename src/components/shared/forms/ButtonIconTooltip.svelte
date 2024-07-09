@@ -6,6 +6,7 @@
   export let disabled: boolean = false
   export let floatUnderText: string = ''
   export let cornerIcon: string = ''
+  export let cornerIconClass: string = ''
 
 </script>
 
@@ -19,6 +20,7 @@
     {disabled}
     {floatUnderText}
     {cornerIcon}
+    {cornerIconClass}
     on:click
   />
 </div>

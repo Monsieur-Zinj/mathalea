@@ -1,35 +1,27 @@
 <script lang="ts">
   import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
-  import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
   import type { VueType } from '../../../../../../../lib/types'
   import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
+
   export let handleExport: (vue: VueType) => void
 </script>
 
-<div class="tooltip tooltip-bottom" data-tip="Diaporama">
-  <ButtonIcon
-    icon="bx-slideshow text-3xl"
-    on:click={() => handleExport('diaporama')}
-  />
-</div>
-<button
-  type="button"
-  class="tooltip tooltip-bottom tooltip-neutral"
-  data-tip="Lien pour les élèves"
+<ButtonIconTooltip
+  icon="bx-slideshow text-3xl"
+  tooltip="Diaporama"
+  on:click={() => handleExport('diaporama')}
+/>
+<ButtonIconTooltip
+  icon={'bx-link text-3xl'}
+  cornerIcon="bxs-graduation"
+  cornerIconClass="text-coopmaths-action dark:text-coopmathsdark-action"
+  tooltip="Lien pour les élèves"
   on:click={() => handleExport('confeleve')}
->
-  <div
-    class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-  >
-    <i class="bx text-3xl bx-link" />
-    <div class="absolute -bottom-1 -right-1">
-      <i class="scale-75 bx bx-xs bxs-graduation" />
-    </div>
-  </div>
-</button>
+/>
 <button
   type="button"
   class="tooltip tooltip-bottom tooltip-neutral"

@@ -13,6 +13,7 @@
   export let disabled: boolean = false
   export let floatUnderText: string = ''
   export let cornerIcon: string = ''
+  export let cornerIconClass: string = ''
 
   export let text: string = ''
   export let title: string = ''
@@ -75,6 +76,7 @@
       {disabled}
       {floatUnderText}
       {cornerIcon}
+      {cornerIconClass}
       class="{$$props.class || ''}"
       on:click={actionFunction}
   />

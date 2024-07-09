@@ -4,6 +4,7 @@
   export let disabled: boolean = false
   export let floatUnderText: string = ''
   export let cornerIcon: string = ''
+  export let cornerIconClass: string = ''
 </script>
 
 <button
@@ -22,7 +23,7 @@
     {/if}
     {#if cornerIcon !== ''}
       <i class="absolute -bottom-1 bx {cornerIcon} text-sm -translate-x-3
-        text-coopmaths-warn dark:text-coopmathsdark-warn"
+        {cornerIconClass || 'text-coopmaths-warn dark:text-coopmathsdark-warn'}"
       />
     {/if}
   </i>

@@ -12,7 +12,6 @@
   import { flip } from 'svelte/animate'
   import { onMount, setContext } from 'svelte'
   import Exercice from '../../shared/exercice/Exercice.svelte'
-  import ButtonIcon from '../../shared/forms/ButtonIcon.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
   import ButtonsDeck from '../../shared/ui/ButtonsDeck.svelte'
   import Footer from '../../Footer.svelte'
@@ -39,6 +38,7 @@
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import { canOptions } from '../../../lib/stores/canStore'
   import ButtonToggleAlt from '../../../components/shared/forms/ButtonToggleAlt.svelte'
+  import ButtonIconTooltip from '../../shared/forms/ButtonIconTooltip.svelte'
 
   let divExercices: HTMLDivElement
   let isNavBarVisible: boolean = true
@@ -312,44 +312,28 @@ function addExercise (uuid: string) {
                   slot="setup-buttons"
                   class="flex flex-row justify-center items-center space-x-4"
                 >
-                  <div
-                    class="tooltip tooltip-bottom"
-                    data-tip="Réduire la taille du texte"
-                  >
-                    <ButtonIcon
-                      icon="bx-zoom-out text-3xl"
-                      on:click={zoomOut}
-                    />
-                  </div>
-                  <div
-                    class="tooltip tooltip-bottom"
-                    data-tip="Augmenter la taille du texte"
-                  >
-                    <ButtonIcon
-                      icon="bx-zoom-in text-3xl"
-                      on:click={zoomIn}
-                    />
-                  </div>
-                  <div
-                    class="tooltip tooltip-bottom"
-                    data-tip="Nouveaux énoncés"
-                  >
-                    <ButtonIcon
-                      icon="bx-refresh text-3xl"
-                      on:click={newDataForAll}
-                    />
-                  </div>
-                  <div
-                    class="tooltip tooltip-bottom"
-                    data-tip="Supprimer tous les exercices"
-                  >
-                    <ButtonIcon
-                      icon="bx-trash text-3xl"
-                      on:click={() => {
-                        $exercicesParams.length = 0
-                      }}
-                    />
-                  </div>
+                  <ButtonIconTooltip
+                    icon="bx-zoom-out text-3xl"
+                    tooltip="Réduire la taille du texte"
+                    on:click={zoomOut}
+                  />
+                  <ButtonIconTooltip
+                    icon="bx-zoom-in text-3xl"
+                    tooltip="Augmenter la taille du texte"
+                    on:click={zoomIn}
+                  />
+                  <ButtonIconTooltip
+                    icon="bx-refresh text-3xl"
+                    tooltip="Nouveaux énoncés"
+                    on:click={newDataForAll}
+                  />
+                  <ButtonIconTooltip
+                    icon="bx-trash text-3xl"
+                    tooltip="Supprimer tous les exercicess"
+                    on:click={() => {
+                      $exercicesParams.length = 0
+                    }}
+                  />
                 </div>
                 <div slot="input" class="flex flex-row items-center space-x-4">
                   <InputText
@@ -392,18 +376,14 @@ function addExercise (uuid: string) {
                   slot="export-buttons"
                   class="flex flex-row justify-center items-center space-x-4"
                 >
-                  <div
-                    class="tooltip tooltip-bottom"
-                    data-tip="Régler l'affichage du mode élève"
-                  >
-                    <ButtonIcon
-                      icon="bx-cog text-3xl"
-                      disabled={$exercicesParams.length === 0}
-                      on:click={() => {
-                        showSettingsDialog = true
-                      }}
-                    />
-                  </div>
+                  <ButtonIconTooltip
+                    icon="bx-cog text-3xl"
+                    tooltip="Régler l'affichage du mode élève"
+                    disabled={$exercicesParams.length === 0}
+                    on:click={() => {
+                      showSettingsDialog = true
+                    }}
+                  />
                   <div>
                     <ButtonWithTooltip
                       tooltipTitle="Rejoindre MathALÉA"

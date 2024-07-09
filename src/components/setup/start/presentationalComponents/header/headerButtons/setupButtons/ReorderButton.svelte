@@ -1,14 +1,13 @@
 <script lang="ts">
-  import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
   export let reorderModalDisplayed: boolean
 
 </script>
 
-<div class="tooltip tooltip-bottom" data-tip="Réorganisation">
-  <ButtonIcon
-    icon="bx-transfer text-3xl rotate-90"
-    on:click={() => {
-      reorderModalDisplayed = !reorderModalDisplayed
-    }}
-  />
-</div>
+<ButtonIconTooltip
+  icon="bx-transfer text-3xl rotate-90"
+  tooltip="Réorganisation"
+  on:click={() => {
+    reorderModalDisplayed = !reorderModalDisplayed
+  }}
+/>

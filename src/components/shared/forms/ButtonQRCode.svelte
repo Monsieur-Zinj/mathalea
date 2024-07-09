@@ -10,6 +10,7 @@
   export let url: string
   export let icon: string = 'bx-qr text-2xl'
   export let cornerIcon: string = ''
+  export let cornerIconClass: string = ''
   export let tooltip: string = ''
 
   const imageId: string = mathaleaGenerateSeed()
@@ -109,7 +110,8 @@
 <ButtonIconTooltip
   {icon}
   {cornerIcon}
-  tooltip={tooltip}
+  {cornerIconClass}
+  {tooltip}
   on:click={() => {
     updateQRCodeImage()
     isDisplayed = !isDisplayed
