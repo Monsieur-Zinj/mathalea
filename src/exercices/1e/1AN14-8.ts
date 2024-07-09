@@ -6,7 +6,7 @@ import Derivees5 from './1AN14-5'
 import Derivees6 from './1AN14-6'
 import Derivees7 from './1AN14-7'
 import Derivees61 from './1AN14-61'
-import Derivees71 from './1AN14-71'
+import Derivees71 from './doublons/1AN14-71'
 
 import MetaExercice from '../MetaExerciceCan'
 export const titre = 'Dérivation : bilan'
