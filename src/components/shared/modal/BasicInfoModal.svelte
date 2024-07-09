@@ -4,7 +4,7 @@
   export let contentDisplayed: 'success' | 'error' | 'none'
   export let successMessage: string
   export let errorMessage: string
-  export let displayDuration: number = 1000
+  export let displayDuration: number = 3000
 
   let isSuccessDisplayed: boolean
   $: if (contentDisplayed === 'success') {
