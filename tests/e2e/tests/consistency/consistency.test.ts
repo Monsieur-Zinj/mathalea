@@ -87,7 +87,7 @@ async function checkSlideshow (page: Page, questionsNb: number, exerciseType: Ex
   await page.locator('div[data-tip="Diaporama"]').click()
   await checkSlideshowPlay(page, questionsNb, exerciseType)
   await checkSlideshowPreview(page, exerciseType)
-  await page.locator('.bx-home-alt-2').first().click()
+  await page.locator('.bx-x').first().click()
 }
 
 async function checkSlideshowPlay (page: Page, questionsNb: number, exerciseType: ExerciseType) {
