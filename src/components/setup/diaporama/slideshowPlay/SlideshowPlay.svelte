@@ -4,7 +4,7 @@
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
-  import { afterUpdate, onDestroy, tick } from 'svelte'
+  import { onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
@@ -14,6 +14,7 @@
   export let backToSettings: () => void
 
   const divQuestion: HTMLDivElement[] = []
+  const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: false })
   let isCorrectionVisible = false
   let isPause = false
   let isManualPause = false
@@ -56,13 +57,6 @@
   $: if (slideshow.currentQuestion > -1) {
     playCurrentQuestion()
   }
-
-  afterUpdate(() => {
-    const exercicesAffiches = new window.Event('exercicesAffiches', {
-      bubbles: true
-    })
-    document.dispatchEvent(exercicesAffiches)
-  })
 
   onDestroy(() => {
     pause()
@@ -129,6 +123,7 @@
 
   async function findOptimalZoom () {
     await tick()
+    document.dispatchEvent(exercicesAffiches)
     const optimalZoomForViews = new Array(nbVues).fill(0)
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
       optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
