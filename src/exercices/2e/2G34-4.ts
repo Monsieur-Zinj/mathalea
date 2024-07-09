@@ -96,9 +96,9 @@ export default class systemeEquationsPremDegComp extends Exercice {
       const eqFinale1 = eqInt1Droite.concat(eqInt1Gauche)
       const eqFinale2 = eqInt2Droite.concat(eqInt2Gauche)
       texte = texte + `La droite $d_${String(droite1)}$ d'équation $${eqToLatex(eqInt1, listeVar, false)}$ et la droite $d_${String(droite2)}$ d'équation $${eqToLatex(eqInt2, listeVar, false)}$. `
-      const listeVarPoint = ['x_a', 'x_B', '', 'x_A', 'x_B', '']
+      const listeVarPoint = ['x_A', 'y_A', '', 'x_A', 'y_A', '']
       if (this.correctionDetaillee) {
-        texteCorr = texteCorr + 'S\'il existe, on note $(x_A; x_B)$ le point d\'intersection des deux droites. On obtient le système suivant qu\'on résout par substitution : '
+        texteCorr = texteCorr + 'S\'il existe, on note $(x_A; y_A)$ le point d\'intersection des deux droites. On obtient le système suivant qu\'on résout par substitution : '
         texteCorr = texteCorr + `\\[${printSystem(eqToLatex(eqFinale1, listeVarPoint, true), eqToLatex(eqFinale2, listeVarPoint, true))}\\]`
         texteCorr = texteCorr + `On égalise les membres de droite des deux équations pour obtenir l'équation à une inconnue \\[${eqToLatex([eqInt1[3], eqInt1[4], eqInt1[5], eqInt2[3], eqInt2[4], eqInt2[5]], listeVarPoint, false)}\\]`
         texteCorr = texteCorr + `On résout l'équation et on obtient $${listeVarPoint[(valComp + 1) % 2]}=${texNombre([solX, solY][(valComp + 1) % 2], 0)}$. `
@@ -111,7 +111,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
           listeVarPoint[4] = `${timesIfNotUn(eqVarElim[4])} ${ecritureParentheseSiNegatif(solY)}`
           eqVarElim = addCombLin(eqVarElim, [0, 0, 0, eqVarElim[4] * solY - eqVarElim[4], 0, 0], 1)
         }
-        const newListeVar = ['x_A', 'x_B', '', '', '', '']
+        const newListeVar = ['x_A', 'y_A', '', '', '', '']
         texteCorr = texteCorr + `\\[${eqToLatex(eqInt1, listeVarPoint, false)}`
         if (eqInt1[(valComp + 1) % 2] !== 1) {
           texteCorr = texteCorr + `\\implies ${eqToLatex(eqVarElim, newListeVar, false)}`

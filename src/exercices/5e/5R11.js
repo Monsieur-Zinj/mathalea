@@ -39,7 +39,6 @@ export default function LireAbscisseRelative () {
   this.spacing = 1
   this.spacingCorr = 1
   this.sup = 4
-  this.listePackages = 'tkz-euclide'
   const changeCoord = function (x, abs0, pas1) {
     return (abs0 + (x - abs0) * 3 * pas1)
   }

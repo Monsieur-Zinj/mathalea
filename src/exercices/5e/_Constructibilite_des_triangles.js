@@ -33,8 +33,6 @@ export default function ConstructibiliteDesTriangles () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.listePackages = 'bclogo'
-
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
@@ -411,14 +409,12 @@ export default function ConstructibiliteDesTriangles () {
           }
         ]
 
-        if (this.interactif) {
-          this.autoCorrection[i] = {
-            enonce: texte,
-            propositions: propositionsDuQcm,
-            options: {
-              ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
-              lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
-            }
+        this.autoCorrection[i] = {
+          enonce: texte,
+          propositions: propositionsDuQcm,
+          options: {
+            ordered: false, // (si les réponses doivent rester dans l'ordre ci-dessus, false s'il faut les mélanger),
+            lastChoice: 2 // (en cas de mélange, l'index à partir duquel les propositions restent à leur place, souvent le dernier choix par défaut)
           }
         }
         if (context.isAmc) {
@@ -450,8 +446,9 @@ export default function ConstructibiliteDesTriangles () {
             ]
           }
         }
+        const props = propositionsQcm(this, i)
         if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+          texte += props.texte
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

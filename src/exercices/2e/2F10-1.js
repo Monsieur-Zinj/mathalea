@@ -165,6 +165,7 @@ export default function Reconnaitrefonctionaffine () {
             statut: false
           }
         ]
+
         if (this.interactif) {
           texte += propositionsQcm(this, i).texte
         }

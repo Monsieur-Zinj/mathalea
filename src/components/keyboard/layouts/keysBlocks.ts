@@ -36,8 +36,8 @@ const numbersSpaceCaps: CompleteKeysList = {
   block: [7, 8, 9, 4, 5, 6, 1, 2, 3, 0, 'COMMA', 'SPACE']
 }
 const variableCaps: CompleteKeysList = {
-  inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'V', 'F'],
-  block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'V', 'F']
+  inline: ['aMath', 'bMath', 'cMath', 'xMath', 'yMath', 'zMath', 'kMath', 'nMath', 'iMath', 'e', 'V', 'F'],
+  block: ['aMath', 'xMath', 'kMath', 'bMath', 'yMath', 'nMath', 'cMath', 'zMath', 'iMath', 'e', 'V', 'F']
 }
 const basicOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'SQ', 'FRAC', '(', ')'],
@@ -52,8 +52,8 @@ const basicOperationCaps2: CompleteKeysList = {
   block: ['ADD', 'SUB', 'MULT', 'DIV', '=', 'FRAC', '(', ')']
 }
 const fullOperationCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'SQRT', 'SQ', 'CUBE', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
-  block: ['ADD', 'SUB', 'SQ', 'SQRT', 'MULT', 'DIV', 'CUBE', 'DEG', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
+  inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'xMath', 'SQRT', 'SQ', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
+  block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
 
 const probabiliteCaps: CompleteKeysList = {
@@ -74,8 +74,8 @@ const greekCaps: CompleteKeysList = {
 }
 
 const compareCaps: CompleteKeysList = {
-  inline: ['LESS', 'GREAT'],
-  block: ['LESS', 'GREAT']
+  inline: ['LESS', 'GREAT', '='],
+  block: ['LESS', 'GREAT', '=']
 }
 
 const degreCaps: CompleteKeysList = {
@@ -131,6 +131,11 @@ const qToWCaps: CompleteKeysList = {
 const xToZCaps: CompleteKeysList = {
   inline: ['X', 'Y', 'Z'],
   block: ['X', 'Y', 'Z']
+}
+
+const vFONCaps: CompleteKeysList = {
+  inline: ['V', 'F', 'O', 'N'],
+  block: ['V', 'F', 'O', 'N']
 }
 
 // @ts-expect-error Problème de typage
@@ -220,6 +225,13 @@ export const variables: KeyboardBlock = {
   isUnits: false
 }
 
+export const vFON: KeyboardBlock = {
+  keycaps: vFONCaps,
+  cols: 1,
+  title: 'Vrai/Faux/Impossible',
+  isUnits: false
+}
+
 export const basicOperations: KeyboardBlock = {
   keycaps: basicOperationCaps,
   cols: 2,
@@ -271,7 +283,7 @@ export const greek: KeyboardBlock = {
 
 export const compare: KeyboardBlock = {
   keycaps: compareCaps,
-  cols: 1,
+  cols: 2,
   title: 'Comparaison',
   isUnits: false
 }
@@ -408,6 +420,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   trigo,
   variables,
   volumes,
+  vFON,
   uppercaseAToH,
   uppercaseIToP,
   uppercaseQToW,

@@ -59,7 +59,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 2: // expressions de niveau 1 (2 opérations)
-      souscas = randint(0, 9)
+      souscas = typeof sousCas === 'number' ? sousCas : randint(0, 9)
       switch (souscas) {
         case 0: // a(b+c)
           if (calculMental) {
@@ -187,7 +187,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 3: // expressions de niveau 2 (3 opérations)
-      souscas = randint(0, 13)
+      souscas = typeof sousCas === 'number' ? sousCas : randint(0, 13)
       switch (souscas) {
         case 0: // (a+b)(c+d)
           if (calculMental) { // Objectif : 4 entiers différents entre 1 et 10. Un des facteurs peut atteindre 11, pas l'autre.
@@ -410,7 +410,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 5: // expressions complexes ! Ah qui, le dis-tu ! ;-)
-      souscas = randint(0, 5)
+      souscas = typeof sousCas === 'number' ? sousCas : randint(0, 5)
       switch (souscas) {
         case 0: // 2(a+bc)
           if (calculMental) {
@@ -501,9 +501,9 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
       }
       break
     case 4: // 4 opérations : Pffiouuu en calcul mental mais en papier, ce sera faisable par tous, sans calculatrice, même ceux faibles en calcul.
-      souscas = randint(1, 3)
+      souscas = typeof sousCas === 'number' ? sousCas : randint(0, 2)
       switch (souscas) {
-        case 1: // (a+b)/(c(d+e))
+        case 0: // (a+b)/(c(d+e))
           if (calculMental) { // Dénominateur inférieur à 51. Resultat final : soit 1, 2 ou 10.
             d = randint(2, 8)
             e = randint(2, 11 - d, [d])
@@ -522,7 +522,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           expc = `$(${texNombre(a)}+${texNombre(b)}) \\div (${texNombre(c)}${signex}(${texNombre(d)}+${texNombre(e)})) = ${texNombre(a + b)}  \\div  (${texNombre(c)}  \\times  ${texNombre(d + e)}) = ${texNombre(a + b)}  \\div  ${texNombre(c * (d + e))} = ${texNombre((a + b) / (c * (d + e)))}$`
           repNum = arrondi((a + b) / (c * (d + e)))
           break
-        case 2: // (a-b)*(c+de)
+        case 1: // (a-b)*(c+de)
           if (calculMental) { // a-b = 2 ou 4 ou 10 et c+de < 31.
             b = randint(2, 9)
             a = choice([2, 4, 10]) + b
@@ -537,7 +537,7 @@ export default function ChoisirExpressionNumerique (nbOperations, decimal, times
           expc = `$(${texNombre(a)}-${texNombre(b)})${signex}(${texNombre(c)}+${texNombre(d)} \\times ${texNombre(e)}) = ${texNombre(a - b)}${signex}(${texNombre(c)}+${texNombre(d * e)}) = ${texNombre(a - b)}  \\times  ${texNombre(c + d * e)} = ${texNombre((a - b) * (c + d * e))}$`
           repNum = arrondi((a - b) * (c + d * e))
           break
-        case 3: // ab+cd/e
+        case 2: // ab+cd/e
           if (calculMental) { // Une simplification mentale en c et e sera nécessaire.
             a = randint(2, 6)
             b = randint(2, 6, [a])

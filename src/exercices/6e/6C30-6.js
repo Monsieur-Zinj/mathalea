@@ -37,7 +37,6 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
   this.sup = false
   this.sup2 = true
   this.sup3 = 3
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
@@ -133,9 +132,10 @@ export default function MultiplierUnNombreParPuissanceDeDix () {
           ordered: false,
           lastChoice: 7
         }
-      }
-      if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        const props = propositionsQcm(this, i)
+        if (this.interactif) {
+          texte += '<br>' + props.texte
+        }
       }
       if (context.isHtml) texteCorr += mathalea2d({ xmin: 2.5, xmax: 27.5, ymin: -5, ymax: 5.5 }, glisseNombre(exemple, choixAlea - 3))
 

@@ -248,23 +248,22 @@ export default function TableauxEtProportionnalite () {
       texte += this.interactif ? 'Le tableau ci-dessus est-il un tableau de proportionnalité ?' : ''
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
 
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'Oui',
-            statut: !enonces[listeTypeDeQuestions[i]].correction.includes('pas')
-          },
-          {
-            texte: 'Non',
-            statut: enonces[listeTypeDeQuestions[i]].correction.includes('pas')
-          }
-        ]
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Oui',
+          statut: !enonces[listeTypeDeQuestions[i]].correction.includes('pas')
+        },
+        {
+          texte: 'Non',
+          statut: enonces[listeTypeDeQuestions[i]].correction.includes('pas')
         }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

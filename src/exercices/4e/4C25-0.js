@@ -307,7 +307,7 @@ export default function ProblemesAdditifsFractionsBis () {
           prenoms: [prenom()],
           fractions: [F1, 'carmin', F2, 'ocre jaune', F3, 'turquoise', F4, 'pourpre'],
           enonce: '',
-          question: 'Quelle est elle la couleur qui recouvre le plus de surface ?',
+          question: 'Quelle est la couleur qui recouvre le plus de surface ?',
           correction: ''
         })
 
@@ -546,5 +546,5 @@ export default function ProblemesAdditifsFractionsBis () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de problèmes (séparé par un trait d\'union', '1: triathlon (3 fractions)\n2 : élection (3 fractions)\n3 : mandala (4 fractions)\n4 : jardin (4 fractions)\n5 : stade(4 fractions)\n6 : mélange']
+  this.besoinFormulaireTexte = ['Type de problèmes', 'Nombres séparés par des tirets\n1: Triathlon (3 fractions)\n2 : Élection (3 fractions)\n3 : Mandala (4 fractions)\n4 : Jardin (4 fractions)\n5 : Stade (4 fractions)\n6 : Mélange']
 }

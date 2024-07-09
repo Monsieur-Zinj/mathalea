@@ -1,4 +1,4 @@
-import { ComputeEngine } from '@cortex-js/compute-engine'
+// import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
@@ -11,6 +11,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'testEE'
 
+/*
 const engine = new ComputeEngine()
 // export engine
 
@@ -30,7 +31,7 @@ function customCanonicalEE (expr) {
 
   return expr.canonical
 }
-
+*/
 export default function desTestsPourInteractivité () {
   Exercice.call(this)
   this.interactifReady = interactifReady
@@ -56,11 +57,11 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(5, 3)
       // const reponse = '\\dfrac{3}{5}'
       // const reponse = '3x+2'
-      const reponse = '\\dfrac{-2x}{-5}'
+      const reponse = '3x+1=0'
       texteCorr = ''
       texte = `$${reponse}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme')
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { HMS: true } } })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

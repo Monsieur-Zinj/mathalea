@@ -44,7 +44,7 @@ class EquationSecondDegre {
     this.natureDelEquation = options.format
     this.natureDesSolutions = ''
     const nomValDefault = [`${this.variable}^2`, this.variable, '', `${this.variable}^2`, this.variable, '']
-    this.coefficientsEqReduite = [a.differenceFraction(d), b.differenceFraction(e), c.differenceFraction(f), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
+    this.coefficientsEqReduite = [a.differenceFraction(d).simplifie(), b.differenceFraction(e).simplifie(), c.differenceFraction(f).simplifie(), new FractionEtendue(0, 1), new FractionEtendue(0, 1), new FractionEtendue(0, 1)]
     this.equationTex = ''
     if (options.format === 'reduit') {
       melange = false

@@ -178,27 +178,25 @@ export default function LireFacePaveDroit () {
             }
           }
         }
-        if (this.interactif) {
-          this.autoCorrection[indiceQuestion] = {}
-          if (this.interactifType === 'qcm') {
-            this.autoCorrection[indiceQuestion].enonce = `${texte}\n`
-            this.autoCorrection[indiceQuestion].propositions = [{
-              texte: `${resultatsPossibles[0]}`,
-              statut: true
-            }]
-            for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
-              this.autoCorrection[indiceQuestion].propositions.push({
-                texte: `${resultatsImpossibles[j]}`,
-                statut: false
-              })
-            }
-
-            this.autoCorrection[indiceQuestion].options = {}
-            texte += propositionsQcm(this, indiceQuestion).texte
-          } else {
-            setReponse(this, indiceQuestion, resultatsPossibles, { formatInteractif: 'texte' })
-            texte += ajouteChampTexteMathLive(this, indiceQuestion, 'largeur25 inline') + '<br>'
+        this.autoCorrection[indiceQuestion] = {}
+        if (this.interactifType === 'qcm') {
+          this.autoCorrection[indiceQuestion].enonce = `${texte}\n`
+          this.autoCorrection[indiceQuestion].propositions = [{
+            texte: `${resultatsPossibles[0]}`,
+            statut: true
+          }]
+          for (let j = 0; j < Math.min(resultatsImpossibles.length, this.sup4 - 1); j++) {
+            this.autoCorrection[indiceQuestion].propositions.push({
+              texte: `${resultatsImpossibles[j]}`,
+              statut: false
+            })
           }
+
+          this.autoCorrection[indiceQuestion].options = {}
+          texte += propositionsQcm(this, indiceQuestion).texte
+        } else {
+          setReponse(this, indiceQuestion, resultatsPossibles, { formatInteractif: 'texte' })
+          texte += ajouteChampTexteMathLive(this, indiceQuestion, 'largeur25 inline') + '<br>'
         }
         if (context.isAmc) {
           this.autoCorrection[i].propositions.push(

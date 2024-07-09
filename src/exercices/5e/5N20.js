@@ -153,8 +153,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
           }
         }
+        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
-          texte += '<br>' + propositionsQcm(this, i).texte
+          texte += '<br>' + props.texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {
@@ -224,8 +225,9 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=\\dfrac{${abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
           }
         }
+        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
-          texte += '<br>' + propositionsQcm(this, i).texte
+          texte += '<br>' + props.texte
         }
         if (context.isHtml && this.interactifType === 'mathLive') {
           if (this.sup3) {

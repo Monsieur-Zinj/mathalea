@@ -47,7 +47,6 @@ export default function AugmenterEtReduireDunPourcentage () {
   this.sup = 1 // Niveau de difficulté
   this.sup2 = 2
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-  this.listePackages = 'bclogo'
   function nombreDecimales (prMin, prMax, n) {
     let pourcent
     if (n === 0) {

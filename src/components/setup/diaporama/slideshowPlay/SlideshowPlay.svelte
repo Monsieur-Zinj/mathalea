@@ -4,7 +4,7 @@
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
-  import { onDestroy, tick } from 'svelte'
+  import { afterUpdate, onDestroy, tick } from 'svelte'
   import { showDialogForLimitedTime } from '../../../../lib/components/dialogs'
   import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
@@ -56,6 +56,13 @@
   $: if (slideshow.currentQuestion > -1) {
     playCurrentQuestion()
   }
+
+  afterUpdate(() => {
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
+    document.dispatchEvent(exercicesAffiches)
+  })
 
   onDestroy(() => {
     pause()

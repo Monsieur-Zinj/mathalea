@@ -711,8 +711,9 @@ export default function ÉcrireUneExpressionLitterale () {
       }
       this.autoCorrection[i].enonce = `${texte}\n`
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
+        const props = propositionsQcm(this, i)
         if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+          texte += props.texte
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

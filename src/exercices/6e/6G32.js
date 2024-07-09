@@ -14,6 +14,9 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 export const titre = 'Utiliser les propriétés de conservation de la symétrie axiale'
 
 // Gestion de la date de publication initiale
@@ -30,6 +33,8 @@ export const refs = {
   'fr-fr': ['6G32'],
   'fr-ch': ['9ES6-25']
 }
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export default function SymetrieAxialeProprietes () {
   Exercice.call(this)
   this.titre = titre
@@ -75,6 +80,7 @@ export default function SymetrieAxialeProprietes () {
       texte = ''
       texteCorr = ''
       objetsEnonce = []
+      let reponse = ''
       a = randint(-10, 10)
       b = randint(-10, 10, a)
       d = droite(a, b, 0, '(d)')
@@ -89,12 +95,13 @@ export default function SymetrieAxialeProprietes () {
           C = symetrieAxiale(A, d, noms[2])
           D = symetrieAxiale(B, d, noms[3])
           texte += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$ et $${A.nom}${B.nom}=${texNombre(longueur(A, B, 1))}${sp()}\\text{cm}$ . Quelle est la longueur du segment $[${C.nom}${D.nom}]$ ?`
-          texte += this.sup2 ? ' Justifier.<br>' : '<br>'
+          texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, segmentAvecExtremites(A, B), segmentAvecExtremites(C, D), nommePolygone(polygone([A, B]), A.nom + B.nom), nommePolygone(polygone([C, D]), C.nom + D.nom), afficheLongueurSegment(A, B))
           texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
           texteCorr += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un segment est un segment de même longueur.<br>'
           texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ ont la même longueur et $${miseEnEvidence(C.nom + D.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
+          reponse = texNombre(longueur(A, B, 1), 1) + 'cm'
           break
         case 3 :
           nbpoints = 6
@@ -108,12 +115,13 @@ export default function SymetrieAxialeProprietes () {
           E = symetrieAxiale(B, d, noms[4])
           F = symetrieAxiale(C, d, noms[5])
           texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Les points $${A.nom}$, $${B.nom}$ et $${C.nom}$ sont alignés. Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ le sont-ils ?`
-          texte += this.sup2 ? ' Justifier.<br>' : '<br>'
+          texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, tracePoint(A, B, C, D, E, F), labelPoint(A, B, C, D, E, F))
           texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
           texteCorr += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$ et sont alignés.<br>`
           texteCorr += 'Or, la symétrie axiale conserve l\'alignement.<br>'
           texteCorr += `Donc les points $${miseEnEvidence(D.nom)}$${texteEnCouleurEtGras(', ')}$${miseEnEvidence(E.nom)}$${texteEnCouleurEtGras(' et ')}$${miseEnEvidence(F.nom)}$ ${texteEnCouleurEtGras(' sont alignés')} également.<br>`
+          reponse = 'oui'
           break
         case 2 :
           nbpoints = 6
@@ -127,13 +135,14 @@ export default function SymetrieAxialeProprietes () {
           D = symetrieAxiale(A, d, noms[3])
           E = symetrieAxiale(B, d, noms[4])
           F = symetrieAxiale(C, d, noms[5])
-          texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Quelle est la longueur du segment $[${D.nom}${F.nom}]$ ?`
-          texte += this.sup2 ? ' Justifier.<br>' : '<br>'
+          texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Quelle est la longueur du segment $[${D.nom}${E.nom}]$ ?`
+          texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, polygone([A, B, C], 'green'), nommePolygone(polygone([A, B, C]), A.nom + B.nom + C.nom), polygone([D, E, F], 'brown'), nommePolygone(polygone([D, E, F]), D.nom + E.nom + F.nom), afficheLongueurSegment(A, B), afficheLongueurSegment(A, C), afficheLongueurSegment(C, B))
           texte += '<br>' + mathalea2d(Object.assign({}, fixeBordures(objetsEnonce, { rxmin: -1, rymin: -1, rxmax: 1, rymax: 1, pixelsParCm: 40, scale: 1, style: 'margin-top: 40px' })), objetsEnonce)
-          texteCorr += `Les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ sont symétriques par rapport à $(d)$.<br>`
+          texteCorr += `Les segments $[${A.nom}${B.nom}]$ et $[${D.nom}${E.nom}]$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un segment est un segment de même longueur.<br>'
-          texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${C.nom}${D.nom}]$ ont la même longueur et $${miseEnEvidence(C.nom + D.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
+          texteCorr += `Donc les segments $[${A.nom}${B.nom}]$ et $[${D.nom}${E.nom}]$ ont la même longueur et $${miseEnEvidence(D.nom + E.nom + '=' + texNombre(longueur(A, B, 1)))}$${sp()}${texteEnCouleurEtGras('cm')}.<br>`
+          reponse = texNombre(longueur(A, B, 1), 1) + 'cm'
           break
         case 4 :
           nbpoints = 6
@@ -148,7 +157,7 @@ export default function SymetrieAxialeProprietes () {
           E = symetrieAxiale(B, d, noms[4])
           F = symetrieAxiale(C, d, noms[5])
           texte += `Les points $${D.nom}$, $${E.nom}$ et $${F.nom}$ sont les symétriques respectifs de $${A.nom}$, $${B.nom}$ et $${C.nom}$ par rapport à $(d)$. Quelle est la mesure de l'angle $\\widehat{${D.nom}${F.nom}${E.nom}}$ ?`
-          texte += this.sup2 ? ' Justifier.<br>' : '<br>'
+          texte += this.sup2 && !this.interactif ? ' Justifier.<br>' : '<br>'
           objetsEnonce.push(d, polygone([A, B, C], 'green'), nommePolygone(polygone([A, B, C]), A.nom + B.nom + C.nom), polygone([D, E, F], 'brown'), nommePolygone(polygone([D, E, F]), D.nom + E.nom + F.nom))
           ptRef1 = (longueur(A, B) < longueur(C, B)) ? A : C
           ptRef2 = (longueur(A, B) < longueur(C, B)) ? C : A
@@ -172,9 +181,22 @@ export default function SymetrieAxialeProprietes () {
           texteCorr += `Les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ sont symétriques par rapport à $(d)$.<br>`
           texteCorr += 'Or, le symétrique d\'un angle est un angle de même mesure.<br>'
           texteCorr += `Donc les angles $\\widehat{${A.nom}${C.nom}${B.nom}}$ et $\\widehat{${D.nom}${F.nom}${E.nom}}$ ont la même mesure et $\\widehat{${D.nom}${F.nom}${E.nom}} = ${angle(D, F, E, 0)}^\\circ$.<br>`
+          reponse = texNombre(angle(D, F, E, 0)) + '°'
           break
       }
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en crée une autre
+        if (this.interactif) {
+          if (reponse.indexOf('cm') !== -1) {
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0.1 } } })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 unites[longueurs]')
+          } else if (reponse.indexOf('°') !== -1) {
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 1 } } })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 angles college6eme')
+          } else {
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { texteSansCasse: true } } })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric')
+          }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

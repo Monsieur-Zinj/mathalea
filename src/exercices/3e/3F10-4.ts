@@ -6,15 +6,16 @@ import figureApigeom from '../../lib/figureApigeom'
 import { Spline, noeudsSplineAleatoire } from '../../lib/mathFonctions/Spline'
 import PointOnSpline from '../../lib/mathFonctions/SplineApiGeom'
 import { texNombre } from '../../lib/outils/texNombre'
-import { mathalea2d } from '../../modules/2dGeneralites'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import RepereBuilder from '../../lib/2d/RepereBuilder'
 import type FractionEtendue from '../../modules/FractionEtendue'
 import { AddTabPropMathlive, type Icell } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
 import type Point from 'apigeom/src/elements/points/Point'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { Tableau } from '../../lib/2d/tableau'
 import { toutAUnPoint } from '../../lib/interactif/mathLive'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { lectureImage } from '../../lib/2d/courbes'
 
 export const titre = 'Lire graphiquement l\'image d\'un nombre par une fonction'
 export const dateDePublication = '29/10/2023'
@@ -47,7 +48,9 @@ class LireImageParApiGeom extends Exercice {
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
     this.formatChampTexte = 'largeur15 inline'
     this.besoinFormulaireNumerique = ['Nombre d\'images à trouver (de 1 à 5)', 5]
+    this.besoinFormulaire2CaseACocher = ['Utiliser des valeurs entières', false]
     this.sup = 3
+    this.sup2 = false
     this.nbImages = 3
     this.X = []
     this.Y = []
@@ -59,7 +62,7 @@ class LireImageParApiGeom extends Exercice {
     // on va chercher une spline aléatoire
     this.listeCorrections = []
     this.listeQuestions = []
-    const noeuds = noeudsSplineAleatoire(12, false, -6, 2)
+    const noeuds = this.sup2 ? noeudsSplineAleatoire(12, false, -6, 2, 1) : noeudsSplineAleatoire(12, false, -6, 2)
     const spline = new Spline(noeuds)
     this.nbImages = this.sup
     this.idApigeom = `apigeomEx${numeroExercice}F0`
@@ -91,12 +94,12 @@ class LireImageParApiGeom extends Exercice {
       textY.dynamicText.maximumFractionDigits = 1
     }
 
-    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeur ci-dessous :<br>'
+    let enonce = 'Par lecture graphique sur la courbe de la fonction $f$ tracée ci-dessus, compléter le tableau de valeurs ci-dessous :<br>'
     this.X = []
     this.Y = []
     for (let i = 0; i < this.nbImages; i++) {
       do {
-        if (spline.x && spline.n) {
+        if (!this.sup2 && spline.x && spline.n) {
           this.X[i] = Math.round((spline.x[0] + Math.random() * (spline.x[spline.n - 1] - spline.x[0])) * 10) / 10
         } else {
           this.X[i] = randint(-6, 6, this.X)
@@ -143,12 +146,18 @@ class LireImageParApiGeom extends Exercice {
         const tabMathlive = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2: ligne2bis, nbColonnes }, 'clavierDeBase', false, {})
         enonce += tabMathlive.output
       } else {
-        const tabVideTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs.map(() => ''), 1, true, this.numeroExercice, 0)
+        const tableauVideForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', '', '', ''].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
+        const tabVideTex = mathalea2d(Object.assign({}, fixeBordures(tableauVideForLatex)), tableauVideForLatex)
         enonce += tabVideTex
       }
     }
     const tableauValeur = AddTabPropMathlive.create(this.numeroExercice ?? 0, 0, { ligne1, ligne2, nbColonnes }, 'clavierDeBase', false, {})
-    const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
+
+    // const tabValeurTex = tableauColonneLigne(['x'].concat(xs), ['f(x)'], yGrecs, 1, true, this.numeroExercice, 0)
+    // contenu des cellules { texte: string, gras?: boolean, math?: boolean, latex?: boolean, color?: string }
+    const tableauValeursForLatex = new Tableau({ ligne1: ['x'].concat(xs).map(el => Object.assign({}, { texte: el, latex: true })), ligne2: ['f(x)', ...yGrecs].map(el => el === '' ? Object.assign({}, { texte: el }) : Object.assign({}, { texte: el, latex: true })), largeurTitre: 1, nbColonnes: 4, hauteur: 1, largeur: 1 })
+    const tabValeurTex = mathalea2d(Object.assign({}, fixeBordures(tableauValeursForLatex)), tableauValeursForLatex)
+
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
@@ -170,9 +179,12 @@ class LireImageParApiGeom extends Exercice {
         },
         grilleY: { dy: 0.2, yMin: -6, yMax: 6 }
       })
+      .setLabelX({ dx: 1, xMin: -6, xMax: 6 })
       .buildStandard()
+    const figureCorrection = mathalea2d(Object.assign({ pixelsParCm: 25, scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe(), lectureImage(this.X[0], this.Y[0], 1, 1, 'green'), lectureImage(this.X[1], this.Y[1], 1, 1, 'blue'), lectureImage(this.X[2], this.Y[2], 1, 1, 'purple')])
     if (context.isHtml) {
-      this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + tableauValeur.output
+      this.listeCorrections[0] = 'Les images sont tolérées à $0{,}1$ près :' + tableauValeur.output + '<br>' + figureCorrection
+
       this.listeQuestions = [emplacementPourFigure + enonce]
       const reponses = []
       for (let i = 0; i < nbColonnes; i++) {
@@ -181,12 +193,11 @@ class LireImageParApiGeom extends Exercice {
       reponses.push(['bareme', toutAUnPoint])
       handleAnswers(this, 0, Object.fromEntries(reponses), { formatInteractif: 'mathlive' })
     } else {
-      this.listeCorrections[0] = mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) +
-        '\\\\' +
+      this.listeCorrections[0] = figureCorrection + '\\\\' +
         'Les images sont tolérées à $0{,}1$ près :' +
         '\\\\' +
         tabValeurTex
-      this.listeQuestions = [mathalea2d({ xmin: -6.3, ymin: -6.3, xmax: 6.3, ymax: 6.3 }, [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
+      this.listeQuestions = [mathalea2d(Object.assign({ scale: 0.8 }, fixeBordures([repere])), [repere, spline.courbe({ repere, step: 0.05 })]) + enonce]
     }
   }
 }

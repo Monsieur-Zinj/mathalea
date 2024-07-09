@@ -55,7 +55,6 @@ export default function SujetCAN2023Seconde () {
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'scratch3'
   this.comment = `Cet exercice fait partie des annales des Courses aux nombres.<br>
   Il est composé de 30 questions réparties de la façon suivante :<br>
   les 10 premières questions parfois communes à plusieurs niveaux font appel à des questions automatisées élémentaires et les 20 suivantes (qui ne sont pas rangées dans un ordre de difficulté) sont un peu plus « coûteuses » cognitivement.<br>

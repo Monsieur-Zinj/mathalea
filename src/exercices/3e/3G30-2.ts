@@ -6,6 +6,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import Decimal from 'decimal.js'
 import { stringNombre } from '../../lib/outils/texNombre'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { sp } from '../../lib/outils/outilString'
 
 export const titre = 'Résoudre une équation trigonométrique'
 export const dateDePublication = '20/11/2023'
@@ -85,7 +86,7 @@ class EquationTrigo extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '', {
               texteAvant: `$${nomA}${nomC} \\approx$`,
-              texteApres: ' (valeur approchée au dixième près)'
+              texteApres: sp(10) + ' (valeur approchée au dixième près)'
             })
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
@@ -110,7 +111,7 @@ class EquationTrigo extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '', {
               texteAvant: `$${nomA}${nomC} \\approx$`,
-              texteApres: ' (valeur approchée au dixième près)'
+              texteApres: sp(10) + ' (valeur approchée au dixième près)'
             })
           } else {
             texte += `Calculer la longueur $${nomA}${nomC}$ (au dixième près).`
@@ -136,10 +137,10 @@ class EquationTrigo extends Exercice {
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, i, '', {
               texteAvant: `$\\widehat{${nomA}${nomB}${nomC}}\\approx$`,
-              texteApres: '° (valeur approchée au degré près)'
+              texteApres: '°' + sp(10) + ' (valeur approchée au degré près)'
             })
           } else {
-            texte += `Calculer la mesure l'angle $\\widehat{${nomA}${nomB}${nomC}}$ (valeur approchée au degré près).`
+            texte += `Calculer la mesure l'angle $\\widehat{${nomA}${nomB}${nomC}}$ (au degré près).`
           }
           texteCorr = `$\\${cosSinTan}\\left( \\widehat{${nomA}${nomB}${nomC}} \\right) = \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}}$<br>
           $\\widehat{${nomA}${nomB}${nomC}} = \\arc${cosSinTan} \\left( \\dfrac{${stringNombre(lAB, 1)}}{${stringNombre(lBC, 1)}} \\right)$<br>

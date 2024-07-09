@@ -8,7 +8,8 @@ import {
   listeQuestionsToContenu,
   randint,
   texEnumerate,
-  itemize
+  itemize,
+  gestionnaireFormulaireTexte
 } from '../../modules/outils.js'
 import { SvgMachineDiag3F12 } from '../../modules/macroSvgJs.js'
 
@@ -27,12 +28,9 @@ export const refs = {
 }
 export default function FonctionsCalculsDImages () {
   Exercice.call(this)
-  this.sup = 1
-  this.titre = titre
+  this.sup = 5
   // pas de différence entre la version html et la version latex pour la consigne
   this.consigne = ''
-  // pas de différence entre la version html et la version latex pour la consigne
-  this.consigne += 'Calculer les images avec la méthode demandée.'
 
   context.isHtml ? this.spacing = 2 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
@@ -50,29 +48,23 @@ export default function FonctionsCalculsDImages () {
   }
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.sup = Number(this.sup)
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
-      // this.boutonAide += modalVideo('videoTest','https://coopmaths.fr/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
-    }
+    //    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
+    // this.boutonAide = modalPdf(numeroExercice,"assets/pdf/FicheFonctions-3F1-act.pdf","Aide mémoire sur les fonctions (Sébastien Lozano)","Aide mémoire")
+    // this.boutonAide += modalVideo('videoTest','https://coopmaths.fr/videos/Fonctions.mp4','Petit conte mathématique','Intro Vidéo');
+    //  }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 
-    let typesDeQuestionsDisponibles = []
-    if (this.sup === 1) {
-      typesDeQuestionsDisponibles = [1] // prog de calcul
-    } else if (this.sup === 2) {
-      typesDeQuestionsDisponibles = [2] // diagramme
-    } else if (this.sup === 3) {
-      typesDeQuestionsDisponibles = [3] // f(x) = ...
-    } else if (this.sup === 4) {
-      typesDeQuestionsDisponibles = [4] // f : x ---> ...
-    } else if (this.sup === 5) {
-      typesDeQuestionsDisponibles = [1, 2, 3, 4] // mélange
-    }
-
     // let typesDeQuestionsDisponibles = [1];
+    const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 4,
+      melange: 5,
+      defaut: 5,
+      nbQuestions: 1
+    })
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
 
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -240,5 +232,7 @@ export default function FonctionsCalculsDImages () {
 
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : &Agrave; partir d\'un programme de calcul\n2 : &Agrave; partir de l\'expression algébrique sous forme f(x) = ...\n3 : &Agrave; partir de l\'expression algébrique sous forme f : x --> ...\n4 : &Agrave; partir d\'un diagramme\n5 : Mélange']
+  // this.besoinFormulaireNumerique = ['Règle à travailler', 5, '1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
+  this.besoinFormulaireTexte = ['Règle à travailler',
+    'Nombres séparés par des tirets\n1 : À partir d\'un programme de calcul\n2 : À partir de l\'expression algébrique sous forme f(x) = ...\n3 : À partir de l\'expression algébrique sous forme f : x --> ...\n4 : À partir d\'un diagramme\n5 : Mélange']
 }

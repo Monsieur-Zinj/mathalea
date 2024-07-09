@@ -10,7 +10,7 @@ import { context } from '../../modules/context.js'
 export function creerModal (numeroExercice, contenu, labelBouton, icone) {
   if (context.isHtml) {
     let HTML = ''
-    HTML = `<div id="aide-${numeroExercice}" class="group">
+    HTML = `${labelBouton}<div id="aide-${numeroExercice}" class="group">
       <div id="aide-trigger-${numeroExercice}">?</div>
       <div id="aide-content-${numeroExercice}">
       ${contenu}
@@ -20,6 +20,13 @@ export function creerModal (numeroExercice, contenu, labelBouton, icone) {
   } else {
     return ''
   }
+}
+
+export function createLink ({ text, url }) {
+  if (context.isHtml) {
+    return `<a href="${url}" target="_blank" class="text-coopmaths-action">${text}</a>`
+  }
+  return `\\href{${url}}{{${text}}}`
 }
 
 /**

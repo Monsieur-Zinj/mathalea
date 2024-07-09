@@ -11,6 +11,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer le coefficient de proportionnalité'
 export const interactifReady = true
@@ -27,8 +28,8 @@ export const refs = {
 }
 /**
  * @author jean-claude Lhote
- * @constructor
  */
+
 export default function CalculerCoeffPropo () {
   Exercice.call(this)
   this.sup = 1
@@ -325,31 +326,35 @@ export default function CalculerCoeffPropo () {
       }
       texteCorr = numAlpha(0) +
                 `Le coefficient de proportionnalité est donné par le quotient de $${texNombre(deuxiemeLigne[colonneReference].nombre)}$
- par $${texNombre(premiereLigne[colonneReference].nombre)}$.<br>Soit $\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`
+ par $${texNombre(premiereLigne[colonneReference].nombre)}$, soit $`
       if (coefficientRationnel) {
         const quotient = new FractionEtendue(deuxiemeLigne[colonneReference].nombre, premiereLigne[colonneReference].nombre)
         if (!quotient.estIrreductible) {
-          texteCorr += `= ${coefficient.texFraction}$.<br>`
+          texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, 'blue')}`
+          texteCorr += `= ${miseEnEvidence(coefficient.texFraction)}$.<br>`
         } else {
+          texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`)}`
           texteCorr += '$.<br>'
         }
       } else {
-        texteCorr += `= ${texNombre(coefficient)}$.<br>`
+        texteCorr += `${miseEnEvidence(`\\dfrac{${texNombre(deuxiemeLigne[colonneReference].nombre)}}{${texNombre(premiereLigne[colonneReference].nombre)}}`, 'blue')}`
+        texteCorr += `= ${miseEnEvidence(texNombre(coefficient))}$.<br>`
       }
+      texteCorr += numAlpha(1) + 'On complète le tableau de proportionnalité.<br>'
       for (let colonne = 1; colonne < 4; colonne++) { // La première colonne ici c'est la colonne des entêtes
         if (premiereLigne[colonne - 1].visible && colonne !== colonneReference + 1) { // on a la première valeur, on calcule donc la deuxième
           texteCorr += `Pour la colonne ${colonne}, on calcule : $${ligne1Corr[colonne].texte}\\times ${coefficientTex}=`
           if (coefficientRationnel) {
             texteCorr += `\\dfrac{${ligne1Corr[colonne].texte}\\times ${coefficient.num}}{${coefficient.den}}=`
           }
-          texteCorr += `${ligne2Corr[colonne].texte}$.`
+          texteCorr += `${miseEnEvidence(ligne2Corr[colonne].texte)}$.`
         } else {
           if (colonne !== colonneReference + 1) {
             texteCorr += `Pour la colonne ${colonne}, on calcule : $${ligne2Corr[colonne].texte}${coefficientRationnel ? '\\times' + coefficient.inverse().texFraction : '\\div' + coefficientTex}=`
             if (coefficientRationnel) {
               texteCorr += `\\dfrac{${ligne2Corr[colonne].texte}\\times ${coefficient.den}}{${coefficient.num}}=`
             }
-            texteCorr += `${ligne1Corr[colonne].texte}$.`
+            texteCorr += `${miseEnEvidence(ligne1Corr[colonne].texte)}$.`
           }
         }
         if (colonne < 4 && colonne !== colonneReference + 1) texteCorr += '<br>'

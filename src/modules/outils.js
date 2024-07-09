@@ -34,6 +34,7 @@ export function listeQuestionsToContenu (exercice) {
   }
   exercice.contenuCorrection = texConsigne('') + texIntroduction(exercice.consigneCorrection) + texMulticols(texEnumerate(exercice.listeCorrections, exercice.spacingCorr), exercice.nbColsCorr)
   exercice.contenuCorrection = exercice.contenuCorrection.replace(/\\\\\n*/g, '\\\\\n')
+  // console.log(exercice.contenu) // Pour récupérer le code latex des exos pour les cahiers de vacances
   exercice.contenu = exercice.contenu.replace(/\\\\\n*/g, '\\\\\n')
 }
 

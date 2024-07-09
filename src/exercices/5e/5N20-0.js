@@ -69,7 +69,6 @@ export default function ProblemesAdditifsFractions5e () {
 
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.listePackages = 'bclogo'
   // this.nbQuestionsModifiable = false;
   context.isHtml ? this.spacing = 1 : this.spacing = 1
   context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1

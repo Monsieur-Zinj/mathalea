@@ -69,8 +69,12 @@ export default function EcrireUneExpressionNumerique () {
       decimal = 1
     }
     // pour 6C13-2
-    const sousCas = combinaisonListes(range(3), this.nbQuestions)
-    let nbSousCas = 0
+    const listeSousCasParNbOperation = [combinaisonListes(range(3), this.nbQuestions),
+      combinaisonListes(range(9), this.nbQuestions),
+      combinaisonListes(range(13), this.nbQuestions),
+      combinaisonListes(range(2), this.nbQuestions),
+      combinaisonListes(range(4), this.nbQuestions)
+    ]
 
     for (let i = 0, texte, texteCorr, val1, val2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
@@ -79,8 +83,8 @@ export default function EcrireUneExpressionNumerique () {
       val2 = randint(6, 9)
       if (this.version > 2 && nbOperations === 1 && !this.litteral) nbOperations++
       if (!this.litteral) {
-        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas[nbSousCas])
-        if (nbOperations === 1) nbSousCas++
+        const sousCas = listeSousCasParNbOperation[nbOperations - 1][i]
+        resultats = choisirExpressionNumerique(nbOperations, decimal, this.sup3, calculMental, sousCas)
       } else {
         resultats = ChoisirExpressionLitterale(nbOperations, decimal, val1, val2, this.sup3, calculMental)
       }
@@ -264,7 +268,7 @@ export default function EcrireUneExpressionNumerique () {
               ]
             }
           } else {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Calcul : ' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }

@@ -1,5 +1,40 @@
 /* eslint-disable no-multiple-empty-lines */
 /* eslint-disable comma-dangle */
+/*
+  Vrai-faux
+  Agrandissement-réduction
+  Aires et périmètres
+  Algorithmique-programmation
+  Arithmétique
+  Calcul littéral
+  Calcul numérique
+  Coordonnées terrestres
+  Durées
+  Équations
+  Fonctions
+  Fractions
+  Géométrie dans l'espace
+  Géométrie plane
+  Grandeurs composées
+  Lecture graphique
+  Recherche d\'informations
+  Statistiques
+  Pourcentages
+  Prise d\'initiatives
+  Probabilités
+  Programme de calculs
+  Proportionnalité
+  Puissances
+  Pythagore
+  QCM
+  Tableur
+  Thalès
+  Transformations
+  Trigonométrie
+  Volumes
+  Vitesses
+*/
+
 export const dictionnaireDNB = {
   dnb_2013_04_pondichery_1: {
     annee: '2013',
@@ -8203,63 +8238,281 @@ export const dictionnaireDNB = {
 
 
   dnb_2024_05_ameriquenord_1: {
-                annee: '2024',
-                lieu: 'Amérique du Nord',
-                mois: 'Mai',
-                numeroInitial: '1',
-                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1.png',
-                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1_cor.png',
-                typeExercice: 'dnb',
-                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1.tex',
-                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1_cor.tex',
-                tags: ['']
-            },
+    annee: '2024',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    numeroInitial: '1',
+    png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1.png',
+    pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_1_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1.tex',
+    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_1_cor.tex',
+    tags: ['Vrai-faux', 'Statistiques', 'Vitesses', 'Probabilités', 'Agrandissement-réduction']
+  },
   dnb_2024_05_ameriquenord_2: {
-                annee: '2024',
-                lieu: 'Amérique du Nord',
-                mois: 'Mai',
-                numeroInitial: '2',
-                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2.png',
-                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2_cor.png',
-                typeExercice: 'dnb',
-                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
-                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
-                tags: ['']
-            },
+    annee: '2024',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    numeroInitial: '2',
+    png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2.png',
+    pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_2_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
+    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
+    tags: ['Programme de calcul', 'Calcul littéral', 'Équations']
+  },
   dnb_2024_05_ameriquenord_3: {
-                annee: '2024',
-                lieu: 'Amérique du Nord',
-                mois: 'Mai',
-                numeroInitial: '3',
-                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3.png',
-                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3_cor.png',
-                typeExercice: 'dnb',
-                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3.tex',
-                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3_cor.tex',
-                tags: ['']
-            },
+    annee: '2024',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    numeroInitial: '3',
+    png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3.png',
+    pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_3_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3.tex',
+    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_3_cor.tex',
+    tags: ['Fonctions', 'Lecture graphique', 'Proportionnalité']
+  },
   dnb_2024_05_ameriquenord_4: {
+    annee: '2024',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    numeroInitial: '4',
+    png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4.png',
+    pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4.tex',
+    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4_cor.tex',
+      tags: ['Géométrie plane', 'Pourcentages', 'Proportionnalité', 'Aires et périmètres']
+  },
+  dnb_2024_05_ameriquenord_5: {
+    annee: '2024',
+    lieu: 'Amérique du Nord',
+    mois: 'Mai',
+    numeroInitial: '5',
+    png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5.png',
+    pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5_cor.png',
+    typeExercice: 'dnb',
+    url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5.tex',
+    urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5_cor.tex',
+    tags: ['Thalès', 'Programme de calculs']
+  },
+
+  dnb_2024_06_asie_1: {
                 annee: '2024',
-                lieu: 'Amérique du Nord',
-                mois: 'Mai',
-                numeroInitial: '4',
-                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4.png',
-                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_4_cor.png',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_1_cor.png',
                 typeExercice: 'dnb',
-                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4.tex',
-                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_4_cor.tex',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_1_cor.tex',
                 tags: ['']
             },
-  dnb_2024_05_ameriquenord_5: {
+  dnb_2024_06_asie_2: {
                 annee: '2024',
-                lieu: 'Amérique du Nord',
-                mois: 'Mai',
-                numeroInitial: '5',
-                png: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5.png',
-                pngCor: 'static/dnb/2024/tex/png/dnb_2024_05_ameriquenord_5_cor.png',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_2_cor.png',
                 typeExercice: 'dnb',
-                url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5.tex',
-                urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_5_cor.tex',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_3: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_4: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_asie_5: {
+                annee: '2024',
+                lieu: 'Asie',
+                mois: 'Juin',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_asie_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_asie_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_asie_5_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_1: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_2: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_3: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_4: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_etrangers_5: {
+                annee: '2024',
+                lieu: 'Centres étrangers',
+                mois: 'Juin',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_etrangers_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_etrangers_5_cor.tex',
+                tags: ['']
+            },
+
+  dnb_2020_02_caledonie_1: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '1',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_2: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '2',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_3: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '3',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_4: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '4',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_5: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '5',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_5_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_6: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '6',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_6_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_6_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_7: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '7',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_7_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_7_cor.tex',
+                tags: ['']
+            },
+  dnb_2020_02_caledonie_8: {
+                annee: '2020',
+                lieu: 'Nouvelle Calédonie',
+                mois: 'Février',
+                numeroInitial: '8',
+                png: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8.png',
+                pngCor: 'static/dnb/2020/tex/png/dnb_2020_02_caledonie_8_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8.tex',
+                urlcor: 'static/dnb/2020/tex/dnb_2020_02_caledonie_8_cor.tex',
                 tags: ['']
             },
 

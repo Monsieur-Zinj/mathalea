@@ -37,7 +37,6 @@ export default function Signefonctionaffine () {
   this.spacingCorr = 1
   this.sup = 1
   this.sup2 = 1
-  this.listePackages = ['tkz-tab']
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)

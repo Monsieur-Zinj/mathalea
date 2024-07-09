@@ -12,7 +12,7 @@ import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { fraction } from '../../../modules/fractions.js'
 import { min, round } from 'mathjs'
-
+import Hms from '../../../modules/Hms'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 import Grandeur from '../../../modules/Grandeur'
@@ -75,7 +75,7 @@ export default function SujetCAN2022Sixieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -92,7 +92,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '\\ldots'
           }
@@ -109,7 +109,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }
           nbChamps = 1
           break
@@ -127,7 +127,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') +
+            texte += ajouteChampTexteMathLive(this, index, ' nospacebefore inline largeur01') +
                             '€'
           } else {
             texte += '$\\ldots$ €'
@@ -146,7 +146,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min'
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'min'
           } else {
             texte += '$\\ldots$ min'
           }
@@ -184,7 +184,7 @@ export default function SujetCAN2022Sixieme () {
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${a}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -206,7 +206,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -240,7 +240,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'groupes'
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'groupes'
           } else {
             texte += '$\\ldots$ groupes.'
           }
@@ -270,7 +270,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$ '
           }
@@ -287,7 +287,7 @@ export default function SujetCAN2022Sixieme () {
           texteCorr = `Le nombre cherché est : $${a}+${b}-${c}=${reponse}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -303,7 +303,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -320,14 +320,13 @@ export default function SujetCAN2022Sixieme () {
           Combien de temps a duré le film ?`
 
           texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $1$ h $${60 - b + d}$ min.`
-
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
-            setReponse(this, index, 1, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-            setReponse(this, index + 1, 60 - b + d, { formatInteractif: 'calcul' })
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
           }
-          nbChamps = 2
+
+          setReponse(this, index, new Hms({ hour: 1, minute: 60 - b + d }), { formatInteractif: 'hms' })
+
+          nbChamps = 1
           break
 
         case 13:
@@ -339,7 +338,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `$${a}=\\dfrac{${4 * a}}{4}=${4 * a}\\times \\dfrac{1}{4}$, donc $${4 * a}$ quarts $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'quarts'
+              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'quarts'
             } else {
               texte += '$\\ldots$ quarts'
             }
@@ -351,7 +350,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `$${a}=\\dfrac{${3 * a}}{3}=${3 * a}\\times \\dfrac{1}{3}$, donc $${3 * a}$ tiers $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'tiers'
+              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'tiers'
             } else {
               texte += '$\\ldots$ tiers'
             }
@@ -371,11 +370,10 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
-              setReponse(this, index, a + 1, { formatInteractif: 'calcul' })
-              texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-              setReponse(this, index + 1, reponse, { formatInteractif: 'calcul' })
+              texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
             }
+
+            setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
           } else {
             a = randint(6, 10)
             b = choice([20, 25, 30, 35])
@@ -385,13 +383,13 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${a + 1}$ h et $${reponse}$ min.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'largeur12 inline', { texteApres: sp(5) + 'h' })
-              setReponse(this, index, a + 1, { formatInteractif: 'calcul' })
-              texte += ajouteChampTexteMathLive(this, index + 1, 'largeur12 inline', { texteApres: sp(5) + 'min' })
-              setReponse(this, index + 1, reponse, { formatInteractif: 'calcul' })
+              texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
             }
+
+            setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
           }
-          nbChamps = 2
+
+          nbChamps = 1
           break
 
         case 15:
@@ -409,7 +407,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -435,7 +433,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'billes'
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'billes'
           } else {
             texte += '$\\ldots$ billes.'
           }
@@ -482,7 +480,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm'
           } else {
             texte += '  $\\text{?}=\\ldots$ cm'
           }
@@ -501,7 +499,7 @@ $${a + 1}$ h et $${reponse}$ min.`
       Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000, 2)}$, alors $${texNombre(a)}$ g$=${texNombre(reponse, 2)}$ kg.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'kg'
+              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'kg'
             } else {
               texte += '  $\\ldots$ kg'
             }
@@ -513,7 +511,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             Comme : $${texNombre(a, 1)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a, 1)}$ kg$=${reponse}$ g.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'g'
+              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'g'
             } else {
               texte += '  $\\ldots$ g'
             }
@@ -536,7 +534,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             }
           }
 
@@ -548,7 +546,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             }
           }
 
@@ -560,7 +558,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             }
           }
 
@@ -572,7 +570,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             }
           }
           nbChamps = 1
@@ -657,7 +655,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'unité'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'unité'
           } else {
             texte += ' <br>$\\ldots$ unité'
           }
@@ -676,7 +674,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'h'
           } else {
             texte += '$\\ldots$ h'
           }
@@ -694,7 +692,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min'
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'min'
           } else {
             texte += '$\\ldots$ min'
           }
@@ -735,7 +733,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
 
           nbChamps = 1
@@ -802,7 +800,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -816,7 +814,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$ '
           }
@@ -836,7 +834,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 unites[Longueur]')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueur]')
           }
           nbChamps = 1
           break
@@ -849,7 +847,7 @@ $${a + 1}$ h et $${reponse}$ min.`
           texteCorr = `Le double de $${texNombre(a, 1)}$ est $2\\times ${texNombre(a, 1)}=${texNombre(reponse, 1)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -871,7 +869,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -888,7 +886,7 @@ $${a + 1}$ h et $${reponse}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + 'cm'
           } else {
             texte += '$\\ldots$ cm'
           }
@@ -907,7 +905,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'h'
             }
           }
           if (choix === 'b') {
@@ -920,7 +918,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'min'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'min'
             }
           }
           if (choix === 'c') {
@@ -932,7 +930,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = c * b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + '€'
             }
           }
 
@@ -946,7 +944,7 @@ $${a + 1}$ h et $${reponse}$ min.`
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'h'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'h'
             }
           }
           nbChamps = 1

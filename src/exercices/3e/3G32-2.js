@@ -15,9 +15,10 @@ export const refs = {
   'fr-fr': ['3G32-2'],
   'fr-ch': []
 }
-export default function CalculHauteurObjet () {
-  problemesTrigoLongueur.call(this)
-  this.titre = titre
-  this.sup2 = 3
-  this.besoinFormulaireCaseACocher = false
+export default class CalculHauteurObjet extends problemesTrigoLongueur {
+  constructor () {
+    super()
+    this.sup2 = 3
+    this.besoinFormulaireCaseACocher = false
+  }
 }

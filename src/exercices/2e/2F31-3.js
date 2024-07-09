@@ -26,7 +26,6 @@ export default function Variationsapartirtableau () {
   Exercice.call(this)
   this.nbQuestions = 1 // Nombre de questions par défaut
   this.video = '' // Id YouTube ou url
-  this.listePackages = ['tkz-tab']//, 'tkz-fct', 'tkz-euclide'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -35,7 +34,7 @@ export default function Variationsapartirtableau () {
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5']//
     this.nbQuestionsModifiable = true
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, ligne1, a1, a2, a3, a4, x1, x2, x3, y1, y2, y3, texte, texteCorr, props, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = 'On donne ci-dessous, le tableau de variations d\'une fonction $f$.'
       texte += ' <br>'
       x1 = randint(-8, -3) // 3 antécédents 1ère ligne tableau
@@ -102,27 +101,26 @@ export default function Variationsapartirtableau () {
             \\tkzTabVal[draw]{1}{2}{0.6}{$${a2}$}{$f(${a2})$}
          \\end{tikzpicture}<br><br>`
           }
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `${choice([true, false]) ? `$f(${a2}) > f(${a1})$` : `$f(${a1}) < f(${a2})$`}`,
-                  statut: true
-                },
-                {
-                  texte: `${choice([true, false]) ? `$f(${a1}) > f(${a2})$` : `$f(${a2}) < f(${a1})$`}`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas savoir',
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `${choice([true, false]) ? `$f(${a2}) > f(${a1})$` : `$f(${a1}) < f(${a2})$`}`,
+                statut: true
+              },
+              {
+                texte: `${choice([true, false]) ? `$f(${a1}) > f(${a2})$` : `$f(${a2}) < f(${a1})$`}`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas savoir',
+                statut: false
+              }
+            ]
           }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
           texteCorr += 'On sait que si une fonction est croissante sur un intervalle $[a;b]$, '
           texteCorr += 'alors ses antécédents et ses images sont rangés dans le même ordre.<br>'
           texteCorr += 'Cela signifie que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -180,27 +178,26 @@ export default function Variationsapartirtableau () {
             \\tkzTabVal[draw]{2}{3}{0.6}{$${a4}$}{$f(${a4})$}
          \\end{tikzpicture}<br><br>`
           }
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `${choice([true, false]) ? `$f(${a3}) > f(${a4})$` : `$f(${a4}) < f(${a3})$`}`,
-                  statut: true
-                },
-                {
-                  texte: `${choice([true, false]) ? `$f(${a3}) < f(${a4})$` : `$f(${a4}) > f(${a3})$`}`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas savoir',
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `${choice([true, false]) ? `$f(${a3}) > f(${a4})$` : `$f(${a4}) < f(${a3})$`}`,
+                statut: true
+              },
+              {
+                texte: `${choice([true, false]) ? `$f(${a3}) < f(${a4})$` : `$f(${a4}) > f(${a3})$`}`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas savoir',
+                statut: false
+              }
+            ]
           }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
           texteCorr += 'On sait que si une fonction est décroissante sur un intervalle $[a;b]$, '
           texteCorr += 'alors ses antécédents et ses images sont rangés dans l\'ordre inverse. <br>'
           texteCorr += 'Cela signifie que pour tout $x_1\\in[a;b]$ et $x_2\\in[a;b]$, '
@@ -239,27 +236,26 @@ export default function Variationsapartirtableau () {
           texteCorr += `Par conséquent, comme $${x1}<${a1}$, alors $f(${x1}) < f(${a1})$.`
           texteCorr += `<br>Comme $f(${x1}) =${y1}$, on a montré que :  $f(${a1}) > ${y1}$.<br><br>`
           texteCorr += `On en déduit que :  $f(${a1}) > ${y1} > ${y3} > f(${x3})$.<br>`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `${choice([true, false]) ? `$f(${a1}) > f(${x3})$` : `$f(${x3}) < f(${a1})$`}`,
-                  statut: true
-                },
-                {
-                  texte: `${choice([true, false]) ? `$f(${a1}) < f(${x3})$` : `$f(${x3}) > f(${a1})$`}`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas savoir',
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `${choice([true, false]) ? `$f(${a1}) > f(${x3})$` : `$f(${x3}) < f(${a1})$`}`,
+                statut: true
+              },
+              {
+                texte: `${choice([true, false]) ? `$f(${a1}) < f(${x3})$` : `$f(${x3}) > f(${a1})$`}`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas savoir',
+                statut: false
+              }
+            ]
           }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
           break
         case 'type4':// parabole en U ; 2 images sur intervalle où f pas monotone, et on ne peut pas répondre
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${x3})$.<br>`
@@ -294,27 +290,26 @@ export default function Variationsapartirtableau () {
           texteCorr += `<br>On a donc montré que :  $${y1} < f(${a1}) < ${y2}$.<br><br>`
           texteCorr += `Comme $f(${x3})=${y3} \\in [${y1};${y2}]$, `
           texteCorr += `on ne peut pas conclure sans plus d'informations pour comparer $f(${x3})$ et $f(${a1})$.`
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `${choice([true, false]) ? `$f(${x3}) > f(${a1})$` : `$f(${a1}) < f(${x3})$`}`,
-                  statut: false
-                },
-                {
-                  texte: `${choice([true, false]) ? `$f(${x3}) < f(${a1})$` : `$f(${a1}) > f(${x3})$`}`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas savoir',
-                  statut: true
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `${choice([true, false]) ? `$f(${x3}) > f(${a1})$` : `$f(${a1}) < f(${x3})$`}`,
+                statut: false
+              },
+              {
+                texte: `${choice([true, false]) ? `$f(${x3}) < f(${a1})$` : `$f(${a1}) > f(${x3})$`}`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas savoir',
+                statut: true
+              }
+            ]
           }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
           break
         case 'type5':// parabole en U ; 2 images sur intervalle où f non monotone. On ne peut conclure
           texte += `À partir des informations de l'énoncé, comparer si possible : $f(${a1})$ et $f(${a3})$.<br>`
@@ -343,27 +338,26 @@ export default function Variationsapartirtableau () {
           texteCorr += `La fonction $f$ n'est donc pas monotone sur $[${a1};${a3}]$.<br><br>`
           texteCorr += ` Le tableau de variations ne permet pas de comparer $f(${a1})$ et $f(${a3})$. <br>`
           texteCorr += 'On ne peut donc pas conclure sans plus d\'informations.'
-          if (this.interactif) {
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `${choice([true, false]) ? `$f(${a3}) > f(${a1})$` : `$f(${a1}) < f(${a3})$`}`,
-                  statut: false
-                },
-                {
-                  texte: `${choice([true, false]) ? `$f(${a3}) < f(${a1})$` : `$f(${a1}) > f(${a3})$`}`,
-                  statut: false
-                },
-                {
-                  texte: 'On ne peut pas savoir',
-                  statut: true
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `${choice([true, false]) ? `$f(${a3}) > f(${a1})$` : `$f(${a1}) < f(${a3})$`}`,
+                statut: false
+              },
+              {
+                texte: `${choice([true, false]) ? `$f(${a3}) < f(${a1})$` : `$f(${a1}) > f(${a3})$`}`,
+                statut: false
+              },
+              {
+                texte: 'On ne peut pas savoir',
+                statut: true
+              }
+            ]
           }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
           break
       }
       // Si la question n'a jamais été posée, on l'enregistre

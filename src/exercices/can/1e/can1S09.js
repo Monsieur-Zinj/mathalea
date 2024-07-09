@@ -46,9 +46,9 @@ export default function RelationRec () {
           b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
           c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}${sp(1)}\\%$  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
-          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
+          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
 
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
           
           `
           if (this.interactif) {
@@ -77,8 +77,8 @@ export default function RelationRec () {
           c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
 
           texte = `Chaque année, un magazine perd $${a}${sp()} \\%$  de ses abonnés.<br>
-          En $${texNombre(2020)}$, ce magazine compte $${c}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
+          En $2020$, ce magazine compte $${c}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
           
           `
           if (this.interactif) {
@@ -107,8 +107,8 @@ export default function RelationRec () {
           b = calculANePlusJamaisUtiliser(randint(1, 10) * 100)
           c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           texte = `Chaque année, un magazine perd $${a}$ abonnés.<br>
-          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
+          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
           
           `
           if (this.interactif) {
@@ -138,8 +138,8 @@ export default function RelationRec () {
           c = calculANePlusJamaisUtiliser(randint(5, 20) * 1000)
           T = choice(proportion)
           texte = `Chaque année, un magazine perd ${T}  de ses abonnés mais en gagne $${b}$ nouveaux.<br>
-          En $${texNombre(2020)}$, ce magazine compte $${texNombre(c)}$ abonnés.
-          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $${texNombre(2020)}+n$.<br>
+          En $2020$, ce magazine compte $${texNombre(c)}$ abonnés.
+          On note, pour tout $n\\in\\mathbb{N}$, $${s}_{n}$ le nombre d'abonnés en $2020+n$.<br>
           
           `
           if (this.interactif) {

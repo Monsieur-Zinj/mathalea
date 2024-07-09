@@ -13,8 +13,8 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
   this.y = y
   this.xscale = xscale
   this.yscale = yscale
-  if (textAbs === '') textAbs = x.toString()
-  if (textOrd === '') textOrd = y.toString()
+  // if (textAbs === '') textAbs = x.toString()
+  // if (textOrd === '') textOrd = y.toString()
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
@@ -31,7 +31,9 @@ export function LectureImage (x, y, xscale = 1, yscale = 1, color = 'red', textA
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' +
+      (textAbs != null ? texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) : '') + '\t\n' +
+      (textOrd != null ? texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff) : '')
   }
   this.tikz = function () {
     const x0 = this.x / this.xscale
@@ -88,8 +90,8 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
   this.y = y
   this.xscale = xscale
   this.yscale = yscale
-  if (textAbs == null) textAbs = this.x.toString().replace('.', ',')
-  if (textOrd == null) textOrd = this.y.toString().replace('.', ',')
+  // if (textAbs == null) textAbs = this.x.toString().replace('.', ',')
+  // if (textOrd == null) textOrd = this.y.toString().replace('.', ',')
   this.textAbs = textAbs
   this.textOrd = textOrd
   this.color = color
@@ -107,7 +109,9 @@ export function LectureAntecedent (x, y, xscale, yscale, color = 'black', textOr
     Sy.styleExtremites = '->'
     Sx.pointilles = 5
     Sy.pointilles = 5
-    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) + '\t\n' + texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff)
+    return '\t\n' + Sx.svg(coeff) + '\t\n' + Sy.svg(coeff) + '\t\n' + (textAbs != null ? texteParPosition(this.textAbs, x0, -1 * 20 / coeff, 0, this.color).svg(coeff) : '') +
+      '\t\n' +
+      (textOrd != null ? texteParPosition(this.textOrd, -1 * 20 / coeff, y0, 0, this.color).svg(coeff) : '')
   }
   this.tikz = function () {
     const x0 = this.x / this.xscale

@@ -9,6 +9,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
 export const interactifReady = true
@@ -31,35 +32,34 @@ export const refs = {
 export default function LectureGraphiqueParabole () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.tailleDiaporama = 2
-
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
+    let texte, texteCorr, a, alpha, beta, r, F, o, texteIntro, texteNI, texteI
 
-    let texte, texteCorr, a, alpha, beta, r, F, o
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      switch (choice([1, 2, 3, 4, 5, 6])) {
+      texteNI = 'Donner le signe de $a$ et du discriminant $\\Delta$.<br>'
+      texteIntro = 'La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>'
+      texteI = 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
+      switch (choice([1, 2, 3, 4, 5, 6])) { //
         case 1:// cas parabole a>0 et delta<0
 
           a = randint(0, 1) + randint(5, 9) / 10
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(0, 2) + randint(4, 9) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-        `
+            texte += `${texteNI}`
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
           }
@@ -98,19 +98,14 @@ export default function LectureGraphiqueParabole () {
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(-2, 0) - randint(4, 9) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-      `
+            texte += `${texteNI}`
           } else {
-            texte += `Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>
-            
-            `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
           }
@@ -150,17 +145,14 @@ export default function LectureGraphiqueParabole () {
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = 0
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
+            texte += `${texteNI}`
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
           }
@@ -200,17 +192,14 @@ export default function LectureGraphiqueParabole () {
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = 0
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
+            texte += `${texteNI}`
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
           }
@@ -251,17 +240,14 @@ export default function LectureGraphiqueParabole () {
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(1, 3) + randint(4, 9) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
+            texte += `${texteNI}`
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
           }
@@ -302,17 +288,14 @@ export default function LectureGraphiqueParabole () {
           alpha = randint(-2, 1) + randint(1, 9) / 10
           beta = randint(-1, 0) - randint(4, 9) / 10
           o = texteParPosition('O', -0.3, -0.3, 'milieu', 'black', 1)
-          texte = `La courbe représente une fonction $f$ définie par $f(x)=ax^2+bx+c$ .<br>
-          
-          `
+          texte = `${texteIntro}`
           if (!this.interactif) {
-            texte += `Donner le signe de $a$ et de $\\Delta$.<br>
-   `
+            texte += `${texteNI}`
           } else {
-            texte += 'Donner le signe de $a$ et de $\\Delta$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline', { texteAvant: '$a$' }) + '$0$'
+            texte += `${texteI}`
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
             texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline', { texteAvant: '$\\Delta$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
             setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
             setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
           }

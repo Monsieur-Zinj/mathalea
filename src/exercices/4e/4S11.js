@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeDeNotes, tirerLesDes, unMoisDeTemperature } from '../../lib/outils/aleatoires'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { OutilsStats } from '../../modules/outilsStat.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDePublication = '01/12/2021'
-export const dateDeModifImportante = '02/02/2024'
+export const dateDeModifImportante = '24/06/2024'
 
 /**
  * Calculs de médianes dans des séries statistiques numériques
@@ -35,7 +35,6 @@ export default function DeterminerDesMedianes () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
-  this.listePackages = 'bclogo'
   if (context.isHtml) {
     this.spacing = 2
     this.spacingCorr = 2
@@ -46,13 +45,19 @@ export default function DeterminerDesMedianes () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    this.sup = parseInt(this.sup)
-
     const listePairOuImpair = combinaisonListes(['pair', 'impair'], this.nbQuestions)
+    const typeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 4,
+      nbQuestions: this.nbQuestions
+    })
 
     for (let i = 0, temperatures, nombreNotes, notes, nombreDes, nombreFaces, nombreTirages, tirages, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let repInteractive
-      if (this.sup === 1) { // ici on lance des dés
+      if (typeDeQuestions[i] === 1) { // ici on lance des dés
         nombreDes = randint(1, 2)
         nombreFaces = choice([4, 6, 8, 10])
         if (listePairOuImpair[i] === 'pair') {
@@ -61,11 +66,11 @@ export default function DeterminerDesMedianes () {
           nombreTirages = choice([49, 99, 199, 299, 999, 1999])
         }
         tirages = tirerLesDes(nombreTirages, nombreFaces, nombreDes) // on récupère une série rangée dans l'ordre croissant avec les effectifs correspondants
-        texte = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages)
+        texte = OutilsStats.texteTirages2D(nombreDes, nombreTirages, nombreFaces, tirages, false)
         const [scoresMedians, medianeCorr] = OutilsStats.computeMedianeTirages2D(nombreTirages, tirages)
         texteCorr = OutilsStats.texteCorrMedianeTirages2D(nombreTirages, medianeCorr, scoresMedians, tirages)
         repInteractive = medianeCorr
-      } else if (this.sup === 2) { // ici on trie des notes
+      } else if (typeDeQuestions[i] === 2) { // ici on trie des notes
         if (listePairOuImpair[i] === 'pair') {
           nombreNotes = choice([8, 10, 12])
         } else {
@@ -123,5 +128,5 @@ export default function DeterminerDesMedianes () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type de séries', 3, ' 1 : Lancers de dés \n 2 : Liste de notes\n 3 : Un mois de températures']
+  this.besoinFormulaireTexte = ['Type de séries', 'Nombres séparés par des tirets\n1 : Lancers de dés \n2 : Liste de notes\n3 : Un mois de températures\n4 : Mélange']
 }

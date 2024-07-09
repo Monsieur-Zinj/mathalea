@@ -41,7 +41,6 @@ export default function PremierOuPasCriterePar7Par11 () {
 
   this.nbCols = 2
   this.nbColsCorr = 1
-  this.listePackages = 'bclogo'
   this.besoinFormulaireCaseACocher = ['Afficher un coup de pouce']
   this.sup = true
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
@@ -269,23 +268,22 @@ export default function PremierOuPasCriterePar7Par11 () {
           bonneReponse = 'oui'
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'est premier',
-            statut: bonneReponse !== 'non'
-          },
-          {
-            texte: 'n\'est pas premier',
-            statut: bonneReponse !== 'oui'
-          }
-        ]
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'est premier',
+          statut: bonneReponse !== 'non'
+        },
+        {
+          texte: 'n\'est pas premier',
+          statut: bonneReponse !== 'oui'
         }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre

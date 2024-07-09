@@ -31,7 +31,6 @@ export default function EncadrerAvecFctRef () {
   context.isHtml ? this.spacingCorr = 2.2 : this.spacingCorr = 1
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
-  this.listePackages = ['tkz-tab']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

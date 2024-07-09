@@ -216,13 +216,32 @@ export default function EcrirePetitsNombresEntiers () {
       }
 
       if (typeDeConsigne[i] === 1) {
-        setReponse(this, i, nombreEnLettres(NombreAEcrire))
+        if (context.isAmc) {
+          this.autoCorrection[i] =
+            {
+              enonce: texte + '<br>',
+              propositions: [
+                {
+                  texte: texteCorr,
+                  statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+                  sanscadre: true
+                }
+              ]
+            }
+        } else {
+          setReponse(this, i, nombreEnLettres(NombreAEcrire))
+        }
         if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(NombreAEcrire)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
-        handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+        if (context.isAmc) {
+          setReponse(this, i, NombreAEcrire)
+          this.autoCorrection[i].enonce = this.consigne + '\\\\' + nombreEnLettres(NombreAEcrire) + '\\\\'
+        } else {
+          handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+        }
         if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
@@ -230,20 +249,6 @@ export default function EcrirePetitsNombresEntiers () {
       }
 
       texte += ajouteFeedback(this, i)
-
-      if (context.isAmc) {
-        this.autoCorrection[i] =
-                    {
-                      enonce: texte + '<br>',
-                      propositions: [
-                        {
-                          texte: texteCorr,
-                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                          sanscadre: true
-                        }
-                      ]
-                    }
-      }
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

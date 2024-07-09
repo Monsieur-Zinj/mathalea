@@ -23,4 +23,5 @@ export default function PavagesEtRotation () {
   this.titre = titre
   this.level = 3
   this.besoinFormulaireNumerique = false
+  this.besoinFormulaire2Texte = false
 }

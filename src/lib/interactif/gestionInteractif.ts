@@ -21,7 +21,7 @@ import {
   // texteSansCasseCompare,
   // expressionDeveloppeeEtNonReduiteCompare,
   // expressionDeveloppeeEtReduiteCompare,
-  type CompareFunction
+  type CompareFunction, type OptionsComparaisonType
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -45,9 +45,9 @@ digits?: number
 }
 
 export type AnswerType = {
-  value: string,
+  value: string|string[],
   compare: CompareFunction,
-  options?: Record<string, unknown>
+  options?: OptionsComparaisonType
 }
 
 type ResultOfExerciceInteractif = {
@@ -67,7 +67,7 @@ export interface Valeur {
   L1C2?: AnswerType
   L2C1?: AnswerType
   L2C2?: AnswerType // idem on en ajoutera si besoin
-  callback?: ()=>ResultOfExerciceInteractif
+  callback?: (exo: Exercice, question: number)=> { isOk: boolean, feedback: string, score: {nbBonnesReponses: number, nbReponses: number} }
 }
 
 export interface AutoCorrection {

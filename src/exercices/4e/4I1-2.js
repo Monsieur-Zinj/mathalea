@@ -36,7 +36,6 @@ export default function AlgoTortue () { // √ßa c'est la classe qui permet de cr√
   this.nbCols = 1
   this.nbColsCorr = 1
   this.typeExercice = 'Scratch'
-  this.listePackages = 'scratch3'
   this.interactif = true
   this.listeAvecNumerotation = false
 

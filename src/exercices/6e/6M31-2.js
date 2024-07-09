@@ -253,8 +253,10 @@ export default function UnitesDeVolumesEtDeCapacite () {
         statut: false
       }
       ]
+
+      const props = propositionsQcm(this, i)
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       } else if (this.interactif && this.interactifType === 'mathLive') {
         uniteFinale = listeTypeDeQuestions[i].split('to')[1]
         uniteFinale = uniteFinale === 'L' ? sp() + '$\\text{L}$' : sp() + `$ \\text{${uniteFinale.split('3')[0]}}^3$`

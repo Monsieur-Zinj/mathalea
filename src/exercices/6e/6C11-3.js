@@ -50,8 +50,7 @@ export default function APartirDeDivisionsEuclidiennes () {
   this.spacing = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
   this.spacingCorr = context.isHtml ? 2 : 1
   this.nbQuestions = 4
-  this.listePackages = 'xlop'
-  this.classe = 6
+    this.classe = 6
 
   this.nouvelleVersion = function () {
     this.consigne = 'À partir '

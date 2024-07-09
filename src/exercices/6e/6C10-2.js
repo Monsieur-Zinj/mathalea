@@ -146,8 +146,10 @@ export default function ExerciceTablesMultiplicationsEtMultiplesDe10 (
         ordered: false,
         lastChoice: 5
       }
+      const props = propositionsQcm(this, i)
+
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         setReponse(this, i, a * b)

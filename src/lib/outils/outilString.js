@@ -156,3 +156,11 @@ export function numAlphaNum (k, nospace = false) {
   if (context.isHtml) return '<span style="color:#f15929; font-weight:bold">' + k + ')' + (nospace ? '' : '&nbsp;') + '</span>'
   else return '\\textbf {' + k + '.}' + (nospace ? '' : ' ')
 }
+
+export function reverseString (s) {
+  let str = ''
+  for (let i = 0; i < s.length; i++) {
+    str += s[s.length - 1 - i]
+  }
+  return str
+}

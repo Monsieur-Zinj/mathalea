@@ -5,11 +5,11 @@ import Derivees4 from './1AN14-4'
 import Derivees5 from './1AN14-5'
 import Derivees6 from './1AN14-6'
 import Derivees7 from './1AN14-7'
-import Derivees71 from './1AN14-71'
-import Derivees72 from './1AN14-72'
+import Derivees61 from './1AN14-61'
+import Derivees71 from './doublons/1AN14-71'
 
 import MetaExercice from '../MetaExerciceCan'
-export const titre = 'Dérivation Bilan'
+export const titre = 'Dérivation : bilan'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'f38cf'
@@ -18,7 +18,7 @@ export const refs = {
   'fr-ch': []
 }
 export const dateDePublication = '18/04/2024'
-const exercices = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derivees7, Derivees71, Derivees72] as unknown[]
+const exercices = [Derivees1, Derivees3, Derivees4, Derivees5, Derivees6, Derivees61, Derivees7, Derivees71] as unknown[]
 /**
  * Un exercice bilan pour les regrouper tous (les exos de dérivation)
  * @author Jean-Claude Lhote

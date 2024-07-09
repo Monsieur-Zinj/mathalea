@@ -47,8 +47,7 @@ export default function DivisionDecimale () {
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opdiv n'est pas joli
   this.nbQuestions = 4
   this.sup = 1
-  this.listePackages = 'xlop'
-
+  
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions

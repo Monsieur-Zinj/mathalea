@@ -27,13 +27,13 @@ export default function InequationCasParticuliers () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  this.listePackages = ['tkz-tab']
+
   this.spacing = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
-    let texte, texteCorr, a, b, solution1, solution2, solution3, solution4, inegalite
+    let texte, texteCorr, a, b, solution1, solution2, solution3, solution4, inegalite, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3])) { //, 2, 3
         case 1 :// cas ax^2+b> ou <0 solution ensemble vide ou R
@@ -49,33 +49,33 @@ export default function InequationCasParticuliers () {
           }
           solution3 = `$]-\\infty\\,;\\,${-b}[\\cup]${b}\\,;\\,+\\infty[$`
           solution4 = `$\\mathbb{R}\\smallsetminus\\{${b}\\}$`
-          if (this.interactif) {
-            texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
+          texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
         $${rienSi1(a)}x^2+${b * b * a} ${inegalite} 0$ est :  `
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: solution1,
-                  statut: true
-                },
-                {
-                  texte: solution2,
-                  statut: false
-                },
-                {
-                  texte: solution3,
-                  statut: false
-                },
-                {
-                  texte: solution4,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: solution1,
+                statut: true
+              },
+              {
+                texte: solution2,
+                statut: false
+              },
+              {
+                texte: solution3,
+                statut: false
+              },
+              {
+                texte: solution4,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Donner l'ensemble des solutions dans $\\mathbb R$ de l'inéquation
             $${rienSi1(a)}x^2+${b * b * a} ${inegalite} 0$.`
           }
@@ -146,33 +146,33 @@ export default function InequationCasParticuliers () {
             solution3 = '$\\mathbb{R}$'
             solution4 = '$\\emptyset$'
           }
-          if (this.interactif) {
-            texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
+          texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
             ${a > 0 ? `$${rienSi1(a)}x^2-${b * b * a} ${inegalite} 0$` : `$${rienSi1(a)}x^2+${-b * b * a} ${inegalite} 0$`} est :  `
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: solution1,
-                  statut: true
-                },
-                {
-                  texte: solution2,
-                  statut: false
-                },
-                {
-                  texte: solution3,
-                  statut: false
-                },
-                {
-                  texte: solution4,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: solution1,
+                statut: true
+              },
+              {
+                texte: solution2,
+                statut: false
+              },
+              {
+                texte: solution3,
+                statut: false
+              },
+              {
+                texte: solution4,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Donner l'ensemble des solutions dans $\\mathbb R$ de l'inéquation
             ${a > 0 ? `$${rienSi1(a)}x^2-${b * b * a} ${inegalite} 0$` : `$${rienSi1(a)}x^2+${-b * b * a} ${inegalite} 0$`}.`
           }
@@ -245,33 +245,33 @@ export default function InequationCasParticuliers () {
             texteCorr += ` $${miseEnEvidence('\\mathbb{R}')}$.`
           }
 
-          if (this.interactif) {
-            texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
+          texte = `L'ensemble des solutions dans $\\mathbb R$ de l'inéquation
       $${rienSi1(a)}(x${ecritureAlgebrique(-b)})^2 ${inegalite} 0$ est :  `
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: solution1,
-                  statut: true
-                },
-                {
-                  texte: solution2,
-                  statut: false
-                },
-                {
-                  texte: solution3,
-                  statut: false
-                },
-                {
-                  texte: solution4,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: solution1,
+                statut: true
+              },
+              {
+                texte: solution2,
+                statut: false
+              },
+              {
+                texte: solution3,
+                statut: false
+              },
+              {
+                texte: solution4,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Donner l'ensemble des solutions dans $\\mathbb R$ de l'inéquation
             $${rienSi1(a)}(x${ecritureAlgebrique(-b)})^2 ${inegalite} 0$.`
           }

@@ -12,6 +12,7 @@ import { arrondi } from '../outils/nombres'
 import { stringNombre } from '../outils/texNombre'
 import { matrice } from './Matrice.js'
 import engine from '../interactif/comparisonFunctions'
+import { round } from 'mathjs'
 
 /**
  * Classe TableauDeVariation Initiée par Sebastien Lozano, transformée par Jean-Claude Lhote
@@ -824,107 +825,45 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
   return solutions
 }
 
+export function racines ({ fonction, xMin, xMax, tol = 1e-13, maxIter = 100, precision = 1 }) {
+  const racines = []
+  for (let x = xMin; x < xMax; x += 0.5) {
+    if (fonction(x) * fonction(x + 0.5) < 0) {
+      const { root } = brent(fonction, x, x + 0.5, tol, maxIter)
+      if (root != null) racines.push(round(root, precision))
+    } else {
+      if (fonction(x) === 0) racines.push(round(x, precision))
+      if (fonction(x + 0.5) === 0) racines.push(round(x + 0.5, precision))
+    }
+  }
+  return Array.from((new Set(racines)).values())
+}
 /**
- *
+ * Retourne un array avec les signes successifs de la fonction sur l'intervalle
  * @param {function} fonction du type (x)=>number
  * @param {number|FractionEtendue} xMin
  * @param {number|FractionEtendue} xMax
- * @param {number|FractionEtendue} step // fournir un step adapté à l'intervalle pour ne pas louper les valeurs particulières et pour ne pas ralentir le navigateur
- * @param {number|FractionEtendue} tolerance // valeur en dessous de laquelle la valeur absolue d'une image est considéree comme 0
- * @returns {*[]}
+ * @returns {{xG: number, xD: number, signe: string}[]}
  */
-export function signesFonction (fonction, xMin, xMax, step = new FractionEtendue(1, 100), tolerance = 0.005) {
-  // Je vire le recours systématique aux FractionEtendues
-  /* if (!(step instanceof FractionEtendue)) {
-    const f = fraction(step.toFixed(3))
-    step = new FractionEtendue(f.n * f.s, f.d)
-  }
-  */
+export function signesFonction (fonction, xMin, xMax) {
   const signes = []
-  let xG, xD, signe, signeCourant
-  let image
-  for (let x = xMin; x <= xMax; x += step) {
-    try {
-      image = fonction(x)
-      // ci-dessous on détecte les zéros à tolérance près
-      /* if (image instanceof FractionEtendue) {
-        const y = Math.abs(image.valeurDecimale)
-        if (y < tolerance) {
-          image = 0
-        }
-      } else {
-       */
-      const y = Math.abs(image)
-      if (y < tolerance) image = 0 // comme x peut être à un chouilla des racines, on teste à un milliardième près
-      signe = image < 0 ? '-' : image > 0 ? '+' : 'z'
-      if (xG == null) { // On entame un nouvel intervalle et il n'y en avait pas avant.
-        xG = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-        xD = xG
-        signeCourant = signe
-      } else { // On est dans un intervalle commencé
-        if (signe === signeCourant) {
-          if (Math.abs(image) < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-            signes.push({ xG, xD, signe })
-            xG = xD
-            signes.push({ xG, xD, signe: 'z' })
-            xG = null
-            xD = null
-            signeCourant = null
-          } else { // Le signe n'a pas changé, on repousse xD
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-          }
-        } else if (signe === '+') { // Le signe a changé il est devenu positif
-          if (image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-            signes.push({ xG, xD, signe: signeCourant })
-            xG = xD
-            signes.push({ xG, xD, signe: 'z' })
-            xG = null
-            xD = null
-            signeCourant = null
-          } else { // On est vraiment dans un nouveau secteur où la fonction est positive
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-            if (signeCourant === '-') {
-              signes.push({ xG, xD, signe: signeCourant })
-              xG = xD
-            }
-            signeCourant = '+'
-          }
-        } else if (signe === '-') { // Le signe a changé, il est devenu négatif
-          if (-image < 1e-12) { // Là, on est sur un zéro passé inaperçu
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-            signes.push({ xG, xD, signe: signeCourant })
-            xG = xD
-            signes.push({ xG, xD, signe: 'z' })
-            xG = null
-            xD = null
-            signeCourant = null
-          } else { // Le signe est vraiment devenu négatif
-            xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-            if (signeCourant === '+') {
-              signes.push({ xG, xD, signe: signeCourant })
-              xG = xD
-            }
-            signeCourant = '-'
-          }
-        } else { // Là le signe est devenu 'z'
-          xD = Number(x.toFixed(Math.max(-Math.round(Math.log10(step) + 1), 0)))
-          signes.push({ xG, xD, signe: signeCourant })
-          xG = xD
-          signes.push({ xG, xD, signe: 'z' })
-          xD = null
-          signeCourant = 'z'
-        }
-      }
-    } catch (e) {
-      console.error(e.message + `erreur dans le calcul de l'image pour x = ${x}`)
-    }
+  const zeros = racines({ fonction, xMin, xMax })
+  let x
+  if (zeros.length === 0) {
+    return [{ xG: xMin, xD: xMax, signe: fonction((xMin + xMax) / 2) > 0 ? '+' : '-' }]
   }
-  if (xD != null) {
-    signes.push({ xG, xD, signe })
+  if (xMin !== zeros[0]) signes.push({ xG: xMin, xD: zeros[0], signe: fonction(xMin) > 0 ? '+' : '-' })
+  x = zeros[0]
+  signes.push({ xG: zeros[0], xD: zeros[0], signe: 'z' })
+  for (let i = 1; i < zeros.length; i++) {
+    const y = fonction((x + zeros[i]) / 2)
+    signes.push({ xG: x, xD: zeros[i], signe: y > 0 ? '+' : '-' })
+    signes.push({ xG: zeros[i], xD: zeros[i], signe: 'z' })
+    x = zeros[i]
   }
-
+  if (zeros[zeros.length - 1] === xMax) return signes
+  const y = fonction((zeros[zeros.length - 1] + xMax) / 2)
+  signes.push({ xG: zeros[zeros.length - 1], xD: xMax, signe: y > 0 ? '+' : '-' })
   return signes
 }
 
@@ -1169,4 +1108,69 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
 export function derivee (fonction, variable) {
   const laFonction = engine.parse(fonction.replaceAll('dfrac', 'frac'))
   return engine.box(['D', laFonction, variable]).evaluate().latex
+}
+
+export function brent (f, a, b, tol = 1e-5, maxIter = 100) {
+  if (f(a) * f(b) >= 0) {
+    throw new Error("La fonction doit changer de signe sur l'intervalle [a, b]")
+  }
+
+  let fa = f(a); let fb = f(b)
+  let c = a; let fc = fa
+  let d = b - a; let e = d
+
+  for (let iter = 0; iter < maxIter; iter++) {
+    if (fb * fc > 0) {
+      c = a
+      fc = fa
+      d = e = b - a
+    }
+
+    if (Math.abs(fc) < Math.abs(fb)) {
+      [a, b, c] = [b, c, b];
+      [fa, fb, fc] = [fb, fc, fb]
+    }
+
+    const tol1 = 2.0 * tol * Math.abs(b) + 0.5 * tol
+    const xm = 0.5 * (c - b)
+
+    if (Math.abs(xm) <= tol1 || fb === 0.0) {
+      return { root: b, iter }
+    }
+
+    if (Math.abs(e) >= tol1 && Math.abs(fa) > Math.abs(fb)) {
+      const s = fb / fa
+      let p, q
+      if (a === c) {
+        p = 2.0 * xm * s
+        q = 1.0 - s
+      } else {
+        q = fa / fc
+        const r = fb / fc
+        p = s * (2.0 * xm * q * (q - r) - (b - a) * (r - 1.0))
+        q = (q - 1.0) * (r - 1.0) * (s - 1.0)
+      }
+      if (p > 0) q = -q
+      p = Math.abs(p)
+      if (2.0 * p < Math.min(3.0 * xm * q - Math.abs(tol1 * q), Math.abs(e * q))) {
+        e = d
+        d = p / q
+      } else {
+        d = e = xm
+      }
+    } else {
+      d = e = xm
+    }
+
+    a = b
+    fa = fb
+    if (Math.abs(d) > tol1) {
+      b += d
+    } else {
+      b += xm >= 0 ? tol1 : -tol1
+    }
+    fb = f(b)
+  }
+
+  throw new Error('Maximum number of iterations exceeded')
 }

@@ -43,7 +43,6 @@ export default function PremierOuPas () {
   this.sup3 = false
   this.level = 2
   // this.nbQuestionsModifiable = false (EE : bloquant pour AMC sinon)
-  this.listePackages = 'bclogo'
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
   this.nouvelleVersion = function () {
     this.consigne = this.level === 2
@@ -300,23 +299,22 @@ export default function PremierOuPas () {
           bonneReponse = 'oui'
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'est premier',
-            statut: bonneReponse !== 'non'
-          },
-          {
-            texte: 'n\'est pas premier',
-            statut: bonneReponse !== 'oui'
-          }
-        ]
-        if (this.interactif) {
-          texte += propositionsQcm(this, i).texte
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'est premier',
+          statut: bonneReponse !== 'non'
+        },
+        {
+          texte: 'n\'est pas premier',
+          statut: bonneReponse !== 'oui'
         }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
       if (this.questionJamaisPosee(i, N)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

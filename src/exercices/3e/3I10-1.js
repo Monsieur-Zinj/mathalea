@@ -57,7 +57,6 @@ export default function ScratchMultiScript () {
   this.sup = '1-2-3'
   this.correctionDetailleeDisponible = true
   this.correctionDetaille = false
-  this.listePackages = ['scratch3', 'bclogo']
   this.nouvelleVersion = function () {
     this.introduction = lampeMessage({
       titre: 'Information',
@@ -417,12 +416,10 @@ export default function ScratchMultiScript () {
           }
         }
       }
-      if (!context.isAmc && this.interactif) {
-        for (let k = 0; k < couleurs[i].length; k++) {
-          mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
-          texte += `Couleur N° ${k + 1} ? ` + mesQcm[indexReponse + k].texte
-          texteCorr += `Couleur N° ${k + 1} : ` + mesQcm[indexReponse + k].texteCorr
-        }
+      for (let k = 0; k < couleurs[i].length; k++) {
+        mesQcm[indexReponse + k] = propositionsQcm(this, indexReponse + k)
+        texte += `Couleur N° ${k + 1} ? ` + (this.interactif ? mesQcm[indexReponse + k].texte : '')
+        texteCorr += `Couleur N° ${k + 1} : ` + (this.interactif ? mesQcm[indexReponse + k].texteCorr : '')
       }
       if (!context.isHtml && i !== this.nbQuestions - 1) {
         texte += '\\columnbreak'

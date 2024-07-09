@@ -11,6 +11,8 @@ import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestion
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
+import { sp } from '../../lib/outils/outilString'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
@@ -23,7 +25,6 @@ export const amcType = 'AMCNum'
  *
  * * On peut choisir les 4 opérations
  * @author Mickael Guironnet - Rémi Angot
- * 4C10-7
  */
 export const uuid = '0b020'
 export const ref = '4C10-7'
@@ -36,15 +37,11 @@ export default function ExerciceOperationsRelatifs () {
   this.sup = false // écriture simplifiée
   this.sup2 = 5 // Mélange par défaut
   this.sup3 = 10 // Valeur maximum
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.titre = titre
   this.consigne = 'Calculer.'
   this.spacing = 2
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
-    this.sup3 = parseInt(this.sup3)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
@@ -83,64 +80,77 @@ export default function ExerciceOperationsRelatifs () {
       switch (listeTypeDeQuestions[i]) {
         case 1: // multiplications
           if (this.sup) {
-            texte = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} =$`
+            texte = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)}$`
             texteCorr = `$ ${a}  \\times ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a * b)} $`
           } else {
-            texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)} =$`
-            texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b)} $`
+            texte = `$ ${ecritureNombreRelatif(a)}  \\times ${ecritureNombreRelatif(b)}$`
+            texteCorr = `$ ${ecritureNombreRelatifc(a)} \\times ${ecritureNombreRelatifc(b)}  = ${ecritureNombreRelatifc(a * b, { color: '#f15929' })} $`
           }
           setReponse(this, i, a * b, {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a * b)),
             decimals: 0
           })
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 2: // quotients
           if (this.sup) {
-            texte = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} =$`
+            texte = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)}$`
             texteCorr = `$ ${a} \\div ${ecritureParentheseSiNegatif(b)} = ${calculANePlusJamaisUtiliser(a / b)}$`
           } else {
-            texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)} =$`
-            texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} =${ecritureNombreRelatifc(a / b)}$`
+            texte = `$ ${ecritureNombreRelatif(a)}  \\div ${ecritureNombreRelatif(b)}$`
+            texteCorr = `$ ${ecritureNombreRelatifc(a)}  \\div ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a / b, { color: '#f15929' })}$`
           }
           setReponse(this, i, calculANePlusJamaisUtiliser(a / b), {
             signe: true,
             digits: 1,
             decimals: 0
           })
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 3: // additions
           if (this.sup) {
-            texte = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  =$`
+            texte = `$ ${a} + ${ecritureParentheseSiNegatif(b)} $`
             texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)}  = ${calculANePlusJamaisUtiliser(a + b)} $`
           } else {
-            texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)}  =$`
-            texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b)} $`
+            texte = `$ ${ecritureNombreRelatif(a)} + ${ecritureNombreRelatif(b)} $`
+            texteCorr = `$  ${ecritureNombreRelatifc(a)} + ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a + b, { color: '#f15929' })} $`
           }
           setReponse(this, i, a + b, {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a + b)),
             decimals: 0
           })
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
         case 4: // soustractions
           if (this.sup) {
-            texte = `$ ${a} - ${ecritureNombreRelatif(b)} =$`
+            texte = `$ ${a} - ${ecritureNombreRelatif(b)}$`
             texteCorr = `$ ${a} - ${ecritureNombreRelatif(b)} = ${a - b} $`
           } else {
-            texte = `$ ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)}  =$`
-            texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b)} $`
+            texte = `$ ${ecritureNombreRelatif(a)} - ${ecritureNombreRelatif(b)} $`
+            texteCorr = `$  ${ecritureNombreRelatifc(a)} - ${ecritureNombreRelatifc(b)} = ${ecritureNombreRelatifc(a - b, { color: '#f15929' })} $`
           }
           setReponse(this, i, [a - b, `(${ecritureAlgebrique(a - b)})`], {
             signe: true,
             digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(a - b)),
             decimals: 0
           })
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i)
           break
+      }
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '$=$' })
+
+      if (this.sup) {
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b)) { // Si la question n'a jamais été posée, on en créé une autre

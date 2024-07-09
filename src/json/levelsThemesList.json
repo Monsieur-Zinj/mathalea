@@ -892,23 +892,35 @@
     "titre": "Automatismes - fonctions",
     "sousThemes": {}
   },
-  "1AN": {
-    "titre": "Analyse"
+  "1AL1": {
+    "titre": "Suites numériques"
   },
-  "1E1": {
-    "titre": "Équations"
+  "1AL2": {
+    "titre": "Fonctions polynomiales de degré 2"
   },
-  "1F1": {
-    "titre": "Fonctions"
+  "1AN1": {
+    "titre": "Dérivation"
+  },
+  "1AN2": {
+    "titre": "Variations"
+  },
+  "1AN3": {
+    "titre": "Fonction exponentielle"
+  },
+  "1AN4": {
+    "titre": "Fonction trigonométriques"
   },
   "1G1": {
-    "titre": "Géométrie"
+    "titre": "Produit scalaire"
   },
-  "1N1": {
-    "titre": "Suites"
+  "1G2": {
+    "titre": "Géométrie repérée"
   },
   "1P1": {
-    "titre": "Probabilités"
+    "titre": "Probabilités conditionnelles"
+  },
+  "1P2": {
+    "titre": "Variables aléatoires réelles"
   },
   "PEA1": {
     "titre": "Numération et bases"

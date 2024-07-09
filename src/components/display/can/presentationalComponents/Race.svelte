@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { SvelteComponent } from 'svelte'
+  import { afterUpdate, type SvelteComponent } from 'svelte'
   import type { CanState } from '../../../../lib/types/can'
   import Question from './Question.svelte'
   import Pagination from './Pagination.svelte'
@@ -20,6 +20,13 @@
   export let consignes: string[]
   const numberOfQuestions: number = questions.length
   let timerComponent: TimerComponent
+
+  afterUpdate(() => {
+    const exercicesAffiches = new window.Event('exercicesAffiches', {
+      bubbles: true
+    })
+    document.dispatchEvent(exercicesAffiches)
+  })
 
   function endTimer (e: CustomEvent) {
     const du = parseInt(e.detail.duration)

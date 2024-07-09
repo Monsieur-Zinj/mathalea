@@ -12,13 +12,12 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 export const titre = 'Factoriser une expression complexe'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDePublication = '22/05/2021'
 // Il y a un problème avec l'ordre de la multiplication
 
 /**
  * Factoriser avec un facteur commun évident des expressions complexes
- * Publié le 22/05/2021
  * @author Lhote Jean-Claude
- * 3L11-6
  */
 export const uuid = '51360'
 export const ref = '3L11-6'
@@ -28,9 +27,6 @@ export const refs = {
 }
 export default function FactoriserUneExpression3e () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -50,10 +46,10 @@ export default function FactoriserUneExpression3e () {
     const typesDeQuestionsDisponibles = []
     if (this.sup % 2 === 1) {
       if (this.sup2 % 2 === 1) {
-        typesDeQuestionsDisponibles.push('c(ax+b)+x(ax+b)', 'x(ax+b)+c(ax+b)')
+        typesDeQuestionsDisponibles.push('c(ax+b)+x(ax+b)', 'x(ax+b)+c(ax+b)', 'c(ax+b)+x(ax+b)', 'x(ax+b)+c(ax+b)')
       }
       if (this.sup2 > 1) {
-        typesDeQuestionsDisponibles.push('c(ax+b)-x(ax+b)', 'x(ax+b)-c(ax+b)')
+        typesDeQuestionsDisponibles.push('c(ax+b)-x(ax+b)', 'x(ax+b)-c(ax+b)', 'c(ax+b)-x(ax+b)', 'x(ax+b)-c(ax+b)')
       }
     }
     if (this.sup > 1) {

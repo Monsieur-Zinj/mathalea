@@ -207,11 +207,13 @@ export default function CriteresDeDivisibilite () {
           break
       }
       this.autoCorrection[i].enonce = `${texte}\n`
+      const props = propositionsQcm(this, i)
+
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

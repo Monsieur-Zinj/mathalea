@@ -15,16 +15,16 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Résoudre une équation du premier degré (utilisant la distributivité)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '24/06/2024'
 
 /**
  * Équation du premier degré
- * * Type 1 : ax+b=cx+d
+ * * Type 1 : ax+b=cx+d (EE : Supprimé car en inadéquation avec le titre. On retrouve ce genre d'équations ailleurs.)
  * * Type 2 : k(ax+b)=cx+d
  * * Type 3 : k-(ax+b)=cx+d
  * * Tous les types
  * @author Rémi Angot
  * Rendre interactif Laurence Candille
- * 3L13-1
  */
 export const uuid = '1802d'
 export const ref = '3L13-1'
@@ -34,7 +34,8 @@ export const refs = {
 }
 export default function ExerciceEquation1Tiret2 () {
   Exercice.call(this)
-  this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+  // this.comment = 'Les équations sont de la forme :<br>$ax+b=cx+d$<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
+  this.comment = 'Les équations sont de la forme :<br>$k(ax+b)=cx+d$<br>$k-(ax+b)=cx+d$<br>avec des nombres à un chiffre.'
   this.spacing = 2
   this.interactifType = 'mathLive'
   context.isHtml ? this.spacingCorr = 3 : this.spacingCorr = 2
@@ -51,14 +52,8 @@ export default function ExerciceEquation1Tiret2 () {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
-    // if (this.interactif) { // Selon Rémi : "Ces rappels relèvent plus d’un choix de prof et ne me semblent pas pertinents dans des énoncés"
-    //  this.introduction = lampeMessage({
-    //    titre: '',
-    //    texte: `Résoudre les équations au brouillon et écrire les solutions dans les cases.<br> On rappelle qu'il faut donner une solution exacte (par exemple $${texFractionFromString(1, 3)})$ plutôt qu'une valeur approchée (comme 0,3333).`,
-    //    couleur: 'nombres'
-    //  })
-    // }
-    let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
+    // let listeTypeDeQuestions = ['ax+b=cx+d', 'k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
+    let listeTypeDeQuestions = ['k(ax+b)=cx+d', 'k-(ax+b)=cx+d']
     listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
     for (let i = 0, a, b, c, d, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(-9, 9, 0)
@@ -66,7 +61,7 @@ export default function ExerciceEquation1Tiret2 () {
       c = randint(-9, 9, 0)
       d = randint(-9, 9, 0)
       k = randint(2, 9)
-      if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
+      /* if (listeTypeDeQuestions[i] === 'ax+b=cx+d') {
         if (c === a) {
           c = randint(1, 9, [a])
         } // sinon on arrive à une division par 0
@@ -108,7 +103,7 @@ export default function ExerciceEquation1Tiret2 () {
           texteCorr += `<br>$x=${texFractionReduite(d - b, a - c)}$`
         }
         texteCorr += `<br> La solution est $${texFractionReduite(d - b, a - c)}$.`
-      }
+      } */
 
       if (listeTypeDeQuestions[i] === 'k(ax+b)=cx+d') {
         if (c === k * a) {
@@ -117,7 +112,7 @@ export default function ExerciceEquation1Tiret2 () {
         texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          texte += '$x = $' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') + '<br><br>'
           setReponse(this, i, new FractionEtendue(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
@@ -152,16 +147,15 @@ export default function ExerciceEquation1Tiret2 () {
           texteCorr += `<br>$x=${texFractionReduite(d - k * b, k * a - c)}$`
         }
         texteCorr += `<br> La solution est $${texFractionReduite(d - k * b, k * a - c)}$.`
-      }
-
-      if (listeTypeDeQuestions[i] === 'k-(ax+b)=cx+d') {
+      } else {
+        // if (listeTypeDeQuestions[i] === 'k-(ax+b)=cx+d') {
         if (c === -a) {
-          c = randint(-9, 9, [0, a])
+          c = randint(-9, 9, [0, a, -a])
         } // sinon on arrive à une division par 0
         texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          texte += '$x = $' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') + '<br><br>'
           setReponse(this, i, new FractionEtendue(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {

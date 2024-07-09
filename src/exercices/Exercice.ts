@@ -95,7 +95,7 @@ export default class Exercice {
   comment?: string // Commentaire facultatif de l'auteur de l'exercice
   answers?: { [key: string]: string } // Réponses de l'élève
   isDone?: boolean
-  html?: HTMLElement
+  private _html: HTMLElement = document.createElement('div')
   score?: number
   constructor () {
   // ////////////////////////////////////////////////
@@ -136,7 +136,6 @@ export default class Exercice {
     // Gestion de la sortie LateX
     // ////////////////////////////////////////////
     this.pasDeVersionLatex = false // booléen qui indique qu'une sortie LateX est impossible.
-    this.listePackages = [] // string ou liste de string avec le nom des packages spécifiques à ajouter dans le préambule.
     this.consigneModifiable = true // booléen pour déterminer si la consigne est modifiable en ligne dans la sortie LaTeX.
     this.nbQuestionsModifiable = true // booléen pour déterminer si le nombre de questions est modifiable en ligne.
     this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX des questions (environnement multicols).
@@ -198,6 +197,14 @@ export default class Exercice {
     this.listeArguments = [] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
     this.answers = {}
     this.listeAvecNumerotation = true
+  }
+
+  get html (): HTMLElement {
+    return this._html
+  }
+
+  set html (value: HTMLElement) {
+    this._html = value
   }
 
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)

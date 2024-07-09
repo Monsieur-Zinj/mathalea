@@ -34,8 +34,7 @@ export default function MultiplierDecimaux () {
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
   this.nbQuestions = 4
-  this.listePackages = 'xlop'
-  this.sup = 3
+    this.sup = 3
   this.sup2 = 3
   this.sup3 = 1
   this.sup4 = 2

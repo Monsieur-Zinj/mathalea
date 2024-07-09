@@ -303,12 +303,12 @@ export default function NommerUnAngle () {
           texte: `$${resultatPasOK2}$`,
           statut: false
         }]
-        if (this.interactif && this.interactifType === 'qcm') {
+        if (this.interactifType === 'qcm') {
           this.autoCorrection[i * this.sup + jj].enonce = `${texte}\n`
           this.autoCorrection[i * this.sup + jj].propositions = propositionsDuQcm
           this.autoCorrection[i * this.sup + jj].options = {}
-
-          texte += propositionsQcm(this, i * this.sup + jj).texte
+          const props = propositionsQcm(this, i * this.sup + jj)
+          if (this.interactif) texte += props.texte
         }
         if (context.isAmc) {
           propositionsAMC[jj] = {

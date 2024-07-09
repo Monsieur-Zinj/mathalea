@@ -413,6 +413,14 @@ const basicKeys = {
   OVERLINE: {
     display: '$\\overline{\\square}$',
     insert: '$$\\overline{#0}$$'
+  },
+  VRAI: {
+    display: '$\\text{Vrai}$',
+    insert: '\\text{Vrai}'
+  },
+  FAUX: {
+    display: '$\\text{Faux}$',
+    insert: '\\text{Faux}'
   }
 }
 

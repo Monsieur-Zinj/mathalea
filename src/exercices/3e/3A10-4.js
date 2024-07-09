@@ -103,8 +103,8 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
       }
 
       // Sum des multiplicités
-      const sumMultiplicitesb = tabMultiplicitesb.reduce((a, b) => a * (b + 1), 1)
-      console.log('sumMultiplicitesb : ' + sumMultiplicitesb)
+      // const sumMultiplicitesb = tabMultiplicitesb.reduce((a, b) => a * (b + 1), 1)
+      // console.log('sumMultiplicitesb : ' + sumMultiplicitesb)
 
       texte = ''
       let nombreADecomposerb = 1

@@ -239,8 +239,9 @@ export default function EqResolvantesThales () {
         }
       ]
       this.autoCorrection[i].options = { ordered: true } // On ne mélange pas les propositions 'Oui', 'Non' et 'Je ne sais pas'
+      const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += '<br>' + propositionsQcm(this, i).texte
+        texte += '<br>' + props.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -9,7 +9,7 @@ import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Dérivée d\'une composée affine'
+export const titre = 'Dérivée de $x\\mapsto u(ax + b)$'
 
 /**
  * Calculer la dérivée de x -> f(ax+b)

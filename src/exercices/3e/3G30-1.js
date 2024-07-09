@@ -20,16 +20,13 @@ export const amcReady = true
 export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDePublication = '16/01/2021'
 /**
  * @author Rémi Angot
- * 3G30-1
  * Donner un rapport trigonométrique en fonction des longueurs des côtés (pas de valeurs numériques)
  * * Donner les 3 rapports d'un angle
  * * Un triangle est donné, on demande les 6 rapports
  * * Un triangle rectangle et une hauteur, il faut exprimer un rapport de deux manières différentes
- *
- * janvier 2021
  * Rendu interactif et AMC par EE (Mars 2022)
  */
 export const uuid = '0d1f7'
@@ -40,7 +37,6 @@ export const refs = {
 }
 export default function ExprimerCosSinTan () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 1
   this.nbQuestionsModifiable = true
   this.nbCols = 1
@@ -112,7 +108,7 @@ export default function ExprimerCosSinTan () {
       const pointNomH = pointSurSegment(H, A, -0.5)
       const codage2 = codageAngleDroit(A, H, B)
       H.nom = nom[3]
-      const t4 = texteParPoint(H.nom, pointNomH)
+      const t4 = texteParPoint(`$${H.nom}$`, pointNomH, 1, 'milieu', true)
       const sAH = segment(A, H)
       const t13 = texteSurSegment('hypoténuse', B, A)
       let t23
@@ -163,15 +159,15 @@ export default function ExprimerCosSinTan () {
         texteInit += `Dans le triangle rectangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ :`
         texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$, $${B.nom + C.nom}$ : `
         texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 3 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+        if (!context.isAmc) {
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 3 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 3 * i, [
                             `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${A.nom + B.nom}}{${C.nom + B.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
-        } else if (context.isAmc) {
+        } else {
           propositionsAMC[0] =
                         {
                           type: 'qcmMono',
@@ -211,15 +207,15 @@ export default function ExprimerCosSinTan () {
                         }
         }
         texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+        if (!context.isAmc) {
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 3 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 3 * i + 1, [
                             `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${A.nom + C.nom}}{${C.nom + B.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
-        } else if (context.isAmc) {
+        } else {
           propositionsAMC[1] =
                         {
                           type: 'qcmMono',
@@ -259,15 +255,15 @@ export default function ExprimerCosSinTan () {
                         }
         }
         texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-        if (this.interactif && !context.isAmc) {
-          texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+        if (!context.isAmc) {
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 3 * i + 2, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 3 * i + 2, [
                             `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
                             `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
           { formatInteractif: 'texte' })
-        } else if (context.isAmc) {
+        } else {
           propositionsAMC[2] =
                         {
                           type: 'qcmMono',
@@ -309,9 +305,9 @@ export default function ExprimerCosSinTan () {
       } else if (this.sup === 2) {
         texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle rectangle, en fonction des longueurs respectives de ses côtés.'
         texteInit = texte
-        if (this.interactif && !context.isAmc) {
+        if (!context.isAmc) {
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i, [
                             `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -319,7 +315,7 @@ export default function ExprimerCosSinTan () {
                             `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i + 1, [
                             `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -327,7 +323,7 @@ export default function ExprimerCosSinTan () {
                             `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i + 2, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i + 2, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i + 2, [
                             `\\frac{${A.nom + C.nom}}{${A.nom + B.nom}}`,
                             `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
@@ -335,7 +331,7 @@ export default function ExprimerCosSinTan () {
                             `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\cos\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i + 3, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i + 3, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i + 3, [
                             `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -343,7 +339,7 @@ export default function ExprimerCosSinTan () {
                             `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\sin\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i + 4, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i + 4, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i + 4, [
                             `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -351,14 +347,14 @@ export default function ExprimerCosSinTan () {
                             `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
           { formatInteractif: 'texte' })
           texte += `<br>$\\tan\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-          texte += ajouteChampTexteMathLive(this, 6 * i + 5, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+          texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 6 * i + 5, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
           setReponse(this, 6 * i + 5, [
                             `\\frac{${A.nom + B.nom}}{${A.nom + C.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${A.nom + C.nom}}`,
                             `\\frac{${A.nom + B.nom}}{${C.nom + A.nom}}`,
                             `\\frac{${B.nom + A.nom}}{${C.nom + A.nom}}`],
           { formatInteractif: 'texte' })
-        } else if (context.isAmc) {
+        } else {
           propositionsAMC[0] =
                         {
                           type: 'qcmMono',
@@ -586,11 +582,11 @@ export default function ExprimerCosSinTan () {
         texteInit = texte
         choixRapportTrigo = choice(['le cosinus', 'le sinus', 'la tangente'])
         texte += `Exprimer ${choixRapportTrigo} de $\\widehat{${A.nom + B.nom + C.nom}}$ de deux manières différentes.`
-        if (this.interactif && !context.isAmc) {
+        if (!context.isAmc) {
           switch (choixRapportTrigo) {
             case 'le cosinus':
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                                     `\\frac{${A.nom + B.nom}}{${B.nom + C.nom}}`,
                                     `\\frac{${B.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -598,7 +594,7 @@ export default function ExprimerCosSinTan () {
                                     `\\frac{${B.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\cos\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                                     `\\frac{${B.nom + H.nom}}{${A.nom + B.nom}}`,
                                     `\\frac{${B.nom + H.nom}}{${B.nom + A.nom}}`,
@@ -608,7 +604,7 @@ export default function ExprimerCosSinTan () {
               break
             case 'le sinus' :
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                                     `\\frac{${A.nom + C.nom}}{${B.nom + C.nom}}`,
                                     `\\frac{${C.nom + A.nom}}{${B.nom + C.nom}}`,
@@ -616,7 +612,7 @@ export default function ExprimerCosSinTan () {
                                     `\\frac{${C.nom + A.nom}}{${C.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\sin\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                                     `\\frac{${A.nom + H.nom}}{${A.nom + B.nom}}`,
                                     `\\frac{${A.nom + H.nom}}{${B.nom + A.nom}}`,
@@ -626,7 +622,7 @@ export default function ExprimerCosSinTan () {
               break
             case 'la tangente' :
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i, [
                                     `\\frac{${A.nom + C.nom}}{${B.nom + A.nom}}`,
                                     `\\frac{${C.nom + A.nom}}{${B.nom + A.nom}}`,
@@ -634,7 +630,7 @@ export default function ExprimerCosSinTan () {
                                     `\\frac{${C.nom + A.nom}}{${A.nom + B.nom}}`],
               { formatInteractif: 'texte' })
               texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $\\tan\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-              texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
+              texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore college6eme alphanumeric', { tailleExtensible: true })
               setReponse(this, 2 * i + 1, [
                                     `\\frac{${A.nom + H.nom}}{${H.nom + B.nom}}`,
                                     `\\frac{${A.nom + H.nom}}{${B.nom + H.nom}}`,
@@ -643,7 +639,7 @@ export default function ExprimerCosSinTan () {
               { formatInteractif: 'texte' })
               break
           }
-        } else if (context.isAmc) {
+        } else {
           switch (choixRapportTrigo) {
             case 'le cosinus':
               propositionsAMC[0] =

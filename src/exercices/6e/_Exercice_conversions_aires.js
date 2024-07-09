@@ -43,7 +43,6 @@ export default function ExerciceConversionsAires () {
   this.amcType = amcType
   this.interactifReady = interactifReady
   this.nbQuestions = 1
-  this.listePackages = ['arydshln', 'cmd\\dashlinedash=1pt'] // pour les lignes en pointillés
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
@@ -325,8 +324,10 @@ export default function ExerciceConversionsAires () {
         statut: false
       }
       ]
+      const props = propositionsQcm(this, i)
+
       if (this.interactif && this.interactifType === 'qcm') {
-        texte += propositionsQcm(this, i).texte
+        texte += props.texte
       }
 
       if (this.questionJamaisPosee(i, a, prefixe, div)) {

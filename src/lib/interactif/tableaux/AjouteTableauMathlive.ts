@@ -1,6 +1,5 @@
-// import './tableauMathlive.scss'
+import './tableauMathlive.scss'
 import { notify } from '../../../bugsnag'
-
 export interface Icell {
 texte: string
 latex: boolean

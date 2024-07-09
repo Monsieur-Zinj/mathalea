@@ -41,8 +41,7 @@ export default function AdditionnerSoustrairesDecimaux () {
   Exercice.call(this)
   this.titre = titre
   this.consigne = 'Poser et effectuer les calculs suivants.'
-  this.listePackages = 'xlop'
-  this.spacing = 2
+    this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 4
   this.sup = 3

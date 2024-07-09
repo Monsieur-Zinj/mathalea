@@ -3,12 +3,11 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer addition de deux entiers'
 export const amcReady = true
@@ -47,16 +46,12 @@ export default function ExerciceTablesAdditions (max = 20) {
       this.autoCorrection[i] = {}
       a = randint(2, this.sup)
       b = randint(2, this.sup)
-      let socket
       const choix = choice([false, true])
-      if (context.isHtml && this.interactif) {
-        socket = ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-      } else socket = '$\\ldots\\ldots$'
       texte = listeTypeDeQuestions[i] === 'somme'
-        ? `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} =  $${socket}`
+        ? remplisLesBlancs(this, i, `${texNombre(a, 0)} + ${texNombre(b, 0)} = %{champ1}`, 'fillInTheBlank')
         : choix
-          ? `$ ${texNombre(a, 0)} + $${socket} $= ${texNombre(a + b, 0)} $ `
-          : `${socket} $ + ${texNombre(a, 0)} = ${texNombre(a + b, 0)}$ `
+          ? remplisLesBlancs(this, i, `${texNombre(a, 0)} + %{champ1} = ${texNombre(a + b, 0)}`, 'fillInTheBlank')
+          : remplisLesBlancs(this, i, `%{champ1} + ${texNombre(a, 0)} = ${texNombre(a + b, 0)}`, 'fillInTheBlank')
 
       texteCorr = listeTypeDeQuestions[i] !== 'somme'
         ? choix
@@ -64,7 +59,9 @@ export default function ExerciceTablesAdditions (max = 20) {
           : `$ ${miseEnEvidence(texNombre(b, 0))} + ${texNombre(a, 0)} = ${texNombre(a + b, 0)} $`
         : `$ ${texNombre(a, 0)} + ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a + b, 0))} $`
 
-      setReponse(this, i, listeTypeDeQuestions[i] === 'somme' ? a + b : b)
+      if (this.interactif) {
+        handleAnswers(this, i, { champ1: { value: listeTypeDeQuestions[i] === 'somme' ? a + b : b } })
+      }
 
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
@@ -76,7 +73,7 @@ export default function ExerciceTablesAdditions (max = 20) {
           signe: false
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

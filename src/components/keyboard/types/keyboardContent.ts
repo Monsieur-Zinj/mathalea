@@ -32,6 +32,7 @@ export type BlockForKeyboard =
   | 'trigo'
   | 'variables'
   | 'volumes'
+  | 'vFON'
   | 'uppercaseAToH'
   | 'uppercaseIToP'
   | 'uppercaseQToW'

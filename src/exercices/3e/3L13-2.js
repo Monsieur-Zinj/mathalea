@@ -1,17 +1,17 @@
 import Decimal from 'decimal.js'
 import { choice, combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
-import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
-import { warnMessage } from '../../lib/format/message.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 
+import { tableau } from '../../lib/2d/tableau'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 
 export const titre = 'Résoudre une équation résolvante pour le théorème de Thalès'
 
@@ -19,8 +19,8 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
-export const dateDeModifImportante = '02/04/2023'
+export const dateDePublication = '15/12/2020'
+export const dateDeModifImportante = '15/06/2024'
 /**
  * * Équations résolvantes pour le théorème de Thalès
  * @author Sébastien Lozano
@@ -33,15 +33,10 @@ export const refs = {
 }
 export default function EqResolvantesThales () {
   Exercice.call(this)
-  this.debug = false
-  if (this.debug) {
-    this.nbQuestions = 4
-  } else {
-    this.nbQuestions = 2
-  }
-
+  this.nbQuestions = 2
   this.sup = 1
-  this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? 'Résoudre l\'équation suivante.' : 'Résoudre les équations suivantes.'
+  this.consignePluriel = 'Résoudre les équations suivantes.'
+  this.consigneSingulier = 'Résoudre l\'équation suivante.'
   this.tailleDiaporama = 3
 
   this.nbCols = 1
@@ -49,35 +44,12 @@ export default function EqResolvantesThales () {
   context.isHtml ? this.spacing = 3 : this.spacing = 2
   context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
 
-  this.listePackages = 'bclogo'
 
   let typesDeQuestionsDisponibles
 
   this.nouvelleVersion = function () {
-    // une fonction pour dire que c'est trivial dans ce cas
-    function trivial (bool, a, b, c, inc) {
-      let sortie
-      let texte = ''
-      if (bool) {
-        if (b === c) {
-          texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${a}$ !`
-          sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
-        }
-        if (c === a) {
-          texte = `Dans ce cas le recours au produit en croix est superflu.<br> Par identification, on a directement $${inc}=${b}$ !`
-          sortie = warnMessage(texte, 'nombres', 'Keep Cool Guy !')
-        }
-      } else {
-        sortie = ''
-      }
-      return sortie
-    }
-
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [0, 1, 2, 3]
-    } else {
-      typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
-    }
+    this.consigne = (this.nbQuestions === 1 || context.vue === 'diap') ? this.consigneSingulier : this.consignePluriel
+    typesDeQuestionsDisponibles = shuffle([choice([0, 1]), choice([2, 3])])
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -97,7 +69,6 @@ export default function EqResolvantesThales () {
       const dixieme = new Decimal(1).div(10)
       const one = new Decimal(1)
       const moinsUn = one.mul(-1)
-      this.sup = Number(this.sup) // attention le formulaire renvoie un string, on a besoin d'un number pour le switch !
       switch (this.sup) {
         case 1: // entiers
           coeff = [one, one, one]
@@ -112,7 +83,6 @@ export default function EqResolvantesThales () {
           nbAlea[2] = new Decimal(choice([2, 4, 5, 8], [nbAlea[0].toNumber(), nbAlea[1].toNumber()]))
           break
         case 3: // décimaux
-
           coeff = [dixieme, dixieme, dixieme]
           nbAlea[0] = new Decimal(randint(2, 9))
           nbAlea[1] = new Decimal(randint(2, 9, nbAlea[0].toNumber()))
@@ -142,72 +112,54 @@ export default function EqResolvantesThales () {
       if (this.exo === '4L15-1') {
         inc = choice(['r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'])
       } else if (this.exo === '4P10-2') {
-        inc = ['?']
+        inc = '?'
       } else {
         inc = choice(['x', 'y', 'GO', 'AB', 'z', 'GA', 'BU', 'ZO', 'ME'])
       }
 
-      const params = {
-        a: nbAlea[0].mul(coeff[0]),
-        b: nbAlea[1].mul(coeff[1]),
-        c: nbAlea[2].mul(coeff[2]),
-        inc,
-        fraction: new FractionEtendue(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
-      }
+      const a = nbAlea[0].mul(coeff[0])
+      const b = nbAlea[1].mul(coeff[1])
+      const c = nbAlea[2].mul(coeff[2])
+      // const fraction = new FractionEtendue(nbAlea[1].mul(nbAlea[0]), nbAlea[2].div(coeff[0]).div(coeff[1]))
 
       // pour les situations, autant de situations que de cas dans le switch !
       const situations = [
         { // x/b = a/c
-          eq: `\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}=\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}`,
-          tab: tableauColonneLigne(['\\phantom{000}' + params.inc + '\\phantom{000}', '\\phantom{000}' + texNombre(params.a, 2) + '\\phantom{000}'], [texNombre(params.b, 2)], [texNombre(params.c, 2)]),
-          a: params.a,
-          b: params.b,
-          c: params.c,
-          inc: params.inc,
-          fraction: params.fraction,
-          trivial: params.b.equals(params.c) || params.c.equals(params.a)
+          eq: `\\dfrac{${inc}}{${texNombre(b, 4)}}=\\dfrac{${texNombre(a, 4)}}{${texNombre(c, 4)}}`,
+          ligne1: [{ texte: inc, latex: true }, { texte: texNombre(a, 2), latex: true }],
+          ligne2: [{ texte: texNombre(b, 2), latex: true }, { texte: texNombre(c, 2), latex: true }]
         },
         { // a/c = x/b
-          eq: `\\dfrac{${texNombre(params.a, 4)}}{${texNombre(params.c, 4)}}=\\dfrac{${params.inc}}{${texNombre(params.b, 4)}}`,
-          tab: tableauColonneLigne(['\\phantom{000}' + texNombre(params.a, 2) + '\\phantom{000}', '\\phantom{000}' + params.inc + '\\phantom{000}'], [texNombre(params.c, 2)], [texNombre(params.b, 2)]),
-          a: params.a,
-          b: params.b,
-          c: params.c,
-          inc: params.inc,
-          fraction: params.fraction,
-          trivial: (params.b === params.c) || (params.c === params.a)
+          eq: `\\dfrac{${texNombre(a, 4)}}{${texNombre(c, 4)}}=\\dfrac{${inc}}{${texNombre(b, 4)}}`,
+          ligne1: [{ texte: texNombre(a, 2), latex: true }, { texte: inc, latex: true }],
+          ligne2: [{ texte: texNombre(c, 2), latex: true }, { texte: texNombre(b, 2), latex: true }]
         },
         { // b/x = c/a
-          eq: `\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}=\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}`,
-          tab: tableauColonneLigne(['\\phantom{000}' + texNombre(params.b, 2) + '\\phantom{000}', '\\phantom{000}' + texNombre(params.c, 2) + '\\phantom{000}'], [params.inc], [texNombre(params.a, 2)]),
-          a: params.a,
-          b: params.b,
-          c: params.c,
-          inc: params.inc,
-          fraction: params.fraction,
-          trivial: (params.b === params.c) || (params.c === params.a)
+          eq: `\\dfrac{${texNombre(b, 4)}}{${inc}}=\\dfrac{${texNombre(c, 4)}}{${texNombre(a, 4)}}`,
+          ligne2: [{ texte: inc, latex: true }, { texte: texNombre(a, 2), latex: true }],
+          ligne1: [{ texte: texNombre(b, 2), latex: true }, { texte: texNombre(c, 2), latex: true }]
         },
         { // c/a = b/x
-          eq: `\\dfrac{${texNombre(params.c, 4)}}{${texNombre(params.a, 4)}}=\\dfrac{${texNombre(params.b, 4)}}{${params.inc}}`,
-          tab: tableauColonneLigne(['\\phantom{000}' + texNombre(params.c, 2) + '\\phantom{000}', '\\phantom{000}' + texNombre(params.b, 2) + '\\phantom{000}'], [texNombre(params.a, 2)], [params.inc]),
-          a: params.a,
-          b: params.b,
-          c: params.c,
-          inc: params.inc,
-          fraction: params.fraction,
-          trivial: params.b.equals(params.c) || params.c.equals(params.a)
+          eq: `\\dfrac{${texNombre(c, 4)}}{${texNombre(a, 4)}}=\\dfrac{${texNombre(b, 4)}}{${inc}}`,
+          ligne2: [{ texte: texNombre(a, 2), latex: true }, { texte: inc, latex: true }],
+          ligne1: [{ texte: texNombre(c, 2), latex: true }, { texte: texNombre(b, 2), latex: true }]
         }
       ]
 
       let enoncePlus
       let corrPlusPremiereLigne
-      let correctionInteractif
 
       const enonces = []
       for (let k = 0; k < situations.length; k++) {
         if (this.exo === '4P10-2') {
-          enoncePlus = `${situations[k].tab}`
-          corrPlusPremiereLigne = `${situations[k].tab} <br> Le tableau ci-dessus est un tableau de proportionnalité, pour déterminer la quatrième proportionnelle il suffit par exemple de résoudre l'équation suivante : <br>`
+          const monTableau = tableau({ ligne1: situations[k].ligne1, ligne2: situations[k].ligne2, largeur: 5, largeurTitre: 5, nbColonnes: 2 })
+          const bordures = fixeBordures([monTableau])
+          enoncePlus = mathalea2d(Object.assign(bordures, {
+            scale: 0.6,
+            style: 'display:block'
+          }), monTableau)
+
+          corrPlusPremiereLigne = 'Le tableau ci-dessus est un tableau de proportionnalité, pour déterminer la quatrième proportionnelle, il suffit par exemple de résoudre l\'équation suivante : <br>'
         } else {
           enoncePlus = `$${situations[k].eq}$`
           corrPlusPremiereLigne = ''
@@ -218,75 +170,27 @@ export default function EqResolvantesThales () {
           question: '',
           correction: `${corrPlusPremiereLigne}
 $${situations[k].eq}$<br>
-${texteEnCouleurEtGras('Les produits en croix sont égaux.')}<br>
-$${texNombre(situations[k].c, 4)}\\times ${situations[k].inc} = ${texNombre(situations[k].a, 2)}\\times ${ecritureParentheseSiNegatif(situations[k].b)}$<br>
-${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(situations[k].c, 2)}`)}.<br>
-$\\dfrac{${texNombre(situations[k].c, 4)}\\times ${situations[k].inc}}{${texNombre(situations[k].c, 4)}}= \\dfrac{${texNombre(situations[k].a, 4)}\\times ${ecritureParentheseSiNegatif(situations[k].b)}}{${texNombre(situations[k].c, 4)}}$<br>
-${texteEnCouleurEtGras('On simplifie et on calcule.')}<br>
-$${situations[k].inc}=${texNombre(situations[k].b.mul(situations[k].a).div(situations[k].c), 4)}$
-${trivial(situations[k].trivial, texNombre(situations[k].a, 4), texNombre(situations[k].b, 4), texNombre(situations[k].c, 4), situations[k].inc)}`,
-          correctionInteractif: [situations[k].b.mul(situations[k].a).div(situations[k].c).toFixed(4)]
+${texteEnCouleurEtGras('Les produits en croix sont égaux.', 'blue')}<br>
+$${texNombre(c, 4)}\\times ${inc} = ${texNombre(a, 2)}\\times ${ecritureParentheseSiNegatif(b)}$<br>
+${texteEnCouleurEtGras(`On divise les deux membres par ${texNombre(c, 2)}`, 'blue')}.<br>
+$\\dfrac{${texNombre(c, 4)}\\times ${inc}}{${texNombre(c, 4)}}= \\dfrac{${texNombre(a, 4)}\\times ${ecritureParentheseSiNegatif(b)}}{${texNombre(c, 4)}}$<br>
+${texteEnCouleurEtGras('On simplifie et on calcule.', 'blue')}<br>
+$${inc}=${miseEnEvidence(texNombre(b.mul(a).div(c), 4))}$`,
+          correctionInteractif: [b.mul(a).div(c).toFixed(4)]
         })
       }
 
-      // Autant de case que d'elements dans le tableau des situations
-      switch (listeTypeDeQuestions[i]) {
-        case 0:
-          texte = `${enonces[0].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[0].correction}`
-            texte += ''
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[0].correction}`
-          }
+      texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
+      texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
 
-          correctionInteractif = enonces[0].correctionInteractif[0].replace('{', '').replace('}', '')
-          break
-        case 1:
-          texte = `${enonces[1].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[1].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[1].correction}`
-          }
+      const correctionInteractif = enonces[listeTypeDeQuestions[i]].correctionInteractif[0].replace('{', '').replace('}', '')
 
-          correctionInteractif = enonces[1].correctionInteractif[0].replace('{', '').replace('}', '')
-          break
-        case 2:
-          texte = `${enonces[2].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[2].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[2].correction}`
-          }
-
-          correctionInteractif = enonces[2].correctionInteractif[0].replace('{', '').replace('}', '')
-          break
-        case 3:
-          texte = `${enonces[3].enonce}`
-          if (this.debug) {
-            texte += '<br>'
-            texte += `<br> =====CORRECTION======<br>${enonces[3].correction}`
-            texteCorr = ''
-          } else {
-            texteCorr = `${enonces[3].correction}`
-          }
-
-          correctionInteractif = enonces[3].correctionInteractif[0].replace('{', '').replace('}', '')
-          break
-      }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `<br> ${inc} = ` })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `<br> ${inc} = ` })
       reponse = new FractionEtendue(Number(correctionInteractif))
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, nbAlea)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

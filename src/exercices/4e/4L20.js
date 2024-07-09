@@ -44,7 +44,6 @@ export default function ExerciceEquation1 () {
   this.sup2 = '1-2-3-4-5' // Choix du type d'équation
   this.sup3 = true
   this.nbQuestions = 6
-  this.listePackages = 'bclogo'
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

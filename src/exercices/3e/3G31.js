@@ -16,6 +16,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { droite } from '../../lib/2d/droites.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -265,14 +266,14 @@ export default function CalculDAngle () {
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=\\dfrac{${nom[0] + nom[1]}}{${nom[1] + nom[2]}}$.<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\cos\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ab), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${texFractionFromString(texNombre2(ab), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arccos\\left(${texFractionFromString(texNombre2(ab), texNombre2(bc))}\\right)`
           break
         case 'Asin':
           texteCorr += `Dans le triangle $${nom}$ rectangle en $${nom[0]}$, le sinus de l'angle $\\widehat{${nom}}$ est défini par :<br>`
           texteCorr += `$\\sin \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[1] + nom[2])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\sin\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ac), texNombre2(bc))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arcsin\\left(${texFractionFromString(texNombre2(ac), texNombre2(bc))}\\right)\\approx ${angleABC}^\\circ$<br>`
+          texteCorr += `$\\widehat{${nom}}=\\arcsin\\left(${texFractionFromString(texNombre2(ac), texNombre2(bc))}\\right)`
 
           break
         case 'Atan':
@@ -280,9 +281,10 @@ export default function CalculDAngle () {
           texteCorr += `$\\tan \\left(\\widehat{${nom}}\\right)=${texFractionFromString(nom[0] + nom[2], nom[0] + nom[1])}$<br>`
           texteCorr += 'Avec les données numériques :<br>'
           texteCorr += `$\\tan\\left(\\widehat{${nom}}\\right)=${texFractionFromString(texNombre2(ac), texNombre2(ab))}$<br>`
-          texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${texFractionFromString(texNombre2(ac), texNombre2(ab))}\\right) \\approx ${angleABC} ^\\circ $ <br>`
+          texteCorr += `$\\widehat{${nom}}=\\arctan\\left(${texFractionFromString(texNombre2(ac), texNombre2(ab))}\\right)`
           break
       }
+      texteCorr += `\\approx ${miseEnEvidence(angleABC)}^\\circ$<br>`
       if (this.correctionDetaillee && !context.isHtml) texteCorr += '\n\\end{minipage}\n'
 
       texte += `Calculer $\\widehat{${nom}}$`
@@ -328,7 +330,7 @@ export default function CalculDAngle () {
       texte += ' à $1 ^\\circ$ près.'
 
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: ' °' })
-      /****************************************************/
+
       if (this.questionJamaisPosee(i, nom, choixRapportTrigo)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

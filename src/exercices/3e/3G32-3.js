@@ -15,9 +15,10 @@ export const refs = {
   'fr-fr': ['3G32-3'],
   'fr-ch': []
 }
-export default function CalculHauteurFalaise () {
-  problemesTrigoLongueur.call(this)
-  this.titre = titre
-  this.sup2 = 4
-  this.besoinFormulaireCaseACocher = false
+export default class CalculHauteurFalaise extends problemesTrigoLongueur {
+  constructor () {
+    super()
+    this.sup2 = 4
+    this.besoinFormulaireCaseACocher = false
+  }
 }

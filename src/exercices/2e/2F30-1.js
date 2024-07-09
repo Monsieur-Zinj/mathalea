@@ -33,7 +33,6 @@ export default function VariationsCourbe () {
   this.tailleDiaporama = 1 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.spacing = 1// Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
-  this.listePackages = ['tkz-tab']
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

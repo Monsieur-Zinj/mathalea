@@ -1,16 +1,17 @@
 import { fraction, polynomialRoot, round } from 'mathjs'
 
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
-import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue.ts'
+import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { egal, randint } from '../../modules/outils.js'
 import { BezierPath } from '../2d/courbes.js'
 import { point, tracePoint } from '../2d/points.js'
 import { choice } from '../outils/arrayOutils'
-import { signesFonction, variationsFonction } from './etudeFonction.js'
-import { Polynome } from './Polynome.js'
+import { brent, tableauDeVariation, variationsFonction } from './etudeFonction.js'
+import { chercheMinMaxLocal, Polynome } from './Polynome.js'
 import Decimal from 'decimal.js'
 import { rangeMinMax } from '../outils/nombres'
 import { matrice } from './Matrice'
+import { stringNombre } from '../outils/texNombre'
 
 /**
  * Une fonction pour créer une Spline aléatoire
@@ -273,12 +274,27 @@ export class Spline {
     return new Spline(noeuds)
   }
 
+  zeros (precision = 1) {
+    const zeros = []
+    for (let x = this.x[0]; x < this.x[this.n - 1]; x += 0.5) {
+      if (this.#image(x) * this.#image(x + 0.5) < 0) {
+        const { root } = brent(this.fonction, x, x + 0.5, 0.000000001, 100)
+        if (root != null) zeros.push(round(root, precision))
+      } else {
+        if (this.#image(x) === 0) zeros.push(round(x, precision))
+        if (this.#image(x + 0.5) === 0) zeros.push(round(x + 0.5, precision))
+      }
+    }
+    return Array.from((new Set(zeros)).values())
+  }
+
   /**
-     * retourne les solutions de f(x) = y sur son domaine de définition
-     * @param {number} y
-     * @returns {number[]}
-     */
-  solve (y) {
+   * retourne les solutions de f(x) = y sur son domaine de définition
+   * @param {number} y
+   * @param {number} precision le nombre de chiffres attendus après la virgule en cas de valeur non entière
+   * @returns {number[]}
+   */
+  solve (y, precision = 1) {
     // On a eu des soucis plus loin dans polynome.add(-y) donc on s'assure que y est bien un number.
     const yArg = y
     y = Number(y)
@@ -292,15 +308,15 @@ export class Spline {
           for (const valeur of liste) {
             let arr
             if (typeof valeur === 'number') {
-              arr = round(valeur, 3)
+              arr = round(valeur, precision)
             } else { // complexe !
               const module = valeur.toPolar().r
-              if (module < 1e-5) { // module trop petit pour être complexe, c'est 0 !
+              if (module < 10 ** (-precision - 4)) { // module trop petit pour être complexe, c'est 0 !
                 arr = 0
               } else {
                 const argument = valeur.arg()
                 if (Math.abs(argument) < 0.001 || Math.abs(Math.abs(argument) - Math.PI) < 0.001) { // si l'argument est proche de 0 ou de Pi ou de -Pi
-                  arr = round(valeur.re, 3) // on prend la partie réelle
+                  arr = round(valeur.re, precision) // on prend la partie réelle
                 } else {
                   arr = null // c'est une vraie racine complexe, du coup, on prend null
                 }
@@ -336,8 +352,73 @@ export class Spline {
      * à améliorer... la fonction signesFonctions ne travaille pas proprement. on peut faire beaucoup mieux avec Spline
      * @returns {T[]}
      */
-  signes (step) {
-    return signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 10), 0.001)
+  signes () {
+    const signes = []
+    const zeros = this.zeros(1)
+    let x
+    if (zeros.length === 0) {
+      return [{ xG: this.x[0], xD: this.x[this.n - 1], signe: this.y[0] > 0 ? '+' : '-' }]
+    }
+    if (this.x[0] !== zeros[0]) signes.push({ xG: this.x[0], xD: zeros[0], signe: this.y[0] > 0 ? '+' : '-' })
+    x = zeros[0]
+    signes.push({ xG: zeros[0], xD: zeros[0], signe: 'z' })
+    for (let i = 1; i < zeros.length; i++) {
+      const y = this.#image((x + zeros[i]) / 2)
+      signes.push({ xG: x, xD: zeros[i], signe: y > 0 ? '+' : '-' })
+      signes.push({ xG: zeros[i], xD: zeros[i], signe: 'z' })
+      x = zeros[i]
+    }
+    if (zeros[zeros.length - 1] === this.x[this.n - 1]) return signes
+    const y = this.#image((zeros[zeros.length - 1] + this.x[this.n - 1]) / 2)
+    signes.push({ xG: zeros[zeros.length - 1], xD: this.x[this.n - 1], signe: y > 0 ? '+' : '-' })
+    return signes // signesFonction(this.fonction, this.noeuds[0].x, this.noeuds[this.n - 1].x, step ?? new FractionEtendue(1, 10), 0.001)
+  }
+
+  /**
+   * renvoie le tableau de signes d'une fonction
+   * @param fonction
+   * @param {object} options
+   * @param {string} [options.nomVariable] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+   * @param {string} [options.nomFonction] // ce qui est écrit dans l'entête de la première ligne 'x' par défaut
+   * @returns {string} [options.nomFonction] // ce  qui est écrit dans l'entête de la deuxième ligne 'f(x)' par défaut
+   */
+  tableauSignes (
+    nomVariable = 'x',
+    nomFonction = 'f(x)'
+  ) {
+    const signes = this.signes()
+    const premiereLigne = []
+    for (let i = 0; i < signes.length; i++) {
+      if (i === 0) {
+        premiereLigne.push(stringNombre(signes[0].xG, 2), 10)
+      }
+      if (i > 0 && signes[i].xG !== signes[i - 1].xG) {
+        premiereLigne.push(stringNombre(signes[i].xG, 2), 10)
+      }
+    }
+    if (signes[signes.length - 1].xD !== signes[signes.length - 1].xG) premiereLigne.push(stringNombre(signes[signes.length - 1].xD, 2), 10)
+    const tabLine = ['Line', 30]
+    if (!egal(this.#image(this.x[0]), 0)) {
+      tabLine.push('', 10)
+    }
+
+    for (let i = 0; i < signes.length; i++) {
+      tabLine.push(signes[i].signe, 10)
+    }
+
+    return tableauDeVariation({
+      tabInit: [
+        [
+          [nomVariable, 2, 10], [nomFonction, 2, 10]
+        ],
+        premiereLigne
+      ],
+      tabLines: [tabLine],
+      colorBackground: '',
+      escpl: 3.5, // taille en cm entre deux antécédents
+      deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+      lgt: 8 // taille de la première colonne en cm
+    })
   }
 
   /**
@@ -431,102 +512,8 @@ export class Spline {
   amplitude () {
     let yMin = 1000
     let yMax = -1000
-    const derivees = this.derivees
     for (let i = 0; i < this.x.length - 1; i++) {
-      const derivee = derivees[i]
-      let maxLocal, minLocal
-      if (derivee.deg === 2) {
-        const a = Number(derivee.monomes[2])
-        const b = Number(derivee.monomes[1])
-        const c = Number(derivee.monomes[0])
-        const delta = b ** 2 - 4 * a * c
-        if (delta < 0) { // la dérivée ne s'annule pas donc la fonction est monotone du signe de a
-          if (a > 0) { // la fonction est croissante don le max est atteint en x[i+1]
-            maxLocal = this.y[i + 1]
-            minLocal = this.y[i]
-          } else {
-            maxLocal = this.y[i]
-            minLocal = this.y[i + 1]
-          }
-        } else if (delta === 0) { // la dérivée s'annule une seule fois mais il faut vérifier que c'est sur l'intervalle x[i] x[i+1]
-          const racine = -b / 2 / a
-          if (racine > this.x[i] && racine < this.x[i]) { // ça peut encore être un max ou un min !
-            if (a > 0) { // c'est un minimum
-              maxLocal = Math.max(this.y[i], this.y[i + 1])
-              minLocal = this.#image(racine)
-            } else { // c'est un maximum
-              maxLocal = this.#image(racine)
-              minLocal = Math.min(this.y[i], Number(this.y[i + 1]))
-            }
-          } else { // la racine n'est pas dans cet intervalle, donc la dérivée est monotone ici
-            maxLocal = Math.max(this.y[i], Number(this.y[i + 1]))
-            minLocal = Math.min(this.y[i], Number(this.y[i + 1]))
-          }
-        } else { // delta >0 deux racines !
-          const ptiDelta = Math.sqrt(delta)
-          const r1 = a > 0 ? (-b - ptiDelta) / 2 / a : (-b + ptiDelta) / 2 / a
-          const r2 = a > 0 ? (-b + ptiDelta) / 2 / a : (-b - ptiDelta) / 2 / a
-          if (this.x[i] < r1 && r1 < this.x[i + 1]) { // r1 est dans l'intervalle
-            if (this.x[i] < r2 && r2 < this.x[i + 1]) { // r2 aussi !
-              if (a > 0) { // croissant puis decroissant puis croissant : le max est soit en r1 soit en x[i+1]
-                maxLocal = Math.max(this.#image(r1), this.y[i + 1])
-                minLocal = Math.min(this.y[i], this.#image(r2))
-              } else { // a<0 décroissant puis croissant puis décroissant
-                minLocal = Math.min(this.#image(r1), this.y[i + 1])
-                maxLocal = Math.max(this.y[i], this.#image(r2))
-              }
-            } else { // r1 est dedans mais pas r2
-              if (a > 0) { // on a un max en r1 et le min est soit en x[i] soit en x[i+1]
-                maxLocal = this.#image(r1)
-                minLocal = Math.min(this.y[i], this.y[i + 1])
-              } else { // minimum en r1, max en x[i] ou x[i+1]
-                minLocal = this.#image(r1)
-                maxLocal = Math.max(Number(this.y[i], this.y[i + 1]))
-              }
-            }
-          } else { // r1 n'est pas dans l'intervalle mais peut-être r2 y est
-            if (this.x[i] < r2 && r2 < this.x[i + 1]) {
-              if (a > 0) { // on a le min en r2 et le max en x[i] ou en x[i+1]
-                minLocal = this.#image(r2)
-                maxLocal = Math.max(this.x[i], this.y[i + 1])
-              } else { // on a le max en r2 et le min en x[i] ou en x[i+1]
-                maxLocal = this.#image(r2)
-                minLocal = Math.min(this.x[i], this.y[i + 1])
-              }
-            } else { // ni r1, ni r2 ne sont dans l'intervalle. La fonction est monotone
-              if (a > 0) {
-                if (r2 < this.x[i] || r1 > this.x[i + 1]) { // strictement croissante
-                  maxLocal = this.y[i + 1]
-                  minLocal = this.y[i]
-                } else { // normalemennt r1<x[i] et r2>x[i+1] strictement décroissante
-                  maxLocal = this.y[i]
-                  minLocal = this.y[i + 1]
-                }
-              } else {
-                if (r2 < this.x[i] || r1 > this.x[i + 1]) { // strictement décroissante
-                  maxLocal = this.y[i]
-                  minLocal = this.y[i + 1]
-                } else { // normalemennt r1<x[i] et r2>x[i+1] strictement croissante
-                  maxLocal = this.y[i + 1]
-                  minLocal = this.y[i]
-                }
-              }
-            }
-          }
-        }
-      } else if (derivees[i].deg === 1) { // derivée affine, monotone croissante ou décroissante selon le signe de derivee[i].monomes[1]
-        const a = derivees[i].monomes[1]
-        if (a > 0) {
-          maxLocal = this.y[i + 1]
-          minLocal = this.y[i]
-        } else {
-          maxLocal = this.y[i]
-          minLocal = this.y[i + 1]
-        }
-      } else { // constante !
-        minLocal = this.y[i]
-        maxLocal = this.y[i]
-      }
+      const { minLocal, maxLocal } = chercheMinMaxLocal({ poly: this.polys[i], xG: this.x[i], xD: this.x[i + 1] })
       yMin = Math.min(yMin, minLocal)
       yMax = Math.max(yMax, maxLocal)
     }
@@ -598,7 +585,7 @@ export class Spline {
     }
     return (x) => {
       const index = intervalles.findIndex((intervalle) => x >= intervalle.xG && x <= intervalle.xD)
-      return this.derivees[index].image(rationnalise(x))
+      return this.derivees[index].image(x)
     }
   }
 

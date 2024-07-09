@@ -36,7 +36,6 @@ export default function PositionRelative () {
   this.sup2 = 1
   this.titre = titre
   this.nbQuestions = 1
-  this.listePackages = ['tkz-tab']
   this.besoinFormulaireTexte = [
     'Choix des fonctions',
     '1 : Fonctions affines\n2 : Polynôme de degré 2 et fonction affine\n3 : Mélange'

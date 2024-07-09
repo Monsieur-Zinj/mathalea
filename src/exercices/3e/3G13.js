@@ -133,7 +133,7 @@ export default class CalculsHomothetie extends Exercice {
       OB = OB.multiplieEntier(10 ** (valeursSimples) * absk.d ** (kNonDecimal))
       let OhB = k.produitFraction(OB)
 
-      let AhA = OhA.differenceFraction(OA)
+      let AhA = OhA.differenceFraction(OA).simplifie()
       AhA = AhA.valeurAbsolue()
 
       let kAire = new FractionEtendue(choice([randint(1, 4) * 10 + 5 + choice([0, 5]), randint(1, 9)]), 1)
@@ -483,7 +483,6 @@ export default class CalculsHomothetie extends Exercice {
 
           if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$ (arrondi au $\\text{ mm}^2$ si besoin)' })
           else texte += ' (arrondir au $\\text{mm}^2$ près si besoin)'
-          texte += '.<br>' + fImage2etapes.enonce
 
           handleAnswers(this, i, { reponse: { value: hAireArrondie, compare: fonctionComparaison } })
 

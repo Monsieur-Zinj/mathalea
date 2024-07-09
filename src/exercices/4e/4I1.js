@@ -31,7 +31,6 @@ export default function TracerAvecScratch () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.listePackages = 'scratch3'
   this.typeExercice = 'Scratch'
 
   let typesDeQuestionsDisponibles

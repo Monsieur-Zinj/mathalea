@@ -10,7 +10,6 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { context } from '../../modules/context.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Reconnaître un parallélogramme à partir du codage d\'une figure'
 export const interactifReady = true
@@ -81,7 +80,7 @@ export default function ParallelogrammeAPartirDUneFigure () {
 
     let M1, N1, O1, P1, p1, s1, s2, s3, s4
 
-    const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: true, amplitude: 0.5 }
+    const paramsEnonce = { xmin: -1, ymin: -4, xmax: 7.5, ymax: 0.8, pixelsParCm: 20, scale: 0.5, mainlevee: false, amplitude: 0.5 }
 
     let nomsDejaUtilises
     let nom
@@ -203,21 +202,22 @@ export default function ParallelogrammeAPartirDUneFigure () {
           texteCorr += `<br>Donc $${miseEnEvidence(nom)}$ ${texteEnCouleurEtGras('est un parallélogramme')}.`
           break
       }
-      if (this.interactif || context.isAmc) {
-        this.autoCorrection[i] = {}
-        this.autoCorrection[i].options = { ordered: true }
-        this.autoCorrection[i].enonce = `${texte}\n`
-        this.autoCorrection[i].propositions = [
-          {
-            texte: 'Il s\'agit d\'un parallélogramme',
-            statut: estUnParallegramme
-          },
-          {
-            texte: 'Il ne s\'agit pas d\'un parallélogramme',
-            statut: !estUnParallegramme
-          }
-        ]
-        texte += propositionsQcm(this, i).texte
+      this.autoCorrection[i] = {}
+      this.autoCorrection[i].options = { ordered: true }
+      this.autoCorrection[i].enonce = `${texte}\n`
+      this.autoCorrection[i].propositions = [
+        {
+          texte: 'Il s\'agit d\'un parallélogramme',
+          statut: estUnParallegramme
+        },
+        {
+          texte: 'Il ne s\'agit pas d\'un parallélogramme',
+          statut: !estUnParallegramme
+        }
+      ]
+      const props = propositionsQcm(this, i)
+      if (this.interactif) {
+        texte += props.texte
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

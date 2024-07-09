@@ -18,6 +18,7 @@ import {
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Calculer des coordonnées de points appartenant à une coube connaissant l\'abscisse ou l\'ordonnée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -261,7 +262,7 @@ ${texteCentre(`$${nom}(x)=${reduirePolynomeDegre3(0, a, 0, c)}$`)}
 On note $\\mathscr{C}$ la courbe représentative de la fonction $${nom}$ dans un repère.<br>
 Existe-t-il des points de $\\mathscr{C}$ d'ordonnée $${ord}$ ? <br>
 Si oui, quelles sont les abscisses possibles de ces points ?<br>
-Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou "Aucun" s'il n'y en a pas.`
+Écrire les valeurs dans l'ordre croissant séparées par un point-virgule ou $\\emptyset$ s'il n'y en a pas.`
                 }
 
                 correction = ` Si un point de $\\mathscr{C}$ a pour ordonnée $${ord}$, son abscisse est un antécédent de $${ord}$.<br> `
@@ -276,7 +277,7 @@ Si oui, quelles sont les abscisses possibles de ces points ?<br>
                 if (abs < 0) {
                   correction += ` Cette équation n'a pas de solution.<br>
  On en déduit qu'il n'existe pas de point de $\\mathscr{C}$ ayant pour ordonnée $${ord}$. `
-                  setReponse(this, i, ['Aucun', 'aucun'], { formatInteractif: 'texte' })
+                  setReponse(this, i, '\\emptyset', { formatInteractif: 'texte' })
                 }
                 if (abs > 0) {
                   if (abs === 1 || abs === 4 || abs === 9 || abs === 16) {
@@ -470,8 +471,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
       }
 
       texte = enonce
-      texte += ' ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 clavierDeBase alphanumeric')
-      // texte += ' ' + ajouteChampTexteMathLive(this, i)
+      texte += ' ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierEnsemble)
       texteCorr = correction
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {

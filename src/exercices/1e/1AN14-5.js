@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine, { functionCompare } from '../../lib/interactif/comparisonFunctions'
 
-export const titre = 'Dérivée d\'un produit'
+export const titre = 'Dérivée de $u\\times v$'
 export const dateDePublication = '22/01/2022'
 export const dateDeModifImportante = '06/05/2024'
 export const interactifReady = true
@@ -260,5 +260,5 @@ export default function DeriveeProduit () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
+  this.besoinFormulaireTexte = ['types de fonctions :', 'Nombres séparés par des tirets\n1 monome2 et affine\n2 : inverse et affine\n3 : racine et polynome\n4 : racine et polynome degré 2 sans degré 1\n5 : monome2 et racine\n6 : mélange']
 }

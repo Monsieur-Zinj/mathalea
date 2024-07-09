@@ -33,7 +33,7 @@ export default function NatureSuiteEx () {
     this.listeQuestions = []
     this.listeCorrections = []
 
-    let texte, texteCorr, a, b, u, d
+    let texte, texteCorr, a, b, u, d, props
     const nomSuite = ['u', 'v', 'w']
     const s = choice(nomSuite)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -43,29 +43,29 @@ export default function NatureSuiteEx () {
           // u = randint(1, 10) * choice([-1, 1])
           b = randint(1, 10) * choice([-1, 1])
 
-          if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}n${ecritureAlgebrique(b)} $.<br>
+          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${rienSi1(a)}n${ecritureAlgebrique(b)} $.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `arithmétique de raison $${a}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${b}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `arithmétique de raison $${a}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${b}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}n${ecritureAlgebrique(b)} $.<br>
 
           Quelle est la nature de cette suite ?<br>
@@ -82,29 +82,29 @@ export default function NatureSuiteEx () {
           b = randint(1, 10) * choice([-1, 1])
           d = randint(2, 10)
           a = calculANePlusJamaisUtiliser(d * randint(1, 10) * choice([-1, 1]))
-          if (this.interactif) {
-            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
+          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
           Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `arithmétique de raison $${texNombre(a / d)}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${a}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${texNombre(a / d)}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `arithmétique de raison $${texNombre(a / d)}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${a}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${texNombre(a / d)}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
           
             Quelle est la nature de cette suite ?<br>
@@ -126,28 +126,28 @@ export default function NatureSuiteEx () {
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =`
           if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` }
 
-          if (this.interactif) {
-            texte += `<br>Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `géométrique de raison $${b}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${b}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          texte += `<br>Alors, $(${s}_n)$ est une suite ...`
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `géométrique de raison $${b}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${b}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte += ` <br>
             
             Quelle est la nature de cette suite ?<br>
@@ -172,28 +172,28 @@ export default function NatureSuiteEx () {
           b = randint(2, 10, a)
           texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.`
 
-          if (this.interactif) {
-            texte += `<br>Alors, $(${s}_n)$ est une suite ...`
-            this.autoCorrection[i] = {
-              enonce: texte,
-              options: { horizontal: true },
-              propositions: [
-                {
-                  texte: `géométrique de raison $\\dfrac{1}{${b}}$`,
-                  statut: true
-                },
-                {
-                  texte: `arithmétique de raison $${b}$`,
-                  statut: false
-                },
-                {
-                  texte: `géométrique de raison $${a}$`,
-                  statut: false
-                }
-              ]
-            }
-            texte += propositionsQcm(this, i).texte
-          } else {
+          texte += `<br>Alors, $(${s}_n)$ est une suite ...`
+          this.autoCorrection[i] = {
+            enonce: texte,
+            options: { horizontal: true },
+            propositions: [
+              {
+                texte: `géométrique de raison $\\dfrac{1}{${b}}$`,
+                statut: true
+              },
+              {
+                texte: `arithmétique de raison $${b}$`,
+                statut: false
+              },
+              {
+                texte: `géométrique de raison $${a}$`,
+                statut: false
+              }
+            ]
+          }
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             texte += ` <br>
             
             Quelle est la nature de cette suite ?<br>

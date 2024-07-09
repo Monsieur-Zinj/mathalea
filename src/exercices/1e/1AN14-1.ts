@@ -9,7 +9,7 @@ import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { ecritureAlgebriqueSauf1, reduireAxPlusB, rienSi1 } from '../../lib/outils/ecritures'
-export const titre = 'Dérivation de fonctions usuelles'
+export const titre = 'Dérivée de $\\lambda u$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ebd89'
@@ -20,14 +20,15 @@ export const refs = {
 export const dateDePublication = '09/05/2024'
 const listFrac = obtenirListeFractionsIrreductibles()
 /**
- * Un deuxième exercice de dérivation
+ * Dérivation de fonctions du type x -> ku(x),
+ * avec u une fonction de référence.
  * @author Jean-Claude Lhote
  *
  */
 class DerivationFonctionsUsuelles extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonction (nombre séparés par des tirets)', '1 : Fonctions usuelles au hasard\n2 : Affine niveau 1\n3 : Affine niveau2\n4 : Monome niveau 1\n5 : Monome niveau2\n6 : Inverse niveau 1\n7 : Inverse niveau 2\n8 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets : \n1 : Fonctions usuelles au hasard\n2 : Affine niveau 1\n3 : Affine niveau2\n4 : Monome niveau 1\n5 : Monome niveau2\n6 : Inverse niveau 1\n7 : Inverse niveau 2\n8 : Mélange']
     this.sup = '8'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true

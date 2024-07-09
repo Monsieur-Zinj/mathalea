@@ -13,9 +13,10 @@ export const refs = {
   'fr-fr': ['5S22'],
   'fr-ch': ['11NO2-8']
 }
-export default function FonctionsVocabulaireProbabilite5e () {
-  FonctionsProbabilite1.call(this)
-  this.titre = titre
-  this.niveau = 2
-  this.spacingCorr = 2
+export default class FonctionsVocabulaireProbabilite5e extends FonctionsProbabilite1 {
+  constructor () {
+    super()
+    this.niveau = 2
+    this.spacingCorr = 2
+  }
 }

@@ -4,7 +4,6 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 /**
- * Clone de 5S21 pour les 2nde
  *
  * @author Sébastien LOZANO
  */

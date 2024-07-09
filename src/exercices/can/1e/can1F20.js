@@ -36,7 +36,7 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
     this.listeCorrections = []
     const choixab1 = [[2, 8], [-2, -8], [-2, 8], [2, -8], [2, 2], [3, -3], [3, 3], [10, 10], [4, 16], [5, 20], [10, 40], [-5, 20], [-5, -20],
       [2, 32], [-2, 32], [-9, 81], [9, 36], [-6, 24], [4, -36], [2, 50], [-2, 50], [3, -12], [3, -48], [3, 48], [-4, 36], [-4, -36]]//
-    let texte, texteCorr, a, k, b, c, fraction
+    let texte, texteCorr, a, k, b, c, fraction, props
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3, 3, 4])) {
         case 1 :// ax^2-b=0  pour x^2=b/a avec b/a carré parfait positif ou négatif
@@ -45,57 +45,57 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           b = fraction[1]
 
           k = -b / a
-          if (this.interactif) {
-            if (choice([true, false])) {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${a}x^2${ecritureAlgebrique(b)}=0$ est :
+          if (choice([true, false])) {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${a}x^2${ecritureAlgebrique(b)}=0$ est :
                `
-            } else {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${b}${ecritureAlgebrique(a)}x^2=0$ est :
-               `
-            }
-            if (k > 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                    statut: false
-                  }
-                ]
-
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\{-${Math.sqrt(-k)}${sp(1)};${sp(1)}${Math.sqrt(-k)}\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            }
-
-            texte += propositionsQcm(this, i).texte
           } else {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${b}${ecritureAlgebrique(a)}x^2=0$ est :
+               `
+          }
+          if (k > 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\{-${Math.sqrt(k)}${sp(1)};${sp(1)}${Math.sqrt(k)}\\}$`,
+                  statut: true
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
+                  statut: false
+                }
+              ]
+
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{-${Math.sqrt(-k)}${sp(1)};${sp(1)}${Math.sqrt(-k)}\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          if (!this.interactif) {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
             $${a}x^2${ecritureAlgebrique(b)}=0$.`
@@ -128,57 +128,57 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           b = a * choice([2, 3, 5, 7, 10, -2, -3, -10])
 
           k = -b / a
-          if (this.interactif) {
-            if (choice([true, false])) {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${a}x^2${ecritureAlgebrique(b)}=0$ est :
+          if (choice([true, false])) {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${a}x^2${ecritureAlgebrique(b)}=0$ est :
                `
-            } else {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${b}${ecritureAlgebrique(a)}x^2=0$ est :
-               `
-            }
-            if (k > 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                    statut: false
-                  }
-                ]
-
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: '$S=\\emptyset$',
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\{-\\sqrt{${-k}}${sp(1)};${sp(1)}\\sqrt{${-k}}\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            }
-
-            texte += propositionsQcm(this, i).texte
           } else {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${b}${ecritureAlgebrique(a)}x^2=0$ est :
+               `
+          }
+          if (k > 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\{-\\sqrt{${k}}${sp(1)};${sp(1)}\\sqrt{${k}}\\}$`,
+                  statut: true
+                },
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
+                  statut: false
+                }
+              ]
+
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: '$S=\\emptyset$',
+                  statut: true
+                },
+                {
+                  texte: `$S=\\{-\\sqrt{${abs(b)}}${sp(1)};${sp(1)}\\sqrt{${abs(b)}}\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\{-\\sqrt{${-k}}${sp(1)};${sp(1)}\\sqrt{${-k}}\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          if (!this.interactif) {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
             $${a}x^2${ecritureAlgebrique(b)}=0$.`
@@ -212,57 +212,57 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           b = randint(-3, 5, 0)
 
           k = new FractionEtendue(-b, a)
-          if (this.interactif) {
-            if (choice([true, false])) {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$ est :
+          if (choice([true, false])) {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$ est :
                `
-            } else {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^2=0$ est :
-               `
-            }
-
-            if (k > 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.inverse().texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\left\\{${k.texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\left\\{${k.inverse().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            }
-            //
-            texte += propositionsQcm(this, i).texte
           } else {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b)}x${ecritureAlgebriqueSauf1(a)}x^2=0$ est :
+               `
+          }
+
+          if (k > 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
+                  statut: true
+                },
+                {
+                  texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.inverse().texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\left\\{${k.texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
+                  statut: true
+                },
+                {
+                  texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.oppose().texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\left\\{${k.inverse().texFractionSimplifiee}${sp(1)};${sp(1)}0\\right\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+          //
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
               $${rienSi1(a)}x^2${ecritureAlgebriqueSauf1(b)}x=0$.`
@@ -300,57 +300,57 @@ export default function ResoudreEquationsSecondDegreSansDelta () {
           b = randint(-3, 5, 0)
           c = b ** 2
           k = new FractionEtendue(-b, a)
-          if (this.interactif) {
-            if (choice([true, false])) {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$ est :
+          if (choice([true, false])) {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$ est :
                `
-            } else {
-              texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$ est :
-               `
-            }
-
-            if (k > 0) {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            } else {
-              this.autoCorrection[i] = {
-                enonce: texte,
-                options: { horizontal: true },
-                propositions: [
-                  {
-                    texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
-                    statut: true
-                  },
-                  {
-                    texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  },
-                  {
-                    texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
-                    statut: false
-                  }
-                ]
-              }
-            }
-            //
-            texte += propositionsQcm(this, i).texte
           } else {
+            texte = `L'ensemble des solutions $S$ de l'équation  $${rienSi1(b * 2 * a)}x${ecritureAlgebriqueSauf1(a * a)}x^2+${c}=0$ est :
+               `
+          }
+
+          if (k > 0) {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
+                  statut: true
+                },
+                {
+                  texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          } else {
+            this.autoCorrection[i] = {
+              enonce: texte,
+              options: { horizontal: true },
+              propositions: [
+                {
+                  texte: `$S=\\left\\{${k.texFractionSimplifiee}\\right\\}$`,
+                  statut: true
+                },
+                {
+                  texte: `$S=\\left\\{${k.oppose().texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                },
+                {
+                  texte: `$S=\\left\\{0${sp(1)};${sp(1)}${k.texFractionSimplifiee}\\right\\}$`,
+                  statut: false
+                }
+              ]
+            }
+          }
+          //
+          props = propositionsQcm(this, i)
+          if (this.interactif) texte += props.texte
+          else {
             if (choice([true, false])) {
               texte = `Résoudre dans $\\mathbb{R}$ :${sp(2)}
               $${rienSi1(a * a)}x^2${ecritureAlgebriqueSauf1(b * 2 * a)}x+${c}=0$.`
