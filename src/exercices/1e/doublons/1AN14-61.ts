@@ -1,17 +1,17 @@
 import Exercice from '../Exercice'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { Polynome } from '../../lib/mathFonctions/Polynome'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { functionCompare } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { compareArrays } from '../../lib/outils/arrayOutils'
-import { fraction } from '../../modules/fractions'
-export const titre = 'Dérivation de fonction composées V1'
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
+import FractionEtendue from '../../modules/FractionEtendue'
+export const titre = 'Dérivation de fonction composées V2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+<<<<<<<< f1c664b0c5b24bc63f7c4980b9588c2ce195b0fe:src/exercices/1e/doublons/1AN14-61.ts
 // export const uuid = '518d8'
 // export const refs = {
 //   'fr-fr': ['1AN14-61'],
@@ -22,75 +22,101 @@ export const dateDePublication = '17/04/2024'
 /**
  * Dérivée de u/v
  * Doublon avec 1AN14-6
+========
+// export const uuid = '25135'
+// export const refs = {
+//   'fr-fr': ['1AN14-72'],
+//   'fr-ch': []
+// }
+
+export const dateDePublication = '17/04/2024'
+
+/**
+ * Dérivée de u(mx + p)
+ * Doublon avec 1AN14-7
+>>>>>>>> 6cbb4face9b7a0560f7afc5d4c553cf20a5d351d:src/exercices/1e/1AN14-71.ts
  * @author Jean-Claude Lhote
  *
  */
-class DerivationFonctionRationnelles extends Exercice {
+class DerivationGRondF extends Exercice {
   constructor () {
     super()
-    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : k/(ax+b)\n2 : (ax+b)/(cx+d)\n3 : ax²/(ax+b)\n4 : (ax²+bx+c)/(dx+e)\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Types de fonctions : ', 'Nombres séparés par des tirets\n1 : (ax+b)^n\n2 : ln(ax+b)\n3 : exp(ax+b)\n4 : rac(ax+b)\n5 : Mélange']
     this.sup = '5'
     this.nbQuestions = 5
     this.correctionDetailleeDisponible = true
-    this.correctionDetaillee = true
   }
 
   nouvelleVersion () {
     this.reinit()
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 4, defaut: 1, melange: 5, nbQuestions: this.nbQuestions })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let laFonctionNum, laFonctionDen
-      switch (Number(listeTypeDeQuestion[i])) {
+      let laFonctionFEnLatex: string
+      let df: string
+      let formeGeneraleDerivee: string
+      let formeGenerale: string
+      let fPrime: string
+      let fPrimeDetaillee: string
+      let domaine // la variable domaine pour la fonction de comparaison
+      const a = randint(-10, 10, 0)
+      const b = randint(-5, 5, 0)
+      const u = reduireAxPlusB(a, b, 'x')
+      const valeurInterdite = new FractionEtendue(-b, a).simplifie().texFSD
+      const n = randint(2, 6)
+      const typeQuestion = Number(listeTypeDeQuestion[i])
+      switch (typeQuestion) {
+        case 1:
+          fPrimeDetaillee = n === 2 ? `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times\\lparen ${u} \\rparen` : `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times \\lparen${u}\\rparen^${n - 1}`
+          fPrime = n === 2 ? `${String(n * a)}\\times\\lparen${u}\\rparen` : `${String(n * a)}\\times \\lparen ${u} \\rparen^${n - 1}`
+          laFonctionFEnLatex = `\\lparen ${u}\\rparen^${n}`
+          df = '\\R'
+          formeGenerale = 'u^n'
+          formeGeneraleDerivee = '(u^{n})^\\prime=nu^\\prime u^{n-1}'
+          domaine = [-10, 10]
+          break
         case 2:
-          do {
-            laFonctionNum = new Polynome({ rand: true, deg: 1, coeffs: [] })
-            laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
-          } while (compareArrays(laFonctionNum.monomes, laFonctionDen.monomes))
+          fPrimeDetaillee = `\\dfrac{${String(a)}}{${u}}`
+          fPrime = `\\dfrac{${String(a)}}{${u}}`
+          laFonctionFEnLatex = `\\ln\\lparen ${u}\\rparen`
+          df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
+          formeGenerale = 'ln(u)'
+          formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
+          domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
           break
         case 3:
-          laFonctionNum = new Polynome({ rand: false, deg: 2, coeffs: [0, 0, randint(-9, 9, [-1, 0, 1])] })
-          laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
+          fPrimeDetaillee = `${String(a)}\\times e^{${u}}`
+          fPrime = `${String(a)}e^{${u}}`
+          laFonctionFEnLatex = `e^{${u}}`
+          df = '\\R'
+          formeGenerale = 'e^u'
+          formeGeneraleDerivee = '(e^u)^\\prime=u^\\prime e^u'
+          domaine = [-10, 10]
           break
         case 4:
-          laFonctionNum = new Polynome({ rand: true, deg: 2, coeffs: [] })
-          laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
-          break
-        case 1:
         default:
-          laFonctionNum = new Polynome({ rand: true, deg: 0, coeffs: [] })
-          laFonctionDen = new Polynome({ rand: true, deg: 1, coeffs: [] })
+          fPrimeDetaillee = `\\dfrac{${String(a)}}{2\\sqrt{${u}}}`
+          fPrime = a % 2 === 0 ? `\\dfrac{${String(a / 2)}}{\\sqrt{${u}}}` : `\\dfrac{${String(a)}}{2\\sqrt{${u}}}`
+          laFonctionFEnLatex = `\\sqrt{${u}}`
+          df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
+          formeGenerale = '\\sqrt{u}'
+          formeGeneraleDerivee = '(\\sqrt{u})^\\prime=\\dfrac{u^\\prime}{2\\sqrt{u}}'
+          domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
           break
       }
-      const valeurInterdite = fraction(-laFonctionDen.monomes[0], laFonctionDen.monomes[1]).simplifie().texFSD
-      const df = `\\R\\backslash\\left\\{${valeurInterdite.replace('dfrac', 'frac')}\\right\\}`
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
-      const laDeriveeNum = laFonctionNum.derivee().multiply(laFonctionDen).add((laFonctionNum.multiply(-1).multiply(laFonctionDen.derivee())))
-      let numDeriv = laDeriveeNum.toLatex()
-      if (numDeriv.startsWith('+')) numDeriv = numDeriv.substring(1)
-      const reponse = `\\dfrac{${numDeriv}}{(${laFonctionDen.toLatex()})^2}`
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       let texteCorr = ''
       if (this.correctionDetaillee) {
-        const derivNum = laFonctionNum.derivee().toLatex()
-        const derivDen = laFonctionDen.derivee().toLatex()
-        const num = laFonctionNum.toLatex()
-        const den = laFonctionDen.toLatex()
-        const u = num.length === 1 ? num : `\\lparen ${num}\\rparen`
-        const v = den.length === 1 ? den : `\\lparen ${den}\\rparen`
-        const uPrime = derivNum.length === 1 ? derivNum : `\\lparen ${derivNum}\\rparen`
-        const vPrime = derivDen.length === 1 ? derivDen : `\\lparen ${derivDen}\\rparen`
-
-        texteCorr += `En effet, $f$ est de la forme $\\dfrac{u}{v}$ avec $u(x)=${u}$ et $v(x)=${v}$<br>`
-        texteCorr += 'On calcule donc $\\dfrac{u^\\prime\\times v - u\\times v^\\prime}{v^2}$, soit :<br>'
-        texteCorr += `Au numérateur : $${uPrime} \\times ${v}  - ${u} \\times ${vPrime}$.<br>`
-        texteCorr += `Au dénominateur : $${v}^2$.<br>`
+        texteCorr += `La fonction $f$ est de la forme $${formeGenerale}$ et donc que la dérivée est de la forme $${formeGeneraleDerivee}$.<br>`
+        texteCorr += `On a $u(x)=${u}$${typeQuestion === 1 ? `, $n=${n}$` : ''} et $u^\\prime(x)=${String(a)}$.<br>`
+        texteCorr += `$f^\\prime(x)=${fPrimeDetaillee}$.<br>`
       }
-      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=\\dfrac{${laFonctionNum.toLatex()}}{${laFonctionDen.toLatex()}}$ est :<br>`
-      texteCorr += `$f'(x)=${miseEnEvidence(reponse)}$.`
+      texteCorr += `L'expression de la dérivée de la fonction $f$ définie par $f(x)=${laFonctionFEnLatex}$ est : `
+      texteCorr += `$f'(x)=${miseEnEvidence(fPrime)}$.`
 
-      if (this.questionJamaisPosee(i, laFonctionNum.toLatex(), laFonctionDen.toLatex())) {
+      if (this.questionJamaisPosee(i, laFonctionFEnLatex, fPrime)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value: reponse, options: { variable: 'x', domaine: [-10, 10] }, compare: functionCompare } })
+        handleAnswers(this, i, { reponse: { value: fPrime, options: { variable: 'x', domaine }, compare: functionCompare } })
         i++
         cpt--
       }
@@ -99,4 +125,4 @@ class DerivationFonctionRationnelles extends Exercice {
   }
 }
 
-export default DerivationFonctionRationnelles
+export default DerivationGRondF
