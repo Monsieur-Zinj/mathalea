@@ -7,11 +7,12 @@
   export let zoomUpdate: (plusMinus: ('+' | '-')) => void
   export let newDataForAll: () => void
   export let trash: () => void
-  export let urlFeuilleEleve: string
   export let buildUrlAndOpenItInNewTab: (type: 'usual' | 'eleve') => void
   export let showSettingsDialog: () => void
-  export let importExercises: () => void
+  export let importExercises: (urlFeuilleEleve: string) => void
   export let isExercisesListEmpty: boolean
+
+  let urlFeuilleEleve: string = ''
 
 </script>
 
@@ -85,8 +86,8 @@
         <ButtonText
           class="text-sm py-1 px-2 rounded-md h-7"
           text="Ajouter"
-          disabled={urlFeuilleEleve.length === 0}
-          on:click={importExercises}
+          disabled={urlFeuilleEleve === ''}
+          on:click={() => importExercises(urlFeuilleEleve)}
         />
       </div>
       <div

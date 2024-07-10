@@ -23,10 +23,9 @@
   export let locale: Language
   export let handleLanguage: (lang: string) => void
   export let isCapytale: boolean
-  export let urlFeuilleEleve: string
   export let buildUrlAndOpenItInNewTab: (type: 'usual' | 'eleve') => void
   export let showSettingsDialog: () => void
-  export let importExercises: () => void
+  export let importExercises: (urlFeuilleEleve: string) => void
   export let isExercisesListEmpty: boolean
 
   let reorderModalDisplayed: boolean
@@ -41,8 +40,9 @@
   }
 </script>
 
-<header
-  class="md:sticky md:top-0 md:z-50 flex flex-col scrollbar-hide w-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
+<header class="flex flex-col scrollbar-hide w-full
+  md:sticky md:top-0 md:z-50
+  bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
   {#if isCapytale}
     <div
@@ -53,7 +53,6 @@
         {zoomUpdate}
         {newDataForAll}
         {trash}
-        {urlFeuilleEleve}
         {buildUrlAndOpenItInNewTab}
         {showSettingsDialog}
         {importExercises}

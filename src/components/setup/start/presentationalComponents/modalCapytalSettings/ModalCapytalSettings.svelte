@@ -14,11 +14,23 @@
   export let canOptions: CanOptions
   export let toggleCan: () => void
   export let buildUrlAndOpenItInNewTab: (status: 'eleve' | 'usual') => void
+  export let updateParams: (params: { globalOptions: InterfaceGlobalOptions, canOptions: CanOptions }) => void
+
+  const params = {
+    globalOptions,
+    canOptions
+  }
+
+  $: if (globalOptions || canOptions) {
+    params.globalOptions = globalOptions
+    params.canOptions = canOptions
+  }
 
 </script>
 
 <BasicClassicModal
   bind:isDisplayed={isSettingsDialogDisplayed}
+  on:close={() => updateParams(params)}
 >
   <div slot="header">
     Réglages de l'affichage des exercices
@@ -30,30 +42,30 @@
   >
     <div class="pb-2">
       <ModalCapytalSettingsInteractivity
-        bind:globalOptions={globalOptions}
-        bind:isDisabled={canOptions.isChoosen}
+        bind:globalOptions={params.globalOptions}
+        bind:isDisabled={params.canOptions.isChoosen}
       />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsCan
-        bind:canOptions={canOptions}
+        bind:canOptions={params.canOptions}
         bind:toggleCan={toggleCan}
       />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsData
-        bind:globalOptions={globalOptions}
+        bind:globalOptions={params.globalOptions}
       />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsTitles
-        bind:globalOptions={globalOptions}
+        bind:globalOptions={params.globalOptions}
       />
     </div>
     <div class="pb-2">
       <ModalCapytalSettingsCorrection
-        bind:globalOptions={globalOptions}
-        bind:canOptions={canOptions}
+        bind:globalOptions={params.globalOptions}
+        bind:canOptions={params.canOptions}
       />
     </div>
   </div>

@@ -8,7 +8,7 @@
   //     faudrait plutôtqu'ils fassent remonter les changements jusqu'à SideMenu.svelte via une {function} pour qu'ils
   //     les fassent redescendre ensuite par des {attributs}
   //
-  import { SvelteComponent, onDestroy, onMount, setContext } from 'svelte'
+  import { SvelteComponent, onDestroy, onMount, setContext, tick } from 'svelte'
   import {
     callerComponent,
     darkMode,
@@ -31,7 +31,7 @@
   import HeaderButtons from './presentationalComponents/header/headerButtons/HeaderButtons.svelte'
   import Exercices from './presentationalComponents/Exercices.svelte'
   import Placeholder from './presentationalComponents/Placeholder.svelte'
-  import type { InterfaceParams, VueType } from 'src/lib/types'
+  import type { InterfaceGlobalOptions, InterfaceParams, VueType } from 'src/lib/types'
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { SM_BREAKPOINT } from '../../keyboard/lib/sizes'
   import type { Language } from '../../../lib/types/languages'
@@ -42,6 +42,7 @@
   import { canOptions } from '../../../lib/stores/canStore'
   import { buildEsParams } from '../../../lib/components/urls'
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
+  import type { CanOptions } from '../../../lib/types/can'
 
   interface HeaderComponent extends SvelteComponent {
     toggleMenu: (t: boolean) => void
@@ -63,8 +64,9 @@
     }
   )
 
-  onMount(() => {
+  onMount(async () => {
     initTE({ Sidenav, Collapse, Ripple })
+    await tick() // globalOptions n'est pas encore initialisé si on n'attend pas
     if ($globalOptions.recorder === 'capytale') {
       handleCapytale()
       globalOptions.update((params) => {
@@ -76,9 +78,6 @@
         }
         return params
       })
-      // Réglage du vecteur de translation pour le dé au loading
-      const root = document.documentElement
-      root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
     }
     addScrollListener()
   })
@@ -88,11 +87,7 @@
   })
 
   // Spécifique à Capytale
-  let urlFeuilleEleve: string = ''
   let isSettingsDialogDisplayed = false
-  function validateSettings () {
-    isSettingsDialogDisplayed = true
-  }
   // Gestion de la graine
   function buildUrlAndOpenItInNewTab (status: 'eleve' | 'usual') {
     const url = new URL('https://coopmaths.fr/alea/')
@@ -277,7 +272,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  function importExercises () {
+  function importExercises (urlFeuilleEleve: string) {
     let url = urlFeuilleEleve.replace('&v=confeleve', '')
     url = url.replace('&v=eleve', '&recorder=capytale')
     if (url.includes('v=can')) {
@@ -288,16 +283,13 @@
     if (url.includes('coopmaths.fr/alea')) {
       const options = mathaleaUpdateExercicesParamsFromUrl(url)
       if (options !== null) {
-        globalOptions.update(() => {
-          return options
-        })
+        globalOptions.set(options)
       } else {
         alert('URL non valide !')
       }
       // On maintient Capytale car l'import d'une url non valide créé un objet globalOptions vide
       $globalOptions.recorder = 'capytale'
     }
-    urlFeuilleEleve = ''
   }
 
   /**
@@ -312,6 +304,11 @@
       }
     }
   })
+
+  function updateParams (params: { globalOptions: InterfaceGlobalOptions; canOptions: CanOptions }) {
+    canOptions.set(params.canOptions)
+    globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
+  }
 </script>
 
 <svelte:window bind:innerWidth />
@@ -335,7 +332,6 @@
       locale={localeValue}
       {handleLanguage}
       isCapytale={$globalOptions.recorder === 'capytale'}
-      {urlFeuilleEleve}
       {buildUrlAndOpenItInNewTab}
       {showSettingsDialog}
       {importExercises}
@@ -465,10 +461,11 @@
 />
 <ModalCapytalSettings
   bind:isSettingsDialogDisplayed={isSettingsDialogDisplayed}
-  bind:globalOptions={$globalOptions}
-  bind:canOptions={$canOptions}
+  globalOptions={$globalOptions}
+  canOptions={$canOptions}
   {toggleCan}
   {buildUrlAndOpenItInNewTab}
+  {updateParams}
 />
 
 <style>
