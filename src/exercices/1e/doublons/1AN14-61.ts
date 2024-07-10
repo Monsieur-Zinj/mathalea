@@ -1,17 +1,17 @@
-import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
-import FractionEtendue from '../../modules/FractionEtendue'
+import Exercice from '../../Exercice'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { gestionnaireFormulaireTexte, randint } from '../../../modules/outils'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { ecritureParentheseSiNegatif, reduireAxPlusB } from '../../../lib/outils/ecritures'
+import FractionEtendue from '../../../modules/FractionEtendue'
 export const titre = 'Dérivation de fonction composées V2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-<<<<<<<< f1c664b0c5b24bc63f7c4980b9588c2ce195b0fe:src/exercices/1e/doublons/1AN14-61.ts
+// <<<<<<<< f1c664b0c5b24bc63f7c4980b9588c2ce195b0fe:src/exercices/1e/doublons/1AN14-61.ts
 // export const uuid = '518d8'
 // export const refs = {
 //   'fr-fr': ['1AN14-61'],
