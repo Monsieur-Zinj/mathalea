@@ -38,7 +38,14 @@
   import { isLanguage } from '../../../lib/types/languages'
   import { get } from 'svelte/store'
   import { mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
-  // import { keyboardState } from '../../keyboard/stores/keyboardStore'
+    import handleCapytale from '../../../lib/handleCapytale'
+    import ModalSettingsCapytale from '../capytale/ModalSettingsCapytale.svelte'
+    import FormRadio from '../../shared/forms/FormRadio.svelte'
+    import ButtonToggle from '../../shared/forms/ButtonToggle.svelte'
+    import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+    import { canOptions } from '../../../lib/stores/canStore'
+    import ButtonText from '../../shared/forms/ButtonText.svelte'
+    import { buildEsParams } from '../../../lib/components/urls'
 
   interface HeaderComponent extends SvelteComponent {
     toggleMenu: (t: boolean) => void
@@ -62,12 +69,100 @@
 
   onMount(() => {
     initTE({ Sidenav, Collapse, Ripple })
+    if ($globalOptions.recorder === 'capytale') {
+      handleCapytale()
+      globalOptions.update((params) => {
+        params.presMode = 'un_exo_par_page'
+        params.isDataRandom = true
+        params.isTitleDisplayed = true
+        if ($globalOptions.v === 'eleve') {
+          params.isInteractiveFree = false
+        }
+        return params
+      })
+      // Réglage du vecteur de translation pour le dé au loading
+      const root = document.documentElement
+      root.style.setProperty('--vect', 'calc((100vw / 10) * 0.5)')
+    }
     addScrollListener()
   })
 
   onDestroy(() => {
     unsubscribeToReferentielLocale()
   })
+
+  // Spécifique à Capytale
+  const urlFeuilleEleve: string = ''
+  let isSettingsDialogDisplayed = false
+  let modal: ModalSettingsCapytale
+  function validateSettings () {
+    modal.closeModal()
+  }
+  // Gestion de la graine
+  function buildUrlAndOpenItInNewTab (status: 'eleve' | 'usual') {
+    const url = new URL('https://coopmaths.fr/alea/')
+    for (const ex of $exercicesParams) {
+      url.searchParams.append('uuid', ex.uuid)
+      if (ex.id !== undefined) url.searchParams.append('id', ex.id)
+      if (ex.nbQuestions !== undefined) {
+        url.searchParams.append('n', ex.nbQuestions.toString())
+      }
+      if (ex.duration !== undefined) {
+        url.searchParams.append('d', ex.duration.toString())
+      }
+      if (ex.sup !== undefined) url.searchParams.append('s', ex.sup)
+      if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
+      if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
+      if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+      if (ex.alea !== undefined) url.searchParams.append('alea', ex.alea)
+      if (ex.interactif === '1') url.searchParams.append('i', '1')
+      if (ex.cd !== undefined) url.searchParams.append('cd', ex.cd)
+      if (ex.cols !== undefined) {
+        url.searchParams.append('cols', ex.cols.toString())
+      }
+    }
+    switch (status) {
+      case 'eleve':
+        if ($canOptions.isChoosen) {
+          url.searchParams.append('v', 'can')
+        } else {
+          url.searchParams.append('v', 'eleve')
+        }
+        break
+      default:
+        break
+    }
+    url.searchParams.append('title', $globalOptions.title ?? '')
+    const presMode =
+      $exercicesParams.length === 1 ? 'liste_exos' : 'un_exo_par_page'
+    url.searchParams.append(
+      'es',
+      buildEsParams(presMode)
+    )
+
+    if ($canOptions.isChoosen) {
+      if ($canOptions.durationInMinutes !== 0) {
+        url.searchParams.append('canD', $canOptions.durationInMinutes.toString())
+      }
+      if ($canOptions.subTitle !== '') {
+        url.searchParams.append('canT', $canOptions.subTitle)
+      }
+      if ($canOptions.solutionsAccess) {
+        url.searchParams.append('canSM', $canOptions.solutionsMode)
+      }
+    }
+    window.open(url, '_blank')?.focus()
+  }
+
+  function toggleCan () {
+    if ($canOptions.isChoosen) {
+      $globalOptions.setInteractive = '1'
+    }
+  }
+
+  function showSettingsDialog () {
+    isSettingsDialogDisplayed = true
+  }
 
   const handleLanguage = (lang: string) => {
     // on se déplace circulairement dans le tableau allowedLanguages
@@ -227,6 +322,10 @@
       {handleExport}
       locale={localeValue}
       {handleLanguage}
+      isCapytale={$globalOptions.recorder === 'capytale'}
+      {urlFeuilleEleve}
+      {buildUrlAndOpenItInNewTab}
+      {showSettingsDialog}
     />
     {#if isMd}
       <!-- ====================================================================================
@@ -350,8 +449,227 @@
   {showThirdAppsChoiceDialog}
   appsTierceInExercisesList={selectedThirdApps}
 />
+<ModalSettingsCapytale bind:showSettingsDialog={isSettingsDialogDisplayed} bind:this={modal}>
+  <div slot="header">Réglages de l'affichage des exercices</div>
+  <div slot="content">
+    <div class="pt-2 pl-2 grid grid-flow-row lg:grid-cols-2 gap-4">
+      <!-- <div class="pb-2">
+        <div class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light">Présentation</div>
+        <FormRadio
+          isDisabled={true}
+          title="présentation"
+          bind:valueSelected={$globalOptions.presMode}
+          labelsValues={[
+            { label: 'Tous les exercices sur une page', value: 'liste_exos' },
+            { label: 'Une page par exercice', value: 'un_exo_par_page', isDisabled: $exercicesParams.length === 1 },
+            { label: 'Toutes les questions sur une page', value: 'liste_questions' },
+            { label: 'Une page par question', value: 'une_question_par_page' }
+          ]}
+        />
+      </div> -->
+      <div class="pb-2">
+        <div
+          class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Interactivité
+        </div>
+        <FormRadio
+          title="Interactif"
+          bind:valueSelected={$globalOptions.setInteractive}
+          isDisabled={$canOptions.isChoosen}
+          labelsValues={[
+            { label: 'Laisser tel quel', value: '2' },
+            { label: 'Tout interactif', value: '1' },
+            { label: "Pas d'interactivité", value: '0' }
+          ]}
+        />
+        <div class="pl-2 pt-2">
+          <ButtonToggle
+            titles={[
+              'Les élèves peuvent répondre une seule fois',
+              'Les élèves peuvent répondre plusieurs fois'
+            ]}
+            bind:value={$globalOptions.oneShot}
+          />
+        </div>
+      </div>
+      <div class="pb-2">
+        <div
+          class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Course aux nombres
+        </div>
+        <div class="flex flex-row justify-start items-center px-4">
+          <div class="flex flex-col items-start justify-start space-y-2">
+            <ButtonToggleAlt
+              title={'Format CAN'}
+              id={'config-eleve-format-can-toggle'}
+              bind:value={$canOptions.isChoosen}
+              on:toggle={toggleCan}
+              explanations={[
+                'Les questions seront posées les unes à la suite des autres en temps limité.',
+                'Chaque exercice sera dans un onglet différent'
+              ]}
+            />
+            <div class="flex justify-start flex-row items-center space-x-2">
+              <div
+                class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
+                  ? 'text-opacity-100 dark:text-opacity-100'
+                  : 'text-opacity-10 dark:text-opacity-10'}"
+              >
+                Durée :
+              </div>
+              <input
+                type="number"
+                id="config-eleve-can-duration-input"
+                class="w-1/5 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                bind:value={$canOptions.durationInMinutes}
+                disabled={!$canOptions.isChoosen}
+              />
+              <div
+                class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
+                  ? 'text-opacity-100 dark:text-opacity-100'
+                  : 'text-opacity-10 dark:text-opacity-10'}"
+              >
+                minute{($canOptions.durationInMinutes !== undefined && $canOptions.durationInMinutes > 1) ? 's' : ''}.
+              </div>
+            </div>
+            <div class="flex justify-start flex-row items-center space-x-2">
+              <div
+                class="text-coopmaths-corpus-light dark:text-coopmathsdark-corpus text-sm font-light {$canOptions.isChoosen
+                  ? 'text-opacity-100 dark:text-opacity-100'
+                  : 'text-opacity-10 dark:text-opacity-10'}"
+              >
+                Sous-titre :
+              </div>
+              <input
+                type="text"
+                id="config-eleve-can-duration-input"
+                class="w-1/2 h-6 text-sm bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus dark:text-coopmathsdark-corpus border border-coopmaths-action dark:border-coopmathsdark-action font-light focus:border focus:border-coopmaths-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 disabled:border-opacity-10 disabled:text-opacity-10 dark:disabled:border-opacity-10 dark:disabled:text-opacity-10"
+                bind:value={$canOptions.subTitle}
+                disabled={!$canOptions.isChoosen}
+              />
+            </div>
+
+            <ButtonToggleAlt
+              title={'Accès aux solutions'}
+              id={'config-eleve-solutions-can-toggle'}
+              bind:value={$canOptions.solutionsAccess}
+              isDisabled={!$canOptions.isChoosen}
+              explanations={[
+                'Les élèves auront accès aux solutions dans le format défini ci-dessous.',
+                "Les élèves n'auront pas accès aux solutions."
+              ]}
+            />
+
+            <FormRadio
+              title="can-solutions-config"
+              bind:valueSelected={$canOptions.solutionsMode}
+              isDisabled={!$canOptions.isChoosen || !$canOptions.solutionsAccess}
+              labelsValues={[
+                {
+                  label: 'Solutions rassemblées à la fin.',
+                  value: 'gathered'
+                },
+                {
+                  label: 'Solutions avec les questions.',
+                  value: 'split'
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </div>
+      <div class="pb-2">
+        <div
+          class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Données
+        </div>
+        <div
+          class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light disabled"
+        >
+          Tous les élèves auront des pages :
+        </div>
+        <div class="flex flex-row justify-start items-center px-4">
+          <ButtonToggle
+            titles={['différentes', 'identiques']}
+            bind:value={$globalOptions.isDataRandom}
+          />
+        </div>
+      </div>
+      <div class="pb-2">
+        <div
+          class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Affichage des titres
+        </div>
+        <!-- <div
+          class="flex justify-start-items-center pl-2 font-light text-sm text-coopmaths-corpus-light disabled"
+        >
+          Tous les élèves auront des pages :
+        </div> -->
+        <div class="flex flex-row justify-start items-center px-4">
+          <ButtonToggle
+            titles={['Tous les titres sont affichés', 'Tous les titres sont masqués']}
+            bind:value={$globalOptions.isTitleDisplayed}
+          />
+        </div>
+      </div>
+      <div class="pb-2">
+        <div
+          class="pl-2 pb-2 font-light text-2xl text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
+          Correction
+        </div>
+        <div class="flex flex-row justify-start items-center px-4">
+          <ButtonToggle
+            isDisabled={$canOptions.isChoosen}
+            titles={['Accès aux corrections', 'Pas de corrections']}
+            bind:value={$globalOptions.isSolutionAccessible}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div slot="buttons" class="flex flex-row justify-end space-x-4 w-full">
+    <div class="pt-4 pb-8 px-4">
+      <ButtonText
+        class="text-sm py-1 px-2 rounded-md h-7"
+        on:click={validateSettings}
+        text="Valider"
+      />
+    </div>
+    <div class="pt-4 pb-8 px-4">
+      <ButtonText
+        class="text-sm py-1 px-2 rounded-md h-7"
+        on:click={() => {
+          buildUrlAndOpenItInNewTab('eleve')
+        }}
+        text="Aperçu"
+      />
+    </div>
+  </div>
+</ModalSettingsCapytale>
 
 <style>
+  @media (min-width: 768px) {
+    #barre-boutons {
+      width: calc(
+        100% -
+          (
+            var(--isMenuOpen) * var(--sidebarWidth) * 1px + (var(--isMenuOpen)) *
+              16px
+          )
+      );
+    }
+  }
+  @media (max-width: 768px) {
+    #barre-boutons {
+      width: 100vw;
+    }
+  }
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
