@@ -162,61 +162,51 @@ export function mathalea2d (
     }
     return codeTikz
   }
+  // On prépare le code HTML
   const m2dId = 'M2D' + mathaleaGenerateSeed()
-  if (context.isHtml) {
-    const divsLatex = []
-    document.addEventListener('exercicesAffiches', () => {
-      let codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
+  const divsLatex = []
+  let codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
-      codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
-      codeSvg += '\n</svg>'
-      codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
-      const divM2D = document.querySelector(`div#${m2dId}`)
-      if (divM2D != null) {
-        if (divsLatex.length > 0) {
-          divM2D.innerHTML = `
-          ${codeSvg}
-          ${divsLatex.join('\n')}`
-        } else {
-          divM2D.innerHTML = `${codeSvg}`
-        }
-      }
-    })
-    return `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
+  codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
+  codeSvg += '\n</svg>'
+  codeSvg = codeSvg.replace(/\\thickspace/gm, ' ')
+  const codeHTML = `<div class="svgContainer" ${style ? `style="${style}"` : ''}>
         <div id="${m2dId}" style="position: relative;${style}">
+          ${codeSvg}
+          ${divsLatex.join('\n')}
         </div>
       </div>`
-  } else { // le context est Latex
-    // si scale existe autre que 1 il faut que le code reste comme avant
-    // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
-    // de cette manière d'autres options Tikz pourront aussi être ajoutées
-    // si il n'y a qu'une optionsTikz on peut passer un string
-    let codeTikz
-    const listeOptionsTikz = []
-    if (optionsTikz !== undefined) {
-      if (typeof optionsTikz === 'string') {
-        listeOptionsTikz.push(optionsTikz)
-      } else {
-        optionsTikz.forEach(e => listeOptionsTikz.push(e))
-      }
-    }
-    if (scale === 1) {
-      codeTikz = '\\begin{tikzpicture}[baseline'
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        codeTikz += `,${listeOptionsTikz[l]}`
-      }
-      codeTikz += ']\n'
+  // On prépare le code Latex
+  // si scale existe autre que 1 il faut que le code reste comme avant
+  // sinon on ajoute scale quoi qu'il en soit quitte à ce que xscale et yscale viennent s'ajouter
+  // de cette manière d'autres options Tikz pourront aussi être ajoutées
+  // si il n'y a qu'une optionsTikz on peut passer un string
+  let codeTikz
+  const listeOptionsTikz = []
+  if (optionsTikz !== undefined) {
+    if (typeof optionsTikz === 'string') {
+      listeOptionsTikz.push(optionsTikz)
     } else {
-      codeTikz = '\\begin{tikzpicture}[baseline'
-      for (let l = 0; l < listeOptionsTikz.length; l++) {
-        codeTikz += `,${listeOptionsTikz[l]}`
-      }
-      codeTikz += `,scale = ${scale}`
-      codeTikz += ']\n'
+      optionsTikz.forEach(e => listeOptionsTikz.push(e))
     }
+  }
+  if (scale === 1) {
+    codeTikz = '\\begin{tikzpicture}[baseline'
+    for (let l = 0; l < listeOptionsTikz.length; l++) {
+      codeTikz += `,${listeOptionsTikz[l]}`
+    }
+    codeTikz += ']\n'
+  } else {
+    codeTikz = '\\begin{tikzpicture}[baseline'
+    for (let l = 0; l < listeOptionsTikz.length; l++) {
+      codeTikz += `,${listeOptionsTikz[l]}`
+    }
+    codeTikz += `,scale = ${scale}`
+    codeTikz += ']\n'
+  }
 
-    codeTikz += `
+  codeTikz += `
     \\tikzset{
       point/.style={
         thick,
@@ -229,12 +219,12 @@ export function mathalea2d (
     }
     \\clip (${xmin},${ymin}) rectangle (${xmax},${ymax});
     `
-    // code += codeTikz(...objets)
-    codeTikz += ajouteCodeTikz(mainlevee, objets)
-    codeTikz += '\n\\end{tikzpicture}'
-    if (style === 'display: block') codeTikz += '\\\\'
-    return codeTikz
-  }
+  // code += codeTikz(...objets)
+  codeTikz += ajouteCodeTikz(mainlevee, objets)
+  codeTikz += '\n\\end{tikzpicture}'
+  if (style === 'display: block') codeTikz += '\\\\'
+  if (context.isHtml) return codeHTML
+  else return codeTikz
 }
 
 export class Vide2d {
