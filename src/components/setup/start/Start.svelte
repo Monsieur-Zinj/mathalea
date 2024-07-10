@@ -41,7 +41,7 @@
   import handleCapytale from '../../../lib/handleCapytale'
   import { canOptions } from '../../../lib/stores/canStore'
   import { buildEsParams } from '../../../lib/components/urls'
-  import ModalCapytalSettings from './presentationalComponents/ModalCapytalSettings.svelte'
+  import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
 
   interface HeaderComponent extends SvelteComponent {
     toggleMenu: (t: boolean) => void
@@ -465,10 +465,9 @@
 />
 <ModalCapytalSettings
   bind:isSettingsDialogDisplayed={isSettingsDialogDisplayed}
-  globalOptions={$globalOptions}
-  canOptions={$canOptions}
+  bind:globalOptions={$globalOptions}
+  bind:canOptions={$canOptions}
   {toggleCan}
-  {validateSettings}
   {buildUrlAndOpenItInNewTab}
 />
 
