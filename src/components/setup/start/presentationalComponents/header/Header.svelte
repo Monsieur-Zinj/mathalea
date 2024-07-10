@@ -86,7 +86,10 @@
           : 'relative w-full flex flex-col justify-center items-center bg-coopmaths-canvas dark:bg-coopmathsdark-canvas'}
         id="barre-boutons"
       >
-        <SideMenuWrapper bind:this={sideMenuWrapperComponent} />
+        <SideMenuWrapper
+          bind:this={sideMenuWrapperComponent}
+          {isCapytale}
+        />
         <HeaderButtons
           bind:reorderModalDisplayed
           {zoomUpdate}
