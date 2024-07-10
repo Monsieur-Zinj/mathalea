@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
   import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
-  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
 
   export let exercises: Exercice[]
   export let isManualModeActive: boolean

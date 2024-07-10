@@ -1,6 +1,6 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
-  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
   import { formattedTimeStamp } from '../../../../../lib/components/time'
 
   export let exercises: Exercice[]
