@@ -43,6 +43,7 @@
   import { buildEsParams } from '../../../lib/components/urls'
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
   import type { CanOptions } from '../../../lib/types/can'
+  import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
 
   interface HeaderComponent extends SvelteComponent {
     toggleMenu: (t: boolean) => void
@@ -345,6 +346,11 @@
       <div
         class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
+        {#if $globalOptions.recorder === 'capytale'}
+          <SideMenuWrapper
+            isCapytale={true}
+          />
+        {/if}
         <nav
           id="choiceSideMenuWrapper"
           class="absolute left-0 top-0 w-[400px] h-full z-[1035] -translate-x-full data-[te-sidenav-hidden='false']:translate-x-0 overflow-y-auto overscroll-contain bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
@@ -365,7 +371,9 @@
         <!-- Affichage exercices -->
         <main
           id="exercisesPart"
-          class="absolute right-0 top-0 flex flex-col w-full h-full px-6 !pl-[400px] bg-coopmaths-canvas dark:bg-coopmathsdark-canvas overflow-x-hidden overflow-y-auto"
+          class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-hidden overflow-y-auto
+            {$globalOptions.recorder === 'capytale' ? '!pl-[425px]' : '!pl-[400px]'}
+            bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
           {#if $exercicesParams.length !== 0}
             <Exercices

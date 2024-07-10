@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Sidenav } from 'tw-elements'
 
+  export let isCapytale: boolean
   let sidenavOpen: boolean = false
 
   /**
@@ -25,7 +26,11 @@
 </script>
 
 <div
-  class="flex justify-center items-center absolute left-0 bottom-0 h-10 w-10 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+  class="flex justify-center items-center absolute h-10 w-10 z-50 left-0
+    {isCapytale
+      ? `${!sidenavOpen ? 'translate-x-[400px]' : ' translate-x-0'} top-0 rounded-r-md transition-transform ease-in-out`
+      : 'bottom-0 rounded-t-md'}
+    bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
 >
   <button
     type="button"
@@ -38,9 +43,10 @@
     }}
   >
     <i
-      class="bx {sidenavOpen
-        ? 'bx-right-arrow-alt'
-        : 'bx-x'} text-2xl text-coopmaths-action dark:text-coopmathsdark-action hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
+      class="bx text-2xl
+        {sidenavOpen ? 'bx-right-arrow-alt' : 'bx-x'}
+        text-coopmaths-action dark:text-coopmathsdark-action
+        hover:text-coopmaths-action-lightest hover:dark:text-coopmathsdark-action-lightest"
     />
   </button>
 </div>
