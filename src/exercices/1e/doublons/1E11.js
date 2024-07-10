@@ -1,14 +1,14 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texFractionFromString, texFractionReduite, texFractionSigne } from '../../lib/outils/deprecatedFractions.js'
+import Exercice from '../../deprecatedExercice.js'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
+import { texFractionFromString, texFractionReduite, texFractionSigne } from '../../../lib/outils/deprecatedFractions.js'
 import {
   ecritureAlgebrique,
   ecritureAlgebriqueSauf1,
   ecritureParentheseSiNegatif,
   rienSi1
-} from '../../lib/outils/ecritures'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+} from '../../../lib/outils/ecritures'
+import { texNombre } from '../../../lib/outils/texNombre'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 export const titre = 'Résoudre une équation du second degré'
 

@@ -5,7 +5,7 @@ import Derivees4 from './1AN14-4'
 import Derivees5 from './1AN14-5'
 import Derivees6 from './1AN14-6'
 import Derivees7 from './1AN14-7'
-import Derivees61 from './1AN14-61'
+import Derivees61 from './doublons/1AN14-61'
 import Derivees71 from './doublons/1AN14-71'
 
 import MetaExercice from '../MetaExerciceCan'

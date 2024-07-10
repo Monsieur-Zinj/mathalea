@@ -1,16 +1,16 @@
-import { combinaisonListes } from '../../lib/outils/arrayOutils'
+import Exercice from '../../deprecatedExercice.js'
+import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import {
   reduireAxPlusB,
   reduirePolynomeDegre3
-} from '../../lib/outils/ecritures'
-import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { functionCompare } from '../../lib/interactif/comparisonFunctions'
-import { context } from '../../modules/context'
-import { texNombre } from '../../lib/outils/texNombre'
+} from '../../../lib/outils/ecritures'
+import { lettreMinusculeDepuisChiffre, sp } from '../../../lib/outils/outilString.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { functionCompare } from '../../../lib/interactif/comparisonFunctions'
+import { context } from '../../../modules/context'
+import { texNombre } from '../../../lib/outils/texNombre'
 export const titre = 'Calculs de dérivées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
