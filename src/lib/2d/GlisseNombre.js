@@ -122,7 +122,7 @@ export function GlisseNombre (nombre = '', decalage = 0) {
   this.tikz = function () {
     let code = ''
     for (const objet of objets) {
-      code += '\n\t' + objet.tikz()
+      if (typeof objet.tikz === 'function') code += '\n\t' + objet.tikz()
     }
     return code
   }

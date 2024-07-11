@@ -149,8 +149,11 @@ export function mathalea2d (
     if (!Array.isArray(objets)) {
       try {
         if (objets?.isVisible) {
-          if (!mainlevee || typeof (objets.tikzml) === 'undefined') codeTikz = '\t' + objets.tikz(scale) + '\n'
-          else codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
+          if ((!mainlevee || typeof (objets.tikzml) === 'undefined')) {
+            if (typeof objets.tikz === 'function') codeTikz = '\t' + objets.tikz(scale) + '\n'
+          } else {
+            if (typeof objets.tikzml === 'function') codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
+          }
         }
       } catch (error) {
         console.log(error.message)

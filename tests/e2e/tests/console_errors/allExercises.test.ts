@@ -163,7 +163,7 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   testRunAllLots(filter)
 } else {
   // testRunAllLots('can')
-  // testRunAllLots('5e')
+  // testRunAllLots('6e')
   // testRunAllLots('5e')
   // testRunAllLots('4e')
   // testRunAllLots('3e')
@@ -171,5 +171,5 @@ if (process.env.CI && process.env.NIV !== null && process.env.NIV !== undefined)
   // testRunAllLots('1e')
   // prefs.headless = true
   // testRunAllLots('3e/3G22')
-  testRunAllLots('3e/3G22.js')
+  testRunAllLots('5e/5R10-0.js')
 }
