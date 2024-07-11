@@ -25,12 +25,11 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   const svgContainers = parent.getElementsByClassName('svgContainer')
 
   do {
-    // console.log('zoom:' + zoom)
     if (svgContainers.length > 0) {
       for (const svgContainer of svgContainers) {
         svgContainer.classList.add('flex')
         svgContainer.classList.add('justify-center')
-        updateFigures(svgContainer as HTMLDivElement, zoom)
+        updateFigures(svgContainer, zoom)
       }
     }
     if (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth) {
@@ -40,7 +39,32 @@ export const setSizeWithinSvgContainer = (parent: HTMLDivElement) => {
   } while (zoom > 0.6 && (parent.firstElementChild.scrollHeight > originalClientHeight || parent.firstElementChild.scrollWidth > originalClientWidth))
 }
 
-export function updateFigures (svgContainer: HTMLDivElement, zoom: number) {
+export function resizeContent (container: HTMLElement | null, zoom: number) {
+  const ZOOM_MIN = 0.2
+  if (!container) return
+  // mathalea2d
+  const svgContainers = container.getElementsByClassName('svgContainer') ?? []
+  for (const svgContainer of svgContainers) {
+    updateFigures(svgContainer, Math.max(zoom, ZOOM_MIN))
+  }
+  // Scratch
+  const scratchDivs = container.getElementsByClassName('scratchblocks')
+  for (const scratchDiv of scratchDivs) {
+    const svgDivs = scratchDiv.getElementsByTagName('svg')
+    resizeTags([...svgDivs], Math.max(zoom, ZOOM_MIN))
+  }
+  // Checkboxes des QCM
+  const checkboxes = container.querySelectorAll('input[type="checkbox"]')
+  for (const checkbox of checkboxes) {
+    if (checkbox instanceof HTMLInputElement) {
+      resizeTags([checkbox], Math.max(zoom, ZOOM_MIN))
+    }
+  }
+  // Texte
+  container.style.fontSize = `${Math.max(zoom, ZOOM_MIN)}rem`
+}
+
+export function updateFigures (svgContainer: Element, zoom: number) {
   const svgDivs = svgContainer.querySelectorAll<SVGElement>('.mathalea2d')
   for (const svgDiv of svgDivs) {
     if (svgDiv.clientWidth > 0 && svgDiv instanceof SVGElement) {
@@ -62,5 +86,65 @@ export function updateFigures (svgContainer: HTMLDivElement, zoom: number) {
         e.style.setProperty('left', (initialLeft * zoom).toString() + 'px')
       }
     }
+  }
+}
+
+/**
+ * Change la taille de tous les divs passés en paramètres.
+ *
+ * On teste l'existence des attributs directs `width` et`height`.
+ *
+ * - S'ils existent, on sauvegarde leurs valeurs initiales dans le data-set (si besoin)
+ *  et on applique le facteur d'échelle
+ * - S'ils n'existent pas, on travaillent avec le style directement
+ * (`width` et `height` peuvent avoir des unités différentes).
+ * @param {HTMLOrSVGElement[]} tags Liste des divs à inspecter et changer
+ * @param {number} factor facteur d'agrandissement par rapport à la taille initiale
+ */
+export const resizeTags = (tags: HTMLElement[] | SVGElement[], factor:number = 1) => {
+  let widthUnit, heightUnit: string
+  for (const tag of tags) {
+    const widthAttributeExists: boolean = tag.hasAttribute('width')
+    const heightAttributeExists: boolean = tag.hasAttribute('height')
+    if (tag.hasAttribute('data-width') === false) {
+      let originalWidth: string|null
+      if (widthAttributeExists) {
+        originalWidth = tag.getAttribute('width')
+      } else {
+        const width = tag.style.width
+        const units = width.match(/\D/g) ?? []
+        widthUnit = units.join('')
+        originalWidth = String(parseFloat(tag.style.width.replace(widthUnit, '')))
+      }
+      tag.dataset.width = originalWidth ?? '50'
+    }
+    if (!widthAttributeExists && tag.hasAttribute('data-width-unit') === false) {
+      tag.dataset.widthUnit = widthUnit
+    }
+    if (tag.hasAttribute('data-height') === false) {
+      let originalHeight:string|null
+      if (heightAttributeExists) {
+        originalHeight = tag.getAttribute('height')
+        heightUnit = 'px'
+      } else {
+        const height = tag.style.height
+        const units = height.match(/\D/g) ?? []
+        heightUnit = units.join('')
+        originalHeight = String(parseFloat(tag.style.height.replace(heightUnit, '')))
+      }
+      tag.dataset.height = originalHeight ?? '30'
+    } else {
+      heightUnit = 'px'
+    }
+
+    if (!heightAttributeExists && tag.hasAttribute('data-height-unit') === false) {
+      tag.dataset.heightUnit = heightUnit
+    }
+    const w = Number(tag.getAttribute('data-width')) * factor
+    const h = Number(tag.getAttribute('data-height')) * factor
+    if (widthAttributeExists && heightAttributeExists) {
+      tag.setAttribute('width', String(w))
+      tag.setAttribute('height', String(h))
+    } else { tag.setAttribute('style', 'width:' + String(w) + tag.dataset.widthUnit + '; height:' + String(h) + tag.dataset.heightUnit + ';') }
   }
 }

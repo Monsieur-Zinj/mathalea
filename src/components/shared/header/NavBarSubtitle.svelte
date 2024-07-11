@@ -21,23 +21,20 @@
   />
   ```
  -->
-<div
-  class="flex flex-row items-center space-x-4 pt-6 md:pt-0 md:inline-flex text-lg md:text-3xl xl:text-5xl font-logo9 tracking-tighter"
+<div class="flex flex-row items-center align-middle font-logo9 tracking-tighter
+  pt-6 md:pt-0
+  text-lg md:text-3xl xl:text-5xl"
 >
-  <div
-    class="pl-0 md:pl-10 font-light text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
+  <div class="font-light
+    pl-0 md:pl-10
+    text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-lightest"
   >
-    <i
-      class={type === 'export'
-        ? 'bx bx-export rotate-90 translate-y-1'
-        : 'hidden'}
-    />
-    <i
-      class={type === 'design' ? 'bx bx-chevron-right translate-y-1' : 'hidden'}
-    />
+    <i class={type === 'export' ? 'bx bx-export rotate-90 md:translate-y-1' : 'hidden'} />
+    <i class={type === 'design' ? 'bx bx-chevron-right md:translate-y-1' : 'hidden'} />
   </div>
-  <div
-    class="pl-0 lg:pl-2 font-black text-coopmaths-struct dark:text-coopmathsdark-struct"
+  <div class="font-black
+    ml-1 md:ml-3 xl:ml-5
+    text-coopmaths-struct dark:text-coopmathsdark-struct"
   >
     {subtitle}
   </div>

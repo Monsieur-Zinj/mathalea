@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../exercices/Exercice'
   import type { InterfaceParams } from '../../../lib/types'
-  import type { DataFromSettings, Slide, Slideshow } from './types'
+  import type { Slide, Slideshow } from './types'
   import seedrandom from 'seedrandom'
   import SlideshowOverview from './slideshowOverview/SlideshowOverview.svelte'
   import SlideshowPlay from './slideshowPlay/SlideshowPlay.svelte'
@@ -32,13 +32,14 @@
     3: new Audio('assets/sounds/transition_sound_04.mp3')
   }
 
-  let dataFromSettings: DataFromSettings
   let exercises: Exercice[] = []
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
     selectedQuestionsNumber: 0
   }
+
+  $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises()
 
   onMount(async () => {
     context.vue = 'diap'
@@ -66,27 +67,18 @@
     return exercises
   }
 
-  function updateSettings (event: {detail: DataFromSettings}) {
-    dataFromSettings = event.detail
-    if (dataFromSettings !== undefined) {
-      slideshow.currentQuestion = dataFromSettings.currentQuestion
-    }
-    updateExercises()
-  }
-
   async function updateExercises () {
-    setSlidesContent()
+    setSlidesContent(exercises)
     adjustQuestionsOrder()
-    updateExerciseParams()
+    updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-    exercises = exercises // Pour forcer la mise à jour des $: if (exercises) { ... }
   }
 
-  function setSlidesContent () {
+  function setSlidesContent (newExercises: Exercice[]) {
     const slides = []
     const nbOfVues = $globalOptions.nbVues || 1
     let selectedQuestionsNumber = 0
-    for (const [k, exercise] of [...exercises].entries()) {
+    for (const [k, exercise] of [...newExercises].entries()) {
       reroll(exercise)
       const isSelected = $globalOptions.select?.includes(k) ?? true
       if (isSelected) selectedQuestionsNumber += exercise.listeQuestions.length
@@ -98,10 +90,22 @@
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
           if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
+          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : '')
+          const question = mathaleaFormatExercice(exercise.listeQuestions[i])
+          const correction = mathaleaFormatExercice(exercise.listeCorrections[i])
+          const { svgs: questionSvgs, text: questionText } = splitSvgFromText(question)
+          const { svgs: consigneSvgs, text: consigneText } = splitSvgFromText(consigne)
+          const { svgs: correctionSvgs, text: correctionText } = splitSvgFromText(correction)
           slide.vues.push({
-            consigne: mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : ''),
-            question: mathaleaFormatExercice(exercise.listeQuestions[i]),
-            correction: mathaleaFormatExercice(exercise.listeCorrections[i])
+            consigne,
+            question,
+            correction,
+            consigneSvgs,
+            consigneText,
+            questionSvgs,
+            questionText,
+            correctionSvgs,
+            correctionText
           })
         }
         slides.push(slide)
@@ -109,7 +113,7 @@
     }
     slideshow = {
       slides,
-      currentQuestion: dataFromSettings?.currentQuestion ?? -1,
+      currentQuestion: -1,
       selectedQuestionsNumber: selectedQuestionsNumber || slides.length
     }
   }
@@ -125,6 +129,28 @@
       exercise.nouvelleVersionWrapper?.()
     }
     exercise.seed = oldSeed
+  }
+
+  function splitSvgFromText (sourceText: string) {
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(sourceText, 'text/html')
+    const mathalea2dContainers = doc.querySelectorAll('div.svgContainer')
+    const scratchContainers = doc.querySelectorAll('pre.blocks')
+    const svgContainers = [...mathalea2dContainers, ...scratchContainers]
+    const svgs = Array.from(svgContainers).map(container => container.outerHTML)
+    const text = removeSvgContainers(doc.body.innerHTML, svgs)
+    return {
+      svgs,
+      text
+    }
+  }
+
+  function removeSvgContainers (wholeQuestion: string, svgContainers: string[]) {
+    let questionWithoutSvgContainers = wholeQuestion
+    svgContainers.forEach(svgContainer => {
+      questionWithoutSvgContainers = questionWithoutSvgContainers.replace(svgContainer, '')
+    })
+    return questionWithoutSvgContainers
   }
 
   function adjustQuestionsOrder () {
@@ -147,9 +173,9 @@
     return indexes
   }
 
-  function updateExerciseParams () {
+  function updateExerciseParams (newExercises: Exercice[]) {
     const newParams: InterfaceParams[] = []
-    for (const exercice of exercises) {
+    for (const exercice of newExercises) {
       newParams.push({
         uuid: exercice.uuid,
         id: exercice.id,
@@ -165,19 +191,15 @@
     exercicesParams.set(newParams)
   }
 
-  /**
-   * @fixme Cette fonction fait trop de choses :
-   * elle met à jour un paramètre global,
-   * elle met à jour les exercices,
-   * et après avoir mis à jour les exercices, la durée du diaporama est recalculée
-   * @param durationGlobal
-   */
-  function handleChangeDurationGlobal (durationGlobal: number | undefined) {
-    globalOptions.update((l) => {
-      l.durationGlobal = durationGlobal
-      return l
-    })
+  function start () {
     updateExercises()
+    $globalOptions.v = 'diaporama'
+    slideshow.currentQuestion = 0
+  }
+
+  function backToSettings () {
+    $globalOptions.v = 'diaporama'
+    slideshow.currentQuestion = -1
   }
 </script>
 
@@ -195,23 +217,22 @@
       {exercises}
       {slideshow}
       {updateExercises}
+      {backToSettings}
     />
   {:else}
     {#if slideshow.currentQuestion === -1}
-      <SlideshowSettings on:updateSettings="{updateSettings}"
-        bind:exercises={exercises}
+      <SlideshowSettings
+        {exercises}
         {updateExercises}
         {transitionSounds}
+        {start}
       />
     {/if}
     {#if slideshow.currentQuestion > -1}
       <SlideshowPlay
-        {dataFromSettings}
-        bind:currentQuestionNumber={slideshow.currentQuestion}
-        {handleChangeDurationGlobal}
         {slideshow}
-        {updateExercises}
         {transitionSounds}
+        {backToSettings}
       />
     {/if}
   {/if}

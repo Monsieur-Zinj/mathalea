@@ -12,21 +12,15 @@
   } from '../../../lib/mathalea.js'
   import Footer from '../../Footer.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import Button from '../../shared/forms/Button.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { onMount } from 'svelte'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
-  import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
-  import ModalForQRCode from '../../shared/modal/ModalForQRCode.svelte'
-  import {
-    copyLinkToClipboard,
-    copyEmbeddedCodeToClipboard
-  } from '../../../lib/components/clipboard'
-  import { downloadRedirectFile } from '../../../lib/components/redirectFile'
+  import ButtonQRCode from '../../shared/forms/ButtonQRCode.svelte'
   import { buildMathAleaURL } from '../../../lib/components/urls'
-  import type { NumericRange } from '../../../lib/types'
   // pour les tabs
   import { Tab, initTE } from 'tw-elements'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
 
   onMount(() => {
     initTE({ Tab })
@@ -43,9 +37,6 @@
     btnElement?.setAttribute('data-te-nav-active', '')
     tabElement?.setAttribute('data-te-tab-active', '')
   })
-
-  const formatQRCodeIndex: NumericRange<0, 2> = 0
-  const QRCodeWidth = 100
 
   const availableLinkFormats = {
     clear: {
@@ -76,8 +67,10 @@
    */
   function handleVueSetUp () {
     const nextView = $canOptions.isChoosen ? 'can' : 'eleve'
-    const url = buildMathAleaURL(nextView)
-    console.log(url)
+    const url = buildMathAleaURL({
+      view: nextView,
+      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+    })
     window.open(url, '_blank')?.focus()
   }
 
@@ -92,6 +85,13 @@
       }
     }
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+  }
+
+  function getEmbededCode () {
+    return `<iframe src="${buildMathAleaURL({
+      view: $canOptions.isChoosen ? 'can' : 'eleve',
+      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+    })}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`
   }
 
   function toggleCan () {
@@ -466,10 +466,10 @@
       <div
         class="pt-4 pb-8 px-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <Button
+        <ButtonText
           on:click={handleVueSetUp}
           class="px-2 py-1 rounded-md"
-          title="Visualiser"
+          text="Visualiser"
         />
       </div>
       <div
@@ -513,43 +513,36 @@
               Lien
             </div>
             <div class="my-1">
-              <ModalActionWithDialog
-                on:display={() =>
-                  copyLinkToClipboard(
-                    'linkCopiedDialog',
-                    buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
-                    availableLinkFormats[currentLinkFormat].isShort,
-                    availableLinkFormats[currentLinkFormat].isEncrypted
-                  )}
-                message="Le lien de la fiche élève est copié dans le presse-papier !"
-                messageError="Impossible de créer le lien dans le presse-papier !"
-                dialogId="linkCopiedDialog"
-                tooltipMessage={'Lien ' +
-                  availableLinkFormats[currentLinkFormat].toolTipsMessage}
-                buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+              <ButtonActionInfo
+                action="copy"
+                textToCopy={buildMathAleaURL({
+                  view: $canOptions.isChoosen ? 'can' : 'eleve',
+                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                }).toString()}
+                tooltip={'Lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage}
+                icon={'bx-link text-2xl'}
+                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                messageSuccess="Le lien de la fiche élève est copié dans le presse-papier !"
+                messageError="Impossible de copier le lien dans le presse-papier !"
               />
             </div>
           </div>
           <div class="flex flex-col justify-center items-center px-2">
-            <div
-              class="text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest font-semibold"
+            <div class="font-semibold
+              text-coopmaths-struct-lightest dark:text-coopmathsdark-struct-lightest"
             >
               QR-Code
             </div>
             <div class="my-1">
-              <ModalForQRCode
-                tooltipMessage={'QR-code (lien ' +
-                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
-                  ')'}
-                width={QRCodeWidth}
-                format={formatQRCodeIndex}
-                isEncrypted={availableLinkFormats[currentLinkFormat]
-                  .isEncrypted}
-                isShort={availableLinkFormats[currentLinkFormat].isShort}
+              <ButtonQRCode
+                tooltip={'QR-code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
                 url={buildMathAleaURL(
-                  $canOptions.isChoosen ? 'can' : 'eleve'
+                  {
+                    view: $canOptions.isChoosen ? 'can' : 'eleve',
+                    isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                  }
                 ).toString()}
-                buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
               />
             </div>
           </div>
@@ -560,22 +553,14 @@
               Embarqué
             </div>
             <div class="my-1">
-              <ModalActionWithDialog
-                on:display={() =>
-                  copyEmbeddedCodeToClipboard(
-                    'embeddedCodeCopiedDialog',
-                    buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
-                    availableLinkFormats[currentLinkFormat].isShort,
-                    availableLinkFormats[currentLinkFormat].isEncrypted
-                  )}
-                message="Le code de la fiche élève est copié dans le presse-papier !"
-                messageError="Impossible de créer le code dans le presse-papier !"
-                dialogId="embeddedCodeCopiedDialog"
-                tooltipMessage={'Code (lien ' +
-                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
-                  ')'}
-                buttonIcon={'bx-code-alt'}
-                buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+              <ButtonActionInfo
+                action="copy"
+                textToCopy={getEmbededCode()}
+                tooltip={'Code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
+                icon={'bx-code-alt text-2xl'}
+                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
+                messageSuccess="Le code de la fiche élève est copié dans le presse-papier !"
+                messageError="Impossible de copier le code dans le presse-papier !"
               />
             </div>
           </div>
@@ -586,23 +571,18 @@
               Fichier
             </div>
             <div class="my-1">
-              <ModalActionWithDialog
-                on:display={() =>
-                  downloadRedirectFile(
-                    'downlaodRedirectFileDialog',
-                    buildMathAleaURL($canOptions.isChoosen ? 'can' : 'eleve'),
-                    $globalOptions.title ? $globalOptions.title : 'mathAlea',
-                    availableLinkFormats[currentLinkFormat].isShort,
-                    availableLinkFormats[currentLinkFormat].isEncrypted
-                  )}
-                message="Le téléchargement va début dans quelques instants."
-                messageError="Impossible de télécharger le fichier !"
-                dialogId="downlaodRedirectFileDialog"
-                tooltipMessage={'Fichier de redirection (lien ' +
-                  availableLinkFormats[currentLinkFormat].toolTipsMessage +
-                  ')'}
-                buttonIcon={'bx-file'}
-                buttonSecondIcon={availableLinkFormats[currentLinkFormat].icon}
+              <ButtonActionInfo
+                action="download"
+                urlToDownload={buildMathAleaURL({
+                  view: $canOptions.isChoosen ? 'can' : 'eleve',
+                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                }).toString()}
+                fileName={$globalOptions.title ? $globalOptions.title : 'mathAlea'}
+                successMessage="Le téléchargement va début dans quelques instants."
+                errorMessage="Impossible de télécharger le fichier."
+                tooltip={'Fichier de redirection (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
+                icon={'bxs-file-export text-2xl'}
+                cornerIcon={availableLinkFormats[currentLinkFormat].icon}
               />
             </div>
           </div>

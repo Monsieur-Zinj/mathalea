@@ -13,8 +13,8 @@
   ]
 </script>
 
-<div
-  class="flex text-lg font-bold mb-2 text-coopmaths-struct dark:text-coopmathsdark-struct"
+<div class="flex text-lg font-bold mb-2
+  text-coopmaths-struct dark:text-coopmathsdark-struct"
 >
   Multivue
 </div>

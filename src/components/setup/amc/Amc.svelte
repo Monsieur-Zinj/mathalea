@@ -13,13 +13,12 @@
   import type TypeExercice from '../../../exercices/Exercice'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import NavBar from '../../shared/header/NavBar.svelte'
-  import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
-  import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import seedrandom from 'seedrandom'
-  import Button from '../../shared/forms/Button.svelte'
-  import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
   import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   const isSettingsVisible: boolean[] = []
   let exercices: TypeExercice[] = []
@@ -41,6 +40,8 @@
   let nbQuestions: Array<NbQuestionsIndexees> = []
   let nbExemplaires = 1
   let textForOverleaf: HTMLInputElement
+  let isNonAMCModaleDisplayed = false
+  let isOverleafModalDisplayed = false
 
   async function initExercices () {
     exercicesARetirer.length = 0
@@ -74,11 +75,7 @@
 
     refsExercicesARetirer = refsExercicesARetirer
     // afficher le modal pour les exercices non AMC ?
-    if (refsExercicesARetirer.length !== 0) {
-      nonAmcModal.style.display = 'block'
-    } else {
-      nonAmcModal.style.display = 'none'
-    }
+    isNonAMCModaleDisplayed = refsExercicesARetirer.length !== 0
   }
 
   initExercices()
@@ -128,50 +125,16 @@
     })
   }
 
-  /**
-   * Copier le code LaTeX dans le presse-papier
-   * @param {string} dialogId id attaché au composant
-   * @author sylvain
-   */
-  async function copyLaTeXCodeToClipBoard (dialogId: string) {
-    navigator.clipboard.writeText(content).then(
-      () => {
-        showDialogForLimitedTime(dialogId + '-1', 1000)
-      },
-      (err) => {
-        console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-2', 1000)
-      }
-    )
-  }
-
   /* =======================================================
    *
    * Mécanismes de gestion du modal d'infos sur OverLeaf
    *
    */
-  let modal: HTMLElement
   let overleafForm: HTMLFormElement
-  let nonAmcModal: HTMLElement
   // $: isNonAmcModal Visible = false
   onMount(async () => {
-    modal = document.getElementById('overleaf-modal') as HTMLElement
     overleafForm = document.getElementById('overleaf-form') as HTMLFormElement
-    nonAmcModal = document.getElementById('nonAmc-modal') as HTMLElement
   })
-  // click en dehors du modal le fait disparaître
-  window.onclick = function (event) {
-    if (event.target === modal) {
-      modal.style.display = 'none'
-    }
-    if (event.target === nonAmcModal) {
-      nonAmcModal.style.display = 'none'
-    }
-  }
-
-  function handleNonAmcModal () {
-    nonAmcModal.style.display = 'none'
-  }
 
   /**
    * Gérer le POST pour Overleaf
@@ -180,7 +143,7 @@
     textForOverleaf.value =
       'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(content)))
     overleafForm.submit()
-    modal.style.display = 'none'
+    isOverleafModalDisplayed = false
   }
 
   // =======================================================
@@ -316,12 +279,9 @@
           </div>
         {/each}
         <div>
-          <ModalMessageBeforeAction
-            modalButtonTitle="Continuer"
+          <BasicClassicModal
+            bind:isDisplayed={isNonAMCModaleDisplayed}
             icon="bxs-error"
-            classForButton="px-2 py-1 rounded-md"
-            modalId="nonAmc-modal"
-            on:action={handleNonAmcModal}
           >
             <span slot="header" />
             <div slot="content" class="text-justify">
@@ -333,7 +293,7 @@
                 {/each}
               </ul>
             </div>
-          </ModalMessageBeforeAction>
+          </BasicClassicModal>
         </div>
       </div>
       <div>
@@ -354,23 +314,24 @@
     <div
       class="flex flex-col md:flex-row justify-start items-start my-4 space-y-5 md:space-y-0 md:space-x-10 mt-8"
     >
-      <ModalActionWithDialog
-        dialogId="latexCopy"
-        classForButton="px-2 py-1 rounded-md"
-        message="Le code LaTeX a été copié dans le presse-papier"
-        messageError="Impossible de copier le code dans le presse-papier !"
-        on:display={() => {
-          copyLaTeXCodeToClipBoard('latexCopy')
-        }}
-        title="Copier le code LaTeX"
-      />
-      <Button
+      <ButtonActionInfo
+        action="copy"
+        textToCopy={content}
+        tooltip="Copier le code LaTeX dans le presse-papier"
+        text="Copier le code LaTeX"
+        inverted={false}
+        successMessage="Le code LaTeX a été copié dans le presse-papier"
+        errorMessage="Impossible de copier le code dans le presse-papier !"
+        displayDuration={3000}
         class="px-2 py-1 rounded-md"
-        idLabel="open-btn"
+      />
+      <ButtonText
+        class="px-2 py-1 rounded-md"
+        id="open-btn"
         on:click={() => {
-          modal.style.display = 'block'
+          isOverleafModalDisplayed = true
         }}
-        title="Compiler sur OverLeaf"
+        text="Compiler sur OverLeaf"
       />
     </div>
     <pre
@@ -379,12 +340,9 @@
     </pre>
   </section>
   <!-- Message avant envoi sur Overleaf -->
-  <ModalMessageBeforeAction
-    modalButtonTitle="Continuer"
-    classForButton="px-2 py-1 rounded-md"
+  <BasicClassicModal
+    bind:isDisplayed={isOverleafModalDisplayed}
     icon="bxs-error"
-    modalId="overleaf-modal"
-    on:action={handleOverLeaf}
   >
     <span slot="header">Attention !</span>
     <ul class="list-inside list-disc text-left text-base" slot="content">
@@ -394,7 +352,13 @@
         soit fonctionnel.
       </li>
     </ul>
-  </ModalMessageBeforeAction>
+    <div slot="footer">
+      <ButtonText
+        text="Compiler sur OverLeaf"
+        on:click={handleOverLeaf}
+      />
+    </div>
+  </BasicClassicModal>
   <!-- Formulaire pour Overleaf -->
   <form
     action="https://www.overleaf.com/docs"

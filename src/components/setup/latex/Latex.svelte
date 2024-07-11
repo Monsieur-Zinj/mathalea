@@ -25,17 +25,16 @@ import {
     type LatexFileInfos
 
   } from '../../../lib/Latex'
-  import Button from '../../shared/forms/Button.svelte'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
-  import ModalMessageBeforeAction from '../../shared/modal/ModalMessageBeforeAction.svelte'
-  import ModalActionWithDialog from '../../shared/modal/ModalActionWithDialog.svelte'
-  import { showDialogForLimitedTime } from '../../../lib/components/dialogs.js'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
   import ButtonOverleaf from '../../shared/forms/ButtonOverleaf.svelte'
   import ButtonCompileLatexToPDF from '../../shared/forms/ButtonCompileLatexToPDF.svelte'
   import SimpleCard from '../../shared/ui/SimpleCard.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
+  import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
+  import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
   /**
    * Toutes les variables configurables par l'interface WEB
@@ -63,13 +62,13 @@ import {
   let exercices: TypeExercice[]
   let latexFile: latexFileType = { contents: { preamble: '', intro: '', content: '', contentCorr: '' }, latexWithoutPreamble: '', latexWithPreamble: '' }
   let isExerciceStaticInTheList = false
-  let downloadPicsModal: HTMLElement
   let picsWanted: boolean
   let messageForCopyPasteModal: string
   let picsNames: picFile[][] = []
   let exosContentList: Exo[] = []
   let divText: HTMLDivElement
   let promise: Promise<void>
+  let isDownloadPicsModalDisplayed = false
 
   const latex = new Latex()
 
@@ -186,9 +185,6 @@ import {
         log('Promise Rejected')
       }
     })
-    downloadPicsModal = document.getElementById(
-      'downloadPicsModal'
-    ) as HTMLElement
     document.addEventListener('updateAsyncEx', forceUpdate)
     mathaleaRenderDiv(divText)
     // console.log('fin onMount')
@@ -206,18 +202,6 @@ import {
     // console.log('afterUpdate')
   })
 
-  /* ============================================================================
-  *
-  *                Modal pour le téléchargement des figures
-  *
-  =============================================================================== */
-  // click en dehors du moda de téléchargement des figures le fait disparaître
-  window.onclick = function (event) {
-    if (event.target === downloadPicsModal) {
-      downloadPicsModal.style.display = 'none'
-    }
-  }
-
   /**
    * Gérer le téléchargement des images dans une archive `images.zip` lors du clic sur le bouton du modal
    * @author sylvain
@@ -226,7 +210,7 @@ import {
     // console.log('handleActionFromDownloadPicsModal')
     const imagesFilesUrls = makeImageFilesUrls(exercices)
     downloadZip(imagesFilesUrls, 'images.zip')
-    downloadPicsModal.style.display = 'none'
+    isDownloadPicsModalDisplayed = false
   }
 
   /**
@@ -236,20 +220,7 @@ import {
     // console.log('handleDownloadPicsModalDisplay')
     exosContentList = getExosContentList(exercices)
     picsNames = getPicsNames(exosContentList)
-    downloadPicsModal.style.display = 'block'
-  }
-  //= ===================== Fin Modal figures ====================================
-
-  const copyDocument = async () => {
-    try {
-      await navigator.clipboard.writeText(latexFile.latexWithPreamble)
-      dialogLua.showModal()
-      setTimeout(() => {
-        dialogLua.close()
-      }, 3000)
-    } catch (err) {
-      console.error('Accès au presse-papier impossible: ', err)
-    }
+    isDownloadPicsModalDisplayed = true
   }
 
   /**
@@ -262,25 +233,6 @@ import {
     } else {
       return 'Le code LaTeX a été copié dans le presse-papier.'
     }
-  }
-
-  /**
-   * Copier le code LaTeX dans le presse-papier
-   * @param {string} dialogId id attaché au composant
-   * @author sylvain
-   */
-  async function copyLaTeXCodeToClipBoard (dialogId: string) {
-    const pre = document.querySelector('pre') as HTMLPreElement
-    const text = pre.innerText
-    navigator.clipboard.writeText(text).then(
-      () => {
-        showDialogForLimitedTime(dialogId + '-1', 2000)
-      },
-      (err) => {
-        console.error('Async: Could not copy text: ', err)
-        showDialogForLimitedTime(dialogId + '-2', 1000)
-      }
-    )
   }
 </script>
 
@@ -529,16 +481,13 @@ import {
               {#await promise}
                 <p>Chargement en cours...</p>
               {:then}
-              <ModalActionWithDialog
-                on:display={() => {
-                  copyLaTeXCodeToClipBoard('copyPasteModal')
-                }}
-                message={messageForCopyPasteModal}
-                messageError="Impossible de copier le code LaTeX dans le presse-papier"
-                tooltipMessage="Code LaTeX dans presse-papier"
-                dialogId="copyPasteModal"
-                classForButton="px-2 py-1 rounded-md"
-                title="Code seul"
+              <ButtonActionInfo
+                action="copy"
+                textToCopy={latexFile.latexWithoutPreamble}
+                text="Code seul"
+                successMessage={messageForCopyPasteModal}
+                errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                class="px-2 py-1 rounded-md"
               />
               {/await}
             </div>
@@ -546,49 +495,48 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <Button
-                class="px-2 py-1 rounded-md"
-                title="Code + préambule"
-                on:click={copyDocument}
-              />
+                <ButtonActionInfo
+                  action="copy"
+                  textToCopy={latexFile.latexWithPreamble}
+                  text="Code + préambule"
+                  successMessage={messageForCopyPasteModal}
+                  errorMessage="Impossible de copier le code LaTeX dans le presse-papier"
+                  class="px-2 py-1 rounded-md"
+                />
               {/await}
             </div>
           </SimpleCard>
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
-              <Button
+              <ButtonText
                 class="px-2 py-1 rounded-md"
-                idLabel="downloadFullArchive"
+                id="downloadFullArchive"
                 on:click={async () => {
                   await promise
                   downloadTexWithImagesZip('coopmaths', latexFile, exercices)
                 }}
-                title="Archive complète"
+                text="Archive complète"
               />
             </div>
             <div slot="button2">
               {#await promise}
                 <p></p>
               {:then}
-              <Button
+              <ButtonText
                 class="inline-block px-2 py-1 rounded-md"
-                idLabel="downloadPicsButton"
+                id="downloadPicsButton"
                 on:click={handleDownloadPicsModalDisplay}
-                title="Uniquement les figures"
-                isDisabled={!picsWanted}
+                text="Uniquement les figures"
+                disabled={!picsWanted}
               />
               {/await}
             </div>
           </SimpleCard>
         </div>
-        <ModalMessageBeforeAction
-          modalId="downloadPicsModal"
-          modalButtonId="downloadPicsModalButton"
-          modalButtonTitle="Télécharger les figures"
-          icon="bxs-file-png"
-          classForButton="px-2 py-1 rounded-md text-coopmaths-canvas dark:text-coopmathsdark-canvas bg-coopmaths-action hover:bg-coopmaths-action-lightest dark:bg-coopmathsdark-action dark:hover:bg-coopmathsdark-action-lightest"
-          on:action={handleActionFromDownloadPicsModal}
+        <BasicClassicModal
+          bind:isDisplayed={isDownloadPicsModalDisplayed}
+          icon="bx-code"
         >
           <span slot="header"></span>
           <div slot='content' class="flex flex-col justify-start items-start">
@@ -615,7 +563,13 @@ import {
               </ul>
             {/each}
           </div>
-        </ModalMessageBeforeAction>
+          <div slot="footer">
+            <ButtonText
+              text="Télécharger les figures"
+              on:click={handleActionFromDownloadPicsModal}
+            />
+          </div>
+        </BasicClassicModal>
       </div>
     </div>
 

@@ -1,30 +1,25 @@
 <script lang="ts">
-  import ModalActionWithDialog from '../../../../shared/modal/ModalActionWithDialog.svelte'
-  import ModalForQRCode from '../../../../shared/modal/ModalForQRCode.svelte'
-  import { copyLinkToClipboard } from '../../../../../lib/components/clipboard'
+  import ButtonQRCode from '../../../../shared/forms/ButtonQRCode.svelte'
   import { buildMathAleaURL } from '../../../../../lib/components/urls'
+  import ButtonActionInfo from '../../../../shared/forms/ButtonActionInfo.svelte'
 
-  export let QRCodeWidth: number
-  export let formatQRCodeIndex: number
 </script>
-<div class="flex text-lg font-bold pb-2 text-coopmaths-struct dark:text-coopmathsdark-struct">
+<div class="flex text-lg font-bold pb-2
+  text-coopmaths-struct dark:text-coopmathsdark-struct"
+>
   Liens
-  <div class="flex flex-row px-4 -mt-2 justify-start">
-    <ModalActionWithDialog
-      on:display={() => copyLinkToClipboard('linkCopiedDialog-1', buildMathAleaURL('diaporama'))}
-      message="Le lien est copié dans le presse-papier !"
-      dialogId="linkCopiedDialog-1"
-      tooltipMessage="Lien du Diaporama"
-      classForButton="mr-4 my-2"
+  <div class="flex flex-row pl-4 space-x-2 font-normal">
+    <ButtonActionInfo
+      action="copy"
+      icon={'bx-link text-2xl'}
+      textToCopy={buildMathAleaURL({ view: 'diaporama' }).toString()}
+      tooltip="Lien du Diaporama"
+      successMessage="Le lien du diaporama est copié dans le presse-papier !"
+      errorMessage="Impossible de copier le lien du diaporama dans le presse-papier."
     />
-    <ModalForQRCode
-      classForButton="mr-4 my-2"
-      dialogId="QRCodeModal-1"
-      imageId="QRCodeCanvas-1"
+    <ButtonQRCode
       url={document.URL}
-      tooltipMessage="QR-code du diaporama"
-      width={QRCodeWidth}
-      format={formatQRCodeIndex}
+      tooltip="QR-code du diaporama"
     />
   </div>
 </div>

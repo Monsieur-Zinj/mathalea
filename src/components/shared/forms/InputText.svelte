@@ -1,10 +1,12 @@
 <script lang="ts">
-  export let title: string = 'Title'
-  export let placeholder: string = 'Your text here'
+  import { mathaleaGenerateSeed } from '../../../lib/mathalea'
+
+  export let title: string = ''
+  export let placeholder: string = ''
   export let showTitle: boolean = true
   export let value: string = ''
   export let isDisabled: boolean = false
-  export let inputID: string = 'input-text'
+  export let inputID: string = mathaleaGenerateSeed()
   export let classAddenda: string = ''
 </script>
 
@@ -37,9 +39,10 @@
 
 <div>
   <label
-    class="{showTitle
-      ? 'block'
-      : 'hidden'} font-light text-xs text-coopmaths-struct dark:text-coopmathsdark-struct pr-4"
+    class="font-light text-xs pr-4
+      {showTitle ? 'block' : 'hidden'}
+      {isDisabled ? 'text-opacity-10 dark:text-opacity-10' : 'text-opacity-100 dark:text-opacity-100'}
+      text-coopmaths-struct dark:text-coopmathsdark-struct"
     for={inputID}
   >
     {title}
@@ -51,6 +54,12 @@
     disabled={isDisabled}
     bind:value
     {placeholder}
-    class="block h-5 text-sm border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light {classAddenda}"
+    class="block h-5 text-sm border-1
+      border-coopmaths-action dark:border-coopmathsdark-action
+      focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest
+      focus:outline-0 focus:ring-0 focus:border-1
+      bg-coopmaths-canvas dark:bg-coopmathsdark-canvas
+      disabled:opacity-20
+      text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light {classAddenda}"
   />
 </div>

@@ -1,12 +1,12 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
-  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
   import { formattedTimeStamp } from '../../../../../lib/components/time'
 
   export let exercises: Exercice[]
   export let selectedExercisesIndexes: number[]
   export let isManualModeActive: boolean
-  export let updateExercises: () => void
+  export let updateExercises: (exercises: Exercice[]) => void
   export let durationGlobal: number | undefined
   let stringDureeTotale = '0'
 
@@ -44,37 +44,55 @@
 
   function updateQuestionsNb (i: number, value: number) {
     exercises[i].nbQuestions = value
-    updateExercises()
+    updateExercises(exercises)
   }
 
   function updateDuration (i: number, value: number) {
     exercises[i].duration = value
-    updateExercises()
+    updateExercises(exercises)
   }
 
 </script>
 
-<div class="table-wrp block shadow ring-1 ring-coopmaths-struct dark:ring-coopmathsdark-struct ring-opacity-10 dark:ring-opacity-20 md:rounded-lg">
-  <table class="table-fixed min-w-full divide-y divide-coopmaths-struct dark:divide-coopmathsdark-struct divide-opacity-10 dark:divide-opacity-20">
-    <thead class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark sticky top-0">
+<div class="table-wrp block shadow ring-1 rounded-lg
+  ring-opacity-10 dark:ring-opacity-20
+  ring-coopmaths-struct dark:ring-coopmathsdark-struct"
+>
+  <table class="table-fixed min-w-full
+    divide-y
+    divide-opacity-10 dark:divide-opacity-20
+    divide-coopmaths-struct dark:divide-coopmathsdark-struct"
+  >
+    <thead class="sticky top-0
+      bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+    >
       <th
         scope="col"
-        class="py-3.5 pl-4 pr-3 w-4/6 text-left text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct sm:pl"
+        class="py-3.5 pl-4 pr-3 w-4/6
+          text-left text-sm font-semibold
+          text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
-        Exercices<span
-          class="pl-2 font-extralight text-opacity-60 {selectedExercisesIndexes.length > 0
-            ? ''
-            : 'invisible'}"
-          >({selectedExercisesIndexes.length} parmi {exercises.length})</span>
+        Exercices
+        <span
+          class="pl-1 font-light text-xs
+          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light
+          {selectedExercisesIndexes.length > 0 ? '' : 'invisible'}"
+        >
+          ({selectedExercisesIndexes.length} parmi {exercises.length})
+        </span>
       </th>
       <th
         scope="col"
-        class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
+        class="py-3.5 pl-4 pr-3 w-1/6
+          text-center text-sm font-semibold
+          text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         <div class={isManualModeActive ? 'opacity-20' : ''}>
           Durée par question
         </div>
-        <div class=" text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
+        <div class="font-light text-xs
+          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
           {#if !isManualModeActive}
             Durée diapo :<span class="font-light ml-1">{stringDureeTotale}</span>
           {:else}
@@ -84,10 +102,14 @@
       </th>
       <th
         scope="col"
-        class="py-3.5 pl-4 pr-3 w-1/6 text-center text-sm font-semibold text-coopmaths-struct dark:text-coopmathsdark-struct"
+        class="py-3.5 pl-4 pr-3 w-1/6
+          text-center text-sm font-semibold
+          text-coopmaths-struct dark:text-coopmathsdark-struct"
       >
         <div>Nombres de questions</div>
-        <div class="text-coopmaths-struct-light dark:text-coopmathsdark-struct-light font-light text-xs">
+        <div class="font-light text-xs
+          text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+        >
           Total :<span class="font-light ml-1">{getTotalNbOfQuestions()}</span>
         </div>
       </th>

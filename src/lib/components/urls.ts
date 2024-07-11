@@ -2,6 +2,7 @@ import { globalOptions } from '../stores/generalStore'
 import { canOptions } from '../stores/canStore'
 import { get } from 'svelte/store'
 import { type InterfaceGlobalOptions, type VueType } from '../../lib/types'
+import { notify } from '../../bugsnag'
 
 export class MathAleaURL extends URL {
   /**
@@ -60,15 +61,16 @@ export class MathAleaURL extends URL {
  * @param mode le mode de présentation des exercices
  * @returns l'URL correspondant à la feuille d'exercices avec tous les paramètres
  */
-export function buildMathAleaURL (
+export function buildMathAleaURL (options: {
   view: VueType,
-  mode?: InterfaceGlobalOptions['presMode']
+  mode?: InterfaceGlobalOptions['presMode'],
+  isEncrypted?: boolean, isShort?: boolean}
 ): URL {
   const url = new MathAleaURL()
-  const options = get(globalOptions)
+  const global = get(globalOptions)
   const can = get(canOptions)
-  url.setVue(view).addParam('es', buildEsParams(mode))
-  if (view === 'can') {
+  url.setVue(options.view).addParam('es', buildEsParams(options.mode))
+  if (options.view === 'can') {
     // paramètres spécifiques à la can dans l'URL
     url
       .addParam('canD', (can.durationInMinutes ?? 1).toString())
@@ -77,12 +79,13 @@ export function buildMathAleaURL (
       .addParam('canSM', can.solutionsMode)
       .addParam('canI', can.isInteractive ? '1' : '0')
   } else {
-    url.addParam('title', options.title)
+    url.addParam('title', global.title)
   }
-  if (options.beta) {
+  if (global.beta) {
     url.addParam('beta', '1')
   }
-  return url
+  const cryptedUrl = options.isEncrypted ? encrypt(url.toString()) : url.toString()
+  return new URL(cryptedUrl)
 }
 
 /**
@@ -113,32 +116,23 @@ export function buildEsParams (
   return es
 }
 
-export async function getShortenedCurrentUrl (
-  addendum: string = ''
-): Promise<string> {
-  //  La ligne ci-dessous devra être celle de la version définitive
+export async function getShortenedCurrentUrl (addendum: string = ''): Promise<string> {
   const urlObj = new URL(window.location.href)
   const port = urlObj.port
-  const url =
-    port !== undefined
-      ? document.URL.replace(
-          `http://localhost:${port}/alea`,
-          'https://coopmaths.fr/alea'
-      ) + addendum
-      : document.URL + addendum
-  // ci-dessous, URL en dur pour test (le service ne fonctionne pas avec des localhost dans l'URL)
-  // const url = 'https://coopmaths.fr/beta/?uuid=322a0&id=6C10-0&alea=uf2K&uuid=a5c5a&id=6C10-3&alea=3yIA&uuid=fd4d8&id=6C10-5&alea=yuEs&v=eleve&title=Exercices&es=1111'
-  let response
+  const baseUrl = port ? 'https://coopmaths.fr/alea' : document.URL
+  const url = `${baseUrl}${addendum}`
+
   try {
-    const request = await fetch(
-      `https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`
-    )
-    response = await request.json()
+    const response = await fetch(`https://api.shrtco.de/v2/shorten?url=${encodeURIComponent(url)}`)
+    if (!response.ok) {
+      throw new Error('Network response was not ok.')
+    }
+    const jsonResponse = await response.json()
+    return jsonResponse.result.full_short_link
   } catch (error) {
-    console.error(error)
+    notify('Impossible de raccourcir l\'url', { error })
+    return url
   }
-  const shortUrl = '' + response.result.full_short_link
-  return '' + shortUrl
 }
 
 /**
@@ -150,7 +144,7 @@ export async function getShortenedCurrentUrl (
  * @returns {URL} URL encryptée
  * @author sylvain
  */
-export function encrypt (url: string): URL {
+export function encrypt (url: string): string {
   const urlParts = url.split('?')
   let newUrl = urlParts[0] + '?EEEE'
   let char, nextChar, combinedCharCode
@@ -174,7 +168,7 @@ export function encrypt (url: string): URL {
     return hex
   }, '')
   newUrl += hexPartEncrypted
-  return new URL(newUrl)
+  return newUrl
 }
 
 /**

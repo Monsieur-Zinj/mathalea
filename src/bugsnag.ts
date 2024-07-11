@@ -1,4 +1,4 @@
-import Bugsnag from '@bugsnag/js'
+import Bugsnag, { type NotifiableError } from '@bugsnag/js'
 import bigInt from 'big-integer'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 import { tropDeChiffres } from './modules/outils.js'
@@ -52,7 +52,7 @@ export function notifyLocal (error: string|Error, metadatas: Metadatas) {
  * @param error
  * @param metadatas
  */
-export function notify (error: string|Error, metadatas: Metadatas) {
+export function notify (error: string | NotifiableError, metadatas: Metadatas) {
   if (typeof error === 'string') {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error

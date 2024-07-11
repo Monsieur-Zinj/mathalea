@@ -1,38 +1,27 @@
 <script lang="ts">
   import PdfTextIcon from '../../../../../../../components/shared/icons/PdfTextIcon.svelte'
-  import Button from '../../../../../../../components/shared/forms/Button.svelte'
   import AmcIcon from '../../../../../../../components/shared/icons/AmcIcon.svelte'
   import AnkiIcon from '../../../../../../../components/shared/icons/AnkiIcon.svelte'
   import MoodleIcon from '../../../../../../../components/shared/icons/MoodleIcon.svelte'
   import type { VueType } from '../../../../../../../lib/types'
-  import ModalActionWithDialog from '../../../../../../../components/shared/modal/ModalActionWithDialog.svelte'
-  import { downloadRedirectFile } from '../../../../../../../lib/components/redirectFile'
+  import ButtonActionInfo from '../../../../../../shared/forms/ButtonActionInfo.svelte'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
+
   export let handleExport: (vue: VueType) => void
 </script>
 
-<div class="tooltip tooltip-bottom" data-tip="Diaporama">
-  <Button
-    title=""
-    icon="bx-slideshow"
-    class="flex items-center text-3xl"
-    on:click={() => handleExport('diaporama')}
-  />
-</div>
-<button
-  type="button"
-  class="tooltip tooltip-bottom tooltip-neutral"
-  data-tip="Lien pour les élèves"
+<ButtonIconTooltip
+  icon="bx-slideshow text-3xl"
+  tooltip="Diaporama"
+  on:click={() => handleExport('diaporama')}
+/>
+<ButtonIconTooltip
+  icon={'bx-link text-3xl'}
+  cornerIcon="bxs-graduation"
+  cornerIconClass="text-coopmaths-action dark:text-coopmathsdark-action"
+  tooltip="Lien pour les élèves"
   on:click={() => handleExport('confeleve')}
->
-  <div
-    class="relative hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
-  >
-    <i class="bx text-3xl bx-link" />
-    <div class="absolute -bottom-1 -right-1">
-      <i class="scale-75 bx bx-xs bxs-graduation" />
-    </div>
-  </div>
-</button>
+/>
 <button
   type="button"
   class="tooltip tooltip-bottom tooltip-neutral"
@@ -73,26 +62,10 @@
     class="w-7 h-7 hover:text-coopmaths-action-lightest text-coopmaths-action dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest"
   />
 </button>
-<div class="tooltip tooltip-bottom" data-tip="Fichier">
-  <!--<Button
-    title=""
-    icon="bxs-file-export"
-    class="flex items-center text-3xl"
-    on:click={() => handleExport('redirectFile')}
-  />-->
-  <ModalActionWithDialog
-    on:display={() =>
-      downloadRedirectFile(
-        'downlaodRedirectFileDialog',
-        new URL(location.href),
-        'mathAlea',
-        false,
-        false
-      )}
-    message="Le téléchargement va début dans quelques instants."
-    messageError="Impossible de télécharger le fichier !"
-    dialogId="downlaodRedirectFileDialog"
-    tooltipMessage={'Fichier de redirection'}
-    buttonIcon={'bxs-file-export'}
-  />
-</div>
+<ButtonActionInfo
+  action="download"
+  urlToDownload={location.href}
+  fileName="mathAlea"
+  icon="bxs-file-export text-2xl"
+  tooltip="Fichier de redirection"
+/>

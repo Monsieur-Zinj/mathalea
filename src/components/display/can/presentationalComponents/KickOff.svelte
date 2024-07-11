@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { CanState } from '../../../../lib/types/can'
-  import Button from '../../../shared/forms/Button.svelte'
+  import ButtonText from '../../../shared/forms/ButtonText.svelte'
   export let state: CanState
   export let title = 'Course aux Nombres'
   export let subTitle = '2023'
@@ -12,9 +12,9 @@
   <div class="font-black text-center uppercase text-6xl md:text-[130px]">{title}</div>
   <div class="pt-2 md:pt-6 font-extralight text-5xl md:text-[100px]">{subTitle}</div>
   <div class="pt-10">
-    <Button
+    <ButtonText
       class="py-3 px-6 text-3xl rounded-xl flex flex-row-reverse items-center space-x-6 font-bold animate-pulse"
-      title="Démarrer"
+      text="Démarrer"
       icon="bx-play bx-lg pl-1"
       on:click={() => {
         state = 'countdown'

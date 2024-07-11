@@ -41,7 +41,7 @@ export default function InstructionConditionnelle () {
       }
     }
 
-    let texte = "La position initiale d'un lutin dans un repère est (0,0). Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>" // texte de l'énoncé
+    let texte = "La position initiale d'un lutin dans un repère est (0,0).<br> Dans le programme, x désigne l'abscisse, et y désigne l'ordonnée d'un lutin. <br>" // texte de l'énoncé
     texte += 'Une variable a été créée, elle s\'appelle <code class="b">(var) :: ring</code>. <br>'
     let texteCorr = ' ' // texte du corrigé
     let codeTikz = '' // code pour dessiner les blocs en tikz

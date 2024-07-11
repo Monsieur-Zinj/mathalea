@@ -28,7 +28,7 @@
   import Filtres from './Filtres.svelte'
   import Chip from './Chip.svelte'
   import type { Unsubscriber } from 'svelte/store'
-  import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  import ButtonIcon from '../../../../../../shared/forms/ButtonIcon.svelte'
   import { sortArrayOfResourcesBasedOnProp, sortArrayOfResourcesBasedOnYearAndMonth } from '../../../../../../../lib/components/sorting'
   export let origin: ResourceAndItsPath[]
   export let results: ResourceAndItsPath[] = []
@@ -383,11 +383,10 @@
       Presser <span class="font-normal mx-1">Entrée</span> pour ajouter l'exercice
     </div>
     <!-- Bouton pour effacer l'input de recherche -->
-    <Button
-      title=""
-      icon="bxs-tag-x"
-      class="absolute right-2 top-1 text-2xl"
-      isDisabled={inputSearch.length === 0}
+    <ButtonIcon
+      icon="bxs-tag-x text-2xl"
+      class="absolute right-2 top-1"
+      disabled={inputSearch.length === 0}
       on:click={() => {
         inputSearch = ''
       }}

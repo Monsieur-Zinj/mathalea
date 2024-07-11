@@ -58,10 +58,23 @@
   {#each labelsValues as labelValue, i}
     <div class="form-check flex flex-row ml-4 items-center">
       <input
-        class="form-check-input rounded-full h-4 w-4 border border-coopmaths-action {bgColor} dark:border-coopmathsdark-action dark:bg-coopmathsdark-canvas-dark text-coopmaths-action checked:disabled:bg-opacity-10 checked:disabled:border-opacity-10 dark:checked:disabled:bg-opacity-10 dark:checked:disabled:border-opacity-10 checked:bg-coopmaths-action checked:border-coopmaths-action active:border-coopmaths-action focus:border-coopmaths-action dark:text-coopmathsdark-action dark:checked:bg-coopmathsdark-action dark:checked:border-coopmathsdark-action dark:active:border-coopmathsdark-action dark:focus:border-coopmathsdark-action focus:outline-0 focus:ring-0 focus:border-1 transition duration-200 mt-1 mr-2
-        {isDisabled || labelValue.isDisabled
-          ? 'border-opacity-10 dark:border-opacity-10 bg-opacity-10 dark:bg-opacity-10 checked:disabled:opacity-10 dark:checked:disabled:opacity-10'
-          : 'cursor-pointer'}"
+        class="form-check-input rounded-full h-4 w-4 mt-1 mr-2
+          transition duration-200
+          text-coopmaths-action dark:text-coopmathsdark-action
+          {bgColor} dark:bg-coopmathsdark-canvas-dark
+          border
+          border-coopmaths-action dark:border-coopmathsdark-action
+          checked:border-coopmaths-action dark:checked:border-coopmathsdark-action
+          active:border-coopmaths-action dark:active:border-coopmathsdark-action
+          focus:outline-0 focus:ring-0 focus:border-1
+          focus:border-coopmaths-action dark:focus:border-coopmathsdark-action
+          checked:bg-coopmaths-action dark:checked:bg-coopmathsdark-action
+          checked:disabled:bg-opacity-10 checked:disabled:border-opacity-10
+          {isDisabled || labelValue.isDisabled
+            ? `border-opacity-10 dark:border-opacity-10
+              bg-opacity-10 dark:bg-opacity-10
+              checked:disabled:opacity-10 dark:checked:disabled:opacity-10`
+            : 'cursor-pointer'}"
         type="radio"
         {name}
         id={name + i.toString()}
@@ -71,13 +84,10 @@
         on:change={valueHasChanged}
       />
       <label
-        class="form-check-label inline-block text-coopmaths-corpus dark:text-coopmathsdark-corpus text-sm {valueSelected ===
-        labelValue.value
-          ? 'font-semibold'
-          : 'font-light'}
-        {isDisabled || labelValue.isDisabled
-          ? 'text-opacity-10 dark:text-opacity-10'
-          : 'text-opacity-70 dark:text-opacity-70 cursor-pointer'}"
+        class="form-check-label inline-block text-sm
+          text-coopmaths-corpus dark:text-coopmathsdark-corpus
+          {valueSelected === labelValue.value ? 'font-semibold' : 'font-light'}
+          {isDisabled || labelValue.isDisabled ? 'text-opacity-10' : 'text-opacity-70 cursor-pointer'}"
         for={name + i.toString()}
       >
         {labelValue.label}

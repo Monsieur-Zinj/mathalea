@@ -87,7 +87,6 @@ export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
 export const bibliothequeDisplayedContent =
   writable<Record<string, JSONReferentielEnding>>()
 export const bibliothequePathToSection = writable<string[]>([])
-export const isModalForStaticsVisible = writable<boolean>(false)
 
 /**
  * Déplace un exercice dans exercicesParams

@@ -1,5 +1,4 @@
 import { showDialogForLimitedTime } from './dialogs'
-import { encrypt, getShortenedCurrentUrl } from './urls'
 
 /**
    * Download a file reddirecting to custom URL
@@ -9,21 +8,9 @@ import { encrypt, getShortenedCurrentUrl } from './urls'
    * @param {boolean} crypted does the URL need to be crypted ?
    * @author Mathieu Degrange
    */
-export async function downloadRedirectFile (dialogId: string, url: URL, fileName: string, shorten = false, crypted = false) {
-  let finalUrl
-  if (shorten) {
-    try {
-      finalUrl = await getShortenedCurrentUrl(url.toString())
-    } catch (error) {
-      showDialogForLimitedTime(dialogId + '-2', 1000)
-      throw error
-    }
-  } else {
-    finalUrl = crypted ? encrypt(url.toString()) : url.toString()
-  }
-
+export async function downloadRedirectFile (dialogId: string, url: URL, fileName: string) {
   try {
-    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(finalUrl.toString())}"></head></html>`
+    const text = `<html><head><meta http-equiv="refresh" content="0;URL=${encodeURI(url.toString())}"></head></html>`
     const element = document.createElement('a')
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
     element.setAttribute('download', fileName + '.html')
@@ -31,9 +18,9 @@ export async function downloadRedirectFile (dialogId: string, url: URL, fileName
     document.body.appendChild(element)
     element.click()
     document.body.removeChild(element)
-    showDialogForLimitedTime(dialogId + '-1', 1000)
+    showDialogForLimitedTime(dialogId + '-success', 1000)
   } catch (error) {
-    showDialogForLimitedTime(dialogId + '-2', 1000)
+    showDialogForLimitedTime(dialogId + '-error', 1000)
     throw error
   }
 }

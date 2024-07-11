@@ -1,14 +1,11 @@
 <script lang="ts">
-  import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
 
   export let newDataForAll: () => void
 </script>
 
-<div class="tooltip tooltip-bottom" data-tip="Nouveaux énoncés">
-  <Button
-    title=""
-    icon="bx-refresh"
-    class="flex items-center text-3xl"
-    on:click={newDataForAll}
-  />
-</div>
+<ButtonIconTooltip
+  icon="bx-refresh text-3xl"
+  tooltip="Nouveaux énoncés"
+  on:click={newDataForAll}
+/>

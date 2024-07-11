@@ -2,7 +2,7 @@
   import type Exercice from '../../../../../exercices/Exercice'
   import { listOfRandomIndexes } from '../../../../../lib/components/shuffle'
   import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
-  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
 
   export let exercises: Exercice[]
   export let selectedExercisesIndexes: number[]
@@ -11,20 +11,21 @@
   const isSelectedExercises: boolean = selectedExercisesIndexes.length > 0
   let selectedExercisesCount: number = selectedExercisesIndexes.length
 
-function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
-  let selection: number[] | undefined
-  if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
-    selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
+    let selection: number[] | undefined
+    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
+      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+    }
+    updateSelect(selection)
   }
-  updateSelect(selection)
-}
 
 </script>
 
 <div class="pb-6">
   <div
-    class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct
-    {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
+    class="flex text-lg font-bold mb-1
+      text-coopmaths-struct dark:text-coopmathsdark-struct
+      {exercises.length === 1 ? 'text-opacity-20' : 'text-opacity-100'}"
   >
     Sélection aléatoire d'exercices
   </div>
@@ -51,9 +52,9 @@ function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
       }}
     />
     <span
-      class="ml-2 my-auto text-coopmaths-corpus dark:text-coopmathsdark-corpus {selectedExercisesCount
-        ? 'text-opacity-100 dark:text-opacity-100'
-        : 'text-opacity-10 dark:text-opacity-10'}"
+      class="ml-2 my-auto
+        text-coopmaths-corpus dark:text-coopmathsdark-corpus
+        {selectedExercisesCount ? 'text-opacity-100 dark:text-opacity-100' : 'text-opacity-10 dark:text-opacity-10'}"
     >
       parmi {exercises.length}
     </span>

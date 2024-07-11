@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import Button from '../../../shared/forms/Button.svelte'
+  import ButtonText from '../../../shared/forms/ButtonText.svelte'
   import { canOptions } from '../../../../lib/stores/canStore'
   import type { CanState } from '../../../../lib/types/can'
   export let state: CanState
@@ -25,8 +25,8 @@
     </div>
   </div>
   {#if $canOptions.solutionsAccess}
-    <Button
-      title="Accéder aux solutions"
+    <ButtonText
+      text="Accéder aux solutions"
       class="p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl mt-6 md:mt-10"
       on:click={() => {
         state = 'solutions'

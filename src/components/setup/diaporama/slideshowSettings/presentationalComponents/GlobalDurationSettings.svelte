@@ -1,7 +1,7 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
   import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
-  import NumberInput from '../../../../shared/forms/NumberInput.svelte'
+  import NumberInput from '../../../../shared/forms/InputNumber.svelte'
 
   export let exercises: Exercice[]
   export let isManualModeActive: boolean
@@ -27,8 +27,13 @@
 
 </script>
 
-<div class="flex flex-col lg:flex-row px-4 pb-4 w-full justify-start lg:justify-between lg:items-center">
-  <div class="flex text-lg font-bold text-coopmaths-struct dark:text-coopmathsdark-struct">
+<div class="flex flex-col lg:flex-row px-4 pb-4 w-full
+  justify-start lg:justify-between
+  items-start lg:items-center"
+>
+  <div class="flex text-lg font-bold
+    text-coopmaths-struct dark:text-coopmathsdark-struct"
+  >
     Durées et nombres de questions
   </div>
   <div class="flex items-center">

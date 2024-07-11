@@ -1,16 +1,15 @@
 import type Exercice from '../../../exercices/Exercice'
-import { type IntegerInRange0to2 } from '../../../lib/types/integerInRange'
-
-export type DataFromSettings = {
-  currentQuestion: number
-  formatQRCodeIndex: IntegerInRange0to2
-  QRCodeWidth: number
-}
 
 export type Vue = {
   consigne: string
   question: string
   correction: string
+  consigneSvgs: string[]
+  questionSvgs: string[]
+  correctionSvgs: string[]
+  consigneText: string
+  questionText: string
+  correctionText: string
 }
 
 export type Slide = {
@@ -23,4 +22,10 @@ export type Slideshow = {
   slides: Slide[]
   currentQuestion: number
   selectedQuestionsNumber: number
+}
+
+export type Serie = {
+  consignes: string[]
+  questions: string[]
+  corrections: string[]
 }

@@ -7,7 +7,9 @@
 </script>
 
 <div class="pb-6">
-  <div class="flex text-lg font-bold mb-1 text-coopmaths-struct dark:text-coopmathsdark-struct">
+  <div class="flex text-lg font-bold mb-1
+    text-coopmaths-struct dark:text-coopmathsdark-struct"
+  >
     Ordre
   </div>
   <CheckboxWithLabel

@@ -29,6 +29,7 @@ import { getLang, localisedIDToUuid, referentielLocale, updateURLFromReferentiel
 import { delay } from './components/time.js'
 import { contraindreValeur } from '../modules/outils.js'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
+import { resizeContent } from './components/sizeTools.js'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -319,68 +320,32 @@ export function mathaleaHandleStringFromUrl (text: string): boolean | number | s
   }
 }
 
-/**
- * Gère l'affichage des formules mathématiques écrites entre dollars
- */
-export function mathaleaRenderDiv (div: HTMLElement, zoom?: number): void {
-  // KaTeX à remplacer par MathLive ?
-  // renderMathInElement(div, {
-  //   TeX: {
-  //     delimiters: {
-  //       display: [['\\(', '\\)']],
-  //       inline: [['$', '$']]
-  //     }
-  //   },
-  //   fontsDirectory: '/fonts'
-  // })
-  if (div != null) {
-    renderMathInElement(div, {
-      delimiters: [
-        { left: '\\[', right: '\\]', display: true },
-        { left: '$', right: '$', display: false }
-      ],
-      // Les accolades permettent d'avoir une formule non coupée
-      preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
-      throwOnError: true,
-      errorColor: '#CC0000',
-      strict: 'warn',
-      trust: false
-    })
-    document.dispatchEvent(new window.Event('katexRendered'))
-  }
-  renderScratch('body')
+export function mathaleaRenderDiv (div: HTMLElement | null, zoom?: number): void {
+  if (!div) return
   const params = get(globalOptions)
   zoom = zoom ?? Number(params.z)
 
-  if (zoom !== -1 && div != null) {
-    const qcms = div.querySelectorAll<HTMLElement>('.monQcm')
-    for (const qcm of qcms) {
-      qcm.style.fontSize = `${zoom}px`
-    }
-    const tables = div.querySelectorAll<HTMLElement>('#affichage_exercices label') // Pour les propositions des QCM
-    for (const table of tables) {
-      table.style.fontSize = `${zoom}px`
-    }
-    const figures = div.querySelectorAll<SVGElement>('.mathalea2d')
-    for (const figureElement of figures) {
-      const figure = figureElement
-      const width = figure.getAttribute('width')
-      const height = figure.getAttribute('height')
-      if (!figure.dataset.widthInitiale && width != null) figure.dataset.widthInitiale = width
-      if (!figure.dataset.heightInitiale && height != null) figure.dataset.heightInitiale = height
-      figure.setAttribute('height', (Number(figure.dataset.heightInitiale) * zoom).toString())
-      figure.setAttribute('width', (Number(figure.dataset.widthInitiale) * zoom).toString())
-    }
-    // accorder la position des éléments des tableaux de variation en fonction du zoom
-    const eltsInVariationTables = div.querySelectorAll<HTMLDivElement>('div.divLatex')
-    for (const elt of eltsInVariationTables) {
-      const e = elt
-      const initialTop = Number(e.dataset.top) ?? 0
-      const initialLeft = Number(e.dataset.left) ?? 0
-      e.style.setProperty('top', (initialTop * zoom).toString() + 'px')
-      e.style.setProperty('left', (initialLeft * zoom).toString() + 'px')
-    }
+  renderKatex(div)
+  renderScratch('body')
+  if (zoom !== -1) {
+    resizeContent(div, zoom)
   }
+}
+
+function renderKatex (element: HTMLElement) {
+  renderMathInElement(element, {
+    delimiters: [
+      { left: '\\[', right: '\\]', display: true },
+      { left: '$', right: '$', display: false }
+    ],
+    // Les accolades permettent d'avoir une formule non coupée
+    preProcess: (chaine: string) => '{' + chaine.replaceAll(String.fromCharCode(160), '\\,') + '}',
+    throwOnError: true,
+    errorColor: '#CC0000',
+    strict: 'warn',
+    trust: false
+  })
+  document.dispatchEvent(new window.Event('katexRendered'))
 }
 
 /**
@@ -427,10 +392,10 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let z = '1'
   let durationGlobal = 0
   let ds
-  let nbVues
-  let flow
+  let nbVues: 1 | 2 | 3 | 4 = 1
+  let flow: 0 | 1 | 2 = 0
   let screenBetweenSlides
-  let sound
+  let sound: 0 | 1 | 2 | 3 | 4 = 0
   let shuffle = false
   let manualMode
   let select: number[] = []

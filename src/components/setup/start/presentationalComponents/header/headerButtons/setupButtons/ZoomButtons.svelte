@@ -1,29 +1,17 @@
 <script lang="ts">
-  import Button from '../../../../../../../components/shared/forms/Button.svelte'
+  import ButtonIconTooltip from '../../../../../../shared/forms/ButtonIconTooltip.svelte'
 
   export let zoomUpdate: (plusMinus: ('+' | '-')) => void
 
 </script>
 
-<div
-  class="tooltip tooltip-bottom"
-  data-tip="Réduire la taille du texte"
->
-  <Button
-    title=""
-    icon="bx-zoom-out"
-    class="flex items-center text-3xl"
-    on:click={() => zoomUpdate('-')}
-  />
-</div>
-<div
-  class="tooltip tooltip-bottom"
-  data-tip="Augmenter la taille du texte"
->
-  <Button
-    title=""
-    icon="bx-zoom-in"
-    class="flex items-center text-3xl"
-    on:click={() => zoomUpdate('+')}
-  />
-</div>
+<ButtonIconTooltip
+  icon="bx-zoom-out text-3xl"
+  tooltip="Réduire la taille du texte"
+  on:click={() => zoomUpdate('-')}
+/>
+<ButtonIconTooltip
+  icon="bx-zoom-in text-3xl"
+  tooltip="Augmenter la taille du texte"
+  on:click={() => zoomUpdate('+')}
+/>
