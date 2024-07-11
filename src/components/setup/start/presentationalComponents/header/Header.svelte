@@ -36,7 +36,7 @@
    * @param test flag pour indiquer si un test doit être effectué sur le fait que le menu est ouvert ou pas
    */
   export const toggleMenu = (test: boolean):void => {
-    sideMenuWrapperComponent.toggleMenu(test)
+    sideMenuWrapperComponent?.toggleMenu(test)
   }
 </script>
 

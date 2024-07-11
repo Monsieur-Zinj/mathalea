@@ -243,7 +243,7 @@
 
   function trash () {
     exercicesParams.set([])
-    headerComponent.toggleMenu(true)
+    headerComponent?.toggleMenu(true) // n'est pas disponible lorsqu'on est sur Capytale
   }
 
   function setFullScreen (isFullScreen: boolean) {
@@ -380,7 +380,7 @@
               exercicesParams={$exercicesParams}
               on:exerciseRemoved={() => {
                 if ($exercicesParams.length === 0) {
-                  headerComponent.toggleMenu(true)
+                  headerComponent?.toggleMenu(true)
                 }
               }}
             />
