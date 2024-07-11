@@ -10,9 +10,8 @@
    * déclencher le basculement
    */
   export const toggleMenu = (testSideMenuOpenedNeeded: boolean): void => {
-    const instance = Sidenav.getOrCreateInstance(
-      document.getElementById('choiceSideMenuWrapper')
-    )
+    const instance = Sidenav.getOrCreateInstance(document.getElementById('choiceSideMenuWrapper'))
+    if (!instance) return
     if (testSideMenuOpenedNeeded) {
       if (sidenavOpen === true) {
         instance.toggle()
