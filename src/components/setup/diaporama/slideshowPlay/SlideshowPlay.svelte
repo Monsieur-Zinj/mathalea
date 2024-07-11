@@ -14,7 +14,7 @@
   export let backToSettings: () => void
 
   const divQuestion: HTMLDivElement[] = []
-  const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: false })
+  const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
   let isCorrectionVisible = false
   let isPause = false
   let isManualPause = false
@@ -119,11 +119,11 @@
       const exerciseContainerDiv = document.getElementById('exerciseContainer' + vueIndex)
       mathaleaRenderDiv(exerciseContainerDiv, optimalZoom * userZoom)
     }
+    document.dispatchEvent(exercicesAffiches)
   }
 
   async function findOptimalZoom () {
     await tick()
-    document.dispatchEvent(exercicesAffiches)
     const optimalZoomForViews = new Array(nbVues).fill(0)
     for (let vueIndex = 0; vueIndex < nbVues; vueIndex++) {
       optimalZoomForViews[vueIndex] = findOptimalZoomForView(vueIndex)
