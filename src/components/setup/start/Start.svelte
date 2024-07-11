@@ -8,7 +8,7 @@
   //     faudrait plutôtqu'ils fassent remonter les changements jusqu'à SideMenu.svelte via une {function} pour qu'ils
   //     les fassent redescendre ensuite par des {attributs}
   //
-  import { SvelteComponent, onDestroy, onMount, setContext, tick } from 'svelte'
+  import { onDestroy, onMount, setContext, tick } from 'svelte'
   import {
     callerComponent,
     darkMode,
@@ -45,10 +45,6 @@
   import type { CanOptions } from '../../../lib/types/can'
   import SideMenuWrapper from './presentationalComponents/header/SideMenuWrapper.svelte'
 
-  interface HeaderComponent extends SvelteComponent {
-    toggleMenu: (t: boolean) => void
-  }
-
   let isNavBarVisible: boolean = true
   let innerWidth = 0
   let isBackToTopButtonVisible = false
@@ -56,8 +52,8 @@
   let thirdAppsChoiceModal: BasicClassicModal
   let showThirdAppsChoiceDialog = false
   let isMd: boolean
-  let headerComponent: HeaderComponent
   let localeValue: Language = get(referentielLocale)
+  let isSidenavOpened: boolean = true
 
   const unsubscribeToReferentielLocale = referentielLocale.subscribe(
     (value) => {
@@ -243,7 +239,7 @@
 
   function trash () {
     exercicesParams.set([])
-    headerComponent?.toggleMenu(true) // n'est pas disponible lorsqu'on est sur Capytale
+    toggleSidenav(true)
   }
 
   function setFullScreen (isFullScreen: boolean) {
@@ -310,6 +306,20 @@
     canOptions.set(params.canOptions)
     globalOptions.set(params.globalOptions) // en dernier car c'est sa modification qui déclenche la mise à jour de l'url dans App.svelte qui prévient ensuite Capytale d'une mise à jour
   }
+
+  function toggleSidenav (forceOpening: boolean): void {
+    const sidenav = Sidenav.getOrCreateInstance(document.getElementById('choiceSideMenuWrapper'))
+    if (!sidenav) return
+    if (forceOpening) {
+      if (!isSidenavOpened) {
+        sidenav.toggle()
+        isSidenavOpened = !isSidenavOpened
+      }
+    } else {
+      sidenav.toggle()
+      isSidenavOpened = !isSidenavOpened
+    }
+  }
 </script>
 
 <svelte:window bind:innerWidth />
@@ -321,7 +331,6 @@
 >
   <div class="flex-1 flex flex-col w-full md:overflow-hidden">
     <Header
-      bind:this={headerComponent}
       {isNavBarVisible}
       isExerciseDisplayed={$exercicesParams.length !== 0}
       {zoomUpdate}
@@ -337,6 +346,8 @@
       {showSettingsDialog}
       {importExercises}
       isExercisesListEmpty={$exercicesParams.length === 0}
+      {isSidenavOpened}
+      {toggleSidenav}
     />
     {#if isMd}
       <!-- ====================================================================================
@@ -349,6 +360,8 @@
         {#if $globalOptions.recorder === 'capytale'}
           <SideMenuWrapper
             isCapytale={true}
+            {isSidenavOpened}
+            {toggleSidenav}
           />
         {/if}
         <nav
@@ -380,7 +393,7 @@
               exercicesParams={$exercicesParams}
               on:exerciseRemoved={() => {
                 if ($exercicesParams.length === 0) {
-                  headerComponent?.toggleMenu(true)
+                  toggleSidenav(true)
                 }
               }}
             />
