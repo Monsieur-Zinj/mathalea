@@ -173,6 +173,9 @@ function ApparitionAnimee (liste, dur = 2, pourcentage = 0.5, repeat = 'indefini
     code += '</g>'
     return code
   }
+  this.tikz = function () {
+    return ''
+  }
 }
 /**
  * Fait apparaître une liste d'objets de façon animée
