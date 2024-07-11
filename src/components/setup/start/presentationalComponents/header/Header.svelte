@@ -1,5 +1,4 @@
 <script lang="ts">
-  import type { SvelteComponent } from 'svelte'
   import NavBar from '../../../../../components/shared/header/NavBar.svelte'
   import ModalReorder from './ModalReorder.svelte'
   import HeaderButtons from './headerButtons/HeaderButtons.svelte'
@@ -7,10 +6,6 @@
   import type { VueType } from '../../../../../lib/types'
   import type { Language } from '../../../../../lib/types/languages'
   import NavBarCapytale from '../../capytale/NavBarCapytale.svelte'
-
-  interface SideMenuWrapperComponent extends SvelteComponent {
-    toggleMenu: (t: boolean) => void
-  }
 
   export let isExerciseDisplayed: boolean
   export let isNavBarVisible: boolean
@@ -27,17 +22,11 @@
   export let showSettingsDialog: () => void
   export let importExercises: (urlFeuilleEleve: string) => void
   export let isExercisesListEmpty: boolean
+  export let isSidenavOpened: boolean
+  export let toggleSidenav: (test: boolean) => void
 
   let reorderModalDisplayed: boolean
-  let sideMenuWrapperComponent: SideMenuWrapperComponent
 
-  /**
-   * Wrapper pour la fonction `toggleMenu` définie dans `sideMenuWrapperComponent`
-   * @param test flag pour indiquer si un test doit être effectué sur le fait que le menu est ouvert ou pas
-   */
-  export const toggleMenu = (test: boolean):void => {
-    sideMenuWrapperComponent?.toggleMenu(test)
-  }
 </script>
 
 <header class="flex flex-col scrollbar-hide w-full
@@ -87,8 +76,9 @@
         id="barre-boutons"
       >
         <SideMenuWrapper
-          bind:this={sideMenuWrapperComponent}
           {isCapytale}
+          {isSidenavOpened}
+          {toggleSidenav}
         />
         <HeaderButtons
           bind:reorderModalDisplayed
