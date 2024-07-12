@@ -308,7 +308,9 @@
   }
 
   function toggleSidenav (forceOpening: boolean): void {
-    const sidenav = Sidenav.getOrCreateInstance(document.getElementById('choiceSideMenuWrapper'))
+    const sideMenuWrapper = document.getElementById('choiceSideMenuWrapper')
+    if (!sideMenuWrapper) return
+    const sidenav = Sidenav.getOrCreateInstance(sideMenuWrapper)
     if (!sidenav) return
     if (forceOpening) {
       if (!isSidenavOpened) {
