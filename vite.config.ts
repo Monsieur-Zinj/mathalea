@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
+import babel from 'vite-plugin-babel'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,8 +16,9 @@ export default defineConfig({
   plugins: [
     svelte({
       compilerOptions: {
-        dev: true
+        dev: process.env.NODE_ENV !== 'production'
       }
-    })
+    }),
+    babel()
   ]
 })
