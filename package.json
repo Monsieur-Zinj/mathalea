@@ -103,6 +103,8 @@
     "xstate": "^4.38.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.24.8",
+    "@babel/preset-env": "^7.24.8",
     "@sveltejs/vite-plugin-svelte": "^3.1.1",
     "@tailwindcss/forms": "^0.5.7",
     "@testing-library/svelte": "^4.2.3",
@@ -142,7 +144,8 @@
     "typed-function": "^4.2.1",
     "typescript": "^5.5.3",
     "util": "^0.12.5",
-    "vite": "^5.3.3"
+    "vite": "^5.3.3",
+    "vite-plugin-babel": "^1.2.0"
   },
   "pnpm": {
     "overrides": {
