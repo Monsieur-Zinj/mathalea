@@ -168,7 +168,7 @@ export function mathalea2d (
   // On prépare le code HTML
   const m2dId = 'M2D' + mathaleaGenerateSeed()
   const divsLatex = []
-  let codeSvg = `<svg class="mathalea2d" id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
+  let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm
       } ${(ymax - ymin) * pixelsParCm}" xmlns="http://www.w3.org/2000/svg" >\n`
   codeSvg += ajouteCodeHtml(mainlevee, objets, divsLatex, xmin, ymax)
