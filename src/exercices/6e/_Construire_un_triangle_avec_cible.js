@@ -289,9 +289,9 @@ export default function ConstruireUnTriangleAvecCible () {
       objetsEnonceml.push(TT[0], TT[1])
       objetsCorrection.push(T[0], T[1])
       texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonceml), { pixelsParCm: 30, scale: 1, mainlevee: true, amplitude: context.isHtml ? 0.3 : 1 }), objetsEnonceml)
-      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }), objetsEnonce)
+      texte += mathalea2d(Object.assign({}, fixeBordures(objetsEnonce), { pixelsParCm: 30, scale: 1, mainlevee: false }), objetsEnonce)
 
-      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 30, scale: 1, mainlevee: false, amplitude: 1 }), objetsCorrection)
+      texteCorr += mathalea2d(Object.assign({}, fixeBordures(objetsCorrection), { pixelsParCm: 30, scale: 1, mainlevee: false }), objetsCorrection)
       texteCorr += '<br>' + IEP.htmlBouton(this.numeroExercice, i)
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

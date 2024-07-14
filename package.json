@@ -91,6 +91,7 @@
     "mathsteps": "github:mathalea/mathsteps#update-mathjs",
     "node-fetch": "^3.3.2",
     "qrcode": "^1.5.3",
+    "roughjs": "^4.6.6",
     "scratchblocks": "^3.6.4",
     "seedrandom": "^3.0.5",
     "simple-svelte-autocomplete": "^2.5.2",
