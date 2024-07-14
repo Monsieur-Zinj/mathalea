@@ -5,6 +5,7 @@ import { labelPoint } from '../../../lib/2d/textes.js'
 import Exercice from '../../Exercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { setCliqueFigure } from 'src/lib/interactif/gestionInteractif'
 export const titre = 'Choisir la bonne figure'
 export const interactifReady = true
 export const interactifType = 'cliqueFigure'
@@ -42,9 +43,9 @@ export default class NomExercice extends Exercice {
       texte = 'Le segment d\'extrémités $A$ et $B$.'
       texte += '<br>'
       // On ajoute au texte les différentes propositions (ici [AB], (AB) et [AB)) en utilisant i (numéro de la question) et this.numeroExercice pour faire en sorte d'avoir des identifiants uniques pour chaque figure cliquable
-      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
-      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, droite(A, B), segmentAvecExtremites(A, B))
-      texte += mathalea2d({ xmin: -4, xmax: 6, ymin: -1, style: '', id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, demiDroite(A, B), segmentAvecExtremites(A, B))
+      texte += mathalea2d({ style: 'display: inline', xmin: -4, xmax: 6, ymin: -1, id: `figure0Ex${this.numeroExercice}Q${i}` }, labels, segmentAvecExtremites(A, B))
+      texte += mathalea2d({ style: 'display: inline', xmin: -4, xmax: 6, ymin: -1, id: `figure1Ex${this.numeroExercice}Q${i}` }, labels, droite(A, B), segmentAvecExtremites(A, B))
+      texte += mathalea2d({ style: 'display: inline', xmin: -4, xmax: 6, ymin: -1, id: `figure2Ex${this.numeroExercice}Q${i}` }, labels, demiDroite(A, B), segmentAvecExtremites(A, B))
       // On ajoute ensuite l'emplacement destiné à recevoir le smiley qui indique si la réponse est juste ou pas
       texte += `<span id="resultatCheckEx${this.numeroExercice}Q${i}"></span>`
       // Dans la correction, on recopie la bonne réponse
@@ -56,6 +57,8 @@ export default class NomExercice extends Exercice {
         { id: `figure2Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `figure3Ex${this.numeroExercice}Q${i}`, solution: false }
       ]
+      setCliqueFigure(this.autoCorrection[i])
+
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Ici, les variables utilisées ne sont pas a, b, c et d mais juste A et B alors remplace les !
