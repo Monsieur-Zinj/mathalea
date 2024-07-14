@@ -1,4 +1,3 @@
-import { abs, random, round } from 'mathjs'
 import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles.js'
@@ -6,7 +5,9 @@ import { droite, mediatrice } from './droites.js'
 import { point } from './points.js'
 import { pattern } from './polygones.js'
 import { longueur } from './segmentsVecteurs.js'
-import { homothetie, rotation } from './transformations.js'
+import { rotation } from './transformations.js'
+import MainLevee from './MainLevee'
+import { radians } from '../mathFonctions/trigo.js'
 
 /**
  * Construit le cercle (ou le disque) de centre O, de rayon r
@@ -162,27 +163,13 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     }
     return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
   }
-  this.svgml = function (coeff, amp) {
-    this.style = ''
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    this.style += ' fill="none" '
-    let code = `<path d="M ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} S ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
-    let compteur = 1
-    for (let k = 1, variation; k < 181; k++) {
-      variation = (random(0, 2) - 1) * amp / 10
-      code += `${O.xSVG(coeff) + round((r + variation) * Math.cos(2 * k * Math.PI / 180) * coeff, 2)} ${O.ySVG(coeff) + round((r + variation) * Math.sin(2 * k * Math.PI / 180) * coeff, 2)}, `
-      compteur++
-    }
-    if (compteur % 2 === 0) code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)}, `
-    code += ` ${O.xSVG(coeff) + r * coeff} ${O.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}"/>`
+  this.svgml = function (coeff) {
+    const mainLevee = MainLevee.create()
+    const code = mainLevee.circle(O.x, O.y, r * coeff)
+    mainLevee.destroy()
     return code
   }
+
   this.tikzml = function (amp) {
     let optionsDraw = []
     const tableauOptions = []
@@ -460,30 +447,18 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
     else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
-  let code, P
+  let code
 
-  this.svgml = function (coeff, amp) {
-    this.style = ''
-    if (this.epaisseur !== 1) {
-      this.style += ` stroke-width="${this.epaisseur}" `
-    }
-    if (this.opacite !== 1) {
-      this.style += ` stroke-opacity="${this.opacite}" `
-    }
-    this.style += ' fill="none" '
-    code = `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} S ${M.xSVG(coeff)} ${M.ySVG(coeff)}, `
-    let compteur = 1
-    const r = longueur(Omega, M)
-    for (let k = 0, variation; abs(k) <= abs(angle) - 2; k += angle < 0 ? -2 : 2) {
-      variation = (random(0, 2) - 1) / r * amp / 10
-      P = rotation(homothetie(M, Omega, 1 + variation), Omega, k)
-      code += `${round(P.xSVG(coeff), 2)} ${round(P.ySVG(coeff), 2)}, `
-      compteur++
-    }
-    P = rotation(M, Omega, angle)
-    if (compteur % 2 === 0) code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}, ` // Parce qu'on utilise S et non C dans le path
-    code += `${P.xSVG(coeff)} ${P.ySVG(coeff)}`
-    code += `" stroke="${color}" ${this.style}/>`
+  this.svgml = function (coeff) {
+    const width = longueur(M, Omega) * coeff
+    const height = width
+    const closed = rayon
+    const A = point(Omega.x + 1, Omega.y)
+    const end = radians(angleOriente(M, Omega, A))
+    const start = end - radians(angle)
+    const mainLevee = MainLevee.create()
+    code = mainLevee.arc(Omega.xSVG(coeff), Omega.ySVG(coeff), width, height, start, end, closed)
+    mainLevee.destroy()
     return code
   }
 
