@@ -226,10 +226,10 @@ export default function ProblemesMultiplicatifsFractions () {
         listefrac = listeFractions(F1, F2, F3)
         denominateurCommun = listefrac.listeMemeDenominateur[0].den
         for (let i = 0; i < 4; i++) {
-          pb3f[i].correction = 'Il s\'agit d\'un problème multiplicatif. Une fraction d\'une fraction revient à multiplier les deux fractions entre elles.'
+          pb3f[i].correction = 'Il s\'agit d\'un problème multiplicatif. Prendre une fraction d\'une fraction revient à multiplier les deux fractions entre elles.'
           pb3f[i].correction += `<br>$1 - ${F1.texFraction} = ${F1.oppose().sommeFraction(fraction(1, 1)).texFraction}$ ` + pb3f[i].fractions[7] + '.'
           pb3f[i].correction += `<br>$${F2p.texFraction}\\times ${F1.oppose().sommeFraction(fraction(1, 1)).texFraction} = ${F2.texFraction} $ ` + pb3f[i].fractions[3] + '.'
-          pb3f[i].correction += `<br>Finalement $${F1.texFraction}$ ` + pb3f[i].fractions[1] + ' et ' + `$${F2.texFraction}$ ` + pb3f[i].fractions[3] + '.'
+          pb3f[i].correction += `<br>Finalement, $${F1.texFraction}$ ` + pb3f[i].fractions[1] + ' et ' + `$${F2.texFraction}$ ` + pb3f[i].fractions[3] + '.'
           if (listefrac.liste[0].den === listefrac.liste[1].den) {
             pb3f[i].correction += '<br>Les fractions de l\'énoncé ont déjà le même dénominateur.<br>'
           } else {
@@ -416,7 +416,7 @@ export default function ProblemesMultiplicatifsFractions () {
           pb4f[i].correction += `<br>$${F2p.texFraction}\\times ${F1.oppose().sommeFraction(fraction(1, 1)).texFraction} = ${F2.texFraction} $ ` + pb4f[i].fractions[3] + '.'
           pb4f[i].correction += `<br>$1 - ${F1.texFraction} - ${F2.texFraction}= ${F1.oppose().sommeFraction(fraction(1, 1).sommeFraction(F2.oppose())).texFraction}$ ` + pb4f[i].fractions[11] + '.'
           pb4f[i].correction += `<br>$${F3p.texFraction}\\times ${F1.oppose().sommeFraction(fraction(1, 1)).sommeFraction(F2.oppose()).texFraction} = ${F3.texFraction} $ ` + pb4f[i].fractions[5] + '.'
-          pb4f[i].correction += `<br>Finalement $${F1.texFraction}$ ` + pb4f[i].fractions[1] + ', ' + `$${F2.texFraction}$ ` + pb4f[i].fractions[3] + ' et ' + `$${F3.texFraction}$ ` + pb4f[i].fractions[5] + '.'
+          pb4f[i].correction += `<br>Finalement, $${F1.texFraction}$ ` + pb4f[i].fractions[1] + ', ' + `$${F2.texFraction}$ ` + pb4f[i].fractions[3] + ' et ' + `$${F3.texFraction}$ ` + pb4f[i].fractions[5] + '.'
 
           if (listefrac2.liste[0].den === denominateurCommun && listefrac2.liste[1].den === denominateurCommun && listefrac2.liste[2].den === denominateurCommun) {
             pb4f[i].correction += '<br>Les fractions ont déjà le même dénominateur.'
