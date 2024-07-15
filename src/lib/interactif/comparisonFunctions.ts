@@ -93,6 +93,10 @@ function cleanParenthses (str: string): string {
     .replaceAll('\\right\\rbrack', ']')
     .replaceAll('\\right\\lbrack', '[')
     .replaceAll('\\left\\rbrack', ']')
+    .replaceAll('\\left[', '[')
+    .replaceAll('\\right]', ']')
+    .replaceAll('\\right[', '[')
+    .replaceAll('\\left]', ']')
 }
 
 function cleanMathRm (str: string): string {
