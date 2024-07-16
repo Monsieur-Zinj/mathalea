@@ -26,7 +26,9 @@ let numId = 0 // Créer un identifiant numérique unique par objet SVG
  */
 export function ObjetMathalea2D ({ classe = true } = {}) {
   this.positionLabel = 'above'
-  this.isVisible = true
+  // @deprecated cette propriété servait dans l'éditeur Mathalea2d en ligne pour dire qu'on ne voulait pas représenter des objets créés juste comme constructeurs
+  // this.isVisible = true // Si on veut qu'un objet soit visible, on le passe dans la liste d'objets à mathalea2d(), si on n'en veut pas, on ne l'y met pas.
+  // Si l'éditeur en ligne de figure mathalea2d revoit le jour, peut-être que cette propriété sera utile ?
   this.color = colorToLatexOrHTML('black')
   this.style = '' // stroke-dasharray="4 3" pour des hachures //stroke-width="2" pour un trait plus épais
   // this.styleTikz = ''
@@ -104,9 +106,7 @@ export function mathalea2d (
     // Cette list est substituée à l'objet ici
     if (typeof objets === 'object' && objets.objets != null) objets = objets.objets // c'est un objet composé d'objets. Exemple : Repere
     if (!Array.isArray(objets) && objets != null) {
-      // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
       try {
-        // console.log('objets.constructor.name', objets.constructor.name, objets.isVisible) // EE : Ne pas supprimer - utile pour débuggage
         if ((!mainlevee) || typeof (objets?.svgml) === 'undefined') {
           if (objets?.svg) {
             const code = objets.svg(pixelsParCm)
@@ -148,12 +148,10 @@ export function mathalea2d (
     let codeTikz = ''
     if (!Array.isArray(objets)) {
       try {
-        if (objets?.isVisible) {
-          if ((!mainlevee || typeof (objets.tikzml) === 'undefined')) {
-            if (typeof objets.tikz === 'function') codeTikz = '\t' + objets.tikz(scale) + '\n'
-          } else {
-            if (typeof objets.tikzml === 'function') codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
-          }
+        if ((!mainlevee || typeof (objets.tikzml) === 'undefined')) {
+          if (typeof objets.tikz === 'function') codeTikz = '\t' + objets.tikz(scale) + '\n'
+        } else {
+          if (typeof objets.tikzml === 'function') codeTikz = '\t' + objets.tikzml(amplitude, scale) + '\n'
         }
       } catch (error) {
         console.log(error.message)
@@ -550,11 +548,9 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
-            else {
-              code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
-            }
+          if (!mainlevee || typeof (objet[i].svgml) === 'undefined') code += '\t' + objet[i].svg(pixelsParCm) + '\n'
+          else {
+            code += '\t' + objet[i].svgml(pixelsParCm, context.amplitude) + '\n'
           }
         } catch (error) {
           console.log(error.message)
@@ -562,10 +558,8 @@ export function codeSvg (fenetreMathalea2d, pixelsParCm, mainlevee, ...objets) {
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
-        else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof (objet.svgml) === 'undefined') code += '\t' + objet.svg(pixelsParCm) + '\n'
+      else code += '\t' + objet.svgml(pixelsParCm, context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }
@@ -613,20 +607,16 @@ export function codeTikz (fenetreMathalea2d, scale, mainlevee, ...objets) {
     if (Array.isArray(objet)) {
       for (let i = 0; i < objet.length; i++) {
         try {
-          if (objet[i].isVisible) {
-            if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
-            else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
-          }
+          if (!mainlevee || typeof (objet[i].tikzml) === 'undefined') code += '\t' + objet[i].tikz(scale) + '\n'
+          else code += '\t' + objet[i].tikzml(context.amplitude) + '\n'
         } catch (error) {
           console.log(error.message)
         }
       }
     }
     try {
-      if (objet.isVisible) {
-        if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
-        else code += '\t' + objet.tikzml(context.amplitude) + '\n'
-      }
+      if (!mainlevee || typeof (objet.tikzml) === 'undefined') code += '\t' + objet.tikz(scale) + '\n'
+      else code += '\t' + objet.tikzml(context.amplitude) + '\n'
     } catch (error) {
       console.log(error.message)
     }
