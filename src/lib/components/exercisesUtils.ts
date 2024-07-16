@@ -87,7 +87,12 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
   return promiseExos
 }
 
-function isStatic (uuid: string) {
+/**
+ * Détermine si l'uuid a un préfixe d'exercice statique
+ * @param uuid
+ * @returns boolean
+ */
+export function isStatic (uuid: string) {
   return uuid.startsWith('crpe-') ||
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||

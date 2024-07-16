@@ -30,6 +30,7 @@ import { delay } from './components/time.js'
 import { contraindreValeur } from '../modules/outils.js'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
 import { resizeContent } from './components/sizeTools.js'
+import { isStatic } from './components/exercisesUtils'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -442,6 +443,11 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
         return currentRefToUuid[key] === uuid
       })
       if (id === undefined) {
+        indiceExercice++
+        if (isStatic(uuid)) { // Si l'uuid ressemble à un uuid d'exercice statique alors on le garde
+          // À noter que currentRefToUuid ne gère pas les exercices statiques
+          if (!newListeExercice[indiceExercice]) { newListeExercice[indiceExercice] = { uuid } }
+        }
         isUuidFound = false
         continue
       }
