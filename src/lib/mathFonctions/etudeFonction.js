@@ -998,6 +998,7 @@ export function tableauSignesFonction (fonction, xMin, xMax, {
  * @param {string} [options.nomVariable] 'x' par défaut
  * @param {string} [options.nomFonction] 'f(x)' par défaut
  * @param {string} [options.nomDerivee] 'f′(x)' par défaut
+ * @param {number} [options.precisionImage] 2 par défaut = nombre de décimale des images approchées
  * @returns {string}
  */
 export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
@@ -1007,7 +1008,8 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
   ligneDerivee = false,
   nomVariable = 'x',
   nomFonction = 'f(x)',
-  nomDerivee = 'f′(x)'
+  nomDerivee = 'f′(x)',
+  precisionImage = 2
 } = {}) {
   const signes = signesFonction(derivee, xMin, xMax, step, tolerance).filter((signe) => signe.xG !== signe.xD)
   const premiereLigne = []
@@ -1044,28 +1046,28 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
   let variationG = variations[0]
   let variationD
   if (variationG.variation === 'croissant') {
-    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG), 3)}`, 10)
+    tabLineVariations.push(`-/${stringNombre(fonction(variationG.xG), precisionImage)}`, 10)
   } else {
-    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG), 3)}`, 10)
+    tabLineVariations.push(`+/${stringNombre(fonction(variationG.xG), precisionImage)}`, 10)
   }
   for (let i = 0; i < variations.length - 1; i++) {
     variationG = variations[i]
     variationD = variations[i + 1]
     if (variationG.variation === variationD.variation) {
       tabLineVariations.push('R/', 10)
-      tabLinesImage.push(['Ima', i + 1, i + 3, i + 2, stringNombre(fonction(variationG.xD), 3)])
+      tabLinesImage.push(['Ima', i + 1, i + 3, i + 2, stringNombre(fonction(variationG.xD), precisionImage)])
     } else {
-      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
+      tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), precisionImage)}`, 10)
     }
   }
   if (variationD != null) {
     if (variationD.variation === 'croissant') {
-      tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
+      tabLineVariations.push(`+/${stringNombre(fonction(variationD.xD, 1), precisionImage)}`, 10)
     } else {
-      tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), 3)}`, 10)
+      tabLineVariations.push(`-/${stringNombre(fonction(variationD.xD, 1), precisionImage)}`, 10)
     }
   } else {
-    tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), 3)}`, 10)
+    tabLineVariations.push(`${variationG.variation === 'croissant' ? '+' : '-'}/${stringNombre(fonction(variationG.xD), precisionImage)}`, 10)
   }
   if (substituts && Array.isArray(substituts)) {
     for (let i = 2; i < tabLineVariations.length; i += 2) {
