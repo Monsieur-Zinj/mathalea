@@ -827,13 +827,13 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
 
 export function racines ({ fonction, xMin, xMax, tol = 1e-13, maxIter = 100, precision = 1 }) {
   const racines = []
-  for (let x = xMin; x < xMax; x += 0.5) {
-    if (fonction(x) * fonction(x + 0.5) < 0) {
-      const { root } = brent(fonction, x, x + 0.5, tol, maxIter)
+  for (let x = xMin; x < xMax; x += 0.2) {
+    if (fonction(x) * fonction(x + 0.2) < 0) {
+      const { root } = brent(fonction, x, x + 0.2, tol, maxIter)
       if (root != null) racines.push(round(root, precision))
     } else {
       if (fonction(x) === 0) racines.push(round(x, precision))
-      if (fonction(x + 0.5) === 0) racines.push(round(x + 0.5, precision))
+      if (fonction(x + 0.2) === 0) racines.push(round(x + 0.2, precision))
     }
   }
   return Array.from((new Set(racines)).values())
@@ -1008,7 +1008,7 @@ export function tableauVariationsFonction (fonction, derivee, xMin, xMax, {
   ligneDerivee = false,
   nomVariable = 'x',
   nomFonction = 'f(x)',
-  nomDerivee = 'f′(x)',
+  nomDerivee = 'f^{\\prime}(x)',
   precisionImage = 2
 } = {}) {
   const signes = signesFonction(derivee, xMin, xMax, step, tolerance).filter((signe) => signe.xG !== signe.xD)
