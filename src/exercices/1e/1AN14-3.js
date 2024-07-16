@@ -164,7 +164,7 @@ export default function DeriveePoly () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['types de fonctions (nombre séparés par des tirets)', '1 constante\n2 : affine\n3 : degré 2\n4 : degré 3\n5 : deux monomes\n6 : mélange']
-  this.besoinFormulaire2CaseACocher = ['coefficients rationnels', false]
-  this.besoinFormulaire3CaseACocher = ['coefficients décimaux', false]
+  this.besoinFormulaireTexte = ['Types de fonctions', 'Nombres séparés par des tirets\n1 Constante\n2 : Affine\n3 : Degré 2\n4 : Degré 3\n5 : Deux monomes\n6 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Coefficients rationnels', false]
+  this.besoinFormulaire3CaseACocher = ['Coefficients décimaux', false]
 }

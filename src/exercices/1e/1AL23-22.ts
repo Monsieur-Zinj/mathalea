@@ -38,7 +38,7 @@ export default class ExerciceEquationSecondDegre extends Exercice {
   }
 
   nouvelleVersion () {
-    this.comment = "L'option une unique solution avec type de solution irrationelle donne par défaut une solution fractionnaire<br> Le format de l'équation est: 1. ax^2+bx+c=0 <br>2. bx+ax^2+c=0<br>3. ax^2+bx+c=dx^2+ex+f<br>4. bx+c+ax^2=f+dx^2+ex."
+    this.comment = "L'option 'une unique solution avec type de solution irrationnelle' donne par défaut une solution fractionnaire.<br> Le format de l'équation est: 1. ax^2+bx+c=0 <br>2. bx+ax^2+c=0<br>3. ax^2+bx+c=dx^2+ex+f<br>4. bx+c+ax^2=f+dx^2+ex."
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
