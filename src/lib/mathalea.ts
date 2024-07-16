@@ -434,27 +434,36 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let indiceExercice = -1
   const newListeExercice: InterfaceParams[] = []
   let previousEntryWasUuid = false
+  let isUuidFound = false
   for (const entry of entries) {
     if (entry[0] === 'uuid') {
       const uuid = entry[1]
       const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
         return currentRefToUuid[key] === uuid
       })
-      if (id !== undefined) {
-        indiceExercice++
-        if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
-        newListeExercice[indiceExercice].uuid = uuid // string
-        newListeExercice[indiceExercice].id = id // string
-        newListeExercice[indiceExercice].interactif = '0' // par défaut
+      if (id === undefined) {
+        isUuidFound = false
+        continue
       }
+      isUuidFound = true
+      indiceExercice++
+      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
+      newListeExercice[indiceExercice].uuid = uuid // string
+      newListeExercice[indiceExercice].id = id // string
+      newListeExercice[indiceExercice].interactif = '0' // par défaut
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       const id = entry[1]
       const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
-      if (uuid !== undefined) {
-        indiceExercice++
-        if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
+      if (uuid === undefined) {
+        isUuidFound = false
+        continue
       }
+      isUuidFound = true
+      indiceExercice++
+      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
+    } else if (!isUuidFound) {
+      continue
     } else if (entry[0] === 'n') {
       newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
