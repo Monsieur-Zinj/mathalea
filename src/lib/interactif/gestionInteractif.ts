@@ -57,12 +57,15 @@ type ResultOfExerciceInteractif = {
 
 export interface Valeur {
   bareme?: (listePoints: number[])=>[number, number]
-  feedback?: ()=>string
+  feedback?: (saisies: object)=>string
   reponse?: AnswerType
   champ1?: AnswerType
   champ2?: AnswerType
   champ3?: AnswerType
-  champ4?: AnswerType // on va aller jusque 4 pour l'instant, si besoin on en ajoutera
+  champ4?: AnswerType
+  champ5?: AnswerType
+  champ6?: AnswerType
+  // on va aller jusque 6 pour l'instant, si besoin on en ajoutera
   L1C1?: AnswerType
   L1C2?: AnswerType
   L2C1?: AnswerType
@@ -332,35 +335,33 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
   let precision = params?.precision
   let signe = params?.signe
   if (formatInteractif === undefined) formatInteractif = 'calcul'
-  let reponses: unknown
+  let reponses: Array<LegacyReponse>
   if (url.hostname === 'localhost' && url.searchParams.has('triche')) console.log(`Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${i + 1} : `, valeurs)
-  if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) {
-    reponses = valeurs
-  } else { // C'est un format de réponse primitif
-    if (Array.isArray(valeurs)) { // il peut y avoir une liste de valeurs de réponses à tester, on transfert dans reponses
-      reponses = [...valeurs] // reponses contient donc directement le tableau valeurs
-      // si valeur est un tableau on prend le signe de la première valeur
-      if (valeurs[0] instanceof FractionEtendue) {
-        signe = (valeurs[0] as FractionEtendue).signe === -1 // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+  if (typeof valeurs === 'object' && (formatInteractif === 'tableauMathlive' || formatInteractif === 'fillInTheBlank')) throw Error('setReponse ne doit pas être utilisé pour tableauMathlive ni fillInTheBlank, il faut utiliser handleAnswers')
+  if (Array.isArray(valeurs)) { // il peut y avoir une liste de valeurs de réponses à tester, on transfert dans reponses
+    reponses = [...valeurs] // reponses contient donc directement le tableau valeurs
+    // si valeur est un tableau on prend le signe de la première valeur
+    if (valeurs[0] instanceof FractionEtendue) {
+      signe = (valeurs[0] as FractionEtendue).signe === -1 // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    } else {
+      if (typeof valeurs[0] === 'number') {
+        signe = valeurs[0] < 0 // on teste si elle est négative, si oui, on force la case signe pour AMC
       } else {
-        if (typeof valeurs[0] === 'number') {
-          signe = valeurs[0] < 0 // on teste si elle est négative, si oui, on force la case signe pour AMC
-        } else {
-          signe = Number(valeurs[0]) < 0
-        }
-      }
-    } else { // Il n'y a qu'une valeur, on uniformise le format : reponses est une liste de une seule valeur
-      reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
-      if (valeurs instanceof FractionEtendue) {
-        signe = valeurs.signe === -1 ? true : Boolean(signe) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
-      } else {
-        signe = Number(valeurs) < 0 ? true : Boolean(signe) // on teste si elle est négative, si oui, on force la case signe pour AMC
+        signe = Number(valeurs[0]) < 0
       }
     }
-    params.signe = signe
+  } else { // Il n'y a qu'une valeur, on uniformise le format : reponses est une liste de une seule valeur
+    reponses = [valeurs] // ici, valeurs n'est pas un tableau mais on le met dans reponses sous forme de tableau
+    if (valeurs instanceof FractionEtendue) {
+      signe = valeurs.signe === -1 ? true : Boolean(signe) // si c'est une fraction, alors on regarde son signe (valeur -1, 0 ou 1)
+    } else {
+      signe = Number(valeurs) < 0 ? true : Boolean(signe) // on teste si elle est négative, si oui, on force la case signe pour AMC
+    }
   }
+  params.signe = signe
 
-  const reponse: LegacyReponse = Array.isArray(reponses) ? (reponses as Array<LegacyReponse>)[0] as LegacyReponse : reponses as LegacyReponse
+  // @fixme reponses est un array ! toujours. Normalement, il ne devrait y avoir qu'une seule goodAnswer dedans, mais avant, on n'avait pas d'autres moyens pour verifier les saisies diverses
+  const reponse: LegacyReponse = (reponses as Array<LegacyReponse>)[0] as LegacyReponse // reponse est la première d'entre elles (ou la seule)
 
   // en contexte d'export AMC, on ne touche pas à l'existant
   if (context.isAmc) {
@@ -467,29 +468,9 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         }
         return
       }
-      /* Ces deux types ne devraient jamais faire de setReponse !
-      case 'tableauMathlive':
-       for (const [key, valeur] of Object.entries(reponses)) {
-          if (key.match(/L\dC\d/) != null) {
-            if (typeof valeur.value !== 'string') {
-              reponses[key].value = String(valeur.value)
-            }
-          }
-        }
-        return handleAnswers(exercice, i, reponses, params)
-
-      case 'fillInTheBlank':
-        for (const [key, valeur] of Object.entries(reponses).filter(([key]) => !['bareme', 'callback', 'feedback'].includes(key))) {
-          if (typeof valeur.value !== 'string') {
-            reponses[key].value = String(valeur.value)
-          }
-        }
-        return handleAnswers(exercice, i, reponses, params)
-*/
       case 'Num':
         if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "Num" une fraction est attendue !', { reponses, exercice: exercice.uuid })
         else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format num, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         return handleAnswers(exercice, i, {
           reponse: {
             value: String((reponse as FractionEtendue).num),
@@ -500,7 +481,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
 
       case 'Den':
         if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "Den" une fraction est attendue !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format den, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         return handleAnswers(exercice, i, {
           reponse: {
             value: String((reponse as FractionEtendue).den),
@@ -510,7 +490,7 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         }, params)
 
       case 'calcul':
-        if (Array.isArray(reponses) && reponses.length === 1) {
+        if (reponses.length === 1) {
           laReponseDemandee = reponse
           if (typeof laReponseDemandee === 'string') {
             laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac').replace(/\s/g, '').replace(',', '.')
@@ -524,27 +504,24 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
           return handleAnswers(exercice, i, { reponse: { value: laReponseDemandee, compare: calculCompare } }, params)
         } else {
           const value = []
-          if (Array.isArray(reponses)) {
-            for (let i = 0; i < reponses.length; i++) {
-              laReponseDemandee = reponses[i]
-              if (typeof laReponseDemandee === 'string') {
-                laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac').replace(/\s/g, '').replace(',', '.')
-              } else if (typeof laReponseDemandee === 'number') {
-                laReponseDemandee = String(laReponseDemandee)
-              } else if (laReponseDemandee instanceof FractionEtendue) {
-                laReponseDemandee = laReponseDemandee.texFraction.replaceAll('dfrac', 'frac')
-              } else if (laReponseDemandee instanceof Decimal) {
-                laReponseDemandee = laReponseDemandee.toString()
-              }
-              value.push(laReponseDemandee)
+          for (let i = 0; i < reponses.length; i++) {
+            laReponseDemandee = reponses[i]
+            if (typeof laReponseDemandee === 'string') {
+              laReponseDemandee = laReponseDemandee.replaceAll('dfrac', 'frac').replace(/\s/g, '').replace(',', '.')
+            } else if (typeof laReponseDemandee === 'number') {
+              laReponseDemandee = String(laReponseDemandee)
+            } else if (laReponseDemandee instanceof FractionEtendue) {
+              laReponseDemandee = laReponseDemandee.texFraction.replaceAll('dfrac', 'frac')
+            } else if (laReponseDemandee instanceof Decimal) {
+              laReponseDemandee = laReponseDemandee.toString()
             }
+            value.push(laReponseDemandee)
           }
 
           return handleAnswers(exercice, i, { reponse: { value, compare: calculCompare } }, params)
         }
 
       case 'hms':
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format hms, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         if (!(reponse instanceof Hms)) window.notify('setReponse : type "hms" la réponse n\'est pas une instance de Hms !', { reponses, exercice: exercice.uuid })
         return handleAnswers(exercice, i, {
           reponse: {
@@ -553,26 +530,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
             options: { HMS: true }
           }
         }, params)
-      /*
-    case 'formeDeveloppee':
-      if (Array.isArray(reponses) window.notify('setReponse a reçu une liste de réponse pour le format formeDeveloppee, c\'est incohérent !')
-      laReponseDemandee = reponse
-      if (typeof laReponseDemandee !== 'string') {
-        if (typeof laReponseDemandee === 'number') {
-          laReponseDemandee = String(laReponseDemandee)
-        } else if (laReponseDemandee instanceof FractionEtendue) {
-          laReponseDemandee = laReponseDemandee.texFraction.replaceAll('dfrac', 'frac')
-        } else if (laReponseDemandee instanceof Decimal) {
-          laReponseDemandee = laReponseDemandee.toString()
-        }
-      }
-      return handleAnswers(exercice, i, {
-        reponse: {
-          value: laReponseDemandee,
-          compare: expressionDeveloppeeEtNonReduiteCompare
-        }
-      }, params)
-*/
       case 'nombreDecimal':
         if (reponse instanceof Decimal) {
           return handleAnswers(exercice, i, {
@@ -587,7 +544,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         if (Number.isNaN(reponse)) {
           window.notify('setReponse : type "nombreDecimal" un nombre est attendu !', { reponses, exercice: exercice.uuid })
         }
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format nombreDecimal, c\'est incohérent !', { reponses, exercice: exercice.uuid })
 
         return handleAnswers(exercice, i, {
           reponse: {
@@ -599,7 +555,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         }, params)
       case 'ecritureScientifique': {
         if (typeof reponse !== 'string') window.notify('setReponse : type "ecritureScientifique" la réponse n\'est pas un string !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format ecritureScientifique, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         const [mantisseString, exposantString] = (reponse as string).split('e')
         const mantisse = Number(mantisseString.replace(',', '.'))
         const exposant = Number(exposantString)
@@ -635,7 +590,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       case 'fractionPlusSimple':
         if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "fractionPlusSimple" une fraction est attendue !', { reponses, exercice: exercice.uuid })
         else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format fractionPlusSimple, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         if (reponse instanceof FractionEtendue) {
           return handleAnswers(exercice, i, {
             reponse: {
@@ -676,7 +630,6 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
       case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
         if (precision == null) precision = 0 // Des exercices utilisent le format 'unites' mais ne définissent pas la précision
         if (!(reponse instanceof Grandeur)) window.notify('setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format unites, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         if (reponse instanceof Grandeur) {
           return handleAnswers(exercice, i, {
             reponse: {
@@ -690,32 +643,25 @@ export function setReponse (exercice: Exercice, i: number, valeurs: LegacyRepons
         }
         break
       case 'intervalleStrict':// Pour les exercice où la saisie doit être dans un intervalle
-        if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) window.notify('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses) && reponses.length === 2) {
-          return handleAnswers(exercice, i, {
-            reponse: {
-              value: `]${reponses[0]};${reponses[1]}[`,
-              compare: fonctionComparaison,
-              options: { estDansIntervalle: true }
-            }
-          }, params)
-        }
-        break
+        if (reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) window.notify('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses, exercice: exercice.uuid })
+        return handleAnswers(exercice, i, {
+          reponse: {
+            value: `]${reponses[0]};${reponses[1]}[`,
+            compare: fonctionComparaison,
+            options: { estDansIntervalle: true }
+          }
+        }, params)
       case 'intervalle' :
         if (!Array.isArray(reponses) || reponses.length !== 2 || reponses.filter(el => typeof el !== 'number').length !== 0) window.notify('setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses) && reponses.length === 2) {
-          return handleAnswers(exercice, i, {
-            reponse: {
-              value: `[${reponses[0]};${reponses[1]}]`,
-              compare: fonctionComparaison,
-              options: { estDansIntervalle: true }
-            }
-          }, params)
-        }
-        break
+        return handleAnswers(exercice, i, {
+          reponse: {
+            value: `[${reponses[0]};${reponses[1]}]`,
+            compare: fonctionComparaison,
+            options: { estDansIntervalle: true }
+          }
+        }, params)
       case 'puissance' :
         if (typeof reponse !== 'string') window.notify('setReponse : type "puissance" la réponse n\'est pas un string !', { reponses, exercice: exercice.uuid })
-        if (Array.isArray(reponses)) window.notify('setReponse a reçu une liste de réponse pour le format puissance, c\'est incohérent !', { reponses, exercice: exercice.uuid })
         return handleAnswers(exercice, i, {
           reponse: {
             value: String(reponse),

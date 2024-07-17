@@ -165,8 +165,7 @@ export default class IntersectionDroitesPoints extends Exercice {
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
           champ1: { value: pi12[0].texFractionSimplifiee },
-          champ2: { value: pi12[1].texFractionSimplifiee },
-          compare: fonctionComparaison
+          champ2: { value: pi12[1].texFractionSimplifiee }
         },
         { formatInteractif: 'fillInTheBlank' }
         )
