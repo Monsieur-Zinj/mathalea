@@ -172,7 +172,7 @@ export default function NaturePolygone () {
             xLabelDistance: 2
           }), I, J, o, T, s1, s2, s3)
           texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
           texteCorr = 'On commence par réaliser un graphique permettant de visualiser la situation.<br>'
           texteCorr += '<br>' + mathalea2d({ xmin: XMIN, ymin: YMIN, xmax: XMAX, ymax: YMAX }, objets)
@@ -206,7 +206,7 @@ export default function NaturePolygone () {
             xLabelDistance: 2
           }), I, J, o, T, s1, s2, s3)
           texte = 'Dans un repère orthonormé $(O;I,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ ; $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$ et $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$.`
           texte += `<br>Déterminer la nature du triangle $${A.nom}${B.nom}${C.nom}$.`
 
           texteCorr = 'On peut réaliser un graphique permettant de visualiser la situation.<br>'

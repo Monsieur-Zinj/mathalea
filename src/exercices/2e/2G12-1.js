@@ -115,7 +115,7 @@ export default function Distance () {
           C.nom = nom[2]
           setReponse(this, i, ['OUI', 'oui', 'Oui'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il au cercle de centre $${A.nom}$ passant par $${B.nom}$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
@@ -162,7 +162,7 @@ export default function Distance () {
           C.nom = nom[2]
           setReponse(this, i, ['NON', 'non', 'Non'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il au cercle de centre $${A.nom}$ passant par $${B.nom}$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
@@ -223,7 +223,7 @@ export default function Distance () {
           s3 = segment(M2, M1, 'blue')
           setReponse(this, i, ['OUI', 'oui', 'Oui'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $${A.nom}${B.nom}$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
@@ -299,7 +299,7 @@ export default function Distance () {
           s3 = segment(M2, M1, 'blue')
           setReponse(this, i, ['NON', 'non', 'Non'], { formatInteractif: 'texte' })
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $[${A.nom}${B.nom}]$ ?`
           if (this.interactif) {
             texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
