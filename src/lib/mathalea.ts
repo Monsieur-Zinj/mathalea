@@ -433,7 +433,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   url = decrypt(url)
   const entries = url.searchParams.entries()
   let indiceExercice = -1
-  const newListeExercice: InterfaceParams[] = []
+  const newExercisesParams: InterfaceParams[] = []
   let previousEntryWasUuid = false
   let isUuidFound = false
   for (const entry of entries) {
@@ -443,20 +443,18 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
         return currentRefToUuid[key] === uuid
       })
       if (id === undefined) {
-        indiceExercice++
-        if (isStatic(uuid)) { // Si l'uuid ressemble à un uuid d'exercice statique alors on le garde
-          // À noter que currentRefToUuid ne gère pas les exercices statiques
-          if (!newListeExercice[indiceExercice]) { newListeExercice[indiceExercice] = { uuid } }
+        if (isStatic(uuid)) { // currentRefToUuid ne gère pas les exercices statiques donc on vérifie si l'uuid ressemble à un uuid d'exercice statique
+          isUuidFound = true
+          indiceExercice++
+          if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, interactif: '0' }
+          continue
         }
         isUuidFound = false
         continue
       }
       isUuidFound = true
       indiceExercice++
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { uuid, id }
-      newListeExercice[indiceExercice].uuid = uuid // string
-      newListeExercice[indiceExercice].id = id // string
-      newListeExercice[indiceExercice].interactif = '0' // par défaut
+      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id, interactif: '0' }
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
       const id = entry[1]
@@ -467,29 +465,29 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       }
       isUuidFound = true
       indiceExercice++
-      if (!newListeExercice[indiceExercice]) newListeExercice[indiceExercice] = { id, uuid }
+      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
     } else if (!isUuidFound) {
       continue
     } else if (entry[0] === 'n') {
-      newListeExercice[indiceExercice].nbQuestions = parseInt(entry[1]) // int
+      newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
-      newListeExercice[indiceExercice].duration = parseInt(entry[1]) // int
+      newExercisesParams[indiceExercice].duration = parseInt(entry[1]) // int
     } else if (entry[0] === 's') {
-      newListeExercice[indiceExercice].sup = entry[1]
+      newExercisesParams[indiceExercice].sup = entry[1]
     } else if (entry[0] === 's2') {
-      newListeExercice[indiceExercice].sup2 = entry[1]
+      newExercisesParams[indiceExercice].sup2 = entry[1]
     } else if (entry[0] === 's3') {
-      newListeExercice[indiceExercice].sup3 = entry[1]
+      newExercisesParams[indiceExercice].sup3 = entry[1]
     } else if (entry[0] === 's4') {
-      newListeExercice[indiceExercice].sup4 = entry[1]
+      newExercisesParams[indiceExercice].sup4 = entry[1]
     } else if (entry[0] === 'alea') {
-      newListeExercice[indiceExercice].alea = entry[1]
+      newExercisesParams[indiceExercice].alea = entry[1]
     } else if (entry[0] === 'cols') {
-      newListeExercice[indiceExercice].cols = parseInt(entry[1])
+      newExercisesParams[indiceExercice].cols = parseInt(entry[1])
     } else if (entry[0] === 'i' && (entry[1] === '0' || entry[1] === '1')) {
-      newListeExercice[indiceExercice].interactif = entry[1]
+      newExercisesParams[indiceExercice].interactif = entry[1]
     } else if (entry[0] === 'cd' && (entry[1] === '0' || entry[1] === '1')) {
-      newListeExercice[indiceExercice].cd = entry[1]
+      newExercisesParams[indiceExercice].cd = entry[1]
     } else if (entry[0] === 'v') {
       v = convertVueType(entry[1])
     } else if (entry[0] === 'recorder') {
@@ -535,9 +533,9 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     if (entry[0] === 'uuid') previousEntryWasUuid = true
     else previousEntryWasUuid = false
   }
-  exercicesParams.update(() => {
-    return newListeExercice
-  })
+
+  exercicesParams.set(newExercisesParams)
+
   if (urlNeedToBeFreezed) {
     freezeUrl.set(true)
   }

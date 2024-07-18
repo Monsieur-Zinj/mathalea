@@ -92,7 +92,10 @@ export const buildExercisesList = (filter: string[] = []): Promise<TypeExercice>
  * @param uuid
  * @returns boolean
  */
-export function isStatic (uuid: string) {
+export function isStatic (uuid: string | undefined) {
+  if (uuid === undefined) {
+    return false
+  }
   return uuid.startsWith('crpe-') ||
     uuid.startsWith('dnb_') ||
     uuid.startsWith('e3c_') ||
