@@ -2,6 +2,8 @@ import loadjs from 'loadjs'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-expect-error
+// import JSON uuidsRessources
+import uuidsRessources from '../json/uuidsRessources.json'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
@@ -443,7 +445,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
         return currentRefToUuid[key] === uuid
       })
       if (id === undefined) {
-        if (isStatic(uuid)) { // currentRefToUuid ne gère pas les exercices statiques donc on vérifie si l'uuid ressemble à un uuid d'exercice statique
+        if (isStatic(uuid) || uuid in uuidsRessources) { // currentRefToUuid ne gère pas les exercices statiques donc on vérifie si l'uuid ressemble à un uuid d'exercice statique
           isUuidFound = true
           indiceExercice++
           if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, interactif: '0' }
