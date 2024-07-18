@@ -55,7 +55,10 @@ const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'xMath', 'SQRT', 'SQ', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
   block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
-
+const logPuissanceCaps: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'POW', 'FRAC', 'xMath', 'COMMA', 'PI', 'DIV', 'MULT', 'SUB', 'ADD'],
+  block: ['LOG', 7, 8, 9, 'DIV', 'POW', 4, 5, 6, 'MULT', 'FRAC', 1, 2, 3, 'SUB', 'xMath', 0, 'COMMA', 'PI', 'ADD']
+}
 const probabiliteCaps: CompleteKeysList = {
   inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
   block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '=']
@@ -260,6 +263,13 @@ export const fullOperations: KeyboardBlock = {
   isUnits: false
 }
 
+export const logPuissance: KeyboardBlock = {
+  keycaps: logPuissanceCaps,
+  cols: 5,
+  title: 'Logarithme et puissance',
+  isUnits: false
+}
+
 export const probabilite: KeyboardBlock = {
   keycaps: probabiliteCaps,
   cols: 3,
@@ -409,6 +419,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   fullOperations,
   hms,
   lengths,
+  logPuissance,
   masses,
   numbers,
   numbersSpace,
