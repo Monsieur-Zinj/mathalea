@@ -111,7 +111,7 @@ export default function Milieu () {
           { formatInteractif: 'mathlive' })
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$`
+          texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$. `
           if (this.interactif) {
             texte += '<br>' + remplisLesBlancs(this, i,
@@ -141,7 +141,7 @@ export default function Milieu () {
             champ2: { value: new Decimal(yM).mul(2).sub(yA).toString(), compare: fonctionComparaison }
           }, { formatInteractif: 'mathlive' })
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$`
+          texte += `  $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${M.nom}\\left(${texNombre(xM, 1)}\\,;\\,${texNombre(yM, 1)}\\right)$.`
           texte += `<br>Déterminer les coordonnées du point $${B.nom}$ tel que $${M.nom}$ soit le milieu du segment $[${A.nom}${B.nom}]$. `
 
           if (this.interactif) {
@@ -193,7 +193,7 @@ export default function Milieu () {
           yM = new FractionEtendue(Ay.num * By.den + By.num * Ay.den, 2 * Ay.den * By.den)
 
           texte = 'Dans un repère orthonormé $(O,I,J)$, on donne les points suivants :'
-          texte += ` $${A.nom}\\left(${Ax.texFSD}\\,;\\,${Ay.texFSD}\\right)$ et $${B.nom}\\left(${Bx.texFSD}\\,;\\,${By.texFSD}\\right)$`
+          texte += ` $${A.nom}\\left(${Ax.texFSD}\\,;\\,${Ay.texFSD}\\right)$ et $${B.nom}\\left(${Bx.texFSD}\\,;\\,${By.texFSD}\\right)$.`
           texte += `<br>Déterminer les coordonnées du point $${M.nom}$ milieu du segment $[${A.nom}${B.nom}]$.`
           handleAnswers(this, i, {
             bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
