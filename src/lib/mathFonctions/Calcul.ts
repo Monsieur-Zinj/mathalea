@@ -1,5 +1,8 @@
 import type Trinome from '../../modules/Trinome'
 
+/**
+ * Élément d'une opération (terme ou facteur ou ...)
+ */
 export class Operande {
   value: string | number
   constructor (value: string | number) {
@@ -18,6 +21,9 @@ export class Operande {
   }
 }
 
+/**
+ * Opérande de la forme k * e^trinome
+ */
 export class ExponentialOperande extends Operande {
   type: 'exponential'
   polynome: Trinome
@@ -32,7 +38,8 @@ export class ExponentialOperande extends Operande {
   get string (): string {
     if (this.polynome.toString() === '') {
       return String(this.k)
-    } else if (this.k === 0) {
+    } 
+    if (this.k === 0) {
       return '0'
     }
     const kString = handle1(this.k)
@@ -40,6 +47,11 @@ export class ExponentialOperande extends Operande {
   }
 }
 
+/**
+ * Un calcul est un arbre qui a pour feuilles des opérandes ou des calculs
+ * L'objectif de cette classe est de pouvoir gérer les calculs avec les étapes intermédiaires
+ * et la gestion des parenthèses, signes et autres notations mathématiques
+ */
 abstract class Calcul {
   abstract string: string
 
@@ -51,6 +63,9 @@ abstract class Calcul {
   }
 }
 
+/**
+ * Addition de deux termes qui peuvent être des opérandes ou des calculs
+ */
 export class Add extends Calcul {
   type: 'add'
   operande1: Operande | Calcul | string
@@ -76,6 +91,9 @@ export class Add extends Calcul {
   }
 }
 
+/**
+ * Soustraction de deux termes qui peuvent être des opérandes ou des calculs
+ */
 export class Sub extends Calcul {
   type: 'sub'
   operande1: Operande | Calcul | string
@@ -101,6 +119,9 @@ export class Sub extends Calcul {
   }
 }
 
+/**
+ * Multiplication de deux facteurs qui peuvent être des opérandes ou des calculs
+ */
 export class Mul extends Calcul {
   type: 'mul'
   operande1: Operande | Calcul | string
@@ -137,6 +158,9 @@ export class Mul extends Calcul {
   }
 }
 
+/**
+ * Fraction avec un numérateur et un dénominateur qui peuvent être des opérandes ou des calculs
+ */
 export class Frac extends Calcul {
   type: 'frac'
   num: Operande | Calcul | string
@@ -167,6 +191,9 @@ export class Frac extends Calcul {
   }
 }
 
+/**
+ * Puissance d'un opérande ou d'un calcul
+ */
 export class Pow extends Calcul {
   type: 'pow'
   operande: Operande | Calcul | string
@@ -217,7 +244,8 @@ export class Pow extends Calcul {
 function handle1 (k: number) {
   if (k === 1) {
     return ''
-  } else if (k === -1) {
+  } 
+  if (k === -1) {
     return '-'
   }
   return String(k)
