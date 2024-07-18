@@ -470,7 +470,7 @@ export function aleaVariables (variables = { a: true, b: true, c: true, d: true 
           assignations[v] = math.fraction( // On contraint le résultat à être une fraction
             math.evaluate(
               '(pickRandom([-1,1]))^(n)*randomInt(1,10)',
-              { n: variables[v] }
+              { n: variables[v] ? 1 : 0 }
             )
           )
           break
