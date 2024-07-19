@@ -10,12 +10,8 @@
     export let indiceLastExercice
 
     export const titre = 'Test du clavier'
-    export const ref = 'Clavier'
-    export const refs = {
-      'fr-fr': ['Clavier'],
-      'fr-ch': []
-    }
-    export const uuid = 'clavier'
+   // Cette ressource n'a pas d'uuid ou de ref
+   // Son accès est défini dans uuidsRessources.json
 
     const headerExerciceProps = {
       title: '',

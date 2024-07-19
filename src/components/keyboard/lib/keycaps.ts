@@ -50,6 +50,14 @@ const basicKeys = {
     display: '$\\square^\\square$',
     insert: '#@^{#0}'
   },
+  LOG: {
+    display: '$\\log(\\square)$',
+    insert: '\\log(#0)'
+  },
+  LN: {
+    display: '$\\ln(\\square)$',
+    insert: '\\ln(#0)'
+  },
   INDICE: {
     display: '$\\square_\\square$',
     insert: '#@_{#0}'

@@ -12,6 +12,7 @@
   import Exercice from '../../../exercices/Exercice'
   import ExerciceHtml from './presentationalComponents/exerciceHtml/ExerciceHtml.svelte'
   import ExerciceMathalea from './exerciceMathalea/ExerciceMathalea.svelte'
+  import { isStatic } from '../../../lib/components/exercisesUtils'
 
   export let paramsExercice: InterfaceParams
   export let indiceExercice: number
@@ -35,15 +36,6 @@
       exerciseType = await getExerciseType(exercise)
     }
   })
-
-  function isStatic (uuid: string) {
-    return uuid.startsWith('crpe') ||
-      uuid.startsWith('dnb_') ||
-      uuid.startsWith('e3c_') ||
-      uuid.startsWith('bac_') ||
-      uuid.startsWith('evacom_') ||
-      uuid.startsWith('2nd_')
-  }
 
   function isSvelte (uuid: string) {
     const urlExercice = uuidToUrl[uuid as keyof typeof uuidToUrl]

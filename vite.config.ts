@@ -18,6 +18,5 @@ export default defineConfig({
         dev: process.env.NODE_ENV !== 'production'
       }
     })
-    //  babel()
   ]
 })
