@@ -559,10 +559,11 @@ function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   // Ci-dessous, si on a une comparaison fausse mais que l'expression donnée est mathématiquement correcte, on fait un feedback.
   let feedback = ''
   const substitutions: Substitutions = { a: 2, b: 2, c: 2, x: 2, y: 2, z: 2 } // On peut ajouter d'autres variables si nécessaire
+  const adjectif = goodAnswer.match(/[a-z]/) == null ? 'numérique' : 'littérale'
   if (!saisieParsed.isSame(reponseParsed) && evaluateExpression(goodAnswer, substitutions) === evaluateExpression(input, substitutions)) {
     feedback = expressionsForcementReduites
-      ? 'L\'expression littérale attendue devrait être développée et réduite or ce n\'est pas le cas.'
-      : 'L\'expression littérale attendue devrait être simplement développée or ce n\'est pas le cas.'
+      ? `L'expression ${adjectif} attendue devrait être développée et réduite or ce n'est pas le cas.`
+      : `L'expression ${adjectif} attendue devrait être simplement développée or ce n'est pas le cas.`
   }
   return { isOk: saisieParsed.isSame(reponseParsed), feedback }
 }
