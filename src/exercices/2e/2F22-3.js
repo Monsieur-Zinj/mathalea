@@ -76,13 +76,6 @@ let deltaY
  * choisit les caractèristique de la transformation de la courbe
  * @returns {{coeffX: -1|1, deltaX: int, deltaY: int, coeffY: -1|1}}
  */
-// function aleatoiriseCourbe () {
-//  const coeffX = choice([-1, 1]) // symétries ou pas
-// const coeffY = choice([-1, 1])
-// const deltaX = randint(-2, +2) // translations
-// const deltaY = 0//randint(-2, +2)
-// return { coeffX, coeffY, deltaX, deltaY }
-// }
 
 function aleatoiriseCourbe (choix) {
   coeffX = choice([-1, 1]) // symétries ou pas
@@ -101,30 +94,6 @@ function aleatoiriseCourbe (choix) {
   }
   return { coeffX, coeffY, deltaX, deltaY }
 }
-/* Mauvaise idée ici de mélanger des splines bricolées et des tableaux de signes
-function fauxNoeuds (noeuds) { // on donne des noeuds corrects
-  const newNoeuds = [] // ceux qu'on va renvoyer
-  const zeros = []
-  // On commence par recenser les zéros
-  for (let i = 0; i < noeuds.length; i++) {
-    if (noeuds[i].y === 0) {
-      zeros.push(i)
-    }
-  }
-  // On choisit notre faussaire
-  const leFauxNoeud = choice(zeros)
-  // on crée la liste trafiquée en substituant le faussaire au bon noeud
-  for (let i = 0; i < noeuds.length; i++) {
-    if (i !== leFauxNoeud) {
-      newNoeuds.push(noeuds[i])
-    } else {
-      const avant = noeuds[i]
-      newNoeuds.push({ x: avant.x + choice([-1, 1]) * 0.5, y: 0, deriveeGauche: avant.deriveeGauche, deriveeDroit: avant.deriveeDroit, isVisible: avant.isVisible })
-    }
-  }
-  return newNoeuds
-}
- */
 
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
@@ -137,7 +106,6 @@ export default class BetaModeleSpline extends Exercice {
     this.titre = titre
     // this.sup = 1
     this.nbQuestions = 1 // Nombre de questions par défaut
-    // this.besoinFormulaireTexte = ['Choix des questions', '1 : Antécédents de zéros entiers\n2 : Antécédents de zéros non entiers possible\n3 : Mélange']
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
   }
@@ -154,7 +122,6 @@ export default class BetaModeleSpline extends Exercice {
       defaut: 1,
       nbQuestions: this.nbQuestions
     })
-    // const typeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 4, nbQuestions: this.nbQuestions })
     // boucle de création des différentes questions
     for (let i = 0; i < this.nbQuestions; i++) {
       const { coeffX, coeffY, deltaX, deltaY } = aleatoiriseCourbe(Number(typeDeQuestions[i]))
@@ -193,17 +160,7 @@ export default class BetaModeleSpline extends Exercice {
         optionsNoeuds: { color: 'blue', taille: 2, style: '.', epaisseur: 2 },
         color: 'blue'
       })
-      /* Pour tracer la spline à l'ancienne
-      const courbe2 = courbeSpline(maSpline, {
-        repere: repere1,
-        xMin: maSpline.x[0],
-        xMax: maSpline.x[maSpline.n - 1],
-        step: 0.1,
-        color: 'red',
-        epaisseur: 5,
-        opacite: 0.5
-      })
- */
+
       const objetsEnonce = [...repere1.objets, /* courbe2, */ courbe1]
       let texteEnonce
 
