@@ -4,8 +4,13 @@ import { prenom } from '../../lib/outils/Personne'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import Exercice from '../deprecatedExercice.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const amcReady = true
 export const amcType = 'AMCOpen'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Traduire une succession d\'opérations par une expression'
 
@@ -45,8 +50,10 @@ export default function ÉcrireUneExpressionMathador () {
       for (let j = 0; j < 4; j++) {
         texte += `$${calculsSuccessifs[j]}$<br>`
       }
-      texte += 'Écrire cette succession d\'opérations en une seule expression.'
+      texte += 'Écrire cette succession d\'opérations en une seule expression.' + ajouteChampTexteMathLive(this, i, 'inLine largeur10 nospacebefore', { texteAvant: '$E=$' })
+      // texte += ajouteFeedback(this, i) // le feedback de fonctionComparaison avec cette option n'est pas adapté.
       texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
+      handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
       if (context.isAmc) {
         this.autoCorrection[i] =
         {
