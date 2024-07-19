@@ -11,7 +11,7 @@ import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../modules/2dGe
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { pickRandom } from 'mathjs'
-import { aleaVariables } from '../../modules/outilsMathjs.js'
+import { aleaVariables } from '../../modules/outilsMathjs.ts'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const titre = 'Effectuer des liens entre angles et parallélisme'

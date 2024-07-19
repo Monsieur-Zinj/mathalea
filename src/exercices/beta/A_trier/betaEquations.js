@@ -7,7 +7,7 @@ import { colorToLatexOrHTML, fixeBordures, mathalea2d, ObjetMathalea2D } from '.
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { parse, simplify, compare, evaluate } from 'mathjs'
-import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../../modules/outilsMathjs.js'
+import { aleaName, aleaExpression, resoudre, toTex, calculer, calculExpression2, resoudreEquation, aleaEquation, expressionLitterale, aleaVariables, traduireProgrammeCalcul, appliquerProgrammeCalcul, remonterProgrammeCalcul, ecrireProgrammeCalcul } from '../../../modules/outilsMathjs.ts'
 import Algebrite from 'algebrite'
 
 // eslint-disable-next-line no-debugger

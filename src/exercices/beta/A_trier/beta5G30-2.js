@@ -10,7 +10,7 @@ import { mathalea2d, colorToLatexOrHTML, fixeBordures } from '../../../modules/2
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu } from '../../../modules/outils.js'
 import { pickRandom } from 'mathjs'
-import { aleaVariables } from '../../../modules/outilsMathjs.js'
+import { aleaVariables } from '../../../modules/outilsMathjs.ts'
 export const titre = 'Angles et parallèles'
 // eslint-disable-next-line no-debugger
 debugger

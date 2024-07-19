@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
 import FractionEtendue from '../../../modules/FractionEtendue'
-import { calculer } from '../../../modules/outilsMathjs.js'
+import { calculer } from '../../../modules/outilsMathjs.ts'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const amcReady = true

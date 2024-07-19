@@ -1,6 +1,6 @@
 import { texNombre2 } from '../../lib/outils/texNombre'
 import { simplify, parse, unit, max, add, subtract, abs, log10, random, round, isConstantNode } from 'mathjs'
-import { aleaName } from '../outilsMathjs.js'
+import { aleaName } from '../outilsMathjs.ts'
 import { GVGraphicObject } from './elements.js'
 
 /**
