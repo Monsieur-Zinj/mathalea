@@ -827,7 +827,7 @@ export function inferieurSuperieur (fonction, y, xMin, xMax, inferieur = true, s
 
 export function racines ({ fonction, xMin, xMax, tol = 1e-13, maxIter = 100, precision = 1 }) {
   const racines = []
-  for (let x = xMin; x < xMax; x += 0.2) {
+  for (let x = xMin; x <= xMax - 0.2; x += 0.2) {
     if (fonction(x) * fonction(x + 0.2) < 0) {
       const { root } = brent(fonction, x, x + 0.2, tol, maxIter)
       if (root != null) racines.push(round(root, precision))
