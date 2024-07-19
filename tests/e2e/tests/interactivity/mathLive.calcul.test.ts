@@ -1,4 +1,4 @@
-import { clean } from 'helpers/text'
+import { clean } from '../../helpers/text'
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
 import prefs from '../../helpers/prefs.js'
@@ -40,7 +40,7 @@ async function testEntier (page: Page) {
 
 async function testCalculLitteral (page: Page) {
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=77a62&id=3L11&n=10&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
+  const urlExercice = hostname + '?uuid=db2e0&id=3L11&n=10&d=10&s=3&s2=1&s3=1&s4=true&n=20&i=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -70,7 +70,7 @@ async function testCalculLitteral (page: Page) {
 
 async function testCalculLitteral2 (page: Page) {
   const hostname = local ? `http://localhost:${process.env.CI ? '80' : '5173'}/alea/` : 'https://coopmaths.fr/alea/'
-  const urlExercice = hostname + '?uuid=77a62&n=10&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
+  const urlExercice = hostname + '?uuid=db2e0&n=10&d=10&s=3&s2=1&s3=3&s4=true&i=1&cd=1'
   const questions = await getQuestions(page, urlExercice)
 
   for (const question of questions) {
@@ -147,13 +147,9 @@ const local = true
 if (process.env.CI) {
   // utiliser pour les tests d'intégration
   prefs.headless = true
-  runTest(testRelatifs, import.meta.url)
-  runTest(testEntier, import.meta.url)
-  runTest(testCalculLitteral, import.meta.url)
-  runTest(testCalculLitteral2, import.meta.url)
-} else {
-  runTest(testRelatifs, import.meta.url)
-  runTest(testEntier, import.meta.url)
-  runTest(testCalculLitteral, import.meta.url)
-  runTest(testCalculLitteral2, import.meta.url)
 }
+
+runTest(testRelatifs, import.meta.url)
+runTest(testEntier, import.meta.url)
+runTest(testCalculLitteral, import.meta.url)
+runTest(testCalculLitteral2, import.meta.url)

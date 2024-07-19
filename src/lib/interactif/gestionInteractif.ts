@@ -326,7 +326,6 @@ export function afficheScore (exercice: Exercice, nbBonnesReponses:number, nbMau
  * @deprecated Dans la mesure du possible, utiliser handleAnswers après avoir consulter la doc
  * @see https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Rendre-un-exercice-interactif
  */
-
 export function setReponse (exercice: Exercice, i: number, valeurs: LegacyReponses, params: ReponseParams = {}) {
   const url = new URL(window.location.href)
   // if (Array.isArray(valeurs) && !url.searchParams.has('testCI')) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })

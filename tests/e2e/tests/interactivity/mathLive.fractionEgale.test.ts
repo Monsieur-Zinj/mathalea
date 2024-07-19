@@ -86,9 +86,7 @@ const local = true
 if (process.env.CI) {
   // utiliser pour les tests d'intégration
   prefs.headless = true
-  runTest(test, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
-  runTest(testFractionSimplifieeIrreductible, import.meta.url, { pauseOnError: false }) // true pendant le développement, false ensuite
-} else {
-  runTest(test, import.meta.url)
-  runTest(testFractionSimplifieeIrreductible, import.meta.url)
 }
+
+runTest(test, import.meta.url)
+runTest(testFractionSimplifieeIrreductible, import.meta.url)

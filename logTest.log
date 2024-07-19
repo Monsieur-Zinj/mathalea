@@ -1,0 +1,8 @@
+
+> mathalea@3.0.20230508 test:e2e:interactivity /home/lhotejc/WebstormProjects/mathalea
+> vitest --config tests/e2e/vitest.config.interactivity.js --run
+
+
+ RUN  v1.6.0 /home/lhotejc/WebstormProjects/mathalea/tests/e2e
+
+ ELIFECYCLE  Command failed with exit code 1.
