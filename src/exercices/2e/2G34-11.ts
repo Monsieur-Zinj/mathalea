@@ -11,7 +11,6 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { eqToLatex, printSystem } from '../../lib/outils/systemeEquations.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 export const titre = 'Déterminer le point d\'intersection de deux droites données graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -236,8 +235,7 @@ export default class IntersectionDroites extends Exercice {
             handleAnswers(this, i, {
               bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
               champ1: { value: pi12[0].texFractionSimplifiee },
-              champ2: { value: pi12[1].texFractionSimplifiee },
-              compare: fonctionComparaison
+              champ2: { value: pi12[1].texFractionSimplifiee }
             },
             { formatInteractif: 'fillInTheBlank' }
             )
@@ -254,8 +252,7 @@ export default class IntersectionDroites extends Exercice {
               champ3: { value: pi13[0].texFractionSimplifiee },
               champ4: { value: pi13[1].texFractionSimplifiee },
               champ5: { value: pi23[0].texFractionSimplifiee },
-              champ6: { value: pi23[1].texFractionSimplifiee },
-              compare: fonctionComparaison
+              champ6: { value: pi23[1].texFractionSimplifiee }
             },
             { formatInteractif: 'fillInTheBlank' }
             )

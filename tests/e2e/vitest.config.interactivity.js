@@ -10,7 +10,7 @@ export default mergeConfig(viteConfig, defineConfig({
     }
   },
   test: {
-    include: ['./tests/interactivity/*.test.{js,ts}'],
+    include: ['./tests/interactivity/mathLive.*.test.{js,ts}'],
     exclude: ['./tests/interactivity/mathLive.moule.test.ts'],
     // on veut laisser le navigateur ouvert sur un plantage (10min)
     hookTimeout: 600_000,

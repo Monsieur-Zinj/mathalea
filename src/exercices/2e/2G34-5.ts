@@ -9,7 +9,6 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { addCombLin, eqToLatex, multCoeff, printSystem, timesIfNotUn } from '../../lib/outils/systemeEquations'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre un système linéaire de deux équations à deux inconnues par combinaison linéaire'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -263,9 +262,7 @@ export default class systemeEquationsPremDeg extends Exercice {
         handleAnswers(this, i, {
           bareme: (listePoints: number[]) => [Math.min(listePoints[0], listePoints[1]), 1],
           champ1: { value: solX.texFractionSimplifiee },
-          champ2: { value: solY.texFractionSimplifiee },
-          compare: fonctionComparaison
-
+          champ2: { value: solY.texFractionSimplifiee }
         },
         { formatInteractif: 'fillInTheBlank' }
         )

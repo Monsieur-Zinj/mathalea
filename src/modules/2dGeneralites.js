@@ -1,7 +1,7 @@
 import { context } from './context.js'
 import katex from 'katex'
 import { arrondi } from '../lib/outils/nombres'
-import { mathaleaGenerateSeed } from '../lib/mathalea'
+import { randint } from './outils'
 
 /*
   MathALEA2D
@@ -164,7 +164,7 @@ export function mathalea2d (
     return codeTikz
   }
   // On prépare le code HTML
-  const m2dId = 'M2D' + mathaleaGenerateSeed()
+  const m2dId = 'M2D' + String(randint(1, 1000000))
   const divsLatex = []
   let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${(ymax - ymin) * pixelsParCm * zoom
       }" viewBox="${xmin * pixelsParCm} ${-ymax * pixelsParCm} ${(xmax - xmin) * pixelsParCm

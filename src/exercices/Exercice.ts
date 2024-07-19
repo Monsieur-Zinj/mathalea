@@ -46,12 +46,13 @@ export default class Exercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
+  figures?: Array<{id: string, solution: boolean}>[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number
   spacingCorr: number
   pasDeVersionLatex: boolean
-  listePackages: string[]
+  listePackages?: string[]
   consigneModifiable: boolean
   nbQuestionsModifiable: boolean
   nbCols: number // Nombre de colonnes pour la sortie LaTeX

@@ -88,10 +88,10 @@ export default function PasserEcritureDecimaleEcritureFractionnaireInversement (
           let multiple
           denominateur === 4 ? multiple = 100 : multiple = 10
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${ecritureDecimale * multiple}}{${multiple}}$  ou $${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fraction' })
+          setReponse(this, i, [new FractionEtendue(ecritureDecimale * multiple, multiple), new FractionEtendue(numerateur, denominateur)], { formatInteractif: 'fractionEgale' })
         } else {
           texteCorr = `$${texNombre(ecritureDecimale, 3)} = \\dfrac{${numerateur}}{${denominateur}}$`
-          setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fraction' })
+          setReponse(this, i, new FractionEtendue(numerateur, denominateur), { formatInteractif: 'fractionEgale' })
         }
       } else if (listeDesSensDemandes[i] === 'FractionnaireADecimale') {
         texte = `Donner l'écriture décimale de $\\dfrac{${numerateur}}{${denominateur}}$.`
