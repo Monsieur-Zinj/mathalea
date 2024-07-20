@@ -11,7 +11,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Calculer avec le logarithme décimal'
 export const dateDePublication = '4/5/2024'
-export const uuid = '9cd25'
+export const uuid = '9eabf'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 

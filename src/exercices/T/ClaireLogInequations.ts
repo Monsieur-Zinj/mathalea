@@ -8,6 +8,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { pgcd } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$'
 export const dateDePublication = '4/5/2024'
@@ -29,7 +30,7 @@ export default class InequationsLog extends Exercice {
   constructor () {
     super()
     this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
-    this.nbQuestions = 5
+    this.nbQuestions = 6
     this.spacingCorr = 3
     this.sup = '4'
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
@@ -37,7 +38,7 @@ export default class InequationsLog extends Exercice {
     this.correctionDetailleeDisponible = true
   }
 
-  isRationalLogFraction (a: number, b: number, tolerance: number = 1e-5): number | [number, number] | null {
+  estRationnelLogFraction (a: number, b: number, tolerance: number = 1e-5): number | [number, number] | null {
     const logA = Math.log(a)
     const logB = Math.log(b)
     const ratio = logB / logA
@@ -58,15 +59,15 @@ export default class InequationsLog extends Exercice {
       }
     }
     if (minError < tolerance) {
-      // Simplify the fraction
+      // Simplifie la fraction
       const commonDivisor = pgcd(bestNumerator, bestDenominator)
       if (bestDenominator === 1) {
-        return bestNumerator // Return numerator if denominator is 1
+        return bestNumerator // Retourne le numérateur si le dénominateur est 1
       } else {
         return [bestNumerator / commonDivisor, bestDenominator / commonDivisor]
       }
     }
-    return null // Not a fraction within the tolerance
+    return null // N'est pas une fraction selon la tolérance
   }
 
   nouvelleVersion () {
@@ -98,7 +99,7 @@ export default class InequationsLog extends Exercice {
         case 1: // rationnel
           do {
             [a, b] = choice(listeCouples)
-            quotient = this.isRationalLogFraction(a, b)
+            quotient = this.estRationnelLogFraction(a, b)
           } while (quotient === null || typeof quotient === 'number')
           if (typeof quotient === 'number') {
             base = 10 ** (Math.log10(b) / quotient)
@@ -109,7 +110,7 @@ export default class InequationsLog extends Exercice {
         case 2: // entier
           do {
             [a, b] = choice(listeCouples)
-            quotient = this.isRationalLogFraction(a, b)
+            quotient = this.estRationnelLogFraction(a, b)
           } while (quotient === null || Array.isArray(quotient))
           if (typeof quotient === 'number') {
             base = 10 ** (Math.log10(b) / quotient)
@@ -120,7 +121,7 @@ export default class InequationsLog extends Exercice {
         default: // irrationnel
           do {
             [a, b] = choice(listeCouples)
-            quotient = this.isRationalLogFraction(a, b)
+            quotient = this.estRationnelLogFraction(a, b)
           } while (quotient !== null)
           base = null
       }
@@ -195,9 +196,6 @@ export default class InequationsLog extends Exercice {
           }
           break
       }
-      // déplacement du code commun ici parce que c'est quand même pas bien de copier 4 fois la même chose à un ou deux signe près.
-      // c'est ce qu'on appelle factoriser.
-      // ça évite lorsqu'on a 4 cas, de faire 4 fois les corrections.
       texte = `$${texNombre(a, 5)}^x ${signe0} ${stringB}$`
       texteCorr = `$${logString}{(${stringA}^x)} ${signe0} ${logString}{(${stringB})}$`
       texteCorr += `<br>$x${logString}{(${stringA})} ${signe0} ${logString}{(${stringB})}$`
@@ -205,19 +203,18 @@ export default class InequationsLog extends Exercice {
       if (quotient !== null && base !== null) {
         texteCorr += this.correctionDetaillee
           ? typeof quotient === 'number'
-            ? `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient}})=${quotient}${logString}(${texNombre(base, 5)})$, donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.<br>Ainsi`
+            ? `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient}})=${quotient}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient}${logString}(${texNombre(base, 5)})}{${logString}(${texNombre(base, 5)})}=${resultat}$. `
             : quotient[0] === 1
-              ? `<br>Or, $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$.<br>Ainsi `
-              : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$.<br>Ainsi `
-          : '<br>Or, '
-        texteCorr += `$\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$ donc `
+              ? `<br>Or, $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${logString}(${stringB})}{${quotient[1]}${logString}(${texNombre(base, 5)})}=\\dfrac{${quotient[0]}}{${quotient[1]}}$. `
+              : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient[0]}${logString}(${texNombre(base, 5)})}{${quotient[1]}${logString}(${texNombre(base, 5)})}= ${resultat}$. `
+          : `<br>Or, $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.  `
       }
-      texteCorr += `<br>$S=${miseEnEvidence(answer)}$`
+      texteCorr += `<br>Ainsi $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
         // @ts-expect-error problème typage
-        handleAnswers(this, i, { reponse: { value: answer } })
+        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
         texte += '<br>$S= $'
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
