@@ -20,14 +20,13 @@ export const interactifType = 'custom'
  * Soutenu par Rémi Angot pour l'aide pour le développement avec ApiGeom
  */
 
-// export const ref = 'EN-SquarO'
 export const uuid = 'e2024'
 export const refs = {
   'fr-fr': ['EN-SquarO'],
   'fr-ch': []
 }
 
-class jeutest extends Exercice {
+class squaro extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   figureCorrection!: Figure
@@ -190,11 +189,11 @@ class jeutest extends Exercice {
         nbPointsAide = this.goodAnswers.length / 2
         break
     }
-    let toto = this.goodAnswers.slice()
+    let bonnesReponsesEncoreDispo = this.goodAnswers.slice()
     for (let i = 0; i < nbPointsAide; i++) {
-      const unBonPoint = choice(toto) as { x: number; y: number }
+      const unBonPoint = choice(bonnesReponsesEncoreDispo) as { x: number; y: number }
       this.figure.create('Point', { x: unBonPoint.x, y: unBonPoint.y })
-      toto = toto.filter(obj => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y))
+      bonnesReponsesEncoreDispo = bonnesReponsesEncoreDispo.filter(obj => !(obj.x === unBonPoint.x && obj.y === unBonPoint.y))
     }
 
     let enonce = `Cette grille doit contenir ${texteEnCouleurEtGras(this.goodAnswers.length.toString(), 'blue')} `
@@ -326,4 +325,4 @@ class jeutest extends Exercice {
   }
 }
 
-export default jeutest
+export default squaro
