@@ -50,6 +50,10 @@ const basicKeys = {
     display: '$\\square^\\square$',
     insert: '#@^{#0}'
   },
+  'e^': {
+    display: '$e^{\\square}$',
+    insert: 'e^{#0}'
+  },
   LOG: {
     display: '$\\log(\\square)$',
     insert: '\\log(#0)'
@@ -434,7 +438,7 @@ const basicKeys = {
 
 const massUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of massUnits.units) {
-  const k = 'MASS' + unit.symbol
+  const k = `MASS ${unit.symbol}`
   massUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -443,7 +447,7 @@ for (const unit of massUnits.units) {
 
 const lengthUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of lengthUnits.units) {
-  const k = 'LENGTH' + unit.symbol
+  const k = `LENGTH ${unit.symbol}`
   lengthUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -452,7 +456,7 @@ for (const unit of lengthUnits.units) {
 
 const areaUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
-  const k = 'AREA' + unit.symbol
+  const k = `AREA ${unit.symbol}`
   areaUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -461,7 +465,7 @@ for (const unit of [...areaMetricUnits.units, ...areaOtherUnits.units]) {
 
 const volumeUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of volumeMetricUnits.units) {
-  const k = 'VOLUME' + unit.symbol
+  const k = `VOLUME' ${unit.symbol}`
   volumeUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert
@@ -470,7 +474,7 @@ for (const unit of volumeMetricUnits.units) {
 
 const capacityUnitsKeys: Record<string, { display: string, insert: string }> = {}
 for (const unit of volumeOtherUnits.units) {
-  const k = 'CAPACITY' + unit.symbol
+  const k = `CAPACITY ${unit.symbol}`
   capacityUnitsKeys[k] = {
     display: unit.symbol,
     insert: unit.insert

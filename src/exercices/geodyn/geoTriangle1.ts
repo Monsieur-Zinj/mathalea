@@ -108,7 +108,7 @@ class ConstructionTriangle extends Exercice {
     this.answers = {}
     // Sauvegarde de la réponse pour Capytale
     this.answers[this.idApigeom] = this.figure.json
-    let resultat = []
+    const resultat = []
     // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(
       `#feedbackEx${this.numeroExercice}Q${0}`,

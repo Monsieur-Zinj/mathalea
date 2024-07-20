@@ -57,7 +57,7 @@ const fullOperationCaps: CompleteKeysList = {
 }
 const logPuissanceCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'xMath', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: ['LOG', 7, 8, 9, 'DIV', 'LN', 4, 5, 6, 'MULT', 'POW', 1, 2, 3, 'SUB', 'FRAC', 0, 'COMMA', 'xMath', 'ADD']
+  block: ['[','LOG', 7, 8, 9, 'DIV',']', 'LN', 4, 5, 6, 'MULT','INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'xMath', 'ADD']
 }
 const probabiliteCaps: CompleteKeysList = {
   inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
@@ -265,7 +265,7 @@ export const fullOperations: KeyboardBlock = {
 
 export const logPuissance: KeyboardBlock = {
   keycaps: logPuissanceCaps,
-  cols: 5,
+  cols: 6,
   title: 'Logarithme et puissance',
   isUnits: false
 }
