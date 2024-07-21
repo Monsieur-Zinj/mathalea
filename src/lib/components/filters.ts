@@ -13,6 +13,7 @@ import {
   isExamItemInReferentiel,
   resourceHasMonth
 } from '../types/referentiels'
+import { stringWithNoAccent } from './textUtils'
 
 /**
  * Définition d'un critère.
@@ -259,8 +260,8 @@ export function tagCriterion (
         (item: ResourceAndItsPath) =>
           item.resource.tags &&
           item.resource.tags
-            .map((t) => t.toLowerCase())
-            .find((t) => t.includes(selectedTag.toLowerCase()))
+            .map((t) => stringWithNoAccent(t.toLowerCase()))
+            .find((t) => t.includes(stringWithNoAccent(selectedTag.toLowerCase())))
       )
     }
   }
@@ -352,6 +353,7 @@ export function subjectCriterion (
   const criterion: Criterion<ResourceAndItsPath> = {
     meetCriterion (items: ResourceAndItsPath[]) {
       return items.filter((item) => {
+        const subjectToLowerCaseWithoutAccent = stringWithNoAccent(subject.toLowerCase())
         if (item.pathToResource.includes('CAN') && !isCanIncluded) {
           return false
         }
@@ -359,15 +361,14 @@ export function subjectCriterion (
         let placeMatch = false
         if (resourceHasPlace(item.resource)) {
           // si le sujet est un lieu et que la ressource a `lieu` dans ses propriété, on compare
-          placeMatch = item.resource.lieu
-            .toLowerCase()
-            .includes(subject.toLowerCase())
+          placeMatch = stringWithNoAccent(item.resource.lieu.toLowerCase())
+            .includes(subjectToLowerCaseWithoutAccent)
         }
         // on rechercher dans le titre
         if (isExerciceItemInReferentiel(item.resource)) {
           // la ressource est un exercice : elle a donc un titre
           if (
-            item.resource.titre.toLowerCase().includes(subject.toLowerCase())
+            stringWithNoAccent(item.resource.titre.toLowerCase()).includes(subjectToLowerCaseWithoutAccent)
           ) {
             return true
           } else {
