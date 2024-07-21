@@ -26,6 +26,7 @@ export const refs = {
 type Materiel = {expSP: string, expAP: string, test: string}
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
 // Pour l'analyse et l'utilisation de l'expression, ces tirets bas sont remplacés par du vide.
+// test est la valeur qui vient compléter a,b,c et d dans aleaVariables afin d'obtenir des données aux petits oignons
 const dicoDesExpressions: {troisSignesToutPositif: Materiel[], troisSignesRelatifs: Materiel[], quatreSignesToutPositif: Materiel[], quatreSignesRelatifs: Materiel[] } = {
   troisSignesToutPositif: [
     { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
@@ -68,7 +69,6 @@ class MettreDesParentheses extends Exercice {
     this.comment = 'L\'exercice propose des expressions à 3 ou 4 opérandes avec possibilité d\'avoir des calculs relatifs ou pas.<br>Les opérandes sont inférieures ou égales à 10 en valeur absolue pour permettre le calcul mental. Une réponse trop parenthésée est comptée fausse.'
   }
 
-  // const changeSigne = (a:number, yesOrNo: boolean) => yesOrNo ? choice([a, -a]) : a
   nouvelleVersion () {
     this.reinit()
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 3, melange: 3, defaut: 3 })
@@ -87,9 +87,9 @@ class MettreDesParentheses extends Exercice {
           choix.push(...dicoDesExpressions.quatreSignesToutPositif)
         }
       }
-
+      // Les données de la question (expression sans parenthèse, expression avec parenthèses, test )
       const materiel = choice(choix)
-
+      // l'objet qui sert à assigner les valeurs dans l'expression
       const assignations: Variables = aleaVariables({
         a: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
         b: 'randomInt(1,10)',
@@ -101,11 +101,16 @@ class MettreDesParentheses extends Exercice {
       const b = Number(assignations.b)
       const c = Number(assignations.c)
       const d = Number(assignations.d)
+
+      // On choisit de proposer une expression sans parenthèse avec une probabilité de 25%
       const parentheses = choice([true, true, true, false])
-      const resultat = parentheses ? evaluate(materiel.expAP.replaceAll('_', ''), assignations) : evaluate(materiel.expSP.replaceAll('_', ''), assignations)
+      // mathjs calcule l'expression avec les valeur choisies et fournit le membre de droite de l'énoncé
+      const resultat = (parentheses ? evaluate(materiel.expAP.replaceAll('_', ''), assignations) : evaluate(materiel.expSP.replaceAll('_', ''), assignations)) ?? 0
       let texte: string = 'Mettre des parenthèses dans l\'égalité afin que celle-ci soit juste:<br>'
       let index = 1
       let content = ''
+
+      // on fabrique la string pour le Mathfield fillInTheBlank
       for (let c = 0; c < materiel.expSP.length; c++) {
         const char = materiel.expSP[c]
         if (char === '+' || char === '-') content += `~${char}`
@@ -120,17 +125,18 @@ class MettreDesParentheses extends Exercice {
       content += `~=~${resultat}`
       texte += remplisLesBlancs(this, i, content)
       texte += ajouteFeedback(this, i)
-      const valeurs = { a: assignations.a, b: assignations.b, c: assignations.c, d: assignations.d }
+      // on élimine test des assignations, car on n'en a pas besoin pour la suite, le nouvel objet contenant les opérandes s'appelle valeurs
+      const valeurs = { a: assignations.a, b: assignations.b, c: assignations.c, d: assignations.d, test: assignations.test }
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(assignVariables(materiel.expAP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
         : calculer(assignVariables(materiel.expSP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
-      const texteCorr: string = `${answer.texteCorr}`// $=${answer.printResult}$`
+      const texteCorr: string = `${answer.texteCorr}`
       // La callback de correction intéractive
       const callback = function (exercice: Exercice, question: number, variables: [string, AnswerType][]) {
         let feedback: string = ''
         const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
-        const goodAnswer = engine.parse(answer.printExpression)
+        const goodAnswer = engine.parse(String(resultat))
 
         const prompts = mfe.getPrompts()
         const saisies = prompts.map(pr => mfe.getPromptValue(pr).replace('\\lparen', '(').replace('\\rparen', ')'))
