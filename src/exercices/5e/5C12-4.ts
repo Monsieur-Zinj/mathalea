@@ -11,12 +11,17 @@ import engine from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
+export const dateDePublication = '21/07/2024'
 export const uuid = 'e2a95'
 export const titre = 'Mettre des parenthèses ou pas pour qu\'une égalité soit juste'
 export const refs = {
   'fr-fr': ['5C12-4'],
   'fr-ch': []
 }
+/**
+ * @author Jean-Claude Lhote
+ * Placer des parenthèses mais pas inutilement dans une expression pour qu'elle vérifie une égalité
+ */
 
 type Materiel = {expSP: string, expAP: string, test: string}
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
@@ -60,6 +65,7 @@ class MettreDesParentheses extends Exercice {
     this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs', false]
     this.sup = '3'
     this.sup2 = false
+    this.comment = 'L\'exercice propose des expressions à 3 ou 4 opérandes avec possibilité d\'avoir des calculs relatifs ou pas.<br>Les opérandes sont inférieures ou égales à 10 en valeur absolue pour permettre le calcul mental. Une réponse trop parenthésée est comptée fausse.'
   }
 
   // const changeSigne = (a:number, yesOrNo: boolean) => yesOrNo ? choice([a, -a]) : a
