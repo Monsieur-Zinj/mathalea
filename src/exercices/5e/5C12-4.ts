@@ -1,11 +1,13 @@
 // import { choice } from '../../lib/outils/arrayOutils'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import type { MathfieldElement } from 'mathlive'
+import { handleAnswers, type AnswerType, type Valeur } from '../../lib/interactif/gestionInteractif'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
-import { aleaExpression, aleaVariables, type Variables } from '../../modules/outilsMathjs'
+import { aleaVariables, assignVariables, calculer, type Variables } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 import { evaluate } from 'mathjs'
+import engine from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -23,8 +25,8 @@ const dicoDesExpressions: {troisSignesToutPositif: Materiel[], troisSignesRelati
   troisSignesToutPositif: [
     { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
     { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: 'a+b*c != (a+b)*c' },
-    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: 'a*b-c != a*(b-c) and b>c and a*b>c' },
-    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: 'a-b*c != (a-b)*c and a>b and a>b*c' }
+    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: 'a*b-c != a*(b-c) and b>c' },
+    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: 'a-b*c != (a-b)*c and a>b*c' }
   ],
   troisSignesRelatifs: [
     { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
@@ -36,9 +38,9 @@ const dicoDesExpressions: {troisSignesToutPositif: Materiel[], troisSignesRelati
     { expSP: '_a+_b_*_c_+d_', expAP: '(a+_b)*(c_+d)', test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)' },
     { expSP: '_a+_b_*_c_+d_', expAP: '_a+_b_*(c_+d)', test: 'a+b*(c+d)!=a+b*c+d and a+b*(c+d)!=(a+b)*(c+d) and a+b*(c+d)!=(a+b)*c+d' },
     { expSP: '_a+_b_*_c_+d_', expAP: '(a+_b)*_c_+d_', test: '(a+b)*c+d!=a+b*c+d and (a+b)*c+d!=(a+b)*(c+d) and (a+b)*c+d!=a+b*(c+d)' },
-    { expSP: '_a-_b_*_c_+d_', expAP: '(a-_b)*(c_+d)', test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d) and a>b' },
-    { expSP: '_a-_b_*_c_+d_', expAP: '_a-_b_*(c_+d)', test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d and a>b' },
-    { expSP: '_a-_b_*_c_+d_', expAP: '(a-_b)*_c_+d_', test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d) and a>b' }
+    { expSP: '_a-_b_*_c_+d_', expAP: '(a-_b)*(c_+d)', test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d) and a>b*c' },
+    { expSP: '_a-_b_*_c_+d_', expAP: '_a-_b_*(c_+d)', test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d and a>b*(c+d)' },
+    { expSP: '_a-_b_*_c_+d_', expAP: '(a-_b)*_c_+d_', test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d) and a>b*c' }
   ],
   quatreSignesRelatifs: [
     { expSP: '_a+_b_*_c_+d_', expAP: '(a+_b)*(c_+d)', test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)' },
@@ -67,22 +69,26 @@ class MettreDesParentheses extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choix: Materiel[] = []
       if (listeTypeDeQuestion[i] === 1) {
-        if (this.sup2) choix.push(...dicoDesExpressions.troisSignesRelatifs)
-        choix.push(...dicoDesExpressions.troisSignesToutPositif)
+        if (this.sup2) {
+          choix.push(...dicoDesExpressions.troisSignesRelatifs)
+        } else {
+          choix.push(...dicoDesExpressions.troisSignesToutPositif)
+        }
       } else {
         if (this.sup2) {
           choix.push(...dicoDesExpressions.quatreSignesRelatifs)
+        } else {
+          choix.push(...dicoDesExpressions.quatreSignesToutPositif)
         }
-        choix.push(...dicoDesExpressions.quatreSignesToutPositif)
       }
 
       const materiel = choice(choix)
 
       const assignations: Variables = aleaVariables({
-        a: `randomInt(1,10)*${this.sup2 ? 'randomInt(0,1)*2-1' : '1'}`,
-        b: `randomInt(1,10)*${this.sup2 ? 'randomInt(0,1)*2-1' : '1'}`,
-        c: `randomInt(1,10)*${this.sup2 ? 'randomInt(0,1)*2-1' : '1'}`,
-        d: `randomInt(1,10)*${this.sup2 ? 'randomInt(0,1)*2-1' : '1'}`,
+        a: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
+        b: 'randomInt(1,10)',
+        c: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
+        d: 'randomInt(1,10)',
         test: materiel.test
       })
       const a = Number(assignations.a)
@@ -107,10 +113,72 @@ class MettreDesParentheses extends Exercice {
       }
       content += `~=~${resultat}`
       texte += remplisLesBlancs(this, i, content)
+      texte += ajouteFeedback(this, i)
+      const valeurs = { a: assignations.a, b: assignations.b, c: assignations.c, d: assignations.d }
       const answer = parentheses
-        ? `${aleaExpression(materiel.expAP.replaceAll('_', ''), assignations).toTex}=${resultat}`
-        : `${aleaExpression(materiel.expSP.replaceAll('_', ''), assignations).toTex}=${resultat}`
-      const texteCorr: string = `$${answer}$`
+        ? calculer(assignVariables(materiel.expAP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
+        : calculer(assignVariables(materiel.expSP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
+      const texteCorr: string = `${answer.texteCorr}`// $=${answer.printResult}$`
+      const callback = function (exercice: Exercice, question: number, variables: [string, AnswerType][]) {
+        let feedback: string = ''
+        const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
+        const goodAnswer = engine.parse(answer.printExpression)
+
+        const prompts = mfe.getPrompts()
+        const saisies = prompts.map(pr => mfe.getPromptValue(pr).replace('\\lparen', '(').replace('\\rparen', ')'))
+        let laSaisie = ''
+        for (let k = 0, index = 0; k < materiel.expSP.length; k++) {
+          const char = materiel.expSP.charAt(k)
+          if (char === '_') {
+            laSaisie += saisies[index++]
+          } else {
+            laSaisie += char
+          }
+        }
+        const expSaisie = assignVariables(laSaisie, valeurs)
+        const saisieParsed = engine.parse(expSaisie)
+        const isOk1 = goodAnswer.isEqual(saisieParsed) // L'expression saisie et la bonne réponse donne le même résultat, c'est trés bon signe.
+        // cependant, il peut y avoir des parenthèses inutiles.
+        let isOk2 = true
+        for (let index2 = 0; index2 < variables.length; index2++) {
+          if (variables[index2][1].value !== saisies[index2]) {
+            isOk2 = false
+          }
+        }
+        if (isOk1 && !isOk2) {
+          feedback = 'L\'égalité est respectée, mais il y a des parenthèses inutiles.'
+        } else if (!isOk1) {
+          feedback = `L'égalité n'est pas respectée : en effet, $${expSaisie.replace('*', '\\times ')}=${saisieParsed.evaluate().numericValue}$`
+        } else {
+          feedback = 'L`égalité est respectée.'
+        }
+
+        for (let index3 = 0; index3 < variables.length; index3++) {
+          if (variables[index3][1].value === saisies[index3]) {
+            mfe.setPromptState(`champ${index3 + 1}`, 'correct', true)
+          } else {
+            mfe.setPromptState(`champ${index3 + 1}`, 'incorrect', true)
+          }
+        }
+        const spanReponseLigne = document.querySelector(`#resultatCheckEx${exercice.numeroExercice}Q${question}`)
+        if (spanReponseLigne != null) {
+          spanReponseLigne.innerHTML = isOk1 && isOk2 ? '😎' : '☹️'
+        }
+
+        const spanFeedback = document.querySelector(`#feedbackEx${exercice.numeroExercice}Q${question}`)
+        if (feedback != null && spanFeedback != null && feedback.length > 0) {
+          spanFeedback.innerHTML = '💡 ' + feedback
+          spanFeedback.classList.add('py-2', 'italic', 'text-coopmaths-warn-darkest', 'dark:text-coopmathsdark-warn-darkest')
+        }
+        return {
+          isOk: isOk1 && isOk2,
+          feedback,
+          score: {
+            nbBonnesReponses: 1,
+            nbReponses: 1
+          }
+        }
+      }
       if (listeTypeDeQuestion[i] === 1) {
         if (parentheses) {
           // On récupère la liste des parenthèses (ou absence de parenthèses) pour renseigner les goodAnswers
@@ -122,7 +190,8 @@ class MettreDesParentheses extends Exercice {
                 champ1: { value: listePar[0] === '(' ? '(' : '' },
                 champ2: { value: listePar[1] === '(' ? '(' : '' },
                 champ3: { value: listePar[2] === ')' ? ')' : '' },
-                champ4: { value: listePar[3] === ')' ? ')' : '' }
+                champ4: { value: listePar[3] === ')' ? ')' : '' },
+                callback
               })
           } else {
             throw Error(`Il y a un problème avec cette expressions, on n'a pas trouvé 4 symboles : ${materiel.expAP}`)
@@ -135,13 +204,14 @@ class MettreDesParentheses extends Exercice {
               champ1: { value: '' },
               champ2: { value: '' },
               champ3: { value: '' },
-              champ4: { value: '' }
+              champ4: { value: '' },
+              callback
             })
         }
       } else {
         if (parentheses) {
           // On récupère la liste des parenthèses (ou absence de parenthèses) pour renseigner les goodAnswers
-          const listePar = materiel.expAP.match(/[()]/g)
+          const listePar = materiel.expAP.match(/[_()]/g)
           if (listePar != null && listePar.length === 6) {
             handleAnswers(this,
               i,
@@ -151,8 +221,8 @@ class MettreDesParentheses extends Exercice {
                 champ3: { value: listePar[2] === '(' ? '(' : listePar[2] === ')' ? ')' : '' },
                 champ4: { value: listePar[3] === '(' ? '(' : listePar[3] === ')' ? ')' : '' },
                 champ5: { value: listePar[4] === '(' ? '(' : listePar[4] === ')' ? ')' : '' },
-                champ6: { value: listePar[5] === '(' ? '(' : listePar[5] === ')' ? ')' : '' }
-
+                champ6: { value: listePar[5] === '(' ? '(' : listePar[5] === ')' ? ')' : '' },
+                callback
               })
           } else {
             throw Error(`Il y a un problème avec cette expressions, on n'a pas trouvé 6 symboles : ${materiel.expAP}`)
@@ -167,7 +237,8 @@ class MettreDesParentheses extends Exercice {
               champ3: { value: '' },
               champ4: { value: '' },
               champ5: { value: '' },
-              champ6: { value: '' }
+              champ6: { value: '' },
+              callback
             })
         }
       }

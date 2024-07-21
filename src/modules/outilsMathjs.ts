@@ -38,16 +38,19 @@ function searchLastNode (node: Node, op?: string) {
  * @returns {string}
  */
 export function assignVariables (expression: string, variables: Variables) {
-  const node = math.parse(expression).transform(
-    function (node: Node) {
-      if (node instanceof SymbolNode && variables[node.name as keyof Variables] !== undefined) {
-        return math.parse(String(variables[node.name as keyof Variables]))
+  let node = math.parse(expression)
+  node = node.transform((node: Node, path, parent) => {
+    if (node.isSymbolNode) {
+      const nodeName = node.name
+      const variable = variables[nodeName as keyof Variables]
+      if (variable !== undefined) {
+        return new math.ConstantNode(Number(variable))
       } else {
         return node
       }
-    }
-  )
-  return node.toString({ parenthesis: 'keep' })
+    } else return node
+  })
+  return node?.toString({ parenthesis: 'keep' })
 }
 
 function transformNode (node: Node, parent: Node, oldNode:Node, params = { suppr1: true, suppr0: true, supprPlusMoins: true }) {
@@ -291,7 +294,7 @@ function correctifNodeMathsteps (node: Node) {
  * toTex('-3/4') -> -\dfrac{3}{4}
  * toTex('OA/OM=OB/ON',{OA: 1.2, OM: 1.5, OB: 1.7}) -> \dfrac{1{.}2}{1{.}5}=\dfrac{1{.}7}{OB}
  */
-export function toTex (node: MathNode|string, params = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined }): string {
+export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?: boolean, supprPlusMoins?: boolean, variables?: Variables, removeImplicit?: boolean} = { suppr1: true, suppr0: true, supprPlusMoins: true, variables: undefined, removeImplicit: true }): string {
   params = Object.assign({ suppr1: true, suppr0: true, supprPlusMoins: true }, params)
   // On commence par convertir l'expression en arbre au format mathjs
   let comparator
@@ -350,7 +353,7 @@ export function toTex (node: MathNode|string, params = { suppr1: true, suppr0: t
       )
     } while ((node as MathNode).toString() !== nodeClone.toString())
 
-    let nodeTex = (node as MathNode).toTex({ implicit: 'hide', parenthesis: 'keep', notation: 'fixed' }).replaceAll('\\cdot', '\\times ').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
+    let nodeTex = (node as MathNode).toTex({ implicit: params.removeImplicit ? 'hide' : 'show', parenthesis: 'keep', notation: 'fixed' }).replaceAll('\\cdot', '\\times ').replaceAll('.', '{,}').replaceAll('\\frac', '\\dfrac')
 
     nodeTex = nodeTex.replace(/\s*?\+\s*?-\s*?/g, ' - ')
     // Mathjs ajoute de manière non contrôlée des \mathrm pour certaines ConstantNode
@@ -426,9 +429,9 @@ export function toString (node: MathNode|string, params = { suppr1: true, suppr0
   }
 }
 
-export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }) {
+export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }, rules?:{l:string, r:string}[]) {
   // Ne pas oublier le signe de la multiplication
-  return math.simplify(expression, [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
+  return math.simplify(expression, rules ?? [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
 
 export function aleaExpression (expression: string = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }) {

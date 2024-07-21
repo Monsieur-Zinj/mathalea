@@ -29,7 +29,7 @@ const KEYBOARD_CATEGORIES = [
   'nombresEtDegre',
   'nombresEtDegreCelsius',
   'numbersSpace',
-  'vFON',
+  'vFON'
 ] as const
 
 export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée le type à partir du tableau de strings comme un union type de toutes les strings
@@ -40,7 +40,7 @@ export type KeyboardCategory = (typeof KEYBOARD_CATEGORIES)[number] // on crée 
  * @returns `true` si le type de clavier est dans la liste
  */
 export const isKeyboardCategory = (
-  category: unknown,
+  category: unknown
 ): category is KeyboardCategory =>
   category !== null &&
   typeof category === 'string' &&
@@ -52,18 +52,18 @@ export const KeyboardType: PartialKbType = KEYBOARD_CATEGORIES.reduce(
   (obj, key) => {
     return { ...obj, [key]: key }
   },
-  {},
+  {}
 )
 
 export const convertToKeyboardCategory = (
-  str: string,
+  str: string
 ): KeyboardCategory | undefined => {
   const type = isKeyboardCategory(str) ? str : undefined
   return type
 }
 
 export const convertKeyboardTypeToBlocks = (
-  type: KeyboardCategory,
+  type: KeyboardCategory
 ): BlockForKeyboard[] => {
   switch (type) {
     case KeyboardType.clavierDeBase:
@@ -107,7 +107,7 @@ export const convertKeyboardTypeToBlocks = (
         'uppercaseXToZ',
         'uppercaseQToW',
         'uppercaseIToP',
-        'uppercaseAToH',
+        'uppercaseAToH'
       ]
     case KeyboardType.alphanumeric:
       return ['alphanumeric']
@@ -127,7 +127,7 @@ export const convertKeyboardTypeToBlocks = (
         'uppercaseXToZ',
         'uppercaseQToW',
         'uppercaseIToP',
-        'uppercaseAToH',
+        'uppercaseAToH'
       ]
     case KeyboardType.nombresEtDegre:
       return ['numbers', 'degre']
@@ -135,13 +135,13 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'degreCelsius']
     default:
       throw new Error(
-        "This error shouldn't occur. Clavier type: '" + type + "'",
+        "This error shouldn't occur. Clavier type: '" + type + "'"
       )
   }
 }
 
 export const buildDataKeyboardFromStyle = (
-  style: string,
+  style: string
 ): BlockForKeyboard[] => {
   // traitement
   if (style === '') {
@@ -192,30 +192,28 @@ type ShortcutsByKeyboards = {
   }
 }
 
-export function getKeyboardShortcusts(mf: MathfieldElement): void {
+export function getKeyboardShortcusts (mf: MathfieldElement): void {
   let keyboardShortcuts = { ...shortcutsByKeyboards.default }
   const keyboards = mf.dataset?.keyboard?.split(' ')
   if (keyboards == null) return
   for (const keyboard of keyboards) {
-    console.log(keyboard)
     if (keyboard in shortcutsByKeyboards) {
       keyboardShortcuts = {
         ...keyboardShortcuts,
-        ...shortcutsByKeyboards[keyboard],
+        ...shortcutsByKeyboards[keyboard]
       }
     }
     if (
       ['lengths', 'volumes', 'capacities', 'masses', 'areas'].includes(
-        keyboard as KeyboardCategory,
+        keyboard as KeyboardCategory
       )
     ) {
       keyboardShortcuts = {
         ...keyboardShortcuts,
-        ...shortcutsByKeyboards.unit,
+        ...shortcutsByKeyboards.unit
       }
     }
   }
-  console.log(keyboardShortcuts)
   mf.inlineShortcuts = keyboardShortcuts
 }
 
@@ -273,7 +271,7 @@ const shortcutsByKeyboards = {
     gdR: { mode: 'math', value: '\\mathbb{R}' },
     gdQ: { mode: 'math', value: '\\mathbb{Q}' },
     gdZ: { mode: 'math', value: '\\mathbb{Z}' },
-    gdN: { mode: 'math', value: '\\mathbb{N}' },
+    gdN: { mode: 'math', value: '\\mathbb{N}' }
   },
 
   hms: {
@@ -285,7 +283,7 @@ const shortcutsByKeyboards = {
     s: { mode: 'text', value: '{\\:\\text{s}\\:}' },
     S: { mode: 'text', value: '{\\:\\text{s}\\:}' },
     '*': { mode: 'math', value: '\\times' },
-    '.': { mode: 'math', value: ',' },
+    '.': { mode: 'math', value: ',' }
   },
 
   unit: {
@@ -326,10 +324,10 @@ const shortcutsByKeyboards = {
     a: { mode: 'math', value: '\\operatorname{a}' },
     ha: { mode: 'math', value: '\\operatorname{ha}' },
     '*': { mode: 'math', value: '\\times' },
-    '.': { mode: 'math', value: ',' },
+    '.': { mode: 'math', value: ',' }
   },
 
   numbersOperations: {
-    '/': { mode: 'math', value: '\\div' },
-  },
+    '/': { mode: 'math', value: '\\div' }
+  }
 } as ShortcutsByKeyboards
