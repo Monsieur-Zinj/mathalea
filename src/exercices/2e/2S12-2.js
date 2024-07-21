@@ -116,14 +116,17 @@ export default function EvolutionsSuccesives () {
           if (taux2 < 0) {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
+
+          texteCorr += `<br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
+          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM, 4)} = 1 + ${texNombre(Math.abs(p), 4)} = 1 + \\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `
+          Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=${texNombre(Math.abs(p), 4)}=${texNombre(t, 2)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM, 4)} = 1 - ${texNombre(Math.abs(p), 4)} = 1-\\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le prix de l'article a subi une ${nom} globale de $${texNombre(taux.abs(), 2)}~\\%$.`
+          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${texNombre(taux.abs(), 2)}~\\%$.`
           setReponse(this, i, taux)
           break
         case 2 :
@@ -182,13 +185,15 @@ export default function EvolutionsSuccesives () {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
+          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM, 4)} = 1 + ${texNombre(Math.abs(p), 4)} = 1 + \\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `
+          Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM, 4)} = 1 - ${texNombre(Math.abs(p), 4)} = 1-\\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2021$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2021$ et $2022$.`
           setReponse(this, i, taux)
           break
         case 3 :
@@ -246,13 +251,15 @@ export default function EvolutionsSuccesives () {
             texteCorr += `$CM_2 = 1 - \\dfrac{${t2}}{100} = ${texNombre(CM2, 2)}$.`
           }
           texteCorr += `<br><br>Le coefficient multiplicateur global est égal à $CM = CM_1 \\times CM_2 = ${texNombre(CM1, 2)} \\times ${texNombre(CM2, 2)} =${texNombre(CM, 4)}$.`
+          texteCorr += `<br><br>${texteGras('Évolution globale :')}<br>`
           if (CM > 1) {
-            texteCorr += `<br><br>Or $CM =${texNombre(CM, 4)} = 1 + ${texNombre(Math.abs(p), 4)} = 1 + \\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `
+          Le taux d'évolution global est égal à : $T=CM -1=${texNombre(CM, 4)} -1=  ${texNombre(Math.abs(p), 4)} = ${texNombre(t, 2)}~\\%$.`
           }
           if (CM < 1) {
-            texteCorr += `<br><br>Or $CM = ${texNombre(CM, 4)} = 1 - ${texNombre(Math.abs(p), 4)} = 1-\\dfrac{${texNombre(t, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t, 2)}~\\%$.`
+            texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'adhérents de cette association a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2020$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2020$ et $2022$.`
           setReponse(this, i, taux)
           break
 
@@ -321,12 +328,12 @@ export default function EvolutionsSuccesives () {
              $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
-            texteCorr += `<br>Or $CM_2 =${texNombre(CM2, 2)} = 1 + ${texNombre(Math.abs(p2), 2)} = 1 + \\dfrac{${texNombre(t2, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br>Or $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
           }
           if (CM2 < 1) {
-            texteCorr += `<br>Or $CM_2 = ${texNombre(CM2, 2)} = 1 - ${texNombre(Math.abs(p2), 2)} = 1-\\dfrac{${texNombre(t2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br>Or $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1= - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le prix de l'article a subi une ${nom2}  $${texNombre(t2)}~\\%$  lors de la deuxième évolution.`
+          texteCorr += `<br><br>Le prix de l'article a subi une ${nom2}  $${texNombre(t2)}~\\%$  lors de la deuxième évolution.`
           setReponse(this, i, t2)
           break
 
@@ -395,12 +402,12 @@ export default function EvolutionsSuccesives () {
              $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
-            texteCorr += `<br>Or $CM_2 =${texNombre(CM2, 2)} = 1 + ${texNombre(Math.abs(p2), 2)} = 1 + \\dfrac{${texNombre(t2, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)} -1=  ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
           }
           if (CM2 < 1) {
-            texteCorr += `<br>Or $CM_2 = ${texNombre(CM2, 2)} = 1 - ${texNombre(Math.abs(p2), 2)} = 1-\\dfrac{${texNombre(t2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br>Or  $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)} $ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${texNombre(t2)}\\,\\%$.`
+          texteCorr += `<br><br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${texNombre(t2)}\\,\\%$.`
           setReponse(this, i, t2)
           break
 
@@ -470,12 +477,12 @@ export default function EvolutionsSuccesives () {
              $${texNombre(CM1, 2)} \\times CM_2 =${texNombre(CM, 4)}$ et par suite $ CM_2 =\\dfrac{${texNombre(CM, 4)}}{${texNombre(CM1, 2)} }=${texNombre(CM2, 2)}$<br>
              `
           if (CM2 > 1) {
-            texteCorr += `<br>Or $CM_2 =${texNombre(CM2, 2)} = 1 + ${texNombre(Math.abs(p2), 2)} = 1 + \\dfrac{${texNombre(t2, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br> $T_2=CM_2 -1=${texNombre(CM2, 2)}-1 = ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une hausse de $${texNombre(t2, 2)}~\\%$.`
           }
           if (CM2 < 1) {
-            texteCorr += `<br>Or $CM_2 = ${texNombre(CM2, 2)} = 1 - ${texNombre(Math.abs(p2), 2)} = 1-\\dfrac{${texNombre(t2)}}{100}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
+            texteCorr += `<br> $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br>Le nombre d'adhérents de cette association a ${nom2} de $${texNombre(t2)}\\,\\%$ en $2022$.`
+          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom2} de $${texNombre(t2)}\\,\\%$ en $2022$.`
 
           setReponse(this, i, t2)
           break

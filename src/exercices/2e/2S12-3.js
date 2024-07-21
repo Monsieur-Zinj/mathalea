@@ -85,15 +85,15 @@ export default function EvolutionsSuccesives () {
           if (taux < 0) {
             texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMra, 4)}$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc :<br> $CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMra, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
             texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au prix initial.`
@@ -135,15 +135,16 @@ export default function EvolutionsSuccesives () {
           if (taux < 0) {
             texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMr, 4)}$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : <br>
+          $CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 4)} ${texNombre(CMr, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr - CMra === 0) {
             texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
@@ -184,16 +185,17 @@ export default function EvolutionsSuccesives () {
           if (taux < 0) {
             texteCorr += `<br>Diminuer de $${t}\\,\\%$ revient à multiplier par $ 1 - \\dfrac{${t}}{100} = ${texNombre(CM, 2)}$ `
           }
-          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : $\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 3)} ${texNombre(CMr, 4)}$.`
+          texteCorr += `<br><br>Le coefficient multiplicateur réciproque est donc : <br>$CM_R=\\dfrac{1}{${texNombre(CM, 2)}} ${egalOuApprox(CMr, 3)} ${texNombre(CMr, 4)}$.`
           if (CMr - CMra !== 0) {
             texteCorr += texteEnCouleur('<br>Remarque : Il faut arrondir les valeurs à $10^{-4}$ pour avoir un arrondi en pourcentage à $10^{-2}$.')
           }
           if (CMr > 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 + ${texNombre(pr, 4)} = 1 + \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une hausse de $${texNombre(tr, 2)}\\,\\%$.`
           }
           if (CMr < 1) {
-            texteCorr += `<br><br>Or $${texNombre(CMra, 4)} = 1 - ${texNombre(pr.abs(), 4)} = 1 - \\dfrac{${texNombre(tr, 2)}}{100}$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
+            texteCorr += `<br><br> Le taux d'évolution réciproque est donc : <br>$T_R=CM_R-1=${texNombre(CMra, 4)}-1=${texNombre(pr, 4)}=-${texNombre(tr, 2)}\\,\\%$ ce qui correspond à une baisse de $${texNombre(tr, 2)}\\,\\%$.`
           }
+
           if (CMr - CMra === 0) {
             texteCorr += `<br><br>Il faut donc appliquer une ${nomr} de $${texNombre(tr, 2)}\\,\\%$ pour revenir au niveau de départ.`
           } else {
