@@ -7,7 +7,7 @@ import { getNewChangeNodes } from './Change.js'
 import Decimal from 'decimal.js'
 
 type ListeVariable = 'a'| 'b'| 'c'| 'd'| 'e'| 'f'| 'g'| 'h'| 'i'| 'j'| 'k'| 'l'| 'm'| 'n'| 'o'| 'p'| 'q'| 'r'| 's'| 't'| 'u'| 'v'| 'w'| 'x'| 'y'| 'z' | 'test'
-type Variables =Partial<Record<ListeVariable, string|number|boolean|Fraction|object>>
+export type Variables =Partial<Record<ListeVariable, string|number|boolean|Fraction|object>>
 
 const math = create(all)
 
@@ -565,7 +565,7 @@ export function traverserEtapes (steps, changeType = [], result = []) {
  * @param {string} expression // Une expression à calculer ou à développer
  * @param {object} params // Les paramètres (commentaires visibles , sous-étapes visibles, fraction-solution au format MixedNumber)
 */
-export function calculer (expression:string , params: ) {
+export function calculer (expression:string, params) {
   params = Object.assign({ comment: false, comments: {}, substeps: false, mixed: false, name: undefined, suppr1: true }, params)
   // La fonction simplifyExpression est une fonction mathsteps
   // Elle renvoie toutes les étapes d'un calcul numérique ou d'un développement-réduction
