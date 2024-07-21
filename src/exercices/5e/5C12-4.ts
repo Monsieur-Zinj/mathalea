@@ -174,7 +174,7 @@ class MettreDesParentheses extends Exercice {
           isOk: isOk1 && isOk2,
           feedback,
           score: {
-            nbBonnesReponses: 1,
+            nbBonnesReponses: isOk1 && isOk2 ? 1 : 0,
             nbReponses: 1
           }
         }
