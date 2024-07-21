@@ -29,8 +29,12 @@ export const refs = {
 export default class InequationsLog extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
-    this.nbQuestions = 6
+    this.nbQuestions = 5
+    if (this.nbQuestions === 1) {
+      this.consigne = 'Résoudre l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
+    } else {
+      this.consigne = 'Résoudre les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
+    }
     this.spacingCorr = 3
     this.sup = '4'
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
@@ -209,7 +213,7 @@ export default class InequationsLog extends Exercice {
               : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient[0]}${logString}(${texNombre(base, 5)})}{${quotient[1]}${logString}(${texNombre(base, 5)})}= ${resultat}$. `
           : `<br>Or, $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.  `
       }
-      texteCorr += `<br>Ainsi $S=${miseEnEvidence(answer)}$`
+      texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
         // @ts-expect-error problème typage
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
