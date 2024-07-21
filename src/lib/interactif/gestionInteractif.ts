@@ -70,7 +70,7 @@ export interface Valeur {
   L1C2?: AnswerType
   L2C1?: AnswerType
   L2C2?: AnswerType // idem on en ajoutera si besoin
-  callback?: (exercice: Exercice, question: number, variables: [name:string, answer: AnswerType], bareme: (listePoints: number[])=>[number, number])=> { isOk: boolean, feedback: string, score: {nbBonnesReponses: number, nbReponses: number} }
+  callback?: (exercice: Exercice, question: number, variables: [string, AnswerType][], bareme: (listePoints: number[])=>[number, number])=> { isOk: boolean, feedback: string, score: {nbBonnesReponses: number, nbReponses: number} }
 }
 
 export type LegacyReponse = string | FractionEtendue | Decimal | number

@@ -1,6 +1,6 @@
 // import { choice } from '../../lib/outils/arrayOutils'
 import type { MathfieldElement } from 'mathlive'
-import { handleAnswers, type AnswerType, type Valeur } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, type AnswerType } from '../../lib/interactif/gestionInteractif'
 import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte } from '../../modules/outils'
@@ -121,10 +121,12 @@ class MettreDesParentheses extends Exercice {
       texte += remplisLesBlancs(this, i, content)
       texte += ajouteFeedback(this, i)
       const valeurs = { a: assignations.a, b: assignations.b, c: assignations.c, d: assignations.d }
+      // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses
         ? calculer(assignVariables(materiel.expAP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
         : calculer(assignVariables(materiel.expSP.replaceAll('_', ''), valeurs), { removeImplicit: false, suppr1: false, suppr0: false, supprPlusMoins: false, comment: true, commentStep: true })
       const texteCorr: string = `${answer.texteCorr}`// $=${answer.printResult}$`
+      // La callback de correction intéractive
       const callback = function (exercice: Exercice, question: number, variables: [string, AnswerType][]) {
         let feedback: string = ''
         const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${question}`) as MathfieldElement
@@ -185,6 +187,9 @@ class MettreDesParentheses extends Exercice {
           }
         }
       }
+      // fin de la callback
+
+      // On fournit les réponses correctes selon le cas de figure (parenthèses ou pas, 3 ou 4 opérandes)
       if (listeTypeDeQuestion[i] === 1) {
         if (parentheses) {
           // On récupère la liste des parenthèses (ou absence de parenthèses) pour renseigner les goodAnswers
