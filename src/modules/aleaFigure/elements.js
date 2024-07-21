@@ -4,7 +4,7 @@ import { latexParCoordonnees } from '../../lib/2d/textes.ts'
 /* eslint-disable no-unused-vars */
 import { context } from '../context.js'
 import { GVCartesian, GVCoordinates } from './coordinates.js'
-import { aleaName } from '../outilsMathjs.js'
+import { aleaName } from '../outilsMathjs.ts'
 import { dot, round, cross } from 'mathjs'
 import { circularPermutation, getDimensions } from './outils.js'
 

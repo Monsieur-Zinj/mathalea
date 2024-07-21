@@ -7,7 +7,7 @@ import { homothetie, rotation, similitude } from '../../lib/2d/transformations.j
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreMinusculeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { calculer } from '../../modules/outilsMathjs.js'
+import { calculer } from '../../modules/outilsMathjs.ts'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML, vide2d, fixeBordures } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
