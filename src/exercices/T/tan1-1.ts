@@ -1,4 +1,4 @@
-import InequationsLog from './ClaireLogInequations'
+import InequationsLog from './tan1-0'
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec ln'
 export const dateDePublication = '4/5/2024'

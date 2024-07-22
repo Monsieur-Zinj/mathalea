@@ -928,6 +928,9 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
+  "TAN1": {
+    "titre": "Analyse"
+  },
   "ExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}

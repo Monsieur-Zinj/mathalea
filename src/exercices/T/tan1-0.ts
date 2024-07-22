@@ -1,16 +1,16 @@
-import Exercice from '../Exercice'
+import Exercice from '../Exercice.js'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { pgcd } from '../../lib/outils/primalite'
-import { fraction } from '../../modules/fractions'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { pgcd } from '../../lib/outils/primalite.js'
+import { fraction } from '../../modules/fractions.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
-export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$'
+export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
 export const dateDePublication = '4/5/2024'
 export const dateDeModificationImportante = '18/07/2024'
 export const uuid = '00a7a'
@@ -215,7 +215,6 @@ export default class InequationsLog extends Exercice {
       }
       texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
       if (this.interactif) {
-        // @ts-expect-error problème typage
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
         texte += '<br>$S= $'
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
