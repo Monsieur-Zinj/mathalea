@@ -28,6 +28,7 @@ export default function CoefficientEvolution () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 1
+  this.version = 1
 
   // this.nouvelleVersion = function (numeroExercice) {
   this.nouvelleVersion = function () {
@@ -57,6 +58,11 @@ export default function CoefficientEvolution () {
           texte = `Augmenter de $${taux}~\\%$ revient à multiplier par `
           coeff = texNombre(1 + taux / 100, 2)
           texteCorr = `Augmenter de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$ car $100~\\% + ${taux}~\\% = ${100 + taux}~\\%$.`
+          if (this.version === 2) {
+            texteCorr = `On cherche le coefficient multiplicateur $CM$ connaissant le taux d'évolution $T=${taux}~\\%=${texNombre(taux / 100, 2)}$.<br>
+         Comme $CM=1+T$ alors $CM=1+${texNombre(taux / 100, 2)}=${coeff}$.<br>
+         Ainsi, augmenter de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$.`
+          }
           reponse = new Decimal(taux).div(100).add(1)
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
 
@@ -65,6 +71,11 @@ export default function CoefficientEvolution () {
           texte = `Diminuer de $${taux}~\\%$ revient à multiplier par `
           coeff = texNombre(1 - taux / 100, 2)
           texteCorr = `Diminuer de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$ car $100~\\% - ${taux}~\\% = ${100 - taux}~\\%$.`
+          if (this.version === 2) {
+            texteCorr = `On cherche le coefficient multiplicateur $CM$ connaissant le taux d'évolution $T=-${taux}~\\%=-${texNombre(taux / 100, 2)}$.<br>
+          Comme $CM=1+T$ alors $CM=1-${texNombre(taux / 100, 2)}=${coeff}$.<br>
+          Ainsi, diminuer de $${taux}~\\%$ revient à multiplier par $${miseEnEvidence(coeff)}$.`
+          }
           reponse = new Decimal(-taux).div(100).add(1)
           setReponse(this, i, reponse, { formatInteractif: 'calcul' })
 
@@ -72,7 +83,14 @@ export default function CoefficientEvolution () {
         case 'taux+':
           coeff = texNombre(1 + taux / 100, 2)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire ` : `Multiplier par $${coeff}$ revient à `
+
           texteCorr = `Multiplier par $${coeff}$ revient à ${texteEnCouleurEtGras('augmenter de ', 'blue')} $${miseEnEvidence(`${taux}~\\%`, 'blue')}$  car $${coeff} = ${100 + taux}~\\% = 100~\\% ${miseEnEvidence(`+ ${taux}~\\%`)}$.`
+          if (this.version === 2) {
+            texteCorr = `On cherche le taux d'évolution $T$   connaissant le coefficient multiplicateur $CM=${coeff}$.<br>
+          Comme $T=CM-1$, alors $T=${coeff}-1=${texNombre(taux / 100, 2)}$.<br>
+          Ainsi, multiplier par $${coeff}$ revient à  augmenter de $${taux}~\\%$, soit $T=${miseEnEvidence(`+ ${taux}~\\%`)}$.
+          `
+          }
           reponse = `+${taux}\\%`
           setReponse(this, i, reponse, { formatInteractif: 'texte' })
 
@@ -81,6 +99,12 @@ export default function CoefficientEvolution () {
           coeff = texNombre(1 - taux / 100, 2)
           texte = this.interactif ? `Multiplier par $${coeff}$ revient à faire ` : `Multiplier par $${coeff}$ revient à `
           texteCorr = `Multiplier par $${coeff}$ revient à ${texteEnCouleurEtGras('diminuer de ', 'blue')} $${miseEnEvidence(`${taux}~\\%`, 'blue')}$ car $${coeff} = ${100 - taux}~\\% = 100~\\% ${miseEnEvidence(`- ${taux}~\\%`)}$.`
+          if (this.version === 2) {
+            texteCorr = `On cherche le taux d'évolution $T$  connaissant le coefficient multiplicateur $CM=${coeff}$.<br>
+          Comme $T=CM-1$, alors $T=${coeff}-1=-${texNombre(taux / 100, 2)}$.<br>
+          Ainsi, multiplier par $${coeff}$ revient à diminuer de $${taux}~\\%$, soit $T=${miseEnEvidence(`- ${taux}~\\%`)}$.
+          `
+          }
           reponse = `-${taux}\\%`
           setReponse(this, i, reponse, { formatInteractif: 'texte' })
           break
