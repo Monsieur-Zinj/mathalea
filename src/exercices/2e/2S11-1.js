@@ -16,4 +16,5 @@ export const refs = {
 }
 export default function CoefficientEvolution2nde () {
   CoefficientEvolution.call(this)
+  this.version = 2
 }
