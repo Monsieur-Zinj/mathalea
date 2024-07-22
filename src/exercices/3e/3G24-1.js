@@ -24,7 +24,8 @@ export const titre = 'Triangles semblables'
 export const uuid = 'f4b7e'
 export const ref = '3G24-1'
 export const refs = {
-  'fr-fr': ['3G24-1']
+  'fr-fr': ['3G24-1'],
+  'fr-ch': []
 }
 export default class TrianglesSemblables extends Exercice {
   constructor () {

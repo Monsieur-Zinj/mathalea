@@ -40,10 +40,11 @@ export const amcReady = true
  * * Refactoring 21/12/2012
  * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
  */
-// export const uuid = 'db2e0'
-// export const ref = '3L11'
+
+export const uuid = 'ancien3L11AEffacer???'
+
 export const refs = {
-  'fr-fr': ['3L11'],
+  'fr-fr': [],
   'fr-ch': []
 }
 export default function ExerciceDevelopper () {
