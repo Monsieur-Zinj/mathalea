@@ -431,7 +431,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'below' : 'above')
         usedPosition = 'left'
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
-          if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
+          if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -442,7 +442,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'above' : 'below')
         usedPosition = 'left'
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
-          if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
+          if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -455,7 +455,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'below' : 'above')
         usedPosition = 'right'
         if (ordNom < context.fenetreMathalea2d[1] + 1 || ordNom > context.fenetreMathalea2d[3] - 1) {
-          if (debug) console.log('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
+          if (debug) console.info('probl:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[1] + 1) + '<' + ordNom + '<' + (context.fenetreMathalea2d[3] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -468,7 +468,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'left' : 'right')
         usedPosition = 'below'
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
-          if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+          if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -479,7 +479,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'right' : 'left')
         usedPosition = 'below'
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
-          if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+          if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -492,7 +492,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'left' : 'right')
         usedPosition = 'above'
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
-          if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+          if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -503,7 +503,7 @@ export function labelOnLine (droite, nom, options = {}) {
         anchor = (droite.pente > 0 ? 'right' : 'left')
         usedPosition = 'above'
         if (absNom < context.fenetreMathalea2d[0] + 1 || absNom > context.fenetreMathalea2d[2] - 1) {
-          if (debug) console.log('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
+          if (debug) console.info('problème:nom:' + nom + ':position:' + usedPosition + (context.fenetreMathalea2d[0] + 1) + '<' + absNom + '<' + (context.fenetreMathalea2d[2] - 1))
         } else {
           leNom = latexParCoordonneesBox(nom.substr(1, nom.length - 2), absNom, ordNom, options.color, largeur, hauteur, 'white', options.taille, { anchor })
           positions.push({ label: leNom, position: usedPosition, anch: anchor })
@@ -539,7 +539,7 @@ export function labelOnLine (droite, nom, options = {}) {
         // colision deux rectangles
         const XYlabel = [label.x * context.pixelsParCm - label.largeur / 2, label.x * context.pixelsParCm + label.largeur / 2, label.y * context.pixelsParCm - label.hauteur / 2, label.y * context.pixelsParCm + label.hauteur / 2]
         const XYlabel2 = [positions[i].label.x * context.pixelsParCm - positions[i].label.largeur / 2, positions[i].label.x * context.pixelsParCm + positions[i].label.largeur / 2, positions[i].label.y * context.pixelsParCm - positions[i].label.hauteur / 2, positions[i].label.y * context.pixelsParCm + positions[i].label.hauteur / 2]
-        if (debug) console.log('coli:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + ':texte:' + label.texte + ':XYlabel:' + XYlabel[0].toFixed(1) + ',' + XYlabel[1].toFixed(1) + ',' + XYlabel[2].toFixed(1) + ',' + XYlabel[3].toFixed(1) + ':XYlabel2:' + XYlabel2[0].toFixed(1) + ',' + XYlabel2[1].toFixed(1) + ',' + XYlabel2[2].toFixed(1) + ',' + XYlabel2[3].toFixed(1))
+        if (debug) console.info('coli:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + ':texte:' + label.texte + ':XYlabel:' + XYlabel[0].toFixed(1) + ',' + XYlabel[1].toFixed(1) + ',' + XYlabel[2].toFixed(1) + ',' + XYlabel[3].toFixed(1) + ':XYlabel2:' + XYlabel2[0].toFixed(1) + ',' + XYlabel2[1].toFixed(1) + ',' + XYlabel2[2].toFixed(1) + ',' + XYlabel2[3].toFixed(1))
         const colision = (XYlabel[0] < XYlabel2[1]) && (XYlabel[1] > XYlabel2[0]) && (XYlabel[2] < XYlabel2[3]) && (XYlabel[3] > XYlabel2[2])
         // colision deux cercles
         const r0 = Math.max(label.largeur / 2, label.hauteur / 2)
@@ -547,7 +547,7 @@ export function labelOnLine (droite, nom, options = {}) {
         let colision2 = true
         if (dis > r0 + r1 || dis < Math.abs(r0 - r1)) colision2 = false
         coli[j] = [dis, colision]
-        if (debug) console.log('coli:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + 'texte:' + label.texte + ':colision:' + (colision ? '1' : '0') + ':coli_cer:' + (colision2 ? '1' : '0'))
+        if (debug) console.info('coli:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + ':dis:' + dis.toFixed(2) + 'texte:' + label.texte + ':colision:' + (colision ? '1' : '0') + ':coli_cer:' + (colision2 ? '1' : '0'))
       }
       positions[i].colision = coli
     }
@@ -560,7 +560,7 @@ export function labelOnLine (droite, nom, options = {}) {
         found[0] = true
         for (let j = 0; j < options.usedPosition.length; j++) {
           if (positions[i].colision[j][1]) found[0] = false
-          if (debug) console.log('1er:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':colision:' + positions[i].colision[j][1] + ':preferedPosition:' + options.preferedPosition)
+          if (debug) console.info('1er:nom:' + nom + ':position:' + positions[i].position + ':i:' + i + ':j:' + j + ':colision:' + positions[i].colision[j][1] + ':preferedPosition:' + options.preferedPosition)
         }
         found[1] = i
       }
@@ -574,18 +574,18 @@ export function labelOnLine (droite, nom, options = {}) {
       for (let j = 0; j < options.usedPosition.length; j++) {
         if (positions[i].colision[j][0] < dis[0]) {
           dis = [positions[i].colision[j][0], i, j]
-          if (debug) console.log('2e:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + 'dis:' + dis[0].toFixed(2) + ':colision:' + positions[i].colision[j][1])
+          if (debug) console.info('2e:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + ':j:' + j + 'dis:' + dis[0].toFixed(2) + ':colision:' + positions[i].colision[j][1])
         }
       }
       if (dis[0] > disMax[0]) {
         disMax = dis
-        if (debug) console.log('Max 2e:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + 'dis:' + dis[0].toFixed(2))
+        if (debug) console.info('Max 2e:nom:' + nom + ':position:' + positions[i].position + ':anchor:' + positions[i].anch + ':i:' + i + 'dis:' + dis[0].toFixed(2))
       }
     }
     let colision = false
     if (disMax[0] > 0) {
       colision = positions[disMax[1]].colision[disMax[2]][1]
-      if (debug) console.log('Max fin : 2e:nom:' + nom + ':position:' + positions[disMax[1]].position + ':anchor:' + positions[disMax[1]].anch + ':i:' + disMax[1] + ':j:' + disMax[2] + 'disMax:' + disMax[0] + ':colision:' + positions[disMax[1]].colision[disMax[2]][1])
+      if (debug) console.info('Max fin : 2e:nom:' + nom + ':position:' + positions[disMax[1]].position + ':anchor:' + positions[disMax[1]].anch + ':i:' + disMax[1] + ':j:' + disMax[2] + 'disMax:' + disMax[0] + ':colision:' + positions[disMax[1]].colision[disMax[2]][1])
     }
     // 1er : si préférence alors Ok sinon distance la plus loin sans chevauchement sinon la première solution si pas de comparaison sinon la dernière milieu
     leNom = found[0] ? positions[found[1]].label : (disMax[0] > 0 && !colision ? positions[disMax[1]].label : positions[options.usedPosition.length === 0 ? 0 : positions.length - 1].label)

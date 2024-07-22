@@ -64,7 +64,6 @@ export default class BetaEtudeFonction extends Exercice {
     const time = Date.now()
     const { root, iter } = brent(exampleFunction, 1, 10, 1e-13)
     const duree = Date.now() - time
-    console.log(`Racine trouvée : ${root} en ${iter} itérations : f(${root})=${exampleFunction(root)} en ${duree}ms `)
     /*
     const { xMin, xMax, yMin, yMax } = { xMin: -10, xMax: 10, yMin: -10, yMax: 10 } // pour le repère et la courbe
     const repere1 = new Repere({

@@ -17,7 +17,7 @@ import { telechargeFichier } from './download.js'
 import { context } from './context.js'
 import { isLocalStorageAvailable } from '../lib/stores/storage'
 window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
-  console.log(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
+  console.error(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
 }
 // Pour le menu du haut
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -123,7 +123,7 @@ function scriptJsToAnimEtSvg () {
     })
   }).catch(error => {
     // il y a eu un pb
-    console.log(error)
+    console.error(error)
   })
   if (document.getElementById('telecharger')) {
     buttonTelecharger.onclick = function () {
@@ -156,10 +156,10 @@ function display (event) {
       })
     }).catch(error => {
       // il y a eu un pb
-      console.log(error)
+      console.error(error)
     })
   } catch (error) {
-    console.log("Plantage à l'affichage, xml probablement malformé")
+    console.error("Plantage à l'affichage, xml probablement malformé")
     console.error(error)
   }
 }
@@ -171,7 +171,7 @@ function dropHandler (event) {
     const files = event.dataTransfer.files // FileList object.
     if (files && files[0]) {
       const file = files[0]
-      console.log('On récupère le fichier ', file.name)
+      console.error('On récupère le fichier ', file.name)
       if (file.name.substr(-4) === '.xml') {
         const reader = new FileReader()
         reader.onload = function (event) {
@@ -180,12 +180,12 @@ function dropHandler (event) {
         }
         reader.readAsText(file)
       } else {
-        console.log('On ne gère que les fichiers xml')
+        console.error('On ne gère que les fichiers xml')
       }
     }
   } catch (error) {
-    console.log('Plantage à la récupération du fichier')
-    console.log(error)
+    console.error('Plantage à la récupération du fichier')
+    console.error(error)
   }
 }
 

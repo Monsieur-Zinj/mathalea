@@ -108,7 +108,6 @@ export default class TranslationEtCoordonnes extends Exercice {
       const nomi = nomVecteurParPosition('i', 0.5, -0.7, 1.5, 0)
       const nomj = nomVecteurParPosition('j', -0.7, 0.5, 1.5, 0)
       const nomAB = vecteur(A, B).representantNomme(A, "AA'", 1.5, 'red')
-      console.log(vi)
       objets.push(r, traceAetB, labelA, labelB, s, o, k, j, nomi, nomj, nomAB)
       let texte = ''
       let texteCorr = ''

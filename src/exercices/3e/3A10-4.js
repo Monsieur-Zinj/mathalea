@@ -102,10 +102,6 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
         tabMultiplicitesb = choice([[2, 1, 1], [3, 1, 1], [2, 2, 1]]).sort(() => Math.random < 0.5)
       }
 
-      // Sum des multiplicités
-      // const sumMultiplicitesb = tabMultiplicitesb.reduce((a, b) => a * (b + 1), 1)
-      // console.log('sumMultiplicitesb : ' + sumMultiplicitesb)
-
       texte = ''
       let nombreADecomposerb = 1
       for (let k = 0; k < tabRangsb.length; k++) {

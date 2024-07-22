@@ -171,7 +171,6 @@ export default class EtudeFctPoly3 extends Exercice {
               const valX2 = p.x2 instanceof FractionEtendue ? Math.round(p.x2.valeurDecimale * 10) / 10 : Number(p.x2.toFixed(1))
               const texX1 = calculs1[calculs1.length - 1].split('\\approx')[0]
               const texX2 = calculs2[calculs2.length - 1].split('\\approx')[0]
-              console.log(texX1, texX2)
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
               texteCorr += `<br><br>$${p.texCalculRacine1}$`
               texteCorr += `<br><br>$${p.texCalculRacine2}$<br>`

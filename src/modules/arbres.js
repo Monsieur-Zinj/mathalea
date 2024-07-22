@@ -154,7 +154,7 @@ export class Arbre {
         arbre.setTailles()
       }
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return false
     }
     return true

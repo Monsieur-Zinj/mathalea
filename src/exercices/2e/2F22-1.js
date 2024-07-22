@@ -236,8 +236,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
   }
 
   correctionInteractive = (i) => {
-    // 10/10/2023 le console.log() ci-dessous est à décommenter pour enquêter sur ce qui semble être un bug : deux passages dans cette fonction au lieu d'un !
-    // console.log(`passage dans this.correctionInteractive avec la valeur i = ${i}`)
+    // 10/10/2023 le console.info() ci-dessous est à décommenter pour enquêter sur ce qui semble être un bug : deux passages dans cette fonction au lieu d'un !
+    // console.info(`passage dans this.correctionInteractive avec la valeur i = ${i}`)
     let resultat1, resultat2, resultat3
     for (let k = 0; k < 3; k++) {
       const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)

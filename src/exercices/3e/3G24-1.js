@@ -169,8 +169,6 @@ export default class TrianglesSemblables extends Exercice {
         case 3: {
           const ang = randint(160, 200)
           const coeff = (k === 5 ? choice([12, 14]) : k === 6 ? choice([10, 15]) : k === 7 ? 10 : k === 8 ? choice([10, 15]) : k === 12 ? choice([5, 10]) : k === 13 ? 10 : k === 14 ? choice([10, 5]) : k === 15 ? choice([10, 5]) : 10) / 10
-          console.log(ang)
-          console.log('k1:' + k / 10 + ', k2 :' + coeff + ', k2/k1' + (10 * coeff / k))
           p2 = similitude(p1, O2, ang, 10 * coeff / k)
           D = p2.listePoints[0]
           E = p2.listePoints[1]
@@ -283,8 +281,6 @@ export default class TrianglesSemblables extends Exercice {
         case 5: {
           const ang = randint(160, 200)
           const coeff = (k === 5 ? choice([12, 14]) : k === 6 ? choice([10, 15]) : k === 7 ? 10 : k === 8 ? choice([10, 15]) : k === 12 ? choice([5, 10]) : k === 13 ? 10 : k === 14 ? choice([10, 5]) : k === 15 ? choice([10, 5]) : 10) / 10
-          console.log(ang)
-          console.log('k1:' + k / 10 + ', k2 :' + coeff + ', k2/k1' + (10 * coeff / k))
           const sign = choice([-1, 1])
           p2 = similitude(p1, A, 0, sign * 10 * coeff / k)
           D = p2.listePoints[0]
@@ -312,7 +308,6 @@ export default class TrianglesSemblables extends Exercice {
           nom1 = choisitLettresDifferentes(3)
           nom2 = nom1[0] + choisitLettresDifferentes(2, nom1)
           nom2 = nom2.replaceAll(',', '')
-          console.log(nom2)
           Anom = nom1[0]
           Bnom = nom1[1]
           Cnom = nom1[2]

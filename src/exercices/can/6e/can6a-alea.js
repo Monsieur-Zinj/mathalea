@@ -31,7 +31,7 @@ export default function can6eAll () {
   this.debug = false
 
   this.log = function (str) {
-    if (this.debug) console.log(str)
+    if (this.debug) console.info(str)
   }
 
   this.nouvelleVersionWrapper = function () {

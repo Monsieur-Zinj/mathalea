@@ -211,7 +211,7 @@ export default class Exercice {
   nouvelleVersionWrapper = exportedNouvelleVersionWrapper.bind(this as Exercice)
 
   nouvelleVersion (numeroExercice?: number): void {
-    console.log(numeroExercice)
+    console.info(numeroExercice)
   }
 
   reinit = exportedReinit.bind(this as Exercice)

@@ -38,12 +38,12 @@ export default function desTestsPourInteractivité () {
   this.interactifType = interactifType
   this.consigne = 'Pour tester cette expression et QUE celle-là :'
   this.nouvelleVersion = function () {
-    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
-    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
-    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
-    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
-    // console.log(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
-    // console.log(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
+    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
+    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
+    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).toString())
+    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).toString())
+    // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).ops[0].head)
+    // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
     // .isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false }))))
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

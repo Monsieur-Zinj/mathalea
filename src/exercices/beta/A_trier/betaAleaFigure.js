@@ -83,7 +83,7 @@ export default function ExercicesThales () {
         nquestion = this.sup
       }
       if (dDebug) {
-        console.log(`
+        console.info(`
           ********************************
           Exercice ${i + 1} Case ${nquestion}
           ********************************`)

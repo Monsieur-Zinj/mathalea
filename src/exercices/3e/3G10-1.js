@@ -110,12 +110,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
           punto[0] = punto[0].map(e => Number(e)) // supprime les fractions étendues, on revient à la notation décimale
           compteur++
         }
-        /*
-        if (compteur < 20) {
-          // console.log('compteur fin1:' + compteur)
-        } else {
-          continue
-        } */
         A = point(xA, yA, 'A')
         Aprime = point(punto[0][0], punto[0][1], "A'")
 
@@ -145,11 +139,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
           } // si c'est une symétrie, l'axe passe par O'
           compteur++
         }
-        /* if (compteur < 20) {
-          // console.log('compteur fin2:' + compteur)
-        } else {
-          continue
-        } */
 
         B = point(xB, yB, 'B')
         Bprime = point(punto[1][0], punto[1][1], "B'")
@@ -180,7 +169,6 @@ export default function TransformationsDuPlanEtCoordonnees () {
           compteur++
         }
         if (compteur < 20) {
-          // console.log('compteur fin3:' + compteur)
           trouve = true
         } else {
           continue

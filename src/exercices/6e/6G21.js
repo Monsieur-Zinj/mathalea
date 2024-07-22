@@ -163,14 +163,10 @@ export default function ConstruireUnTriangle () {
               const m = Math.sqrt(lAC * lAC * 0.01 / 2 + lBC * lBC * 0.01 / 2 - lAB * lAB * 0.01 / 4)
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.005) {
-                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB + ':d:' + m)
-                // console.log('ok')
                 disSave = dis
                 ok = true
                 break
               } else {
-                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':d:' + m + 'dmin:' + dis[3])
-                // console.log('i:' + i + ':kk:' + kk + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 if (dis[3] < disSave[3]) {
                   disSave = dis
                 }
@@ -223,14 +219,10 @@ export default function ConstruireUnTriangle () {
               const m = Math.sqrt(lAC * lAC * 0.01 / 2 + lBC * lBC * 0.01 / 2 - lAB * lAB * 0.01 / 4)
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.005) {
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB + ':d:' + m)
-                // console.log('ok')
                 disSave = dis
                 ok = true
                 break
               } else {
-                // console.log('i:' + i + ':kk:' + kk + ':d:' + m + 'dmin:' + (m - Math.floor(m * 10) * 0.1))
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 if (dis[3] < disSave[3]) {
                   disSave = dis
                 }
@@ -283,14 +275,10 @@ export default function ConstruireUnTriangle () {
               lAC = Math.sqrt(lBC * lBC - lAB * lAB)
               dis = [lAB, lBC, lAC, lAC - Math.floor(lAC)]
               if (dis[3] < 0.005) {
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB + ':d:' + dis[3])
-                // console.log('ok')
                 disSave = dis
                 ok = true
                 break
               } else {
-                // console.log('i:' + i + ':kk:' + kk + ':d:' + dis[3] + 'dmin:' + disSave[3])
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 if (dis[3] < disSave[3]) {
                   disSave = dis
                 }
@@ -344,14 +332,10 @@ export default function ConstruireUnTriangle () {
               lAC = Math.sqrt(lBC * lBC - lAB * lAB)
               dis = [lAB, lBC, lAC, lAC - Math.floor(lAC)]
               if (dis[3] < 0.005) {
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB + ':d:' + dis[3])
-                // console.log('ok')
                 disSave = dis
                 ok = true
                 break
               } else {
-                // console.log('i:' + i + ':kk:' + kk + ':d:' + dis[3] + 'dmin:' + disSave[3])
-                // console.log('i:' + i + ':kk:' + kk + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 if (dis[3] < disSave[3]) {
                   disSave = dis
                 }
@@ -408,14 +392,10 @@ export default function ConstruireUnTriangle () {
               const m = Math.sqrt(lAC * lAC * 0.01 / 2 + lBC * lBC * 0.01 / 2 - lAB * lAB * 0.01 / 4)
               dis = [lAB, lBC, lAC, m - Math.floor(m * 10) * 0.1]
               if (dis[3] < 0.02) {
-                // console.log('i:' + i + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB + ':d:' + m)
-                // console.log('ok')
                 disSave = dis
                 ok = true
                 break
               } else {
-                // console.log('i:' + i + ':jj:' + jj + ':d:' + m + 'dmin:' + (m - Math.floor(m * 10) * 0.1))
-                // console.log('i:' + i + ':jj:' + jj + ':a:' + lBC + ':b:' + lAC + ':c:' + lAB)
                 if (dis[3] < disSave[3]) {
                   disSave = dis
                 }

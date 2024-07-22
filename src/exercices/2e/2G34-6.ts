@@ -138,7 +138,6 @@ export default class systemeEquationsPremDegComp extends Exercice {
         texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][(valComp + 1) % 2]}=${[solX, solY][(valComp + 1) % 2].texFractionSimplifiee}$. `
         texteCorr = texteCorr + `On subsitue la valeur obtenue pour $${['x', 'y'][(valComp + 1) % 2]}$ dans la première équation pour déterminer la valeur de $${['x', 'y'][valComp]}\\,:$`
         let eqVarElim = eqInt1
-        console.log(['x', 'y'][(valComp + 1) % 2] === 'x')
         if (['x', 'y'][(valComp + 1) % 2] === 'x') {
           listeVar[3] = `${timesIfNotUn(eqVarElim[3])} ${ecritureParentheseSiNegatif(solX)}`
           eqVarElim = addCombLin(eqVarElim, [0, 0, 0, solX.multiplieEntier(eqVarElim[3]).ajouteEntier(-eqVarElim[3]), 0, 0], 1)
@@ -152,7 +151,6 @@ export default class systemeEquationsPremDegComp extends Exercice {
           texteCorr = texteCorr + `\\implies ${eqToLatex(eqVarElim, newListeVar, false)}`
         }
         texteCorr = texteCorr + '\\]'
-        console.log(listeVar)
         texteCorr = texteCorr + `On résout l'équation et on obtient $${['x', 'y'][valComp]}=${[solX, solY][valComp].texFractionSimplifiee}$.`
         texteCorr = texteCorr + ` La solution du système est $${miseEnEvidence(`S=\\left\\{\\left(${solX.texFractionSimplifiee};${solY.texFractionSimplifiee}\\right)\\right\\}`)}$.`
       }

@@ -27,7 +27,7 @@ function remplaceParZero (chaine, place) {
     const fin = chaine.substring(place)
     return debut + '0' + fin
   } catch (error) {
-    console.log(`Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`)
+    console.error(`Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`)
   }
 }
 

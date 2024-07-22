@@ -244,7 +244,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
             eqTemp = addCombLin(eqTemp, vectY, -eqTemp[4])
           }
         } else {
-          console.log('Erreur dans la génération des équations')
+          console.error('Erreur dans la génération des équations')
         }
         return eqTemp
       }
@@ -288,7 +288,7 @@ export default class systemeEquationsPremDegComp extends Exercice {
         }
         coeffSub = eqInt1[coeffSubPos]
       } else {
-        console.log('Erreur dans la génération des équations')
+        console.error('Erreur dans la génération des équations')
       }
       const valIsol = varIsol === 'y' ? solY : solX
       const valPasIsol = varPasIsol === 'y' ? solY : solX

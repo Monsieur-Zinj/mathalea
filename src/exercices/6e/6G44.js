@@ -337,7 +337,6 @@ export default function NombreDeFacesEtDAretes () {
           this.correction = `Le solide est composé d'une pyramide à $${n}$ arêtes latérales et d'un tronc de pyramide<br>qui possède aussi $${n}$ arêtes latérales.<br>Il faut ajouter les $${n}$ arêtes de chacune des bases du tronc de pyramide.<br>Au total, il y a $4\\times ${n}$ arêtes, soit $${4 * n}$ arêtes.`
           break
       }
-      // console.log(choix)
       if (choix % 2 === 1) {
         this.question += '<br>Quel est le nombre de faces de ce solide ?'
       } else {

@@ -93,7 +93,7 @@ export default function EquationsProgression () {
     for (let i = 0, exercice = { texte: '', texteCorr: '' }, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question
       nquestion = this.sup === 'all' ? cpt + 1 : this.sup
       if (ddbug) {
-        console.log(`
+        console.info(`
         ********************************
         Exercice ${i + 1} Case ${nquestion}
         ********************************`)

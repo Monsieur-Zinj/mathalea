@@ -180,7 +180,7 @@
   let debug = false
   function log (str: string) {
     if (debug) {
-      console.log(str)
+      console.info(str)
     }
   }
 
@@ -234,7 +234,7 @@
         window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
       } else if ($globalOptions.recorder === 'capytale') {
         if (buttonScore.dataset.capytaleLoadAnswers === '1') {
-          console.log('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
+          console.info('Les réponses ont été chargées par Capytale donc on ne les renvoie pas à nouveau')
           return
         }
         sendToCapytaleSaveStudentAssignment({ indiceExercice: exerciseIndex })

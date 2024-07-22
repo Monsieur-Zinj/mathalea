@@ -71,7 +71,7 @@ export async function getSvelteComponent (paramsExercice: InterfaceParams) {
       return (await import(`../exercicesInteractifs/${directory === undefined ? '' : `${directory}/`}${filename.replace('.svelte', '')}.svelte`)).default
     }
   } catch (err) {
-    console.log(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
+    console.error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier  ${directory === undefined ? '' : `${directory}/`}${filename}`)
   }
   throw new Error(`Chargement de l'exercice ${paramsExercice.uuid} impossible. Vérifier ${directory === undefined ? '' : `${directory}/`}${filename}`)
 }
@@ -126,8 +126,8 @@ export async function mathaleaLoadSvelteExerciceFromUuid (uuid: string) {
       attempts++
       window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
       if (attempts === maxAttempts) {
-        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-        console.log(error)
+        console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.error(error)
         const exercice = new Exercice()
         exercice.titre = ERROR_MESSAGE
         exercice.nouvelleVersion = () => {
@@ -190,8 +190,8 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
       attempts++
       window.notify(`Un exercice ne s'est pas affiché ${attempts} fois`, {})
       if (attempts === maxAttempts) {
-        console.log(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
-        console.log(error)
+        console.error(`Chargement de l'exercice ${uuid} impossible. Vérifier ${directory}/${filename}`)
+        console.error(error)
         const exercice = new Exercice()
         exercice.titre = ERROR_MESSAGE
         exercice.nouvelleVersion = () => {

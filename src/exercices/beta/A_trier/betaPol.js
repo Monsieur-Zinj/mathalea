@@ -82,7 +82,6 @@ export default class SuperExoMathalea2d extends Exercice {
     // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
 
     const paramsEnonce = Object.assign({}, fixeBordures([diag]), { pixelsParCm: 20, scale: 1, mainlevee: false })
-    console.log(paramsEnonce)
     // paramètres de la fenêtre Mathalea2d pour la correction
     // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
     for (let i = 0; i < 5; i++) {

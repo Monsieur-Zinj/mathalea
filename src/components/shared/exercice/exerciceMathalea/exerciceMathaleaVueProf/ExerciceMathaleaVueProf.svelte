@@ -172,8 +172,8 @@
   function log (str: string) {
     const debug = false
     if (debug) {
-      console.log(exerciseIndex)
-      console.log(str)
+      console.info(exerciseIndex)
+      console.info(str)
     }
   }
 

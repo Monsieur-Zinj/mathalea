@@ -103,7 +103,7 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   await new Promise((resolve) => setTimeout(resolve, 500))
   if (studentAssignment != null) {
     answersFromCapytale = studentAssignment
-    console.log('Réponses à charger', studentAssignment)
+    console.info('Réponses à charger', studentAssignment)
     for (const exercice of studentAssignment) {
       if (exercice == null) continue
       if (exercice != null && exercice.answers != null) {
@@ -121,25 +121,25 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
     await new Promise((resolve) => setTimeout(resolve, 500))
     // On attend 500 ms pour que les champs texte soient bien remplis
     const canOptions = get(canOptionsStore)
-    console.log(studentAssignment)
+    console.info(studentAssignment)
     if (!canOptions.isChoosen) {
-      console.log('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
+      console.info('Maintenant que les réponses sont chargées, clic sur les boutons score', studentAssignment)
       for (const exercice of studentAssignment) {
         if (exercice == null) continue
         // Pour les exercices MathALEA, on clique sur le bouton pour recalculer le score
         const buttonScore = document.querySelector(`#buttonScoreEx${exercice?.indice}`) as HTMLButtonElement
-        console.log('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
+        console.info('Clic sur le bouton score ', `#buttonScoreEx${exercice?.indice}`, buttonScore)
         if (buttonScore !== null) {
           // On note dans le bouton que ce sont les réponses sauvegardées et pas de nouvelles réponses de l'élève
           // Cela évite, en cas de problème de chargement, d'effacer les réponses de l'élève
           buttonScore.dataset.capytaleLoadAnswers = '1'
           buttonScore.click()
         } else {
-          console.log(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
+          console.info(`Bouton score #buttonScoreEx${exercice.indice} non trouvé`)
         }
       }
     } else if (canOptions.isChoosen && (mode === 'review' || workflow !== 'current')) {
-      console.log('On charge les réponses pour le CAN')
+      console.info('On charge les réponses pour le CAN')
       canOptionsStore.update((l) => {
         l.solutionsMode = 'gathered'
         l.state = 'solutions'
@@ -192,10 +192,10 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmen
       // Indique que l'activité est terminée et doit être verrouillée pour l'élève : workflow = 'finished'
       final: get(canOptionsStore).isChoosen && get(globalOptions).oneShot
     }
-    console.log('Message envoyé à Capytale', data)
+    console.info('Message envoyé à Capytale', data)
     const promiseSaveStudentAssignment = rpc.call('saveStudentAssignment', data)
     promiseSaveStudentAssignment.then(() => {
-      console.log('Sauvegarde effectuée')
+      console.info('Sauvegarde effectuée')
       // Afficher sauvegarde réussie
     }).catch(() => {
       console.error('Problème avec la sauvegarde')

@@ -145,7 +145,7 @@ import {
   const debug = false
   function log (str : string) {
     if (debug) {
-      console.log(str)
+      console.info(str)
     }
   }
 

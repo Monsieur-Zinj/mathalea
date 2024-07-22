@@ -202,7 +202,7 @@
     if (answersFromCapytale.length === 0) {
       return
     }
-    console.log('answersFromCapytale', answersFromCapytale)
+    console.info('answersFromCapytale', answersFromCapytale)
     for (const exercise of answersFromCapytale) {
       if (exercise.answers !== undefined) {
         const answersOfExercise : string[] = []

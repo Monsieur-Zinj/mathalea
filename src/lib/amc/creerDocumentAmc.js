@@ -61,7 +61,7 @@ export function exportQcmAmc (exercice, idExo) {
       case 'qcmMono': // question QCM 1 bonne réponse
       case 'qcmMult':
         if (elimineDoublons(autoCorrection[j].propositions)) {
-          console.log('doublons trouvés')
+          console.error('doublons trouvés')
         }
         if (autoCorrection[j].enonce === undefined) {
           autoCorrection[j].enonce = exercice.listeQuestions[j]
@@ -350,7 +350,7 @@ export function exportQcmAmc (exercice, idExo) {
             case 'qcmMono': // qcmMono de Hybride
             case 'qcmMult': // qcmMult de Hybride la différence est juste le nom de l'environnement changé dynamiquement
               if (elimineDoublons(propositions)) {
-                console.log('doublons trouvés')
+                console.info('doublons trouvés')
               }
               if (prop.options !== undefined) {
                 if (prop.options.vertical === undefined) {

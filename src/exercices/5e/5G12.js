@@ -222,7 +222,7 @@ export default function PavageEtDemiTour2D () {
       }
     }
     if (couples.length < this.nbQuestions) {
-      console.log('trop de questions, augmentez la taille du pavage')
+      console.error('trop de questions, augmentez la taille du pavage')
       return
     }
 

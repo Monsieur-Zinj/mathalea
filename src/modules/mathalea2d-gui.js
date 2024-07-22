@@ -26,7 +26,7 @@ initialiseEditeur()
 
 // Liste utilisée quand il n'y a qu'une seule construction sur la page web
 window.notify = function (error, metadatas) { // On écrit la fonction window.notify ici pour éviter les signalements bugsnag... on ne charge plus firstload pour cet éditeur
-  console.log(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
+  console.error(error instanceof Error ? error.message : error, ' avec les métadatas : ', metadatas)
 }
 mathalea.lutin = window.creerLutin()
 

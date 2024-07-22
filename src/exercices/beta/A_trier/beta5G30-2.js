@@ -78,7 +78,7 @@ export default function ExercicesAnglesAIC () {
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question
       nquestion = this.sup === 0 ? cpt + 1 : this.sup
       if (dDebug) {
-        console.log(`
+        console.info(`
           ********************************
           Exercice ${i + 1} Case ${nquestion}
           ********************************`)
@@ -98,7 +98,7 @@ export default function ExercicesAnglesAIC () {
               test: 'O-A>30 and O-B>30'
             }
           )
-          if (dDebug) console.log(param)
+          if (dDebug) console.info(param)
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -169,7 +169,7 @@ export default function ExercicesAnglesAIC () {
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
           )
-          if (dDebug) console.log(param)
+          if (dDebug) console.info(param)
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -315,7 +315,7 @@ export default function ExercicesAnglesAIC () {
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
           )
-          if (dDebug) console.log(param)
+          if (dDebug) console.info(param)
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })

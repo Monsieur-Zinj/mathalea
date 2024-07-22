@@ -127,11 +127,7 @@ export default function VolumeBoule () {
           texteCorr += 'Le volume cherché est environ : ' + texteEnCouleurEtGras(stringNombre(reponse, 1) + ` ${choixUnites}` + texteExposant(3)) + '. <br>'
           break
       }
-      // EE : C'est le setReponse qui renvoie une console rouge.
-      // console.log('DEBUT DU PB')
-      // console.log(i, listeTypeDeQuestions[i], reponse.toNumber(), choixUnites)
       setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
-      // console.log('FIN DU PB')
       texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à préciser l\'unité dans le volume-réponse : ' })
       if (context.isAmc) {
         this.autoCorrection[i] = {

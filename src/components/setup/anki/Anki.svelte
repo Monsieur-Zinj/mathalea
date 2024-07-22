@@ -61,7 +61,7 @@
   // hostname // port
 
   function ankiConnect (action: string, params = {}) {
-    console.log('ankiConnect:', action, '...')
+    console.info('ankiConnect:', action, '...')
     return fetch(ANKI_API_URL, {
       method: 'POST',
       body: JSON.stringify({
@@ -75,7 +75,7 @@
         if (r.error) {
           throw new Error(r.error)
         }
-        console.log('ankiConnect:', action, '... réussi !')
+        console.info('ankiConnect:', action, '... réussi !')
         return r.result
       })
       .catch(e => {

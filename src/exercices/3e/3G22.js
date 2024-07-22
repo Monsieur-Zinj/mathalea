@@ -696,7 +696,6 @@ export default function AgrandissementReduction () {
       const that = this
 
       const listener = function () {
-        // console.log(`listener${numeroExercice}`)
         const div = document.getElementById(`MG32div${numeroExercice}`)
         if (div) {
           document.removeEventListener('exercicesAffiches', listener)
@@ -704,14 +703,10 @@ export default function AgrandissementReduction () {
           if (that.timeoutHandle) {
             clearTimeout(that.timeoutHandle)
             that.timeoutHandle = null
-            // console.log('stop that.timeoutHandle')
           }
 
-          // console.log(`divMtg${numeroExercice}`)
           that.timeoutHandle = setTimeout(async () => {
-            // console.log('start mg32DisplayAll')
             mg32DisplayAll([that])
-            // console.log('end mg32DisplayAll')
           }, 200)
         }
       }
