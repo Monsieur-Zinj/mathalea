@@ -44,6 +44,9 @@ async function readInfos (dirPath, uuidMap, exercicesNonInteractifs, refToUuid, 
         ) {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')
+          if (data.includes('console.log(')) {
+            console.error('\x1b[34m%s\x1b[0m', `console.log trouvé dans ${filePath}`)
+          }
           const matchUuid = data.match(/export const uuid = '(.*)'/)
           infos.url = filePath.replace('src/exercices/', '')
           infos.tags = []
