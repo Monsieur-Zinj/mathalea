@@ -468,8 +468,6 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       isUuidFound = true
       indiceExercice++
       if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
-    } else if (!isUuidFound) {
-      continue
     } else if (entry[0] === 'n') {
       newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
