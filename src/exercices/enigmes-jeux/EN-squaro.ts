@@ -70,6 +70,7 @@ class squaro extends Exercice {
     this.consigne += '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.'
     this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposés.'
     this.interactif = true
+    this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
     this.idApigeom = `apigeomEx${this.numeroExercice}EE`
     this.figure = new Figure({
