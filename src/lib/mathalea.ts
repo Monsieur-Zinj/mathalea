@@ -437,39 +437,23 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let indiceExercice = -1
   const newExercisesParams: InterfaceParams[] = []
   let previousEntryWasUuid = false
-  let isUuidFound = false
   for (const entry of entries) {
     if (entry[0] === 'uuid') {
+      indiceExercice++
       const uuid = entry[1]
       const id = (Object.keys(currentRefToUuid) as (keyof typeof currentRefToUuid)[]).find((key) => {
         return currentRefToUuid[key] === uuid
       })
-      if (id === undefined) {
-        if (isStatic(uuid) || uuid in uuidsRessources) { // currentRefToUuid ne gère pas les exercices statiques donc on vérifie si l'uuid ressemble à un uuid d'exercice statique
-          isUuidFound = true
-          indiceExercice++
-          if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, interactif: '0' }
-          continue
-        }
-        isUuidFound = false
-        continue
-      }
-      isUuidFound = true
-      indiceExercice++
-      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id, interactif: '0' }
+      if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { uuid, id }
+      newExercisesParams[indiceExercice].uuid = uuid // string
+      newExercisesParams[indiceExercice].id = id // string
+      newExercisesParams[indiceExercice].interactif = '0' // par défaut
     } else if (entry[0] === 'id' && !previousEntryWasUuid) {
       // En cas de présence d'un uuid juste avant, on ne tient pas compte de l'id
+      indiceExercice++
       const id = entry[1]
       const uuid = currentRefToUuid[id as keyof typeof currentRefToUuid]
-      if (uuid === undefined) {
-        isUuidFound = false
-        continue
-      }
-      isUuidFound = true
-      indiceExercice++
       if (!newExercisesParams[indiceExercice]) newExercisesParams[indiceExercice] = { id, uuid }
-    } else if (!isUuidFound) {
-      continue
     } else if (entry[0] === 'n') {
       newExercisesParams[indiceExercice].nbQuestions = parseInt(entry[1]) // int
     } else if (entry[0] === 'd') {
