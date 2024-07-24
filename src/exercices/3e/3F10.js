@@ -14,7 +14,6 @@ export const amcType = 'AMCHybride'
 
 /**
  * @author Rémi Angot
- * Référence 3F10
  */
 export const uuid = 'b92da'
 export const ref = '3F10'
@@ -24,9 +23,6 @@ export const refs = {
 }
 export default function ImageAntecedentDepuisTableauOuFleche () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 1
