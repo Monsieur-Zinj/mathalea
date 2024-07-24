@@ -29,7 +29,8 @@ export type OptionsComparaisonType = {
   nombreAvecEspace?: boolean,
   fractionIdentique?: boolean,
   egaliteExpression?: boolean,
-  noUselessParen?: boolean
+  noUselessParen?: boolean,
+  nonReponseAcceptee?: boolean
 }
 export type CompareFunction = (input: string, goodAnswer:string, options: OptionsComparaisonType) => ResultType
 
@@ -427,7 +428,8 @@ export function fonctionComparaison (input: string, goodAnswer:string, {
   texteSansCasse,
   nombreAvecEspace,
   fractionIdentique,
-  egaliteExpression
+  egaliteExpression,
+  nonReponseAcceptee
 }: OptionsComparaisonType
 = {
   expressionsForcementReduites: true,
@@ -446,8 +448,17 @@ export function fonctionComparaison (input: string, goodAnswer:string, {
   texteSansCasse: false,
   nombreAvecEspace: false,
   fractionIdentique: false,
-  egaliteExpression: false
+  egaliteExpression: false,
+  nonReponseAcceptee: false
 }) : ResultType {
+// nonReponseAcceptee = true permet d'avoir des champs vides (on pense aux fillInTheBlank qui peuvent être facultatifs, comme par exemple un facteur 1)
+// si false (valeur par défaut ou si non précisée) alors une réponse vide entraîne isOk = false et un feedback pour notifier l'absence de réponse
+  if (nonReponseAcceptee) {
+    if (input === '' && goodAnswer === '') return { isOk: true }
+    else return { isOk: false, feedback: 'Une réponse doit être saisie' }
+  } else {
+    if (input === '') return { isOk: false, feedback: 'Une réponse doit être saisie' }
+  }
   // ici, on met tous les tests particuliers (HMS, intervalle)
   // if (HMS) return comparaisonExpressions(input, goodAnswer)
   if (HMS) return hmsCompare(input, goodAnswer)
@@ -559,7 +570,19 @@ function expressionDeveloppeeEtReduiteCompare (input: string, goodAnswer:string,
   // Ci-dessous, si on a une comparaison fausse mais que l'expression donnée est mathématiquement correcte, on fait un feedback.
   let feedback = ''
   const substitutions: Substitutions = { a: 2, b: 2, c: 2, x: 2, y: 2, z: 2 } // On peut ajouter d'autres variables si nécessaire
-  const adjectif = goodAnswer.match(/[a-z]/) == null ? 'numérique' : 'littérale'
+  // Ajout d'un test sur goodAnswer pour vérifier la présence de lettres (après avoir retirer les div, times, frac...)
+  const adjectif = goodAnswer
+    .replaceAll('div', '')
+    .replaceAll('times', '')
+    .replaceAll('frac', '')
+    .replaceAll('log', '')
+    .replaceAll('ln', '')
+    .replaceAll('sin', '')
+    .replaceAll('cos', '')
+    .replaceAll('tan', '')
+    .match(/[a-z]/) == null
+    ? 'numérique'
+    : 'littérale'
   if (!saisieParsed.isSame(reponseParsed) && evaluateExpression(goodAnswer, substitutions) === evaluateExpression(input, substitutions)) {
     feedback = expressionsForcementReduites
       ? `L'expression ${adjectif} attendue devrait être développée et réduite or ce n'est pas le cas.`
