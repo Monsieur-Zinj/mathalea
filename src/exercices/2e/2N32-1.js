@@ -4,6 +4,7 @@ import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Justifier l\'existence d\'une racine carrée'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -33,7 +34,7 @@ export default function ExistenceDUneRacineCarree () {
       this.consigne = ' Le nombre proposé existe-t-il ? Justifier.'
     } else {
       this.consigne = `Le nombre proposé existe-t-il ? <br>
-    Répondre par Oui ou Non.`
+    Répondre par Oui (saisir O) ou Non (saisir N).`
     }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -61,13 +62,13 @@ export default function ExistenceDUneRacineCarree () {
           } else {
             texteCorr = corr
           }
-          reponse = ['Oui', 'oui', 'OUI']
+          reponse = 'O'
 
           break
         case 2:
           b = randint(2, 9) * (-1)
           texte = `$\\sqrt{${b}}$`
-          reponse = ['Non', 'non', 'NON']
+          reponse = 'N'
           corr = `$${b}$ est un nombre négatif donc $\\sqrt{${b}}$ n'existe pas. `
           if (this.correctionDetaillee) {
             texteCorr = corrDetail
@@ -80,7 +81,7 @@ export default function ExistenceDUneRacineCarree () {
           c = randint(2, 9) * (-1)
           d = c * c
           texte = `$\\sqrt{\\left(${c}\\right)^{2}}$`
-          reponse = ['Oui', 'oui', 'OUI']
+          reponse = 'O'
           corr = `On a $\\left(${c}\\right)^{2}=\\left(${c}\\right)\\times \\left(${c}\\right)=${d}$. <br>
           Comme $${d}$ est un nombre positf, $\\sqrt{\\left(${c}\\right)^{2}}$ existe.`
           if (this.correctionDetaillee) {
@@ -94,7 +95,7 @@ export default function ExistenceDUneRacineCarree () {
         case 4:
           e = randint(2, 9)
           texte = `$-\\sqrt{${e}}$`
-          reponse = ['Oui', 'oui', 'OUI']
+          reponse = 'O'
           corr = `${e} est un nombre positif donc $-\\sqrt{${e}}$ existe.<br>
           ${texteGras('Remarque')} :   Le signe $-$ étant placé devant le symbole radical, le nombre $-\\sqrt{${e}}$ est donc négatif. `
           if (this.correctionDetaillee) {
@@ -108,7 +109,7 @@ export default function ExistenceDUneRacineCarree () {
           f = randint(2, 9) * (-1)
           g = f * f
           texte = `$\\sqrt{-\\left(${f}\\right)^{2}}$`
-          reponse = ['Non', 'non', 'NON']
+          reponse = 'N'
           corr = `On a $-\\left(${f}\\right)^{2}=-\\left(${f}\\right)\\times \\left(${f}\\right)=-${g}$.<br>
           Comme $-${g}$ est un nombre négatif,   $\\sqrt{-\\left(${f}\\right)^{2}}$ n'existe pas.`
           if (this.correctionDetaillee) {
@@ -121,7 +122,7 @@ export default function ExistenceDUneRacineCarree () {
         case 6:
           h = randint(2, 3)
           texte = `$\\sqrt{${h}-\\pi}$`
-          reponse = ['Non', 'non', 'NON']
+          reponse = 'N'
           corr = `Comme $\\pi>3$ alors $${h}-\\pi$ est un nombre négatif. <br>
           Ainsi, $\\sqrt{${h}-\\pi}$ n'existe pas.`
           if (this.correctionDetaillee) {
@@ -135,7 +136,7 @@ export default function ExistenceDUneRacineCarree () {
         case 7:
           k = randint(4, 8)
           texte = `$\\sqrt{${k}-\\pi}$`
-          reponse = ['Oui', 'oui', 'OUI']
+          reponse = 'O'
           corr = `Comme  $\\pi\\approx 3,14$ alors $${k}-\\pi$  est un nombre positif.<br>
           Ainsi, $\\sqrt{${k}-\\pi}$ existe.`
           if (this.correctionDetaillee) {
@@ -149,7 +150,7 @@ export default function ExistenceDUneRacineCarree () {
         case 8:
           j = randint(2, 12)
           texte = `$\\sqrt{-${j}^{2}}$`
-          reponse = ['Non', 'non', 'NON']
+          reponse = 'N'
           corr = `On a $-${j}^{2}=-${j}\\times ${j}=-${j * j}$. <br>
           Comme $-${j * j}$ est un réel négatif,  $\\sqrt{-${j}^{2}}$ n'existe pas.`
           if (this.correctionDetaillee) {
@@ -162,7 +163,7 @@ export default function ExistenceDUneRacineCarree () {
       }
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.vFON, 'largeur01 inline')
       }
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
