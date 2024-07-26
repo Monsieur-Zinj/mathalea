@@ -1,11 +1,10 @@
 import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
 
@@ -41,10 +40,8 @@ export default class ExpressionsLogX extends Exercice {
     if (this.sup2) this.version = 'ln'
     else this.version = 'log'
     const logString = this.version !== 'ln' ? '\\log' : '\\ln'
-    const a = choice([2, 3, 5])
     const pluriel = this.nbQuestions > 1 ? 's' : ''
     this.consigne = `Soit $x\\gt 0$,exprimer le${pluriel} nombre${pluriel} suivant${pluriel} en fonction de $${logString} x$.`
-    const listeTypeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const [expA, expB, expC] = combinaisonListes(listeExposants, 3)
