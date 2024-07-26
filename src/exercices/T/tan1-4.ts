@@ -63,7 +63,7 @@ export default class EquationsLog extends Exercice {
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
-        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}\\gt 0 \\iff ${rienSi1(a)}x\\gt ${-b} \\iff x${a > 0 ? '\\gt ' : '\\lt '}${fracMoinsBsurA}$<br>`
+        texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}\\gt 0 \\iff ${rienSi1(a)}x\\gt ${-b} \\iff x${a > 0 ? '\\gt ' : '\\lt '}${fracMoinsBsurA}$${a > 0 ? '' : ` (On inverse le signe car on divise chaque membre par $${a}$ qui est négatif)`}.<br>`
         texteCorr += `$\\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
         texteCorr += `${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+$ dans $\\R$, donc pour tout $a$ et $b$ appartentant à $\\R_+$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
         texteCorr += `Ainsi, en mettant à la puissance de $${base}$ :<br>

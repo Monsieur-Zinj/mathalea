@@ -28,15 +28,14 @@ export default class ExpressionsLog extends Exercice {
   constructor () {
     super()
     this.version = 'ln'
-    this.nbQuestions = 5
+    this.nbQuestions = 1
     this.spacingCorr = 3
-    this.sup = '1'
-    this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
+    this.besoinFormulaireCaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de simplification d\'expressions avec des logarithmes'
   }
 
   nouvelleVersion () {
-    if (this.sup2) this.version = 'ln'
+    if (this.sup) this.version = 'ln'
     else this.version = 'log'
     const logString = this.version !== 'ln' ? '\\log' : '\\ln'
 

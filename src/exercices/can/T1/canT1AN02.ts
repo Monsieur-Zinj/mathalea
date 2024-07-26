@@ -1,13 +1,13 @@
-import Exercice from '../Exercice.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
-import { rienSi1 } from '../../lib/outils/ecritures.js'
+import Exercice from '../../Exercice.js'
+import { choice } from '../../../lib/outils/arrayOutils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import { texNombre } from '../../../lib/outils/texNombre.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+import { rienSi1 } from '../../../lib/outils/ecritures.js'
 
 export const titre = 'Calculs avec la fonction logarithme'
 export const dateDePublication = '22/7/2024'
@@ -15,7 +15,7 @@ export const uuid = 'b9c63'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-2'],
+  'fr-fr': ['canT1AN02'],
   'fr-ch': []
 }
 
@@ -29,10 +29,11 @@ export default class CalculsLog extends Exercice {
   constructor () {
     super()
     this.version = 'ln'
-    this.nbQuestions = 5
+    this.nbQuestions = 1
     this.consigne = 'Calculer.'
     this.spacingCorr = 3
-    this.sup = '1'
+    this.sup = '4'
+    this.sup2 = false
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : logarithme(a^n)\n2 : logarithme(1/a^n)\n3 : exponentiation\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.comment = 'Exercice de calculs de logarithmes'
