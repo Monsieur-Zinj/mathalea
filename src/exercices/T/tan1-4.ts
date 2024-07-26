@@ -66,8 +66,12 @@ export default class EquationsLog extends Exercice {
         texteCorr += `$${rienSi1(a)}x${ecritureAlgebrique(b)}\\gt 0 \\iff ${rienSi1(a)}x\\gt ${-b} \\iff x${a > 0 ? '\\gt ' : '\\lt '}${fracMoinsBsurA}$<br>`
         texteCorr += `$\\mathcal{D}_f=${miseEnEvidence(a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`)}$.<br>`
         texteCorr += `${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+$ dans $\\R$, donc pour tout $a$ et $b$ appartentant à $\\R_+$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
-        texteCorr += `Ainsi, $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${n} \\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${base}^{${n}}
-         \\iff ${rienSi1(a)}x=${base}^{${n}}${ecritureAlgebrique(-b)} \\iff x=${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}$`
+        texteCorr += `Ainsi, en mettant à la puissance de $${base}$ :<br>
+        $\\begin{aligned}
+        ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${n} &\\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${base}^{${n}}\\\\
+         &\\iff ${rienSi1(a)}x=${base}^{${n}}${ecritureAlgebrique(-b)}\\\\
+         &\\iff x=${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}
+         \\end{aligned}$`
         domaine = a > 0 ? `\\left]${fracMoinsBsurA};+\\infty\\right[` : `\\left]-\\infty;${fracMoinsBsurA}\\right[`
         solution = `${a > 0 ? '' : '-'}${Math.abs(a) !== 1 ? `\\dfrac{${base}^{${n}}${ecritureAlgebrique(-b)}}{${Math.abs(a)}}` : `${base}^{${n}}${ecritureAlgebrique(a === 1 ? -b : b)}`}`
         intervalle = a > 0 ? [f1, new FractionEtendue(10 ** 15, 1)] : [new FractionEtendue(-(10 ** 15), 1), f1]// une notion relative de \\infty ;-)
@@ -162,14 +166,21 @@ export default class EquationsLog extends Exercice {
           }
         }
         if (domaine !== '\\emptyset') {
-          texteCorr += `<br>${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+$ dans $\\R$, donc pour tout $a$ et $b$ appartentant à $\\R_+$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
-          texteCorr += `Ainsi, $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})= ${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})
-           \\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}`
+          texteCorr += `<br>${numAlpha(1)} Ensuite, la fonction $${logString}$ étant une fonction strictement croissante de $\\R_+$ dans $\\R$, donc pour tout $a$ et $b$ appartenant à $\\R_+$, $a=b \\iff ${logString} a = ${logString} b$.<br>`
+          texteCorr += `Ainsi, En mettant à la puissance de $${base}$ :<br>$
+          \\begin{aligned} 
+          ${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})&\\iff ${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}\\\\`
           const fracSolution = new FractionEtendue(d - b, a - c).simplifie()
           if (a > c) { // a>c : on ramène dans le premier membre.
-            texteCorr += `\\iff ${rienSi1(a)}x{${ecritureAlgebriqueSauf1(-c)}x=${d}${ecritureAlgebrique(-b)}}\\iff ${rienSi1(a - c)}x=${d - b}\\iff x=${fracSolution.texFSD}$`
+            texteCorr += `&\\iff ${rienSi1(a)}x{${ecritureAlgebriqueSauf1(-c)}x=${d}${ecritureAlgebrique(-b)}}\\\\
+            &\\iff ${rienSi1(a - c)}x=${d - b}\\\\
+            &\\iff x=${fracSolution.texFSD}
+            \\end{aligned}$`
           } else { // c>a, on ramène dans le deuxième membre
-            texteCorr += `\\iff ${b}${ecritureAlgebrique(-d)}}=${rienSi1(c)}x{${ecritureAlgebriqueSauf1(-a)}x\\iff ${b - d}=${rienSi1(c - a)}x\\iff x=${fracSolution.texFSD}$`
+            texteCorr += `&\\iff ${b}${ecritureAlgebrique(-d)}=${rienSi1(c)}x${ecritureAlgebriqueSauf1(-a)}x\\\\
+            &\\iff ${b - d}=${rienSi1(c - a)}x\\\\
+            &\\iff x=${fracSolution.texFSD}
+            \\end{aligned}$`
           }
           if (fracSolution.superieurstrict(intervalle[0]) && fracSolution.inferieurstrict(intervalle[1])) {
             texteCorr += `<br>$${fracSolution.texFSD}\\in ${domaine}$ donc l'équation admet $${fracSolution.texFSD}$ comme solution unique.`

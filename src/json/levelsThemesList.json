@@ -167,6 +167,9 @@
   "canExC": {
     "titre": "Nombres complexes"
   },
+  "canT": {
+    "titre": "Analyse"
+  },
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },

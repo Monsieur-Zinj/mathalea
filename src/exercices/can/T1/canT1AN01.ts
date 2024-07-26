@@ -1,12 +1,12 @@
-import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
-import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
-import FractionEtendue from '../../modules/FractionEtendue.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Exercice from '../../Exercice.js'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
+import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+import FractionEtendue from '../../../modules/FractionEtendue.js'
+import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 
 export const titre = 'Exprimer en fonction de log(n) ou ln(n)'
 export const dateDePublication = '22/7/2024'
@@ -14,14 +14,14 @@ export const uuid = 'ae1a7'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-3'],
+  'fr-fr': ['canT1AN01'],
   'fr-ch': []
 }
 
 /**
  * Exprimer un nombre en fonction de ln(2), ln(3), ln(5)...
  * @autor  Jean-Claude Lhote
- * Référence TAN1-3
+ * Référence canT1AN01
  */
 export default class ExpressionsLog extends Exercice {
   version: string
@@ -39,11 +39,12 @@ export default class ExpressionsLog extends Exercice {
     if (this.sup2) this.version = 'ln'
     else this.version = 'log'
     const logString = this.version !== 'ln' ? '\\log' : '\\ln'
-    const a = choice([2, 3, 5])
-    this.consigne = `Exprimer les nombres suivants en fonction de ${logString} ${a}.`
-    const listeTypeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
 
+    this.consigne = ''
+    const listeTypeQuestions = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
+    const listeDeA = combinaisonListes([2, 3, 5], this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const a = listeDeA[i]
       let texte:string
       let texteCorr: string
       let answer: string
@@ -100,7 +101,7 @@ export default class ExpressionsLog extends Exercice {
       texteCorr = chunks.join('=')
       // et voilà, c'est fait pour toute les corrections.
       if (this.questionJamaisPosee(i, n, listeTypeQuestions[i], k instanceof FractionEtendue ? k.texFraction : k)) {
-        texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        texte = `Exprimer en fonction de $${logString} ${a}$ le nombre suivant  : ` + `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
           texte += ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore' + KeyboardType.logPuissance, { texteAvant: '=' }) + ajouteFeedback(this, i)
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
