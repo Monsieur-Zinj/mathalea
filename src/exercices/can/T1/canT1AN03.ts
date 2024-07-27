@@ -117,7 +117,7 @@ export default class ExerciceCalculsDeLog extends Exercice {
         // demander à Eric Elter pourquoi la comparaison d'intervalles ne fonctionne pas.
         handleAnswers(this, i, { reponse: { value: `${crochetG} ${borneG} ; ${borneD} ${crochetD}`, compare: fonctionComparaison, options: { intervalle: true } } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
       }
       if (this.questionJamaisPosee(i, a, b, listeOperators[i])) {
         this.listeQuestions.push(texte)
