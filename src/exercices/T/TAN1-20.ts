@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = 'debc6'
 export const refs = {
-  'fr-fr': [],
+  'fr-fr': ['TAN1-20'],
   'fr-ch': []
 }
 export const dateDePublication = '16/06/2024'
@@ -38,7 +38,7 @@ class EquaDiffs extends Exercice {
     // initialise les propriété exportée de l'exo comme this.autoCorrection, this.listeQuestions...
     this.reinit()
     // on récupère la liste des valeurs saisies dans le formulaire
-    const listeTypeDeQuestion: string[] = gestionnaireFormulaireTexte({
+    const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
@@ -132,7 +132,7 @@ class EquaDiffs extends Exercice {
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
           texte += ajouteChampTexteMathLive(this, i, 'largeur10 nospacebefore', { texteAvant: '$y=$ ' })
-          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { fonction: true } } })
+          handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

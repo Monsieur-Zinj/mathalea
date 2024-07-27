@@ -154,7 +154,7 @@ export default class CalculsLog extends Exercice {
       if (this.questionJamaisPosee(i, n, listeTypeQuestions[i])) {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore' + KeyboardType.logPuissance, { texteAvant: '=' }) + ajouteFeedback(this, i)
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.logPuissance, { texteAvant: '=' }) + ajouteFeedback(this, i)
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)
