@@ -934,6 +934,9 @@
   "TAN1": {
     "titre": "Analyse"
   },
+  "TC1": {
+    "titre": "Calculs"
+  },
   "ExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}
