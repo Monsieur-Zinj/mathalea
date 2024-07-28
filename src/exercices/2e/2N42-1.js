@@ -315,7 +315,7 @@ $\\begin{aligned}
         case 3:
           nomVariables = [
             shuffle(['a', 'b', 'c', 'e', 'f']), shuffle(['x', 'y', 'z', 'w', 'v']), shuffle(['u', 'v', 'w', 't', 'r']), shuffle(['A', 'B', 'C', 'E', 'F']),
-            shuffle(['R', 'S', 'T', 'U', 'V']), shuffle(['I', 'J', 'K', 'L', 'M']), shuffle(['c', 'g', 'e', 'f', 'g']),
+            shuffle(['R', 'S', 'T', 'U', 'V']), shuffle(['I', 'J', 'K', 'L', 'M']), shuffle(['c', 'g', 'e', 'f', 'h']),
             shuffle(['c', 'm', 'f', 'e', 'a']), shuffle(['K', 'L', 'M', 'N', 'P']), shuffle(['r', 's', 't', 'u', 'a']), shuffle(['U', 'V', 'W', 'X', 'R'])
           ]
           nomV = choice(nomVariables)
