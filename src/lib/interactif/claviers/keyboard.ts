@@ -1,6 +1,5 @@
 import type { MathfieldElement } from 'mathlive'
 import type { BlockForKeyboard } from '../../../components/keyboard/types/keyboardContent'
-import type { numbersOperations } from '../../../components/keyboard/layouts/keysBlocks'
 
 const KEYBOARD_CATEGORIES = [
   'clavierHms',
@@ -171,14 +170,14 @@ export const buildDataKeyboardFromStyle = (
         }
       }
     }
-    if (blocks.length !== 0) {
-      const blks = blocks.filter((element, index, array) => {
-        return array.indexOf(element) === index
-      })
-      return blks
-    }
-    return ['numbers', 'fullOperations', 'variables']
   }
+  if (blocks.length !== 0) {
+    const blks = blocks.filter((element, index, array) => {
+      return array.indexOf(element) === index
+    })
+    return blks
+  }
+  return ['numbers', 'fullOperations', 'variables']
 }
 
 type Shortcut = {
