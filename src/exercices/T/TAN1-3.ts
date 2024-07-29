@@ -49,6 +49,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       const A = { base: choice([2, 3, 5]), exp: randint(2, 9) }
       const B = { base: choice([2, 3, 5], [A.base]), exp: randint(2, 9, [A.exp]) }
       const exprime = (A: {base: number, exp: number}) => `${A.base}^${A.exp}`
+      const intro = `Exprimer en fonction de $${logString} ${A.base}$ et $${logString} ${B.base}$ le nombre suivant :<br>`
       let texte: string
       let texteCorr: string
       const signe = listeTypeQuestions[i] === 1 ? '+' : '-'
@@ -69,11 +70,10 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
         texteCorr += `$\\begin{aligned}${texte}&=${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)\\\\`
         texteCorr += `&=${miseEnEvidence(`${A.exp}${logString} ${A.base}${signe}${B.exp}${logString} ${B.base}`)}`
       }
-      texte = `$${texte}$`
+      texte = `${intro}$${texte}$`
       texteCorr += '\n\\end{aligned}$'
       const answer = `${A.exp}${logString}(${A.base})${signe}${B.exp}${logString}(${B.base})`
       if (this.interactif) {
-        // demander à Eric Elter pourquoi la comparaison d'intervalles ne fonctionne pas.
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
