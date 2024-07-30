@@ -22,7 +22,7 @@ export const refs = {
 /**
  * Réduire une expression en fonction de ln/log de x
  * @autor  Jean-Claude Lhote
- * Référence TAN1-5
+ * Référence TF1-0
  */
 export default class DomaineDefFnLog extends Exercice {
   version: string
@@ -35,7 +35,7 @@ export default class DomaineDefFnLog extends Exercice {
     this.sup2 = true
     this.besoinFormulaireTexte = ['Type de fonction dans le logarithme (nombres séparés par des tirets)', '1 : Fonction affine\n2 : Fonction homographique\n3 : Polynome de degré 2\n4 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', true]
-    this.comment = 'Exercice de simplification d\'expressions avec des logarithmes'
+    this.comment = 'Domaines de définition de fonctions logarithmes'
   }
 
   nouvelleVersion () {
