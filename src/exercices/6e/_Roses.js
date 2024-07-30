@@ -130,7 +130,7 @@ export class Rose {
             return a + b // math.add(a, b)
           }
         } else {
-          return calculer(`${a.toString()}+${b.toString()}`, null).printResult
+          return calculer(`${String(a).replace('\\times', '*')}+${String(b).replace('\\times', '*')}`, null).printResult
         }
       case 'multiplication':
         if (this.typeDonnees !== 'litteraux') {
@@ -140,7 +140,7 @@ export class Rose {
             return a * b
           }
         } else {
-          return calculer(`(${String(a)}) * (${String(b)})`, null).printResult
+          return calculer(`(${String(a).replace('\\times', '*')}) * (${String(b).replace('\\times', '*')})`, null).printResult
         }
     }
   }
