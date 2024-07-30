@@ -8,6 +8,7 @@ import { ecritureParentheseSiNegatif, reduireAxPlusB, reduirePolynomeDegre3, rie
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
+import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 
 export const titre = 'Domaine de définition d\'une fonction logarithme'
 export const dateDePublication = '22/7/2024'
@@ -117,11 +118,20 @@ export default class DomaineDefFnLog extends Exercice {
           break
         default: // polynôme degré 2
         {
-          a = randint(-3, 3, 0)
-          b = randint(-9, 9, [0, a, -a])
-          c = randint(-3, 3, [a, 0])
-          d = randint(-9, 9, [0, c, -c])
-          if (choice([true, false])) {
+          if (choice([true, true, true, false])) { // On provoque une racine double : -d/c = -b/a
+            if (choice([true, true, false])) {
+              a = randint(-3, 3, 0)
+              b = randint(-9, 9, [0, a, -a])
+              c = randint(-3, 3, [a, 0])
+              d = randint(-9, 9, [0, c, -c])
+            } else {
+              a = randint(-3, 3, 0)
+              b = a * choice([2, 3, 5]) * choice([-1, 1])
+              c = choice([-3, -2, 2, 3])
+              d = b * c
+              c = a * c
+            }
+
             // une fois sur 2 on est certain d'avoir des racines (pouvant être doubles)
             frac1 = -b / a < -d / c ? new FractionEtendue(-b, a).simplifie() : new FractionEtendue(-d, c).simplifie()
             frac2 = -d / c > -b / a ? new FractionEtendue(-d, c).simplifie() : new FractionEtendue(-b, a).simplifie()
@@ -136,66 +146,101 @@ export default class DomaineDefFnLog extends Exercice {
             correction += `$${fonction}$ est un polynome de degré 2, calculons son discriminant : <br>`
             correction += `$\\Delta=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}`
 
-            if (de > 0) { // deux racines, le polynome est positif entre les deux racines : frac1 et frac2
+            if (de > 0) { // deux racines, le polynome est du signe de -a entre les deux racines : frac1 et frac2
               correction += `\\quad x_1=\\dfrac{${-b}-\\sqrt{${de}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${a > 0 ? frac1.texFractionSimplifiee : frac2.texFractionSimplifiee}$ et $x_2=\\dfrac{${-b}+\\sqrt{${de}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${a < 0 ? frac1.texFractionSimplifiee : frac2.texFractionSimplifiee}$.<br>`
               correction += `Le discriminant est positif, donc $${fonction}$ s'annule en $${frac1.texFractionSimplifiee}$ et en $${frac2.texFractionSimplifiee}$.<br>`
               if (a > 0) { // a>0 donc positif puis négatif puis positif
+                correction += tableauDeVariation({
+                  tabInit: [
+                    [
+                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], [`$${fonction}$`, 2, 50]],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${frac1.texFractionSimplifiee}$`, 20, `$${frac2.texFractionSimplifiee}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 8, // taille de la première colonne en cm
+                  hauteurLignes: [12, 15]
+                })
                 correction += `le coefficient de $x^2$ étant positif, $${fonction}\\leq 0$ pour $x\\in \\left[${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right]$.<br>`
                 answer = `\\left]-\\infty;${frac1.texFractionSimplifiee}\\right[\\cup\\left]${frac2.texFractionSimplifiee};+\\infty\\right[`
               } else { // a<0 donc positif entre les racines.
+                correction += tableauDeVariation({
+                  tabInit: [
+                    [
+                    // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                      ['$x$', 2, 30], [`$${fonction}$`, 2, 50]],
+                    // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                    ['$-\\infty$', 30, `$${frac1.texFractionSimplifiee}$`, 20, `$${frac2.texFractionSimplifiee}$`, 20, '$+\\infty$', 30]
+                  ],
+                  // tabLines ci-dessous contient les autres lignes du tableau.
+                  tabLines: [['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]],
+                  colorBackground: '',
+                  espcl: 3.5, // taille en cm entre deux antécédents
+                  deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                  lgt: 8, // taille de la première colonne en cm
+                  hauteurLignes: [12, 15]
+                })
                 correction += `le coefficient de $x^2$ étant négatif, $${fonction}\\gt 0$ pour $x\\in \\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[$.<br>`
                 answer = `\\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[`
               }
             } else { // une racine double
+              correction += `\\quad x_1=x_2=\\dfrac{${-b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${frac1.texFractionSimplifiee}$.<br>` + tableauDeVariation({
+                tabInit: [
+                  [
+                  // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                    ['$x$', 2, 30], [`$${fonction}$`, 2, 50]],
+                  // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                  ['$-\\infty$', 30, `$${frac1.texFractionSimplifiee}$`, 20, '$+\\infty$', 30]
+                ],
+                // tabLines ci-dessous contient les autres lignes du tableau.
+                tabLines: [['Line', 30, '', 0, `${a > 0 ? '+' : '-'}`, 20, 'z', 20, `${a > 0 ? '+' : '-'}`, 20]],
+                colorBackground: '',
+                espcl: 3.5, // taille en cm entre deux antécédents
+                deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+                lgt: 8, // taille de la première colonne en cm
+                hauteurLignes: [12, 15]
+              })
               correction += `Le discriminant est null, donc $${fonction}$ s'annule en $${frac1.texFractionSimplifiee}$ et est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
               answer = a > 0
                 ? `\\R\\backslash{\\{${frac1.texFractionSimplifiee}\\}}`
                 : '\\emptyset'
             }
-          } else {
-            // On conserve les a, b et c choisis aléatoirement
+          } else { // on veut un Delta négatif.
+            do {
+              a = randint(-3, 3, 0)
+              b = randint(-9, 9, [0, a, -a])
+              c = randint(-3, 3, [a, 0])
+              d = randint(-9, 9, [0, c, -c])
+              de = b * b - 4 * a * c
+            } while (de >= 0)
             fonction = reduirePolynomeDegre3(0, a, b, c)
-            de = b * b - 4 * a * c
             correction += `$${fonction}$ est un polynome de degré 2, calculons son discriminant : <br>`
             correction += `$\\Delta=${ecritureParentheseSiNegatif(b)}^2-4\\times ${ecritureParentheseSiNegatif(a)}\\times ${ecritureParentheseSiNegatif(c)}=${b * b - 4 * a * c}`
-            if (de < 0) {
-              correction += `$.<br>Le discriminant est négatif, donc $${fonction}$ est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
-              answer = a > 0
-                ? '\\R'
-                : '\\emptyset'
-            } else if (de === 0) {
-              frac1 = new FractionEtendue(-b, 2 * a).simplifie()
-              correction += `\\quad x_1=x_2=\\dfrac{${-b}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${frac1.texFractionSimplifiee}$.<br>`
-              // racine double : -b/2a
-              correction += `Le discriminant est nul, donc $${fonction}$ s'annule en $${frac1.texFractionSimplifiee}$ et pour tout $x\\neq ${frac1.texFractionSimplifiee}$ est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
-              answer = answer = a > 0
-                ? `\\R\\backslash{\\{${frac1.texFractionSimplifiee}\\}}`
-                : '\\emptyset'
-            } else { // deux racines (-b-delta)/2a et (-b+delta)/2a
-              let borneG: string
-              let borneD: string
-              if (Math.sqrt(de) === Math.round(Math.sqrt(de))) {
-                borneG = a > 0
-                  ? `${new FractionEtendue(-b - Math.sqrt(de), 2 * a).simplifie().texFSD}`
-                  : `${new FractionEtendue(b - Math.sqrt(de), -2 * a).simplifie().texFSD}`
-                borneD = a > 0
-                  ? `${new FractionEtendue(-b + Math.sqrt(de), 2 * a).simplifie().texFSD}`
-                  : `${new FractionEtendue(b + Math.sqrt(de), -2 * a).simplifie().texFSD}`
-              } else {
-                borneG = a > 0
-                  ? `\\dfrac{${-b}-\\sqrt{${de}}}{${2 * a}}`
-                  : `\\dfrac{${b}-\\sqrt{${de}}}{${-2 * a}}`
-                borneD = a > 0
-                  ? `\\dfrac{${-b}+\\sqrt{${de}}}{${2 * a}}`
-                  : `\\dfrac{${b}+\\sqrt{${de}}}{${-2 * a}}`
-              }
-              correction += `\\quad x_1=\\dfrac{${-b}-\\sqrt{${de}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${a > 0 ? borneG : borneD}$ et $x_2=\\dfrac{${-b}+\\sqrt{${de}}}{2\\times ${ecritureParentheseSiNegatif(a)}}=${a < 0 ? borneG : borneD}$.<br>`
-              correction += `Le discriminant est positif, donc $${fonction}$ s'annule en $${a > 0 ? borneG : borneD}$ et en $${a > 0 ? borneD : borneG}$
-               et est du signe contraire de son coefficient de dégré $2$ entre les racines, soit ${a < 0 ? 'positif' : 'négatif'} et est ${a > 0 ? 'positif' : 'négatif'} à l'extérieur des racines.<br>`
-              answer = answer = a < 0
-                ? `\\left]${borneG};${borneD}\\right[`
-                : `\\left]-\\infty;${borneG}\\right[\\cup\\left]${borneD};+\\infty\\right[`
-            }
+            correction += `$.<br>Le discriminant est négatif, donc $${fonction}$ est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
+            correction += tableauDeVariation({
+              tabInit: [
+                [
+                // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                  ['$x$', 2, 30], [`$${fonction}$`, 2, 50]],
+                // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+                ['$-\\infty$', 30, '$+\\infty$', 30]
+              ],
+              // tabLines ci-dessous contient les autres lignes du tableau.
+              tabLines: [['Line', 30, '', 0, `${a > 0 ? '+' : '-'}`, 20]],
+              colorBackground: '',
+              espcl: 3.5, // taille en cm entre deux antécédents
+              deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+              lgt: 8, // taille de la première colonne en cm
+              hauteurLignes: [12, 15]
+            })
+            answer = a > 0
+              ? '\\R'
+              : '\\emptyset'
           }
         }
       }
