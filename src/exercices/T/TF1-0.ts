@@ -199,13 +199,13 @@ export default class DomaineDefFnLog extends Exercice {
           }
         }
       }
-      texte += `${logString}\\left(${fonction}\\right)$`
+      texte += `${logString}\\left(${fonction}\\right)$<br>`
       texteCorr = `La fonction $${logString}$ est défine sur $\\R_+^*$, donc $x$ doit vérifier $${fonction}>0$<br>`
       correction += `Donc $\\mathcal{D}_{f_${i}}=${miseEnEvidence(answer)}$`
       texteCorr += correction
       if (this.questionJamaisPosee(i, a, b, c, d)) {
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur10' + KeyboardType.clavierEnsemble) + ajouteFeedback(this, i)
+          texte += ajouteChampTexteMathLive(this, i, `${KeyboardType.clavierEnsemble}`) + ajouteFeedback(this, i)
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
         }
         this.listeQuestions.push(texte)
