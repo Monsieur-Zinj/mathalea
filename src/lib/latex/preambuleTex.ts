@@ -143,7 +143,7 @@ export const logPDF = (str: string) => {
 }
 
 export function loadProfCollegeIfNeed (contents: contentsType) {
-  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', 'begin{Scratch}', 'begin{Tableur}'], '\\usepackage{ProfCollege}', contents)
+  testIfLoaded(['\\Engrenages[', '\\Propor[', '\\Fraction[', '\\Reperage[', '\\Pythagore', '\\Prix', '\\SquarO[', 'begin{Scratch}', 'begin{Tableur}'], '\\usepackage{ProfCollege}', contents)
 }
 
 function testIfLoaded (values : string[], valueToPut : string, contents: contentsType, display? : string) {
@@ -263,6 +263,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
   testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
   testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
+  testIfLoaded(['\\SquarO['], squareO(), contents)
   testIfLoaded(['\\con{'], '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}', contents)
   testIfLoaded(['\\Coord'], `\\newcommand*{\\Coord}[4]{% 
 \\ensuremath{\\vect{#1}\\, 
@@ -387,5 +388,140 @@ Je refuse de décomposer zéro.
 \\box2}%
 \\fi
 \\endgroup
+}`
+}
+
+
+function squareO() {
+  return `%%%
+  % Squaro
+  %%% 
+  
+  \\setKVdefault[Squaro]{Solution=false,Longueur=8,Largeur=8,Echelle=8mm,Graines=false,Perso=false} 
+  \\defKV[Squaro]{Graine=\setKV[Squaro]{Graines}}%
+  
+  
+  \\RenewDocumentCommand\SquarO{o m}{%
+    \\useKVdefault[Squaro]%
+    \\setKV[Squaro]{#1}%
+    \\BuildSquaro[#2]%
+  }%
+  
+  \\def\\BuildSquarobase{%
+    numeric Longueur,Largeur;
+    Longueur=\\useKV[Squaro]{Longueur};
+    Largeur=\\useKV[Squaro]{Largeur};
+    boolean Solution,Graines,Perso;
+    Solution=\\useKV[Squaro]{Solution};
+    Graines=\\useKV[Squaro]{Graines};
+    Perso=\\useKV[Squaro]{Perso};
+    if Graines:
+      randomseed:=\\useKV[Squaro]{Graine};
+    fi;
+    u:=\\useKV[Squaro]{Echelle};
+    p:=0;
+    pair A[];%centre des carrés.
+    boolean Allume[][];
+  }
+  
+  \\RenewDocumentCommand\\BuildSquaro{o}{%
+    \\ifluatex
+    \\mplibforcehmode
+    \\begin{mplibcode}  
+      \\BuildSquarobase
+      
+    % Construction de la grille    
+      for k=0 upto Longueur-1:
+        for l=0 upto Largeur-1:
+          p:=p+1;
+          A[p]=u*(k,-l);
+          trace (unitsquare scaled u) shifted A[p];
+        endfor;
+      endfor;
+  
+      % Tracé des cercles vides (ou pleins si Solution)
+      if Perso :
+      string GrillePers;  
+        GrillePers := "#1";
+        string valeur;
+        numeric indice;
+        indice=0;
+      for k=0 upto Largeur:
+          for l=0 upto Longueur:
+            valeur := substring(indice,indice+1) of GrillePers;
+            if valeur="1":
+              Allume[k][l]=false;
+              fill cercles(u*(l,-k+1),1mm) withcolor white;
+            else :
+              Allume[k][l]=true;
+              fill cercles(u*(l,-k+1),1mm) if Solution=false:withcolor white fi;
+            fi;
+            trace cercles(u*(l,-k+1),1mm);
+            indice := indice + 2; % A cause de la virgule
+        endfor;
+      endfor;
+    else :
+      for k=0 upto Largeur:
+          for l=0 upto Longueur:
+             m:=uniformdeviate(1);
+            if m<0.5:
+              Allume[k][l]=true;
+              fill cercles(u*(l,-k+1),1mm) if Solution=false:withcolor white fi;
+            else:
+              Allume[k][l]=false;
+              fill cercles(u*(l,-k+1),1mm) withcolor white;
+            fi;
+            trace cercles(u*(l,-k+1),1mm);
+          endfor;
+        endfor;
+      fi;
+      
+    % Placement des chiffres dans les cases
+      for k=0 upto Largeur-1:
+      for l=0 upto Longueur-1:
+      Retiens:=0;
+      if Allume[k][l]:Retiens:=Retiens+1 fi;
+      if Allume[k][l+1]:Retiens:=Retiens+1 fi;
+      if Allume[k+1][l]:Retiens:=Retiens+1 fi;
+      if Allume[k+1][l+1]:Retiens:=Retiens+1 fi;
+      label(TEX(decimal(Retiens)),u*(l+0.5,-k+0.5));
+      endfor;
+      endfor;
+    \\end{mplibcode}
+    \\else
+    \\begin{mpost}[mpsettings={\\BuildSquarobase}]
+      for k=0 upto Longueur-1:
+      for l=0 upto Largeur-1:
+      p:=p+1;
+      A[p]=u*(k,-l);
+      trace (unitsquare scaled u) shifted A[p];
+      endfor;
+      endfor;
+      for k=0 upto Largeur:
+      for l=0 upto Longueur:
+      m:=uniformdeviate(1);
+      if m<0.5:
+      Allume[k][l]=true;
+      fill cercles(u*(l,-k+1),1mm) if Solution=false:withcolor white fi;
+      else:
+      Allume[k][l]=false;
+      fill cercles(u*(l,-k+1),1mm) withcolor white;
+      fi;
+      trace cercles(u*(l,-k+1),1mm);
+      endfor;
+      endfor;
+      for k=0 upto Largeur-1:
+      for l=0 upto Longueur-1:
+      Retiens:=0;
+      if Allume[k][l]:Retiens:=Retiens+1 fi;
+      if Allume[k][l+1]:Retiens:=Retiens+1 fi;
+      if Allume[k+1][l]:Retiens:=Retiens+1 fi;
+      if Allume[k+1][l+1]:Retiens:=Retiens+1 fi;
+      label(LATEX(decimal(Retiens)),u*(l+0.5,-k+0.5));
+      endfor;
+      endfor;
+    \\end{mpost}
+   \\fi
+  }%
 }`
 }
