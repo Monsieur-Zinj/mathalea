@@ -361,7 +361,7 @@ export function toTex (node: MathNode|string, params:{suppr1?: boolean, suppr0?:
     nodeTex = nodeTex.replaceAll('\\mathrm', '')
     // Exclure les ~
     nodeTex = nodeTex.replaceAll('~', '')
-    if (node instanceof ConstantNode && node.value === undefined) nodeTex = ''
+    if (typeof node !== 'string' && node.isConstantNode && node.value === undefined) nodeTex = ''
     return nodeTex
   }
 }
@@ -1139,7 +1139,7 @@ export function programmeCalcul (stepProg = ['+', '-', '*', '/', '^2', '2*x', '3
     phrases.push(debutPhrase + stepPrint)
     phrasesInv.push(debutPhraseInv + stepPrint)
     if (i === variables.symbolsOp.length) {
-      steps.push(toTex(nodes[i], { suppr1: false }, debug))
+      steps.push(toTex(nodes[i], { suppr1: true }, debug))
       stepsSimplified.push(toTex(nodeSimplifie, { suppr1: false }, debug))
       stepsInv.push(toTex(nodesInv[i - 1], { suppr1: false }, debug))
       stepsSimplifiedInv.push(toTex(nodeSimplifie, { suppr1: false }, debug))
