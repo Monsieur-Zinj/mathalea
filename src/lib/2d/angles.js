@@ -186,15 +186,23 @@ export function angle (A, O, B, precision = 2) {
   const OA = longueur(O, A, precision)
   const OB = longueur(O, B, precision)
   const AB = longueur(A, B, precision)
-  const v = vecteur(O, A)
-  const w = vecteur(O, B)
-  if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
-    if (v.x * w.x > 0) return 0
-    else if (v.x * w.x < 0) return 180
-    else if (v.y * w.y > 0) return 0
-    else return 180
+  if (OA > 0 && OB > 0) {
+    const v = vecteur(O, A)
+    const w = vecteur(O, B)
+    if (egal(v.x * w.y - v.y * w.x, 0)) { // vecteurs colinéaires à epsilon près pour éviter les effets de bords dus aux flottants.
+      if (v.x * w.x > 0) return 0
+      else if (v.x * w.x < 0) return 180
+      else if (v.y * w.y > 0) return 0
+      else return 180
+    } else {
+      let cos = (AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB)
+      if (cos < -1) cos = -1
+      if (cos > 1) cos = 1
+      const alpha = Math.acos(cos)
+      return arrondi(alpha * 180 / Math.PI, precision)
+    }
   } else {
-    return arrondi((Math.acos(arrondi((AB ** 2 - OA ** 2 - OB ** 2) / (-2 * OA * OB), 12)) * 180) / Math.PI, precision)
+    throw Error(`Dans angle(), on ne peut pas définir un angle avec un côté de longueur nulle : OA=${OA} et OB=${OB}`)
   }
 }
 
