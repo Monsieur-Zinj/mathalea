@@ -70,7 +70,7 @@ export default class DomaineDefFnLog extends Exercice {
           d = b
           fonction = reduireAxPlusB(a, b)
           correction = `$\\begin{aligned}${fonction}\\gt 0 &\\iff `
-          correction += `${rienSi1(a)}x\\gt ${rienSi1(-b)}\\\\`
+          correction += `${rienSi1(a)}x\\gt ${-b}\\\\`
           if (a !== 1) {
             frac1 = new FractionEtendue(-b, a).simplifie()
             if (a > 0) {
@@ -85,36 +85,62 @@ export default class DomaineDefFnLog extends Exercice {
             correction += '\\end{aligned}$'
             answer = `\\left]${-b};+\\infty\\right[`
           }
-
+          correction += '<br>'
           break
-        case 2: // homographique
+        case 2: { // homographique
           do {
             a = randint(-3, 3, 0)
             b = randint(-9, 9, [0, a, -a])
             c = randint(-3, 3, [a, 0])
             d = randint(-9, 9, [0, c, -c])
-            frac1 = new FractionEtendue(-b, a).simplifie()
-            frac2 = new FractionEtendue(-d, c).simplifie()
+            frac1 = -b / a < -d / c ? new FractionEtendue(-b, a).simplifie() : new FractionEtendue(-d, c).simplifie()
+            frac2 = -b / a > -d / c ? new FractionEtendue(-b, a).simplifie() : new FractionEtendue(-d, c).simplifie()
             de = a * d - b * c //
           } while (de === 0) // On ne veut pas de fonction constante
           fonction = `\\dfrac{${reduireAxPlusB(a, b)}}{${reduireAxPlusB(c, d)}}`
-          correction += `La dérivée de $${fonction}$ est $\\dfrac{${de}}{(${reduireAxPlusB(c, d)})^2}$, son signe est celui du numérateur, donc ${de > 0 ? 'positif' : 'négatif'}.<br>`
-          correction += `$${fonction}$ est donc ${de > 0 ? 'croissante' : 'décroissante'} sur son domaine de définition $\\R\\backslash{\\{${frac2.texFractionSimplifiee}\\}}$ et change de signe en $${frac1.texFractionSimplifiee}$.<br>`
-          if (de < 0) { // ax+b/cx+d décroissante
-            if (frac1.inferieurstrict(frac2)) { //  -b / a < -d / c la fonction décroit et change de signe en -b/a, ensuite elle est négative sur -b/a;+inf
-              answer = `\\left]-\\infty;${frac1.texFractionSimplifiee}\\right[`
-            } else { // -d/c<-b/a la fonction décroit et change de signe après la valeur interdite elle est positive sur ]-inf;-d/c[U]-d/c;-b/a[
-              answer = `\\left]-\\infty;${frac2.texFractionSimplifiee}\\right[\\cup\\left]${frac2.texFractionSimplifiee};${frac1.texFractionSimplifiee}\\right[`
+          const ligne1 = ['$-\\infty$', 30, `$${frac1.texFractionSimplifiee}$`, 20, `$${frac2.texFractionSimplifiee}$`, 20, '$+\\infty$', 30]
+          const ligneAxPlusB = -b / a < -d / c
+            ? ['Line', 30, '', 0, `${a > 0 ? '-' : '+'}`, 20, 'z', 20, `${a < 0 ? '-' : '+'}`, 20, '', 20, `${a < 0 ? '-' : '+'}`, 20]
+            : ['Line', 30, '', 0, `${a > 0 ? '-' : '+'}`, 20, '', 20, `${a > 0 ? '-' : '+'}`, 20, 'z', 20, `${a < 0 ? '-' : '+'}`, 20]
+          const ligneCxPlusD = -b / a > -d / c
+            ? ['Line', 30, '', 0, `${c > 0 ? '-' : '+'}`, 20, 'z', 20, `${c < 0 ? '-' : '+'}`, 20, '', 20, `${c < 0 ? '-' : '+'}`, 20]
+            : ['Line', 30, '', 0, `${c > 0 ? '-' : '+'}`, 20, '', 20, `${c > 0 ? '-' : '+'}`, 20, 'z', 20, `${c < 0 ? '-' : '+'}`, 20]
+          const signes = ['Line', 30, '', 0]
+          for (let index = 4; index < 13; index += 2) {
+            let signe:string
+            if (ligneAxPlusB[index] === ligneCxPlusD[index]) {
+              signe = '+'
+            } else if (ligneCxPlusD[index] === 'z') {
+              signe = 'd'
+            } else if (ligneAxPlusB[index] === 'z') {
+              signe = 'z'
+            } else {
+              signe = '-'
             }
-            correction += `Elle est donc positive pour $x<${frac1.texFractionSimplifiee}$ et négative pour $x>${frac1.texFractionSimplifiee}$.<br>`
-          } else { // ax+b/cx+d croissante
-            if (frac1.inferieurstrict(frac2)) { // -b/a<-d/c la fonction croit et elle change de signe en -b/a, ensuite elle est positive
-              answer = `\\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[\\cup\\left]${frac2.texFractionSimplifiee};+\\infty\\right[`
-            } else { // -d/c<-b/a la fonction croit en étant négative jusqu'en -b/a ou elle devient positive et le reste
-              answer = `\\left]${frac1.texFractionSimplifiee};+\\infty\\right[`
-            }
-            correction += `Elle est donc négative pour $x<${frac1.texFractionSimplifiee}$ et positive pour $x>${frac1.texFractionSimplifiee}$.<br>`
+            signes.push(signe, 20)
           }
+          correction += tableauDeVariation({
+            tabInit: [
+              [
+              // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
+                ['$x$', 2, 30], [`$${reduireAxPlusB(a, b)}$`, 2, 50], [`$${reduireAxPlusB(c, d)}$`, 2, 50], [`$${fonction}$`, 2, 50]],
+              // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
+              ligne1
+            ],
+            // tabLines ci-dessous contient les autres lignes du tableau.
+            tabLines: [ligneAxPlusB, ligneCxPlusD, signes],
+            colorBackground: '',
+            espcl: 3.5, // taille en cm entre deux antécédents
+            deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
+            lgt: 8, // taille de la première colonne en cm
+            hauteurLignes: [12, 15]
+          })
+          if (signes[8] === '+') { // -/+/-
+            answer = `\\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[`
+          } else { // -d/c<-b/a la fonction décroit et change de signe après la valeur interdite elle est positive sur ]-inf;-d/c[U]-d/c;-b/a[
+            answer = `\\left]-\\infty;${frac1.texFractionSimplifiee}\\right[\\cup\\left]${frac2.texFractionSimplifiee};+\\infty\\right[`
+          }
+        }
           break
         default: // polynôme degré 2
         {
