@@ -72,7 +72,7 @@ class Grandeur {
   }
 
   /**
-   * La précision est donnée dans l'unité de référence
+   * La précision est donnée dans l'unité la plus petite des deux grandeurs
    */
   estUneApproximation (unite2: Grandeur, precision: number) {
     if (unite2.uniteDeReference !== this.uniteDeReference) return false
