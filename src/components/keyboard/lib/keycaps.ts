@@ -433,6 +433,103 @@ const basicKeys = {
   FAUX: {
     display: '$\\text{Faux}$',
     insert: '\\text{Faux}'
+  },
+  // =================== numération
+  MILLION: { 
+    display: '$\\tiny\\text{million}$',
+    insert: '\\text{million}'
+  },
+  MILLIARD: { 
+    display: '$\\tiny\\text{milliard}$',
+    insert: '\\text{milliard}'
+  },
+  MILLE: { 
+    display: '$\\tiny\\text{mille}$',
+    insert: '\\text{mille}'
+  },
+  CENTAINE: { 
+    display: '$\\tiny\\text{centaine}$',
+    insert: '\\text{centaine}'
+  },
+  DIZAINE: { 
+    display: '$\\tiny\\text{dizaine}$',
+    insert: '\\text{dizaine}'
+  },
+  UNITE: { 
+    display: '$\\tiny\\text{unité}$',
+    insert: '\\text{unité}'
+  },
+  DE: { 
+    display: '$\\tiny\\text{ de }$',
+    insert: '\\text{ de }'
+  },
+  DIXIEME: { 
+    display: '$\\tiny\\text{dixième}$',
+    insert: '\\text{dixième}'
+  },
+  CENTIEME: { 
+    display: '$\\tiny\\text{centième}$',
+    insert: '\\text{centième}'
+  },
+  MILLIEME: { 
+    display: '$\\tiny\\text{millième}$',
+    insert: '\\text{millième}'
+  },
+  DIX_MILLIEME: { 
+    display: '$\\tiny\\text{dix-millième}$',
+    insert: '\\text{dix-millième}'
+  },
+  CENT_MILLIEME: { 
+    display: '$\\tiny\\text{cent-millième}$',
+    insert: '\\text{cent-millième}'
+  },
+  MILLIONIEME: { 
+    display: '$\\tiny\\text{millionième}$',
+    insert: '\\text{millionième}'
+  },
+  HYPHEN: { 
+    display: '$\\tiny\\text{-}$',
+    insert: '\\text{-}'
+  },
+  DIX: { 
+    display: '$\\tiny\\text{dix}$',
+    insert: '\\text{dix}'
+  },
+  VINGT: { 
+    display: '$\\tiny\\text{vingt}$',
+    insert: '\\text{vingt}'
+  },
+  TRENTE: { 
+    display: '$\\tiny\\text{trente}$',
+    insert: '\\text{trente}'
+  },
+  QUARANTE: { 
+    display: '$\\tiny\\text{quarante}$',
+    insert: '\\text{quarante}'
+  },
+  CINQUANTE: { 
+    display: '$\\tiny\\text{cinquante}$',
+    insert: '\\text{cinquante}'
+  },
+  SOIXANTE: { 
+    display: '$\\tiny\\text{soixante}$',
+    insert: '\\text{soixante}'
+  },
+  SOIXANTE_DIX: { 
+    display: '$\\tiny\\text{soixante-dix}$',
+    insert: '\\text{soixante-dix}'
+  },
+  QUATRE_VINGT: { 
+    display: '$\\tiny\\text{quatre-vingt}$',
+    insert: '\\text{quatre-vingt}'
+  },
+  QUATRE_VINGT_DIX: { 
+    display: '$\\tiny\\text{quatre-vingt-dix}$',
+    insert: '\\text{quatre-vingt-dix}'
+  },
+  CENT: { 
+    display: '$\\tiny\\text{cent}$',
+      insert: '\\text{cent}'
   }
 }
 

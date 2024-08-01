@@ -21,6 +21,7 @@ const KEYBOARD_CATEGORIES = [
   'longueur',
   'aire',
   'logPuissance',
+  'numeration',
   'volume',
   'masse',
   'clavierProbabilite',
@@ -114,6 +115,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['alphanumeric']
     case KeyboardType.longueur:
       return ['numbers', 'lengths']
+    case KeyboardType.numeration:
+      return ['numbers', 'numeration']
     case KeyboardType.aire:
       return ['numbers', 'areas']
     case KeyboardType.volume:
