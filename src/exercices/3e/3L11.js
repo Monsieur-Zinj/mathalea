@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import {
   ecritureAlgebrique,
   ecritureParentheseSiMoins,
@@ -7,11 +7,12 @@ import {
 } from '../../lib/outils/ecritures'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Utiliser la simple distributivité'
 
@@ -19,6 +20,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcType = 'AMCHybride'
 export const amcReady = true
+export const dateDeModifImportante = '10/06/2024'
 
 /**
  * Développer en utilisant la distributivité simple
@@ -40,22 +42,18 @@ export const amcReady = true
  * * Refactoring 21/12/2012
  * @author Rémi Angot et Mickael Guironnet (AMC par Eric Elter)
  */
-
-export const uuid = 'ancien3L11AEffacer???'
-
+export const uuid = 'db2e0'
+export const ref = '3L11'
 export const refs = {
-  'fr-fr': [],
-  'fr-ch': []
+  'fr-fr': ['3L11'],
+  'fr-ch': ['10FA2-2', '11FA2-2']
 }
 export default function ExerciceDevelopper () {
   Exercice.call(this)
   this.sup = 3 // difficulté
   this.sup2 = 1 // consigne
-  this.sup3 = 8 // forme de développement
+  this.sup3 = 7 // forme de développement
   this.sup4 = false
-  this.titre = titre
-  this.interactifType = interactifType
-  this.interactifReady = interactifReady
   this.nbQuestions = 6
   this.spacing = 2
   this.spacingCorr = 2
@@ -74,20 +72,20 @@ export default function ExerciceDevelopper () {
     let lettre = this.interactif ? ['x', 'y', 'z', 'a', 'b', 'c'] : ['x', 'y', 'z', 't', 'a', 'b', 'c']
     if (this.sup4) lettre = ['x']
 
-    let typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
-    if (this.sup3 === 1) typesDeQuestionsDisponibles = ['k(ax+b)']
-    if (this.sup3 === 2) typesDeQuestionsDisponibles = ['(ax+b)×k']
-    if (this.sup3 === 3) typesDeQuestionsDisponibles = ['kx(ax+b)']
-    if (this.sup3 === 4) typesDeQuestionsDisponibles = ['(ax+b)×kx']
-    if (this.sup3 === 5) typesDeQuestionsDisponibles = ['k(ax+b)+c']
-    if (this.sup3 === 6) typesDeQuestionsDisponibles = ['c+k(ax+b)']
-    if (this.sup3 === 7) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k']
-    if (this.sup3 === 8) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx']
-    if (this.sup3 === 9) typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
+    const typesDeQuestionsDisponibles = ['k(ax+b)', '(ax+b)×k', 'kx(ax+b)', '(ax+b)×kx', 'k(ax+b)+c', 'c+k(ax+b)']
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+      saisie: this.sup3,
+      min: 1,
+      max: 6,
+      defaut: 7,
+      listeOfCase: typesDeQuestionsDisponibles,
+      nbQuestions: this.nbQuestions,
+      melange: 7
+    })
 
-    const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
+    const couleurCorrection = this.sup2 === 1 ? ['#f15929', 'blue'] : ['blue', '#f15929']
 
-    for (let i = 0, texte, texteCorr, reponse, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, reponseDev, reponseRed, reponse1, reponse2, reponse3, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const typesDeQuestions = listeTypeDeQuestions[i]
       const k = randint(2, 11) * (this.sup === 3 ? choice([-1, 1]) : 1)
       const a = randint(1, 9, [Math.abs(k)]) * (this.sup >= 2 ? choice([-1, 1]) : 1)
@@ -98,79 +96,75 @@ export default function ExerciceDevelopper () {
         case 'k(ax+b)':
           // ne pas écrire 1x
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponseDev = `${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}`
+          reponseRed = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           reponse1 = 0
           reponse2 = k * a
           reponse3 = k * b
           break
         case '(ax+b)×k':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiNegatif(k)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${reduireAxPlusB(k * a, k * b, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiNegatif(k)}$`
+          reponseDev = `${k}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}`
+          reponseRed = `${reduireAxPlusB(k * a, k * b, inconnue)}`
           reponse1 = 0
           reponse2 = k * a
           reponse3 = k * b
           break
         case '(ax+b)×kx':
-          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times${ecritureParentheseSiMoins(k + inconnue)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          texte = `$${lettreDepuisChiffre(i + 1)}=(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})\\times ${ecritureParentheseSiMoins(k + inconnue)}$`
+          reponseDev = `${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}`
+          reponseRed = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
           reponse1 = k * a
           reponse2 = k * b
           reponse3 = 0
           break
         case 'kx(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}${inconnue}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)} + ${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reponse}$.`
+          reponseDev = `${k}${inconnue}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)} + ${ecritureParentheseSiMoins(k + inconnue)}\\times ${ecritureParentheseSiNegatif(b)}`
+          reponseRed = `${reduirePolynomeDegre3(0, k * a, k * b, 0, inconnue)}`
           reponse1 = k * a
           reponse2 = k * b
           reponse3 = 0
           break
         case 'k(ax+b)+c':
           texte = `$${lettreDepuisChiffre(i + 1)}=${k}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})${ecritureAlgebrique(c)}$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${k}(${reduireAxPlusB(a, b, inconnue)})${ecritureAlgebrique(c)}$<br>
-          $${lettreDepuisChiffre(i + 1)}=${k}\\times${ecritureParentheseSiMoins(reduireAxPlusB(a, 0, inconnue))}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}$`
-
-          reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${reduireAxPlusB(k * a, k * b, inconnue)}${ecritureAlgebrique(c)}=${reponse}$.`
-          if (this.sup2 === 1) {
+          reponseDev = `${k}\\times ${ecritureParentheseSiMoins(reduireAxPlusB(a, 0, inconnue))}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}${ecritureAlgebrique(c)}`
+          reponseRed = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
+          /* if (this.sup2 === 1) {
             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
-          }
+          } */
           reponse1 = 0
           reponse2 = k * a
           reponse3 = k * b + c
           break
         case 'c+k(ax+b)':
           texte = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$`
-          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}(${a === 1 ? '' : (a === -1 ? '-' : a)}${inconnue}${ecritureAlgebrique(b)})$<br>
-          $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times${ecritureParentheseSiNegatif(b)}$`
-          reponse = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
-          texteCorr += `<br>Et si on réduit l'expression, on obtient : <br> $${lettreDepuisChiffre(i + 1)}=${c}${ecritureAlgebrique(k * a)}${inconnue}${ecritureAlgebrique(k * b)}=${reponse}$.`
-          if (this.sup2 === 1) {
-            reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
-          }
+          reponseDev = `${c}${ecritureAlgebrique(k)}\\times ${ecritureParentheseSiMoins((a === 1 ? '' : (a === -1 ? '-' : a)) + inconnue)}+${ecritureParentheseSiNegatif(k)}\\times ${ecritureParentheseSiNegatif(b)}`
+          reponseRed = `${reduireAxPlusB(k * a, k * b + c, inconnue)}`
+          /* if (this.sup2 === 1) {
+             reponse = [`${k * a}${inconnue}${ecritureAlgebrique(k * b)}${ecritureAlgebrique(c)}`, `${k * a}${inconnue}${ecritureAlgebrique(k * b + c)}`]
+          } */
           reponse1 = 0
           reponse2 = k * a
           reponse3 = k * b + c
           break
       }
+      texteCorr = texte + '<br>'
+      texteCorr += `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(reponseDev, couleurCorrection[0])}$`
+      reponse = this.sup2 === 1 ? reponseDev : reponseRed
+
       if (this.sup2 === 1) {
+        texteCorr += '<br>Ce n\'est pas demandé, ici, mais si on voulait réduire l\'expression, on obtiendrait : <br>'
         handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       } else {
+        texteCorr += '<br>En réduisant l\'expression, on obtient : <br>'
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
       }
+
+      texteCorr += ` $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`
       if (!context.isAmc) {
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',
@@ -239,6 +233,20 @@ export default function ExerciceDevelopper () {
           ]
         }
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer, couleurCorrection[1])}$`
+
+      // Fin de cette uniformisation
+      texteCorr += '.'
 
       if (this.questionJamaisPosee(i, reponse)) {
         // Si la question n'a jamais été posée, on en créé une autre
@@ -252,6 +260,6 @@ export default function ExerciceDevelopper () {
   }
   this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, ' 1 : Multiplication par un entier positif, tous les termes sont positifs\n2 : Multiplication par un facteur positif\n3 : Multiplication par un facteur relatif']
   this.besoinFormulaire2Numerique = ['Consigne', 2, '1 : Développer \n2 : Développer et réduire']
-  this.besoinFormulaire3Numerique = ['Forme de développement', 9, '1 : k(ax+b)\n2 : (ax+b)×k\n3 : kx(ax+b)\n4 : (ax+b)×kx\n5 : k(ax+b)+c\n6 : c+k(ax+b)\n7 : Mélange (1 et 2)\n8 : Mélange (1, 2, 3 et 4)\n9 : Mélange (tous les cas)']
+  this.besoinFormulaire3Texte = ['Forme de développement', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
   this.besoinFormulaire4CaseACocher = ['$x$ est la seule lettre utilisée']
 }
