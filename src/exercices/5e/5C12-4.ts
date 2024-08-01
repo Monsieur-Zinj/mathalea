@@ -71,6 +71,11 @@ class MettreDesParentheses extends Exercice {
 
   nouvelleVersion () {
     this.reinit()
+    if (this.nbQuestions > 1) {
+      this.consigne = 'Mettre des parenthèses si besoin dans les égalités suivantes afin que celles-ci soient justes.<br>'
+    } else {
+      this.consigne = 'Mettre des parenthèses si besoin dans l\'égalité suivante afin que celle-ci soit juste.<br>'
+    }
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({ saisie: this.sup, nbQuestions: this.nbQuestions, min: 1, max: 3, melange: 3, defaut: 3 })
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const choix: Materiel[] = []
@@ -106,7 +111,7 @@ class MettreDesParentheses extends Exercice {
       const parentheses = choice([true, true, true, false])
       // mathjs calcule l'expression avec les valeur choisies et fournit le membre de droite de l'énoncé
       const resultat = (parentheses ? evaluate(materiel.expAP.replaceAll('_', ''), assignations) : evaluate(materiel.expSP.replaceAll('_', ''), assignations)) ?? 0
-      let texte: string = 'Mettre des parenthèses dans l\'égalité afin que celle-ci soit juste:<br>'
+      let texte: string = ''
       let index = 1
       let content = ''
 
