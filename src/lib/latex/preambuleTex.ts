@@ -391,17 +391,16 @@ Je refuse de décomposer zéro.
 }`
 }
 
-
-function squareO() {
+function squareO () {
   return `%%%
   % Squaro
   %%% 
   
   \\setKVdefault[Squaro]{Solution=false,Longueur=8,Largeur=8,Echelle=8mm,Graines=false,Perso=false} 
-  \\defKV[Squaro]{Graine=\setKV[Squaro]{Graines}}%
+  \\defKV[Squaro]{Graine=\\setKV[Squaro]{Graines}}%
   
   
-  \\RenewDocumentCommand\SquarO{o m}{%
+  \\RenewDocumentCommand\\SquarO{o m}{%
     \\useKVdefault[Squaro]%
     \\setKV[Squaro]{#1}%
     \\BuildSquaro[#2]%
@@ -425,7 +424,6 @@ function squareO() {
   }
   
   \\RenewDocumentCommand\\BuildSquaro{o}{%
-    \\ifluatex
     \\mplibforcehmode
     \\begin{mplibcode}  
       \\BuildSquarobase
@@ -488,40 +486,5 @@ function squareO() {
       endfor;
       endfor;
     \\end{mplibcode}
-    \\else
-    \\begin{mpost}[mpsettings={\\BuildSquarobase}]
-      for k=0 upto Longueur-1:
-      for l=0 upto Largeur-1:
-      p:=p+1;
-      A[p]=u*(k,-l);
-      trace (unitsquare scaled u) shifted A[p];
-      endfor;
-      endfor;
-      for k=0 upto Largeur:
-      for l=0 upto Longueur:
-      m:=uniformdeviate(1);
-      if m<0.5:
-      Allume[k][l]=true;
-      fill cercles(u*(l,-k+1),1mm) if Solution=false:withcolor white fi;
-      else:
-      Allume[k][l]=false;
-      fill cercles(u*(l,-k+1),1mm) withcolor white;
-      fi;
-      trace cercles(u*(l,-k+1),1mm);
-      endfor;
-      endfor;
-      for k=0 upto Largeur-1:
-      for l=0 upto Longueur-1:
-      Retiens:=0;
-      if Allume[k][l]:Retiens:=Retiens+1 fi;
-      if Allume[k][l+1]:Retiens:=Retiens+1 fi;
-      if Allume[k+1][l]:Retiens:=Retiens+1 fi;
-      if Allume[k+1][l+1]:Retiens:=Retiens+1 fi;
-      label(LATEX(decimal(Retiens)),u*(l+0.5,-k+0.5));
-      endfor;
-      endfor;
-    \\end{mpost}
-   \\fi
-  }%
-}`
+  }%`
 }
