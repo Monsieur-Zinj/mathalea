@@ -31,9 +31,9 @@ export default class InequationsLog extends Exercice {
     super()
     this.nbQuestions = 5
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
     } else {
-      this.consigne = 'Résoudre les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
     }
     this.spacingCorr = 3
     this.sup = '4'
