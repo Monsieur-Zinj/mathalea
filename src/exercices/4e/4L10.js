@@ -1,4 +1,4 @@
-import ExerciceDevelopper from '../3e/3L11new.js'
+import ExerciceDevelopper from '../3e/3L11.js'
 
 export const interactifType = 'mathLive'
 export const interactifReady = true

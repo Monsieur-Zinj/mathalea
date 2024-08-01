@@ -22,7 +22,8 @@ declare global {
  * @param {Partial<Prefs>} prefsOverride permet d'écraser les préférences par défaut qui se trouvent dans le fichier helpers/prefs.ts
  */
 export function runTest (test: (page: Page) => Promise<boolean>, metaUrl: string, prefsOverride?: Partial<Prefs>) {
-  Object.assign(prefs, prefsOverride)
+  const autoTestOverride = process.env.AUTOTEST ? { pauseOnError: false, headless: true } : {}
+  Object.assign(prefs, prefsOverride, autoTestOverride)
   const filename = fileURLToPath(metaUrl)
   const testsSuiteDescription = '' // Ajoute une description intermédiaire dans le stdout si besoin
   const fileLogger = getFileLogger(path.basename(metaUrl))
@@ -267,7 +268,6 @@ export async function checkFeedback (page: Page, questions: Question[]) {
   await checkButtonClick(page)
   await addFeedbacks(page, questions)
 
-  
   for (const question of questions) {
     const numeroQuestion = Number(question.id.split('Q')[1]) + 1
     if (question.feedback === 'OK' && !question.isCorrect) {
