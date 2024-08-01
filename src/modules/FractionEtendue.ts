@@ -1266,10 +1266,12 @@ class FractionEtendue {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      const a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
-      a.opacite = 0.4
-      a.epaisseur = 6
-      objets.push(a)
+      if (num > 0) {
+        const a = segment(O, point(O.x + Math.min(this.numIrred, this.denIrred) * rayon / this.denIrred, O.y), couleur)
+        a.opacite = 0.4
+        a.epaisseur = 6
+        objets.push(a)
+      }
       objets.push(unegraduation(x, y))
       if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
         for (k = 0; k <= n + 1; k++) {
@@ -1431,10 +1433,12 @@ class FractionEtendue {
         s.styleExtremites = '|-'
         objets.push(s)
       }
-      const a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
-      a.opacite = 0.4
-      a.epaisseur = 6
-      objets.push(a)
+      if (num > 0) {
+        const a = segment(O, point(O.x + Math.min(num, this.den) * rayon / this.den, O.y), couleur)
+        a.opacite = 0.4
+        a.epaisseur = 6
+        objets.push(a)
+      }
       objets.push(unegraduation(x, y))
       if (typeof (unite0) === 'number' && typeof (unite1) === 'number') {
         for (k = 0; k <= n + 1; k++) {
