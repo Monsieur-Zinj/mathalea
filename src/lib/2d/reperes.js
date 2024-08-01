@@ -1299,6 +1299,10 @@ export function Repere ({
   this.yMin = yMin
   this.yMax = yMax
 
+  if (thickHauteur === 0) {
+    xThickListe = false
+    yThickListe = false
+  }
   this.bordures = [xMin * xUnite - 1 - yLegende.length / 3, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
 
   const objets = []
