@@ -74,8 +74,9 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
   if (exercice.interactif && context.isHtml) {
     const dataKeyboard = buildDataKeyboardString(classes)
     let classe = ''
-    if (classes) {
-      classe = ['fillInTheBlanks', ...classes.split(' ')].join(' ')
+    if (classes !== '') {
+      if (classes === 'fillInTheBlank' || classes === 'fillInTheBlanks') classe = 'fillInTheBlanks'
+      else classe = [...classes.split(' ').filter(el => el !== 'fillInTheBlank' && el !== 'fillInTheBlanks')].join(' ')
     } else {
       classe = 'fillInTheBlanks'
     }
