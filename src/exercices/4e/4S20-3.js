@@ -22,7 +22,7 @@ export const refs = {
  * @author Mireille Gain
  * Référence 4S20-3
 */
-export default class nomExercice extends Exercice {
+export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {
     super()
     this.consigne = 'Classer les événéments selon qu’ils sont compatibles, incompatibles, contraires.<br>On tire une carte dans un jeu de 32 cartes.'
@@ -31,9 +31,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.spacing = 1.5
     this.spacingCorr = 1.5
     const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
@@ -54,121 +51,121 @@ export default class nomExercice extends Exercice {
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           if (k === 1) {
-            texte += numAlpha(i) + `Les événements "Obtenir ${figure}" et "Obtenir un ${nombre}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir ${figure}" et "Obtenir un ${nombre}" sont  ` + texteEnCouleurEtGras('incompatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir ${figure} » et « Obtenir un ${nombre} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir ${figure} » et « Obtenir un ${nombre} » sont  ` + texteEnCouleurEtGras('incompatibles') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${nombre}" et "Obtenir ${figure}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${nombre}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('incompatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${nombre} » et « Obtenir ${figure} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${nombre} » et « Obtenir ${figure} » sont ` + texteEnCouleurEtGras('incompatibles') + '.<br>'
           }
           bonneReponse = 'incompatibles'
           break
         case 'type2':
           if (k === 1) {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${valeur}" et "Obtenir un ${famille}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${valeur}" et "Obtenir un ${famille}" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${valeur} » et « Obtenir un ${famille} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${valeur} » et « Obtenir un ${famille} » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${famille}" et "Obtenir un ${valeur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${famille}" et "Obtenir un ${valeur}" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${famille} » et « Obtenir un ${valeur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${famille} » et « Obtenir un ${valeur} » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           }
           bonneReponse = 'compatibles'
           break
         case 'type3':
           if (k === 1) {
-            texte += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Noire" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une carte de couleur Noire » et « Obtenir une carte de couleur Rouge » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une carte de couleur Noire » et « Obtenir une carte de couleur Rouge » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte de couleur Rouge" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une carte de couleur Rouge » et « Obtenir une carte de couleur Noire » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une carte de couleur Rouge » et « Obtenir une carte de couleur Noire » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type4':
           if (k === 2) {
-            texte += numAlpha(i) + `Les événements "Obtenir ${figure}" et "Obtenir une carte de couleur ${couleur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir ${figure}" et "Obtenir une carte de couleur ${couleur}" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir ${figure} » et « Obtenir une carte de couleur ${couleur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir ${figure} » et « Obtenir une carte de couleur ${couleur} » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir une carte de couleur ${couleur}" et "Obtenir ${figure}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir une carte de couleur ${couleur}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir une carte de couleur ${couleur} » et « Obtenir ${figure} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir une carte de couleur ${couleur} » et « Obtenir ${figure} » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           }
           bonneReponse = 'compatibles'
           break
         case 'type5':
           if (k === 2) {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${noir}" et "Obtenir une carte de couleur Noire" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${noir}" et "Obtenir une carte de couleur Noire" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${noir} » et « Obtenir une carte de couleur Noire » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${noir} » et « Obtenir une carte de couleur Noire » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${rouge}" et "Obtenir une carte de couleur Rouge" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${rouge}" et "Obtenir une carte de couleur Rouge" sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${rouge} » et « Obtenir une carte de couleur Rouge » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${rouge} » et « Obtenir une carte de couleur Rouge » sont ` + texteEnCouleurEtGras('compatibles') + '.<br>'
           }
           bonneReponse = 'compatibles'
           break
         case 'type6':
           if (k === 1) {
-            texte += numAlpha(i) + 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Carreau ou un Coeur" et "Obtenir une carte de couleur Noire" sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir un Carreau ou un Coeur » et « Obtenir une carte de couleur Noire » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir un Carreau ou un Coeur » et « Obtenir une carte de couleur Noire » sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
           } else {
-            texte += numAlpha(i) + 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir un Trèfle ou un Pique" et "Obtenir une carte de couleur Rouge" sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir un Trèfle ou un Pique » et « Obtenir une carte de couleur Rouge » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir un Trèfle ou un Pique » et « Obtenir une carte de couleur Rouge » sont ' + texteEnCouleurEtGras('compatibles') + '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type7':
           if (k === 1) {
-            texte += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une figure autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une figure autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une figure autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont ' + texteEnCouleurEtGras('contraires') + '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type8':
           if (k === 2) {
-            texte += numAlpha(i) + 'Les événements "Obtenir une carte autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte autre qu\'un Roi" et "Obtenir une Dame ou un Valet" sont ' + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une carte autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une carte autre qu\'un Roi » et « Obtenir une Dame ou un Valet » sont ' + texteEnCouleurEtGras('non contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + 'Les événements "Obtenir une carte autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont...<br>'
-            texteCorr += numAlpha(i) + 'Les événements "Obtenir une carte autre qu\'une Dame" et "Obtenir un Valet ou un Roi" sont ' + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + 'Les événements « Obtenir une carte autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont...<br>'
+            texteCorr += numAlpha(i) + 'Les événements « Obtenir une carte autre qu\'une Dame » et « Obtenir un Valet ou un Roi » sont ' + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
           bonneReponse = 'non contraires'
           break
         case 'type9':
           if (k === 1) {
-            texte += numAlpha(i) + `Les événements "Obtenir une carte autre qu' ${figure}" et "Obtenir ${figure}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir ${figure}" et "Obtenir une carte autre qu' ${figure}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir une carte autre qu' ${figure} » et « Obtenir ${figure} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir ${figure} » et « Obtenir une carte autre qu' ${figure} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir une carte autre qu'un ${nombre} " et "Obtenir un ${nombre}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir une carte autre qu'un ${nombre} " et "Obtenir un ${nombre}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir une carte autre qu'un ${nombre}  » et « Obtenir un ${nombre} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir une carte autre qu'un ${nombre}  » et « Obtenir un ${nombre} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type10':
           if (k === 2) {
-            texte += numAlpha(i) + `Les événements "Ne pas obtenir ${valeur}" et "Obtenir ${valeur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Ne pas obtenir ${figure}" et "Obtenir ${figure}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Ne pas obtenir ${valeur} » et « Obtenir ${valeur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Ne pas obtenir ${figure} » et « Obtenir ${figure} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir ${valeur}" et "Ne pas obtenir ${valeur}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir ${valeur} » et « Ne pas obtenir ${valeur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir ${valeur} » et « Ne pas obtenir ${valeur} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
           bonneReponse = 'contraires'
           break
         case 'type11':
           if (k === 2) {
-            texte += numAlpha(i) + `Les événements "Ne pas obtenir un ${couleur}" et "Obtenir un ${noir}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Ne pas obtenir un ${couleur}" et "Obtenir un ${noir}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${noir} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${noir} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${noir}" et "Ne pas obtenir un ${couleur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${noir}" et "Ne pas obtenir un ${couleur}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${noir} » et « Ne pas obtenir un ${couleur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${noir} » et « Ne pas obtenir un ${couleur} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
           bonneReponse = 'non contraires'
           break
         case 'type12':
           if (k === 1) {
-            texte += numAlpha(i) + `Les événements "Ne pas obtenir un ${couleur}" et "Obtenir un ${rouge}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Ne pas obtenir un ${couleur}" et "Obtenir un ${rouge}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${rouge} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Ne pas obtenir un ${couleur} » et « Obtenir un ${rouge} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           } else {
-            texte += numAlpha(i) + `Les événements "Obtenir un ${rouge}" et "Ne pas obtenir un ${couleur}" sont...<br>`
-            texteCorr += numAlpha(i) + `Les événements "Obtenir un ${rouge}" et "Ne pas obtenir un ${couleur}" sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
+            texte += numAlpha(i) + `Les événements « Obtenir un ${rouge} » et « Ne pas obtenir un ${couleur} » sont...<br>`
+            texteCorr += numAlpha(i) + `Les événements « Obtenir un ${rouge} » et « Ne pas obtenir un ${couleur} » sont ` + texteEnCouleurEtGras('non contraires') + '.<br>'
           }
           bonneReponse = 'non contraires'
           break
