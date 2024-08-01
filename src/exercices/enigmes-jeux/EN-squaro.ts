@@ -9,6 +9,7 @@ import remove from 'apigeom/src/assets/svg/restart.svg'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
+import Element2D from 'apigeom/src/elements/Element2D'
 
 export const dateDePublication = '15/07/2024'
 export const titre = 'Résoudre une grille de SquarO'
@@ -139,7 +140,7 @@ class squaro extends Exercice {
     }
     const eraseAllPoints = () => {
       for (const element of this.figure.elements.values()) {
-        if (element.type === 'Point') {
+        if (element.type === 'Point' && element instanceof Element2D && element.isVisible) {
           element.remove()
         }
       }
