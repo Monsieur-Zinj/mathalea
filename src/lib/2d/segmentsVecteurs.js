@@ -242,12 +242,15 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
   this.extremite1 = point(this.x1, this.y1)
   this.extremite2 = point(this.x2, this.y2)
   this.longueur = Math.sqrt((this.x2 - this.x1) ** 2 + (this.y2 - this.y1) ** 2)
-  this.angleAvecHorizontale = angleOriente(
-    point(this.x1 + 1, this.y1),
-    this.extremite1,
-    this.extremite2,
-    5
-  )
+  // utiliser les fonctions de calcul d'angle avec un segment de longueur nulle est une erreur ! Je blinde en retournant un angle nul
+  this.angleAvecHorizontale = this.longueur < 1e-8
+    ? 0
+    : angleOriente(
+      point(this.x1 + 1, this.y1),
+      this.extremite1,
+      this.extremite2,
+      5
+    )
 
   this.codeExtremitesSVG = function (coeff) {
     let code = ''
