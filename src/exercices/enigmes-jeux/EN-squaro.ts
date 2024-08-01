@@ -75,11 +75,7 @@ class squaro extends Exercice {
     this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposés.'
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
-    if (!this.interactif) {
-      this.figure.isDynamic = false
-      this.figure.divButtons.style.display = 'none'
-      this.figure.divUserMessage.style.display = 'none'
-    }
+    
     this.idApigeom = `apigeomEx${this.numeroExercice}EE`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
@@ -205,7 +201,8 @@ class squaro extends Exercice {
     }
     for (let j = 0; j <= this.largeur; j++) {
       for (let i = 0; i <= this.longueur; i++) {
-        this.figure.create('Circle', { center: { x: i, y: j }, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1 })
+        const center = this.figure.create('Point', { x: i, y: j, isVisible: false } )
+        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1 })
       }
     }
 
