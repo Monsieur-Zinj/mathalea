@@ -162,7 +162,7 @@ export default function Agrandissement () {
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += `, on a l'égalité :  $${texNombre(V2, 3)}=k^3\\times${V1}.$`
           texteCorr += `<br>On en déduit que : $k^3=\\dfrac{${texNombre(V2, 3)}}{${V1}}=${texNombre(V2.div(V1), 3)}$.`
-          texteCorr += `<br>On peut conclure que : $k=\\sqrt[3]{${texNombre(V2.div(V1), 3)}}=${texNombre(k, 1)}$.`
+          texteCorr += `<br>On peut conclure que : $k=${texNombre(k, 1)}$ car $${texNombre(k, 1)}^3=${texNombre(V2.div(V1), 3)}$.`
           texteCorr += '<br>L\'échelle '
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$ `
