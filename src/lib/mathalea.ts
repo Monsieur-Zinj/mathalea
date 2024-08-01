@@ -206,8 +206,7 @@ export async function mathaleaLoadExerciceFromUuid (uuid: string) {
 
 /**
  * Charge tous les exercices et les paramètres
- * en fonction du store exercicesParams
- *
+ * en fonction du store exercicesParams.
  */
 export async function mathaleaGetExercicesFromParams (params: InterfaceParams[]): Promise<TypeExercice[]> {
   const exercices = []
@@ -267,7 +266,7 @@ export async function mathaleaGetExercicesFromParams (params: InterfaceParams[])
 }
 
 /**
- * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice
+ * Applique les paramètres sauvegardés dans un élément de exercicesParams à un exercice.
  */
 export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param: InterfaceParams) {
   exercice.uuid = param.uuid
@@ -290,9 +289,9 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
 /**
  * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiées par
  * les enseignants pour pparamétrer les exercices.
- * Ces paramètres peuvent être des string, des booléens ou des number mais que ce soit dans l'url
+ * Ces paramètres peuvent être des strings, des booléens ou des number mais que ce soit dans l'url
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
- * d'un des trois types vers string
+ * d'un des trois types vers string.
  */
 export function mathaleaHandleSup (param: boolean | string | number): string {
   if (typeof param === 'string') {
@@ -305,11 +304,11 @@ export function mathaleaHandleSup (param: boolean | string | number): string {
 }
 
 /**
- * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiées par
- * les enseignants pour pparamétrer les exercices.
- * Ces paramètres peuvent être des string, des booléens ou des number mais que ce soit dans l'url
+ * sup, sup2, sup3 et sup4 permettent de sauvegarder les formulaires modifiés par
+ * les enseignants pour paramétrer les exercices.
+ * Ces paramètres peuvent être des strings, des booléens ou des numbers mais que ce soit dans l'url
  * ou dans le store exercicesParams, ils sont sauvegardés sous forme de string d'où cette fonction de conversion
- * su string vers booléen ou number
+ * du string vers booléen ou number.
  */
 export function mathaleaHandleStringFromUrl (text: string): boolean | number | string {
   if (text === 'true' || text === 'false') {

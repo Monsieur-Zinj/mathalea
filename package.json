@@ -52,8 +52,8 @@
     "lintSvelte": "eslint src/components/**/* --ext .js,.ts,.svelte --fix",
     "docs": "jsdoc -d docs --configure jsdocConf.json",
     "addDNB": "pnpm --package=git+https://forge.apps.education.fr/coopmaths/dnb -c dlx dnbindex",
-    "test:unit": "vitest tests/unit",
-    "test:src": "vitest src",
+    "test:unit": "vitest tests/unit --run",
+    "test:src": "vitest src --run",
     "test:e2e": "vitest --config tests/e2e/vitest.config.all.js --run",
     "test:e2e:dev": "vitest --config tests/e2e/vitest.config.dev.js --watch",
     "test:e2e:all": "vitest --config tests/e2e/vitest.config.all.js --run",
@@ -63,7 +63,10 @@
     "test:e2e:views": "vitest --config tests/e2e/vitest.config.view.js --run",
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepush-regular-tests": "pnpm test:unit && pnpm test:src",
+    "prepush-engine-tests": "pnpm prepush-regular-tests && pnpm build && AUTOTEST=true pnpm test:e2e:views && AUTOTEST=true pnpm test:e2e:interactivity && AUTOTEST=true pnpm test:e2e:consistency",
+    "prepush-check": "echo 'Running prepush-check...' && git diff HEAD~1 HEAD --name-only && if git diff HEAD~1 HEAD --name-only | grep -qE '^(src/|tests/)'; then echo 'Changes detected in src/ or tests/ directories. Running engine tests...' && pnpm prepush-engine-tests; else echo 'No relevant changes detected. Running regulat tests...' && pnpm prepush-regular-tests; fi"
   },
   "dependencies": {
     "@bugsnag/js": "^7.25.0",

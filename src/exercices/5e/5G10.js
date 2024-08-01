@@ -7,8 +7,6 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-/** */
-// 5G10
 export const uuid = 'da157'
 export const ref = '5G10'
 export const refs = {
