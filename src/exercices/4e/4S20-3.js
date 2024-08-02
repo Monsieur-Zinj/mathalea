@@ -25,14 +25,18 @@ export const refs = {
 export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Classer les événéments selon qu’ils sont compatibles, incompatibles, contraires.<br>On tire une carte dans un jeu de 32 cartes.'
+    this.consigne = 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     this.nbQuestions = 5 // Nombre de questions par défaut
-    this.besoinFormulaireNumerique = ['Vocabulaire', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
+
+    this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
+    this.sup = 1
   }
 
   nouvelleVersion () {
     this.spacing = 1.5
     this.spacingCorr = 1.5
+
+    this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
     let texte = ''
