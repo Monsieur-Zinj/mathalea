@@ -32,8 +32,10 @@ export default class nomExercice extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.nbQuestionsModifiable = false
     this.spacing = 1.5
     this.spacingCorr = 1.5
+
     const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5'] // On crée les 5 types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
