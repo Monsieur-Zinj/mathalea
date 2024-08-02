@@ -8,7 +8,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Compléter avec les mots : issues, impossible, équiprobabilité, aléatoire, certain.'
+export const titre = 'Compléter avec du vocabulaire sur les probabilités.'
 export const uuid = '4703c'
 export const dateDePublication = '29/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const refs = {
@@ -23,7 +23,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
+    this.consigne = 'Compléter avec les mots : issues, impossible, équiprobabilité, aléatoire, certain.'
     this.nbQuestions = 5 // Nombre de questions par défaut
   }
 
@@ -32,6 +32,8 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     this.nbQuestionsModifiable = false
+    this.spacing = 1.5
+    this.spacingCorr = 1.5
     const typeQuestionsDisponibles = ['issues', 'imp', 'equiprob', 'alea', 'certain'] // On crée les 5 types de questions
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
@@ -67,8 +69,9 @@ export default class nomExercice extends Exercice {
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur10' + KeyboardType.alphanumeric)
         handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } })
         this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
         i++
-      } else { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      } else {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
