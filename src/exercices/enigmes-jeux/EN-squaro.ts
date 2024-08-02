@@ -36,6 +36,7 @@ class squaro extends Exercice {
   nbSommets: Array<number>
   longueur:number
   largeur:number
+  blueButton!: HTMLButtonElement
 
   constructor () {
     super()
@@ -73,7 +74,7 @@ class squaro extends Exercice {
     this.consigne = 'Cette grille de SquarO est à compléter en plaçant un certain nombre de points bleus dans les ronds vides qui sont sur les sommets des cases. '
     this.consigne += 'Le chiffre présent dans chaque case indique le nombre de points bleus qui l’entourent parmi les 4 sommets.'
     this.consigne += this.interactif ? '<br>Si vous le souhaitez, vous pouvez placer les points rouges en forme de croix pour signaler des positions impossibles des points bleus.' : ''
-    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposés.'
+    this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille et grâce à l\'aide ci-dessus sur des points initialement affichés, vous pouvez graduer la difficulté des grilles SquarO proposées.'
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
 
@@ -145,15 +146,22 @@ class squaro extends Exercice {
         }
       }
       this.figure.saveState()
+      setTimeout(() => {
+        this.blueButton.click()
+      }, 500)
+      // this.figure.ui?.send('INIT') // bug apiGeom, l'état INIT ne fonctionne pas et permet toujours de placer des points
+      // this.figure.ui?.send('DRAG')
     }
-    this.figure.addCustomButton({
+    this.blueButton = this.figure.addCustomButton({
       action: drawBluePoint,
       tooltip: 'Placer un point bleu',
+      userMessage: 'Cliquer pour placer un point bleu',
       url: bluePoint
     })
     this.figure.addCustomButton({
       action: drawRedPoint,
-      tooltip: 'Placer un point rouge',
+      tooltip: 'Placer une croix rouge',
+      userMessage: 'Cliquer pour placer une croix rouge',
       url: redPoint
     })
     this.figure.addCustomButton({
@@ -259,6 +267,9 @@ class squaro extends Exercice {
           (e) => e.type === 'Point' && e.color === 'blue'
         ).length
         divNbPoints.innerHTML = `Cette grille contient actuellement ${nbBluePoints} point${nbBluePoints === 1 ? '' : 's'} bleu${nbBluePoints === 1 ? '' : 's'}.`
+      })
+      document.addEventListener('exercicesAffiches', () => {
+        this.blueButton.click()
       })
     }
 
