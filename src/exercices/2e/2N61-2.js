@@ -224,8 +224,8 @@ export default function ExerciceInequationProduit () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${Math.min(-a, -b)} ${separateur} ${Math.max(-a, -b)} \\right${pDroite} $.`
           correctionInteractif = `${pGauche}${Math.min(-a, -b)}${separateur}${Math.max(-a, -b)}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${Math.min(-a, -b)} \\right${pDroite} \\bigcup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
-          correctionInteractif = `]-\\infty${separateur}${Math.min(-a, -b)}${pDroite}\\bigcup${pGauche}${Math.max(-a, -b)}${separateur}+\\infty[`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${Math.min(-a, -b)} \\right${pDroite} \\cup \\left${pGauche} ${Math.max(-a, -b)}, +\\infty \\right[ $.`
+          correctionInteractif = `]-\\infty${separateur}${Math.min(-a, -b)}${pDroite}\\cup${pGauche}${Math.max(-a, -b)}${separateur}+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -287,11 +287,11 @@ export default function ExerciceInequationProduit () {
         })
         // Affiche l'ensemble de solutions
         if ((signes[i] === '<' || signes[i] === '≤')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${racines[0]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
-          correctionInteractif = `]-\\infty,${racines[0]}${pDroite}\\bigcup${pGauche}${racines[1]},${racines[2]}${pDroite}`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left] -\\infty ${separateur} ${racines[0]} \\right${pDroite} \\cup \\left${pGauche} ${racines[1]} , ${racines[2]} \\right${pDroite} $.`
+          correctionInteractif = `]-\\infty,${racines[0]}${pDroite}\\cup${pGauche}${racines[1]},${racines[2]}${pDroite}`
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
-          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} ${separateur} ${racines[1]} \\right${pDroite} \\bigcup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
-          correctionInteractif = `${pGauche}${racines[0]}${separateur}${racines[1]}${pDroite}\\bigcup${pGauche}${racines[2]}${separateur}+\\infty[`
+          texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${racines[0]} ${separateur} ${racines[1]} \\right${pDroite} \\cup \\left${pGauche} ${racines[2]}, +\\infty \\right[ $.`
+          correctionInteractif = `${pGauche}${racines[0]}${separateur}${racines[1]}${pDroite}\\cup${pGauche}${racines[2]}${separateur}+\\infty[`
         }
       }
       // ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -370,19 +370,19 @@ export default function ExerciceInequationProduit () {
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
         const interieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\left${pGauche} ${valPetit} ${separateur} ${valGrand} \\right${pDroite} $.`
-        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const exterieur = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\cup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c > 0) {
             texteCorr += interieur
             correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
           } else {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c > 0) {
             texteCorr += exterieur
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
           } else {
             texteCorr += interieur
             correctionInteractif = `${pGauche}${valPetit}${separateur}${valGrand}${pDroite}`
@@ -547,23 +547,23 @@ export default function ExerciceInequationProduit () {
           lgt: 10
         })
         // Affiche l'ensemble de solutions selon le sens de l'inégalité
-        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
-        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} ${separateur} ${valMoyen} \\bigg${pDroite} \\bigcup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const solutions1et3 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg] -\\infty ${separateur} ${valPetit} \\bigg${pDroite} \\cup \\bigg${pGauche} ${valMoyen}${separateur} ${valGrand} \\bigg${pDroite} $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
+        const solutions2et4 = `<br> L'ensemble de solutions de l'inéquation est $S = \\bigg${pGauche} ${valPetit} ${separateur} ${valMoyen} \\bigg${pDroite} \\cup \\bigg${pGauche} ${valGrand}${separateur} +\\infty \\bigg[ $.` // \\bigg au lieu de \\left et \\right pour que les parenthèses soient les mêmes des deux côtés s'il y a une fraction d'un côté et pas de l'autre
         if ((signes[i] === '<' || signes[i] === '≤')) {
           if (a * c * e > 0) {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
           } else {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand},+\\infty[`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand},+\\infty[`
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
           if (a * c * e > 0) {
             texteCorr += solutions2et4
-            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\bigcup${pGauche}${valGrand}${separateur}+\\infty[`
+            correctionInteractif = `${pGauche}${valPetit}${separateur}${valMoyen}${pDroite}\\cup${pGauche}${valGrand}${separateur}+\\infty[`
           } else {
             texteCorr += solutions1et3
-            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\bigcup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
+            correctionInteractif = `]-\\infty${separateur}${valPetit}${pDroite}\\cup${pGauche}${valMoyen}${separateur}${valGrand}${pDroite}`
           }
         }
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
@@ -603,11 +603,11 @@ export default function ExerciceInequationProduit () {
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 't', 20, '-', 20, 'z', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '-', 20, 'z', 20, '+', 20]
-            if (signes[i] === '≥') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\bigcup `
+            if (signes[i] === '≥') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\cup `
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '+', 20, 'z', 20, '-', 20]
-            if (signes[i] === '≤') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\bigcup `
+            if (signes[i] === '≤') singletonGauche = `\\left\\{ ${valPetit} \\right\\} \\cup `
           }
         } else { // Si la racine double est la deuxième
           ligne1 = ['Line', 30, '', 0, '+', 20, 't', 20, '+', 20, 'z', 20, '+', 20]
@@ -616,11 +616,11 @@ export default function ExerciceInequationProduit () {
           if (c > 0) {
             ligne2 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 't', 20, '+', 20]
             ligne3 = ['Line', 30, '', 0, '-', 20, 'z', 20, '+', 20, 'z', 20, '+', 20]
-            if (signes[i] === '≤') singletonDroite = ` \\bigcup \\left\\{ ${valGrand} \\right\\}`
+            if (signes[i] === '≤') singletonDroite = ` \\cup \\left\\{ ${valGrand} \\right\\}`
           } else {
             ligne2 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 't', 20, '-', 20]
             ligne3 = ['Line', 30, '', 0, '+', 20, 'z', 20, '-', 20, 'z', 20, '-', 20]
-            if (signes[i] === '≥') singletonDroite = ` \\bigcup \\left\\{ ${valGrand} \\right\\}`
+            if (signes[i] === '≥') singletonDroite = ` \\cup \\left\\{ ${valGrand} \\right\\}`
           }
         }
         // Affiche le tableau
@@ -645,15 +645,15 @@ export default function ExerciceInequationProduit () {
             texteCorr += gauche
             correctionInteractif = [
                             `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
-                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
-                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\cup', '')}\\cup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\cup${singletonGauche.replaceAll(' ', '').replaceAll('\\cup', '')}`
             ]
           } else {
             texteCorr += droite
             correctionInteractif = [
                             `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
-                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
-                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\cup', '')}\\cup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\cup${singletonGauche.replaceAll(' ', '').replaceAll('\\cup', '')}`
             ]
           }
         } else if ((signes[i] === '>' || signes[i] === '≥')) {
@@ -661,15 +661,15 @@ export default function ExerciceInequationProduit () {
             texteCorr += droite
             correctionInteractif = [
                             `${singletonGauche.replaceAll(' ', '')}${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[${singletonDroite.replaceAll(' ', '')}`,
-                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
-                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\cup', '')}\\cup${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[`,
+                            `${pGauche}${texFractionReduite(-d, c)}${separateur}+\\infty[\\cup${singletonGauche.replaceAll(' ', '').replaceAll('\\cup', '')}`
             ]
           } else {
             texteCorr += gauche
             correctionInteractif = [
                             `${singletonGauche.replaceAll(' ', '')}]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}${singletonDroite.replaceAll(' ', '')}`,
-                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\bigcup', '')}\\bigcup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
-                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\bigcup${singletonGauche.replaceAll(' ', '').replaceAll('\\bigcup', '')}`
+                            `${singletonDroite.replaceAll(' ', '').replaceAll('\\cup', '')}\\cup]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}`,
+                            `]-\\infty${separateur}${texFractionReduite(-d, c)}${pDroite}\\cup${singletonGauche.replaceAll(' ', '').replaceAll('\\cup', '')}`
             ]
           }
         }
@@ -694,7 +694,7 @@ export default function ExerciceInequationProduit () {
         if (i === 0) {
           texte += lampeMessage({
             titre: 'Quelques commandes pratiques pour le clavier : ',
-            texte: `Taper '${texteGras('union')}' pour faire apparaître $\\bigcup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
+            texte: `Taper '${texteGras('union')}' pour faire apparaître $\\cup$, '${texteGras('inf')}' pour $\\infty$ et '${texteGras('singleton')}' pour $\\left\\{\\right\\}$.`,
             couleur: 'nombres'
           })
         }
