@@ -349,7 +349,6 @@ class shikaku extends Exercice {
       this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: orangeMathaleaLight })
       // this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: 'red' })
     }
-    // console.log(this.figure.latex({ includePreambule: true }))
     document.addEventListener('exercicesAffiches', () => {
       drawBluePolygon()
     })
@@ -363,7 +362,6 @@ class shikaku extends Exercice {
         const nbBluePoints = [...this.figure.elements.values()].filter(
           (e) => e.type === 'Polygon'
         ).length
-        console.log(nbBluePoints)
       })
     }
 

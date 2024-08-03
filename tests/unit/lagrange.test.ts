@@ -16,7 +16,6 @@ test('Interpolation de Lagrange', () => {
   const p = interpolationDeLagrange(points)
   expect(p.deg === x.length - 1).toBe(true)
   for (let i = 0; i < x.length; i++) {
-    console.log(p.image(x[i]).toFixed(15), y[i].toFixed(15))
     expect(Math.abs(p.image(x[i]).toFixed(7) - y[i]) < 1e-8).toBe(true)
   }
 })
