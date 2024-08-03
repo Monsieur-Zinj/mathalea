@@ -22,8 +22,8 @@ export const titre = 'Résoudre une équation du second degré'
 export const uuid = '0fbd1'
 export const ref = '1E11'
 export const refs = {
-  'fr-fr': ['1E11'],
-  'fr-ch': ['11FA10-9']
+  'fr-fr': [],
+  'fr-ch': []
 }
 export default function ResoudreEquationDegre2 () {
   Exercice.call(this)

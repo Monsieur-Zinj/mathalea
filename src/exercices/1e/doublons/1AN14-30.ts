@@ -12,11 +12,11 @@ export const titre = 'Dériver des polynômes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// export const uuid = '60229'
-// export const refs = {
-//   'fr-fr': ['1AN14-30'],
-//   'fr-ch': []
-// }
+export const uuid = '60229'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 
 export const dateDePublication = '17/04/2024'
 
@@ -106,8 +106,8 @@ class DerivationSimple extends Exercice {
           Ainsi $${nomF}$ est dérivable sur $\\mathbb{R}$ et $${nomF}'(x)=${miseEnEvidence(laDerivee)}$.`
         }
         if (listeTypeDeQuestion[i] === 2) { // cas polynômes degré 2
-          const u = new Polynome({ rand: false, coeffs: [0, 0, laFonction.monomes[2]] })
-          const v = new Polynome({ rand: false, coeffs: [laFonction.monomes[0], laFonction.monomes[1]] })
+          const u = new Polynome({ rand: false, coeffs: [0, 0, (laFonction as Polynome).monomes[2]] })
+          const v = new Polynome({ rand: false, coeffs: [(laFonction as Polynome).monomes[0], (laFonction as Polynome).monomes[1]] })
           texteCorr += `
            La fonction $${nomF}$ est une fonction polynôme du second degré de la forme $${nomF}(x)=u(x)+v(x)$ avec $u(x)=${u.toLatex()}$ 
            et $v(x)=${v.toLatex()}$. <br>
@@ -117,22 +117,22 @@ class DerivationSimple extends Exercice {
             `
         }
         if (listeTypeDeQuestion[i] === 3) { // cas des polynomes de 3
-          const u = new Polynome({ rand: false, coeffs: [0, 0, 0, laFonction.monomes[3]] })
-          const v = new Polynome({ rand: false, coeffs: [laFonction.monomes[0], laFonction.monomes[1], laFonction.monomes[2]] })
+          const u = new Polynome({ rand: false, coeffs: [0, 0, 0, (laFonction as Polynome).monomes[3]] })
+          const v = new Polynome({ rand: false, coeffs: [(laFonction as Polynome).monomes[0], (laFonction as Polynome).monomes[1], (laFonction as Polynome).monomes[2]] })
           texteCorr += `La fonction $${nomF}$ est une fonction polynôme de degré $3$ de la forme $${nomF}(x)=u(x)+v(x)$ avec $u(x)=${u.toLatex()}$ 
-          et ${(laFonction.monomes[1] === 0 && laFonction.monomes[2] === 0) ? `$v(x)=${laFonction.monomes[0]}$.` : `$v(x)=${v.toLatex()}$.`}
+          et ${((laFonction as Polynome).monomes[1] === 0 && (laFonction as Polynome).monomes[2] === 0) ? `$v(x)=${(laFonction as Polynome).monomes[0]}$.` : `$v(x)=${v.toLatex()}$.`}
           <br>
           On a $u'(x)=${u.derivee().toLatex()}$ et $v'(x)=${v.derivee().toLatex()}$. <br>
           On sait que $(u+v)'=u'+v'$.<br>
          Ainsi  $${nomF}$ est  dérivable sur $${df}$ et  $${nomF}'(x)=${miseEnEvidence(laDerivee)}$.`
-          // for (let i = 0; i < laFonction.monomes.length; i++) {
-          // const monome = new Polynome({ coeffs: laFonction.monomes.map((nb: number, index:number) => index === i ? nb : 0) })
+          // for (let i = 0; i < (laFonction as Polynome).monomes.length; i++) {
+          // const monome = new Polynome({ coeffs: (laFonction as Polynome).monomes.map((nb: number, index:number) => index === i ? nb : 0) })
           // const monomeD = monome.derivee()
           // texteCorr += `$(${monome.toLatex().replace('+', '')})^\\prime = ${monomeD.toLatex() !== '' ? monomeD.toLatex() : '0'}$<br>}
         }
         if (listeTypeDeQuestion[i] === 4) { // Cas du monome unique
-          const deg = laFonction.deg
-          const coeff: number = laFonction.monomes[deg]
+          const deg = (laFonction as Polynome).deg
+          const coeff: number = (laFonction as Polynome).monomes[deg]
           // const monome = rienSi1(coeff) + `x^{${deg}}`
           const monomeD = coeff * deg + `x^{${rienSi1(deg - 1)}}`
           texteCorr += `La fonction $${nomF}$ est une fonction de la forme $a\\times x^n$.<br>`

@@ -11,30 +11,13 @@ export const titre = 'Dérivation de fonction composées V2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// <<<<<<<< f1c664b0c5b24bc63f7c4980b9588c2ce195b0fe:src/exercices/1e/doublons/1AN14-61.ts
-// export const uuid = '518d8'
-// export const refs = {
-//   'fr-fr': ['1AN14-61'],
-//   'fr-ch': []
-// }
+export const uuid = '518d8'
+export const refs = {
+  'fr-fr': [],
+  'fr-ch': []
+}
 export const dateDePublication = '17/04/2024'
-
-/**
- * Dérivée de u/v
- * Doublon avec 1AN14-6
-========
-// export const uuid = '25135'
-// export const refs = {
-//   'fr-fr': ['1AN14-72'],
-//   'fr-ch': []
-// }
-
-export const dateDePublication = '17/04/2024'
-
-/**
- * Dérivée de u(mx + p)
- * Doublon avec 1AN14-7
->>>>>>>> 6cbb4face9b7a0560f7afc5d4c553cf20a5d351d:src/exercices/1e/1AN14-71.ts
+/*
  * @author Jean-Claude Lhote
  *
  */
@@ -116,7 +99,7 @@ class DerivationGRondF extends Exercice {
       if (this.questionJamaisPosee(i, laFonctionFEnLatex, fPrime)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        handleAnswers(this, i, { reponse: { value: fPrime, options: { variable: 'x', domaine }, compare: functionCompare } })
+        handleAnswers(this, i, { reponse: { value: fPrime, compare: functionCompare, options: { variable: 'x', domaine } } })
         i++
         cpt--
       }
