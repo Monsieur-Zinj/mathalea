@@ -3,11 +3,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { context } from '../../modules/context'
 
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Classifier des événements contraires ou non contraires (ou compatibles/ incompatibles).'
+export const titre = 'Classifier des probabilités (événements contraires/ non contraires, compatibles/ incompatibles).'
 
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '6a750'
@@ -31,14 +32,20 @@ export default class ExerciceQcmStatistiques extends Exercice {
     this.sup = 1
     this.spacing = 1.2
     this.spacingCorr = 1.2
+    this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
+    this.sup2 = false
   }
 
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
     this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
+
+    if (context.isHtml && this.sup2) {
+      const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
+      this.consigne += imageCartes
+    }
     const typeDeQuestionsDisponibles = this.sup === 2 ? ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] : ['type6', 'type7', 'type8', 'type9', 'type10', 'type11', 'type12']
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
 

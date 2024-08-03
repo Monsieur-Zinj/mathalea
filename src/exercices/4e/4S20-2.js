@@ -6,7 +6,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Classifier des événements impossibles, certains, possibles.'
+export const titre = 'Classifier des probabilités (événements impossibles, certains, possibles).'
 
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 export const uuid = '3c9ef'
