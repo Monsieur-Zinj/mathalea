@@ -2,6 +2,7 @@ import Exercice from '../Exercice'
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions'
+import { context } from '../../modules/context'
 
 export const titre = 'Calculer des probabilités.'
 
@@ -21,6 +22,10 @@ export default class ExerciceQcmStatistiques extends Exercice {
   constructor () {
     super()
     this.consigne = 'On tire une carte dans un jeu de 32 cartes.<br>Calculer la probabilité d\'obtenir chacun des événements suivants.'
+    if (context.isHtml) {
+      const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
+      this.consigne += imageCartes
+    }
     this.nbQuestions = 5 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.spacing = 1.2
