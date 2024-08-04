@@ -25,10 +25,10 @@ export default class ExerciceQcmStatistiques extends Exercice {
     this.nbQuestionsModifiable = false
     this.spacing = 1.2
     this.spacingCorr = 1.2
-    this.besoinFormulaireCaseACocher = ['Afficher les 32 cartes']
+    this.besoinFormulaireCaseACocher = ['Afficher un jeu de 32 cartes']
     this.sup = false
   }
-  
+
   nouvelleVersion () {
     this.consigne = 'On tire une carte dans un jeu de 32 cartes.<br>Calculer la probabilité d\'obtenir chacun des événements suivants.'
     if (context.isHtml && this.sup) {
