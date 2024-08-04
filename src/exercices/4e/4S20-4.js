@@ -39,7 +39,7 @@ export default class ExerciceQcmStatistiques extends Exercice {
     const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
     let texte = ''
-    let texteCorr = ''
+    let texteCorr = 'On est dans une situation d\'équiprobabilité.<br> Donc la probabilité est donnée par le quotient du nombre de cas favorables par le nombre de cas au total.'
     const a = fraction(1, 2)
     const b = fraction(16, 32)
     const c = fraction(1, 4)
@@ -64,35 +64,43 @@ export default class ExerciceQcmStatistiques extends Exercice {
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'type1':
           texte = `Tirer une carte de couleur ${couleur}.<br>`
-          texteCorr = `La probabilité de tirer une carte de couleur ${couleur} est de $${b.texFraction}$ ou encore $${a.texFraction}$.`
+          texteCorr += `La moitié des cartes est de couleur ${couleur}.<br>Il y en a donc 16 sur 32.<br>`
+          texteCorr += `Donc la probabilité de tirer une carte de couleur ${couleur} est de $${b.texFraction}$ ou encore $${a.texFraction}$.`
           break
         case 'type2':
           texte = `Tirer un ${famille}.<br>`
-          texteCorr = `La probabilité de tirer un ${famille} est de $${d.texFraction}$ ou encore $${c.texFraction}$.`
+          texteCorr += `Un quart des cartes sont de la famille ${famille}.<br>Il y en a donc 8 sur 32.<br>`
+          texteCorr += `Donc la probabilité de tirer un ${famille} est de $${d.texFraction}$ ou encore $${c.texFraction}$.`
           break
         case 'type3':
           texte = `Tirer ${valeur2} de ${famille}.<br>`
-          texteCorr = `La probabilité de tirer ${valeur2} de ${famille} est de $${e.texFraction}$.`
+          texteCorr += `Tirer ${valeur2} de ${famille} ne peut s'obtenir que d'une seule manière.<br>`
+          texteCorr += `Donc la probabilité de tirer ${valeur2} de ${famille} est de $${e.texFraction}$.`
           break
         case 'type4':
           texte = `Tirer ${valeur} de couleur ${couleur}.<br>`
-          texteCorr = `La probabilité de tirer ${valeur} de couleur ${couleur} est de $${f.texFraction}$ ou encore $${g.texFraction}$.`
+          texteCorr += `Il y a deux cartes correspondant à ${valeur} de couleur ${couleur}.<br>`
+          texteCorr += `Donc la probabilité de tirer ${valeur} de couleur ${couleur} est de $${f.texFraction}$ ou encore $${g.texFraction}$.`
           break
         case 'type5':
           texte = `Tirer ${valeur}.<br>`
-          texteCorr = `La probabilité de tirer ${valeur} est de $${h.texFraction}$ ou encore $${p.texFraction}$.`
+          texteCorr += `Il y a quatre cartes correspondant à ${valeur}.<br>`
+          texteCorr += `Donc la probabilité de tirer ${valeur} est de $${h.texFraction}$ ou encore $${p.texFraction}$.`
           break
         case 'type6':
           texte = `Tirer une autre carte qu'${valeur}.<br>`
-          texteCorr = `La probabilité de tirer une autre carte qu'${valeur} est de $${j.texFraction}$ ou encore $${k.texFraction}$.`
+          texteCorr += `Il y a 28 cartes autres qu'${valeur}.<br>`
+          texteCorr += `Donc la probabilité de tirer une autre carte qu'${valeur} est de $${j.texFraction}$ ou encore $${k.texFraction}$.`
           break
         case 'type7':
           texte = 'Tirer une carte qui ne soit pas une figure.<br>'
-          texteCorr = `La probabilité de tirer une carte qui ne soit pas une figure est de $${l.texFraction}$ ou encore $${m.texFraction}$.`
+          texteCorr += 'Il y a 12 cartes qui sont des figures, donc 20 qui ne sont pas des figures.<br>'
+          texteCorr += `Donc la probabilité de tirer une carte qui ne soit pas une figure est de $${l.texFraction}$ ou encore $${m.texFraction}$.`
           break
         case 'type8':
           texte = `Tirer une carte autre qu'${valeur} de couleur ${couleur}.<br>`
-          texteCorr = `La probabilité de tirer une carte autre qu'${valeur} de couleur ${couleur} est de $${n.texFraction}$ ou encore $${o.texFraction}$.`
+          texteCorr += `Il y a 30 cartes qui ne correspondent pas à ${valeur} de couleur ${couleur}.<br>`
+          texteCorr += `Donc la probabilité de tirer une carte autre qu'${valeur} de couleur ${couleur} est de $${n.texFraction}$ ou encore $${o.texFraction}$.`
           break
       }
       this.listeQuestions.push(texte)

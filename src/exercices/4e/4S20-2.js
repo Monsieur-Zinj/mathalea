@@ -22,7 +22,7 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Classer chaque événement selon qu’il est impossible, certain, ou possible.'
+    this.consigne = 'Classifier des probabilités (impossible, certain, possible).'
     this.nbQuestions = 5 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
     this.spacing = 1.2
