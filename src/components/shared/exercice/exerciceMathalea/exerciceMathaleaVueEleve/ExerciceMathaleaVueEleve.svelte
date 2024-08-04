@@ -12,6 +12,7 @@
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
+  import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types';
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -46,7 +47,7 @@
   function countMathField () {
     let numbOfAnswerFields : number = 0 
     exercise.autoCorrection.forEach( val => {
-      if (val.reponse.param.formatInteractif === 'mathlive' || val.reponse.param.formatInteractif === 'qcm') {
+      if (val.reponse?.param?.formatInteractif === 'mathlive' || val.reponse?.param?.formatInteractif === 'qcm') {
         numbOfAnswerFields++
       }
     })
@@ -57,8 +58,49 @@
 
   async function forceUpdate () {
     if (exercise == null) return
-    exercise.numeroExercice = exerciseIndex
+    exercise.numeroExercice = exerciseIndex    
     await adjustMathalea2dFiguresWidth()
+  }
+
+  function updateAnswers() {
+    if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
+      const q1 = document.querySelector<HTMLElement>('#exercice'+ exercise.numeroExercice +'Q0')
+      if (q1?.innerText === 'chargement...') return //en attente du chargement de l'exercice
+      const fields = document.querySelectorAll('math-field')
+      fields.forEach((field) => {
+        field.setAttribute('disabled', 'true')
+      })
+      const url = new URL(window.location.href)
+      // Pour Moodle, les réponses sont dans l'URL
+      const answers = url.searchParams.get('answers')
+      const objAnswers = answers ? JSON.parse(answers) : undefined
+      if (JSON.stringify($globalOptions.answers) === JSON.stringify(objAnswers)){
+        $globalOptions.answers = objAnswers
+      }
+      mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+      for (const answer in objAnswers) {
+        // La réponse correspond à un champs texte
+        const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
+        if (field != null) {
+          if (typeof field.setValue === 'function') field.setValue(objAnswers[answer])
+          else {
+            // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercise) })
+            field.value = objAnswers[answer]
+          }
+        }
+        // La réponse correspond à une case à cocher qui doit être cochée
+        const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+        if (checkBox !== null && objAnswers[answer] === '1') {
+          checkBox.checked = true
+        }
+      }
+      if (buttonScore) {
+        exercise.isDone = true
+        buttonScore.click()
+      }
+    }
   }
 
   onMount(async () => {
@@ -68,42 +110,6 @@
     document.addEventListener('removeAllInteractif', removeAllInteractif)
     document.addEventListener('updateAsyncEx', forceUpdate)
     updateDisplay()
-    setTimeout(() => {
-      if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
-        const fields = document.querySelectorAll('math-field')
-        fields.forEach((field) => {
-          field.setAttribute('disabled', 'true')
-        })
-        const url = new URL(window.location.href)
-        // Pour Moodle, les réponses sont dans l'URL
-        const answers = url.searchParams.get('answers')
-        const objAnswers = answers ? JSON.parse(answers) : undefined
-        $globalOptions.answers = objAnswers
-        mathaleaUpdateUrlFromExercicesParams($exercicesParams)
-        for (const answer in objAnswers) {
-          // La réponse correspond à un champs texte
-          const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement
-          if (field != null) {
-            if (typeof field.setValue === 'function') field.setValue(objAnswers[answer])
-            else {
-              // Problème à régler pour ts. mais window.notify() existe bien au chargement en ce qui nous concerne.
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              window.notify('Il y a un problème avec l\'input de cet exercice, il ne semble pas être un MathfieldElement, en tout cas ne possède pas de méthode setValue()', { exercice: JSON.stringify(exercise) })
-              field.value = objAnswers[answer]
-            }
-          }
-          // La réponse correspond à une case à cocher qui doit être cochée
-          const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-          if (checkBox !== null && objAnswers[answer] === '1') {
-            checkBox.checked = true
-          }
-        }
-        if (buttonScore) {
-          exercise.isDone = true
-          buttonScore.click()
-        }
-      }
-    }, 100)
     if (isInteractif && !isCorrectionVisible) {
       numberOfAnswerFields = countMathField()
     } 
@@ -118,6 +124,7 @@
     log('afterUpdate')
     if (exercise) {
       await tick()
+      updateAnswers()
       mathaleaRenderDiv(divExercice)
       adjustMathalea2dFiguresWidth()
       if (exercise.interactif) {
@@ -209,11 +216,11 @@
       const previousBestScore = $exercicesParams[exercise.numeroExercice]?.bestScore ?? 0
       const { numberOfPoints, numberOfQuestions } = exerciceInteractif(exercise, divScore, buttonScore)
       const bestScore = Math.max(numberOfPoints, previousBestScore)
-      exercicesParams.update(l => {
+      exercicesParams.update((l : InterfaceParams[]) => {
         l[exercise.numeroExercice as number].bestScore = bestScore
         return l
       })
-      resultsByExercice.update((l) => {
+      resultsByExercice.update((l : InterfaceResultExercice[]) => {
         l[exercise.numeroExercice as number] = {
           uuid: exercise.uuid,
           title: exercise.titre,
