@@ -406,7 +406,9 @@ class Trinome {
     }
     if (this.alpha.valeurDecimale === 0) result += 'x^2'
     else result += `\\left(x ${this.alpha.oppose().simplifie().texFractionSignee}\\right)^2`
-    result += ` ${this.beta.simplifie().texFractionSignee}`
+    if (this.beta.valeurDecimale !== 0) {
+      result += ` ${this.beta.simplifie().texFractionSignee}`
+    }
     return result
   }
 }
