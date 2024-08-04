@@ -247,6 +247,9 @@ build:
     - NODE_OPTIONS=--max-old-space-size=4096 pnpm build
     - echo "$CI_COMMIT_AUTHOR"
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS'
+      when: never
     - when: always
   artifacts:
     when: on_failure
@@ -257,8 +260,8 @@ playwright-testCanEleve:
   script:
     - pnpm test:e2e:views
   rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: always
+#     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+#       when: always
     - if: $CI_COMMIT_BRANCH == "main" && $CI_OPEN_MERGE_REQUESTS
       when: never
     - if: $CI_COMMIT_BRANCH == "main"
