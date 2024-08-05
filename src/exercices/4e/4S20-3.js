@@ -5,7 +5,6 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 
-export const titre = 'Classifier des événements contraires ou non contraires (ou compatibles/ incompatibles).'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Classifier des probabilités (événements contraires / non contraires, compatibles/ incompatibles).'
