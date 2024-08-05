@@ -108,7 +108,7 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=${a}x^2+b$ .<br>
+            texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
             texte += `Déterminer la valeur de $b$.<br>
             
@@ -163,7 +163,7 @@ export default function LectureGraphiqueParaboleB () {
 
             f = x => a * x ** 2 + b
 
-            texte = `$f$ est définie par $f(x)=${a}x^2+b$ .<br>
+            texte = `$f$ est définie par $f(x)=${rienSi1(a)}x^2+b$ .<br>
             `
             texte += `Déterminer la valeur de $b$.<br>
             
