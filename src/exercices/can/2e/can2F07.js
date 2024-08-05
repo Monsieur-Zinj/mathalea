@@ -34,7 +34,6 @@ export default function ExtremumsTableau () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
-  
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -77,7 +76,7 @@ export default function ExtremumsTableau () {
         espcl: 3, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 2, // taille de la première colonne en cm
-        scale: 1 // ceci est l'échelle du texte
+        scale: context.isHtml ? 1 : 0.4// ceci est l'échelle du texte
       }) + '<br>'
       this.canEnonce = texte
       if (choice([true, false])) {

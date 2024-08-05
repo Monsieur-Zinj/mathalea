@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import Exercice from '../../deprecatedExercice.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { context } from '../../../modules/context.js'
 
 export const titre = 'Encadrer en utilisant un tableau de variations'
 export const interactifReady = true
@@ -32,7 +33,6 @@ export default function EncadrerTableau () {
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur15 inline'
   this.tailleDiaporama = 2
-  
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
@@ -73,10 +73,10 @@ export default function EncadrerTableau () {
           // tabLines ci-dessous contient les autres lignes du tableau.
           tabLines: [ligne1],
           colorBackground: '',
-          espcl: 3, // taille en cm entre deux antécédents
+          espcl: 2, // taille en cm entre deux antécédents
           deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
           lgt: 3, // taille de la première colonne en cm
-          scale: 0.35
+          scale: context.isHtml ? 1 : 0.4
         })
       question1 += tableauDeVariation({
         tabInit: [
@@ -90,10 +90,10 @@ export default function EncadrerTableau () {
         // tabLines ci-dessous contient les autres lignes du tableau.
         tabLines: [ligne1],
         colorBackground: '',
-        espcl: 3, // taille en cm entre deux antécédents
+        espcl: 2, // taille en cm entre deux antécédents
         deltacl: 1, // distance entre la bordure et les premiers et derniers antécédents
         lgt: 3, // taille de la première colonne en cm
-        scale: 0.35
+        scale: context.isHtml ? 1 : 0.4
       })
       if (choice([true, false])) {
         question1 += `  <br>
