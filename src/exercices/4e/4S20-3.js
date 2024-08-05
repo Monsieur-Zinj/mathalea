@@ -5,6 +5,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 
+export const titre = 'Classifier des événements contraires ou non contraires (ou compatibles/ incompatibles).'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Classifier des probabilités (événements contraires / non contraires, compatibles/ incompatibles).'
@@ -31,14 +32,21 @@ export default class ExerciceQcmStatistiques extends Exercice {
     this.sup = 1
     this.spacing = 1.2
     this.spacingCorr = 1.2
+<<<<<<< src/exercices/4e/4S20-3.js
+=======
     this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
     this.sup2 = false
+>>>>>>> src/exercices/4e/4S20-3.js
   }
 
   nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+<<<<<<< src/exercices/4e/4S20-3.js
+
+=======
+>>>>>>> src/exercices/4e/4S20-3.js
     this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     if (context.isHtml && this.sup2) {
       const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'

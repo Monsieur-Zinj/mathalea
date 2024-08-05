@@ -3,7 +3,6 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
-
 export const titre = 'Calculer des probabilités.'
 
 export const dateDePublication = '02/08/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
@@ -35,7 +34,6 @@ export default class ExerciceQcmStatistiques extends Exercice {
       const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
       this.consigne += imageCartes
     }
-
     const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7', 'type8']
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque cycle
     let texte = ''
