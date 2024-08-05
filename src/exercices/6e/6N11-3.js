@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
@@ -80,21 +80,21 @@ function encadrementCorr (nb, precision) {
     }
   }
 }
-export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
-  Exercice.call(this)
-  this.sup = '1'
-  this.sup2 = '2'
-  this.nbQuestions = 3
+export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice {
+  constructor () {
+    super()
+    this.sup = 1
+    this.sup2 = 2
+    this.sup3 = 1
+    this.nbQuestions = 3
+    context.isHtml ? this.spacing = 3 : this.spacing = 2
+    context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
+    this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets', '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100\n4 : Mélange']
+    this.besoinFormulaire2Texte = ['Difficulté (nombres séparés par des tirets)', '1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
+    this.besoinFormulaire3Numerique = ['Énoncé', 2, '1 : Multiple\n2 : Encadrer à la dizaine, centaine']
+  }
 
-  this.consigne = ''
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  context.isHtml ? this.spacing = 3 : this.spacing = 2
-  context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion  () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -102,7 +102,9 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, defaut: 1, nbQuestions: this.nbQuestions, melange: 4 })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte = ''
+      let texteCorr = ''
       // pour la précision d'encadrement
       const precision = Number(listeTypeDeQuestions[i])
       const pDix = 10 ** (precision - 1)
@@ -114,12 +116,21 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
           texte = 'Compléter avec le nombre entier qui précède et le nombre entier qui suit :'
           break
         case 10:
-          texte = 'Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit :'
+          if (this.sup3 === 1) {
+            texte = 'Compléter avec le multiple de 10 qui précède et le multiple de 10 qui suit :'
+          } else {
+            texte = 'Encadrer à la dizaine près :'
+          }
           break
         case 100:
-          texte = 'Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit :'
+          if (this.sup3 === 1) {
+            texte = 'Compléter avec le multiple de 100 qui précède et le multiple de 100 qui suit :'
+          } else {
+            texte = 'Encadrer à la centaine près :'
+          }
           break
       }
+      texte += '<br>'
       texte += remplisLesBlancs(this, i, `%{champ1}<${texNombre(nombre, 0)}<%{champ2}`, 'fillInThBlank')
       texteCorr = `$${miseEnEvidence(texNombre(inf, 0))}<${texNombre(nombre, 0)}<${miseEnEvidence(texNombre(sup, 0))}$`
       handleAnswers(this, i, { champ1: { value: String(inf), compare: fonctionComparaison }, champ2: { value: String(sup), compare: fonctionComparaison } })
@@ -133,6 +144,4 @@ export default function EncadrerUnEntierParDeuxEntiersConsecutifs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets', '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100\n4 : Mélange']
-  this.besoinFormulaire2Texte = ['Difficulté (nombres séparés par des tirets)', '1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
 }
