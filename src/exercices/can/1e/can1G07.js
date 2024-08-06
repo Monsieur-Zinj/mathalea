@@ -38,7 +38,7 @@ export default function RechercheCoordonneesProdScal () {
     const f2 = new FractionEtendue(-uy * vy, ux)
     switch (choice([1, 2])) { //
       case 1:
-        this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on considère les vecteurs :<br>
+        this.question = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on considère les vecteurs :<br>
     $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}x\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
   
     Que vaut $x$ si $\\vec{u}$ et $\\vec{v}$ sont orthogonaux ?`
@@ -54,7 +54,7 @@ export default function RechercheCoordonneesProdScal () {
         this.reponse = f1
         break
       case 2 :
-        this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on considère les vecteurs :<br>
+        this.question = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on considère les vecteurs :<br>
         $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
         
         Que vaut $x$ si $\\vec{u}$ et $\\vec{v}$ sont orthogonaux ?`

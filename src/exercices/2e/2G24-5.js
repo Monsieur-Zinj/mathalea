@@ -61,7 +61,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             yB = new FractionEtendue(yA - uy, 1)
           }
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne le point $A(${xA}\\,;\\,${yA})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne le point $A(${xA}\\,;\\,${yA})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du point $B$ tel que $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$.`
 
           texteCorr = `$\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$ `
@@ -79,14 +79,14 @@ export default function Calculercoordonneesegalitevecteurs () {
             texteCorr += 'Appliqué aux données de l\'énoncé : '
             if (pr === 'A') {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}x_B-${ecritureParentheseSiNegatif(xA)}\\\\y_B-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br><br>`
-              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$, ce qui équivaut à résoudre :<br><br>`
               texteCorr += `$\\begin{cases}${ux}=x_B-${ecritureParentheseSiNegatif(xA)}\\\\${uy}=y_B-${ecritureParentheseSiNegatif(yA)}\\end{cases}$ `
               texteCorr += `$\\Leftrightarrow\\begin{cases}${ux}${ecritureAlgebrique(xA)}=x_B\\\\${uy}${ecritureAlgebrique(yA)}=y_B\\end{cases}$<br><br>`
             } else {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$.<br><br>`
-              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}$, ce qui équivaut à résoudre :<br><br>`
               texteCorr += `$\\begin{cases}${ux}=${xA}-x_B\\\\${uy}=${yA}-y_B\\end{cases}$ `
@@ -116,7 +116,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             yB = new FractionEtendue(yD - yC + yA - uy, 1)
           }
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points $A(${xA}\\,;\\,${yA})$, $C(${xC}\\,;\\,${yC})$, $D(${xD}\\,;\\,${yD})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les points $A(${xA}\\,;\\,${yA})$, $C(${xC}\\,;\\,${yC})$, $D(${xD}\\,;\\,${yD})$ et le vecteur $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du point $B$ tel que $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$.`
 
           if (pr === 'A') {
@@ -143,7 +143,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             if (pr === 'A') {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}x_B-${ecritureParentheseSiNegatif(xA)}\\\\y_B-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$ et `
               texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
-              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$ et que $\\vec{w}=\\vec{u}+\\vec{v}$ aura pour coordonnées $\\vec{w}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$, ce qui équivaut à résoudre :<br><br>`
               texteCorr += `$\\begin{cases}${ux}=x_B-${ecritureParentheseSiNegatif(xA)}+${ecritureParentheseSiNegatif(xD - xC)}\\\\${uy}=y_B-${ecritureParentheseSiNegatif(yA)}+${ecritureParentheseSiNegatif(yD - yC)}\\end{cases}$ `
@@ -152,7 +152,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             } else {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$ et `
               texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
-              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+              texteCorr += 'Soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
               texteCorr += 'On sait d\'après le cours que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$ et que $\\vec{w}=\\vec{u}+\\vec{v}$ aura pour coordonnées $\\vec{w}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
               texteCorr += `D'après l'énoncé $\\overrightarrow{u}=\\overrightarrow{${pr}${se}}+\\overrightarrow{CD}$, ce qui équivaut à résoudre :<br><br>`
               texteCorr += `$\\begin{cases}${ux}=${xA}-x_B+${ecritureParentheseSiNegatif(xD - xC)}\\\\${uy}=${yA}-y_B+${ecritureParentheseSiNegatif(yD - yC)}\\end{cases}$ `
@@ -184,7 +184,7 @@ export default function Calculercoordonneesegalitevecteurs () {
             yB = new FractionEtendue(k * yA - yD + yC, k).simplifie()
           }
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A(${xA};${yA})$, $C(${xC};${yC})$ et $D(${xD};${yD})$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les points suivants : $A(${xA};${yA})$, $C(${xC};${yC})$ et $D(${xD};${yD})$.<br>`
           texte += `Déterminer les coordonnées du point $B$ tel que $\\overrightarrow{CD}=${k}\\overrightarrow{${pr}${se}}$.`
 
           if (pr === 'A') {
@@ -215,7 +215,7 @@ export default function Calculercoordonneesegalitevecteurs () {
               texteCorr += `$\\overrightarrow{${pr}${se}}\\begin{pmatrix}${xA}-x_B\\\\${yA}-y_B\\end{pmatrix}$ et `
               texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
             }
-            texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+            texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{u}\\begin{pmatrix}k \\times x\\\\k \\times y\\end{pmatrix}$ et que $\\overrightarrow{u}=\\overrightarrow{v}$ équivaut à $\\begin{cases}x=x\'\\\\y=y\'\\end{cases}$.<br><br>'
             texteCorr += `D'après l'énoncé $\\overrightarrow{CD}=${k}\\overrightarrow{${pr}${se}}$, ce qui équivaut à résoudre :<br><br>`
             if (pr === 'A') {

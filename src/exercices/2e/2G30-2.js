@@ -35,8 +35,8 @@ export default function EquationReduiteDeDroites () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    if (this.sup === 1) this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
-    else this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
+    if (this.sup === 1) this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
+    else this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, xu, yu, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       if (this.sup === 1) { // case 'A et B':
@@ -64,7 +64,7 @@ export default function EquationReduiteDeDroites () {
         d = xu
 
         texte = `$A(${xA};${yA})$ et $\\vec {u} \\begin{pmatrix}${xu}\\\\${yu}\\end{pmatrix}$`
-        texteCorr = 'On observe que $ \\vec u$ n\'est pas colinéaire au vecteur $\\vec j$, puisque son déplacement horizontal est non nul.'
+        texteCorr = 'On observe que $ \\vec u$ n\'est pas colinéaire au vecteur $\\vec \\jmath$, puisque son déplacement horizontal est non nul.'
         texteCorr += '<br>La droite $(d)$ n\'est donc pas verticale. Elle admet donc une équation du type : $(d) :y=mx+p$.'
         texteCorr += '<br>On commence par calculer le coefficient directeur $m$.'
         texteCorr += '<br>On sait d\'après le cours que si $\\vec u \\begin{pmatrix}a\\\\b\\end{pmatrix}$, alors $m=\\dfrac{b}{a}$.'

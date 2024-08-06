@@ -45,9 +45,9 @@ export default function CoefficientDirecteurDeDroite () {
     const typeQuestionsDisponibles = ['Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite oblique', 'Droite verticale'] // On créé 2 types de questions
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     if (!this.interactif) {
-      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $(AB)$."
+      this.consigne = "Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer, s'il existe et en l'expliquant, le coefficient directeur de la droite $(AB)$."
     } else {
-      this.consigne = "Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer, s'il existe, le coefficient directeur de la droite $(AB)$, écrire 'aucun' si la droite n'a pas de coefficicient directeur."
+      this.consigne = "Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer, s'il existe, le coefficient directeur de la droite $(AB)$, écrire 'aucun' si la droite n'a pas de coefficicient directeur."
     }
 
     for (let i = 0, texte, xA, yA, xB, yB, n, d, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -81,7 +81,7 @@ export default function CoefficientDirecteurDeDroite () {
             n = unSiPositifMoinsUnSinon(n) * unSiPositifMoinsUnSinon(d) * Math.abs(n)
             d = Math.abs(d)
             this.autoCorrection[i] = {
-              enonce: `Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal. Soit $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>Déterminer, s'il existe, le coefficient directeur de la droite $\\bm{(AB)}$ sous la forme d'une fraction irréductible (coder deux fois zéro si le coefficient n'existe pas).<br>`,
+              enonce: `Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal. Soit $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>Déterminer, s'il existe, le coefficient directeur de la droite $\\bm{(AB)}$ sous la forme d'une fraction irréductible (coder deux fois zéro si le coefficient n'existe pas).<br>`,
               propositions: [
                 {
                   type: 'qcmMono',
@@ -151,7 +151,7 @@ export default function CoefficientDirecteurDeDroite () {
 
           if (context.isAmc) {
             this.autoCorrection[i] = {
-              enonce: `Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal. Soit $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>Déterminer, s'il existe, le coefficient directeur de la droite $\\bm{(AB)}$ sous la forme d'une fraction irréductible (coder deux fois zéro si le coefficient n'existe pas).<br>`,
+              enonce: `Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal. Soit $A(${xA};${yA})$ et $B(${xB};${yB})$.<br>Déterminer, s'il existe, le coefficient directeur de la droite $\\bm{(AB)}$ sous la forme d'une fraction irréductible (coder deux fois zéro si le coefficient n'existe pas).<br>`,
               propositions: [
                 {
                   type: 'qcmMono',

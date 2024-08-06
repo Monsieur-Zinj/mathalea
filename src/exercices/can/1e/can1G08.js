@@ -41,7 +41,7 @@ export default function VecteurNormEqCart () {
       b = randint(-9, 9, 0)
       c = randint(-5, 5, 0)
 
-      texte = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, la droite $d$ a pour équation :
+      texte = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, la droite $d$ a pour équation :
     ${texteCentre(`$${rienSi1(a)}x${ecritureAlgebriqueSauf1(b)}y${ecritureAlgebrique(c)}=0$`)}
  Donner les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$.<br>`
 
