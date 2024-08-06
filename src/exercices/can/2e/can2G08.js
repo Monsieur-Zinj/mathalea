@@ -32,14 +32,14 @@ export default function CoordonneesVecteur2 () {
     const a = randint(-6, 6, [0, 1, -1])
     const b = randint(2, 10)
     if (choice([true, false])) {
-      this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on a : $\\vec{u}=${a}(\\vec \\imath+${b}\\vec \\jmath)$.<br>
+      this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on a : $\\vec{u}=${a}(\\vec \\imath+${b}\\vec \\jmath\\big)$.<br>
       Quelles sont les coordonnées du vecteur $\\vec{u}$ dans ce repère ?<br><br>`
       this.optionsChampTexte = { texteAvant: '$\\vec{u}$ a pour coordonnées :' }
-      this.correction = `$\\vec{u}=${a}(\\vec \\imath+${b}\\vec \\jmath)=${a}\\vec \\imath+${ecritureParentheseSiNegatif(a * b)}\\vec \\jmath$.<br>
+      this.correction = `$\\vec{u}=${a}(\\vec \\imath+${b}\\vec \\jmath\\big)=${a}\\vec \\imath+${ecritureParentheseSiNegatif(a * b)}\\vec \\jmath$.<br>
       Les coordonnées du vecteur $\\vec{u}$ sont donc $${miseEnEvidence('(')} ${miseEnEvidence(`${a}`)}\\,${miseEnEvidence(';')}\\,${miseEnEvidence(`${a * b}`)} ${miseEnEvidence(')')}$.`
       this.reponse = `(${a};${a * b})`
     } else {
-      this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on a : $\\vec{u}=${a}(\\vec \\jmath+${b}\\vec \\imath)$.<br>
+      this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on a : $\\vec{u}=${a}(\\vec \\jmath+${b}\\vec \\imath)$.<br>
       Quelles sont les coordonnées du vecteur $\\vec{u}$ dans ce repère ?<br><br>`
       this.optionsChampTexte = { texteAvant: '$\\vec{u}$ a pour coordonnées :' }
       this.correction = `$\\vec{u}=${a}(\\vec \\jmath+${b}\\vec \\imath)=${a}\\vec \\jmath+${ecritureParentheseSiNegatif(a * b)}\\vec \\imath$.<br>

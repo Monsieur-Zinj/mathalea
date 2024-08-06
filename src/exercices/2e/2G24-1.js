@@ -68,7 +68,7 @@ export default function Calculercoordonneesvecteurs () {
           axeYStyle: '->'
         })
 
-        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA}\\,;\\,${yA}\\right)$ et $${nomsPoints[1]}\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
+        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA}\\,;\\,${yA}\\right)$ et $${nomsPoints[1]}\\left(${xB}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
         texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xABFraction.texFraction}\\\\${yABFraction.texFraction}\\end{pmatrix}$.<br>`
@@ -108,7 +108,7 @@ export default function Calculercoordonneesvecteurs () {
           grilleSecondaireXMax: Math.max(-2, Math.trunc(xA + 2.5), Math.trunc(xB + 2.5), 2)
         }) // On définit le repère
 
-        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD}\\,;\\,${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD}\\,;\\,${yB}\\right)$.<br>`
+        texte = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on donne les points suivants : $${nomsPoints[0]}\\left(${xA.texFSD}\\,;\\,${yA.texFSD}\\right)$ et $${nomsPoints[1]}\\left(${xB.texFSD}\\,;\\,${yB}\\right)$.<br>`
         texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}$.`
 
         texteCorr = `$\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB.texFSD}-${xA.texFSP}\\\\[0.7em]${yB}-${yA.texFSP}\\end{pmatrix}$, soit $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFSD)}\\end{pmatrix}$.<br>`

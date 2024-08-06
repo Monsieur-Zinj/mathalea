@@ -6,7 +6,7 @@ import { angleOriente } from './angles.js'
 import { Cercle } from './cercle.js'
 import { Droite, droite } from './droites.js'
 import { milieu, Point, point, pointIntersectionDD, pointIntersectionLC, pointSurSegment } from './points.js'
-import { texteParPosition } from './textes.ts'
+import { latex2d, texteParPosition } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 import MainLevee from './MainLevee'
 
@@ -53,7 +53,8 @@ export function Vecteur (arg1, arg2, nom = '') {
     return s
   }
   this.representantNomme = function (A, nom, taille = 1, color = 'black') {
-    let s, v
+    let s
+    let v
     const B = point(A.x + this.x, A.y + this.y)
     const M = milieu(A, B)
     s = segment(A, B, color)
@@ -95,6 +96,8 @@ export function NomVecteurParPosition (nom, x, y, taille = 1, angle = 0, color =
   this.color = color
   this.angle = angle
   this.taille = taille
+  if (this.nom === 'i') return latex2d('\\vec \\imath', this.x, this.y, { color: this.color })
+  if (this.nom === 'j') return latex2d('\\vec \\jmath', this.x, this.y, { color: this.color })
   const objets = []
   const t = texteParPosition(this.nom, this.x, this.y, -this.angle, this.color, this.taille, 'milieu', true)
   const M = point(this.x, this.y)
@@ -170,7 +173,7 @@ export function Segment (arg1, arg2, arg3, arg4, color, styleExtremites = '') {
       }
     }
     if (typeof I === 'boolean') return (I)
-    else return I.estSur(objet) && I.estSur(this)
+    return I.estSur(objet) && I.estSur(this)
   }
 
   this.typeObjet = 'segment'

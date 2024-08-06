@@ -70,12 +70,12 @@ export default function Calculercoordonneesproduitvecteurs () {
           wx = new FractionEtendue(ux + k * vx, 1)
           wy = new FractionEtendue(uy + k * vy, 1)
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}\\\\${vy}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}\\\\${vy}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${ecritureAlgebrique(k)}\\overrightarrow{v}$.`
 
           texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vx)}\\\\${uy}${ecritureAlgebrique(k)}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$,  soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFSD)}\\\\${miseEnEvidence(wy.texFSD)}\\end{pmatrix}$.<br>`
           if (this.correctionDetaillee) {
-            texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+            texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
             texteCorr += `$${k}\\overrightarrow{v}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(vx)}\\\\${k}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $${k}\\overrightarrow{v}\\begin{pmatrix}${k * vx}\\\\${k * vy}\\end{pmatrix}$.<br><br>`
@@ -100,12 +100,12 @@ export default function Calculercoordonneesproduitvecteurs () {
           wx = vx.produitFraction(k.multiplieEntier(a)).ajouteEntier(ux).simplifie()
           wy = vy.produitFraction(k.multiplieEntier(a)).ajouteEntier(uy).simplifie()
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy.texFraction}\\end{pmatrix}$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les vecteurs suivants : $\\vec{u}\\begin{pmatrix}${ux}\\\\[0.7em]${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx.texFraction}\\\\[0.7em]${vy.texFraction}\\end{pmatrix}$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{u}${signe(a)}${k.texFSD}\\overrightarrow{v}$.`
 
           texteCorr = `$\\overrightarrow{w}\\begin{pmatrix}${ux}${signe(a)}${k.texFraction}\\times ${vx.texFraction}\\\\[0.7em]${uy}${signe(a)}${k.texFSD}\\times${vy.texFraction}\\end{pmatrix}$, soit $\\overrightarrow{w}\\begin{pmatrix}${miseEnEvidence(wx.texFraction)}\\\\[0.7em]${miseEnEvidence(wy.texFraction)}\\end{pmatrix}$.`
           if (this.correctionDetaillee) {
-            texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+            texteCorr = 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
             texteCorr += `$${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(frac1[0] * a, frac1[1])}\\times${vx.texFraction}\\\\[0.7em]${texFractionReduite(frac1[0] * a, frac1[1])}\\times${ecritureParentheseSiNegatif(vy)}\\end{pmatrix}$, soit $${texFractionReduite(frac1[0] * a, frac1[1])}\\overrightarrow{v}\\begin{pmatrix}${texFractionReduite(a * frac1[0] * frac2[0], frac1[1] * frac2[1])}\\\\[0.7em]${texFractionReduite(a * frac1[0] * vy, frac1[1])}\\end{pmatrix}$.<br><br>`
@@ -130,7 +130,7 @@ export default function Calculercoordonneesproduitvecteurs () {
           wx = new FractionEtendue((xB - xA) + k * (xD - xC), 1)
           wy = new FractionEtendue((yB - yA) + k * (yD - yC), 1)
 
-          texte = `Dans un repère orthonormé $(O;\\vec \\imath,\\vec \\jmath)$, on donne les points suivants : $A\\left(${xA}\\,;\\,${yA}\\right)$, $B\\left(${xB}\\,;\\,${yB}\\right)$, $C\\left(${xC}\\,;\\,${yC}\\right)$ et $D\\left(${xD}\\,;\\,${yD}\\right)$.<br>`
+          texte = `Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, on donne les points suivants : $A\\left(${xA}\\,;\\,${yA}\\right)$, $B\\left(${xB}\\,;\\,${yB}\\right)$, $C\\left(${xC}\\,;\\,${yC}\\right)$ et $D\\left(${xD}\\,;\\,${yD}\\right)$.<br>`
           texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{w}=\\overrightarrow{AB}${ecritureAlgebrique(k)}\\overrightarrow{CD}$.`
 
           if (this.correctionDetaillee) {
@@ -142,7 +142,7 @@ export default function Calculercoordonneesproduitvecteurs () {
           texteCorr += `$\\overrightarrow{AB}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$, soit $\\overrightarrow{AB}\\begin{pmatrix}${xB - xA}\\\\${yB - yA}\\end{pmatrix}$.<br><br>`
           texteCorr += `$\\overrightarrow{CD}\\begin{pmatrix}${xD}-${ecritureParentheseSiNegatif(xC)}\\\\${yD}-${ecritureParentheseSiNegatif(yC)}\\end{pmatrix}$, soit $\\overrightarrow{CD}\\begin{pmatrix}${xD - xC}\\\\${yD - yC}\\end{pmatrix}$.<br><br>`
           if (this.correctionDetaillee) {
-            texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $(O;\\vec \\imath,\\vec \\jmath)$.<br><br>'
+            texteCorr += 'Soit $k$ un nombre réel et soit $\\vec{u}\\begin{pmatrix}x\\\\y\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}x\'\\\\y\'\\end{pmatrix}$ deux vecteurs dans un repère $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$.<br><br>'
             texteCorr += 'On sait d\'après le cours que $k\\overrightarrow{v}\\begin{pmatrix}k \\times x\'\\\\k \\times y\'\\end{pmatrix}$ et que $\\overrightarrow{u}+\\overrightarrow{v}\\begin{pmatrix}x+x\'\\\\y+y\'\\end{pmatrix}$.<br><br>'
             texteCorr += 'Appliqué aux données de l\'énoncé :<br><br>'
             texteCorr += `$${k}\\overrightarrow{CD}\\begin{pmatrix}${k}\\times${ecritureParentheseSiNegatif(xD - xC)}\\\\${k}\\times${ecritureParentheseSiNegatif(yD - yC)}\\end{pmatrix}$, soit $${k}\\overrightarrow{CD}\\begin{pmatrix}${k * (xD - xC)}\\\\${k * (yD - yC)}\\end{pmatrix}$.<br><br>`

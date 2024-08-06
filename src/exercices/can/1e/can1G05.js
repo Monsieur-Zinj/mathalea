@@ -32,7 +32,7 @@ export default function ProduitScalaireCoordonnees () {
     const vx = randint(-10, 10, 0)
     const vy = randint(-10, 10, 0)
 
-    this.question = ` Dans un repère orthonormé $(O;\\vec i,\\vec j)$, on donne deux vecteurs :<br>
+    this.question = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec j)$, on donne deux vecteurs :<br>
     $\\vec{u}\\begin{pmatrix}${ux}${sp(1)} \\\\ ${sp(1)}${uy}\\end{pmatrix}$ et $\\vec{v}\\begin{pmatrix}${vx}${sp(1)} \\\\ ${sp(1)}${vy}\\end{pmatrix}$<br>
 
     Alors $\\vec{u}\\cdot\\vec{v}=$`

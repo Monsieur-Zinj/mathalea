@@ -85,14 +85,14 @@ export default class RepresenterUnVecteur extends Exercice {
         l = labelPoint(A, 'red')// Variable qui trace les nom s A et B
         //  t = tracePoint(A, 'red') // Variable qui trace les points avec une croix
 
-        texte = ` Dans un repère orthonormé $(O,\\vec i,\\vec j)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
+        texte = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour origine le point $A\\left(${xA};${yA}\\right)$.`
 
         texteCorr = 'On sait qu\'un vecteur mesure un déplacement.'
         texteCorr += `<br> À partir du point $A$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement (en bleu) puis $${uy}$ unités verticalement (en vert) pour arriver au point $B$, extrémité du vecteur $\\vec{u}$.`
         texteCorr += '<br> Voir les déplacements dans le repère et le tracé en rouge du vecteur $\\vec{u}$.<br>'
       } else {
-        texte = ` Dans un repère orthonormé $(O,\\vec i,\\vec j)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
+        texte = ` Dans un repère orthonormé $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour extrémité le point $B\\left(${xB};${yB}\\right)$.`
 
         texteCorr = 'On sait qu\'un vecteur mesure un déplacement.'

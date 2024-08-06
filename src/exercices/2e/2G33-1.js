@@ -19,7 +19,7 @@ export const refs = {
 export default function Alignementdetroispoints () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Soit $\\big(O,\\vec i;\\vec j\\big)$ un repère orthogonal.  Déterminer si les 3 points $A$, $B$ et $C$ suivants sont ou non alignés.'
+  this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.  Déterminer si les 3 points $A$, $B$ et $C$ suivants sont ou non alignés.'
   this.nbQuestions = 3
   this.nbCols = 2 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 2 // Uniquement pour la sortie LaTeX

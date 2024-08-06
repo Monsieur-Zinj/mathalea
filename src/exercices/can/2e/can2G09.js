@@ -34,7 +34,7 @@ export default function VecteursColineaires () {
     const uy = randint(1, 5)
     const vx = p * ux
     const vy = p * uy
-    this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath)$, on a :<br>
+    this.question = `Dans un repère orthonormé $(O\\,;\\,\\vec \\imath,\\,\\vec \\jmath\\big)$, on a :<br>
        $\\vec{u}\\left(${ux}${sp(1)} ; ${sp(1)} ${uy}\\right)$ et $\\vec{v}\\left(${vx}${sp(1)} ; ${sp(1)} a\\right)$<br>
       Pour quelle valeur de $a$, les vecteurs $\\vec{u}$ et $\\vec{v}$ sont-ils colinéaires ?`
     this.correction = `Les deux vecteurs sont colinéaires, donc il existe un réel $k$ tel que $\\vec{v}=k\\times \\vec{u}$.<br>
