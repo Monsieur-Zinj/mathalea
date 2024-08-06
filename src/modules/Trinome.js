@@ -148,7 +148,7 @@ class Trinome {
     const b2 = this.b.produitFraction(this.b)
     let ac = this.a.produitFraction(this.c)
     ac = ac.multiplieEntier(-4)
-    return b2.sommeFraction(ac)
+    return b2.sommeFraction(ac).simplifie()
   }
 
   /**
@@ -226,19 +226,33 @@ class Trinome {
   get texCalculRacine1 () {
     if (this.discriminant.s === -1) return ''
     let result = 'x_1 = '
-    if (this.b.valeurDecimale === 0) {
-      result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-      result += `=\\dfrac{${this.a.s === -1 ? '' : '-'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+    if (this.a > 0) {
+      if (this.b.valeurDecimale === 0) {
+        result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += `=\\dfrac{${this.a.s === -1 ? '' : '-'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      } else {
+        result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += this.discriminant.estParfaite
+          ? `=\\dfrac{${this.a.s === -1 ? this.b.sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+          : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '+' : '-'}\\sqrt{${this.discriminant.texFractionSimplifiee}}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      }
+      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
+      else result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      return result
     } else {
-      result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-      result += this.discriminant.estParfaite
-        ? `=\\dfrac{${this.a.s === -1 ? this.b.sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
-        : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '+' : '-'}\\sqrt{${this.discriminant.texFractionSimplifiee}}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      if (this.b.valeurDecimale === 0) {
+        result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += `=\\dfrac{${this.a.s === -1 ? '-' : ''}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      } else {
+        result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}+\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += this.discriminant.estParfaite
+          ? `=\\dfrac{${this.a.s === -1 ? this.b.differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+          : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      }
+      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
+      else result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      return result
     }
-
-    if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
-    else result += `\\approx${this.x1.toString().replace('.', ',')}`
-    return result
   }
 
   /**
@@ -248,19 +262,35 @@ class Trinome {
   get texCalculRacine2 () {
     if (this.discriminant.s === -1) return ''
     let result = 'x_2 = '
-    if (this.b.valeurDecimale === 0) {
-      result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-      result += `=\\dfrac{${this.a.s === -1 ? '-' : ''}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
-    } else {
-      result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}+\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
-      result += this.discriminant.estParfaite
-        ? `=\\dfrac{${this.a.s === -1 ? this.b.differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
-        : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
-    }
+    if (this.a > 0) {
+      if (this.b.valeurDecimale === 0) {
+        result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += `=\\dfrac{${this.a.s === -1 ? '-' : ''}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      } else {
+        result += `\\dfrac{-b+\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}+\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += this.discriminant.estParfaite
+          ? `=\\dfrac{${this.a.s === -1 ? this.b.differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+          : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      }
 
-    if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
-    else result += `\\approx${this.x2.toString().replace('.', ',')}`
-    return result
+      if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
+      else result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      return result
+    } else {
+      if (this.b.valeurDecimale === 0) {
+        result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += `=\\dfrac{${this.a.s === -1 ? '' : '-'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      } else {
+        result += `\\dfrac{-b-\\sqrt{\\Delta}}{2a}=\\dfrac{${this.b.oppose().texFractionSimplifiee}-\\sqrt{${this.discriminant.texFractionSimplifiee}}}{2\\times${this.a.s === -1 ? this.a.texFSP : this.a.texFractionSimplifiee}}`
+        result += this.discriminant.estParfaite
+          ? `=\\dfrac{${this.a.s === -1 ? this.b.sommeFraction(this.discriminant.racineCarree()).texFractionSimplifiee : this.b.oppose().differenceFraction(this.discriminant.racineCarree()).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+          : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '+' : '-'}\\sqrt{${this.discriminant.texFractionSimplifiee}}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
+      }
+
+      if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
+      else result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      return result
+    }
   }
 
   /**
@@ -302,16 +332,20 @@ class Trinome {
    */
   get x1 () {
     if (this.discriminant.s === -1) return false
-    const deltaNum = this.discriminant.num
-    const deltaDen = this.discriminant.den
-    let racineDeDelta = new FractionEtendue(1)
-    if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
-     Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
-      racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
+    if (this.discriminant.estParfaite) {
+      const racineDeDelta = this.discriminant.racineCarree()
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
-      return this.b.oppose().sommeFraction(racineDeDelta.oppose()).produitFraction(unSurDeuxA)
+      if (this.a > 0) {
+        return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
+      } else {
+        return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
+      }
     } else {
-      return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      if (this.a > 0) {
+        return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      } else {
+        return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      }
     }
   }
 
@@ -321,16 +355,20 @@ class Trinome {
    */
   get x2 () {
     if (this.discriminant.s === -1) return false
-    const deltaNum = this.discriminant.num
-    const deltaDen = this.discriminant.den
-    let racineDeDelta
-    if (Math.abs((Math.sqrt(deltaNum) - Math.round(Math.sqrt(deltaNum)))) < 0.000001 &&
-     Math.abs(Math.sqrt(deltaDen) - Math.round(Math.sqrt(deltaDen))) < 0.000001) {
-      racineDeDelta = new FractionEtendue(Math.sqrt(deltaNum), Math.sqrt(deltaDen))
+    if (this.discriminant.estParfaite) {
+      const racineDeDelta = this.discriminant.racineCarree()
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
-      return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA)
+      if (this.a > 0) {
+        return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
+      } else {
+        return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
+      }
     } else {
-      return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      if (this.a > 0) {
+        return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      } else {
+        return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      }
     }
   }
 
@@ -341,9 +379,16 @@ class Trinome {
   get texX1 () {
     if (this.x1 instanceof FractionEtendue) return this.x1.simplifie().texFraction
     else {
-      const num = this.b.oppose().texFraction + `- \\sqrt{${this.discriminant.texFraction}}`
-      const den = 2 * this.a
-      return `\\dfrac{${num}}{${den}}`
+      if (this.discriminant.s === -1) return ''
+      if (this.a > 0) {
+        const num = this.b.oppose().texFraction + (this.discriminant > 0 ? `- \\sqrt{${this.discriminant.texFraction}}` : '')
+        const den = 2 * this.a
+        return `\\dfrac{${num}}{${den}}`
+      } else {
+        const num = this.b.texFraction + (this.discriminant > 0 ? `- \\sqrt{${this.discriminant.texFraction}}` : '')
+        const den = -2 * this.a
+        return `\\dfrac{${num}}{${den}}`
+      }
     }
   }
 
@@ -354,9 +399,16 @@ class Trinome {
   get texX2 () {
     if (this.x2 instanceof FractionEtendue) return this.x2.simplifie().texFraction
     else {
-      const num = this.b.oppose().texFraction + `+ \\sqrt{${this.discriminant.texFraction}}`
-      const den = 2 * this.a
-      return `\\dfrac{${num}}{${den}}`
+      if (this.discriminant.s === -1) return ''
+      if (this.a > 0) {
+        const num = this.b.oppose().texFraction + (this.discriminant > 0 ? `+ \\sqrt{${this.discriminant.texFraction}}` : '')
+        const den = 2 * this.a
+        return `\\dfrac{${num}}{${den}}`
+      } else {
+        const num = this.b.texFraction + (this.discriminant > 0 ? `+ \\sqrt{${this.discriminant.texFraction}}` : '')
+        const den = -2 * this.a
+        return `\\dfrac{${num}}{${den}}`
+      }
     }
   }
 
