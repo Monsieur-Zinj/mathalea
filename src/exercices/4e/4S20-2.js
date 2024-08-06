@@ -3,13 +3,14 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
-export const titre = 'Classifier des événements impossibles, certains, possibles.'
+export const titre = 'Classer des probabilités (événements impossibles, certains, possibles).'
 
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = '3c9ef'
+export const uuid = '48b39'
 export const refs = {
   'fr-fr': ['4S20-2'],
   'fr-ch': []
@@ -22,9 +23,10 @@ export const refs = {
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Classifier des probabilités (impossible, certain, possible).'
     this.nbQuestions = 5 // Nombre de questions par défaut
     this.nbQuestionsModifiable = false
+    this.besoinFormulaireCaseACocher = ['Afficher un jeu de 32 cartes']
+    this.sup = true
     this.spacing = 1.2
     this.spacingCorr = 1.2
   }
@@ -33,7 +35,11 @@ export default class nomExercice extends Exercice {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
+    this.consigne = 'Classer chaque événement suivant qu\'il est impossible, certain, ou possible).'
+    if (context.isHtml && this.sup) {
+      const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
+      this.consigne += imageCartes
+    }
     const typeDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5'] // On crée les 5 types de questions
     const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
     let texteCorr = ''
