@@ -24,8 +24,10 @@ export const refs = {
  * Référence
 */
 export default class SimplifierExponentielles extends Exercice {
+  can: Boolean
   constructor () {
     super()
+    this.can = false
     this.consigne = 'Simplifier les expressions suivantes.'
     this.nbQuestions = 7
     this.spacing = 2
@@ -178,9 +180,11 @@ export default class SimplifierExponentielles extends Exercice {
           break
         }
       }
+      if (this.can) {
+        texte = 'Simplifier l\'expression :<br>' + texte
+      }
       if (this.interactif) {
         texte += `<br><br> $${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.lycee)
-        // @ts-expect-error problème typage de handleAnswers
         handleAnswers(this, i, { reponse: { value: answer } })
       }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
