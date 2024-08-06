@@ -59,7 +59,7 @@ export default class EtudeParabole extends Exercice {
           // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
           ['$x$', 2, 30], [`$${p.tex}$`, 4, 50]],
         // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-        ['$-\\infty$', 30, `${p.alpha}`, 30, '$+\\infty$', 30]
+        ['$-\\infty$', 30, `${p.alpha.texFraction}`, 30, '$+\\infty$', 30]
       ],
       // tabLines ci-dessous contient les autres lignes du tableau.
       tabLines: [variations],
