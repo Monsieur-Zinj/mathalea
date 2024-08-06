@@ -8,9 +8,8 @@ import { context } from '../../modules/context'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const titre = 'Classifier des probabilités (événements contraires / non contraires, compatibles/ incompatibles).'
-
 export const dateDePublication = '30/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-export const uuid = '6a750'
+export const uuid = '00bb0'
 export const refs = {
   'fr-fr': ['4S20-3'],
   'fr-ch': []
@@ -29,6 +28,8 @@ export default class ExerciceQcmStatistiques extends Exercice {
     this.nbQuestionsModifiable = true
     this.besoinFormulaireNumerique = ['Notions testées', 2, '1 : Contraires-Non contraires\n2 : Compatibles-Incompatibles-Contraires']
     this.sup = 1
+    this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
+    this.sup2 = true
     this.spacing = 1.2
     this.spacingCorr = 1.2
     this.besoinFormulaire2CaseACocher = ['Afficher un jeu de 32 cartes']
@@ -36,9 +37,6 @@ export default class ExerciceQcmStatistiques extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.consigne = this.sup === 1 ? 'Classer les événéments selon qu’ils sont contraires ou non contraires.<br>On tire une carte dans un jeu de 32 cartes.' : 'Classer les événéments selon qu’ils sont compatibles, incompatibles, ou contraires.<br>On tire une carte dans un jeu de 32 cartes.'
     if (context.isHtml && this.sup2) {
       const imageCartes = '<img src="/alea/images/jeu32cartes.png" alt="Jeu de 32 cartes" class="max-w-lg my-4">'
