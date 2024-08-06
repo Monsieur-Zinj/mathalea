@@ -1,3 +1,4 @@
+import { extraireRacineCarree } from '../lib/outils/calculs'
 import FractionEtendue from './FractionEtendue.ts'
 
 /**
@@ -380,6 +381,20 @@ class Trinome {
     if (this.x1 instanceof FractionEtendue) return this.x1.simplifie().texFraction
     else {
       if (this.discriminant.s === -1) return ''
+      if (this.discriminant.estEntiere && this.discriminant.superieurstrict(0)) {
+        const [r0, r1] = extraireRacineCarree(this.discriminant)
+        if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+          if (this.a > 0) {
+            const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `- \\sqrt{${r1}}`
+            const den = 2 * this.a / r0
+            return den === 1 ? num : `\\dfrac{${num}}{${den}}`
+          } else {
+            const num = this.b.entierDivise(r0).simplifie().texFraction + `- \\sqrt{${r1}}`
+            const den = -2 * this.a / r0
+            return den === 1 ? num : `\\dfrac{${num}}{${den}}`
+          }
+        }
+      }
       if (this.a > 0) {
         const num = this.b.oppose().texFraction + (this.discriminant > 0 ? `- \\sqrt{${this.discriminant.texFraction}}` : '')
         const den = 2 * this.a
@@ -399,7 +414,20 @@ class Trinome {
   get texX2 () {
     if (this.x2 instanceof FractionEtendue) return this.x2.simplifie().texFraction
     else {
-      if (this.discriminant.s === -1) return ''
+      if (this.discriminant.estEntiere && this.discriminant.superieurstrict(0)) {
+        const [r0, r1] = extraireRacineCarree(this.discriminant)
+        if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+          if (this.a > 0) {
+            const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `+ \\sqrt{${r1}}`
+            const den = 2 * this.a / r0
+            return den === 1 ? num : `\\dfrac{${num}}{${den}}`
+          } else {
+            const num = this.b.entierDivise(r0).simplifie().texFraction + `+ \\sqrt{${r1}}`
+            const den = -2 * this.a / r0
+            return den === 1 ? num : `\\dfrac{${num}}{${den}}`
+          }
+        }
+      }
       if (this.a > 0) {
         const num = this.b.oppose().texFraction + (this.discriminant > 0 ? `+ \\sqrt{${this.discriminant.texFraction}}` : '')
         const den = 2 * this.a
