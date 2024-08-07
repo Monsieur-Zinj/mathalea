@@ -45,7 +45,7 @@ export default function ProbabilitesNotation () {
     this.autoCorrection = []
     for (let i = 0, cpt = 0, p1, p2, p3, p4, p5, p6, texte, texteCorr, choix; i < this.nbQuestions && cpt < 50;) {
       // switch (choice([1, 2, 3])) { //, 2, 3
-      switch (2) { //, 2, 3
+      switch (choice([1, 2, 3])) { //, 2, 3
         case 1:
           p1 = randint(25, 80)
           p2 = new Decimal(p1).div(100)
@@ -242,7 +242,7 @@ export default function ProbabilitesNotation () {
             }
             texte += ` $ = ${texNombre(p6, 2)}$`
             texteCorr = `Il s'agit d'une probabilité conditionnelle. Le pourcentage s'applique sur  l'ensemble des pommes non commercialisables.<br>
-              $P_\\overline{C}(\\overline{A})=${texNombre(p6, 2)}$.`
+              $P_{\\overline{C}}(\\overline{A})=${texNombre(p6, 2)}$.`
             handleAnswers(this, i, { reponse: { value: ['P_\\overline{C}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'P_\\overline{C}({\\overline{A}})', 'P{_\\overline{C}}({\\overline{A}})', 'p_\\overline{C}({\\overline{A}})', 'p{_\\overline{C}}({\\overline{A}})', 'P_\\overline{C}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'P_\\overline{C}(\\overline{A})', 'P{_\\overline{C}}(\\overline{A})', 'p_\\overline{C}(\\overline{A})', 'p{_\\overline{C}}(\\overline{A})'], compare: fonctionComparaison, options: { texteAvecCasse: true } } })
             this.canReponseACompleter = ` En utilisant les événements $A$ et $C$, compléter avec une probabilité :<br>
             $\\ldots = ${texNombre(p6, 2)}$`
