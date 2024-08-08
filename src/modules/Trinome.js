@@ -6,6 +6,8 @@ import FractionEtendue from './FractionEtendue.ts'
  *  - Définition depuis la forme développée, canonique ou factorisée
  *  - Calcul du discriminant, des racines, des coordonnées du sommet
  *  - Compatible avec la classe FractionEtendue pour la gestion du calcul exact avec les rationnels
+ *  - this.x1 est toujours la plus petite des deux racines et this.x2 la plus grande indépendemment des valeurs x1 et x2 passées à defFormeFactorisee()
+ *  - this.texX1, this.texCalculRacine1 sont relatifs à la plus petite des deux racines, this.texX2 et this.texCalculRacine2 à la plus grande.
  * @author Rémi Angot
  */
 class Trinome {
@@ -221,10 +223,10 @@ class Trinome {
   }
 
   /**
-   * Calcul détaillée de la première racine avec résultat exact si on peut calculer la racine du discriminant et valeur approchée sinon
+   * Calcul détaillée de la première racine avec résultat exact si l'option est true et valeur approchée sinon
    * @type {string}
    */
-  get texCalculRacine1 () {
+  texCalculRacine1 (exact = false) {
     if (this.discriminant.s === -1) return ''
     let result = 'x_1 = '
     if (this.a > 0) {
@@ -238,7 +240,24 @@ class Trinome {
           : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '+' : '-'}\\sqrt{${this.discriminant.texFractionSimplifiee}}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
       }
       if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
-      else result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      else if (!exact) {
+        result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      } else {
+        if (this.discriminant.estEntiere) {
+          const [r0, r1] = extraireRacineCarree(this.discriminant)
+          if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+            if (this.a > 0) {
+              const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `- \\sqrt{${r1}}`
+              const den = 2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            } else {
+              const num = this.b.entierDivise(r0).simplifie().texFraction + `- \\sqrt{${r1}}`
+              const den = -2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            }
+          }
+        }
+      }
       return result
     } else {
       if (this.b.valeurDecimale === 0) {
@@ -251,16 +270,33 @@ class Trinome {
           : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? this.discriminant.racineCarree().texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
       }
       if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
-      else result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      else if (!exact) {
+        result += `\\approx${this.x1.toString().replace('.', '{,}')}`
+      } else {
+        if (this.discriminant.estEntiere) {
+          const [r0, r1] = extraireRacineCarree(this.discriminant)
+          if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+            if (this.a > 0) {
+              const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `- \\sqrt{${r1}}`
+              const den = 2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            } else {
+              const num = this.b.entierDivise(r0).simplifie().texFraction + `- \\sqrt{${r1}}`
+              const den = -2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            }
+          }
+        }
+      }
       return result
     }
   }
 
   /**
-   * Calcul détaillée de la deuxième racine avec résultat exact si on peut calculer la racine du discriminant et valeur approchée sinon
+   * Calcul détaillée de la deuxième racine avec résultat exact si l'option est true et valeur approchée sinon
    * @type {string}
    */
-  get texCalculRacine2 () {
+  texCalculRacine2 (exact = false) {
     if (this.discriminant.s === -1) return ''
     let result = 'x_2 = '
     if (this.a > 0) {
@@ -275,7 +311,24 @@ class Trinome {
       }
 
       if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
-      else result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      else if (!exact) {
+        result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      } else {
+        if (this.discriminant.estEntiere) {
+          const [r0, r1] = extraireRacineCarree(this.discriminant)
+          if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+            if (this.a > 0) {
+              const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `+ \\sqrt{${r1}}`
+              const den = 2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            } else {
+              const num = this.b.entierDivise(r0).simplifie().texFraction + `+ \\sqrt{${r1}}`
+              const den = -2 * this.a / r0
+              result(den === 1 ? `${num}` : `=\\dfrac{${num}}{${den}}`)
+            }
+          }
+        }
+      }
       return result
     } else {
       if (this.b.valeurDecimale === 0) {
@@ -289,7 +342,24 @@ class Trinome {
       }
 
       if (this.x2 instanceof FractionEtendue) result += `=${this.x2.texFractionSimplifiee}`
-      else result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      else if (!exact) {
+        result += `\\approx${this.x2.toString().replace('.', '{,}')}`
+      } else {
+        if (this.discriminant.estEntiere) {
+          const [r0, r1] = extraireRacineCarree(this.discriminant)
+          if (r0 !== 1 && Math.abs(this.b) % r0 === 0 && Math.abs(2 * this.a) % r0 === 0) { // On peut simplifier par r0
+            if (this.a > 0) {
+              const num = this.b.entierDivise(r0).simplifie().oppose().texFraction + `+ \\sqrt{${r1}}`
+              const den = 2 * this.a / r0
+              result += (den === 1 ? `=${num}` : `=\\dfrac{${num}}{${den}}`)
+            } else {
+              const num = this.b.entierDivise(r0).simplifie().texFraction + `+ \\sqrt{${r1}}`
+              const den = -2 * this.a / r0
+              result += (den === 1 ? `${num}` : `=\\dfrac{${num}}{${den}}`)
+            }
+          }
+        }
+      }
       return result
     }
   }

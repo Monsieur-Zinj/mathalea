@@ -90,8 +90,8 @@ export default class EtudeFctPoly3 extends Exercice {
               }
             } else {
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines.`
-              texteCorr += `<br><br>$${p.texCalculRacine1}$`
-              texteCorr += `<br><br>$${p.texCalculRacine2}$<br>`
+              texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+              texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br>`
             }
             texteCorr += ` $f'(x)$ est du signe de   $${6 * a}$ ${6 * a > 0 ? 'donc positif' : 'donc négatif'} sauf entre ses racines. <br><br>
         On en déduit le tableau de signes de $f'(x)$ et le tableau de variations de $f$ :<br><br>`
@@ -165,15 +165,15 @@ export default class EtudeFctPoly3 extends Exercice {
              $f'(x)$ est une fonction polynôme du second degré. <br>`
 
             if (4 * b ** 2 - 12 * a * c > 0) {
-              const calculs1 = p.texCalculRacine1.split('=')
-              const calculs2 = p.texCalculRacine2.split('=')
+              const calculs1 = p.texCalculRacine1(true).split('=')
+              const calculs2 = p.texCalculRacine2(true).split('=')
               const valX1 = p.x1 instanceof FractionEtendue ? Math.round(p.x1.valeurDecimale * 10) / 10 : Number(p.x1.toFixed(1))
               const valX2 = p.x2 instanceof FractionEtendue ? Math.round(p.x2.valeurDecimale * 10) / 10 : Number(p.x2.toFixed(1))
-              const texX1 = calculs1[calculs1.length - 1].split('\\approx')[0]
-              const texX2 = calculs2[calculs2.length - 1].split('\\approx')[0]
+              const texX1 = calculs1[calculs1.length - 1]
+              const texX2 = calculs2[calculs2.length - 1]
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
-              texteCorr += `<br><br>$${p.texCalculRacine1}$`
-              texteCorr += `<br><br>$${p.texCalculRacine2}$<br>`
+              texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+              texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br>`
               substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: 5, imgTex: '' },
                 { antVal: valX1, antTex: texX1, imgVal: Number(p.image(p.x1)), imgTex: '' },
                 { antVal: valX2, antTex: texX2, imgVal: Number(p.image(p.x2)), imgTex: '' },

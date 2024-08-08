@@ -76,8 +76,8 @@ export default class EtudeParabole extends Exercice {
     correction2 += `<br><br>On calcule le discriminant de ce trinôme : $\\Delta = ${p.texCalculDiscriminantSansResultat}$.`
     correction2 += `<br><br>$\\Delta = ${p.discriminant.simplifie().texFraction}$`
     correction2 += '<br><br>$\\Delta$ est strictement positif donc cette équation admet deux solutions.'
-    correction2 += `<br><br>$${p.texCalculRacine1}$`
-    correction2 += `<br><br>$${p.texCalculRacine2}$`
+    correction2 += `<br><br>$${p.texCalculRacine1(true)}$`
+    correction2 += `<br><br>$${p.texCalculRacine2(true)}$`
     correction2 += `<br><br>La parabole coupe donc l'axe des abscisses en deux points de coordonnées $\\left(${p.x1.simplifie().texFraction} \\,;\\, 0 \\right)$ et  $\\left(${p.x2.simplifie().texFraction} \\,;\\, 0 \\right)$.`
 
     this.listeQuestions = [question1, question2]
