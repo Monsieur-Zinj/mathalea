@@ -142,8 +142,8 @@ export default class EquationsEtInequations extends Exercice {
         texteCorr += 'Calculons le discriminant de ce polynôme du second degré : '
         texteCorr += `$\\Delta = ${p.texCalculDiscriminant}$.`
         texteCorr += '<br><br>Le discriminant est strictement positif, donc le polynôme a deux racines.'
-        texteCorr += `<br><br>$${p.texCalculRacine1}$`
-        texteCorr += `<br><br>$${p.texCalculRacine2}$`
+        texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
+        texteCorr += `<br><br>$${p.texCalculRacine2(true)}$`
         texteCorr += '<br><br>'
         if ((typeInequation === '>' && a > 0) || (typeInequation === '<' && a < 0)) {
           texteCorr += 'On sait que le polynôme est du signe de $a$ à l\'extérieur de ses racines donc '
