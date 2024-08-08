@@ -37,6 +37,11 @@
     const checkboxes = document.querySelectorAll('[id^=checkEx')
     resizeTags([...checkboxes], parseInt($globalOptions.z ?? '1'))
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    // Event pour apiGeom
+    const zoomEvent = new CustomEvent('zoomChanged', {
+      detail: { zoom: $globalOptions.z }
+    });
+    document.dispatchEvent(zoomEvent);
   }
 </script>
 

@@ -23,6 +23,14 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     figure.loadJson(JSON.parse(json))
   })
 
+  document.addEventListener('zoomChanged', (event: Event) => {
+    const customEvent = event as CustomEvent
+    const zoom = Number(customEvent.detail.zoom)
+    console.log(zoom)
+    console.log(figure.initial)
+    figure.zoom(zoom, { changeHeight: true, changeWidth: true})
+  })
+
   document.addEventListener('exercicesAffiches', () => {
     if (!context.isHtml) return
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
