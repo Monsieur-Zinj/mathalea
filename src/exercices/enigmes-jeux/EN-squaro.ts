@@ -128,6 +128,7 @@ class squaro extends Exercice {
     this.figureCorrection.options.color = orangeMathalea
     this.figureCorrection.options.shape = 'o'
     this.figureCorrection.options.labelIsVisible = false
+    this.figure.options.gridWithTwoPointsOnSamePosition = false // Pour éviter que deux points aient la même position
 
     const drawBluePoint = () => {
       this.figure.options.shape = 'o'
