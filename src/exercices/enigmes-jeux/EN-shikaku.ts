@@ -20,12 +20,11 @@ export const interactifType = 'custom'
  * Soutenu par Rémi Angot pour l'aide pour le développement avec ApiGeom
  */
 
-export const ref = 'Test'
 export const uuid = 'ccf19'
-/* export const refs = {
+export const refs = {
   'fr-fr': ['EN-Shikaku'],
   'fr-ch': []
-} */
+}
 
 type Cell = {
   value: number|string;
@@ -107,6 +106,7 @@ class shikaku extends Exercice {
     this.figure.options.color = 'blue'
     this.figure.options.shape = 'o'
     this.figure.options.labelIsVisible = false
+    this.figure.options.gridWithTwoPointsOnSamePosition = false // Pour éviter que deux points aient la même position
     this.figure.setToolbar({ tools: ['DRAG', 'REMOVE'], position: 'top' })
 
     // Figure correction
@@ -130,22 +130,19 @@ class shikaku extends Exercice {
       labelY: false
     })
     this.figureCorrection.snapGrid = true
-    // this.figureCorrection.options.color = orangeMathalea
     this.figureCorrection.options.color = 'red'
     this.figureCorrection.options.shape = 'o'
     this.figureCorrection.options.labelIsVisible = false
 
     const drawBluePolygon = () => {
       this.figure.options.tmpShape = 'o'
-      this.figure.options.shape = '' // inutile car valeur par défautthis.figure.options.color = 'blue'
+      this.figure.options.shape = '' // inutile car valeur par défaut
       this.figure.options.tmpColor = 'blue'
       this.figure.options.colorPointPolygon = 'none'
       this.figure.options.color = orangeMathalea
-      // this.figure.options.color = 'red'
       this.figure.options.thickness = 3
       this.figure.options.tmpFillColor = 'blue'
       this.figure.options.fillColor = orangeMathalea
-      // this.figure.options.fillColor = 'red'
       this.figure.ui?.send('POLYGON')
     }
     const eraseAllPoints = () => {
@@ -328,7 +325,6 @@ class shikaku extends Exercice {
         this.figure.create('TextByPosition', {
           anchor: 'middleCenter',
           text: newGrid[this.largeur - j - 1][i].value.toString(),
-          // text: newGrid[this.largeur - j - 1][i].regionId.toString(),
           x: i + 0.5,
           y: this.largeur - j - 0.5
         })
@@ -347,7 +343,6 @@ class shikaku extends Exercice {
       const D = this.figure.create('Point', { x: newRectangles[k].topLeft[0], y: newRectangles[k].bottomRight[1] + 1, isVisible: false })
       this.goodAnswers.push([{ x: A.x, y: A.y }, { x: B.x, y: B.y }, { x: C.x, y: C.y }, { x: D.x, y: D.y }])
       this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: orangeMathaleaLight })
-      // this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: 'red' })
     }
     document.addEventListener('exercicesAffiches', () => {
       drawBluePolygon()
@@ -357,15 +352,7 @@ class shikaku extends Exercice {
     const texteCorr = 'Voici une solution possible :<br>'
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + this.figureCorrection.getStaticHtml()
-    if (this.interactif) {
-      this.figure.onChange(() => {
-        const nbBluePoints = [...this.figure.elements.values()].filter(
-          (e) => e.type === 'Polygon'
-        ).length
-      })
-    }
 
-    // if (!context.isHtml) {
     // Construction de la grille au format voulu par ProfCollege... Inutile finalement car on se passe de ProfCollege pour la correction.
     const tabProfCollege:string[] = []
     for (let j = 0; j < this.largeur; j++) {
@@ -379,10 +366,8 @@ class shikaku extends Exercice {
     }
 
     if (!context.isHtml) {
-      this.question = 'Mon CODE LaTeX pour la figure : '
-      this.question += this.figure.latex({ includePreambule: true })
-      this.correction = 'rien' + this.figureCorrection.latex({ includePreambule: true })
-      // this.correction += 'Mon CODE LaTeX pour la figure'
+      this.question += '<br>' + this.figure.latex({ includePreambule: false })
+      this.correction = this.figureCorrection.latex({ includePreambule: false })
     }
   }
 
@@ -392,10 +377,10 @@ class shikaku extends Exercice {
     this.answers[this.idApigeom] = this.figure.json
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
     let validUnPolygone = true
-
     const nbPolygon = [...this.figure.elements.values()].filter(
       (e) => e.type === 'Polygon'
     ).length
+
     let isValid = nbPolygon === this.goodAnswers.length
     let message: string
 
@@ -408,7 +393,7 @@ class shikaku extends Exercice {
     }
 
     for (let i = 0; i < this.goodAnswers.length; i++) {
-      validUnPolygone = this.figure.checkPolygon({ points: this.goodAnswers[0] }).isValid
+      validUnPolygone = this.figure.checkPolygon({ points: this.goodAnswers[i] }).isValid
       isValid &&= validUnPolygone
     }
 
