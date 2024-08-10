@@ -12,7 +12,7 @@ import {
   texteParPosition
 } from '../../lib/2d/textes.ts'
 import { homothetie } from '../../lib/2d/transformations.js'
-import { choice } from '../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { mathalea2d, colorToLatexOrHTML } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -26,6 +26,8 @@ export const titre = 'Représenter un vecteur dans un repère, à partir de ses 
 export const interactifReady = true
 export const interactifType = 'custom'
 export const dateDeModifImportante = '06/08/2024'
+
+// Changer couleur dans la correction
 
 /**
  * Tracer un vecteur dont on connait les coordonnées dans un repère.
@@ -47,8 +49,8 @@ export default class RepresenterUnVecteur extends Exercice {
     this.sup = 1 //
     this.besoinFormulaireNumerique = [
       'Situations différentes',
-      2,
-      '1 : Avec un point origine\n 2 : Avec un point extrémité'
+      3,
+      '1 : Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange'
     ]
   }
 
@@ -65,6 +67,11 @@ export default class RepresenterUnVecteur extends Exercice {
     const xB = []
     const yA = []
     const yB = []
+    let listeQuestions = []
+    if (this.sup === 1) listeQuestions = combinaisonListes([1], this.nbQuestions)
+    else if (this.sup === 2) listeQuestions = combinaisonListes([2], this.nbQuestions)
+    else listeQuestions = combinaisonListes([1, 2], this.nbQuestions)
+
     for (
       let i = 0,
         r,
@@ -191,7 +198,7 @@ export default class RepresenterUnVecteur extends Exercice {
       H = point(xA[i] + ux, yA[i])
       s = AB.representant(A) // On trace en rouge [AB]
       h1 = vecteur(A, H).representant(A, 'blue')
-      h2 = vecteur(H, B).representant(H, 'green')
+      h2 = vecteur(H, B).representant(H, 'blue')
       const longueurAH = latex2d(ux, milieu(A, H).x, milieu(A, H).y + 0.5, { color: 'blue', letterSize: 'footnotesize' })
       const longueurBH = latex2d(uy, milieu(B, H).x + 0.5, milieu(B, H).y, { color: 'blue', letterSize: 'footnotesize' })
       O = point(0, 0) // On définit et on trace le point O
@@ -209,7 +216,7 @@ export default class RepresenterUnVecteur extends Exercice {
       nomi = nomVecteurParPosition('i', 0.5, -0.7, 0.7, 0, 'blue')
       nomj = nomVecteurParPosition('j', -0.7, 0.5, 0.7, 0, 'blue')
       nomAB = AB.representantNomme(A, 'u', 0.7, 'red')
-      if (this.sup === 1) {
+      if (listeQuestions[i] === 1) {
         l = labelPoint(A, 'red') // Variable qui trace les nom s A et B
 
         // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
@@ -223,9 +230,10 @@ export default class RepresenterUnVecteur extends Exercice {
           isSelectable: false
         })
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
-        texteCorr += `<br> À partir du point $${nomPoint1}$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement (en bleu) puis $${uy}$ unités verticalement (en vert) pour arriver au point $${nomPoint2}$, extrémité du vecteur $\\vec{u}$.`
+        texteCorr += `<br> À partir du point $${nomPoint1}$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement puis $${uy}$ unités verticalement pour arriver au point $${nomPoint2}$, extrémité du vecteur $\\vec{u}$.`
       } else {
-        texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
+        // texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur $\\vec{u}\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
+        texte = ` Dans un repère orthonormé $\\big(O ; \\vec i,\\vec j\\big)$, représenter le vecteur de coordonnées $\\begin{pmatrix}${ux} \\\\${uy}\\end{pmatrix}$, `
         texte += `ayant pour extrémité le point $${nomPoint2}\\left(${xB[i]};${yB[i]}\\right)$.`
         this.figure[i].create('Point', {
           x: xB[i],
@@ -235,12 +243,12 @@ export default class RepresenterUnVecteur extends Exercice {
           isSelectable: false
         })
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
-        texteCorr += `<br> On cherche donc un point $${nomPoint1}$, à partir duquel en traçant le déplacement correspondant à $${ux}$ unités horizontalement (en bleu)  puis $${uy}$ unités verticalement (en vert), on arrive au point $${nomPoint2}$.`
+        texteCorr += `<br> On cherche donc un point $${nomPoint1}$, à partir duquel en traçant le déplacement correspondant à $${ux}$ unités horizontalement puis $${uy}$ unités verticalement, on arrive au point $${nomPoint2}$.`
         l = labelPoint(A, B, 'red') // Variable qui trace les noms A et B
       }
       texteCorr +=
           `<br> Voir les déplacements dans le repère ci-dessous et le tracé en orange du vecteur-solution $${miseEnEvidence('\\vec{u}')}$.<br>`
-      texte += this.interactif ? '<br>Pour valider votre réponse, il faut que le vecteur-solution soit en vert et que ce soit le seul vecteur en vert.' : ''
+      texte += this.interactif ? '<br>Pour vous aider, vous pouvez créer autant de vecteurs que vous souhaitez mais pour valider votre réponse, il faut que le vecteur-solution soit en vert et que seul ce vecteur-solution doit être en vert.' : ''
       texte += figureApigeom({
         exercice: this,
         idApigeom: this.idApigeom,
@@ -283,7 +291,6 @@ export default class RepresenterUnVecteur extends Exercice {
         this.figure[i].isDynamic = false
         this.figure[i].divButtons.style.display = 'none'
         this.figure[i].divUserMessage.style.display = 'none'
-        // this.figure[i].buttons.get('SHAKE')?.click()
 
         let { isValid, vectors } = this.figure[i].checkVector({
           xOrigin: xA[i],
