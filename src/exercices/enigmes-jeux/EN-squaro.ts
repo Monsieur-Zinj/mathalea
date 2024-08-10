@@ -36,7 +36,7 @@ class squaro extends Exercice {
   nbSommets: Array<number>
   longueur:number
   largeur:number
-  blueButton!: HTMLButtonElement
+  blueButton!: HTMLElement
 
   constructor () {
     super()
@@ -148,7 +148,9 @@ class squaro extends Exercice {
       }
       this.figure.saveState()
       setTimeout(() => {
-        this.blueButton.click()
+        if (this.blueButton != null) {
+          this.blueButton.click()
+        }
       }, 500)
       // this.figure.ui?.send('INIT') // bug apiGeom, l'état INIT ne fonctionne pas et permet toujours de placer des points
       // this.figure.ui?.send('DRAG')
