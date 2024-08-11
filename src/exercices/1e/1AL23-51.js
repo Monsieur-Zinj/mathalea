@@ -32,9 +32,13 @@ export default class EtudeParabole extends Exercice {
     const a = randint(-4, 4, [-1, 0, 1])
     // x1 + x2 doit être pair pour n'avoir que des nombres entiers dans les différentes formes
     const x1 = randint(-5, 5, 0)
-    const x2 = x1 + 2 * randint(1, 4, -x1) // Pas de racines symétriques pour avoir un alpha non nul
+    let x2 = 0
+    while (x2 === 0) { // Pas de racine nulle pour avoir un discriminant positif
+      x2 = x1 + 2 * randint(1, 4, [x1, -x1]) // Pas de racines symétriques pour avoir un alpha non nul 
+    }
     const p = new Trinome()
     p.defFormeFactorisee(a, x1, x2)
+    console.log(a, x1, x2)
     let question1 = `Dans le plan rapporté à un repère, on considère la parabole $(P)$ d'équation $y=${p.tex}$.`
     question1 += `<br><br>${numAlpha(0)} Déterminer la forme canonique de $f(x) = ${p.tex}$.`
     question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynôme $(P)$.`
