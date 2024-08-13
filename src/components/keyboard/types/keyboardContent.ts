@@ -17,6 +17,7 @@ export type BlockForKeyboard =
   | 'degre'
   | 'degreCelsius'
   | 'ensemble'
+  | 'ensembleDefini'
   | 'fullOperations'
   | 'greek'
   | 'hms'

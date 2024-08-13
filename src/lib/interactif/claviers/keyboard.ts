@@ -15,6 +15,7 @@ const KEYBOARD_CATEGORIES = [
   'clavierDeBaseAvecVariable',
   'clavierNumbers',
   'clavierEnsemble',
+  'clavierEnsemblePredefini',
   'clavierFullOperations',
   'alphanumericAvecEspace',
   'alphanumeric',
@@ -93,7 +94,9 @@ export const convertKeyboardTypeToBlocks = (
     case KeyboardType.clavierDeBaseAvecVariable:
       return ['numbers', 'basicOperations', 'variables']
     case KeyboardType.clavierEnsemble:
-      return ['numbersX', 'ensemble']
+      return ['numbersX', 'ensemble', 'ensembleDefini']
+    case KeyboardType.clavierEnsemblePredefini:
+      return ['ensembleDefini']
     case KeyboardType.clavierNumbers:
       return ['numbers']
     case KeyboardType.numbersSpace:

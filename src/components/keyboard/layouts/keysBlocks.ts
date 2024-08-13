@@ -57,7 +57,7 @@ const fullOperationCaps: CompleteKeysList = {
 }
 const logPuissanceCaps: CompleteKeysList = {
   inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: ['[','LOG', 7, 8, 9, 'DIV',']', 'LN', 4, 5, 6, 'MULT','INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'SEMICOLON', 'ADD']
+  block: ['[', 'LOG', 7, 8, 9, 'DIV', ']', 'LN', 4, 5, 6, 'MULT', 'INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'SEMICOLON', 'ADD']
 }
 
 const numerationCaps: CompleteKeysList = {
@@ -69,14 +69,22 @@ const probabiliteCaps: CompleteKeysList = {
   inline: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '='],
   block: ['PROB', 'BINOM', 'OVERLINE', 'UNION', 'INTER', 'EMPTY', 'SEMICOLON', 'PARENTHESES', 'POW', 'INDICE', 'QUOTE', '=']
 }
+
 const ensembleCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER'],
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'EMPTY', 'SEMICOLON', 'FRAC', 'IN', 'UNION', 'INTER']
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC']
 }
+
+const ensembleDefiniCaps: CompleteKeysList = {
+  inline: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER'],
+  block: ['COMP', 'REAL', 'RATIO', 'DECIMAL', 'REL', 'INTEG', 'EMPTY', 'UNION', 'INTER']
+}
+
 const hmsCaps: CompleteKeysList = {
   inline: ['HOUR', 'MIN', 'SEC'],
   block: ['HOUR', 'MIN', 'SEC']
 }
+
 const greekCaps: CompleteKeysList = {
   inline: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA'],
   block: ['ALPHA', 'BETA', 'GAMMA', 'DELTA', 'EPSILON', 'THETA', 'LAMBDA', 'OMEGA']
@@ -359,6 +367,13 @@ export const ensemble: KeyboardBlock = {
   isUnits: false
 }
 
+export const ensembleDefini: KeyboardBlock = {
+  keycaps: ensembleDefiniCaps,
+  cols: 3,
+  title: 'EnsemblesDefinis',
+  isUnits: false
+}
+
 export const volumes: KeyboardBlock = {
   keycaps: volumesCaps,
   cols: 2,
@@ -428,6 +443,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   degre,
   degreCelsius,
   ensemble,
+  ensembleDefini,
   greek,
   fullOperations,
   hms,
