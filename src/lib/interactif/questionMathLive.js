@@ -76,7 +76,7 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
     let classe = ''
     if (classes !== '') {
       if (classes === 'fillInTheBlank' || classes === 'fillInTheBlanks') classe = 'fillInTheBlanks'
-      else classe = [...classes.split(' ').filter(el => el !== 'fillInTheBlank' && el !== 'fillInTheBlanks')].join(' ')
+      else classe = ['fillInTheBlanks', ...classes.split(' ').filter(el => el !== 'fillInTheBlank' && el !== 'fillInTheBlanks')].join(' ')
     } else {
       classe = 'fillInTheBlanks'
     }
