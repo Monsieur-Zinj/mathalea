@@ -7,7 +7,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = '61ef0'
 export const refs = {
-  'fr-fr': ['canT1AN04'],
+  'fr-fr': ['canT1S01'],
   'fr-ch': []
 }
 export const dateDePublication = '12/08/2024'

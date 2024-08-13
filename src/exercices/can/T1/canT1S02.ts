@@ -1,13 +1,13 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite $e^{-n}\\pm kn$'
+export const titre = 'Limite $n^{-m}\\pm n^{p}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const uuid = '9c60f'
+export const uuid = '81cd8'
 export const refs = {
-  'fr-fr': ['canT1AN06'],
+  'fr-fr': ['canT1S02'],
   'fr-ch': []
 }
 export const dateDePublication = '12/08/2024'
@@ -17,7 +17,7 @@ export const dateDePublication = '12/08/2024'
  * @author Jean-Claude Lhote
  *
  */
-class ExpNPmKn extends Exercice {
+class N2PlusUnSurN extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 1
@@ -25,12 +25,25 @@ class ExpNPmKn extends Exercice {
   }
 
   nouvelleVersion () {
-    const k = randint(2, 9)
+    const m = randint(-9, -1)
+    const p = randint(1, 9)
     const pm = choice([true, false])
-    const vn = 'e^{-n}'
-    const wn = `${k}n`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif ou nul n par : $${vn}${pm ? '+' : '-'}${wn}$`
-
+    const vn = m === -1
+      ? '\\dfrac{1}{n}'
+      : `\\dfrac{1}{n^${-m}}`
+    const wn = p === 1
+      ? 'n'
+      : `n^${p}`
+    this.question = 'Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif n par : $'
+    this.question += m === -1
+      ? '\\dfrac{1}{n}'
+      : `\\dfrac{1}{n^${-m}}`
+    this.question += pm
+      ? '+'
+      : '-'
+    this.question += p === 1
+      ? 'n$'
+      : `n^${p}$`
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${vn}=0$ et $\\lim\\limits_{n\\to\\infty} ${wn}=+\\infty$.<br>`
     this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
     this.correction += pm
@@ -41,4 +54,4 @@ class ExpNPmKn extends Exercice {
       : '-\\infty'
   }
 }
-export default ExpNPmKn
+export default N2PlusUnSurN
