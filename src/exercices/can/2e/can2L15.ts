@@ -47,15 +47,15 @@ export default class EquationsCarree extends Exercice {
     const B = point(-1.73, 3)
     const Bx = point(B.x, 0)
     const sBBx = segment(B, Bx)
-    const f = x => x ** 2
+    const f = (x: number): number => x ** 2
     const Cg = droite(point(-6, 3), point(6, 3), '', 'green')
     switch (choice([1, 2])) {
       case 1 :// x^2<k
         { const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = 5
+          sAAx.pointilles = '5'
           sBBx.epaisseur = 2
-          sBBx.pointilles = 5
+          sBBx.pointilles = '5'
           const sAxBx = segment(Bx, Ax, 'red')
           sAxBx.epaisseur = 2
           sAxBx.styleExtremites = choix ? ']-[' : '[-]'
@@ -103,9 +103,9 @@ export default class EquationsCarree extends Exercice {
         {
           const choix = choice([true, false])
           sAAx.epaisseur = 2
-          sAAx.pointilles = 5
+          sAAx.pointilles = '5'
           sBBx.epaisseur = 2
-          sBBx.pointilles = 5
+          sBBx.pointilles = '5'
           const BxI = point(-4, 0)
           const sBxBxI = segment(BxI, Bx, 'red')
           sBxBxI.epaisseur = 2
