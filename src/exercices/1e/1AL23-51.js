@@ -32,13 +32,9 @@ export default class EtudeParabole extends Exercice {
     const a = randint(-4, 4, [-1, 0, 1])
     // x1 + x2 doit être pair pour n'avoir que des nombres entiers dans les différentes formes
     const x1 = randint(-5, 5, 0)
-    let x2 = 0
-    while (x2 === 0) { // Pas de racine nulle pour avoir un discriminant positif
-      x2 = x1 + 2 * randint(1, 4, [x1, -x1]) // Pas de racines symétriques pour avoir un alpha non nul 
-    }
+    const x2 = x1 + 2 * randint(1, 4, -x1) // Pas de racines symétriques pour avoir un alpha non nul
     const p = new Trinome()
     p.defFormeFactorisee(a, x1, x2)
-    console.log(a, x1, x2)
     let question1 = `Dans le plan rapporté à un repère, on considère la parabole $(P)$ d'équation $y=${p.tex}$.`
     question1 += `<br><br>${numAlpha(0)} Déterminer la forme canonique de $f(x) = ${p.tex}$.`
     question1 += `<br><br>${numAlpha(1)} En déduire les coordonnées du sommet de la parabole et les variations de la fonction $f$ associée au polynôme $(P)$.`
@@ -79,10 +75,16 @@ export default class EtudeParabole extends Exercice {
     let correction2 = `S'il existe un point d'intersection $M(x\\,;\\,y)$ entre la parabole et l'axe des abscisses alors $y=${p.tex} = 0$.`
     correction2 += `<br><br>On calcule le discriminant de ce trinôme : $\\Delta = ${p.texCalculDiscriminantSansResultat}$.`
     correction2 += `<br><br>$\\Delta = ${p.discriminant.simplifie().texFraction}$`
-    correction2 += '<br><br>$\\Delta$ est strictement positif donc cette équation admet deux solutions.'
-    correction2 += `<br><br>$${p.texCalculRacine1(true)}$`
-    correction2 += `<br><br>$${p.texCalculRacine2(true)}$`
-    correction2 += `<br><br>La parabole coupe donc l'axe des abscisses en deux points de coordonnées $\\left(${p.x1.simplifie().texFraction} \\,;\\, 0 \\right)$ et  $\\left(${p.x2.simplifie().texFraction} \\,;\\, 0 \\right)$.`
+    if (p.discriminant.valeurDecimale === 0) {
+      correction2 += '<br><br>$\\Delta$ est nul donc cette équation admet une solution unique.'
+      correction2 += `<br><br>$${p.texCalculRacineDouble}$`
+      correction2 += `<br><br>La parabole touche donc l'axe des abscisses en un point de coordonnées $\\left(${p.x1.simplifie().texFraction} \\,;\\, 0 \\right)$.`
+    } else {
+      correction2 += '<br><br>$\\Delta$ est strictement positif donc cette équation admet deux solutions.'
+      correction2 += `<br><br>$${p.texCalculRacine1(true)}$`
+      correction2 += `<br><br>$${p.texCalculRacine2(true)}$`
+      correction2 += `<br><br>La parabole coupe donc l'axe des abscisses en deux points de coordonnées $\\left(${p.x1.simplifie().texFraction} \\,;\\, 0 \\right)$ et  $\\left(${p.x2.simplifie().texFraction} \\,;\\, 0 \\right)$.`
+    }
 
     this.listeQuestions = [question1, question2]
     this.listeCorrections = [correction1, correction2]

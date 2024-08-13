@@ -364,6 +364,20 @@ class Trinome {
     }
   }
 
+  get texCalculRacineDouble () {
+    if (this.discriminant.valeurDecimale !== 0) return ''
+    let result = 'x_1 = x_2 = '
+    result += '\\dfrac{-b}{2a} = '
+    if (this.b.valeurDecimale > 0) {
+      result += `\\dfrac{${this.b.oppose().texFSD}}{2\\times${this.a.texFSP}}`
+    } else {
+      result += `\\dfrac{${this.b.oppose().texFSD}}{2\\times\\left(${this.a.texFSP}\\right)}`
+    }
+    console.log(this.discriminant, this.x1, this.x2)
+    result += `=${this.x1.texFractionSimplifiee}`
+    return result
+  }
+
   /**
    * Tableau avec 2 étapes pour le développement puis le résultat
    * @return {string[]} [Étape 1, Étape 2, this.tex]

@@ -10,7 +10,6 @@ test('Utilisation de la classe Trinome', () => {
 })
 
 describe('Trinome', () => {
-
   describe('constructor', () => {
     test('Initialisation avec des entiers', () => {
       const trinome = new Trinome(1, 2, 3)
@@ -52,7 +51,7 @@ describe('Trinome', () => {
 
     test('Factorisation k(ax+b)(cx+d) avec des fractions', () => {
       const trinome = new Trinome(2, -4, 2)
-      const k = new FractionEtendue(1,3)
+      const k = new FractionEtendue(1, 3)
       const a = new FractionEtendue(2, 1)
       const b = new FractionEtendue(1, 3)
       const c = new FractionEtendue(1, 5)
@@ -63,8 +62,6 @@ describe('Trinome', () => {
       expect(trinome.c).toMatchObject(new FractionEtendue(2, 27))
     })
   })
-  
-  
 
   describe('defFormeCanonique', () => {
     test('Forme canonique a(x-alpha)^2 + beta', () => {
@@ -85,7 +82,7 @@ describe('Trinome', () => {
       expect(sum.b.valeurDecimale).toBe(7)
       expect(sum.c.valeurDecimale).toBe(9)
     })
-    
+
     test('Somme de deux trinomes avec des fractions', () => {
       const a = new FractionEtendue(1, 3)
       const b = new FractionEtendue(2, 5)
@@ -171,6 +168,29 @@ describe('Trinome', () => {
     test('Devrait dire que le trinome n\'est pas constant', () => {
       const trinome = new Trinome(1, 0, 5)
       expect(trinome.isConstant).toBe(false)
+    })
+  })
+
+  describe('x1 et x2', () => {
+    test('Devrait calculer les racines', () => {
+      const trinome = new Trinome(2, 3, 5)
+      trinome.defFormeFactorisee(1, 2, 3)
+      let x1 = trinome.x1
+      if (x1 instanceof FractionEtendue) x1 = x1.valeurDecimale
+      let x2 = trinome.x2
+      if (x2 instanceof FractionEtendue) x2 = x2.valeurDecimale
+      expect(x1).toBe(2)
+      expect(x2).toBe(3)
+    })
+    test('Devrait calculer les racines doubles', () => {
+      const trinome = new Trinome(2, 3, 5)
+      trinome.defFormeFactorisee(1, 2, 2)
+      let x1 = trinome.x1
+      if (x1 instanceof FractionEtendue) x1 = x1.valeurDecimale
+      let x2 = trinome.x2
+      if (x2 instanceof FractionEtendue) x2 = x2.valeurDecimale
+      expect(x1).toBe(2)
+      expect(x2).toBe(2)
     })
   })
 })
