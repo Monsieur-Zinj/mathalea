@@ -67,7 +67,8 @@
         "canExC" : {}
       },
       "T1": {
-        "canT1AN":{}
+        "canT1AN":{},
+        "canT1S" : {}
       }
     },
     "c3": {
