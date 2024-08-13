@@ -403,6 +403,7 @@ class Trinome {
    */
   get x1 () {
     if (this.discriminant.s === -1) return false
+    if (this.discriminant.isEqual(0)) return this.b.oppose().diviseFraction(this.a.multiplieEntier(2)).simplifie()
     if (this.discriminant.estParfaite) {
       const racineDeDelta = this.discriminant.racineCarree()
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
@@ -426,6 +427,7 @@ class Trinome {
    */
   get x2 () {
     if (this.discriminant.s === -1) return false
+    if (this.discriminant.isEqual(0)) return this.b.oppose().diviseFraction(this.a.multiplieEntier(2)).simplifie()
     if (this.discriminant.estParfaite) {
       const racineDeDelta = this.discriminant.racineCarree()
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
