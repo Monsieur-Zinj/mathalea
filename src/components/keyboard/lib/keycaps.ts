@@ -376,6 +376,10 @@ const basicKeys = {
     display: '$\\mathbb{Q}$',
     insert: '\\mathbb{Q}'
   },
+  DECIMAL: {
+    display: '$\\mathbb{D}$',
+    insert: '\\mathbb{D}'
+  },
   REL: {
     display: '$\\mathbb{Z}$',
     insert: '\\mathbb{Z}'
@@ -435,101 +439,101 @@ const basicKeys = {
     insert: '\\text{Faux}'
   },
   // =================== numération
-  MILLION: { 
+  MILLION: {
     display: '$\\tiny\\text{million}$',
     insert: '\\text{million}'
   },
-  MILLIARD: { 
+  MILLIARD: {
     display: '$\\tiny\\text{milliard}$',
     insert: '\\text{milliard}'
   },
-  MILLE: { 
+  MILLE: {
     display: '$\\tiny\\text{mille}$',
     insert: '\\text{mille}'
   },
-  CENTAINE: { 
+  CENTAINE: {
     display: '$\\tiny\\text{centaine}$',
     insert: '\\text{centaine}'
   },
-  DIZAINE: { 
+  DIZAINE: {
     display: '$\\tiny\\text{dizaine}$',
     insert: '\\text{dizaine}'
   },
-  UNITE: { 
+  UNITE: {
     display: '$\\tiny\\text{unité}$',
     insert: '\\text{unité}'
   },
-  DE: { 
+  DE: {
     display: '$\\tiny\\text{ de }$',
     insert: '\\text{ de }'
   },
-  DIXIEME: { 
+  DIXIEME: {
     display: '$\\tiny\\text{dixième}$',
     insert: '\\text{dixième}'
   },
-  CENTIEME: { 
+  CENTIEME: {
     display: '$\\tiny\\text{centième}$',
     insert: '\\text{centième}'
   },
-  MILLIEME: { 
+  MILLIEME: {
     display: '$\\tiny\\text{millième}$',
     insert: '\\text{millième}'
   },
-  DIX_MILLIEME: { 
+  DIX_MILLIEME: {
     display: '$\\tiny\\text{dix-millième}$',
     insert: '\\text{dix-millième}'
   },
-  CENT_MILLIEME: { 
+  CENT_MILLIEME: {
     display: '$\\tiny\\text{cent-millième}$',
     insert: '\\text{cent-millième}'
   },
-  MILLIONIEME: { 
+  MILLIONIEME: {
     display: '$\\tiny\\text{millionième}$',
     insert: '\\text{millionième}'
   },
-  HYPHEN: { 
+  HYPHEN: {
     display: '$\\tiny\\text{-}$',
     insert: '\\text{-}'
   },
-  DIX: { 
+  DIX: {
     display: '$\\tiny\\text{dix}$',
     insert: '\\text{dix}'
   },
-  VINGT: { 
+  VINGT: {
     display: '$\\tiny\\text{vingt}$',
     insert: '\\text{vingt}'
   },
-  TRENTE: { 
+  TRENTE: {
     display: '$\\tiny\\text{trente}$',
     insert: '\\text{trente}'
   },
-  QUARANTE: { 
+  QUARANTE: {
     display: '$\\tiny\\text{quarante}$',
     insert: '\\text{quarante}'
   },
-  CINQUANTE: { 
+  CINQUANTE: {
     display: '$\\tiny\\text{cinquante}$',
     insert: '\\text{cinquante}'
   },
-  SOIXANTE: { 
+  SOIXANTE: {
     display: '$\\tiny\\text{soixante}$',
     insert: '\\text{soixante}'
   },
-  SOIXANTE_DIX: { 
+  SOIXANTE_DIX: {
     display: '$\\tiny\\text{soixante-dix}$',
     insert: '\\text{soixante-dix}'
   },
-  QUATRE_VINGT: { 
+  QUATRE_VINGT: {
     display: '$\\tiny\\text{quatre-vingt}$',
     insert: '\\text{quatre-vingt}'
   },
-  QUATRE_VINGT_DIX: { 
+  QUATRE_VINGT_DIX: {
     display: '$\\tiny\\text{quatre-vingt-dix}$',
     insert: '\\text{quatre-vingt-dix}'
   },
-  CENT: { 
+  CENT: {
     display: '$\\tiny\\text{cent}$',
-      insert: '\\text{cent}'
+    insert: '\\text{cent}'
   }
 }
 
