@@ -5,20 +5,22 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient'
-export const dateDeModifImportante = '01/11/2023'
+export const dateDeModifImportante = '13/08/2024'
+
 // Modification la 1/11/23 par Rémi Angot
 // computeEngine a un problème avec l'ensemble N qui n'est pas isSame avec lui même donc je suis passé par un format texte
 
 /**
- * 2N14-1, ex 2N20
  * @author Stéphane Guyon (Exportable AMC et autres modifs par Eric Elter)
  */
+
 export const uuid = '25fb4'
 export const ref = '2N14-1'
 export const refs = {
@@ -27,8 +29,7 @@ export const refs = {
 }
 export default function EnsembleDeNombres () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = 'Déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.'
+  this.consigne = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
@@ -158,7 +159,7 @@ export default function EnsembleDeNombres () {
       if (context.isAmc) {
         this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }]
       }
-      texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur25 ensemble') : '$\\dots$'
+      texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur25 ' + KeyboardType.clavierEnsemblePredefini) : '$\\dots$'
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
