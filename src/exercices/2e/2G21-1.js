@@ -55,10 +55,10 @@ export default function SommeDeVecteurs () {
         M = pointAdistance(A, randint(2, 3), randint(20, 45))
         N = similitude(M, A, randint(-90, -45), randint(2, 5) / 2)
       }
-      U = u.representantNomme(M, 'u', 2, 'blue')
+      U = u.representantNomme(M, 'u', 1, 'blue')
       UU = u.representant(M)
       UU.color = colorToLatexOrHTML('blue')
-      V = v.representantNomme(N, 'v', 2, 'green')
+      V = v.representantNomme(N, 'v', 1, 'green')
       VV = v.representant(N)
       VV.color = colorToLatexOrHTML('green')
       texte = 'Construire le point $C$ tel que $\\overrightarrow{AC} = \\vec{u} + \\vec{v}$.<br>'
@@ -136,5 +136,5 @@ export default function SommeDeVecteurs () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n2 : Avec un point extrémité\n3 : Mélange']
+  this.besoinFormulaireNumerique = ['Situations différentes ', 2, '1 :Avec un point origine\n2 : Cas général\n3 : Mélange']
 }
