@@ -26,7 +26,7 @@ class N2PlusRacineDeN extends Exercice {
 
   nouvelleVersion () {
     const a = randint(2, 9) * choice([-1, 1])
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif ou nul n par : $(u_n)=n^{${a}}+\\sqrt{n}$`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif ou nul n par : $(u_n)=n^{${a}}+\\sqrt{n}$.`
     this.correction = a > 0
       ? `On sait que $\\lim\\limits_{n\\to\\infty} n^{${a}}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$.<br>`
       : `On sait que $\\lim\\limits_{n\\to\\infty} n^{${a}}=\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${-a}}=0$ et $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$.<br>`
