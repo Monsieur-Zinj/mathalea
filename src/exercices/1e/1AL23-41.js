@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome.js'
+import Trinome from '../../modules/Trinome'
 import Exercice from '../Exercice'
 
 export const titre = 'Bilan : équations et inéquations du second degré'
@@ -12,7 +12,6 @@ export const interactifReady = false
 
 export const dateDePublication = '28/10/2022'
 export const dateDeModifImportante = '5/11/2023'
-// Réparation de trinome.js
 
 /**
  * Bilan sur les différentes formes d'équations et d'inéquations

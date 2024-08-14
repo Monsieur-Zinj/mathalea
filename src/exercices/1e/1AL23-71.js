@@ -2,13 +2,12 @@ import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome.js'
+import Trinome from '../../modules/Trinome'
 export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
 export const interactifReady = false
 
 export const dateDePublication = '27/10/2022'
 export const dateDeModifImportante = '5/11/2023'
-// Réparation de trinome.js
 
 /**
  * Forme développée, factorisée ou canonique pour résoudre équations et inéquations

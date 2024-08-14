@@ -3,7 +3,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import Trinome from '../../modules/Trinome.js'
+import Trinome from '../../modules/Trinome'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -14,7 +14,6 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const dateDeModifImportante = '5/11/2023'
-// Réparation de trinome.js
 export const uuid = '731f0'
 
 export const ref = '1AL20-10'

@@ -1,7 +1,7 @@
 import Exercice from '../Exercice.js'
 import { choice } from '../../lib/outils/arrayOutils.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import Trinome from '../../modules/Trinome.js'
+import Trinome from '../../modules/Trinome'
 import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
