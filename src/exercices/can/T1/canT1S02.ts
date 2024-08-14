@@ -42,8 +42,8 @@ class N2PlusUnSurN extends Exercice {
       ? '+'
       : '-'
     this.question += p === 1
-      ? 'n$'
-      : `n^${p}$`
+      ? 'n$.'
+      : `n^${p}$.`
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${vn}=0$ et $\\lim\\limits_{n\\to\\infty} ${wn}=+\\infty$.<br>`
     this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
     this.correction += pm

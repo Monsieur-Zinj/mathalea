@@ -51,7 +51,7 @@ class UnFoisVn extends Exercice {
         const pm = choice([-1, 1])
         const vn = `\\dfrac{${c}}{n^${d}}${pm===1 ? '+' : '-'}${e}`
         const un = `${a}${choice([true,false])?'+':'-'}\\dfrac{${b}}{n}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $(${un})(${vn})$`
+        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $(${un})(${vn})$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e*pm}$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} (${un})(${vn})=${e*a*pm}$.`
