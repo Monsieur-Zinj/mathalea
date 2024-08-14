@@ -1,4 +1,3 @@
-import { error } from 'console'
 import { extraireRacineCarree } from '../lib/outils/calculs'
 import FractionEtendue from './FractionEtendue'
 
@@ -340,7 +339,7 @@ class Trinome {
 
   /** Calcul détaillé de la racine unique pour un discriminant nul */
   get texCalculRacineDouble () {
-    if (this.discriminant.valeurDecimale !== 0) throw error('Le discriminant doit être nul pour avoir une racine double')
+    if (this.discriminant.valeurDecimale !== 0) throw Error('Le discriminant doit être nul pour avoir une racine double')
     let result = 'x_1 = x_2 = '
     result += '\\dfrac{-b}{2a} = '
     if (this.b.valeurDecimale > 0) {
@@ -380,7 +379,7 @@ class Trinome {
    */
   get arrayTexDevelopperFormeFactorisee () {
     const [untypedA, untypedX1, untypedX2] = [this.a, this.x1, this.x2]
-    if (typeof untypedX1 === 'boolean' || typeof untypedX2 === 'boolean' || typeof untypedA === 'boolean') throw error
+    if (typeof untypedX1 === 'boolean' || typeof untypedX2 === 'boolean' || typeof untypedA === 'boolean') throw Error
     const x1 = (typeof untypedX1 === 'number') ? new FractionEtendue(untypedX1, 1) : untypedX1
     const x2 = (typeof untypedX2 === 'number') ? new FractionEtendue(untypedX2, 1) : untypedX2
     const a = (typeof untypedA === 'number') ? new FractionEtendue(untypedA, 1) : untypedA
@@ -503,7 +502,7 @@ class Trinome {
    * @type {string}
    */
   get texFormeFactorisee () {
-    if (typeof this.x1 === 'boolean' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw error
+    if (typeof this.x1 === 'boolean' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
     if (this.x1 instanceof FractionEtendue) {
       if (this.x1.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x2.oppose().simplifie().texFractionSignee})`
@@ -521,7 +520,7 @@ class Trinome {
       else if (this.a.den === 1) return `${this.a.num}(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
       else return `${this.a.texFractionSimplifiee}(x${this.x1.oppose().simplifie().texFractionSignee})(x${this.x2.oppose().simplifie().texFractionSignee})`
     } else {
-      throw error('x1 et x2 doivent être des fractions pour obtenir la forme factorisée')
+      throw Error('x1 et x2 doivent être des fractions pour obtenir la forme factorisée')
     }
   }
 
