@@ -348,7 +348,7 @@ class Trinome {
       result += `\\dfrac{${this.b.oppose().texFSD}}{2\\times\\left(${this.a.texFSP}\\right)}`
     }
     const x1 = this.x1 as FractionEtendue
-    result += `=${x1}`
+    result += `=${x1.texFractionSimplifiee}`
     return result
   }
 
