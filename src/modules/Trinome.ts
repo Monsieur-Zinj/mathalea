@@ -340,7 +340,7 @@ class Trinome {
   /** Calcul détaillé de la racine unique pour un discriminant nul */
   get texCalculRacineDouble () {
     if (this.discriminant.valeurDecimale !== 0) throw Error('Le discriminant doit être nul pour avoir une racine double')
-    let result = 'x_1 = x_2 = '
+    let result = ''
     result += '\\dfrac{-b}{2a} = '
     if (this.b.valeurDecimale > 0) {
       result += `\\dfrac{${this.b.oppose().texFSD}}{2\\times${this.a.texFSP}}`
