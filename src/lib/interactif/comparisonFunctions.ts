@@ -941,6 +941,7 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
 function intervalsCompare (input: string, goodAnswer: string) {
   const clean = generateCleaner(['virgules', 'parentheses', 'espaces'])
   input = clean(input)
+  goodAnswer = clean(goodAnswer)
   // goodAnswer = clean(goodAnswer).replaceAll('bigcup', 'cup').replaceAll('bigcap', 'cap') // EE : Depuis le 01/08/24, il n'y a plus de big...
   let isOk1 = true
   let isOk2 = true
