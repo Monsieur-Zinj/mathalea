@@ -1,4 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { rienSi1 } from '../../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
@@ -9,7 +11,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0ce7f'
 export const refs = {
   'fr-fr': ['canT1S07'],
-  'fr-ch': []
+  'fr-ch': [],
 }
 export const dateDePublication = '13/08/2024'
 
@@ -19,83 +21,87 @@ export const dateDePublication = '13/08/2024'
  *
  */
 class LimiteFormeIndeterminee extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion () {
-    const typeDeQuestion = randint(1,1)
-    switch (typeDeQuestion){
-      case 1:{// n^m-n^p
-        const m = randint(2, 9)
-        const p = randint(2, 9,m)
-        const diff = m-p
-        const un = `n^${m}`
-        const vn = `n^${p}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
-        this.correction += 'Nous avons donc une forme indeterminée donc nous allons factoriser la différence : '
-         if (m>p){
-           this.correction += `$${un}-${vn}=n^${m}(1-n^{${-diff}})=n^${m}(1-${diff===1? '\\dfrac{1}{n}':`\\dfrac{1}{n^${diff}}`})$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${m}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} 1-${diff===1? '\\dfrac{1}{n}':`\\dfrac{1}{n^${diff}}`}=1$.<br>`
-           this.reponse = '+\\infty'
+  nouvelleVersion() {
+    const typeDeQuestion = randint(3, 3)
+    switch (typeDeQuestion) {
+      case 1:
+        {
+          // n^m-n^p
+          const m = randint(2, 9)
+          const p = randint(2, 9, m)
+          const diff = m - p
+          const un = `n^${m}`
+          const vn = `n^${p}`
+          this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
+          this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
+          this.correction += `Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $${m > p ? `n^${m}` : `n^${p}`}$ :<br>`
+          if (m > p) {
+            this.correction += `$${un}-${vn}=n^${m}(1-n^{${-diff}})=n^${m}(1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`})$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${m}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} 1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`}=1$.<br>`
+            this.reponse = '+\\infty'
           } else {
-          this.correction += `$${un}-${vn}=n^${p}(${diff===1?'n':`n^{${diff}}`}-1)=n^${p}(${diff===-1?'\\dfrac{1}{n}':`\\dfrac{1}{n^{${-diff}}}`}-1)$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${p}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${diff===-1?'\\dfrac{1}{n}':`\\dfrac{1}{n^{${-diff}}}`}-1=-1$.<br>`
-          this.reponse = '-\\infty'
+            this.correction += `$${un}-${vn}=n^${p}(${diff === 1 ? 'n' : `n^{${diff}}`}-1)=n^${p}(${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1)$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${p}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1=-1$.<br>`
+            this.reponse = '-\\infty'
+          }
+          this.correction +=
+            "Ainsi, d'après les règles des limites d'un produit, "
+          this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${this.reponse}$.`
         }
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
-        this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${this.reponse}$.`
-     }
-      break
-      /*
-      case 2:{//(a+ou-b/n)/(c/n^d+ou-e)
-        const a = randint(-9, 9, 0)
-        const b = randint(1, 9)
-        const c = randint(2,9)
-        const d = randint(2,9)
-        const e = randint(1, 9)
-        const pm = choice([-1, 1])
-        const vn = `\\dfrac{${c}}{n^${d}}${pm===1 ? '+' : '-'}${e}`
-        const un = `${a}${choice([true,false])?'+':'-'}\\dfrac{${b}}{n}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e*pm}$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
-        const limite = new FractionEtendue(a,e*pm).simplifie()
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${limite.texFSD}$.`
-        this.reponse = limite.texFSD
-      }
-      break
-      case 3:{//(a+ou-b/n)/(c/n^d)
-        const a = randint(-9, 9, 0)
-        const b = randint(1, 9)
-        const c = randint(2,9)
-        const d = randint(2,9)
-        const e = randint(1, 9)
-        const pm = choice([-1, 1])
-        const vn = `\\dfrac{${c}}{n^${d}}`
-        const un = `${a}${choice([true,false])?'+':'-'}\\dfrac{${b}}{n}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=0$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
-        const limite = a>0 ? '+\\infty' : '-\\infty'
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${limite}$.`
-        this.reponse = limite
-      }
-      break
-      case 4:{// an/n^b
-        const a = randint(-9, 9, 0)
-        const b = randint(2, 9)
-        const vn = `n^${b}`
-        const un = `${a}n`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${a}n^{(1-${b})}=${a}\\times\\dfrac{1}{n^${b-1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b-1}}=0$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=0$.`
-        this.reponse = '0'
-      }
-      break
-      */
+        break
+      case 2:
+        {
+          // sqrt(n)-n^p ou n^p-sqrt(n)
+          const m = randint(2, 9)
+          const a = randint(1, 9)
+          const choix = choice([true, false])
+          const un = choix ? `${rienSi1(a)}\\sqrt{n}` : `n^${m}\\sqrt{n}`
+          const vn = !choix ? `${rienSi1(a)}\\sqrt{n}` : `n^${m}\\sqrt{n}`
+          this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
+          this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
+          this.correction += `Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $\\sqrt{n}$ :<br> `
+          if (choix) {
+            this.correction += `$${un}-${vn}=\\sqrt{n}(${a}-n^${m})$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${a}-n^${m}=-\\infty$.<br>`
+            this.reponse = '-\\infty'
+          } else {
+            this.correction += `$${un}-${vn}=\\sqrt{n}(n^${m}-${a})$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} n^${m}-${a}=+\\infty$.<br>`
+            this.reponse = '+\\infty'
+          }
+          this.correction +=
+            "Ainsi, d'après les règles des limites d'un produit, "
+          this.correction += `$${miseEnEvidence(`\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${this.reponse}`)}$.`
+        }
+        break
+      case 3:
+        {
+          // (a+ou-n^m)/n^p
+          const m = randint(2, 9)
+          const a = randint(1, 9)
+          const p = randint(2, 9)
+          const pm = choice(['+', '-'])
+          const un = `${a}${pm}n^${m}`
+          const vn = `n^${p}`
+          this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
+          this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${pm === '+' ? '+' : '-'}\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
+          this.correction += `Nous avons donc une forme indeterminée du type "$\\dfrac{\\infty}{\\infty}$", donc nous allons factoriser $n^${m > p ? m : p}$ :<br> `
+          if (p === m) {
+            this.correction += `$\\dfrac{${un}}{${vn}}=\\dfrac{n^${p}(\\dfrac{${a}}{n^${p}}${pm}1)}{n^${p}}=\\dfrac{${a}}{n^${p}}${pm}1$ en simplifiant par $n^${p}$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n^${p}}=0$.<br>`
+            this.reponse = pm === '+' ? '1' : '-1'
+          } else if (p > m) {
+            this.correction += `$\\dfrac{${un}}{${vn}}=\\dfrac{n^${p}(\\dfrac{${a}}{n^${p}}${pm}\\dfrac{1}{n^${p - m}})}{n^${p}}=\\dfrac{${a}}{n^${p}}${pm}\\dfrac{1}{n^${p - m}}$ en simplifiant par $n^${p}$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n^${p}}${pm}\\dfrac{1}{n^${p - m}}=0$.<br>`
+            this.reponse = '0'
+          } else {
+            // m>p
+            this.correction += `$\\dfrac{${un}}{${vn}}=\\dfrac{n^${m}(\\dfrac{${a}}{n^${m}}${pm}1)}{n^${m}\\times n^{${p - m}}}=\\dfrac{\\dfrac{${a}}{n^${m}}${pm}1}{\\dfrac{1}{n^${m - p}}}$ en simplifiant par $n^${m}$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n^${m}}${pm}1=${pm === '+' ? '1' : '-1'}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${m - p}}=0$.<br>`
+            this.reponse = `${pm}\\infty`
+          }
+          this.correction += `Alors, $${miseEnEvidence(`\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${this.reponse}`)}$.`
+        }
+        break
     }
   }
 }
