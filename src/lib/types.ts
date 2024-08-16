@@ -27,6 +27,7 @@ export interface InterfaceGlobalOptions {
   nbVues?: 1 | 2 | 3 | 4
   flow?: 0 | 1 | 2 // 0: Q->Q, 1: Q->R->Q, 2: Q->(Q+R)->Q
   screenBetweenSlides?: boolean
+  pauseAfterEachQuestion?: boolean
   sound?: 0 | 1 | 2 | 3 | 4
   shuffle?: boolean
   select?: number[]

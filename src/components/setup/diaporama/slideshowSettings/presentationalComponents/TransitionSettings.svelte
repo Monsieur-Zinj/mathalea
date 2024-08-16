@@ -9,8 +9,10 @@
   export let updateFlow: (flow: 0 | 1 | 2) => void
   export let updateScreenBetweenSlides: (screenBetweenSlides: boolean) => void
   export let updateTune: (tune: -1 | 0 | 1 | 2 | 3) => void
+  export let updatePauseAfterEachQuestion: (pauseAfterEachQuestion: boolean) => void
   export let questionThenCorrectionToggle: boolean
   export let questionWithCorrectionToggle: boolean
+  export let pauseAfterEachQuestion: boolean
 
   const labelsForSounds = [
     { label: 'Son 1', value: 0 },
@@ -86,6 +88,15 @@
     on:newvalue={() => {
       transitionSounds[tune].play()
       updateTune(tune)
+    }}
+  />
+  <CheckboxWithLabel
+    id="slideshow-pause-after-each-question-checkbox"
+    isChecked={pauseAfterEachQuestion}
+    label="Avec une pause après chaque question"
+    on:change={(e) => {
+      const isChecked = e.detail
+      updatePauseAfterEachQuestion(isChecked)
     }}
   />
 </div>
