@@ -42,6 +42,10 @@
     $globalOptions.screenBetweenSlides = screenBetweenSlides
   }
 
+  function updatePauseAfterEachQuestion (pauseAfterEachQuestion: boolean) {
+    $globalOptions.pauseAfterEachQuestion = pauseAfterEachQuestion
+  }
+
   function updateTune (tune: -1 | 0 | 1 | 2 | 3) {
     const soundCandidate = tune + 1
     if (isIntegerInRange0to4(soundCandidate)) {
@@ -98,8 +102,10 @@
         {updateFlow}
         {updateScreenBetweenSlides}
         {updateTune}
+        {updatePauseAfterEachQuestion}
         questionThenCorrectionToggle={$globalOptions.flow === 1 || $globalOptions.flow === 2}
         questionWithCorrectionToggle={$globalOptions.flow === 2}
+        pauseAfterEachQuestion={!!$globalOptions.pauseAfterEachQuestion}
       />
       <OrderSettings
         isQuestionsOrdered={!$globalOptions.shuffle}

@@ -234,6 +234,7 @@
   }
 
   function play () {
+    if (ratioTime >= 100) nextQuestion()
     isPause = false
     isManualPause = false
     if (ratioTime === 0) { // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
@@ -253,7 +254,9 @@
       ratioTime++
       if (ratioTime >= 100) {
         clearInterval(advanceRatioTimeInterval)
-        nextQuestion()
+        if (!$globalOptions.pauseAfterEachQuestion) {
+          nextQuestion()
+        }
       }
     }, currentSlideDuration * 10)
   }
@@ -271,7 +274,7 @@
     if ($globalOptions.manualMode) {
       return
     }
-    if (isPause) {
+    if (isPause || ratioTime >= 100) {
       play()
     } else {
       pause(isUserAction)
