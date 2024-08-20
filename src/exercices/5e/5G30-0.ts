@@ -6,15 +6,20 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
+
 export const interactifReady = true
+export const dateDePublication = '17/08/2024'
 export const interactifType = 'mathLive'
 export const titre = 'Angles et vocabulaire'
-export const uuid = 'newJC'
+export const uuid = 'ed9f4'
 export const refs = {
   'fr-fr': ['5G30-0'],
   'fr-ch': [],
 }
-
+/**
+ * Utiliser le vocabulaire complémentaires et suplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles
+ * @author Jean-Claude Lhote
+ */
 export default class AnglesEtVocabulaire extends Exercice {
   constructor() {
     super()
@@ -75,7 +80,6 @@ export default class AnglesEtVocabulaire extends Exercice {
               ],
               options: {
                 ordered: true,
-                formatInteractif: 'qcm',
               },
             }
             const monQcm = propositionsQcm(this, i)

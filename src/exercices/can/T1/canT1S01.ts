@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Limite $n^m+\\sqrt{n}$'
@@ -30,7 +31,7 @@ class N2PlusRacineDeN extends Exercice {
     this.correction = a > 0
       ? `On sait que $\\lim\\limits_{n\\to\\infty} n^{${a}}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$.<br>`
       : `On sait que $\\lim\\limits_{n\\to\\infty} n^{${a}}=\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${-a}}=0$ et $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$.<br>`
-    this.correction += `Ainsi, d'après les règles des limites de la somme, $\\lim\\limits_{n\\to\\infty} n^{${a}}+\\sqrt{n}=+\\infty$.`
+    this.correction += `Ainsi, d'après les règles des limites de la somme, $\\lim\\limits_{n\\to\\infty} n^{${a}}+\\sqrt{n}=${miseEnEvidence('+\\infty')}$.`
     this.reponse = '+\\infty'
   }
 }

@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
@@ -26,68 +27,68 @@ class UnSurVn extends Exercice {
   }
 
   nouvelleVersion () {
-    const typeDeQuestion = randint(1,4)
-    switch (typeDeQuestion){
-      case 1:{//e^{+ou-n}/(a/n+ou-b)
+    const typeDeQuestion = randint(1, 4)
+    switch (typeDeQuestion) {
+      case 1:{ // e^{+ou-n}/(a/n+ou-b)
         const a = randint(-9, 9, 0)
         const b = randint(1, 9)
-        const c = randint(-1,1,0)
+        const c = randint(-1, 1, 0)
         const pm = choice([true, false])
         const vn = `\\dfrac{${a}}{n}${pm ? '+' : '-'}${b}`
-        const un = `e^{${c===1?'':'-'}n}`
+        const un = `e^{${c === 1 ? '' : '-'}n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${c===-1?'0':'+\\infty'}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${pm ? '' : '-'}${b}$.<br>`
+        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${c === -1 ? '0' : '+\\infty'}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${pm ? '' : '-'}${b}$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${c===-1?'0':pm ? '+' : '-'}\\infty$.`
+        this.correction += c === -1
+          ? `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
+          : `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(`${pm ? '+' : '-'}\\infty`)}$.`
         this.reponse = this.correction.split('=')[1].split('$')[0]
       }
-      break
-      case 2:{//(a+ou-b/n)/(c/n^d+ou-e)
+        break
+      case 2:{ // (a+ou-b/n)/(c/n^d+ou-e)
         const a = randint(-9, 9, 0)
         const b = randint(1, 9)
-        const c = randint(2,9)
-        const d = randint(2,9)
+        const c = randint(2, 9)
+        const d = randint(2, 9)
         const e = randint(1, 9)
         const pm = choice([-1, 1])
-        const vn = `\\dfrac{${c}}{n^${d}}${pm===1 ? '+' : '-'}${e}`
-        const un = `${a}${choice([true,false])?'+':'-'}\\dfrac{${b}}{n}`
+        const vn = `\\dfrac{${c}}{n^${d}}${pm === 1 ? '+' : '-'}${e}`
+        const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e*pm}$.<br>`
+        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e * pm}$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
-        const limite = new FractionEtendue(a,e*pm).simplifie()
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${limite.texFSD}$.`
+        const limite = new FractionEtendue(a, e * pm).simplifie()
+        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(limite.texFSD)}$.`
         this.reponse = limite.texFSD
       }
-      break
-      case 3:{//(a+ou-b/n)/(c/n^d)
+        break
+      case 3:{ // (a+ou-b/n)/(c/n^d)
         const a = randint(-9, 9, 0)
         const b = randint(1, 9)
-        const c = randint(2,9)
-        const d = randint(2,9)
-        const e = randint(1, 9)
-        const pm = choice([-1, 1])
+        const c = randint(2, 9)
+        const d = randint(2, 9)
         const vn = `\\dfrac{${c}}{n^${d}}`
-        const un = `${a}${choice([true,false])?'+':'-'}\\dfrac{${b}}{n}`
+        const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=0$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
-        const limite = a>0 ? '+\\infty' : '-\\infty'
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${limite}$.`
+        const limite = a > 0 ? '+\\infty' : '-\\infty'
+        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(limite)}$.`
         this.reponse = limite
       }
-      break
-      case 4:{// an/n^b
+        break
+      case 4:{ // an/n^b
         const a = randint(-9, 9, 0)
         const b = randint(2, 9)
         const vn = `n^${b}`
         const un = `${a}n`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${a}n^{(1-${b})}=${a}\\times\\dfrac{1}{n^${b-1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b-1}}=0$.<br>`
+        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${a}n^{(1-${b})}=${a}\\times\\dfrac{1}{n^${b - 1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b - 1}}=0$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
-        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=0$.`
+        this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
         this.reponse = '0'
       }
-      break
+        break
     }
   }
 }
