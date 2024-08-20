@@ -92,6 +92,10 @@ export default function Exercice () {
   this.besoinFormulaire4Numerique = false // Sinon this.besoinFormulaire4Numerique = [texte, max, tooltip facultatif]
   this.besoinFormulaire4Texte = false // Sinon this.besoinFormulaire4Texte = [texte, tooltip]
   this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
+  // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup5 ou dans le paramètre d'url ',s4='
+  this.besoinFormulaire5Numerique = false // Sinon this.besoinFormulaire4Numerique = [texte, max, tooltip facultatif]
+  this.besoinFormulaire5Texte = false // Sinon this.besoinFormulaire4Texte = [texte, tooltip]
+  this.besoinFormulaire5CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
 
   // ///////////////////////////////////////////////
   // Exercice avec des dépendances particulières

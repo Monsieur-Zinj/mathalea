@@ -21,7 +21,7 @@ export const isInIframe = writable<boolean>(false)
 
 /**
  * exercicesParams est un tableau d'objets décrivant les exercices
- * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4, n}
+ * {id, uuid, alea, interactif, cd, sup, sup2, sup3, sup4,sup5, n}
  */
 export const exercicesParams = writable<InterfaceParams[]>([])
 

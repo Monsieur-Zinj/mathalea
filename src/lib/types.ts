@@ -73,6 +73,7 @@ export interface InterfaceParams extends Partial<Record<string, string| number>>
   sup2?: string
   sup3?: string
   sup4?: string
+  sup5?: string
   nbQuestions?: number
   duration?: number
   cols?: number

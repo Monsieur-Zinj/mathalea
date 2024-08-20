@@ -277,6 +277,7 @@ export function mathaleaHandleParamOfOneExercice (exercice: TypeExercice, param:
   if (param.sup2) exercice.sup2 = mathaleaHandleStringFromUrl(param.sup2)
   if (param.sup3) exercice.sup3 = mathaleaHandleStringFromUrl(param.sup3)
   if (param.sup4) exercice.sup4 = mathaleaHandleStringFromUrl(param.sup4)
+  if (param.sup5) exercice.sup5 = mathaleaHandleStringFromUrl(param.sup5)
   if (param.interactif) exercice.interactif = param.interactif === '1'
   if (param.alea) exercice.seed = param.alea
   if (param.cols !== undefined && param.cols > 1) exercice.nbCols = param.cols
@@ -372,6 +373,7 @@ export function mathaleaUpdateUrlFromExercicesParams (params?: InterfaceParams[]
     if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
     if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
     if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
+    if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
     if (ex.alea != null) url.searchParams.append('alea', ex.alea)
     if (ex.interactif === '1') url.searchParams.append('i', '1')
     if (ex.cd != null) url.searchParams.append('cd', ex.cd)
@@ -466,6 +468,8 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
       newExercisesParams[indiceExercice].sup3 = entry[1]
     } else if (entry[0] === 's4') {
       newExercisesParams[indiceExercice].sup4 = entry[1]
+    } else if (entry[0] === 's5') {
+      newExercisesParams[indiceExercice].sup5 = entry[1]
     } else if (entry[0] === 'alea') {
       newExercisesParams[indiceExercice].alea = entry[1]
     } else if (entry[0] === 'cols') {

@@ -91,7 +91,10 @@
     !exercise.besoinFormulaire3Texte &&
     !exercise.besoinFormulaire4CaseACocher &&
     !exercise.besoinFormulaire4Numerique &&
-    !exercise.besoinFormulaire4Texte
+    !exercise.besoinFormulaire4Texte&&
+    !exercise.besoinFormulaire5CaseACocher &&
+    !exercise.besoinFormulaire5Numerique &&
+    !exercise.besoinFormulaire5Texte
   let isExerciceChecked = false
   const generateTitleAddendum = (): string => {
     const ranks = exercisesUuidRanking(get(exercicesParams))
@@ -324,6 +327,10 @@
     if (event.detail.sup4 !== undefined) {
       exercise.sup4 = event.detail.sup4
       interfaceParams.sup4 = mathaleaHandleSup(exercise.sup4)
+    }
+    if (event.detail.sup5 !== undefined) {
+      exercise.sup5 = event.detail.sup5
+      interfaceParams.sup5 = mathaleaHandleSup(exercise.sup5)
     }
     if (event.detail.alea !== undefined) {
       exercise.seed = event.detail.alea

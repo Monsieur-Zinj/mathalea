@@ -185,7 +185,8 @@
         sup: mathaleaHandleSup(exercice.sup),
         sup2: mathaleaHandleSup(exercice.sup2),
         sup3: mathaleaHandleSup(exercice.sup3),
-        sup4: mathaleaHandleSup(exercice.sup4)
+        sup4: mathaleaHandleSup(exercice.sup4),
+        sup5: mathaleaHandleSup(exercice.sup5)
       })
     }
     exercicesParams.set(newParams)

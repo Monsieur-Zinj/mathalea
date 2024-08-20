@@ -96,6 +96,7 @@ function convertV2toV3 (url) {
   url = url.replaceAll(',s2=', '&s2=')
   url = url.replaceAll(',s3=', '&s3=')
   url = url.replaceAll(',s4=', '&s4=')
+  url = url.replaceAll(',s5=', '&s5=')
   url = url.replaceAll(',cd=', '&cd=')
   url = url.replaceAll('&serie=', '&alea=')
   return url
