@@ -18,6 +18,7 @@ export default class Exercice {
   sup2: any
   sup3: any
   sup4: any
+  sup5: any
   correctionInteractive?: (i: number) => string | string[] | Promise<string | string[]>
   exoCustomResultat?: boolean // Lorsqu'il est à true, correctionInteractive renvoie un tableau de string ce qui permet à une question de rapporter plusieurs points
   duree?: number
@@ -85,6 +86,9 @@ export default class Exercice {
   besoinFormulaire4Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
   besoinFormulaire4Texte: boolean | [string, string]
   besoinFormulaire4CaseACocher: boolean | [string] | [string, boolean]
+  besoinFormulaire5Numerique: boolean | [titre: string, max: number, tooltip: string] | [titre: string, max: number]
+  besoinFormulaire5Texte: boolean | [string, string]
+  besoinFormulaire5CaseACocher: boolean | [string] | [string, boolean]
   mg32Editable: boolean
   listeArguments: string[] // Variable servant à comparer les exercices pour ne pas avoir deux exercices identiques
   examen?: string // Pour les exercices statiques
@@ -181,6 +185,10 @@ export default class Exercice {
     this.besoinFormulaire4Numerique = false // Sinon this.besoinFormulaire4Numerique = [texte, max, tooltip facultatif]
     this.besoinFormulaire4Texte = false // Sinon this.besoinFormulaire4Texte = [texte, tooltip]
     this.besoinFormulaire4CaseACocher = false // Sinon this.besoinFormulaire4CaseACocher = [texte]
+    // Ajoute un formulaire de paramétrage par l'utilisateur récupéré via this.sup4 ou dans le paramètre d'url ',s5='
+    this.besoinFormulaire5Numerique = false // Sinon this.besoinFormulaire5Numerique = [texte, max, tooltip facultatif]
+    this.besoinFormulaire5Texte = false // Sinon this.besoinFormulaire5Texte = [texte, tooltip]
+    this.besoinFormulaire5CaseACocher = false // Sinon this.besoinFormulaire5CaseACocher = [texte]
 
     // ///////////////////////////////////////////////
     // Exercice avec des dépendances particulières

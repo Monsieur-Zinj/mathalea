@@ -400,3 +400,19 @@ export function combinaisonListesSansChangerOrdre<T> (liste: T[], tailleMinimale
   }
   return l
 }
+
+export function getRandomSubarray<T> (arr: T[], size: number): T[] {
+  // Copy the array to avoid mutating the original
+  const shuffled = [...arr]
+  let i = arr.length
+  const min = i - size
+  while (i > min) {
+    // Generate a random index from 0 to i (exclusive)
+    const index = Math.floor(Math.random() * i)
+    i--;
+    // Swap elements
+    [shuffled[i], shuffled[index]] = [shuffled[index], shuffled[i]]
+  }
+  // Return the last 'size' elements after shuffling
+  return shuffled.slice(min)
+}

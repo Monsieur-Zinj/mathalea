@@ -621,6 +621,7 @@ function getUrlFromExercice (ex: TypeExercice) {
   if (ex.sup2 !== undefined) url.searchParams.append('s2', ex.sup2)
   if (ex.sup3 !== undefined) url.searchParams.append('s3', ex.sup3)
   if (ex.sup4 !== undefined) url.searchParams.append('s4', ex.sup4)
+  if (ex.sup5 !== undefined) url.searchParams.append('s5', ex.sup5)
   if (ex.seed !== undefined) url.searchParams.append('alea', ex.seed)
   if (ex.interactif) url.searchParams.append('i', '1')
   if (ex.correctionDetaillee !== undefined) url.searchParams.append('cd', ex.correctionDetaillee ? '1' : '0')

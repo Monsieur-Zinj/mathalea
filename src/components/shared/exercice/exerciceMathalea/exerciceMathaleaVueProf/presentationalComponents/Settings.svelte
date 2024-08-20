@@ -11,6 +11,7 @@
   let sup2: boolean
   let sup3: boolean
   let sup4: boolean
+  let sup5: boolean
   let alea: string
   let correctionDetaillee: boolean
   let premierUpdate: boolean = true
@@ -25,6 +26,7 @@
   let formNum2: FormNumerique
   let formNum3: FormNumerique
   let formNum4: FormNumerique
+  let formNum5: FormNumerique
 
   afterUpdate(async () => {
     if (exercice.seed !== undefined) {
@@ -43,6 +45,7 @@
       sup2 = exercice.sup2
       sup3 = exercice.sup3
       sup4 = exercice.sup4
+      sup5 = exercice.sup5
       const seed = exercice.seed
       if (seed !== undefined) {
         alea = seed
@@ -61,6 +64,7 @@
       sup2,
       sup3,
       sup4,
+      sup5,
       alea,
       correctionDetaillee
     })
@@ -122,6 +126,9 @@
   }
   if (typeof exercice.besoinFormulaire4Numerique !== 'boolean') {
     formNum4 = parseFormNumerique(exercice.besoinFormulaire4Numerique)
+  }
+  if (typeof exercice.besoinFormulaire5Numerique !== 'boolean') {
+    formNum5 = parseFormNumerique(exercice.besoinFormulaire5Numerique)
   }
 </script>
 
@@ -552,6 +559,104 @@
         {/if}
       </form>
     {/if}
+
+     <!-- sup5 -->
+     {#if exercice.besoinFormulaire5CaseACocher}
+     <div class="container">
+       <label
+         class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+         for="settings-check5-{exerciceIndex}"
+       >
+         {#if typeof exercice.besoinFormulaire5CaseACocher !== 'boolean'}
+           {exercice.besoinFormulaire5CaseACocher[0]} :
+         {/if}
+       </label>
+       <input
+         name="settings-check5"
+         id="settings-check5-{exerciceIndex}"
+         type="checkbox"
+         class="ml-2 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas border-coopmaths-action text-coopmaths-action dark:border-coopmathsdark-action dark:text-coopmathsdark-action focus:ring-1 focus:ring-coopmaths-action dark:focus:ring-coopmathsdark-action h-4 w-4 rounded cursor-pointer"
+         bind:checked={sup5}
+         on:change={newSettings}
+       />
+     </div>
+   {/if}
+   {#if formNum4}
+     {#if Array.isArray(formNum5.champs)}
+       <div class="flex flex-col">
+         <form id="settings-form-formNum5-{exerciceIndex}" action="">
+           <label
+             class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+             for="settings-formNum5-{exerciceIndex}">{formNum5.titre} :</label
+           >
+           <select
+             class="flex flex-auto w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+             name="settings-formNum5"
+             id="settings-formNum5-{exerciceIndex}"
+             bind:value={sup5}
+             on:change={newSettings}
+           >
+             {#each formNum5.champs as entree, i}
+               <option
+                 value={i + 1}
+                 class="bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+                 >{entree}</option
+               >
+             {/each}
+           </select>
+         </form>
+       </div>
+     {:else}
+       <div>
+         <!-- Pas de tooltips -->
+         <label
+           class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+           for="settings-formNum5-{exerciceIndex}"
+           >{formNum5.titre} :
+         </label>
+         <input
+           name="settings-formNum5"
+           id="settings-formNum5-{exerciceIndex}"
+           type="number"
+           class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+           min="1"
+           max={formNum5.champs}
+           bind:value={sup5}
+           on:change={newSettings}
+         />
+       </div>
+     {/if}
+   {/if}
+   {#if exercice.besoinFormulaire5Texte}
+     <form
+       id="settings-form-formText5-{exerciceIndex}"
+       name="settings-form-formText5"
+       class="flex flex-col justify-start"
+       on:submit|preventDefault={newSettings}
+     >
+       {#if typeof exercice.besoinFormulaire5Texte !== 'boolean'}
+         <label
+           class="text-sm md:text-normal text-coopmaths-struct dark:text-coopmathsdark-struct font-light"
+           for="settings-formText5-{exerciceIndex}"
+         >
+           {exercice.besoinFormulaire5Texte[0]} :
+         </label>
+         <div
+           class="tooltip tooltip-bottom w-full before:whitespace-pre-wrap before:content-[attr(data-tip)] before:text-left"
+           data-tip={exercice.besoinFormulaire5Texte[1]}
+         >
+           <input
+             class="w-full text-coopmaths-corpus-lightest dark:text-coopmathsdark-corpus-dark border-1 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"
+             name="settings-formText5"
+             id="settings-formText5-{exerciceIndex}"
+             type="text"
+             bind:value={sup5}
+             on:input={newSettings}
+           />
+         </div>
+       {/if}
+     </form>
+   {/if}
 
     {#if exercice.correctionDetailleeDisponible}
       <div class="container">
