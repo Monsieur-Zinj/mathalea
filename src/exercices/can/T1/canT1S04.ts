@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Limite $\\dfrac{a\\pm kn}{n}$'
@@ -33,7 +34,7 @@ class APlusbBnSurN extends Exercice {
     this.correction = `Pour tout entier n strictement positif, on a : $\\dfrac{${vn}}{n}=\\dfrac{${-a}}{n}${pm ? '+' : '-'}${b}$.<br>`
     this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${-a}}{n}=0$ et $\\lim\\limits_{n\\to\\infty} ${b}=${b}$.<br>`
     this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
-    this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${vn}}{n}=${pm ? '+' : '-'}${b}$.`
+    this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${vn}}{n}=${miseEnEvidence(`${pm ? '+' : '-'}${b}`)}$.`
     this.reponse = `${pm ? '+' : '-'}${b}`
   }
 }

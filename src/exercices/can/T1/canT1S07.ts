@@ -1,7 +1,6 @@
 import { choice } from '../../../lib/outils/arrayOutils'
 import { rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
-import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Limite formes indéterminées'
@@ -11,7 +10,7 @@ export const interactifType = 'mathLive'
 export const uuid = '0ce7f'
 export const refs = {
   'fr-fr': ['canT1S07'],
-  'fr-ch': [],
+  'fr-ch': []
 }
 export const dateDePublication = '13/08/2024'
 
@@ -21,13 +20,13 @@ export const dateDePublication = '13/08/2024'
  *
  */
 class LimiteFormeIndeterminee extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 1
     this.typeExercice = 'simple'
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const typeDeQuestion = randint(3, 3)
     switch (typeDeQuestion) {
       case 1:
@@ -50,7 +49,7 @@ class LimiteFormeIndeterminee extends Exercice {
           }
           this.correction +=
             "Ainsi, d'après les règles des limites d'un produit, "
-          this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${this.reponse}$.`
+          this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
         }
         break
       case 2:
@@ -63,7 +62,7 @@ class LimiteFormeIndeterminee extends Exercice {
           const vn = !choix ? `${rienSi1(a)}\\sqrt{n}` : `n^${m}\\sqrt{n}`
           this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
           this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
-          this.correction += `Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $\\sqrt{n}$ :<br> `
+          this.correction += 'Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $\\sqrt{n}$ :<br> '
           if (choix) {
             this.correction += `$${un}-${vn}=\\sqrt{n}(${a}-n^${m})$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${a}-n^${m}=-\\infty$.<br>`
             this.reponse = '-\\infty'
@@ -73,7 +72,7 @@ class LimiteFormeIndeterminee extends Exercice {
           }
           this.correction +=
             "Ainsi, d'après les règles des limites d'un produit, "
-          this.correction += `$${miseEnEvidence(`\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${this.reponse}`)}$.`
+          this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
         }
         break
       case 3:
@@ -99,7 +98,7 @@ class LimiteFormeIndeterminee extends Exercice {
             this.correction += `$\\dfrac{${un}}{${vn}}=\\dfrac{n^${m}(\\dfrac{${a}}{n^${m}}${pm}1)}{n^${m}\\times n^{${p - m}}}=\\dfrac{\\dfrac{${a}}{n^${m}}${pm}1}{\\dfrac{1}{n^${m - p}}}$ en simplifiant par $n^${m}$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n^${m}}${pm}1=${pm === '+' ? '1' : '-1'}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${m - p}}=0$.<br>`
             this.reponse = `${pm}\\infty`
           }
-          this.correction += `Alors, $${miseEnEvidence(`\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${this.reponse}`)}$.`
+          this.correction += `Alors, $\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(this.reponse)}$.`
         }
         break
     }

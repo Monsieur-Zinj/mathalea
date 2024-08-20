@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
 export const titre = 'Limite $e^{-n}\\pm kn$'
@@ -34,8 +35,8 @@ class ExpNPmKn extends Exercice {
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${vn}=0$ et $\\lim\\limits_{n\\to\\infty} ${wn}=+\\infty$.<br>`
     this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
     this.correction += pm
-      ? `$\\lim\\limits_{n\\to\\infty} ${vn}+${wn}=+\\infty$.`
-      : `$\\lim\\limits_{n\\to\\infty} ${vn}-${wn}=-\\infty$.`
+      ? `$\\lim\\limits_{n\\to\\infty} ${vn}+${wn}=${miseEnEvidence('+\\infty')}$.`
+      : `$\\lim\\limits_{n\\to\\infty} ${vn}-${wn}=${miseEnEvidence('-\\infty')}$.`
     this.reponse = pm
       ? '+\\infty'
       : '-\\infty'
