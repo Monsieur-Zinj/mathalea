@@ -9,6 +9,7 @@ import { arrondi } from '../../lib/outils/nombres'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
+import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
@@ -109,7 +110,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice + ref}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice + ref}Q${i}`, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -121,6 +122,8 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           texteCorr += '\\;\n' + latexCorr
           break
       }
+
+      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         this.autoCorrection[i] = {
