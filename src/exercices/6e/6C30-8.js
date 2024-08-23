@@ -1,8 +1,8 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre2 } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 
 export const amcReady = true
@@ -13,6 +13,7 @@ export const interactifType = 'qcm'
 export const titre = 'Diviser par 10, 100 ou 1 000'
 
 export const dateDePublication = '08/12/2021'
+export const dateDeModifImportante = '22/08/2024'
 
 /**
  * @author Eric Elter (déclinaison de 6C30-5 de Jean-Claude Lhote)
@@ -42,20 +43,13 @@ export default function DiviserPar101001000 () {
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
   this.nouvelleVersion = function () {
-    this.sup3 = parseInt(this.sup3)
     // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
     // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
 
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     this.autoCorrection = []
-    let typeDeQuestionsDisponibles
-    if (parseInt(this.sup3) === 4) {
-      typeDeQuestionsDisponibles = [1, 2, 3]
-    } else {
-      typeDeQuestionsDisponibles = [parseInt(this.sup3)]
-    }
-    const listeTypeDeQuestions = combinaisonListes(typeDeQuestionsDisponibles, this.nbQuestions)
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions, saisie: this.sup3 })
     const rang = ['millièmes', 'centièmes', 'dixièmes']
 
     for (let i = 0, texte, texteCorr, coef, nombre, nombreentier, resultat, exposant, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -79,17 +73,17 @@ export default function DiviserPar101001000 () {
           }
         }
       } else {
-        exposant = this.sup ? 0 : exposant = -randint(1, 3)
+        exposant = this.sup ? 0 : -randint(1, 3)
       }
-      nombreentier = calculANePlusJamaisUtiliser(randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
-      nombre = calculANePlusJamaisUtiliser(nombreentier * 10 ** exposant)
-      resultat = calculANePlusJamaisUtiliser(nombre * 10 ** coef)
-      switch (listeTypeDeQuestions[i]) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
+      nombreentier = (randint(10, 1000) + randint(10, 999) * choice([0, 1000]))
+      nombre = (nombreentier * 10 ** exposant)
+      resultat = (nombre * 10 ** coef)
+      switch (Number(listeTypeDeQuestions[i])) { // Chaque question peut être d'un type différent, ici 4 cas sont prévus...
         case 1:
-          texte = `$${texNombre2(nombre)}\\div ${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}=\\ldots\\ldots\\ldots\\ldots$`
-          texteCorr = `Quand on divise par $${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre2(calculANePlusJamaisUtiliser(10 ** (-coef)))}$ fois plus petite.<br>`
+          texte = `$${texNombre2(nombre)}\\div ${texNombre2((10 ** -coef))}=\\ldots\\ldots\\ldots\\ldots$`
+          texteCorr = `Quand on divise par $${texNombre2((10 ** -coef))}$, chaque chiffre prend une valeur $${texNombre2((10 ** (-coef)))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2(calculANePlusJamaisUtiliser(10 ** -coef))}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
+          texteCorr += `$${texNombre2(nombre)}\\div ${texNombre2((10 ** -coef))}=${miseEnEvidence(texNombre2(resultat), 'blue')}$`
 
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
@@ -99,47 +93,16 @@ export default function DiviserPar101001000 () {
               statut: true
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef)))}$`,
+              texte: `$${texNombre2(nombre * 10 ** (-coef))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (coef - 1)))}$`,
+              texte: `$${texNombre2(nombre * 10 ** (coef - 1))}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef + 1)))}$`,
+              texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
               statut: false
-            }
-          ]
-          this.autoCorrection[i].options = {
-            ordered: false,
-            lastChoice: 5
-          }
-          break
-
-        case 2:
-          texte = `$${texNombre2(nombre)}\\div \\ldots\\ldots\\ldots=${texNombre2(resultat)}$`
-          texteCorr = `Le chiffre des unités de $${texNombre2(nombre)}$ se positionne sur le chiffre des ${rang[3 + coef]} dans $${texNombre2(resultat)}$.<br>`
-          texteCorr += `Chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite, donc on divise par $${texNombre2(10 ** -coef)}$.<br>`
-          texteCorr += `$${texNombre2(nombre)}\\div ${miseEnEvidence(texNombre2(10 ** -coef), 'blue')}=${texNombre2(resultat)}$`
-          this.autoCorrection[i] = {}
-          this.autoCorrection[i].enonce = `${texte}\n`
-          this.autoCorrection[i].propositions = [
-            {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 1))}$`,
-              statut: -coef === 1
-            },
-            {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 2))}$`,
-              statut: -coef === 2
-            },
-            {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 3))}$`,
-              statut: -coef === 3
-            },
-            {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(10 ** 4))}$`,
-              statut: -coef === 4
             }
           ]
           this.autoCorrection[i].options = {
@@ -149,6 +112,37 @@ export default function DiviserPar101001000 () {
           break
 
         case 3:
+          texte = `$${texNombre2(nombre)}\\div \\ldots\\ldots\\ldots=${texNombre2(resultat)}$`
+          texteCorr = `Le chiffre des unités de $${texNombre2(nombre)}$ se positionne sur le chiffre des ${rang[3 + coef]} dans $${texNombre2(resultat)}$.<br>`
+          texteCorr += `Chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite, donc on divise par $${texNombre2(10 ** -coef)}$.<br>`
+          texteCorr += `$${texNombre2(nombre)}\\div ${miseEnEvidence(texNombre2(10 ** -coef), 'blue')}=${texNombre2(resultat)}$`
+          this.autoCorrection[i] = {}
+          this.autoCorrection[i].enonce = `${texte}\n`
+          this.autoCorrection[i].propositions = [
+            {
+              texte: `$${texNombre2(10 ** 1)}$`,
+              statut: -coef === 1
+            },
+            {
+              texte: `$${texNombre2(10 ** 2)}$`,
+              statut: -coef === 2
+            },
+            {
+              texte: `$${texNombre2(10 ** 3)}$`,
+              statut: -coef === 3
+            },
+            {
+              texte: `$${texNombre2(10 ** 4)}$`,
+              statut: -coef === 4
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
+          }
+          break
+
+        case 2:
           texte = `$\\ldots\\ldots\\ldots\\ldots\\div ${texNombre2(10 ** -coef)}=${texNombre2(resultat)}$`
           texteCorr = `Quand on divise par $${texNombre2(10 ** -coef)}$, chaque chiffre prend une valeur $${texNombre2(10 ** (-coef))}$ fois plus petite.<br>`
           texteCorr += `Le chiffre des unités se positionne donc dans les ${rang[3 + coef]} :<br>`
@@ -161,15 +155,15 @@ export default function DiviserPar101001000 () {
               statut: true
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre / 10))}$`,
+              texte: `$${texNombre2(nombre / 10)}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10))}$`,
+              texte: `$${texNombre2(nombre * 10)}$`,
               statut: false
             },
             {
-              texte: `$${texNombre2(calculANePlusJamaisUtiliser(nombre * 10 ** (-coef + 1)))}$`,
+              texte: `$${texNombre2(nombre * 10 ** (-coef + 1))}$`,
               statut: false
             }
           ]
@@ -181,7 +175,7 @@ export default function DiviserPar101001000 () {
       }
       const props = propositionsQcm(this, i)
       if (this.interactif) {
-        texte += '<br>' + props.texte
+        texte += `<br>${props.texte}`
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {
@@ -199,7 +193,5 @@ export default function DiviserPar101001000 () {
   // Il sont associés respectivement aux paramètres sup, sup3 et sup3.
   this.besoinFormulaireCaseACocher = ['Le dividende est un nombre entier', false]
   this.besoinFormulaire2CaseACocher = ['Trois décimales maximum', true]
-  this.besoinFormulaire3Numerique = ['Type de questions', 4, ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
-
-  // this.besoinFormulaire3CaseACocher =['Mode QCM',false]
+  this.besoinFormulaire3Texte = ['Type de questions (nombres séparés par des tirets)', ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
 } // Fin de l'exercice.

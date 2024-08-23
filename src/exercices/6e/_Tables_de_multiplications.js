@@ -2,7 +2,7 @@ import { choice, creerCouples } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -13,7 +13,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const titre = 'Tables de multiplication'
-export const dateDeModifImportante = '24/09/2023'
+export const dateDeModifImportante = '22/08/2024'
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
@@ -25,16 +25,14 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   // Multiplier deux nombres
   Exercice.call(this)
   this.sup = tablesParDefaut
-  this.sup2 = 1 // classique|a_trous|melange
+  this.sup2 = '1'
   this.sup3 = true
   this.consigne = 'Calculer : '
   this.spacing = 2
 
-  this.besoinFormulaireTexte = ['Choix des tables (entre 2 et 10)', 'Nombres séparés par des tirets'] // Texte, tooltip
-  this.besoinFormulaire2Numerique = [
-    'Type de questions',
-    4,
-    '1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
+  this.besoinFormulaireTexte = ['Choix des tables (entre 1 et 11 et 12 pour au hasard', 'Nombres séparés par des tirets'] // Texte, tooltip
+  this.besoinFormulaire2Texte = [
+    'Type de questions (nombres séparés par des tirets)', '1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
   ]
   this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
 
@@ -43,57 +41,49 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     const tables = gestionnaireFormulaireTexte({
-      min: 2,
-      max: 10,
-      defaut: randint(2, 10),
+      min: 1,
+      max: 11,
+      melange: 12,
+      defaut: 12,
       nbQuestions: this.nbQuestions,
       saisie: this.sup,
       enleveDoublons: true
     })
-
+    const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 3, defaut: 1, melange: 4, listeOfCase: ['classique', 'a_trous', 'quotient'], nbQuestions: this.nbQuestions })
     const couples = creerCouples(
       tables,
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
       this.nbQuestions
     ) // Liste tous les couples possibles (2,3)≠(3,2)
-    let typesDeQuestions = 'a_trous'
     for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       a = couples[i][0]
       b = couples[i][1]
       const ordre = this.sup3 ? [true] : [true, false]
       const choix = choice(ordre)
-      if (this.sup2 === 1) {
-        typesDeQuestions = 'classique'
-      } else if (this.sup2 === 2) {
-        typesDeQuestions = 'a_trous'
-      } else if (this.sup2 === 3) {
-        typesDeQuestions = 'quotient'
-      } else {
-        typesDeQuestions = choice(['classique', 'a_trous', 'quotient'])
-      }
-      if (typesDeQuestions === 'classique') {
+      const typeDeQuestion = listeTypeDeQuestions[i]
+      if (typeDeQuestion === 'classique') {
         // classique
         if (choix) {
           texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, `inline largeur10 nospacebefore ${KeyboardType.clavierDeBase}`)}` : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
         } else {
           texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, `inline largeur10 nospacebefore ${KeyboardType.clavierDeBase}`)}` : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
         }
         setReponse(this, i, a * b)
-      } else if (typesDeQuestions === 'a_trous') {
+      } else if (typeDeQuestion === 'a_trous') {
         // a trous
         // if (tables.length > 2) {
         // Si pour le premier facteur il y a plus de 2 posibilités on peut le chercher
 
         if (choix) {
-          texte = '$' + a.toString() + '\\times '
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
+          texte = `$${a.toString()}\\times `
+          texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, `inline largeur10 nospacebefore ${KeyboardType.clavierDeBase}`, { texteApres: ` $=${(a * b).toString()}$` })}` : ` \\ldots\\ldots =${(a * b).toString()}$`
           setReponse(this, i, b)
         } else {
-          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, `inline largeur10 nospacebefore ${KeyboardType.clavierDeBase}`, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           setReponse(this, i, a)
         }
         /*   } else {
@@ -107,7 +97,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           : `$${miseEnEvidence(a.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else { // typeDeQuestion === 'quotient'
         texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
-        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierDeBase) : '\\ldots\\ldots$'
+        texte += (this.interactif && context.isHtml) ? `$${ajouteChampTexteMathLive(this, i, `inline largeur10 nospacebefore ${KeyboardType.clavierDeBase}`)}` : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         setReponse(this, i, b)
       }
@@ -121,7 +111,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           approx: 0
         }
       }
-      if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {
+      if (this.questionJamaisPosee(i, a, b, typeDeQuestion)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
