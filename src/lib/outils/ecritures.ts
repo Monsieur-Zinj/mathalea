@@ -52,15 +52,15 @@ export function texteExposant (texte: string) {
  * //(+3) ou (-3)
  * @author Rémi Angot
  */
-export function ecritureNombreRelatif (a: string | number) {
+export function ecritureNombreRelatif (a: number) {
   if (typeof a === 'string') {
     window.notify('ecritureNombreRelatif() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   if (a > 0) {
-    return '(+' + a.toString() + ')'
+    return '(+' + texNombre(a) + ')'
   } else if (a < 0) {
-    return '(' + a.toString() + ')'
+    return '(' + texNombre(a) + ')'
   }
   // ne pas mettre de parenthèses pour le nombre 0.
   return '0'
