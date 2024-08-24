@@ -426,15 +426,15 @@ export default function ProblemesGrandeursComposees () {
           masse = randint(20, 30) // masse de l'enfant
           distance = randint(25, 35) / 10
           texte =
-            `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une balançoire "` +
+            `${quidam} qui pèse $${masse}$ kg se trouve sur le siège d'une balançoire ` +
             katexPopup2(
               numeroExercice + i * 3,
               2,
               'trébuchet',
               'Schéma explicatif',
-              'images/trebuchet.png'
+              'alea/images/trebuchet.png'
             ) +
-            `" dans un jardin d'enfant. Le siège est situé à $${texNombre(
+            ` dans un jardin d'enfant. Le siège est situé à $${texNombre(
               distance
             , 1)}$ m du pivot central de la balançoire (bras de levier).<br>`
           texte +=

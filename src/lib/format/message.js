@@ -36,13 +36,13 @@ export function katexPopup2 (numero, type, texte, titrePopup, textePopup) {
       return katexPopupTest(texte, titrePopup, textePopup)
     case 1:
       if (context.isHtml) {
-        return `${texte}` + modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
+        return modalTexteLong(numero, `${titrePopup}`, `${textePopup}`, `${texte}`, 'info circle')
       } else {
         return `\\textbf{${texte}} \\footnote{\\textbf{${titrePopup}} ${textePopup}}`
       }
     case 2:
       if (context.isHtml) {
-        return `${texte}` + modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
+        return modalImage(numero, textePopup, `${titrePopup}`, `${texte}`)
       } else {
         return `\\href{https://coopmaths.fr/images/${texte}.png}{\\textcolor{blue}{\\underline{${texte}}} } \\footnote{\\textbf{${texte}} ${textePopup}}`
       }
