@@ -69,7 +69,7 @@
 
   async function updateExercises () {
     setSlidesContent(exercises)
-    adjustQuestionsOrder()
+    if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
     updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
