@@ -8,6 +8,7 @@
   export let isManualModeActive: boolean
   export let updateExercises: (exercises: Exercice[]) => void
   export let durationGlobal: number | undefined
+  export let remove: (exerciseIndex: number) => void
   let stringDureeTotale = '0'
 
   $: getTotalNbOfQuestions = () => {
@@ -113,6 +114,7 @@
           Total :<span class="font-light ml-1">{getTotalNbOfQuestions()}</span>
         </div>
       </th>
+      <th></th>
     </thead>
     <tbody class="overflow-y-auto" id="exercisesList">
       {#each exercises as exercice, i}
@@ -148,6 +150,18 @@
                 updateQuestionsNb(i, nbQuestions)
               }}
             />
+          </td>
+          <td>
+            <button
+              class="mx-2 tooltip tooltip-left tooltip-neutral"
+              data-tip="Supprimer l'exercice"
+              type="button"
+              on:click={() => remove(i)}
+            >
+              <i
+                class="text-coopmaths-action hover:text-coopmaths-action-lightest dark:text-coopmathsdark-action dark:hover:text-coopmathsdark-action-lightest bx bx-trash"
+              />
+            </button>
           </td>
         </tr>
       {/each}

@@ -69,6 +69,12 @@
     $globalOptions.durationGlobal = durationGlobal
   }
 
+  function remove (exerciseIndex: number) {
+    exercises.splice(exerciseIndex, 1)
+    updateExercises(exercises)
+    exercises = exercises // to refresh ExercisesSettings component
+  }
+
 </script>
 
 <div
@@ -140,6 +146,7 @@
           {updateExercises}
           durationGlobal={$globalOptions.durationGlobal}
           selectedExercisesIndexes={$globalOptions.select ?? []}
+          {remove}
         />
         <div class="flex flex-row items-center justify-end w-full my-4">
           <button
