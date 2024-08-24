@@ -4,15 +4,16 @@ import { createButon, createTextInput } from './_components.js'
 import { createList } from '../../lib/format/lists.js'
 import type { List } from '../../lib/format/lists.js'
 import { getUniqueStringBasedOnTimeStamp } from '../../lib/components/time.js'
+import Exercice from '../Exercice'
 
 export const uuid = 'xcas'
 export const titre = 'xCas'
 
-class xCas {
+class xCas extends Exercice {
   typeExercice: string
   titre: string
-  html: HTMLDivElement
   constructor () {
+    super()
     this.typeExercice = 'html xcas'
     this.titre = titre
     this.html = document.createElement('div')
