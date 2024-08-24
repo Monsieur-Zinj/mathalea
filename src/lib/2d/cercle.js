@@ -1,4 +1,7 @@
-import { colorToLatexOrHTML, ObjetMathalea2D } from '../../modules/2dGeneralites.js'
+import {
+  colorToLatexOrHTML,
+  ObjetMathalea2D,
+} from '../../modules/2dGeneralites.js'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles.js'
 import { droite, mediatrice } from './droites.js'
@@ -43,7 +46,19 @@ import { radians } from '../mathFonctions/trigo.js'
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
+export function Cercle(
+  O,
+  r,
+  color = 'black',
+  couleurDeRemplissage = 'none',
+  couleurDesHachures = 'none',
+  epaisseur = 1,
+  pointilles = 0,
+  opacite = 1,
+  opaciteDeRemplissage = 1.1,
+  epaisseurDesHachures = 1,
+  distanceDesHachures = 10,
+) {
   ObjetMathalea2D.call(this, {})
   this.color = colorToLatexOrHTML(color)
   this.centre = O
@@ -85,15 +100,18 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
       if (this.couleurDeRemplissage.length < 1) {
         this.couleurDeRemplissage = colorToLatexOrHTML('none')
       }
-      return pattern({
-        motif: this.hachures,
-        id: this.id,
-        distanceDesHachures: this.distanceDesHachures,
-        epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures[0],
-        couleurDeRemplissage: this.couleurDeRemplissage[0],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }) + `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      return (
+        pattern({
+          motif: this.hachures,
+          id: this.id,
+          distanceDesHachures: this.distanceDesHachures,
+          epaisseurDesHachures: this.epaisseurDesHachures,
+          couleurDesHachures: this.couleurDesHachures[0],
+          couleurDeRemplissage: this.couleurDeRemplissage[0],
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }) +
+        `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+      )
     } else {
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
@@ -105,8 +123,9 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
         this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
       }
 
-      return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff
-            }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
+      return `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${
+        r * coeff
+      }" stroke="${this.color[0]}" ${this.style} id="${this.id}" />`
     }
   }
   this.tikz = function () {
@@ -142,20 +161,28 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.opaciteDeRemplissage !== 1) {
       tableauOptions.push(`fill opacity = ${this.opaciteDeRemplissage}`)
     }
-    if (this.couleurDeRemplissage !== '' && this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage[1] !== '') {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]}}`)
+    if (
+      this.couleurDeRemplissage !== '' &&
+      this.couleurDeRemplissage[1] !== 'none' &&
+      this.couleurDeRemplissage[1] !== ''
+    ) {
+      tableauOptions.push(
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`,
+      )
     }
 
     if (this.hachures) {
-      tableauOptions.push(pattern({
-        motif: this.hachures,
-        id: this.id,
-        distanceDesHachures: this.distanceDesHachures,
-        epaisseurDesHachures: this.epaisseurDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1],
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }))
+      tableauOptions.push(
+        pattern({
+          motif: this.hachures,
+          id: this.id,
+          distanceDesHachures: this.distanceDesHachures,
+          epaisseurDesHachures: this.epaisseurDesHachures,
+          couleurDesHachures: this.couleurDesHachures[1],
+          couleurDeRemplissage: this.couleurDeRemplissage[1],
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
+      )
     }
 
     if (tableauOptions.length > 0) {
@@ -163,7 +190,7 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     }
     return `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
   }
-  this.svgml = function (coeff) {
+  this.svgml = (coeff) => {
     const mainLevee = MainLevee.create()
     const code = mainLevee.circle(O.x, O.y, r * coeff)
     mainLevee.destroy()
@@ -183,7 +210,9 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+    tableauOptions.push(
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+    )
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
     const code = `\\draw${optionsDraw} (${O.x},${O.y}) circle (${r});`
@@ -214,8 +243,32 @@ export function Cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  return new Cercle(O, r, color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+export function cercle(
+  O,
+  r,
+  color = 'black',
+  couleurDeRemplissage = 'none',
+  couleurDesHachures = 'none',
+  epaisseur = 1,
+  pointilles = 0,
+  opacite = 1,
+  opaciteDeRemplissage = 1.1,
+  epaisseurDesHachures = 1,
+  distanceDesHachures = 10,
+) {
+  return new Cercle(
+    O,
+    r,
+    color,
+    couleurDeRemplissage,
+    couleurDesHachures,
+    epaisseur,
+    pointilles,
+    opacite,
+    opaciteDeRemplissage,
+    epaisseurDesHachures,
+    distanceDesHachures,
+  )
 }
 
 /**
@@ -241,8 +294,32 @@ export function cercle (O, r, color = 'black', couleurDeRemplissage = 'none', co
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage = 'none', couleurDesHachures = 'none', epaisseur = 1, pointilles = 0, opacite = 1, opaciteDeRemplissage = 1.1, epaisseurDesHachures = 1, distanceDesHachures = 10) {
-  return new Cercle(O, longueur(O, M), color, couleurDeRemplissage, couleurDesHachures, epaisseur, pointilles, opacite, opaciteDeRemplissage, epaisseurDesHachures, distanceDesHachures)
+export function cercleCentrePoint(
+  O,
+  M,
+  color = 'black',
+  couleurDeRemplissage = 'none',
+  couleurDesHachures = 'none',
+  epaisseur = 1,
+  pointilles = 0,
+  opacite = 1,
+  opaciteDeRemplissage = 1.1,
+  epaisseurDesHachures = 1,
+  distanceDesHachures = 10,
+) {
+  return new Cercle(
+    O,
+    longueur(O, M),
+    color,
+    couleurDeRemplissage,
+    couleurDesHachures,
+    epaisseur,
+    pointilles,
+    opacite,
+    opaciteDeRemplissage,
+    epaisseurDesHachures,
+    distanceDesHachures,
+  )
 }
 
 /** Trace un arc de cercle, connaissant une extrémité, son centre et la mesure de l'angle
@@ -272,7 +349,16 @@ export function cercleCentrePoint (O, M, color = 'black', couleurDeRemplissage =
  * @class
  **/
 // JSDOC Validee par EE Juin 2022
-export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
+export function Arc(
+  M,
+  Omega,
+  angle,
+  rayon = false,
+  couleurDeRemplissage = 'none',
+  color = 'black',
+  opaciteDeRemplissage = 0.2,
+  couleurDesHachures = 'none',
+) {
   ObjetMathalea2D.call(this, {})
   this.typeObjet = 'arc'
   this.color = colorToLatexOrHTML(color)
@@ -284,14 +370,14 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
   this.epaisseurDesHachures = 1
   this.distanceDesHachures = 10
   this.pointilles = 0
-  if (typeof (angle) !== 'number') {
+  if (typeof angle !== 'number') {
     angle = angleOriente(M, Omega, angle)
   }
   const medX = []
   const medY = []
   for (let ee = 1; ee < 9; ee++) {
-    medX.push(rotation(M, Omega, ee * angle / 10).x)
-    medY.push(rotation(M, Omega, ee * angle / 10).y)
+    medX.push(rotation(M, Omega, (ee * angle) / 10).x)
+    medY.push(rotation(M, Omega, (ee * angle) / 10).y)
   }
   const l = longueur(Omega, M)
   let large = 0
@@ -311,7 +397,12 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     sweep = 1 - (angle > 0)
   }
   const N = rotation(M, Omega, angleSVG)
-  this.bordures = [Math.min(M.x, N.x, ...medX) - 0.1, Math.min(M.y, N.y, ...medY) - 0.1, Math.max(M.x, N.x, ...medX) + 0.1, Math.max(M.y, N.y, ...medY) + 0.1]
+  this.bordures = [
+    Math.min(M.x, N.x, ...medX) - 0.1,
+    Math.min(M.y, N.y, ...medY) - 0.1,
+    Math.max(M.x, N.x, ...medX) + 0.1,
+    Math.max(M.y, N.y, ...medY) + 0.1,
+  ]
   if (rayon) {
     this.svg = function (coeff) {
       this.style = ''
@@ -340,27 +431,33 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
           this.couleurDeRemplissage = colorToLatexOrHTML('none')
         }
 
-        return pattern({
-          motif: this.hachures,
-          id: this.id,
-          distanceDesHachures: this.distanceDesHachures,
-          epaisseurDesHachures: this.epaisseurDesHachures,
-          couleurDesHachures: this.couleurDesHachures[0],
-          couleurDeRemplissage: this.couleurDeRemplissage[0],
-          opaciteDeRemplissage: this.opaciteDeRemplissage
-        }) + `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        return (
+          pattern({
+            motif: this.hachures,
+            id: this.id,
+            distanceDesHachures: this.distanceDesHachures,
+            epaisseurDesHachures: this.epaisseurDesHachures,
+            couleurDesHachures: this.couleurDesHachures[0],
+            couleurDeRemplissage: this.couleurDeRemplissage[0],
+            opaciteDeRemplissage: this.opaciteDeRemplissage,
+          }) +
+          `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
+        )
       } else {
         if (this.opacite !== 1) {
           this.style += ` stroke-opacity="${this.opacite}" `
         }
-        if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === undefined) {
+        if (
+          this.couleurDeRemplissage === '' ||
+          this.couleurDeRemplissage === undefined
+        ) {
           this.style += ' fill="none" '
         } else {
           this.style += ` fill="${this.couleurDeRemplissage[0]}" `
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
         return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
-      }
+      }         
     }
   } else {
     this.svg = function (coeff) {
@@ -388,7 +485,10 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
       if (this.opacite !== 1) {
         this.style += ` stroke-opacity="${this.opacite}" `
       }
-      if (this.couleurDeRemplissage === '' || this.couleurDeRemplissage === undefined) {
+      if (
+        this.couleurDeRemplissage === '' ||
+        this.couleurDeRemplissage === undefined
+      ) {
         this.style += ' fill="none" '
       } else {
         this.style += ` fill="${this.couleurDeRemplissage[0]}" `
@@ -427,29 +527,39 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    if (rayon && (this.couleurDeRemplissage[1] !== 'none' && this.couleurDeRemplissage !== '')) {
-      tableauOptions.push(`preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`)
+    if (
+      rayon &&
+      this.couleurDeRemplissage[1] !== 'none' &&
+      this.couleurDeRemplissage !== ''
+    ) {
+      tableauOptions.push(
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`,
+      )
     }
 
     if (this.hachures) {
-      tableauOptions.push(pattern({
-        motif: this.hachures,
-        id: this.id,
-        distanceDesHachures: this.distanceDesHachures,
-        couleurDesHachures: this.couleurDesHachures[1],
-        couleurDeRemplissage: this.couleurDeRemplissage[1],
-        opaciteDeRemplissage: this.opaciteDeRemplissage
-      }))
+      tableauOptions.push(
+        pattern({
+          motif: this.hachures,
+          id: this.id,
+          distanceDesHachures: this.distanceDesHachures,
+          couleurDesHachures: this.couleurDesHachures[1],
+          couleurDeRemplissage: this.couleurDeRemplissage[1],
+          opaciteDeRemplissage: this.opaciteDeRemplissage,
+        }),
+      )
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (rayon) return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
-    else return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+    if (rayon)
+      return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+    else
+      return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
   }
   let code
 
-  this.svgml = function (coeff) {
+  this.svgml = (coeff) => {
     const width = longueur(M, Omega) * coeff
     const height = width
     const closed = rayon
@@ -457,7 +567,15 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     const end = radians(angleOriente(M, Omega, A))
     const start = end - radians(angle)
     const mainLevee = MainLevee.create()
-    code = mainLevee.arc(Omega.xSVG(coeff), Omega.ySVG(coeff), width, height, start, end, closed)
+    code = mainLevee.arc(
+      Omega.xSVG(coeff),
+      Omega.ySVG(coeff),
+      width,
+      height,
+      start > end ? end : start,
+      start > end ? start : end,
+      closed,
+    )
     mainLevee.destroy()
     return code
   }
@@ -477,7 +595,9 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
     if (this.opacite !== 1) {
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
-    tableauOptions.push(`decorate,decoration={random steps , amplitude = ${amp}pt}`)
+    tableauOptions.push(
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+    )
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
@@ -502,8 +622,26 @@ export function Arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
-  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
+export function arc(
+  M,
+  Omega,
+  angle,
+  rayon = false,
+  couleurDeRemplissage = 'none',
+  color = 'black',
+  opaciteDeRemplissage = 0.2,
+  couleurDesHachures = 'none',
+) {
+  return new Arc(
+    M,
+    Omega,
+    angle,
+    rayon,
+    couleurDeRemplissage,
+    color,
+    opaciteDeRemplissage,
+    couleurDesHachures,
+  )
 }
 
 /** Trace un arc de cercle, connaissant deux extrémités et la mesure de l'angle
@@ -523,7 +661,16 @@ export function arc (M, Omega, angle, rayon = false, couleurDeRemplissage = 'non
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplissage = 'none', color = 'black', opaciteDeRemplissage = 0.2, couleurDesHachures = 'none') {
+export function arcPointPointAngle(
+  M,
+  N,
+  angle,
+  rayon = false,
+  couleurDeRemplissage = 'none',
+  color = 'black',
+  opaciteDeRemplissage = 0.2,
+  couleurDesHachures = 'none',
+) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
   else anglerot = (angle - 180) / 2
@@ -537,21 +684,30 @@ export function arcPointPointAngle (M, N, angle, rayon = false, couleurDeRemplis
   const Omegax = (d.b * f.c - f.b * d.c) / determinant
   const Omegay = (f.a * d.c - d.a * f.c) / determinant
   const Omega = point(Omegax, Omegay)
-  return new Arc(M, Omega, angle, rayon, couleurDeRemplissage, color, opaciteDeRemplissage, couleurDesHachures)
+  return new Arc(
+    M,
+    Omega,
+    angle,
+    rayon,
+    couleurDeRemplissage,
+    color,
+    opaciteDeRemplissage,
+    couleurDesHachures,
+  )
 }
 
 /**
  * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
  *@author Jean-Claude Lhote
  */
-export function traceCompas (
+export function traceCompas(
   O,
   A,
   angle = 20,
   color = 'gray',
   opacite = 1.1,
   epaisseur = 1,
-  pointilles = ''
+  pointilles = '',
 ) {
   const B = rotation(A, O, -angle / 2)
   const a = arc(B, O, angle, false)

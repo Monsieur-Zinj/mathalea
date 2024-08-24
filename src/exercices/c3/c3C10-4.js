@@ -4,6 +4,7 @@ export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifReady = true
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '22/08/2024'
 
 /**
  * Lire des nombres déciamux sur une portion de droite graduée
