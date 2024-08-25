@@ -63,7 +63,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
           let result
           const spanFedback = table.querySelector(`span#resultatCheckEx${exercice.numeroExercice}Q${i}${key}`)
           if (input == null || input === '') {
-            result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}` }
+            result = { isOk: false, feedback: `Vous devez saisir une réponse dans la cellule ${key}.<br>` }
           } else {
             result = compareFunction(input.value, reponse.value, options)
           }
@@ -107,7 +107,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
             let result
             // On ne nettoie plus les input et les réponses, c'est la fonction de comparaison qui doit s'en charger !
             if (saisie == null || saisie === '') {
-              result = { isOk: false, feedback: `Vous devez saisir une réponse dans le champ ${key.charAt(key.length - 1)}` }
+              result = { isOk: false, feedback: `Vous devez saisir une réponse dans le champ ${key.charAt(key.length - 1)}.<br>` }
             } else {
               result = compareFunction(saisie, reponse.value, options)
             }

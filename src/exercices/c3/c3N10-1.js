@@ -1,12 +1,18 @@
-import { shuffle2tableaux } from '../../lib/outils/arrayOutils'
+import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
-import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import {
+  contraindreValeur,
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
+} from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
 import Decimal from 'decimal.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recomposer un entier'
 export const interactifReady = true
@@ -14,17 +20,21 @@ export const interactifType = 'custom'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
-export const glossaire = [['unité', 'unités'], ['dizaine', 'dizaines'], ['centaine', 'centaines'], ['mille', 'mille'], ['dizaine de mille', 'dizaines de mille'], ['centaine de mille', 'centaines de mille'], ['million', 'millions'], ['dizaine de millions', 'dizaines de millions']]
-
-function remplaceParZero (chaine, place) {
-  try {
-    const debut = chaine.substring(0, place - 1)
-    const fin = chaine.substring(place)
-    return debut + '0' + fin
-  } catch (error) {
-    console.error(`Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`)
-  }
-}
+export const dateDeModificationImportante = '24/08/2024'
+export const glossaire = [
+  ['unité', 'unités'],
+  ['dizaine', 'dizaines'],
+  ['centaine', 'centaines'],
+  ['mille', 'mille'],
+  ['dizaine de mille', 'dizaines de mille'],
+  ['centaine de mille', 'centaines de mille'],
+  ['million', 'millions'],
+  ['dizaine de millions', 'dizaines de millions'],
+  ['centaine de millions', 'centaines de millions'],
+  ['milliard', 'milliards'],
+  ['dizaine de milliards', 'dizaines de milliards'],
+  ['centaine de milliards', 'centaines de milliards']
+]
 
 /*!
  * @author Jean-Claude Lhote
@@ -39,27 +49,50 @@ export const refs = {
 export default function RecomposerEntierC3 () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
+  this.sup = false // false pour des puissances de 10 en chiffres, true pour lettres
   this.sup2 = 7 // nombre de chiffres maximum du nombre à décomposer
-  this.sup3 = 15
+  this.sup3 = '5'
+  this.sup4 = '4'
+  this.sup5 = false
+  this.nombreDeChiffresMin = 4
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
-      max: 14,
-      defaut: 15,
-      melange: 15,
+      max: 4,
+      defaut: 5,
+      melange: 5,
       nbQuestions: this.nbQuestions
-    }).map((index) => index - 1)
-    const nombreDeChiffresMin = contraindreValeur(3, 6, this.sup, 5)
-    const nombreDeChiffresMax = contraindreValeur(nombreDeChiffresMin, 7, this.sup2, 6)
+    })
+    // Pour activer le mélange
+    const desordonne = this.sup5
+    const enLettre = this.sup
+    const presenceZeros = gestionnaireFormulaireTexte({
+      saisie: this.sup4,
+      min: 1,
+      max: 3,
+      defaut: 4,
+      melange: 4,
+      nbQuestions: this.nbQuestions
+    })
+    // ça c'est pour éviter de ne pas pouvoir fabriquer les nombres.
+    const nombreDeChiffresMin = this.nombreDeChiffresMin
+    const nombreDeChiffresMax = contraindreValeur(
+      nombreDeChiffresMin,
+      11,
+      this.sup2,
+      6
+    )
     this.nombreDeChamps = []
     this.premierChamp = []
     this.morceaux = []
     this.exposantMorceaux = []
-    for (let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0, place; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, cpt = 0, texte, texteCorr, indexChamp = 0;
+      i < this.nbQuestions && cpt < 50;
+    ) {
       texte = ''
       texteCorr = ''
       const nbChiffres = randint(nombreDeChiffresMin, nombreDeChiffresMax)
@@ -68,11 +101,20 @@ export default function RecomposerEntierC3 () {
 
       this.morceaux[i] = []
       this.exposantMorceaux[i] = []
+      const presenceDeZeros = Number(presenceZeros[i])
+
       switch (listeTypeDeQuestions[i]) {
-        case 0: // décomposition chiffre par chiffre dans l'ordre sans zéro
+        case 1: // décomposition chiffre par chiffre dans l'ordre
           for (let k = 0; k < nbChiffres; k++) {
             nombreStr += randint(1, 9).toString()
           }
+          if (presenceDeZeros > 1) {
+            const arrayFromNbr = Array.from(nombreStr)
+            const indexOfZero = randint(1, arrayFromNbr.length - 2)
+            arrayFromNbr[indexOfZero] = 0
+            if (presenceDeZeros === 3) arrayFromNbr[indexOfZero + 1] = 0
+            nombreStr = arrayFromNbr.join('')
+          }
           nombre = new Decimal(nombreStr)
           texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
           texte += `$${texNombre(nombre, 0)}=`
@@ -82,525 +124,211 @@ export default function RecomposerEntierC3 () {
             this.morceaux[i][k] = nombreStr[k]
             this.exposantMorceaux[i][k] = nbChiffres - 1 - k
           }
+          if (desordonne) {
+            shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
+          }
+
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
               if (this.interactif) {
-                texte += `($${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+                texte += enLettre
+                  ? `${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase, { tailleExtensible: true })}~${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}+`
+                  : `($${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase, { tailleExtensible: true })}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
                 setReponse(this, indexChamp, this.morceaux[i][k])
                 indexChamp++
               } else {
-                texte += `(\\ldots \\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+                texte += `${
+                  enLettre
+                    ? `\\ldots~\\text{${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}}+`
+                    : `(\\ldots\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+                }`
               }
+              texteCorr += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
             }
           }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
+          texte = `${texte.substring(0, texte.length - 1)}$`
+          texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
 
           break
-        case 1: // décomposition chiffre par chiffre avec désordre sans zéros
+        case 2: // décomposer en complétant les puissances de 10
+          for (let k = 0; k < nbChiffres; k++) {
+            nombreStr += randint(1, 9, nombreStr).toString()
+          }
+          if (presenceDeZeros > 1) {
+            const arrayFromNbr = Array.from(nombreStr)
+            const indexOfZero = randint(1, arrayFromNbr.length - 2)
+            arrayFromNbr[indexOfZero] = 0
+            if (presenceDeZeros === 3) arrayFromNbr[indexOfZero + 1] = 0
+            nombreStr = arrayFromNbr.join('')
+          }
+          nombre = new Decimal(nombreStr)
+          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les ${enLettre ? 'adjectifs numéraux' : 'valeurs'} qui conviennent ${enLettre ? 'unité, dizaine(s), centaine(s)...' : `($1, 10, 100,${texNombre(1000, 3)},...$)`}.<br>`
+          texte += `$${texNombre(nombre, 0)}=`
+          texteCorr = `$${texNombre(nombre, 0)}=`
+          this.premierChamp[i] = indexChamp
+          for (let k = 0; k < nbChiffres; k++) {
+            // on prépare la correction pour l'exo non interactif
+            this.morceaux[i][k] = nombreStr[k]
+            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
+          }
+          if (desordonne) {
+            shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
+          }
+          for (let k = 0; k < this.morceaux[i].length; k++) {
+            if (this.interactif) {
+              if (this.morceaux[i][k] !== '0') {
+                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`, { tailleExtensible: true })}$)+`
+
+                setReponse(
+                  this,
+                  indexChamp,
+                  enLettre
+                    ? glossaire[this.exposantMorceaux[i][k]][
+                      this.morceaux[i][k] > 1 ? 1 : 0
+                    ]
+                    : 10 ** this.exposantMorceaux[i][k]
+                )
+                indexChamp++
+              }
+            } else {
+              if (this.morceaux[i][k] !== '0') {
+                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
+              }
+            }
+            if (this.morceaux[i][k] !== '0') {
+              texteCorr += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+            }
+          }
+          texte = `${texte.substring(0, texte.length - 1)}$`
+          texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
+          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
+          break
+        case 3: // trouver le nombre sans groupement
           for (let k = 0; k < nbChiffres; k++) {
             nombreStr += randint(1, 9).toString()
           }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr += `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) {
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.morceaux[i][k] !== '0') {
-              if (this.interactif) {
-                texte += `($${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                setReponse(this, indexChamp, this.morceaux[i][k])
-                indexChamp++
-              } else {
-                texte += `(\\ldots \\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-              }
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-
-          break
-        case 2: // décomposer en complétant les puissances de 10 sans désordre et sans zéros
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, nombreStr).toString()
+          if (presenceDeZeros > 1) {
+            const arrayFromNbr = Array.from(nombreStr)
+            const indexOfZero = randint(1, arrayFromNbr.length - 2)
+            arrayFromNbr[indexOfZero] = 0
+            if (presenceDeZeros === 3) arrayFromNbr[indexOfZero + 1] = 0
+            nombreStr = arrayFromNbr.join('')
           }
           nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 3: // décomposer en complétant les puissances de 10 avec désordre et sans zéros
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, nombreStr).toString()
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 4: // décomposition chiffre par chiffre en ordre avec zéros possibles
-          for (let k = 0; k < nbChiffres; k++) {
-            if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(0, 9).toString()
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr += `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) {
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.morceaux[i][k] !== '0') {
-              if (this.interactif) {
-                texte += `($${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                setReponse(this, indexChamp, this.morceaux[i][k])
-                indexChamp++
-              } else {
-                texte += `(\\ldots \\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-
-          break
-        case 5: // décomposition chiffre par chiffre avec désordre avec zéros possibles
-          for (let k = 0; k < nbChiffres; k++) {
-            if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(0, 9).toString()
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr += `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) {
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.morceaux[i][k] !== '0') {
-              if (this.interactif) {
-                texte += `($${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-                setReponse(this, indexChamp, this.morceaux[i][k])
-                indexChamp++
-              } else {
-                texte += `(\\ldots \\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-
-          break
-        case 6: // décomposer en complétant les puissances de 10 sans désordre et avec zéros possibles
-          for (let k = 0; k < nbChiffres; k++) {
-            if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(0, 9, nombreStr).toString()
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${texNombre(10 ** this.exposantMorceaux[i][k], 0)}\\times ${this.morceaux[i][k]})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 7: // décomposer en complétant les puissances de 10 avec désordre et avec zéros possibles
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, nombreStr).toString()
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-
-        case 8: // trouver le nombre sans groupement  en ordre sans zéros
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9).toString()
-          }
-          nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
+          texte +=
+            "Donner le nombre correspondant au premier membre de l'égalité.<br>$"
           this.premierChamp[i] = indexChamp
           for (let k = 0; k < nbChiffres; k++) {
             this.morceaux[i][k] = nombreStr[k]
             this.exposantMorceaux[i][k] = nbChiffres - 1 - k
           }
           texteCorr = '$'
+          if (desordonne) {
+            shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
+          }
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
+              texte += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}~\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+              texteCorr += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
-          texteCorr += `$=${texNombre(nombre, 0)}$`
+          texte = `${texte.substring(0, texte.length - 1)}`
+          texteCorr = texteCorr.substring(0, texteCorr.length - 1)
+          texteCorr += `=${texNombre(nombre, 0)}$`
           if (!this.interactif) {
-            texte += '$= \\ldots\\ldots\\ldots$'
+            texte += '= \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, `${enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase}`, { tailleExtensible: true })}`
             indexChamp++
           }
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
 
           break
-        case 9: // trouver le nombre avec groupement en ordre sans zéros
+        case 4: // trouver le nombre avec groupement
           for (let k = 0; k < nbChiffres; k++) {
             nombreStr += randint(1, 9).toString()
           }
+          if (presenceDeZeros > 1) {
+            const arrayFromNbr = Array.from(nombreStr)
+            const indexOfZero = randint(1, arrayFromNbr.length - 2)
+            arrayFromNbr[indexOfZero] = 0
+            if (presenceDeZeros === 3) arrayFromNbr[indexOfZero + 1] = 0
+            nombreStr = arrayFromNbr.join('')
+          }
           nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
+          texte +=
+            "Donner le nombre correspondant au premier membre de l'égalité.<br>$"
           texteCorr = '$'
           this.premierChamp[i] = indexChamp
-          for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
+          for (let k = 0, j, index = 0; index < nbChiffres; k++) {
+            // on prépare la correction pour l'exo non interactif
             let testeur = 0
             do {
               testeur++
-              j = randint(1, 3)
-              this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
-              this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres)
+              j = choice([2, 2, 3]) // statistiquement 2 fois plus de groupements de 2 chiffres que de 3 chiffres (mais c'est sans compter les 0)
+              this.morceaux[i][k] = nombreStr
+                .substring(index, Math.min(index + j, nbChiffres))
+                .replace(/^0+/g, '')
+              this.exposantMorceaux[i][k] =
+                nbChiffres - Math.min(index + j, nbChiffres)
             } while (this.morceaux[i][k] === '' && testeur < 100)
-            if (testeur === 100) {
-              window.notify('boucle sans fin detectée case 9 c3N10-1', { nombreStr })
-            }
+            if (this.morceaux[i][k] === '') break
             index += j
+          }
+          if (this.morceaux[i][this.morceaux[i].length - 1] === '') this.morceaux[i].pop()
+          if (desordonne) {
+            shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
           }
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
+              texte += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+              texteCorr += enLettre
+                ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}}+`
+                : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
             }
           }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
+          texte = `${texte.substring(0, texte.length - 1)}`
+          texteCorr = texteCorr.substring(0, texteCorr.length - 1)
           if (!this.interactif) {
-            texte += '$ = \\ldots\\ldots\\ldots$'
+            texte += ' = \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`, { tailleExtensible: true })}`
             indexChamp++
           }
-          texteCorr += `$=${texNombre(nombre, 0)}$`
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 10: // trouver le nombre avec groupement en ordre avec zéros
-          for (let k = 0, nombreDeZero = 0; k < nbChiffres; k++) {
-            if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(nombreDeZero > 1 || k === nbChiffres - 1 ? 1 : 0, 9).toString()
-            if (nombreStr[nombreStr.length - 1] === '0') nombreDeZero++
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += 'Donner le nombre correspondant au premier membre de l\'égalité.<br>$'
-          texteCorr = '$'
-          this.premierChamp[i] = indexChamp
-          for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            let testeur = 0
-            do {
-              j = randint(1, 3)
-              testeur++
-              this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
-              this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres)
-            } while (this.morceaux[i][k] === '' && testeur < 100)
-            if (testeur === 100) {
-              window.notify('boucle sans fin detectée case 10 c3N10-1', { nombreStr })
-            }
-            index += j
-          }
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
-          if (!this.interactif) {
-            texte += '$ = \\ldots\\ldots\\ldots$'
-          } else {
-            setReponse(this, indexChamp, nombre)
-            texte += '$=$' + ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })
-            indexChamp++
-          }
-          texteCorr += `$=${texNombre(nombre, 0)}$`
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-
-        case 11: // Trouver le nombre sans groupement avec désordre avec zéros
-          for (let k = 0; k < nbChiffres; k++) {
-            if (k === 0) nombreStr = randint(1, 9).toString()
-            else nombreStr += randint(0, 9).toString()
-          }
-          if (nombreStr.indexOf('0') === -1) {
-            nombreStr = remplaceParZero(nombreStr, randint(1, nombreStr.length - 1))
-          }
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les nombres (à un seul chiffre) qui conviennent.<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `$${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })} ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
-                setReponse(this, indexChamp, this.morceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `\\ldots $ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]} $+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 2)
-          texteCorr = texteCorr.substring(0, texteCorr.length - 2)
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 12: // décomposer avec les puissances de 10 en désordre présence de deux zéros consécutifs
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, nombreStr).toString()
-          }
-          place = randint(2, nbChiffres - 1)
-          nombreStr = remplaceParZero(nombreStr, place)
-          nombreStr = remplaceParZero(nombreStr, place + 1)
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0; k < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            this.morceaux[i][k] = nombreStr[k]
-            this.exposantMorceaux[i][k] = nbChiffres - 1 - k
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
-          this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
-          break
-        case 13: // décomposer avec les puissances de 10 avec groupement et désordre et présence de deux zéros consécutifs
-          for (let k = 0; k < nbChiffres; k++) {
-            nombreStr += randint(1, 9, nombreStr).toString()
-          }
-          place = randint(2, nbChiffres - 2)
-          nombreStr = remplaceParZero(nombreStr, place)
-          nombreStr = remplaceParZero(nombreStr, place + 1)
-          nombre = new Decimal(nombreStr)
-          texte += `Décomposer le nombre $${texNombre(nombre, 0)}$ en complétant avec les valeurs qui conviennent ($1, 10, 100,${texNombre(1000, 3)},...$).<br>`
-          texte += `$${texNombre(nombre, 0)}=`
-          texteCorr = `$${texNombre(nombre, 0)}=`
-          this.premierChamp[i] = indexChamp
-          for (let k = 0, j, index = 0; index < nbChiffres; k++) { // on prépare la correction pour l'exo non interactif
-            let testeur = 0
-            do {
-              testeur++
-              j = randint(1, 3)
-              this.morceaux[i][k] = nombreStr.substring(index, Math.min(index + j, nbChiffres)).replace(/^0+/g, '')
-            } while (this.morceaux[i][k] === '' && testeur < 100)
-            if (testeur === 100) {
-              window.notify('boucle sans fin detectée case 13 c3N10-1', { nombreStr })
-            }
-            this.exposantMorceaux[i][k] = nbChiffres - Math.min(index + j, nbChiffres)
-            index += j
-          }
-          shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
-          for (let k = 0; k < this.morceaux[i].length; k++) {
-            if (this.interactif) {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'inline', { tailleExtensible: true })}$)+`
-                setReponse(this, indexChamp, 10 ** this.exposantMorceaux[i][k])
-                indexChamp++
-              }
-            } else {
-              if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times \\ldots)+`
-              }
-            }
-            if (this.morceaux[i][k] !== '0') {
-              texteCorr += `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
-            }
-          }
-          texte = texte.substring(0, texte.length - 1) + '$'
-          texteCorr = texteCorr.substring(0, texteCorr.length - 1) + '$'
+          texteCorr += `=${texNombre(nombre, 0)}$`
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
           break
       }
       if (context.isAmc) {
-        this.autoCorrection[i] =
-                    {
-                      enonce: texte + '<br>',
-                      propositions: [
-                        {
-                          texte: texteCorr,
-                          statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-                          sanscadre: true
-                        }
-                      ]
-                    }
+        this.autoCorrection[i] = {
+          enonce: '$texte<br>',
+          propositions: [
+            {
+              texte: texteCorr,
+              statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
+              sanscadre: true
+            }
+          ]
+        }
       }
 
-      texte += (context.isHtml) ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>` : ''
-      if (this.questionJamaisPosee(i, nombre)) {
+      texte += context.isHtml
+        ? `<div id=divDuSmiley${this.numeroExercice}Q${i} style= "display: inline-block"></div>`
+        : ''
+      if (this.questionJamaisPosee(i, nombreStr)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -609,26 +337,51 @@ export default function RecomposerEntierC3 () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Nombre de chiffres minimum des nombres à décomposer', 6]
-  this.besoinFormulaire2Numerique = ['Nombre de chiffres maximum des nombres à décomposer', 7]
-  this.besoinFormulaire3Texte = ['Types de question séparés par des tirets', '1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre sans zéro avec groupement\n11 : Trouver le nombre en ordre avec zéros possibles avec groupement\n12 : Trouver le nombre en désordre avec zéros possibles\n13 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n14 : Puissances de dix en désordre deux zéros consécutifs avec groupement\n15 : Mélange']
+  this.besoinFormulaireCaseACocher = [
+    'Puissance de 10 en chiffres/lettres',
+    false
+  ]
+  this.besoinFormulaire2Numerique = [
+    'Nombre de chiffres maximum des nombres à décomposer',
+    9
+  ]
+  this.besoinFormulaire3Texte = [
+    'Types de question séparés par des tirets',
+    '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
+  ]
+  this.besoinFormulaire4Texte = [
+    'Présence de zéro(s) (nombres séparés par des tirets)',
+    '1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+  ]
+  this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
   this.correctionInteractive = (i) => {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'
-    const divFeedback = document.querySelector(`#divDuSmiley${this.numeroExercice}Q${i}`)
+    const divFeedback = document.querySelector(
+      `#divDuSmiley${this.numeroExercice}Q${i}`
+    )
     let resultatOK = true
     for (let k = 0; k < this.nombreDeChamps[i]; k++) {
-      champsTexte[k] = document.getElementById(`champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`)
-      saisies[k] = champsTexte[k].value.replace(',', '.').replace(/\((\+?-?\d+)\)/, '$1')
-      resultatOK = resultatOK && parseInt(saisies[k]) === parseInt(this.autoCorrection[this.premierChamp[i] + k].reponse.valeur.reponse.value)
+      champsTexte[k] = document.getElementById(
+        `champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`
+      )
+      saisies[k] = champsTexte[k].value
+        .replace(',', '.')
+        .replace(/\((\+?-?\d+)\)/, '$1')
+      resultatOK =
+        resultatOK &&
+        Number.parseInt(saisies[k]) ===
+          Number.parseInt(
+            this.autoCorrection[this.premierChamp[i] + k].reponse.valeur.reponse
+              .value
+          )
     }
     if (resultatOK) {
       divFeedback.innerHTML += '😎'
       return 'OK'
-    } else {
-      divFeedback.innerHTML += '☹️'
-      return 'KO'
     }
+    divFeedback.innerHTML += '☹️'
+    return 'KO'
   }
 }
