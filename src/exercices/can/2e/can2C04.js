@@ -23,7 +23,9 @@ export default function IdentitesCalculs2e () {
   this.formatChampTexte = 'largeur15 inline'
   this.can = true
   this.canVersion = 'v1'
-  this.consigne = ''
+  this.consigne = 'Effectuer le calcul suivant sans calculatrice.<br>Utiliser la double distributivité ou les identités remarquables.'
   identitesCalculs.call(this)
   this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence"]
 }
