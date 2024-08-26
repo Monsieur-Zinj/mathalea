@@ -8259,7 +8259,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_05_ameriquenord_2_cor.tex',
-    tags: ['Programme de calcul', 'Calcul littéral', 'Équations']
+    tags: ['Programme de calculs', 'Calcul littéral', 'Équations']
   },
   dnb_2024_05_ameriquenord_3: {
     annee: '2024',
