@@ -1,0 +1,271 @@
+import { point, tracePoint } from '../../lib/2d/points'
+import { type Segment, segment } from '../../lib/2d/segmentsVecteurs'
+import { labelPoint, latex2d } from '../../lib/2d/textes'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { choice } from '../../lib/outils/arrayOutils'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { texNombre } from '../../lib/outils/texNombre'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint
+} from '../../modules/outils'
+import Exercice from '../Exercice'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
+export const titre = 'Repérer des nombres décimaux sur une droite graduée'
+export const uuid = '50614'
+export const refs = {
+  'fr-fr': ['6N30-0'],
+  'fr-ch': []
+}
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const dateDePublication = '26/08/2024'
+
+/**
+ * @author Jean-Claude Lhote
+ */
+
+class ReperageEntiersOuDecimaux extends Exercice {
+  version:string
+  constructor () {
+    super()
+    this.version = 'décimaux'
+    this.nbQuestions = 4
+    this.sup = 5
+    this.sup2 = false
+    this.besoinFormulaireTexte = [
+      'Types de pas de graduations (nombres séparés par des tirets)',
+      '1 : facile\n2 : Pas simple différent de 1\n3 : Pas un peu plus difficile\n4 : Pas complexe\n5 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
+    this.correctionDetailleeDisponible = true
+    this.correctionDetaillee = false
+  }
+
+  nouvelleVersion () {
+    // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
+    const nbDecimales = this.version === 'entiers' ? 0 : 3
+    const listesPas: Array<[number, number][]> = this.version === 'entiers'
+      ? [
+          [// Liste facile
+            [2, 2], [3, 3], [4, 4], [5, 5] // ici le pas secondaire vaut 1, les entiers sont consécutifs
+          ],
+          [
+            [4, 2], [6, 3], [8, 4], [10, 5], [6, 2], [9, 3], [8, 2], [10, 2] // ici le pas secondaire vaut 2,3,4,5
+          ],
+          [
+            [10, 5], [8, 4], [9, 3], [200, 4], [150, 3], [100, 4], [12, 2] // Pas secondaire 2,3,50,25,6
+          ],
+          [
+            [45, 5], [200, 5], [15, 5], [200, 8], [150, 5], [24, 6] // Pas secondaire farfelu
+          ]
+        ]
+      : [
+          [
+            // Liste facile
+            [1, 2], [2, 4], [5, 2], [1, 10], [0.1, 10], [0.01, 10], [10, 4]
+          ],
+          [
+            [3, 2], [6, 4], [1, 5], [2, 10], [0.1, 5], [0.2, 10], [3, 10]
+          ],
+          [
+            [0.01, 5], [0.02, 10], [0.3, 10], [10, 8], [5, 4]
+          ],
+          [
+            [0.4, 5], [0.6, 3], [1.2, 4], [1.6, 8]
+          ]
+        ]
+
+    this.reinit()
+    const choix = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 4,
+      defaut: 5,
+      melange: 5
+    }).map(Number)
+    console.log(listesPas)
+    const listeValeurs: [number, number][] = choix.map((index) =>
+      choice(listesPas[index - 1])
+    )
+    const distanceGrossesGraduations = 2.5
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const [pasPrincipal, subdivision] = listeValeurs[i]
+      const premiereGrosseGraduation = this.sup2
+        ? 0
+        : randint(2, 15) * pasPrincipal
+      const subdivisionsAvantPrincipale = randint(1, subdivision - 1)
+      const premiereGraduation = this.sup2
+        ? 0
+        : premiereGrosseGraduation -
+          (pasPrincipal * subdivisionsAvantPrincipale) / subdivision
+      const decalageRepere1 = this.sup2
+        ? premiereGrosseGraduation
+        : premiereGrosseGraduation + randint(1, 3) * pasPrincipal
+      const [repere1, repere2] = [
+        decalageRepere1,
+        decalageRepere1 + pasPrincipal
+      ]
+      const xRepere1 =
+        ((repere1 - premiereGraduation) * distanceGrossesGraduations) /
+        pasPrincipal
+      const xRepere2 =
+        ((repere2 - premiereGraduation) * distanceGrossesGraduations) /
+        pasPrincipal
+      const decalagePremiereGrosseGraduation = this.sup2
+        ? 0
+        : (distanceGrossesGraduations * subdivisionsAvantPrincipale) /
+          subdivision
+      const nombreATrouver = this.sup2
+        ? randint(0, 4) * pasPrincipal +
+          (randint(1, subdivision - 1) * pasPrincipal) / subdivision
+        : premiereGraduation +
+          randint(0, 4) * pasPrincipal +
+          ((randint(1, subdivision - 1) + subdivisionsAvantPrincipale) *
+            pasPrincipal) /
+            subdivision
+      // fabrication de la droite graduée (faudra peut-être factoriser ça dans un objetMathalea2d() on verra)
+
+      const A = point(0, 0)
+      const B = point(15, 0)
+      const laDroite = segment(A, B)
+      laDroite.styleExtremites = '->'
+      // Les graduations principales
+      const graduationsPrincipales: Segment[] = []
+      for (let g = 0; g < 6; g++) {
+        graduationsPrincipales.push(
+          segment(
+            point(
+              decalagePremiereGrosseGraduation + g * distanceGrossesGraduations,
+              -0.2
+            ),
+            point(
+              decalagePremiereGrosseGraduation + g * distanceGrossesGraduations,
+              +0.2
+            )
+          )
+        )
+      }
+      // Les graduations secondaires
+      const graduationsSecondaires: Segment[] = []
+      if (premiereGraduation !== premiereGrosseGraduation) {
+        for (
+          let g = premiereGraduation;
+          g < premiereGrosseGraduation;
+          g += pasPrincipal / subdivision
+        ) {
+          graduationsSecondaires.push(
+            segment(
+              point(
+                ((g - premiereGraduation) * distanceGrossesGraduations) /
+                  pasPrincipal,
+                -0.1
+              ),
+              point(
+                ((g - premiereGraduation) * distanceGrossesGraduations) /
+                  pasPrincipal,
+                0.1
+              )
+            )
+          )
+        }
+      }
+      for (let g = 0; g < 6; g++) {
+        for (let k = 1; k < subdivision; k++) {
+          const xGraduation =
+            ((premiereGrosseGraduation - premiereGraduation) / pasPrincipal +
+              g +
+              k / subdivision) *
+            distanceGrossesGraduations
+          if (xGraduation < B.x) {
+            graduationsSecondaires.push(
+              segment(point(xGraduation, -0.1), point(xGraduation, 0.1))
+            )
+          }
+        }
+      }
+
+      const labelRepere1 = latex2d(texNombre(repere1, nbDecimales), xRepere1, -0.5, {})
+      const labelRepere2 = latex2d(texNombre(repere2, nbDecimales), xRepere2, -0.5, {})
+      const xPoint =
+        ((nombreATrouver - premiereGraduation) * distanceGrossesGraduations) /
+        pasPrincipal
+      const abscisseATrouver = latex2d(
+        texNombre(nombreATrouver, nbDecimales),
+        xPoint,
+        -1.2,
+        {}
+      )
+      const guide = segment(point(xPoint, -0.3), point(xPoint, -0.9))
+      guide.styleExtremites = '->'
+      guide.pointilles = 2
+      const pointATrouver = point(xPoint, 0, lettreDepuisChiffre(i + 1))
+      const trace = tracePoint(pointATrouver)
+      const label = labelPoint(pointATrouver)
+      const laDroiteGraduee = [
+        laDroite,
+        ...graduationsPrincipales,
+        ...graduationsSecondaires,
+        labelRepere1,
+        labelRepere2,
+        trace,
+        label
+      ]
+      // fin fabrication droite graduée
+      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `inline nospacebefore ${KeyboardType.numbersSpace}`, { texteAvant: ' (ne pas oublier les espaces si nécessaire) :' })}.<br>`
+      texte += mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 1 },
+          fixeBordures(laDroiteGraduee)
+        ),
+        laDroiteGraduee
+      )
+      const figureCorrection = mathalea2d(
+        Object.assign(
+          { pixelsParCm: 30, scale: 1 },
+          fixeBordures(laDroiteGraduee, { rymin: -0.7 })
+        ),
+        laDroiteGraduee,
+        abscisseATrouver,
+        guide
+      )
+      let texteCorr = `On commence par calculer l'écart entre les deux graduations visibles : $${texNombre(repere2, nbDecimales)}-${texNombre(repere1, nbDecimales)}=${texNombre(pasPrincipal, nbDecimales)}$.<br>`
+      texteCorr += `Ensuite, on compte le nombre d'intervalles entre ces deux graduations : il y a $${subdivision}$ intervalles.<br>`
+      const pas = pasPrincipal / subdivision
+      texteCorr += `Maintenant, on calcule la longueur de l'intervalle (le pas) : $${texNombre(pasPrincipal, nbDecimales)}\\div ${subdivision}=${texNombre(pas, nbDecimales)}$.<br>`
+      texteCorr += `Ensuite, ${nombreATrouver < repere1 ? 'on retire' : 'on ajoute'} le pas autant de fois que nécessaire pour trouver l'abscisse : `
+      texteCorr +=
+        nombreATrouver < repere1
+          ? `$${repere1}-${texNombre((repere1 - nombreATrouver) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$`
+          : nombreATrouver > repere2
+            ? `$${repere2}+${texNombre((nombreATrouver - repere2) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$`
+            : `$${repere1}+${texNombre((nombreATrouver - repere1) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$`
+
+      const correctionRapide = `L'abscisse du point $${lettreDepuisChiffre(i + 1)}$ est : $${texNombre(nombreATrouver, nbDecimales)}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${texNombre(nombreATrouver, nbDecimales)})$.`
+      if (this.questionJamaisPosee(i, repere1, repere2, nombreATrouver, pas)) {
+        this.listeQuestions.push(texte)
+        if (this.interactif) {
+          handleAnswers(this, i, {
+            reponse: {
+              value: texNombre(nombreATrouver, nbDecimales),
+              compare: numberWithSpaceCompare
+            }
+          })
+        }
+        this.listeCorrections.push(
+          `${this.correctionDetaillee ? `${texteCorr}<br>${correctionRapide}` : correctionRapide}<br>${figureCorrection}`
+        )
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}
+export default ReperageEntiersOuDecimaux
