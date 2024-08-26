@@ -21,10 +21,12 @@ export const refs = {
 export default function IdentitesCalculs2e () {
   identitesCalculs.call(this)
   this.nbQuestions = 1
+  this.nbQuestionsModifiable = false
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur15 inline'
   this.can = true
   this.canVersion = 'v2'
-  this.consigne = ''
+  this.consigne = 'Effectuer le calcul suivant sans calculatrice.<br>Utiliser la double distributivité ou les identités remarquables.'
   this.typeExercice = 'simple'
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 3, "1 : Carré d'une somme\n2 : Carré d'une différence\n3 : Produit de la somme et de la différence"]
 }
