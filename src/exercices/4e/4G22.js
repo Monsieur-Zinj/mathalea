@@ -1,18 +1,26 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
-import { creerNomDePolygone } from '../../lib/outils/outilString.js'
+import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
+import Decimal from 'decimal.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
+export const dateDeModifImportante = '26/08/2024' // Ajout de l'interactivité par EE
+export const interactifReady = true
+export const interactifType = ['qcm', 'mathLive']
 
 /**
  * Problèmes utilisant le théorème de Pythagore ou sa réciproque et des propriétés des quadrilatères particuliers.
  *
  * * Dans un losange, on connaît la longueur du côté et une diagonale, il faut calculer l'autre.
- * * Dans un rectangle on connaît la longueur et une diagonale, il faut calculer la largeur.
- * * Dans un rectangle on connaît la longueur et la largeur, il faut calculer la diagonale.
+ * * Dans un rectangle, on connaît la longueur et une diagonale, il faut calculer la largeur.
+ * * Dans un rectangle, on connaît la longueur et la largeur, il faut calculer la diagonale.
  * * Est-ce qu'un parallélogramme est un losange ? On peut démontrer que les diagonales sont perpendiculaires ou pas.
  * * Est-ce qu'un parallélogramme est un rectangle ? On peut démontrer qu'il possède un angle droit ou pas .
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter)
@@ -36,7 +44,6 @@ export default function ProblemesPythagore () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
-    this.sup = parseInt(this.sup)
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [
         'losange',
@@ -171,9 +178,9 @@ export default function ProblemesPythagore () {
       }
       if (a > 9 && choice([true, true, true, false])) {
         // le plus souvent on utilise des décimaux
-        a = calculANePlusJamaisUtiliser(a / 10)
-        b = calculANePlusJamaisUtiliser(b / 10)
-        c = calculANePlusJamaisUtiliser(c / 10)
+        a = new Decimal(a).div(10)
+        b = new Decimal(b).div(10)
+        c = new Decimal(c).div(10)
       }
 
       switch (listeTypeDeQuestions[i]) {
@@ -181,6 +188,8 @@ export default function ProblemesPythagore () {
           texte = `$${nomQuadrilatere}$ est un losange de centre $O$ tel que $${A + B
             }=${texNombre(c)}$ cm et $${A + C}=${texNombre(2 * a)}$ cm.<br>`
           texte += `Calculer $${D + B}$.`
+          texte += this.interactif ? (sp(20) + `$${D + B} = $` + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' cm' })) : ''
+          handleAnswers(this, i, { reponse: { value: 2 * b } }, { formatInteractif: 'mathlive' })
 
           texteCorr = `$${nomQuadrilatere}$ est un losange donc ses diagonales se coupent en leur milieu : $${A + O
             }=${A + C}\\div2=${texNombre(2 * a)}\\div2=${texNombre(
@@ -188,17 +197,19 @@ export default function ProblemesPythagore () {
             )}$ cm.<br>`
           texteCorr += `On sait que les diagonales d'un losange se coupent perpendiculairement donc $${A + O + B
             }$ est un triangle rectangle en $O$.<br>`
-          texteCorr += RedactionPythagore('O', B, A, 2, b, a, c)[0]
+          texteCorr += RedactionPythagore('O', B, A, 2, b, a, c, 'cm', 'blue')[0]
           texteCorr += `<br>Finalement comme $O$ est aussi le milieu de $[${D + B
             }]$ : $${D + B}=2\\times ${O + B}=2\\times${texNombre(
               b
-            )}=${texNombre(2 * b)}$ cm.`
+            )}=${miseEnEvidence(texNombre(2 * b))}$ ${texteEnCouleurEtGras('cm')}.`
           break
 
         case 'rectangle_diagonale_connue':
           texte = `$${nomQuadrilatere}$ est un rectangle tel que $${A + B
             }=${texNombre(a)}$ cm et $${A + C}=${texNombre(c)}$ cm.<br>`
           texte += `Calculer $${B + C}$.`
+          texte += this.interactif ? (sp(20) + `$${B + C} = $` + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' cm' })) : ''
+          handleAnswers(this, i, { reponse: { value: b } }, { formatInteractif: 'mathlive' })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits.`
           texteCorr += RedactionPythagore(B, A, C, 2, b, a, c)[0]
           break
@@ -207,6 +218,8 @@ export default function ProblemesPythagore () {
           texte = `$${nomQuadrilatere}$ est un rectangle tel que $${A + B
             }=${texNombre(a)}$ cm et $${B + C}=${texNombre(b)}$ cm.<br>`
           texte += `Calculer $${A + C}$.`
+          texte += this.interactif ? (sp(20) + `$${A + C} = $` + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' cm' })) : ''
+          handleAnswers(this, i, { reponse: { value: c } }, { formatInteractif: 'mathlive' })
           texteCorr = `$${nomQuadrilatere}$ est un rectangle donc il possède 4 angles droits `
           texteCorr += RedactionPythagore(B, A, C, 1, b, a, c)[0]
           break
@@ -216,6 +229,23 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm, $${A + B}=${texNombre(c)}$ cm et $${B + O
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
+          this.autoCorrection[i] = {
+            texte,
+            propositions: [
+              {
+                texte: `$${nomQuadrilatere}$ est un losange.`,
+                statut: true
+              },
+              {
+                texte: `$${nomQuadrilatere}$ n'est pas un losange.`,
+                statut: false
+              }
+            ],
+            options: {
+              ordered: false
+            }
+          }
+          texte += this.interactif ? propositionsQcm(this, i).texte : ''
           if (context.isHtml) {
             texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
           } else {
@@ -232,7 +262,7 @@ export default function ProblemesPythagore () {
           texteCorr += `On constate que $${A + B}^2=${A + O}^2+${O + B
             }^2$, l'égalité de Pythagore est vérifiée donc $${A + O + B
             }$ est rectangle en $O$.<br>`
-          texteCorr += `Finalement, comme $${nomQuadrilatere}$ est un parallélogramme qui a ses diagonales perpendiculaires alors c'est aussi un losange.`
+          texteCorr += `Finalement, comme $${nomQuadrilatere}$ est un parallélogramme qui a ses diagonales perpendiculaires alors $${nomQuadrilatere}$ ${texteEnCouleurEtGras('est')} aussi ${texteEnCouleurEtGras('un losange')}.`
           break
 
         case 'parallelogramme_n_est_pas_losange':
@@ -240,6 +270,24 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm, $${A + B}=${texNombre(c)}$ cm et $${B + O
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un losange ?`
+          this.autoCorrection[i] = {
+            texte,
+            propositions: [
+              {
+                texte: `$${nomQuadrilatere}$ est un losange.`,
+                statut: false
+              },
+              {
+                texte: `$${nomQuadrilatere}$ n'est pas un losange.`,
+                statut: true
+              }
+            ],
+            options: {
+              ordered: false
+            }
+          }
+          texte += this.interactif ? propositionsQcm(this, i).texte : ''
+
           if (context.isHtml) {
             texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
           } else {
@@ -258,8 +306,8 @@ export default function ProblemesPythagore () {
             }$ n'est pas un triangle rectangle.<br>`
           texteCorr += `Si $${nomQuadrilatere}$ était un losange alors ses diagonales devraient être perpendiculaires et $${A + O + B
             }$ devrait être un triangle rectangle.<br>`
-          texteCorr += `Finalement comme $${A + O + B
-            }$ n'est pas un triangle rectangle, $${nomQuadrilatere}$ n'est pas un losange.`
+          texteCorr += `Finalement, comme $${A + O + B
+            }$ n'est pas un triangle rectangle, alors $${nomQuadrilatere}$ ${texteEnCouleurEtGras('n\'est pas un losange')}.`
           break
 
         case 'parallelogramme_est_rectangle':
@@ -267,6 +315,24 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm, $${A + C}=${texNombre(c)}$ cm et $${B + C
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
+          this.autoCorrection[i] = {
+            texte,
+            propositions: [
+              {
+                texte: `$${nomQuadrilatere}$ est un rectangle.`,
+                statut: true
+              },
+              {
+                texte: `$${nomQuadrilatere}$ n'est pas un rectangle.`,
+                statut: false
+              }
+            ],
+            options: {
+              ordered: false
+            }
+          }
+          texte += this.interactif ? propositionsQcm(this, i).texte : ''
+
           if (context.isHtml) {
             texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
           } else {
@@ -283,7 +349,7 @@ export default function ProblemesPythagore () {
           texteCorr += `On constate que $${A + C}^2=${A + B}^2+${B + C
             }^2$, l'égalité de Pythagore est vérifiée donc $${A + B + C
             }$ est rectangle en $${B}$.<br>`
-          texteCorr += `Finalement, comme $${nomQuadrilatere}$ est un parallélogramme qui a un angle droit en $${B}$ alors c'est aussi un rectangle.`
+          texteCorr += `Finalement, comme $${nomQuadrilatere}$ est un parallélogramme qui a un angle droit en $${B}$ alors $${nomQuadrilatere}$ ${texteEnCouleurEtGras('est')} aussi ${texteEnCouleurEtGras('un rectangle')}.`
           break
 
         case 'parallelogramme_n_est_pas_rectangle':
@@ -291,6 +357,23 @@ export default function ProblemesPythagore () {
             }=${texNombre(a)}$ cm, $${A + C}=${texNombre(c)}$ cm et $${B + C
             }=${texNombre(b)}$ cm.<br>`
           texte += `$${nomQuadrilatere}$ est-il un rectangle ?`
+          this.autoCorrection[i] = {
+            texte,
+            propositions: [
+              {
+                texte: `$${nomQuadrilatere}$ est un rectangle.`,
+                statut: false
+              },
+              {
+                texte: `$${nomQuadrilatere}$ n'est pas un rectangle.`,
+                statut: true
+              }
+            ],
+            options: {
+              ordered: false
+            }
+          }
+          texte += this.interactif ? propositionsQcm(this, i).texte : ''
           if (context.isHtml) {
             texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
           } else {
@@ -307,11 +390,11 @@ export default function ProblemesPythagore () {
           texteCorr += `On constate que $${A + C}^2\\not=${A + B}^2+${B + C
             }^2$, l'égalité de Pythagore n'est pas vérifiée donc $${A + B + C
             }$ n'est pas rectangle en $${B}$.<br>`
-          texteCorr += `Finalement, comme $${nomQuadrilatere}$ n'a pas d'angle droit en $${B}$ ce n'est pas un rectangle.`
+          texteCorr += `Finalement, comme $${nomQuadrilatere}$ n'a pas d'angle droit en $${B}$ alors $${nomQuadrilatere}$ ${texteEnCouleurEtGras('n\'est pas un rectangle')}.`
           break
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
