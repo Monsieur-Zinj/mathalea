@@ -9,6 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { pow } from 'mathjs'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const dateDeModifImportante = '11/10/2023'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
@@ -321,7 +322,7 @@ export default function ChiffreNombreDe () {
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 college6eme', { texteAvant: `${sp(5)}` })
+        texte += ajouteChampTexteMathLive(this, i, `largeur25 ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
