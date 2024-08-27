@@ -453,7 +453,7 @@ export default function ExprimerCosSinTan () {
       if (this.sup === 1) {
         texteInit = texte
         texteInit += `Dans le triangle rectangle $${A.nom + B.nom + C.nom}$ et à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$ et $${B.nom + C.nom}$ :`
-        texte += `<br>Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$ et $${B.nom + C.nom}$ : `
+        texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$ et $${B.nom + C.nom}$ : `
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           if (!context.isAmc) {

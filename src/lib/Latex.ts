@@ -136,9 +136,9 @@ class Latex {
           }
           for (const correction of exercice.listeCorrections) {
             if (Number(exercice.nbColsCorr) > 1) {
-              contentCorr += `\n\\item \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
+              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} \\begin{minipage}[t]{\\linewidth}${format(correction)}\\end{minipage}`
             } else {
-              contentCorr += `\n\\item ${format(correction)}`
+              contentCorr += `\n${Number(exercice.nbQuestions) > 1 ? '\\item' : ''} ${format(correction)}`
             }
           }
           if (Number(exercice.nbQuestions) > 1) contentCorr += '\n\\end{enumerate}\n'

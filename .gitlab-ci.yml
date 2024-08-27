@@ -237,6 +237,18 @@ test3ePDF:
     - NIV=3e/3 pnpm test:e2e:pdfexports
     - pnpm -v
 
+bcommit:
+  stage: build-projet
+  script:
+    - echo "CI_COMMIT_BRANCH '$CI_COMMIT_BRANCH'"
+    - echo "CI_OPEN_MERGE_REQUESTS '$CI_OPEN_MERGE_REQUESTS'"
+    - echo "CI_PIPELINE_SOURCE '$CI_PIPELINE_SOURCE'"
+    - echo "$CI_COMMIT_AUTHOR"
+  rules:
+    - when: always
+  artifacts:
+    when: on_failure
+
 build:
   extends: .testCI
   stage: build-projet
