@@ -38,8 +38,8 @@ class ReperageEntiersOuDecimaux extends Exercice {
     this.sup = 5
     this.sup2 = false
     this.besoinFormulaireTexte = [
-      'Types de pas de graduations (nombres séparés par des tirets)',
-      '1 : facile\n2 : Pas simple différent de 1\n3 : Pas un peu plus difficile\n4 : Pas complexe\n5 : Mélange'
+      'Types de pas de graduations',
+      'Nombres séparés par des tirets\n1 : Le pas secondaire vaut 0.5 ou 0.1\n2 : Le pas secondaire vaut 1.5, 2.5, 0.2 ou 0.3\n3 : Un peu plus difficile\n4 : Le pas principal est complexe\n5 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Zéro visible', false]
     this.correctionDetailleeDisponible = true
@@ -58,7 +58,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
             [4, 2], [6, 3], [8, 4], [10, 5], [6, 2], [9, 3], [8, 2], [10, 2] // ici le pas secondaire vaut 2,3,4,5
           ],
           [
-            [10, 5], [8, 4], [9, 3], [200, 4], [150, 3], [100, 4], [12, 2] // Pas secondaire 2,3,50,25,6
+            [10, 5], [8, 4], [200, 4], [150, 3], [100, 4], [12, 2] // Pas secondaire 2,3,50,25,6
           ],
           [
             [45, 5], [200, 5], [15, 5], [200, 8], [150, 5], [24, 6] // Pas secondaire farfelu
@@ -67,13 +67,13 @@ class ReperageEntiersOuDecimaux extends Exercice {
       : [
           [
             // Liste facile
-            [1, 2], [2, 4], [5, 2], [1, 10], [0.1, 10], [0.01, 10], [10, 4]
+            [1, 2], [2, 4], [5, 2], [1, 10], [0.1, 10], [0.01, 10], [4, 8]
           ],
           [
             [3, 2], [6, 4], [1, 5], [2, 10], [0.1, 5], [0.2, 10], [3, 10]
           ],
           [
-            [0.01, 5], [0.02, 10], [0.3, 10], [10, 8], [5, 4]
+            [0.01, 5], [0.02, 10], [0.3, 10], [10, 4], [5, 4]
           ],
           [
             [0.4, 5], [0.6, 3], [1.2, 4], [1.6, 8]

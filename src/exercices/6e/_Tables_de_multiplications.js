@@ -32,7 +32,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
 
   this.besoinFormulaireTexte = ['Choix des tables (entre 1 et 11 et 12 pour au hasard', 'Nombres séparés par des tirets'] // Texte, tooltip
   this.besoinFormulaire2Texte = [
-    'Type de questions (nombres séparés par des tirets)', '1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
+    'Type de questions', 'Nombres séparés par des tirets\n1 : Classique\n2 : À trous\n3 : Quotient\n4: Mélange'
   ]
   this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
 

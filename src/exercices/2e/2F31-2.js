@@ -3,10 +3,15 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { abs } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { context } from '../../modules/context.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import {
+  gestionnaireFormulaireTexte,
+  listeQuestionsToContenu,
+  randint,
+} from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
-export const titre = 'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
+export const titre =
+  'Utiliser les variations des fonctions de référence pour comparer ou encadrer'
 export const dateDePublication = '31/01/2022'
 export const dateDeModifImportante = '12/07/2023'
 /**
@@ -17,9 +22,9 @@ export const uuid = '1ca05'
 export const ref = '2F31-2'
 export const refs = {
   'fr-fr': ['2F31-2'],
-  'fr-ch': []
+  'fr-ch': [],
 }
-export default function EncadrerAvecFctRef () {
+export default function EncadrerAvecFctRef() {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 3
@@ -27,8 +32,8 @@ export default function EncadrerAvecFctRef () {
   this.nbCols = 1 // Uniquement pour la sortie LaTeX
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
   this.sup = 5
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2.2 : this.spacingCorr = 1
+  context.isHtml ? (this.spacing = 2) : (this.spacing = 1)
+  context.isHtml ? (this.spacingCorr = 2.2) : (this.spacingCorr = 1)
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.nouvelleVersion = function () {
@@ -40,9 +45,12 @@ export default function EncadrerAvecFctRef () {
       melange: 5,
       defaut: 1,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['carré', 'inverse', 'racine carrée', 'cube']
+      listeOfCase: ['carré', 'inverse', 'racine carrée', 'cube'],
     })
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
       // les variables communes à toutes les questions
       let fonction // La fonction étudiée
@@ -57,118 +65,147 @@ export default function EncadrerAvecFctRef () {
       const large1 = choice([true, false]) // pour décider des inégalités larges ou pas
       const large2 = choice([true, false])
 
-      switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'carré': {
-          const N = choice([1, 2, 3, 4, 5])
-          fonction = x => x ** 2
-          derivee = x => 2 * x
-          tolerance = 0.005
-          switch (N) {
-            case 1: // cas x<a avec a<0 ou a>0
-              a = randint(-12, 12, 0)
-              xMin = -200
-              xMax = a
-              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: 40000, imgTex: '' }]
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $x^2$ ......`
-              texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in ]-\\infty;${a}${large1 ? ']' : ' [ '}$. <br>
+      switch (
+        listeTypeQuestions[i] // Suivant le type de question, le contenu sera différent
+      ) {
+        case 'carré':
+          {
+            const N = choice([1, 2, 3, 4, 5])
+            fonction = (x) => x ** 2
+            derivee = (x) => 2 * x
+            tolerance = 0.005
+            switch (N) {
+              case 1: // cas x<a avec a<0 ou a>0
+                a = randint(-12, 12, 0)
+                xMin = -200
+                xMax = a
+                substituts = [
+                  {
+                    antVal: -200,
+                    antTex: '$-\\infty$',
+                    imgVal: 40000,
+                    imgTex: '',
+                  },
+                ]
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $x^2$ ......`
+                texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in ]-\\infty;${a}${large1 ? ']' : ' [ '}$. <br>
                 Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
                     sur l'intervalle $]-\\infty;${a}]$ : <br>
                 `
-              if (a < 0) {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $${a ** 2}$. <br>
+                if (a < 0) {
+                  texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $${a ** 2}$. <br>
             On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $x^2\\geqslant ${a ** 2}$.
             <br> Remarque :  la fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre.<br>
             Ainsi, les antécédents et les images sont rangés dans l'ordre inverse. <br>
             Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors, $x^2\\geqslant (${a})^2$ soit $x^2\\geqslant ${a ** 2}$.`
-              } else {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $0$. <br>
+                } else {
+                  texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $]-\\infty;${a}]$ est $0$. <br>
         On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors, $x^2\\geqslant 0$.`
-              }
+                }
 
-              break
-            case 2: // cas x>a
-              a = randint(-12, 12, 0)
-              xMin = a
-              xMax = 200
-              substituts = [{ antVal: 200, antTex: '$+\\infty$', imgVal: 40000, imgTex: '' }]
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $x^2$ ......`
-              texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
+                break
+              case 2: // cas x>a
+                a = randint(-12, 12, 0)
+                xMin = a
+                xMax = 200
+                substituts = [
+                  {
+                    antVal: 200,
+                    antTex: '$+\\infty$',
+                    imgVal: 40000,
+                    imgTex: '',
+                  },
+                ]
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $x^2$ ......`
+                texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
                 Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
                     sur l'intervalle $[${a};+\\infty[$ : <br>
                 `
-              if (a > 0) {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};+\\infty[$ est $${a ** 2}$. <br>
+                if (a > 0) {
+                  texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};+\\infty[$ est $${a ** 2}$. <br>
             On en déduit que si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors, $x^2${large1 ? '\\geqslant' : ' > '} ${a ** 2}$.
             <br> Remarque :  la fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre sur cet intervalle.<br>
             Ainsi, les antécédents et les images sont rangés dans le même ordre. <br>
           Si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors, $x^2${large1 ? '\\geqslant' : ' > '} ${a}^2$ soit  $x^2${large1 ? '\\geqslant' : ' > '} ${a ** 2}$.`
-              } else {
-                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};+\\infty[$ est $0$. <br>
+                } else {
+                  texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};+\\infty[$ est $0$. <br>
           On en déduit que si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors, $x^2\\geqslant 0$.
           `
-              }
+                }
 
-              break
-            case 3: // cas a<x<b avec a>0
-              a = randint(1, 10)
-              b = randint(a + 1, 12)
-              xMin = a
-              xMax = b
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$ ........`
-              texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
+                break
+              case 3: // cas a<x<b avec a>0
+                a = randint(1, 10)
+                b = randint(a + 1, 12)
+                xMin = a
+                xMax = b
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$ ........`
+                texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                   Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
                       sur l'intervalle $[${a};${b}]$ : <br>`
-              texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $${a ** 2}$ et son maximum est $${b ** 2}$. <br>
+                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $${a ** 2}$ et son maximum est $${b ** 2}$. <br>
               On en déduit que si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(2)}$${a ** 2} ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${b ** 2}$.
               <br> Remarque : la fonction carré étant strictement croissante sur $[0;+\\infty[$, elle conserve l'ordre sur cet intervalle.<br>
               Ainsi, les antécédents et les images sont rangés dans le même ordre. <br>
             Si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, $${sp(2)}${a}^2 ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${b}^2$, soit $${sp(2)}${a ** 2} ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${b ** 2}$.`
 
-              break
-            case 4: // cas a<x<b avec b<0
-              a = -randint(2, 12)
-              b = randint(a + 1, -1)
-              xMin = a
-              xMax = b
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$  .......`
-              texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
+                break
+              case 4: // cas a<x<b avec b<0
+                a = -randint(2, 12)
+                b = randint(a + 1, -1)
+                xMin = a
+                xMax = b
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$  .......`
+                texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                       Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
                           sur l'intervalle $[${a};${b}]$ : <br>`
-              texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $${b ** 2}$ et son maximum est $${a ** 2}$. <br>
+                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $${b ** 2}$ et son maximum est $${a ** 2}$. <br>
                   On en déduit que si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(2)}$${b ** 2} ${large2 ? '\\leqslant' : ' < '} x^2 ${large1 ? '\\leqslant' : ' < '}${a ** 2}$.
                   <br> Remarque :  la fonction carré étant strictement décroissante sur $]-\\infty;0]$, elle change l'ordre sur cet intervalle.<br>
                   Ainsi, les antécédents et les images sont rangés dans l'ordre inverse. <br>
             Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(2)}$(${a})^2 ${large1 ? '\\geqslant' : ' > '} x^2 ${large2 ? '\\geqslant' : ' > '}(${b})^2$ soit $${a ** 2} ${large1 ? '\\geqslant' : ' > '} x^2 ${large2 ? '\\geqslant' : ' > '}${b ** 2}$.`
 
-              break
-            case 5: // cas a<x<b avec a<0 et b>0
-              a = randint(-10, -1)
-              b = randint(1, 10)
-              xMin = a
-              xMax = b
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$ ........`
-              texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
+                break
+              case 5: // cas a<x<b avec a<0 et b>0
+                a = randint(-10, -1)
+                b = randint(1, 10)
+                xMin = a
+                xMax = b
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $x^2$ ........`
+                texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                   Puisque la fonction carré est strictement décroissante sur $]-\\infty;0]$ et strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
                       sur l'intervalle $[${a};${b}]$ : <br>
                   `
-              texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $0$ et son maximum est $${Math.max(abs(a), b) ** 2}$. <br>
+                texteCorrApresTableau = `<br>On constate que le minimum de $x^2$ sur $[${a};${b}]$  est $0$ et son maximum est $${Math.max(abs(a), b) ** 2}$. <br>
               On en déduit que si  $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(2)}$0 ${large1 ? '\\leqslant' : ' < '} x^2 ${large2 ? '\\leqslant' : ' < '}${Math.max(abs(a), b) ** 2}$.`
 
-              break
+                break
+            }
           }
-        }
           break
         case 'inverse': {
           const N = choice([1, 2, 3])
-          fonction = x => 1 / x
-          derivee = x => -1 / x / x
+          fonction = (x) => 1 / x
+          derivee = (x) => -1 / x / x
           tolerance = 0.000001
           switch (N) {
             case 1: // cas a<x<b avec a>0
               a = randint(2, 20)
               b = randint(a + 1, 20)
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `$\\frac{1}{${a}}$` },
-                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `$\\frac{1}{${b}}$` }]
+              substituts = [
+                {
+                  antVal: a,
+                  antTex: a.toString(),
+                  imgVal: 1 / a,
+                  imgTex: `$\\frac{1}{${a}}$`,
+                },
+                {
+                  antVal: b,
+                  antTex: b.toString(),
+                  imgVal: 1 / b,
+                  imgTex: `$\\frac{1}{${b}}$`,
+                },
+              ]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                       Puisque la fonction inverse est strictement décroissante sur $]-\\infty;0[$ et strictement décroissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -183,8 +220,20 @@ export default function EncadrerAvecFctRef () {
             case 2: // cas a<x<b avec b<0
               a = randint(-20, -3)
               b = randint(a + 1, -2)
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: 1 / a, imgTex: `$-\\frac{1}{${-a}}$` },
-                { antVal: b, antTex: b.toString(), imgVal: 1 / b, imgTex: `$-\\frac{1}{${-b}}$` }]
+              substituts = [
+                {
+                  antVal: a,
+                  antTex: a.toString(),
+                  imgVal: 1 / a,
+                  imgTex: `$-\\frac{1}{${-a}}$`,
+                },
+                {
+                  antVal: b,
+                  antTex: b.toString(),
+                  imgVal: 1 / b,
+                  imgTex: `$-\\frac{1}{${-b}}$`,
+                },
+              ]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
                       Puisque la fonction inverse est strictement décroissante sur $]-\\infty;0[$ et strictement décroissante sur $[0;+\\infty[$, on obtient son tableau de variations
@@ -198,17 +247,25 @@ export default function EncadrerAvecFctRef () {
             case 3: // cas x<a avec a<0 ou x>a avec a>0
               a = -200
               b = randint(-12, -2) // -\infty et b négatifs
-              if (choice([true, false])) { // b et +\infty positifs
+              if (choice([true, false])) {
+                // b et +\infty positifs
                 const aTemp = -a
                 a = -b
                 b = aTemp
-                substituts = [{
-                  antVal: a,
-                  antTex: a.toString(),
-                  imgVal: 1 / a,
-                  imgTex: `$\\frac{1}{${a}}$`
-                },
-                { antVal: b, antTex: '$+\\infty$', imgVal: 1 / b, imgTex: '' }]
+                substituts = [
+                  {
+                    antVal: a,
+                    antTex: a.toString(),
+                    imgVal: 1 / a,
+                    imgTex: `$\\frac{1}{${a}}$`,
+                  },
+                  {
+                    antVal: b,
+                    antTex: '$+\\infty$',
+                    imgVal: 1 / b,
+                    imgTex: '',
+                  },
+                ]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors, $\\dfrac{1}{x}$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
               Puisque la fonction inverse est strictement décroissante sur $]0;+\\infty[$, on obtient son tableau de variations
@@ -228,9 +285,21 @@ export default function EncadrerAvecFctRef () {
             <br> Remarque :  la fonction inverse étant strictement décroissante sur $]-\\infty;0[$, elle change l'ordre.<br>
             Ainsi, les antécédents et les images sont rangés dans l'ordre inverse. <br>
             Si $x${large1 ? '\\leqslant' : ' < '}${b}$ alors,  $\\dfrac{1}{x}${large1 ? '\\geqslant' : ' > '}-\\dfrac{1}{${-b}}$.`
-                substituts = [{ antVal: a, antTex: '$-\\infty$', imgVal: 1 / a, imgTex: '' },
-                  { antVal: a, antTex: b.toString(), imgVal: 1 / b, imgTex: `$\\frac{1}{${b}}$` }]
-              }// a est toujours le min et b le max
+                substituts = [
+                  {
+                    antVal: a,
+                    antTex: '$-\\infty$',
+                    imgVal: 1 / a,
+                    imgTex: '',
+                  },
+                  {
+                    antVal: a,
+                    antTex: b.toString(),
+                    imgVal: 1 / b,
+                    imgTex: `$\\frac{1}{${b}}$`,
+                  },
+                ]
+              } // a est toujours le min et b le max
 
               break
           }
@@ -239,96 +308,154 @@ export default function EncadrerAvecFctRef () {
           break
         }
         case 'racine carrée': {
-          const estParfait = function (a) {
-            return Number.isInteger(Math.sqrt(a))
-          }
+          const estParfait = (a) => Number.isInteger(Math.sqrt(a))
           const N = choice([1, 2, 3])
-          fonction = x => Math.sqrt(x)
-          derivee = x => 1 / 2 / Math.sqrt(x)
+          fonction = (x) => Math.sqrt(x)
+          derivee = (x) => 1 / 2 / Math.sqrt(x)
           tolerance = 0.005
           switch (N) {
-            case 1: { // cas x<a
-              a = randint(1, 100)
-              const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` }]
-              xMin = 0
-              xMax = a
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$
+            case 1:
+              {
+                // cas x<a
+                a = randint(1, 100)
+                const racineDeA = estParfait(a)
+                  ? Math.sqrt(a).toString()
+                  : `\\sqrt{${a}}`
+                substituts = [
+                  {
+                    antVal: a,
+                    antTex: a.toString(),
+                    imgVal: Math.sqrt(a),
+                    imgTex: `$${racineDeA}$`,
+                  },
+                ]
+                xMin = 0
+                xMax = a
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$
                alors,  $\\sqrt{x}$ ......`
-              texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in [0;${a}${large1 ? ']' : ' [ '}$ puisque $x\\geqslant 0$. <br>
+                texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in [0;${a}${large1 ? ']' : ' [ '}$ puisque $x\\geqslant 0$. <br>
 Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
 sur l'intervalle $[0;${a}]$ : <br>`
-              texteCorrApresTableau = `<br>On constate que le maximum de $\\sqrt{x}$ sur $[0;${a}]$ est $${racineDeA}$. <br>
+                texteCorrApresTableau = `<br>On constate que le maximum de $\\sqrt{x}$ sur $[0;${a}]$ est $${racineDeA}$. <br>
 On en déduit que si  $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $\\sqrt{x}\\leqslant ${racineDeA}$.
 <br> Remarque :  la fonction racine carrée étant strictement croissante sur $[0+\\infty[$, elle conserve l'ordre.<br>
 Ainsi, les antécédents et les images sont rangés dans le même ordre : <br>
 Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $\\sqrt{x}${large1 ? '\\leqslant' : ' < '} ${racineDeA}$.`
-            }
+              }
               break
-            case 2: { // cas x>a
-              a = randint(0, 100)
-              xMin = a
-              xMax = 10000
-              const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` },
-                { antVal: 10000, antTex: '$+\\infty$', imgVal: 100, imgTex: '' }]
+            case 2:
+              {
+                // cas x>a
+                a = randint(0, 100)
+                xMin = a
+                xMax = 10000
+                const racineDeA = estParfait(a)
+                  ? Math.sqrt(a).toString()
+                  : `\\sqrt{${a}}`
+                substituts = [
+                  {
+                    antVal: a,
+                    antTex: a.toString(),
+                    imgVal: Math.sqrt(a),
+                    imgTex: `$${racineDeA}$`,
+                  },
+                  {
+                    antVal: 10000,
+                    antTex: '$+\\infty$',
+                    imgVal: 100,
+                    imgTex: '',
+                  },
+                ]
 
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$
                alors,  $\\sqrt{x}$ ......`
-              texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
+                texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
 Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
 sur l'intervalle $[${a};+\\infty[$ : <br>`
-              texteCorrApresTableau = `<br>On constate que le minimum de $\\sqrt{x}$ sur $[${a};+\\infty[$ est $${racineDeA}$. <br>
+                texteCorrApresTableau = `<br>On constate que le minimum de $\\sqrt{x}$ sur $[${a};+\\infty[$ est $${racineDeA}$. <br>
 On en déduit que si  $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $\\sqrt{x}\\geqslant ${racineDeA}$.
 <br> Remarque :  la fonction racine carrée étant strictement croissante sur $[0+\\infty[$, elle conserve l'ordre.<br>
 Ainsi, les antécédents et les images sont rangés dans le même ordre : <br>
 Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $\\sqrt{x}${large1 ? '\\geqslant' : ' > '} ${racineDeA}$.`
-            }
+              }
               break
-            case 3: { // cas a<x<b
-              a = randint(0, 98)
-              b = randint(a + 1, 100)
-              xMin = a
-              xMax = b
-              const racineDeA = estParfait(a) ? Math.sqrt(a).toString() : `\\sqrt{${a}}`
-              const racineDeB = estParfait(b) ? Math.sqrt(b).toString() : `\\sqrt{${b}}`
-              substituts = [{ antVal: a, antTex: a.toString(), imgVal: Math.sqrt(a), imgTex: `$${racineDeA}$` },
-                { antVal: b, antTex: b.toString(), imgVal: Math.sqrt(b), imgTex: `$${racineDeB}$` }]
+            case 3:
+              {
+                // cas a<x<b
+                a = randint(0, 98)
+                b = randint(a + 1, 100)
+                xMin = a
+                xMax = b
+                const racineDeA = estParfait(a)
+                  ? Math.sqrt(a).toString()
+                  : `\\sqrt{${a}}`
+                const racineDeB = estParfait(b)
+                  ? Math.sqrt(b).toString()
+                  : `\\sqrt{${b}}`
+                substituts = [
+                  {
+                    antVal: a,
+                    antTex: a.toString(),
+                    imgVal: Math.sqrt(a),
+                    imgTex: `$${racineDeA}$`,
+                  },
+                  {
+                    antVal: b,
+                    antTex: b.toString(),
+                    imgVal: Math.sqrt(b),
+                    imgTex: `$${racineDeB}$`,
+                  },
+                ]
 
-              texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$
+                texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$
                alors,  ...... $\\sqrt{x}$ ......`
-              texteCorrAvantTableau = `$${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large1 ? ']' : ' [ '}$. <br>
+                texteCorrAvantTableau = `$${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large1 ? ']' : ' [ '}$. <br>
 Puisque la fonction racine carrée est strictement croissante sur $[0;+\\infty[$, on obtient son tableau de variations
 sur l'intervalle $[${a};${b}]$ : <br>`
-              texteCorrApresTableau = `<br>On constate que le minimum de $\\sqrt{x}$ sur $[${a};${b}]$ est $${racineDeA}$ et son maximum est $${racineDeB}$. <br>
+                texteCorrApresTableau = `<br>On constate que le minimum de $\\sqrt{x}$ sur $[${a};${b}]$ est $${racineDeA}$ et son maximum est $${racineDeB}$. <br>
 On en déduit que si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ alors, $${racineDeA}${large1 ? '\\leqslant' : ' < '} \\sqrt{x} ${large1 ? '\\leqslant' : ' < '}${racineDeB}$.
 <br> Remarque :  la fonction racine carrée étant strictement croissante sur $[0+\\infty[$, elle conserve l'ordre.<br>
 Ainsi, les antécédents et les images sont rangés dans le même ordre : <br>
 Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$ alors,  $${racineDeA}${large1 ? '\\leqslant' : ' < '} \\sqrt{x} ${large1 ? '\\leqslant' : ' < '}${racineDeB}$.`
-            }
+              }
               break
           }
           break
         }
         case 'cube': {
           const N = choice([1, 2])
-          fonction = x => x ** 3
-          derivee = x => 3 * x ** 2
+          fonction = (x) => x ** 3
+          derivee = (x) => 3 * x ** 2
           tolerance = 0.005
-          if (N === 1) { // cas x<a ou x>a
+          if (N === 1) {
+            // cas x<a ou x>a
             const a = choice([
               randint(-10, 10),
-              randint(11, 20) * choice([-1, 1])
+              randint(11, 20) * choice([-1, 1]),
             ])
             const inférieur = choice([true, false]) // x < a ou x > a ?
             if (inférieur) {
               xMin = -200 // a peut aller jusqu'à -100 !
               xMax = a
-              substituts = [{ antVal: -200, antTex: '$-\\infty$', imgVal: -8000000, imgTex: '' }]
+              substituts = [
+                {
+                  antVal: -200,
+                  antTex: '$-\\infty$',
+                  imgVal: -8000000,
+                  imgTex: '',
+                },
+              ]
             } else {
               xMin = a
               xMax = 200
-              substituts = [{ antVal: 200, antTex: '$+\\infty$', imgVal: 8000000, imgTex: '' }]
+              substituts = [
+                {
+                  antVal: 200,
+                  antTex: '$+\\infty$',
+                  imgVal: 8000000,
+                  imgTex: '',
+                },
+              ]
             }
             let symbole
             let intervalle
@@ -338,10 +465,11 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
             } else if (large1 && !inférieur) {
               symbole = '\\geqslant'
               intervalle = `[${a} ; +\\infty[`
-            } else if ((!large1) && inférieur) {
+            } else if (!large1 && inférieur) {
               symbole = '<'
               intervalle = `]-\\infty ; ${a}[`
-            } else { // (! large) && (! inférieur)
+            } else {
+              // (! large) && (! inférieur)
               symbole = '>'
               intervalle = `]${a} ; +\\infty[`
             }
@@ -354,22 +482,17 @@ On en déduit que si  $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}
 <br> Remarque :  la fonction cube étant strictement croissante sur $\\mathbb{R}$, elle conserve l'ordre.<br>
 Ainsi, les antécédents et les images sont rangés dans le même ordre : <br>
 Si $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}$.`
-          } else { // cas a<x<b
+          } else {
+            // cas a<x<b
             let a, b
             while (a === b) {
-              a = choice([
-                randint(-10, 10),
-                randint(11, 20) * choice([-1, 1])
-              ])
-              b = choice([
-                randint(-10, 10),
-                randint(11, 20) * choice([-1, 1])
-              ])
+              a = choice([randint(-10, 10), randint(11, 20) * choice([-1, 1])])
+              b = choice([randint(-10, 10), randint(11, 20) * choice([-1, 1])])
             }
             if (a > b) {
-              [a, b] = [b, a]
+              ;[a, b] = [b, a]
             }
-            [xMin, xMax] = [a, b]
+            ;[xMin, xMax] = [a, b]
             const inférieur = choice([true, false]) // a < x < b ou b > x > a ?
             substituts = []
             let inégalité
@@ -380,10 +503,11 @@ Si $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}$.`
             } else if (large1 && !inférieur) {
               inégalité = `${b} \\geqslant x \\geqslant ${a}`
               intervalle = `[${a} ; ${b}]`
-            } else if ((!large1) && inférieur) {
+            } else if (!large1 && inférieur) {
               inégalité = `${a} < x < ${b}`
               intervalle = `]${a} ; ${b}[`
-            } else { // (! large) && (! inférieur)
+            } else {
+              // (! large) && (! inférieur)
               inégalité = `${b} > x > ${a}`
               intervalle = `]${a} ; ${b}[`
             }
@@ -400,7 +524,11 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
           break
         }
       }
-      const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { substituts, step: 1, tolerance })
+      const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
+        substituts,
+        step: 1,
+        tolerance,
+      })
       texteCorr = texteCorrAvantTableau + tableau + texteCorrApresTableau
       if (this.questionJamaisPosee(i, this.listeQuestions[i], xMin, xMax)) {
         // Si la question n'a jamais été posée, on en crée une autre
@@ -412,5 +540,8 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)', '1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange']
+  this.besoinFormulaireTexte = [
+    'Choix des questions ',
+    'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange',
+  ]
 }

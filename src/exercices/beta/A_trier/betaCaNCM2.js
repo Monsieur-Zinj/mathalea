@@ -2,7 +2,11 @@ import { combinaisonListesSansChangerOrdre } from '../../../lib/outils/arrayOuti
 import { range1 } from '../../../lib/outils/nombres'
 import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
-import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
+import {
+  calculANePlusJamaisUtiliser,
+  listeQuestionsToContenu,
+  randint,
+} from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
 
@@ -17,10 +21,11 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence
  */
-export default function CourseAuxNombresCM () {
+export default function CourseAuxNombresCM() {
   Exercice.call(this)
   if (this.interactif) {
-    this.consigne = "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
+    this.consigne =
+      "Saisir la réponse numérique uniquement sauf si l'unité est explicitement demandée."
   } else {
     this.consigne = ''
   }
@@ -37,7 +42,10 @@ export default function CourseAuxNombresCM () {
     let questions = []
     if (!this.sup) {
       // Si aucune question n'est sélectionnée
-      questions = combinaisonListesSansChangerOrdre(range1(10), this.nbQuestions)
+      questions = combinaisonListesSansChangerOrdre(
+        range1(10),
+        this.nbQuestions,
+      )
     } else {
       if (typeof this.sup === 'number') {
         // Si c'est un nombre c'est qu'il y a qu'une seule question
@@ -49,10 +57,14 @@ export default function CourseAuxNombresCM () {
       }
     }
     for (let i = 0; i < questions.length; i++) {
-      questions[i] = parseInt(questions[i]) - 1
+      questions[i] = Number.parseInt(questions[i]) - 1
     }
-    const listeIndex = combinaisonListesSansChangerOrdre(questions, this.nbQuestions)
-    const typeQuestionsDisponibles = [ // les dix premières sont communes à betaCaNCM1
+    const listeIndex = combinaisonListesSansChangerOrdre(
+      questions,
+      this.nbQuestions,
+    )
+    const typeQuestionsDisponibles = [
+      // les dix premières sont communes à betaCaNCM1
       'q1', // Somme d'entiers\n
       'q2', // Différence d'entiers\n
       'q3', // Somme d'entiers avec retenue\n
@@ -82,11 +94,16 @@ export default function CourseAuxNombresCM () {
       'q27', // Multiplication entier par décimal\n
       'q28', // Moitié de décimal\n
       'q29', // Soustraction grands entiers\n
-      'q30' // Quotient d'entiers
+      'q30', // Quotient d'entiers
     ]
-    for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (
+      let i = 0, texte, texteCorr, cpt = 0;
+      i < this.nbQuestions && cpt < 50;
+    ) {
       // Boucle principale où i+1 correspond au numéro de la question
-      switch (typeQuestionsDisponibles[listeIndex[i]]) { // Suivant le type de question, le contenu sera différent
+      switch (
+        typeQuestionsDisponibles[listeIndex[i]] // Suivant le type de question, le contenu sera différent
+      ) {
         case 'q1': // somme d'entiers à deux chiffres sans retenue
           a = randint(1, 3) * 10 + randint(1, 5)
           b = randint(1, 5) * 10 + randint(1, 4)
@@ -103,14 +120,14 @@ export default function CourseAuxNombresCM () {
           break
         case 'q3': // somme d'entiers à deux chiffres avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
-          b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
+          b = randint(1, 5) * 10 + randint(11 - (a % 10), 9)
           texte = `$${a}+${b}$`
           texteCorr = `$${a}+${b}=${a + b}$`
           setReponse(this, i, a + b, { formatInteractif: 'calcul' })
           break
         case 'q4': // difference avec retenue
           a = randint(1, 3) * 10 + randint(5, 9)
-          b = randint(1, 5) * 10 + randint(11 - a % 10, 9)
+          b = randint(1, 5) * 10 + randint(11 - (a % 10), 9)
           texte = `$${a + b}-${a}$`
           texteCorr = `$${a + b}-${a}=${b}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -140,14 +157,20 @@ export default function CourseAuxNombresCM () {
           break
         case 'q8': // Somme décimaux
           a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
-          b = calculANePlusJamaisUtiliser(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
+          b = calculANePlusJamaisUtiliser(
+            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100,
+          )
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
-          setReponse(this, i, calculANePlusJamaisUtiliser(a + b), { formatInteractif: 'calcul' })
+          setReponse(this, i, calculANePlusJamaisUtiliser(a + b), {
+            formatInteractif: 'calcul',
+          })
           break
         case 'q9': // Différence décimaux
           a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
-          b = calculANePlusJamaisUtiliser(randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100)
+          b = calculANePlusJamaisUtiliser(
+            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100,
+          )
           texte = `$${texNombre(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
           setReponse(this, i, b, { formatInteractif: 'calcul' })
@@ -171,8 +194,9 @@ export default function CourseAuxNombresCM () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-        `1 : Somme d'entiers\n
+  this.besoinFormulaireTexte = [
+    'Choix des questions ',
+    `Nombres séparés par des tirets\n1 : Somme d'entiers\n
   2 : Différence d'entiers\n
   3 : Somme d'entiers avec retenue\n
   4 : Différence d'entiers avec retenue\n
@@ -201,5 +225,6 @@ export default function CourseAuxNombresCM () {
   27 : Multiplication entier par décimal\n
   28 : Moitié de décimal\n
   29 : Soustraction grands entiers\n
-  30 : Quotient d'entiers`]
+  30 : Quotient d'entiers`,
+  ]
 }

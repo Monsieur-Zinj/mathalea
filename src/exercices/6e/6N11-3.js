@@ -90,11 +90,11 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
     context.isHtml ? this.spacing = 3 : this.spacing = 2
     context.isHtml ? this.spacingCorr = 2.5 : this.spacingCorr = 1.5
     this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets', '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples consécutifs de 10\n3 : Encadrer entre deux multiples consécutifs de 100\n4 : Mélange']
-    this.besoinFormulaire2Texte = ['Difficulté (nombres séparés par des tirets)', '1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
+    this.besoinFormulaire2Texte = ['Difficulté', 'Nombres séparés par des tirets\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Énoncé', 2, '1 : Multiple\n2 : Encadrer à la dizaine, centaine']
   }
 
-  nouvelleVersion  () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []

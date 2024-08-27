@@ -90,7 +90,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type de questions (nombres séparés par des tirets)', '1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', ' Nombres séparés par des tirets\n1 : algébrique vers trigonométrique\n2 : trigonométrique vers algébrique\n3 : algébrique vers $k.e^{i\\theta}$\n4 : $k.e^{i\\theta}$ vers algébrique\n5 : Mélange']
   }
 
   nouvelleVersion () {

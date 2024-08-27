@@ -180,8 +180,8 @@ export default function VocabulaireEtOperations () {
     listeQuestionsToContenuSansNumero(this)
   }
   this.besoinFormulaireTexte = [
-    'Type de questions (nombres séparés par des tirets)',
-    '1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
+    'Type de questions',
+    'Nombres séparés par des tirets\n1 : Phrase -> Calcul\n2 : Calcul -> Phrase\n3 : Phrase -> Calcul + résultat\n4 : Mélange'
   ]
   this.besoinFormulaire3Texte = ['Opérations', '1 : Somme\n2 : Différence\n3 : Produit\n4 : Quotient\n5 : Mélange']
   this.besoinFormulaire2CaseACocher = ['Décimaux', false]

@@ -240,7 +240,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
   ]
   this.besoinFormulaire2CaseACocher = ['Avec des nombres décimaux']
   this.besoinFormulaire3CaseACocher = ['Avec tableau']
-  this.besoinFormulaire4Texte = ['Type de grandeur (nombres séparés par des tirets)', '1 : Longueur\n2 : Masse\n3 : Mélange']
+  this.besoinFormulaire4Texte = ['Type de grandeur', 'Nombres séparés par des tirets\n1 : Longueur\n2 : Masse\n3 : Mélange']
 }
 
 /**
