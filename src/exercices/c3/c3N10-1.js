@@ -350,8 +350,8 @@ export default function RecomposerEntierC3 () {
     '1 : Décomposer (donner les chiffres)\n2 : Décomposer (compléter avec 10, 100...)\n3 : Composer (sans groupement)\n4 : Composer avec groupement\n5 : Mélange'
   ]
   this.besoinFormulaire4Texte = [
-    'Présence de zéro(s) (nombres séparés par des tirets)',
-    '1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
+    'Présence de zéro(s) ',
+    'Nombres séparés par des tirets\n1 : Sans zéro\n2 : Avec un zéro\n3 : Avec deux zéros consécutifs\n4 : Mélange'
   ]
   this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
   this.correctionInteractive = (i) => {

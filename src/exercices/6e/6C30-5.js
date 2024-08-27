@@ -182,5 +182,5 @@ export default function MultiplierPar001 () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
   this.besoinFormulaireCaseACocher = ['Nombres entiers', true]
-  this.besoinFormulaire2Texte = ['Type de questions  (nombres séparés par des tirets)', ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : Fraction décimale à retrouver\n 4 : Mélange']
+  this.besoinFormulaire2Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : Fraction décimale à retrouver\n4 : Mélange']
 }

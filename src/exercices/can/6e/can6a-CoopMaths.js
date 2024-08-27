@@ -469,8 +469,8 @@ export default function CourseAuxNombres6e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-        `1 : Moitié et double\n
+  this.besoinFormulaireTexte = ['Choix des questions',
+        ` Nombres séparés par des tirets\n1 : Moitié et double\n
   2 : Quotient de a par b\n
   3 : Somme astucieuse de 4 nombres entiers\n
   4 : Somme de deux décimaux avec retenue\n

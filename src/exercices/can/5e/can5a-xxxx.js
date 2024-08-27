@@ -434,8 +434,8 @@ export default function CourseAuxNombres5e () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-        `1 : Multiplication (facteur 12 à 19)\n
+  this.besoinFormulaireTexte = ['Choix des questions',
+        `Nombres séparés par des tirets\n1 : Multiplication (facteur 12 à 19)\n
   2 : Somme à abc + de\n
   3 : Différence abc - de\n
   4 : Somme de deux décimaux avec retenue\n

@@ -33,7 +33,7 @@ export default function TrianglesEgaux () {
   this.sup = 6 // Niveau de difficulté
   this.video = '' // Id YouTube ou url
   this.spacing = 2
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)', '1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
+  this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : CCC\n2 : CAC\n3 : ACA\n4 : AAA\n5 : CC\n6 : mélange']
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

@@ -193,5 +193,5 @@ export default function DiviserPar101001000 () {
   // Il sont associés respectivement aux paramètres sup, sup3 et sup3.
   this.besoinFormulaireCaseACocher = ['Le dividende est un nombre entier', false]
   this.besoinFormulaire2CaseACocher = ['Trois décimales maximum', true]
-  this.besoinFormulaire3Texte = ['Type de questions (nombres séparés par des tirets)', ' 1 : Résultat à calculer\n 2 : Nombre à retrouver\n 3 : 10, 100 ou 1 000 à retrouver\n 4 : Mélange']
+  this.besoinFormulaire3Texte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Résultat à calculer\n2 : Nombre à retrouver\n3 : 10, 100 ou 1 000 à retrouver\n4 : Mélange']
 } // Fin de l'exercice.

@@ -588,8 +588,8 @@ export default function CourseAuxNombresCM () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = ['Choix des questions (nombres séparés par des tirets)',
-        `1 : Somme d'entiers\n
+  this.besoinFormulaireTexte = ['Choix des questions',
+        ` Nombres séparés par des tirets\n1 : Somme d'entiers\n
   2 : Différence d'entiers\n
   3 : Somme d'entiers avec retenue\n
   4 : Différence d'entiers avec retenue\n

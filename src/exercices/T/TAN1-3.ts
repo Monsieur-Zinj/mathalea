@@ -30,7 +30,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
     this.nbQuestions = 5
     this.spacingCorr = 3
     this.sup = '3'
-    this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets)', '1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question', ' Nombres séparés par des tirets\n1 : Avec log(a^n*b^m)\n2 : Avec log(a^n/b^m)\n3 : Mélange']
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', false]
     this.sup2 = false
     this.besoinFormulaire3CaseACocher = ['Données exprimées avec des puissances', true]
@@ -53,7 +53,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       const exprime = (A: {base: number, exp: number}) => `${A.base}^${A.exp}`
       const intro = `Exprimer, en fonction de $${logString} \\left(${A.base}\\right)$ et $${logString} \\left(${B.base}\\right)$, le nombre suivant : &nbsp `
       let texte: string
-      let texteCorr = ``
+      let texteCorr = ''
       const justification1mult = `car, pour tous réels a et b strictement positifs, &nbsp $${logString}\\left(a \\times b\\right)=${logString}\\left(a\\right)+${logString}\\left(b\\right)$. `
       const justification1div = `car,  pour tous réels a et b strictement positifs, &nbsp $${logString}\\left( \\dfrac{a}{b}\\right)=${logString}\\left(a\\right)-${logString}\\left(b\\right)$. `
       const justification2 = `De plus, pour tout réel a strictement positif et pour tout entier n, &nbsp $${logString}\\left(a^n\\right)=n \\times ${logString}\\left(a\\right)$ donc `
@@ -67,7 +67,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
             texteCorr += `$${texte}=${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1mult} <br>`
             texteCorr += `${justification2} $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$.`
           } else {
-            texteCorr += `En décomposant $${valeurAfoisB}$ en facteurs premiers, on obtient : $${valeurAfoisB} = ${exprime(A)}\\times ${exprime(B)}$. &nbsp Ainsi : <br> ` 
+            texteCorr += `En décomposant $${valeurAfoisB}$ en facteurs premiers, on obtient : $${valeurAfoisB} = ${exprime(A)}\\times ${exprime(B)}$. &nbsp Ainsi : <br> `
             texteCorr += `$${texte}=${logString}\\left(${exprime(A)}\\times ${exprime(B)}\\right)= ${logString}\\left(${exprime(A)}\\right)${signe}${logString}\\left(${exprime(B)}\\right)$ ${justification1mult} <br> `
             texteCorr += `${justification2}  $${texte}=${miseEnEvidence(`${A.exp}${logString} \\left(${A.base}\\right)${signe}${B.exp}${logString} \\left(${B.base}\\right)`)}$.`
           }
