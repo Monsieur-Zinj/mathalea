@@ -4,11 +4,9 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '27/08/2024'
 
 /**
- * Lire des nombres déciamux sur une portion de droite graduée
- * Une question demande la forme décimale, une autre, la partie entière plus la fraction décimale, et une troisième demande une seule fraction décimale.
- * ref 6N23-2
  *
  * @author Jean-Claude Lhote
  */
@@ -21,6 +19,6 @@ export const refs = {
 export default class TablesDeMultiplicationsCM extends TablesDeMultiplications {
   constructor () {
     super()
-    this.sup2 = 1
+    this.sup2 = '1'
   }
 }

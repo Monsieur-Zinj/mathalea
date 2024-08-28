@@ -5,13 +5,13 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '27/08/2024'
 
 /**
  * Tables de multiplication classiques, à trou ou un mélange des deux.
  *
  * Par défaut ce sont les tables de 2 à 9 mais on peut choisir les tables que l'on veut
  * @author Rémi Angot
- * Référence 6C10-1
  */
 export const uuid = '665a0'
 export const ref = 'CM001'
