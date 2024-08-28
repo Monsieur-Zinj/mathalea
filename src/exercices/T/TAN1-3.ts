@@ -92,7 +92,7 @@ export default class ExerciceCalculsProprietesLog extends Exercice {
       if (this.interactif) {
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         texte += `<br>$${lettreDepuisChiffre(i + 1)} = $`
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, A.base, A.exp, B.base, B.exp, signe)) {
         this.listeQuestions.push(texte)

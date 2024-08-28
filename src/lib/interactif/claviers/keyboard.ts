@@ -21,7 +21,7 @@ const KEYBOARD_CATEGORIES = [
   'alphanumeric',
   'longueur',
   'aire',
-  'logPuissance',
+  'clavierFonctionsTerminales',
   'numeration',
   'volume',
   'masse',
@@ -79,8 +79,8 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'hms']
     case KeyboardType.clavierCompare:
       return ['compare']
-    case KeyboardType.logPuissance:
-      return ['logPuissance']
+    case KeyboardType.clavierFonctionsTerminales:
+      return ['clavierFonctionsTerminales']
     case KeyboardType.lycee:
       return ['numbers', 'fullOperations', 'variables', 'advanced']
     case KeyboardType.college6eme:
@@ -138,6 +138,7 @@ export const convertKeyboardTypeToBlocks = (
       return ['numbers', 'degre']
     case KeyboardType.nombresEtDegreCelsius:
       return ['numbers', 'degreCelsius']
+
     default:
       throw new Error(
         "This error shouldn't occur. Clavier type: '" + type + "'"

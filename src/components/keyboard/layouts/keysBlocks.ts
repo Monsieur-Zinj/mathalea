@@ -55,9 +55,9 @@ const fullOperationCaps: CompleteKeysList = {
   inline: ['ADD', 'SUB', 'MULT', 'DIV', 'FRAC', '=', '(', ')', 'xMath', 'SQRT', 'SQ', 'POW', 'POW10', 'DEG', 'PERCENT', 'SEMICOLON'],
   block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
-const logPuissanceCaps: CompleteKeysList = {
-  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD'],
-  block: ['[', 'LOG', 7, 8, 9, 'DIV', ']', 'LN', 4, 5, 6, 'MULT', 'INFTY', 'POW', 1, 2, 3, 'SUB', 'e^', 'FRAC', 0, 'COMMA', 'SEMICOLON', 'ADD']
+const terminaleCaps: CompleteKeysList = {
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD', 'SQRT', 'SQRTN'],
+  block: ['SQRT', 'SQRTN','LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, '(', ')', '[', ']', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
 }
 
 const numerationCaps: CompleteKeysList = {
@@ -109,6 +109,7 @@ const trigoCaps: CompleteKeysList = {
   inline: ['COS', 'SIN', 'TAN', 'ANG'],
   block: ['COS', 'SIN', 'TAN', 'ANG']
 }
+
 
 const advancedCaps: CompleteKeysList = {
   inline: [
@@ -277,10 +278,10 @@ export const fullOperations: KeyboardBlock = {
   isUnits: false
 }
 
-export const logPuissance: KeyboardBlock = {
-  keycaps: logPuissanceCaps,
-  cols: 6,
-  title: 'Logarithme et puissance',
+export const clavierFonctionsTerminales : KeyboardBlock = {
+  keycaps: terminaleCaps,
+  cols: 7,
+  title: 'Fonctions de Terminales',
   isUnits: false
 }
 
@@ -430,6 +431,7 @@ export const uppercaseXToZ: KeyboardBlock = {
   isUnits: false
 }
 
+
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
   advanced,
@@ -448,7 +450,7 @@ export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>
   fullOperations,
   hms,
   lengths,
-  logPuissance,
+  clavierFonctionsTerminales,
   masses,
   numbers,
   numbersSpace,

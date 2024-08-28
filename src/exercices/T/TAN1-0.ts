@@ -219,7 +219,7 @@ export default class InequationsLog extends Exercice {
       if (this.interactif) {
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
         texte += '<br>$S= $'
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.logPuissance)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
