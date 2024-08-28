@@ -3,16 +3,27 @@ import { numAlpha, premiereLettreEnMajuscule } from '../../lib/outils/outilStrin
 import { prenom } from '../../lib/outils/Personne'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { AddTabDbleEntryMathlive } from '../../lib/interactif/tableaux/AjouteTableauMathlive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { tableauColonneLigne } from '../../lib/2d/tableau'
+import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Organiser des données dans un tableau'
+export const dateDeModificationImportante = '27/08/2024'
 
 /**
  * Organiser donnees depuis texte
  * @author Erwan Duplessy
+ * Mise en intéractif par Jean-Claude Lhote
  */
 
 // source : http://www.ac-grenoble.fr/savoie/pedagogie/docs_pedas/ogd_c2_c3/ogd_c2_c3.pdf
+export const interactifType = 'mathLive'
+export const interactifReady = true
 
 export const uuid = '99d95'
 export const ref = '6S11'
@@ -29,16 +40,18 @@ export default function OrganiserDonneesDepuisTexte () {
   this.nbColsCorr = 1
   this.sup = false // false -> effectif ; true -> masse
   this.sup2 = 4 // paramètre nombre de fruit
-  context.isHtml ? this.spacing = 2 : this.spacing = 1
-  context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
+  this.sup3 = 3 // paramètre nombre d'amis
+  this.spacing = context.isHtml ? 2 : 1
+  this.spacingCorr = context.isHtml ? 2 : 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
-
-    const nbAmis = 4; let texte; let texteCorr; let m; let S // min = 2
-    const nbFruits = contraindreValeur(2, 9, this.sup2, 4) // min = 2
+    this.reinit()
+    const nbAmis = contraindreValeur(2, 4, this.sup3, 4) // min = 2;
+    let texte
+    let texteCorr
+    let m
+    let S
+    const nbFruits = contraindreValeur(2, 4, this.sup2, 4) // min = 2
     const lstPrenomExo = []
     while (lstPrenomExo.length < nbAmis) {
       const p = prenom()
@@ -74,13 +87,13 @@ export default function OrganiserDonneesDepuisTexte () {
     // Affiche l'énoncé :
     texte = 'Plusieurs amis reviennent du marché. Il s\'agit de '
     for (let i = 0; i < nbAmis - 2; i++) {
-      texte += lstPrenomExo[i] + ', '
+      texte += `${lstPrenomExo[i]}, `
     }
-    texte += lstPrenomExo[nbAmis - 2] + ' et ' + lstPrenomExo[nbAmis - 1] + '.<br>'
+    texte += `${lstPrenomExo[nbAmis - 2]} et ${lstPrenomExo[nbAmis - 1]}.<br>`
     let N
     // boucle sur les phrases. 1 phrase par personne.
     for (let i = 0; i < nbAmis; i++) {
-      texte += lstPrenomExo[i] + ' rapporte '
+      texte += `${lstPrenomExo[i]} rapporte `
       L = [] // ne contient que les fruits d'effectifs strictement positifs
       for (let j = 0; j < nbFruits; j++) {
         N = lstTabVal[i][j]
@@ -103,80 +116,48 @@ export default function OrganiserDonneesDepuisTexte () {
       texte += '. <br>'
     }
     texte += '<br>'
-    texte += numAlpha(0) + ' Remplir le tableau suivant. <br>'
+    texte += `${numAlpha(0)} Remplir le tableau suivant. <br>`
+    const tabEntetesColonnes = ['Amis\\textbackslash fruits'].concat(lstFruitExo.map(el => premiereLettreEnMajuscule(el))).concat(['TOTAL']).map(el => `\\text{${el}}`)
+    const tabEntetesLignes = lstPrenomExo.concat(['TOTAL'])
+    const tabLines = new Array((nbAmis + 1) * (nbFruits + 1)).fill('')
 
-    if (this.sup) {
-      texte += numAlpha(1) + ' Quelle est la masse totale de fruits achetés par les amis ? <br>'
-    } else {
-      texte += numAlpha(1) + ' Quel est le nombre total de fruits achetés par les amis ? <br>'
-    }
-    texte += numAlpha(2) + ' Qui a rapporté le plus de fruits ? <br>'
-    texte += numAlpha(3) + ' Quel fruit a été rapporté en la plus grosse quantité ? <br><br>'
-
-    texte += '$\\begin{array}{|l|' + 'c|'.repeat(nbFruits + 1) + '}\n'
-    texte += '\\hline\n'
-    texte += ' '
-    for (let j = 0; j < nbFruits; j++) {
-      if (lstFruitExo[j] != null) texte += ' & \\textbf{\\text{' + premiereLettreEnMajuscule(lstFruitExo[j]) + '}}'
-    }
-    texte += '& \\textbf{TOTAL}'
-    texte += '\\\\\\hline\n'
-    for (let i = 0; i < nbAmis; i++) {
-      texte += `\\textbf{\\text{${lstPrenomExo[i]}}}` + '& '.repeat(nbFruits) + ' & '
-      texte += '\\\\\\hline\n'
-    }
-    texte += '\\textbf{TOTAL}' + '& '.repeat(nbFruits) + ' & '
-    texte += '\\\\\\hline\n'
-    texte += '\\end{array}\n$'
-
-    // CORRECTION
+    // CORRECTION (je la mets là, parce qu'on a besoin de nmax ef fmax pour les qcm)
     // Question 1 :
-    texteCorr = numAlpha(0) + ' Voici le tableau complet. <br>'
-    texteCorr += '$\\begin{array}{|l|' + 'c|'.repeat(nbFruits + 1) + '}\n'
-    texteCorr += '\\hline\n'
-    texteCorr += ' '
-    for (let j = 0; j < nbFruits; j++) {
-      texteCorr += ` & \\text{${lstFruitExo[j]}}`
+    const tabLines2 = []
+    for (const arr of lstTabVal) {
+      const total = arr.reduce((a, b) => a + b)
+      tabLines2.push(...arr, total)
     }
-    texteCorr += '& TOTAL'
-    texteCorr += '\\\\\\hline\n'
-    for (let i = 0; i < nbAmis; i++) {
-      texteCorr += `\\text{${lstPrenomExo[i]}}`
-      let S = 0 // pour calculer les sommes
-      for (let j = 0; j < nbFruits; j++) {
-        texteCorr += '& ' + texNombre(lstTabVal[i][j]) // valeur dans le tableau
-        S += lstTabVal[i][j] // somme d'une ligne
+    let sommeTotale = 0
+    for (let numFruit = 0; numFruit < nbFruits; numFruit++) {
+      let sommeUnFruit = 0
+      for (let numAmi = 0; numAmi < nbAmis; numAmi++) {
+        sommeUnFruit += lstTabVal[numAmi][numFruit]
       }
-      texteCorr += '& ' + texNombre(S)
-      texteCorr += '\\\\\\hline\n'
+      sommeTotale += sommeUnFruit
+      tabLines2.push(sommeUnFruit)
     }
-    texteCorr += 'TOTAL'
-    let SommeTotale = 0 // somme totale de tous les fruits
-    for (let j = 0; j < nbFruits; j++) {
-      S = 0
-      for (let i = 0; i < nbAmis; i++) {
-        S += lstTabVal[i][j] // somme d'une colonne
-      }
-      // texteCorr += '& ' + Math.round(S*10)/10;
-      texteCorr += '& ' + texNombre(S, 1)
-      // texteCorr += '& ' + texNombre(S,1);
-      SommeTotale += S
+    tabLines2.push(sommeTotale)
+    const tabLinesCorr = tabLines2.map(el => texNombre(el, 2))
+    let objetReponse = {}
+    for (let i = 0; i < tabLinesCorr.length; i++) {
+      const ligne = Math.floor(i / (nbFruits + 1))
+      const colonne = i % (nbFruits + 1)
+      const ref = `L${ligne + 1}C${colonne + 1}`
+      const valeur = Object.assign({}, { value: `${tabLinesCorr[i]}` })
+      const cellule = Object.fromEntries([[ref, valeur]])
+      objetReponse = Object.assign(objetReponse, cellule)
     }
-    texteCorr += '& ' + texNombre(SommeTotale)
-    texteCorr += '\\\\\\hline\n'
-    texteCorr += '\\end{array}\n$'
+
+    texteCorr = `${numAlpha(0)} Voici le tableau complet. <br>`
+    texteCorr += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLinesCorr)
     texteCorr += '<br>'
 
     // Question 2 :
-    SommeTotale = texNombre(SommeTotale)
-    if (this.sup) {
-      texteCorr += numAlpha(1) + ` La masse totale de fruits est : $${SommeTotale}$ kg. <br>`
-    } else {
-      texteCorr += numAlpha(1) + ` Le nombre total de fruits est : ${SommeTotale}. <br>`
-    }
+    texteCorr += `${numAlpha(1)} ${this.sip ? 'La masse totale' : 'Le nombre total'} de fruits est : $${texNombre(sommeTotale, 2)}$${this.sup ? ' kg' : ''}.<br>`
 
     // Question 3 :
-    texteCorr += numAlpha(2) + ' On regarde la dernière colonne du tableau. '
+    texteCorr += `${numAlpha(2)} On regarde la dernière colonne du tableau. `
     let lstmax = [] // liste des prénoms solutions
     let nmax = 0 // nombre max de fruit pour une personne
     for (let i = 0; i < nbAmis; i++) {
@@ -213,7 +194,7 @@ export default function OrganiserDonneesDepuisTexte () {
     }
 
     // Question 4 :
-    texteCorr += numAlpha(3) + ' On regarde la dernière ligne du tableau. '
+    texteCorr += `${numAlpha(3)} On regarde la dernière ligne du tableau. `
     let fmax = [] // liste des fruits apporté en quantité max
     nmax = 0 // nombre max par type de fruit
     for (let j = 0; j < nbFruits; j++) {
@@ -244,16 +225,59 @@ export default function OrganiserDonneesDepuisTexte () {
       texteCorr += `. Il y en a $${nmax}$ de chaque sorte.<br>`
     } else {
       if (this.sup) {
-        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a $${nmax}$ kg.`
+        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmax}$ kg.`
       } else {
-        texteCorr += `Il y a plus de ${fmax}s que d'autres fruits. Il y en a $${nmax}$.`
+        texteCorr += `Il y a plus de ${fmax[0]}s que d'autres fruits. Il y en a $${nmax}$.`
       }
     }
+    // fin correction
 
+    if (this.sup) {
+      texte += `${numAlpha(1)} Quelle est la masse totale de fruits achetés par les amis ?${ajouteChampTexteMathLive(this, 1, `inline ${KeyboardType.masse}`)}<br>`
+    } else {
+      texte += `${numAlpha(1)} Quel est le nombre total de fruits achetés par les amis ?${ajouteChampTexteMathLive(this, 1, `inline ${KeyboardType.clavierDeBase}`)}<br>`
+    }
+    texte += `${numAlpha(2)} Qui a rapporté le plus de fruits ?<br>`
+    // qcm pour cette question
+    this.autoCorrection[2] = {
+      propositions: [
+      ]
+    }
+    for (const p of lstPrenomExo) {
+      this.autoCorrection[2].propositions.push({ texte: p, statut: lstmax.includes(p) })
+    }
+    const qcm1 = propositionsQcm(this, 2)
+    if (this.interactif) {
+      texte += qcm1.texte
+    }
+
+    texte += `${numAlpha(3)} Quel fruit a été rapporté en la plus grosse quantité ?<br>`
+    this.autoCorrection[3] = {
+      propositions: [
+      ]
+    }
+    for (const f of lstFruitExo) {
+      this.autoCorrection[3].propositions.push({ texte: f, statut: fmax.includes(f) })
+    }
+    const qcm2 = propositionsQcm(this, 3)
+    if (this.interactif) {
+      texte += qcm2.texte
+    }
+    // qcm pour cette quesstion
+    if (this.interactif) {
+      const tableau = AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLines)
+      const leTableau = AddTabDbleEntryMathlive.create(this.numeroExercice, 0, tableau, 'tableauMathlive', true)
+      texte += leTableau.output
+    } else {
+      texte += tableauColonneLigne(tabEntetesColonnes, tabEntetesLignes, tabLines, 1, true, 0, 0, false)
+    }
+    handleAnswers(this, 0, objetReponse)
+    handleAnswers(this, 1, { reponse: { value: `${sommeTotale}${this.sup ? ' kg' : ''}`, compare: fonctionComparaison, options: this.sup ? { unite: true } : { } } })
     this.listeQuestions.push(texte)
     this.listeCorrections.push(texteCorr)
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 8]
+  this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
+  this.besoinFormulaire3Numerique = ['Nombres d\'amis', 4]
   this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
 }
