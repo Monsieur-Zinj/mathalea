@@ -89,7 +89,6 @@ class ReperageEntiersOuDecimaux extends Exercice {
       defaut: 5,
       melange: 5
     }).map(Number)
-    console.log(listesPas)
     const listeValeurs: [number, number][] = choix.map((index) =>
       choice(listesPas[index - 1])
     )
