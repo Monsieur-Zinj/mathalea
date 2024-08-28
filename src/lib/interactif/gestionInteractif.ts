@@ -22,7 +22,7 @@ import {
   // expressionDeveloppeeEtNonReduiteCompare,
   // expressionDeveloppeeEtReduiteCompare,
   type CompareFunction,
-  type OptionsComparaisonType,
+  type OptionsComparaisonType
 } from './comparisonFunctions'
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
@@ -116,10 +116,10 @@ export interface MathaleaSVG extends SVGSVGElement {
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setCliqueFigure(objetReponse: AutoCorrection) {
+export function setCliqueFigure (objetReponse: AutoCorrection) {
   objetReponse.reponse = {
     ...objetReponse.reponse,
-    param: { formatInteractif: 'cliqueFigure' },
+    param: { formatInteractif: 'cliqueFigure' }
   }
 }
 /**
@@ -128,10 +128,10 @@ export function setCliqueFigure(objetReponse: AutoCorrection) {
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setQcm(objetReponse: AutoCorrection) {
+export function setQcm (objetReponse: AutoCorrection) {
   objetReponse.reponse = {
     ...objetReponse.reponse,
-    param: { formatInteractif: 'qcm' },
+    param: { formatInteractif: 'qcm' }
   }
 }
 /**
@@ -140,10 +140,10 @@ export function setQcm(objetReponse: AutoCorrection) {
  * à appeler après avoir rempli l'objet réponse qvec enonce et propositions
  * @param objetReponse
  */
-export function setListeDeroulante(objetReponse: AutoCorrection) {
+export function setListeDeroulante (objetReponse: AutoCorrection) {
   objetReponse.reponse = {
     ...objetReponse.reponse,
-    param: { formatInteractif: 'listeDeroulante' },
+    param: { formatInteractif: 'listeDeroulante' }
   }
 }
 
@@ -154,16 +154,15 @@ export function setListeDeroulante(objetReponse: AutoCorrection) {
  * @param {HTMLButtonElement} buttonScore
  * @returns {{numberOfPoints: number, numberOfQuestions: number}}
  */
-export function exerciceInteractif(
+export function exerciceInteractif (
   exercice: Exercice,
   divScore: HTMLDivElement,
-  buttonScore: HTMLButtonElement,
+  buttonScore: HTMLButtonElement
 ): ResultOfExerciceInteractif {
   let nbQuestionsValidees = 0
   let nbQuestionsNonValidees = 0
   exercice.answers = {}
-  if (exercice.interactifType === 'custom')
-    return verifExerciceCustom(exercice, divScore, buttonScore)
+  if (exercice.interactifType === 'custom') { return verifExerciceCustom(exercice, divScore, buttonScore) }
   for (let i = 0; i < exercice.autoCorrection.length; i++) {
     const format = exercice.autoCorrection[i]?.reponse?.param?.formatInteractif
     let resultat: string
@@ -175,11 +174,11 @@ export function exerciceInteractif(
       case 'listeDeroulante':
         {
           const selects = document.querySelectorAll(
-            `select[id^="ex${exercice.numeroExercice}Q${i}"]`,
+            `select[id^="ex${exercice.numeroExercice}Q${i}"]`
           )
           if (selects) {
             for (const select of selects) {
-              ;(select as HTMLSelectElement).disabled = true
+              (select as HTMLSelectElement).disabled = true
             }
           }
           resultat = verifQuestionListeDeroulante(exercice, i)
@@ -198,7 +197,7 @@ export function exerciceInteractif(
             result.score.nbReponses - result.score.nbBonnesReponses
           if (result.feedback !== '') {
             const spanFeedback = document.querySelector(
-              `#feedbackEx${exercice.numeroExercice}Q${i}`,
+              `#feedbackEx${exercice.numeroExercice}Q${i}`
             )
             if (spanFeedback != null) {
               spanFeedback.innerHTML = `💡 ${result.feedback}`
@@ -206,7 +205,7 @@ export function exerciceInteractif(
                 'py-2',
                 'italic',
                 'text-coopmaths-warn-darkest',
-                'dark:text-coopmathsdark-warn-darkest',
+                'dark:text-coopmathsdark-warn-darkest'
               )
             }
           }
@@ -219,7 +218,7 @@ export function exerciceInteractif(
     nbQuestionsValidees,
     nbQuestionsNonValidees,
     divScore,
-    buttonScore,
+    buttonScore
   )
 }
 
@@ -230,10 +229,10 @@ export function exerciceInteractif(
  * @param buttonScore
  * @return {{numberOfPoints, numberOfQuestions: *}}
  */
-function verifExerciceCustom(
+function verifExerciceCustom (
   exercice: Exercice,
   divScore: HTMLDivElement,
-  buttonScore: HTMLButtonElement,
+  buttonScore: HTMLButtonElement
 ) {
   let nbBonnesReponses = 0
   let nbMauvaisesReponses = 0
@@ -243,7 +242,7 @@ function verifExerciceCustom(
   if (!eltFeedback) {
     const eltExercice = get(`exercice${exercice.numeroExercice}`)
     eltFeedback = addElement(eltExercice, 'div', {
-      id: `feedbackEx${exercice.numeroExercice}`,
+      id: `feedbackEx${exercice.numeroExercice}`
     })
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
@@ -277,11 +276,11 @@ function verifExerciceCustom(
     nbBonnesReponses,
     nbMauvaisesReponses,
     divScore,
-    buttonScore,
+    buttonScore
   )
 }
 
-export function prepareExerciceCliqueFigure(exercice: Exercice) {
+export function prepareExerciceCliqueFigure (exercice: Exercice) {
   // Dès que l'exercice est affiché, on rajoute des listenners sur chaque éléments de this.figures.
   for (let i = 0; i < exercice.nbQuestions; i++) {
     if (exercice.figures != null) {
@@ -304,14 +303,14 @@ export function prepareExerciceCliqueFigure(exercice: Exercice) {
   }
 }
 
-function verifQuestionCliqueFigure(exercice: Exercice, i: number) {
+function verifQuestionCliqueFigure (exercice: Exercice, i: number) {
   // Le get est non strict car on sait que l'élément n'existe pas à la première itération de l'exercice
   let eltFeedback = get(`resultatCheckEx${exercice.numeroExercice}Q${i}`, false)
   // On ajoute le div pour le feedback
   if (!eltFeedback) {
     const eltExercice = get(`exercice${exercice.numeroExercice}`)
     eltFeedback = addElement(eltExercice, 'div', {
-      id: `resultatCheckEx${exercice.numeroExercice}Q${i}`,
+      id: `resultatCheckEx${exercice.numeroExercice}Q${i}`
     })
   }
   setStyles(eltFeedback, 'marginBottom: 20px')
@@ -343,17 +342,17 @@ function verifQuestionCliqueFigure(exercice: Exercice, i: number) {
   return 'KO'
 }
 
-function mouseOverSvgEffect(event: MouseEvent) {
+function mouseOverSvgEffect (event: MouseEvent) {
   const elt = event.target as MathaleaSVG
   elt.style.border = '1px solid #1DA962'
 }
 
-function mouseOutSvgEffect(event: MouseEvent) {
+function mouseOutSvgEffect (event: MouseEvent) {
   const elt = event.target as MathaleaSVG
   elt.style.border = 'none'
 }
 
-function mouseSvgClick(event: MouseEvent) {
+function mouseSvgClick (event: MouseEvent) {
   const elt = event.target as MathaleaSVG
   if (elt.etat) {
     // Déja choisi, donc on le réinitialise
@@ -371,18 +370,18 @@ function mouseSvgClick(event: MouseEvent) {
   }
 }
 
-export function afficheScore(
+export function afficheScore (
   exercice: Exercice,
   nbBonnesReponses: number,
   nbMauvaisesReponses: number,
   divScore: HTMLDivElement,
-  divButton: HTMLButtonElement,
+  divButton: HTMLButtonElement
 ): ResultOfExerciceInteractif {
   if (divButton != null) {
     divButton.classList.add(
       'cursor-not-allowed',
       'opacity-50',
-      'pointer-events-none',
+      'pointer-events-none'
     )
   }
   if (divScore != null) {
@@ -394,7 +393,7 @@ export function afficheScore(
   }
   return {
     numberOfPoints: nbBonnesReponses,
-    numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses,
+    numberOfQuestions: nbBonnesReponses + nbMauvaisesReponses
   }
 }
 
@@ -409,11 +408,11 @@ export function afficheScore(
  * @deprecated Dans la mesure du possible, utiliser handleAnswers après avoir consulter la doc
  * @see https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Rendre-un-exercice-interactif
  */
-export function setReponse(
+export function setReponse (
   exercice: Exercice,
   i: number,
   valeurs: LegacyReponses,
-  params: ReponseParams = {},
+  params: ReponseParams = {}
 ) {
   const url = new URL(window.location.href)
   // if (Array.isArray(valeurs) && !url.searchParams.has('testCI')) window.notifyLocal('setReponse a reçu un Array de reponses, il faut en finir avec ça', { valeurs })
@@ -423,19 +422,21 @@ export function setReponse(
   let signe = params?.signe
   if (formatInteractif === undefined) formatInteractif = 'calcul'
   let reponses: Array<LegacyReponse>
-  if (url.hostname === 'localhost' && url.searchParams.has('triche'))
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) {
     console.log(
       `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${i + 1} : `,
-      valeurs,
+      valeurs
     )
+  }
   if (
     typeof valeurs === 'object' &&
     (formatInteractif === 'tableauMathlive' ||
       formatInteractif === 'fillInTheBlank')
-  )
+  ) {
     throw Error(
-      'setReponse ne doit pas être utilisé pour tableauMathlive ni fillInTheBlank, il faut utiliser handleAnswers',
+      'setReponse ne doit pas être utilisé pour tableauMathlive ni fillInTheBlank, il faut utiliser handleAnswers'
     )
+  }
   if (Array.isArray(valeurs)) {
     // il peut y avoir une liste de valeurs de réponses à tester, on transfert dans reponses
     reponses = [...valeurs] // reponses contient donc directement le tableau valeurs
@@ -477,23 +478,25 @@ export function setReponse(
       case 'fillInTheBlank':
         break
       case 'Num':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify('setReponse : type "Num" une fraction est attendue !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         break
       case 'Den':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify('setReponse : type "Den" une fraction est attendue !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         break
       case 'calcul':
         laReponseDemandee = reponse
@@ -511,70 +514,77 @@ export function setReponse(
         }
         break
       case 'nombreDecimal':
-        if (!(reponse instanceof Decimal))
+        if (!(reponse instanceof Decimal)) {
           window.notify(
             'setReponse : type "nombreDecimal" un nombre est attendu !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         break
       case 'ecritureScientifique':
-        if (!(typeof reponse === 'string'))
+        if (!(typeof reponse === 'string')) {
           window.notify(
             'setReponse : type "ecritureScientifique" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         // ToFix : vérifier que la chaine est au bon format
         break
 
       case 'texte':
-        if (!(typeof reponse === 'string'))
+        if (!(typeof reponse === 'string')) {
           window.notify(
             'setReponse : type "texte" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         break
 
       case 'ignorerCasse':
-        if (!(typeof reponse === 'string'))
+        if (!(typeof reponse === 'string')) {
           window.notify(
             'setReponse : type "ignorerCasse" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         break
       case 'fractionPlusSimple':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fractionPlusSimple" une fraction est attendue !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         break
       // case 'fractionEgale':
       //   if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses, exercice: exercice.uuid })
       //   else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
       //   break
       case 'fraction':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fraction" une fraction est attendue !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         break
       case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
-        if (!(reponse instanceof Grandeur))
+        if (!(reponse instanceof Grandeur)) {
           window.notify(
             'setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         break
       case 'intervalleStrict': // Pour les exercice où la saisie doit être dans un intervalle
         // ToFix : vérifier que la réponse est bien un intervalle valide
@@ -613,8 +623,7 @@ export function setReponse(
       case 'listeDeroulante': {
         if (exercice.autoCorrection == null) exercice.autoCorrection = []
         if (exercice.autoCorrection[i] == null) exercice.autoCorrection[i] = {}
-        if (exercice.autoCorrection[i].reponse == null)
-          exercice.autoCorrection[i].reponse = {}
+        if (exercice.autoCorrection[i].reponse == null) { exercice.autoCorrection[i].reponse = {} }
         const rep = exercice.autoCorrection[i].reponse
         if (rep != null) {
           if (rep.valeur == null) rep.valeur = {}
@@ -626,16 +635,17 @@ export function setReponse(
         return
       }
       case 'Num':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify('setReponse : type "Num" une fraction est attendue !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         return handleAnswers(
           exercice,
           i,
@@ -643,18 +653,19 @@ export function setReponse(
             reponse: {
               value: String((reponse as FractionEtendue).num),
               //  compare: numberCompare
-              compare: fonctionComparaison,
-            },
+              compare: fonctionComparaison
+            }
           },
-          params,
+          params
         )
 
       case 'Den':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify('setReponse : type "Den" une fraction est attendue !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         return handleAnswers(
           exercice,
           i,
@@ -662,10 +673,10 @@ export function setReponse(
             reponse: {
               value: String((reponse as FractionEtendue).den),
               //  compare: numberCompare
-              compare: fonctionComparaison,
-            },
+              compare: fonctionComparaison
+            }
           },
-          params,
+          params
         )
 
       case 'calcul': {
@@ -681,7 +692,7 @@ export function setReponse(
           } else if (laReponseDemandee instanceof FractionEtendue) {
             laReponseDemandee = laReponseDemandee.texFraction.replaceAll(
               'dfrac',
-              'frac',
+              'frac'
             )
           } else if (laReponseDemandee instanceof Decimal) {
             laReponseDemandee = laReponseDemandee.toString()
@@ -690,7 +701,7 @@ export function setReponse(
             exercice,
             i,
             { reponse: { value: laReponseDemandee, compare: calculCompare } },
-            params,
+            params
           )
         }
         const value = []
@@ -706,7 +717,7 @@ export function setReponse(
           } else if (laReponseDemandee instanceof FractionEtendue) {
             laReponseDemandee = laReponseDemandee.texFraction.replaceAll(
               'dfrac',
-              'frac',
+              'frac'
             )
           } else if (laReponseDemandee instanceof Decimal) {
             laReponseDemandee = laReponseDemandee.toString()
@@ -718,15 +729,16 @@ export function setReponse(
           exercice,
           i,
           { reponse: { value, compare: calculCompare } },
-          params,
+          params
         )
       }
       case 'hms':
-        if (!(reponse instanceof Hms))
+        if (!(reponse instanceof Hms)) {
           window.notify(
             'setReponse : type "hms" la réponse n\'est pas une instance de Hms !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -734,10 +746,10 @@ export function setReponse(
             reponse: {
               value: reponse.toString(),
               compare: fonctionComparaison,
-              options: { HMS: true },
-            },
+              options: { HMS: true }
+            }
           },
-          params,
+          params
         )
       case 'nombreDecimal':
         if (reponse instanceof Decimal) {
@@ -749,16 +761,16 @@ export function setReponse(
                 value: reponse.toString(),
                 //  compare: decimalCompare
                 //  compare: numberCompare
-                compare: fonctionComparaison,
-              },
+                compare: fonctionComparaison
+              }
             },
-            params,
+            params
           )
         }
         if (Number.isNaN(reponse)) {
           window.notify(
             'setReponse : type "nombreDecimal" un nombre est attendu !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
         }
 
@@ -770,20 +782,21 @@ export function setReponse(
               value: String(reponse).replace(',', '.'),
               // compare: decimalCompare
               // compare: numberCompare
-              compare: fonctionComparaison,
-            },
+              compare: fonctionComparaison
+            }
           },
-          params,
+          params
         )
       case 'ecritureScientifique':
         {
-          if (typeof reponse !== 'string')
+          if (typeof reponse !== 'string') {
             window.notify(
               'setReponse : type "ecritureScientifique" la réponse n\'est pas un string !',
-              { reponses, exercice: exercice.uuid },
+              { reponses, exercice: exercice.uuid }
             )
+          }
           const [mantisseString, exposantString] = (reponse as string).split(
-            'e',
+            'e'
           )
           const mantisse = Number(mantisseString.replace(',', '.'))
           const exposant = Number(exposantString)
@@ -799,24 +812,25 @@ export function setReponse(
                 reponse: {
                   value: (reponse as string).replace(',', '.'),
                   compare: fonctionComparaison,
-                  options: { ecritureScientifique: true },
-                },
+                  options: { ecritureScientifique: true }
+                }
               },
-              params,
+              params
             )
           }
           window.notify(
             'setReponse : type "ecritureScientifique" l\'écriture n\'est pas une écriture scientifique !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
         }
         break
       case 'texte':
-        if (typeof reponse !== 'string')
+        if (typeof reponse !== 'string') {
           window.notify(
             'setReponse : type "texte" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -826,21 +840,22 @@ export function setReponse(
                 ? reponses.map(String)
                 : String(reponses),
               compare: fonctionComparaison,
-              options: { texteAvecCasse: true },
-            },
+              options: { texteAvecCasse: true }
+            }
           },
-          params,
+          params
         )
       /* case 'canonicalAdd':
       if (typeof reponse !== 'string') window.notify('setReponse : type "canonicalAdd" la réponse n\'est pas un string !', { reponses, exercice: exercice.uuid })
       return handleAnswers(exercice, i, { reponse: { value: reponses.map(String), compare: canonicalAddCompare } }, param)
     */
       case 'ignorerCasse':
-        if (typeof reponse !== 'string')
+        if (typeof reponse !== 'string') {
           window.notify(
             'setReponse : type "ignorerCasse" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -851,22 +866,23 @@ export function setReponse(
                 : String(reponses).toLowerCase(),
               // compare: texteSansCasseCompare
               compare: fonctionComparaison,
-              options: { texteSansCasse: true },
-            },
+              options: { texteSansCasse: true }
+            }
           },
-          params,
+          params
         )
       case 'fractionPlusSimple':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fractionPlusSimple" une fraction est attendue !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         if (reponse instanceof FractionEtendue) {
           return handleAnswers(
             exercice,
@@ -874,29 +890,31 @@ export function setReponse(
             {
               reponse: {
                 value: reponse.texFraction.replace('dfrac', 'frac'),
-                compare: simplerFractionCompare,
-              },
+                compare: simplerFractionCompare
+              }
             },
-            params,
+            params
           )
         }
         break
       case 'fractionEgale':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fractionEgale" une fraction est attendue !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
-        if (Array.isArray(reponse))
+        }
+        if (Array.isArray(reponse)) {
           window.notify(
             "setReponse a reçu une liste de réponse pour le format fractionEgale, c'est incohérent !",
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         if (reponse instanceof FractionEtendue) {
           return handleAnswers(
             exercice,
@@ -905,24 +923,25 @@ export function setReponse(
               reponse: {
                 value: reponse.texFraction.replace('dfrac', 'frac'),
                 //  compare: equalFractionCompare
-                compare: fonctionComparaison,
-              },
+                compare: fonctionComparaison
+              }
             },
-            params,
+            params
           )
         }
         break
       case 'fraction':
-        if (!(reponse instanceof FractionEtendue))
+        if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fraction" une fraction est attendue !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
-        else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den))
+        } else if (Number.isNaN(reponse.num) || Number.isNaN(reponse.den)) {
           window.notify('setReponse : La fraction ne convient pas !', {
             reponses,
-            exercice: exercice.uuid,
+            exercice: exercice.uuid
           })
+        }
         if (reponse instanceof FractionEtendue) {
           return handleAnswers(
             exercice,
@@ -932,20 +951,21 @@ export function setReponse(
                 value: reponse.texFSD,
                 // compare: fractionCompare
                 compare: fonctionComparaison,
-                options: { fractionIdentique: true },
-              },
+                options: { fractionIdentique: true }
+              }
             },
-            params,
+            params
           )
         }
         break
       case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
         if (precision == null) precision = 0 // Des exercices utilisent le format 'unites' mais ne définissent pas la précision
-        if (!(reponse instanceof Grandeur))
+        if (!(reponse instanceof Grandeur)) {
           window.notify(
             'setReponse : type "longueur" la réponse n\'est pas une instance de Grandeur !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         if (reponse instanceof Grandeur) {
           return handleAnswers(
             exercice,
@@ -960,11 +980,11 @@ export function setReponse(
                   unite: true,
                   precisionUnite:
                     10 ** precision *
-                    10 ** (reponse.puissanceUnite * reponse.puissancePrefixe),
-                },
-              },
+                    10 ** (reponse.puissanceUnite * reponse.puissancePrefixe)
+                }
+              }
             },
-            params,
+            params
           )
         }
         break
@@ -972,11 +992,12 @@ export function setReponse(
         if (
           reponses.length !== 2 ||
           reponses.filter((el) => typeof el !== 'number').length !== 0
-        )
+        ) {
           window.notify(
             'setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -984,21 +1005,22 @@ export function setReponse(
             reponse: {
               value: `]${reponses[0]};${reponses[1]}[`,
               compare: fonctionComparaison,
-              options: { estDansIntervalle: true },
-            },
+              options: { estDansIntervalle: true }
+            }
           },
-          params,
+          params
         )
       case 'intervalle':
         if (
           !Array.isArray(reponses) ||
           reponses.length !== 2 ||
           reponses.filter((el) => typeof el !== 'number').length !== 0
-        )
+        ) {
           window.notify(
             'setReponse : type "intervalle" la réponse n\'est pas un tupple [number,number] !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -1006,17 +1028,18 @@ export function setReponse(
             reponse: {
               value: `[${reponses[0]};${reponses[1]}]`,
               compare: fonctionComparaison,
-              options: { estDansIntervalle: true },
-            },
+              options: { estDansIntervalle: true }
+            }
           },
-          params,
+          params
         )
       case 'puissance':
-        if (typeof reponse !== 'string')
+        if (typeof reponse !== 'string') {
           window.notify(
             'setReponse : type "puissance" la réponse n\'est pas un string !',
-            { reponses, exercice: exercice.uuid },
+            { reponses, exercice: exercice.uuid }
           )
+        }
         return handleAnswers(
           exercice,
           i,
@@ -1025,10 +1048,10 @@ export function setReponse(
               value: String(reponse),
               // compare: powerCompare
               compare: fonctionComparaison,
-              options: { puissance: true },
-            },
+              options: { puissance: true }
+            }
           },
-          params,
+          params
         )
       /* EE : N'existe plus. Faudra choisir entre réduite ou non réduite avec les fonctions de comparaisons
     case 'developpements' :
@@ -1058,11 +1081,11 @@ export function setReponse(
  * @param {AnswerType} reponses
  * @param {ReponseParams} params
  */
-export function handleAnswers(
+export function handleAnswers (
   exercice: Exercice,
   question: number,
   reponses: Valeur,
-  params: ReponseParams | undefined = {},
+  params: ReponseParams | undefined = {}
 ) {
   if (context.isAmc) {
     // handleAnswer ne s'occupe pas de l'export AMC
@@ -1073,17 +1096,19 @@ export function handleAnswers(
     exercice.autoCorrection[question]?.reponse?.param?.formatInteractif ??
     'mathlive'
   if (exercice.autoCorrection == null) exercice.autoCorrection = []
-  if (!(reponses instanceof Object))
+  if (!(reponses instanceof Object)) {
     window.notify(`handleAnswer() reponses doit être un objet : ${reponses}`, {
       reponses,
-      exercice: exercice.uuid,
+      exercice: exercice.uuid
     })
+  }
   const url = new URL(window.location.href)
-  if (url.hostname === 'localhost' && url.searchParams.has('triche'))
+  if (url.hostname === 'localhost' && url.searchParams.has('triche')) {
     console.log(
       `Réponses de l'exercice ${(exercice.numeroExercice ?? 0) + 1} - question ${question + 1} : `,
-      JSON.stringify(reponses),
+      JSON.stringify(reponses)
     )
+  }
   if (exercice.autoCorrection[question] === undefined) {
     exercice.autoCorrection[question] = {}
   }
