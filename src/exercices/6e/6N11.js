@@ -8,6 +8,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { texteGras } from '../../lib/outils/embellissements'
 
@@ -128,9 +129,9 @@ export default function LireAbscisseEntiere2d () {
         setReponse(this, 3 * i, texNombre(reponse1, 0), { formatInteractif: 'texte' })
         setReponse(this, 3 * i + 1, texNombre(reponse2, 0), { formatInteractif: 'texte' })
         setReponse(this, 3 * i + 2, texNombre(reponse3, 0), { formatInteractif: 'texte' })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur50 college6eme', { texteAvant: l1 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur50 college6eme', { texteAvant: l2 })
-        texte += '<br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur50 college6eme', { texteAvant: l3 })
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i, `inline largeur50 ${KeyboardType.numbersSpace}`, { texteAvant: l1 })}`
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 1, `inline largeur50 ${KeyboardType.numbersSpace}`, { texteAvant: l2 })}`
+        texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 2, `inline largeur50 ${KeyboardType.numbersSpace}`, { texteAvant: l3 })}`
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
@@ -142,7 +143,7 @@ export default function LireAbscisseEntiere2d () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: 'Lire l\'abscisse de chacun des points.<br>' + texte + `<br>Abscisse de $${l1}$ :`,
+                  texte: `Lire l\'abscisse de chacun des points.<br>${texte}<br>Abscisse de $${l1}$ :`,
                   valeur: reponse1,
                   param: {
                     digits: nombreDeChiffresDansLaPartieEntiere(reponse1),
