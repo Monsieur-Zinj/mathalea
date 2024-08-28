@@ -22,7 +22,7 @@ export type BlockForKeyboard =
   | 'greek'
   | 'hms'
   | 'lengths'
-  | 'logPuissance'
+  | 'clavierFonctionsTerminales'
   | 'masses'
   | 'numbers'
   | 'numbersX'

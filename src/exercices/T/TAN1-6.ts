@@ -165,7 +165,7 @@ export default class EquationsLog extends Exercice {
           }
         )
         texte+=`<br>`
-        texte += remplisLesBlancs(this, i, `S=\\{%{champ1}\\}`, KeyboardType.logPuissance)
+        texte += remplisLesBlancs(this, i, `S=\\{%{champ1}\\}`, KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
