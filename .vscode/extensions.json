@@ -1,12 +1,11 @@
 {
-    "recommendations": [
-        "dbaeumer.vscode-eslint",
-        "ms-vsliveshare.vsliveshare",
-        "GitLab.gitlab-workflow",
-        "mhutchie.git-graph",
-        "svelte.svelte-vscode",
-        "ms-vsliveshare.vsliveshare",
-        "eamodio.gitlens",
-        "MS-CEINTL.vscode-language-pack-fr"
-    ]
+  "recommendations": [
+    "ms-vsliveshare.vsliveshare",
+    "GitLab.gitlab-workflow",
+    "mhutchie.git-graph",
+    "svelte.svelte-vscode",
+    "ms-vsliveshare.vsliveshare",
+    "eamodio.gitlens",
+    "MS-CEINTL.vscode-language-pack-fr"
+  ]
 }
