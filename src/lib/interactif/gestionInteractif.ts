@@ -101,7 +101,8 @@ export interface AutoCorrection {
     param?: ReponseParams
   }
   options?: {
-    ordered: boolean
+    ordered?: boolean,
+    vertical?: boolean
   }
 }
 

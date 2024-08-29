@@ -4,7 +4,12 @@ import { arrondi, rangeMinMax } from '../outils/nombres'
 import { nombreAvecEspace, stringNombre } from '../outils/texNombre'
 import { plot, point, tracePoint } from './points.js'
 import { segment } from './segmentsVecteurs.js'
-import { latex2d, latexParCoordonnees, texteParPoint, texteParPosition } from './textes.ts'
+import {
+  latex2d,
+  latexParCoordonnees,
+  texteParPoint,
+  texteParPosition,
+} from './textes.ts'
 
 /**  Trace un axe gradué
  * @param {Object} parametres À saisir entre accolades
@@ -52,7 +57,7 @@ import { latex2d, latexParCoordonnees, texteParPoint, texteParPosition } from '.
  * @return {array} Liste d'objets MathAlea2D
  */
 // JSDOC Validee par EE Aout 2022
-export function DroiteGraduee ({
+export function DroiteGraduee({
   Unite = 10,
   Min = 0,
   Max = 2,
@@ -89,10 +94,10 @@ export function DroiteGraduee ({
   labelColor = 'black',
   labelScale = 1,
   Legende = '',
-  LegendePosition = (Max - Min) * Unite + 1.5
+  LegendePosition = (Max - Min) * Unite + 1.5,
 } = {}) {
   // ObjetMathalea2D.call(this, {}) on ne fait plus un ObjetMathalea2d, mais une liste d'objets à cause des latexParCoordonnees()
-// correctif Jean-Claude Lhote 15/08/2023
+  // correctif Jean-Claude Lhote 15/08/2023
   // Les propriétés exportables
   this.Unite = Unite
   this.Min = Min
@@ -109,12 +114,20 @@ export function DroiteGraduee ({
   // dessin de l'axe
   if (axeStyle === '->') {
     longueurTotale += 0.2
-    S = segment(point(x - 0.2 * absord[0], y - 0.2 * absord[1]), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
+    S = segment(
+      point(x - 0.2 * absord[0], y - 0.2 * absord[1]),
+      point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]),
+      axeCouleur,
+    )
     S.styleExtremites = '->'
     S.tailleExtremites = axeHauteur
     S.epaisseur = axeEpaisseur
   } else {
-    S = segment(point(x, y), point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]), axeCouleur)
+    S = segment(
+      point(x, y),
+      point(x + longueurTotale * absord[0], y + longueurTotale * absord[1]),
+      axeCouleur,
+    )
     S.styleExtremites = axeStyle || '|->'
     S.epaisseur = axeEpaisseur
     S.tailleExtremites = axeHauteur
@@ -132,17 +145,50 @@ export function DroiteGraduee ({
   const pas2 = Math.round(thickSecDist * factor)
   for (let j = Min2; j <= Max2; j++) {
     i = (j - Min * factor) / factor
-    if (j % pas1 === 0) { // Graduation principale
-      S = segment(point(x + i * Unite * absord[0] - axeHauteur / 8 * r * absord[1], y - axeHauteur / 8 * r * absord[0] + i * Unite * absord[1]), point(x + i * Unite * absord[0] + axeHauteur / 8 * r * absord[1], y + axeHauteur / 8 * r * absord[0] + i * Unite * absord[1]), thickCouleur)
+    if (j % pas1 === 0) {
+      // Graduation principale
+      S = segment(
+        point(
+          x + i * Unite * absord[0] - (axeHauteur / 8) * r * absord[1],
+          y - (axeHauteur / 8) * r * absord[0] + i * Unite * absord[1],
+        ),
+        point(
+          x + i * Unite * absord[0] + (axeHauteur / 8) * r * absord[1],
+          y + (axeHauteur / 8) * r * absord[0] + i * Unite * absord[1],
+        ),
+        thickCouleur,
+      )
       S.epaisseur = thickEpaisseur
       objets.push(S)
-    } else if (j % pas2 === 0 && thickSec) { // Graduation secondaire
-      S = segment(point(x + i * Unite * absord[0] - axeHauteur / 12 * r * absord[1], y - axeHauteur / 12 * r * absord[0] + i * Unite * absord[1]), point(x + i * Unite * absord[0] + axeHauteur / 12 * r * absord[1], y + axeHauteur / 12 * r * absord[0] + i * Unite * absord[1]), thickCouleur)
+    } else if (j % pas2 === 0 && thickSec) {
+      // Graduation secondaire
+      S = segment(
+        point(
+          x + i * Unite * absord[0] - (axeHauteur / 12) * r * absord[1],
+          y - (axeHauteur / 12) * r * absord[0] + i * Unite * absord[1],
+        ),
+        point(
+          x + i * Unite * absord[0] + (axeHauteur / 12) * r * absord[1],
+          y + (axeHauteur / 12) * r * absord[0] + i * Unite * absord[1],
+        ),
+        thickCouleur, 
+      )
       S.epaisseur = thickEpaisseur / 2
       S.opacite = 0.8
       objets.push(S)
-    } else if (thickTer) { // Graduation tertiaire
-      S = segment(point(x + i * Unite * absord[0] - axeHauteur / 16 * r * absord[1], y - axeHauteur / 16 * r * absord[0] + i * Unite * absord[1]), point(x + i * Unite * absord[0] + axeHauteur / 16 * r * absord[1], y + axeHauteur / 16 * r * absord[0] + i * Unite * absord[1]), thickCouleur)
+    } else if (thickTer) {
+      // Graduation tertiaire
+      S = segment(
+        point(
+          x + i * Unite * absord[0] - (axeHauteur / 16) * r * absord[1],
+          y - (axeHauteur / 16) * r * absord[0] + i * Unite * absord[1],
+        ),
+        point(
+          x + i * Unite * absord[0] + (axeHauteur / 16) * r * absord[1],
+          y + (axeHauteur / 16) * r * absord[0] + i * Unite * absord[1],
+        ),
+        thickCouleur,
+      )
       S.epaisseur = thickEpaisseur / 4
       S.opacite = 0.6
       objets.push(S)
@@ -153,7 +199,16 @@ export function DroiteGraduee ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step1 * pas1) === 0) {
         i = (j - Min * factor) / factor
-        T = latexParCoordonnees(`${nombreAvecEspace(arrondi(Min + i, 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0], 'black', 0, 0, '', 8)
+        T = latexParCoordonnees(
+          `${nombreAvecEspace(arrondi(Min + i, 3))}`,
+          x + i * Unite * absord[0] - labelDistance * absord[1],
+          y + i * Unite * absord[1] - labelDistance * absord[0],
+          'black',
+          0,
+          0,
+          '',
+          8,
+        )
         objets.push(T)
       }
     }
@@ -162,7 +217,16 @@ export function DroiteGraduee ({
     for (let j = Min2; j <= Max2; j++) {
       if (j % (step2 * pas2) === 0 && j % (step1 * pas1) !== 0) {
         i = (j - Min * factor) / factor
-        T = latexParCoordonnees(`${nombreAvecEspace(arrondi(Min + i, 3))}`, x + i * Unite * absord[0] - labelDistance * absord[1], y + i * Unite * absord[1] - labelDistance * absord[0], 'black', 0, 0, '', 8)
+        T = latexParCoordonnees(
+          `${nombreAvecEspace(arrondi(Min + i, 3))}`,
+          x + i * Unite * absord[0] - labelDistance * absord[1],
+          y + i * Unite * absord[1] - labelDistance * absord[0],
+          'black',
+          0,
+          0,
+          '',
+          8,
+        )
         objets.push(T)
       }
     }
@@ -171,24 +235,48 @@ export function DroiteGraduee ({
   let t
   if (labelListe.length !== 0) {
     for (const p of labelListe) {
-      t = latexParCoordonnees(p[1], x - labelCustomDistance * absord[1] + (p[0] - Min) * absord[0] * Unite, y - labelCustomDistance * absord[0] + (p[0] - Min) * absord[1] * Unite, labelColor, 0, 0, '', 8 * labelScale)
+      t = latex2d(
+        p[1],
+        x - labelCustomDistance * absord[1] + (p[0] - Min) * absord[0] * Unite,
+        y - labelCustomDistance * absord[0] + (p[0] - Min) * absord[1] * Unite,
+        {},
+      )
       objets.push(t)
     }
   }
   if (Legende !== '') {
-    objets.push(texteParPosition(Legende, x + LegendePosition * absord[0], y + LegendePosition * absord[1]))
+    objets.push(
+      texteParPosition(
+        Legende,
+        x + LegendePosition * absord[0],
+        y + LegendePosition * absord[1],
+      ),
+    )
   }
   if (pointListe.length !== 0) {
     let lab
     for (const p of pointListe) {
-      P = point(x + (p[0] - Min) * absord[0] * Unite, y + (p[0] - Min) * absord[1] * Unite, p[1])
+      P = point(
+        x + (p[0] - Min) * absord[0] * Unite,
+        y + (p[0] - Min) * absord[1] * Unite,
+        p[1],
+      )
       T = tracePoint(P, pointCouleur)
       T.taille = pointTaille
       T.tailleTikz = Math.max(T.taille / 30, 0.3)
       T.opacite = pointOpacite
       T.style = pointStyle
       T.epaisseur = pointEpaisseur
-      lab = latexParCoordonnees(p[1], x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite, y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite, pointCouleur, labelPointLargeur, labelPointTaille, '', labelPointTaille)
+      lab = latexParCoordonnees(
+        p[1],
+        x - 0.8 * absord[1] + (p[0] - Min) * absord[0] * Unite,
+        y + 0.8 * absord[0] + (p[0] - Min) * absord[1] * Unite,
+        pointCouleur,
+        labelPointLargeur,
+        labelPointTaille,
+        '',
+        labelPointTaille,
+      )
       objets.push(T, lab)
     }
   }
@@ -288,7 +376,7 @@ export function DroiteGraduee ({
  * @return {DroiteGraduee}
  */
 // JSDOC Validee par EE Aout 2022
-export function droiteGraduee ({
+export function droiteGraduee({
   Unite = 10,
   Min = 0,
   Max = 2,
@@ -325,7 +413,7 @@ export function droiteGraduee ({
   labelColor = 'black',
   labelScale = 1,
   Legende = '',
-  LegendePosition = (Max - Min) * Unite + 1.5
+  LegendePosition = (Max - Min) * Unite + 1.5,
 } = {}) {
   return new DroiteGraduee({
     Unite,
@@ -364,7 +452,7 @@ export function droiteGraduee ({
     labelColor,
     labelScale,
     Legende,
-    LegendePosition
+    LegendePosition,
   })
 }
 
@@ -386,7 +474,7 @@ export function droiteGraduee ({
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function Axes (
+export function Axes(
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -396,7 +484,7 @@ export function Axes (
   ystep = 1,
   epaisseur = 2,
   color = 'black',
-  tailleExtremites = 4
+  tailleExtremites = 4,
 ) {
   ObjetMathalea2D.call(this, {})
   const objets = []
@@ -423,14 +511,14 @@ export function Axes (
     s.epaisseur = epaisseur
     objets.push(s)
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -460,7 +548,7 @@ export function Axes (
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function axes (
+export function axes(
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -469,7 +557,7 @@ export function axes (
   xstep = 1,
   ystep = 1,
   epaisseur = 2,
-  color = 'black'
+  color = 'black',
 ) {
   return new Axes(xmin, ymin, xmax, ymax, thick, xstep, ystep, epaisseur, color)
 }
@@ -491,7 +579,7 @@ export function axes (
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function AxeY (
+export function AxeY(
   ymin = -2,
   ymax = 5,
   thick = 0.2,
@@ -499,12 +587,23 @@ export function AxeY (
   epaisseur = 2,
   color = 'black',
   ytick = 2,
-  titre = ''
+  titre = '',
 ) {
   ObjetMathalea2D.call(this, {})
   const objets = []
   if (titre !== '') {
-    objets.push(texteParPoint(titre, point(-1 - thick - 0.1, ymax), 0, color, 1, 0, false, 1))
+    objets.push(
+      texteParPoint(
+        titre,
+        point(-1 - thick - 0.1, ymax),
+        0,
+        color,
+        1,
+        0,
+        false,
+        1,
+      ),
+    )
   }
   const ordonnee = segment(-1, ymin.valueOf(), -1, ymax.valueOf(), color)
   ordonnee.styleExtremites = '->'
@@ -523,17 +622,22 @@ export function AxeY (
   this.bordures = [1000, 1000, -1000, -1000]
   for (const objet of objets) {
     if (objet.bordures !== undefined) {
-      this.bordures = [Math.min(this.bordures[0], objet.bordures[0]), Math.min(this.bordures[1], objet.bordures[1]), Math.max(this.bordures[2], objet.bordures[2]), Math.max(this.bordures[3], objet.bordures[3])]
+      this.bordures = [
+        Math.min(this.bordures[0], objet.bordures[0]),
+        Math.min(this.bordures[1], objet.bordures[1]),
+        Math.max(this.bordures[2], objet.bordures[2]),
+        Math.max(this.bordures[3], objet.bordures[3]),
+      ]
     }
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -560,7 +664,7 @@ export function AxeY (
  * @return {AxeY}
  */
 // JSDOC Validee par EE Juin 2022
-export function axeY (
+export function axeY(
   ymin = -2,
   ymax = 5,
   thick = 0.2,
@@ -568,7 +672,7 @@ export function axeY (
   epaisseur = 2,
   color = 'black',
   ytick = 2,
-  titre = ''
+  titre = '',
 ) {
   return new AxeY(ymin, ymax, thick, ystep, epaisseur, color, ytick, titre)
 }
@@ -586,30 +690,37 @@ export function axeY (
  * @class
  */
 // JSDOC Validee par EE Septembre 2022
-export function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
+export function LabelY(
+  ymin = 1,
+  ymax = 20,
+  step = 1,
+  color = 'black',
+  pos = -0.6,
+  coeff = 1,
+) {
   ObjetMathalea2D.call(this, {})
   const objets = []
-  for (let y = Math.ceil(ymin / coeff);
-    y * coeff <= ymax;
-    y = y + step
-  ) {
+  for (let y = Math.ceil(ymin / coeff); y * coeff <= ymax; y = y + step) {
     objets.push(
       texteParPoint(
         stringNombre(y * coeff, 3),
         point(pos, y),
         0,
-        color, 1, 'gauche', true
-      )
+        color,
+        1,
+        'gauche',
+        true,
+      ),
     )
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -633,7 +744,14 @@ export function LabelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0
  * @return {LabelY}
  */
 // JSDOC Validee par EE Septembre 2022
-export function labelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0.6, coeff = 1) {
+export function labelY(
+  ymin = 1,
+  ymax = 20,
+  step = 1,
+  color = 'black',
+  pos = -0.6,
+  coeff = 1,
+) {
   return new LabelY(ymin, ymax, step, color, pos, coeff)
 }
 
@@ -656,7 +774,16 @@ export function labelY (ymin = 1, ymax = 20, step = 1, color = 'black', pos = -0
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-export function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
+export function Grille(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = 'gray',
+  opacite = 0.4,
+  step = 1,
+  pointilles = 0,
+) {
   ObjetMathalea2D.call(this, {})
   this.color = color
   this.opacite = opacite
@@ -679,28 +806,28 @@ export function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'g
   }
   this.bordures = [xmin, ymin, xmax, ymax]
   // this.commentaire = `Grille(xmin = ${xmin}, ymin = ${ymin}, xmax = ${xmax}, ymax = ${ymax}, color = ${this.color}, opacite = ${this.opacite}, pas = ${step})`
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
     }
     return code
   }
-  this.svgml = function (coeff, amp) {
+  this.svgml = (coeff, amp) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svgml(coeff, amp)
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = (amp) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikzml(amp)
@@ -724,7 +851,16 @@ export function Grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'g
  * @return {Grille}
  */
 // JSDOC Validee par EE Aout 2022
-export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = 0) {
+export function grille(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = 'gray',
+  opacite = 0.4,
+  step = 1,
+  pointilles = 0,
+) {
   return new Grille(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
 }
 
@@ -747,7 +883,7 @@ export function grille (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'g
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-export function LignesHorizontales (
+export function LignesHorizontales(
   xmin = -30,
   ymin = -30,
   xmax = 30,
@@ -755,7 +891,7 @@ export function LignesHorizontales (
   color = 'gray',
   opacite = 0.4,
   step = 1,
-  pointilles = ''
+  pointilles = '',
 ) {
   ObjetMathalea2D.call(this, {})
   this.color = color
@@ -769,14 +905,14 @@ export function LignesHorizontales (
     }
     objets.push(s)
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -800,8 +936,26 @@ export function LignesHorizontales (
  * @return {LignesHorizontales}
  */
 // JSDOC Validee par EE Aout 2022
-export function lignesHorizontales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
-  return new LignesHorizontales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
+export function lignesHorizontales(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = 'gray',
+  opacite = 0.4,
+  step = 1,
+  pointilles = '',
+) {
+  return new LignesHorizontales(
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    color,
+    opacite,
+    step,
+    pointilles,
+  )
 }
 
 /**  Trace des verticales à l'axe des ordonnées
@@ -823,7 +977,16 @@ export function lignesHorizontales (xmin = -30, ymin = -30, xmax = 30, ymax = 30
  * @class
  */
 // JSDOC Validee par EE Aout 2022
-export function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
+export function LignesVerticales(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = 'gray',
+  opacite = 0.4,
+  step = 1,
+  pointilles = '',
+) {
   ObjetMathalea2D.call(this, {})
   this.color = color
   this.opacite = opacite
@@ -836,14 +999,14 @@ export function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, 
     }
     objets.push(s)
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -872,11 +1035,36 @@ export function LignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, 
  * @return {LignesVerticales}
  */
 // JSDOC Validee par EE Aout 2022
-export function lignesVerticales (xmin = -30, ymin = -30, xmax = 30, ymax = 30, color = 'gray', opacite = 0.4, step = 1, pointilles = '') {
-  return new LignesVerticales(xmin, ymin, xmax, ymax, color, opacite, step, pointilles)
+export function lignesVerticales(
+  xmin = -30,
+  ymin = -30,
+  xmax = 30,
+  ymax = 30,
+  color = 'gray',
+  opacite = 0.4,
+  step = 1,
+  pointilles = '',
+) {
+  return new LignesVerticales(
+    xmin,
+    ymin,
+    xmax,
+    ymax,
+    color,
+    opacite,
+    step,
+    pointilles,
+  )
 }
 
-export function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5, opacite2 = 0.2) {
+export function Seyes(
+  xmin = 0,
+  ymin = 0,
+  xmax = 15,
+  ymax = 15,
+  opacite1 = 0.5,
+  opacite2 = 0.2,
+) {
   ObjetMathalea2D.call(this, {})
   const objets = []
   for (let y = ymin; y <= ymax; y = y + 0.25) {
@@ -887,14 +1075,14 @@ export function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5,
     }
   }
   objets.push(grille(xmin, ymin, xmax, ymax, 'blue', opacite1, 1))
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
@@ -916,7 +1104,7 @@ export function Seyes (xmin = 0, ymin = 0, xmax = 15, ymax = 15, opacite1 = 0.5,
  * @param {number?} opacite2=0.2
  * @author Rémi Angot
  */
-export function seyes (xmin, ymin, xmax, ymax, opacite1 = 0.5, opacite2 = 0.2) {
+export function seyes(xmin, ymin, xmax, ymax, opacite1 = 0.5, opacite2 = 0.2) {
   return new Seyes(xmin, ymin, xmax, ymax, opacite1, opacite2)
 }
 
@@ -935,7 +1123,7 @@ export function seyes (xmin, ymin, xmax, ymax, opacite1 = 0.5, opacite2 = 0.2) {
  * @constructor
  * @author Jean-Claude Lhote
  */
-export function PapierPointe ({
+export function PapierPointe({
   xmin = -10,
   xmax = 10,
   ymin = -10,
@@ -946,7 +1134,7 @@ export function PapierPointe ({
   pointColor = 'black',
   pointRayon = 0.05,
   opacite = 1,
-  opaciteDeRemplissage = 1
+  opaciteDeRemplissage = 1,
 }) {
   ObjetMathalea2D.call(this, {})
   this.listeCoords = []
@@ -956,13 +1144,15 @@ export function PapierPointe ({
     case 'quad':
       for (let x = xmin; x <= xmax; x += xstep) {
         for (let y = ymin; y <= ymax; y += ystep) {
-          plots.push(plot(x, y, {
-            rayon: pointRayon,
-            couleur: pointColor,
-            opacite,
-            couleurDeRemplissage: 'black',
-            opaciteDeRemplissage
-          }))
+          plots.push(
+            plot(x, y, {
+              rayon: pointRayon,
+              couleur: pointColor,
+              opacite,
+              couleurDeRemplissage: 'black',
+              opaciteDeRemplissage,
+            }),
+          )
           this.listeCoords.push([x, y])
         }
       }
@@ -976,36 +1166,48 @@ export function PapierPointe ({
         for (let y = ymin; y <= ymax; y += 1.5 * ystep1) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x + xstep1, y + ystep1 / 2, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            this.listeCoords.push([x, y], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
+            plots.push(
+              plot(x, y, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x + xstep1, y + ystep1 / 2, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x + xstep1, y + ystep1 * 1.5, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            this.listeCoords.push(
+              [x, y],
+              [x + xstep1, y + ystep1 / 2],
+              [x + xstep1, y + ystep1 * 1.5],
+            )
           } else {
-            plots.push(plot(x, y + ystep1 / 2, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
+            plots.push(
+              plot(x, y + ystep1 / 2, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
             this.listeCoords.push([x, y + ystep1 / 2])
           }
         }
@@ -1021,50 +1223,67 @@ export function PapierPointe ({
         for (let y = ymin; y <= ymax; y = y + 1.5 * ystep1) {
           stepper = !stepper
           if (stepper) {
-            plots.push(plot(x, y, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x, y + ystep1, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x + xstep1, y + ystep1 / 2, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x + xstep1, y + ystep1 * 1.5, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            this.listeCoords.push([x, y], [x, y + ystep1], [x + xstep1, y + ystep1 / 2], [x + xstep1, y + ystep1 * 1.5])
+            plots.push(
+              plot(x, y, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x, y + ystep1, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x + xstep1, y + ystep1 / 2, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x + xstep1, y + ystep1 * 1.5, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            this.listeCoords.push(
+              [x, y],
+              [x, y + ystep1],
+              [x + xstep1, y + ystep1 / 2],
+              [x + xstep1, y + ystep1 * 1.5],
+            )
           } else {
-            plots.push(plot(x + xstep1, y + ystep1, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
-            plots.push(plot(x, y + ystep1 / 2, {
-              rayon: pointRayon,
-              couleur: pointColor,
-              opacite,
-              couleurDeRemplissage: context.isHtml ? 'none' : '',
-              opaciteDeRemplissage
-            }))
+            plots.push(
+              plot(x + xstep1, y + ystep1, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
+            plots.push(
+              plot(x, y + ystep1 / 2, {
+                rayon: pointRayon,
+                couleur: pointColor,
+                opacite,
+                couleurDeRemplissage: context.isHtml ? 'none' : '',
+                opaciteDeRemplissage,
+              }),
+            )
             this.listeCoords.push([x + xstep1, y + ystep1], [x, y + ystep1 / 2])
           }
         }
@@ -1072,14 +1291,14 @@ export function PapierPointe ({
       }
       break
   }
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of plots) {
       code += objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of plots) {
       code += objet.tikz()
@@ -1088,7 +1307,7 @@ export function PapierPointe ({
   }
 }
 
-export function papierPointe ({
+export function papierPointe({
   xmin = -10,
   xmax = 10,
   ymin = -10,
@@ -1099,7 +1318,7 @@ export function papierPointe ({
   pointColor = 'black',
   pointRayon = 0.05,
   opacite = 0.4,
-  opaciteDeRemplissage = 0.4
+  opaciteDeRemplissage = 0.4,
 }) {
   return new PapierPointe({
     xmin,
@@ -1112,11 +1331,11 @@ export function papierPointe ({
     pointColor,
     pointRayon,
     opacite,
-    opaciteDeRemplissage
+    opaciteDeRemplissage,
   })
 }
 
-export function Repere ({
+export function Repere({
   /**
    * repere({xUnite, yUnite, xMin, xMax, yMin, yMax, axeX, axeY, axesEpaisseur, axesCouleur, axeXStyle, axeYStyle, thickEpaisseur,
    * thickHauteur, thickCouleur, xThickDistance, xThickListe, xThickMin, xThickMax, yThickDistance, yThickListe,
@@ -1287,7 +1506,7 @@ export function Repere ({
   grilleSecondaireYMin = yMin,
   grilleSecondaireYMax = yMax,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
-  grilleSecondaireYOpacite = grilleSecondaireOpacite
+  grilleSecondaireYOpacite = grilleSecondaireOpacite,
 }) {
   ObjetMathalea2D.call(this, {})
 
@@ -1303,7 +1522,12 @@ export function Repere ({
     xThickListe = false
     yThickListe = false
   }
-  this.bordures = [xMin * xUnite - 1 - yLegende.length / 3, yMin * yUnite - 1, xMax * xUnite + 1 + xLegende.length / 3, yMax * yUnite + 1]
+  this.bordures = [
+    xMin * xUnite - 1 - yLegende.length / 3,
+    yMin * yUnite - 1,
+    xMax * xUnite + 1 + xLegende.length / 3,
+    yMax * yUnite + 1,
+  ]
 
   const objets = []
   // LES AXES
@@ -1311,14 +1535,26 @@ export function Repere ({
   if (xLegendePosition.length === 0) {
     xLegendePosition = [xMax * xUnite + 0.5, 0.5 + ordonneeAxe]
   }
-  const axeX = segment(xMin * xUnite, ordonneeAxe * yUnite, xMax * xUnite, ordonneeAxe * yUnite, axesCouleur)
+  const axeX = segment(
+    xMin * xUnite,
+    ordonneeAxe * yUnite,
+    xMax * xUnite,
+    ordonneeAxe * yUnite,
+    axesCouleur,
+  )
   axeX.epaisseur = axesEpaisseur
   axeX.styleExtremites = axeXStyle
   const abscisseAxe = Math.max(0, xMin)
   if (yLegendePosition.length === 0) {
     yLegendePosition = [0.5 + abscisseAxe, yMax * yUnite + 0.5]
   }
-  const axeY = segment(abscisseAxe * xUnite, yMin * yUnite, abscisseAxe * xUnite, yMax * yUnite, axesCouleur)
+  const axeY = segment(
+    abscisseAxe * xUnite,
+    yMin * yUnite,
+    abscisseAxe * xUnite,
+    yMax * yUnite,
+    axesCouleur,
+  )
   axeY.epaisseur = axesEpaisseur
   axeY.styleExtremites = axeYStyle
   if (axeXisVisible) objets.push(axeX)
@@ -1332,23 +1568,36 @@ export function Repere ({
   if (grilleY) {
     if (grilleYListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (typeof (grilleYMin) !== 'number') {
+      if (typeof grilleYMin !== 'number') {
         grilleYMin = yThickMin
       }
-      if (typeof (grilleYMax) !== 'number') {
+      if (typeof grilleYMax !== 'number') {
         grilleYMax = yThickMax
       }
       if (!grilleYDistance) {
         grilleYDistance = yThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleYListe = rangeMinMax(0, grilleYMax, [0], grilleYDistance / yUnite).concat(
-        rangeMinMax(0, -grilleYMin, [0], grilleYDistance / yUnite).map(el => -el)
+      grilleYListe = rangeMinMax(
+        0,
+        grilleYMax,
+        [0],
+        grilleYDistance / yUnite,
+      ).concat(
+        rangeMinMax(0, -grilleYMin, [0], grilleYDistance / yUnite).map(
+          (el) => -el,
+        ),
       )
     }
     for (const y of grilleYListe) {
       if (y !== 0 || !axeXisVisible) {
-        const traitH = segment(xMin * xUnite, y * yUnite, xMax * xUnite, y * yUnite, grilleYCouleur)
+        const traitH = segment(
+          xMin * xUnite,
+          y * yUnite,
+          xMax * xUnite,
+          y * yUnite,
+          grilleYCouleur,
+        )
         //  traitH.isVisible = false // Pourquoi demander la création de ces traits si c'est pour les rendre invisibles ?
         traitH.opacite = grilleYOpacite
         traitH.epaisseur = grilleEpaisseur
@@ -1363,23 +1612,36 @@ export function Repere ({
   if (grilleX) {
     if (grilleXListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (typeof (grilleXMin) !== 'number') {
+      if (typeof grilleXMin !== 'number') {
         grilleXMin = xThickMin
       }
-      if (typeof (grilleXMax) !== 'number') {
+      if (typeof grilleXMax !== 'number') {
         grilleXMax = xThickMax
       }
-      if (typeof (grilleXDistance) !== 'number') {
+      if (typeof grilleXDistance !== 'number') {
         grilleXDistance = xThickDistance
       }
       // On créé la liste avec ces valeurs
-      grilleXListe = rangeMinMax(0, grilleXMax, [0], grilleXDistance / xUnite).concat(
-        rangeMinMax(0, -grilleXMin, [0], grilleXDistance / xUnite).map(el => -el)
+      grilleXListe = rangeMinMax(
+        0,
+        grilleXMax,
+        [0],
+        grilleXDistance / xUnite,
+      ).concat(
+        rangeMinMax(0, -grilleXMin, [0], grilleXDistance / xUnite).map(
+          (el) => -el,
+        ),
       )
     }
     for (const x of grilleXListe) {
       if (x !== 0 || !axeYisVisible) {
-        const traitV = segment(x * xUnite, (this.grilleYMin ? this.grilleYMin : yMin) * yUnite, x * xUnite, (this.grilleYMax ? this.grilleYMax : yMax) * yUnite, grilleXCouleur)
+        const traitV = segment(
+          x * xUnite,
+          (this.grilleYMin ? this.grilleYMin : yMin) * yUnite,
+          x * xUnite,
+          (this.grilleYMax ? this.grilleYMax : yMax) * yUnite,
+          grilleXCouleur,
+        )
         //  traitV.isVisible = false
         traitV.opacite = grilleXOpacite
         traitV.epaisseur = grilleEpaisseur
@@ -1397,22 +1659,38 @@ export function Repere ({
   if (grilleSecondaireY) {
     if (grilleSecondaireYListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (typeof (grilleSecondaireYMin) !== 'number') {
+      if (typeof grilleSecondaireYMin !== 'number') {
         grilleSecondaireYMin = yThickMin
       }
-      if (typeof (grilleSecondaireYMax) !== 'number') {
+      if (typeof grilleSecondaireYMax !== 'number') {
         grilleSecondaireYMax = yThickMax
       }
-      if (typeof (grilleSecondaireYDistance) !== 'number') {
+      if (typeof grilleSecondaireYDistance !== 'number') {
         grilleSecondaireYDistance = yThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireYListe = rangeMinMax(0, grilleSecondaireYMax, grilleYListe, grilleSecondaireYDistance / yUnite).concat(
-        rangeMinMax(0, -grilleSecondaireYMin, grilleYListe, grilleSecondaireYDistance / yUnite).map(el => -el)
+      grilleSecondaireYListe = rangeMinMax(
+        0,
+        grilleSecondaireYMax,
+        grilleYListe,
+        grilleSecondaireYDistance / yUnite,
+      ).concat(
+        rangeMinMax(
+          0,
+          -grilleSecondaireYMin,
+          grilleYListe,
+          grilleSecondaireYDistance / yUnite,
+        ).map((el) => -el),
       )
     }
     for (const y of grilleSecondaireYListe) {
-      const traitH = segment((grilleSecondaireXMin || xMin) * xUnite, y * yUnite, (grilleSecondaireXMax || xMax) * xUnite, y * yUnite, grilleSecondaireYCouleur)
+      const traitH = segment(
+        (grilleSecondaireXMin || xMin) * xUnite,
+        y * yUnite,
+        (grilleSecondaireXMax || xMax) * xUnite,
+        y * yUnite,
+        grilleSecondaireYCouleur,
+      )
       // traitH.isVisible = false
       traitH.opacite = grilleSecondaireYOpacite
       traitH.epaisseur = grilleSecondaireEpaisseur
@@ -1426,22 +1704,38 @@ export function Repere ({
   if (grilleSecondaireX) {
     if (grilleSecondaireXListe.length === 0) {
       // Ceux qui ne sont pas définis reprennent les valeurs de thick
-      if (typeof (grilleSecondaireXMin) !== 'number') {
+      if (typeof grilleSecondaireXMin !== 'number') {
         grilleSecondaireXMin = xThickMin
       }
-      if (typeof (grilleSecondaireXMax) !== 'number') {
+      if (typeof grilleSecondaireXMax !== 'number') {
         grilleSecondaireXMax = xThickMax
       }
-      if (typeof (grilleSecondaireXDistance) !== 'number') {
+      if (typeof grilleSecondaireXDistance !== 'number') {
         grilleSecondaireXDistance = xThickDistance / 2
       }
       // On créé la liste avec ces valeurs
-      grilleSecondaireXListe = rangeMinMax(0, grilleSecondaireXMax, grilleXListe, grilleSecondaireXDistance / xUnite).concat(
-        rangeMinMax(0, -grilleSecondaireXMin, grilleXListe, grilleSecondaireXDistance / xUnite).map(el => -el)
+      grilleSecondaireXListe = rangeMinMax(
+        0,
+        grilleSecondaireXMax,
+        grilleXListe,
+        grilleSecondaireXDistance / xUnite,
+      ).concat(
+        rangeMinMax(
+          0,
+          -grilleSecondaireXMin,
+          grilleXListe,
+          grilleSecondaireXDistance / xUnite,
+        ).map((el) => -el),
       )
     }
     for (const x of grilleSecondaireXListe) {
-      const traitV = segment(x * xUnite, (grilleSecondaireYMin || yMin) * yUnite, x * xUnite, (grilleSecondaireYMax || yMax) * yUnite, grilleSecondaireXCouleur)
+      const traitV = segment(
+        x * xUnite,
+        (grilleSecondaireYMin || yMin) * yUnite,
+        x * xUnite,
+        (grilleSecondaireYMax || yMax) * yUnite,
+        grilleSecondaireXCouleur,
+      )
       //  traitV.isVisible = false
       traitV.opacite = grilleSecondaireXOpacite
       traitV.epaisseur = grilleSecondaireEpaisseur
@@ -1453,27 +1747,45 @@ export function Repere ({
   }
   // LES THICKS
   if (axeXisVisible) {
-    if ((typeof xThickListe === 'boolean' && xThickListe) || (Array.isArray(xThickListe) && xThickListe.length === 0)) {
+    if (
+      (typeof xThickListe === 'boolean' && xThickListe) ||
+      (Array.isArray(xThickListe) && xThickListe.length === 0)
+    ) {
       xThickListe = rangeMinMax(0, xThickMax, [0], xThickDistance).concat(
-        rangeMinMax(0, -xThickMin, [0], xThickDistance).map(el => -el)
+        rangeMinMax(0, -xThickMin, [0], xThickDistance).map((el) => -el),
       )
     } else if (typeof xThickListe === 'boolean') xThickListe = []
 
     for (const x of xThickListe) {
-      const thick = segment(x * xUnite, ordonneeAxe * yUnite - thickHauteur, x * xUnite, ordonneeAxe * yUnite + thickHauteur, thickCouleur)
+      const thick = segment(
+        x * xUnite,
+        ordonneeAxe * yUnite - thickHauteur,
+        x * xUnite,
+        ordonneeAxe * yUnite + thickHauteur,
+        thickCouleur,
+      )
       // thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
     }
   }
   if (axeYisVisible) {
-    if ((typeof yThickListe === 'boolean' && yThickListe) || (Array.isArray(yThickListe) && yThickListe.length === 0)) {
+    if (
+      (typeof yThickListe === 'boolean' && yThickListe) ||
+      (Array.isArray(yThickListe) && yThickListe.length === 0)
+    ) {
       yThickListe = rangeMinMax(0, yThickMax, [0], yThickDistance).concat(
-        rangeMinMax(0, -yThickMin, [0], yThickDistance).map(el => -el)
+        rangeMinMax(0, -yThickMin, [0], yThickDistance).map((el) => -el),
       )
     } else if (typeof yThickListe === 'boolean') yThickListe = []
     for (const y of yThickListe) {
-      const thick = segment(abscisseAxe * xUnite - thickHauteur, y * yUnite, abscisseAxe * xUnite + thickHauteur, y * yUnite, thickCouleur)
+      const thick = segment(
+        abscisseAxe * xUnite - thickHauteur,
+        y * yUnite,
+        abscisseAxe * xUnite + thickHauteur,
+        y * yUnite,
+        thickCouleur,
+      )
       // thick.isVisible = false
       thick.epaisseur = thickEpaisseur
       objets.push(thick)
@@ -1481,22 +1793,35 @@ export function Repere ({
   }
   // LES LABELS
   if (axeXisVisible) {
-    if ((typeof xLabelListe === 'boolean' && xLabelListe) || (Array.isArray(xLabelListe) && xLabelListe.length === 0)) {
+    if (
+      (typeof xLabelListe === 'boolean' && xLabelListe) ||
+      (Array.isArray(xLabelListe) && xLabelListe.length === 0)
+    ) {
       xLabelListe = rangeMinMax(0, xLabelMax, [0], xLabelDistance).concat(
-        rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map(el => -el)
+        rangeMinMax(0, -xLabelMin, [0], xLabelDistance).map((el) => -el),
       )
     } else if (typeof xLabelListe === 'boolean') xLabelListe = []
     for (const x of xLabelListe) {
       let l
       if (typeof x === 'number') {
         if (x >= xMin && x <= xMax) {
-          l = latex2d(`${stringNombre(x, precisionLabelX)}`, x * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'scriptsize', opacity: 0.8, color: 'black' })
+          l = latex2d(
+            `${stringNombre(x, precisionLabelX)}`,
+            x * xUnite,
+            ordonneeAxe * yUnite - xLabelEcart + 0.1,
+            { letterSize: 'scriptsize', opacity: 0.8, color: 'black' },
+          )
           //   l.isVisible = false
           objets.push(l)
         }
       } else {
         if (x.valeur <= xMax && x.valeur >= xMin) {
-          l = latex2d(x.texte, x.valeur * xUnite, ordonneeAxe * yUnite - xLabelEcart + 0.1, { letterSize: 'footnotesize', color: 'black', opacity: 0.8 })
+          l = latex2d(
+            x.texte,
+            x.valeur * xUnite,
+            ordonneeAxe * yUnite - xLabelEcart + 0.1,
+            { letterSize: 'footnotesize', color: 'black', opacity: 0.8 },
+          )
           //  l.isVisible = false
           objets.push(l)
         }
@@ -1504,22 +1829,35 @@ export function Repere ({
     }
   }
   if (axeYisVisible) {
-    if ((typeof yLabelListe === 'boolean' && yLabelListe) || (Array.isArray(yLabelListe) && yLabelListe.length === 0)) {
+    if (
+      (typeof yLabelListe === 'boolean' && yLabelListe) ||
+      (Array.isArray(yLabelListe) && yLabelListe.length === 0)
+    ) {
       yLabelListe = rangeMinMax(0, yLabelMax, [0], yLabelDistance).concat(
-        rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map(el => -el)
+        rangeMinMax(0, -yLabelMin, [0], yLabelDistance).map((el) => -el),
       )
     } else if (typeof yLabelListe === 'boolean') yLabelListe = []
     for (const y of yLabelListe) {
       let l
       if (typeof y === 'number') {
         if (y >= yMin && y <= yMax) {
-          l = latex2d(`${stringNombre(y, precisionLabelY)}`, abscisseAxe * xUnite - yLabelEcart, y * yUnite + 0.1, { letterSize: 'footnotesize', opacity: 0.8, color: 'black' })
+          l = latex2d(
+            `${stringNombre(y, precisionLabelY)}`,
+            abscisseAxe * xUnite - yLabelEcart,
+            y * yUnite + 0.1,
+            { letterSize: 'footnotesize', opacity: 0.8, color: 'black' },
+          )
           //  l.isVisible = false
           objets.push(l)
         }
       } else {
         if (y.valeur >= yMin && y.valeur <= yMax) {
-          l = latex2d(y.texte, abscisseAxe * xUnite - yLabelEcart, y.valeur * yUnite + 0.1, { letterSize: 'footnotesize', opacity: 0.8, color: 'black' })
+          l = latex2d(
+            y.texte,
+            abscisseAxe * xUnite - yLabelEcart,
+            y.valeur * yUnite + 0.1,
+            { letterSize: 'footnotesize', opacity: 0.8, color: 'black' },
+          )
           //     l.isVisible = false
           objets.push(l)
         }
@@ -1528,10 +1866,30 @@ export function Repere ({
   }
   // LES LÉGENDES
   if (xLegende.length > 0) {
-    objets.push(texteParPosition(xLegende, xLegendePosition[0], xLegendePosition[1], 0, 'black', 1, 'droite'))
+    objets.push(
+      texteParPosition(
+        xLegende,
+        xLegendePosition[0],
+        xLegendePosition[1],
+        0,
+        'black',
+        1,
+        'droite',
+      ),
+    )
   }
   if (yLegende.length > 0) {
-    objets.push(texteParPosition(yLegende, yLegendePosition[0], yLegendePosition[1], 0, 'black', 1, 'droite'))
+    objets.push(
+      texteParPosition(
+        yLegende,
+        yLegendePosition[0],
+        yLegendePosition[1],
+        0,
+        'black',
+        1,
+        'droite',
+      ),
+    )
   }
   this.objets = objets
   // pour pouvoir ajouter des objets à ce Repere après l'avoir créé.
@@ -1544,32 +1902,32 @@ export function Repere ({
     return this.objets
   }
   // LES SORTIES TiKZ et SVG
-  this.svg = function (coeff) {
+  this.svg = (coeff) => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.svg(coeff)
     }
     return code
   }
-  this.tikz = function () {
+  this.tikz = () => {
     let code = ''
     for (const objet of objets) {
       code += '\n\t' + objet.tikz()
     }
     return code
   }
-  this.svgml = function (coeff, amp) {
+  this.svgml = (coeff, amp) => {
     let code = ''
     for (const objet of objets) {
-      if (typeof (objet.svgml) === 'undefined') code += '\n\t' + objet.svg(coeff)
+      if (typeof objet.svgml === 'undefined') code += '\n\t' + objet.svg(coeff)
       else code += '\n\t' + objet.svgml(coeff, amp)
     }
     return code
   }
-  this.tikzml = function (amp) {
+  this.tikzml = (amp) => {
     let code = ''
     for (const objet of objets) {
-      if (typeof (objet.tikzml) === 'undefined') code += '\n\t' + objet.tikz()
+      if (typeof objet.tikzml === 'undefined') code += '\n\t' + objet.tikz()
       else code += '\n\t' + objet.tikzml(amp)
     }
     return code
@@ -1582,7 +1940,7 @@ export function Repere ({
  * @return {object}
  * @author Rémi Angot
  */
-export function repere ({
+export function repere({
   xUnite = 1,
   yUnite = 1,
   xMin = -10,
@@ -1659,7 +2017,7 @@ export function repere ({
   grilleSecondaireYMin,
   grilleSecondaireYMax,
   grilleSecondaireYCouleur = grilleSecondaireCouleur,
-  grilleSecondaireYOpacite = grilleSecondaireOpacite
+  grilleSecondaireYOpacite = grilleSecondaireOpacite,
 } = {}) {
   return new Repere({
     xUnite,
@@ -1738,7 +2096,7 @@ export function repere ({
     grilleSecondaireYMin,
     grilleSecondaireYMax,
     grilleSecondaireYCouleur,
-    grilleSecondaireYOpacite
+    grilleSecondaireYOpacite,
   })
 }
 
@@ -1751,6 +2109,6 @@ export function repere ({
  * @param {object} repere
  * @author Rémi Angot
  */
-export function pointDansRepere (x, y, repere = { xUnite: 1, yUnite: 1 }) {
+export function pointDansRepere(x, y, repere = { xUnite: 1, yUnite: 1 }) {
   return point(x * repere.xUnite, y * repere.yUnite)
 }

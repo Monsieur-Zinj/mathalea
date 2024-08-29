@@ -36,7 +36,8 @@ export type OptionsComparaisonType = {
   fractionIdentique?: boolean
   egaliteExpression?: boolean
   noUselessParen?: boolean
-  nonReponseAcceptee?: boolean
+  nonReponseAcceptee?: boolean,
+  pluriels?: boolean
 }
 export type CompareFunction = (
   input: string,
