@@ -117,13 +117,15 @@ async function readInfos(
                 if (matchRef) {
                   infos.id = ref // matchRef[1]
                 }
-                const matchTitre =
-                  data.match(/export const titre = '(.*)'/) ||
-                  data.match(/export const titre = "(.*)"/) ||
-                  data.match(/export let titre = '(.*)'/) ||
-                  data.match(/export const titre =\n {2}'(.*)'/) ||
-                  data.match(/export const titre =\n {2}"(.*)"/) ||
-                  data.match(/export let titre =\n {2}'(.*)'/)
+                /*
+                  On essaye de trouver le titre par regex.
+                  Cela ne fonctionnera pas dans les cas suivants :
+                  - si le titre utilise ` ET ${}
+                  - si le titre somme des strings (ex : 'Titre' + 'suite')
+                */
+                const matchTitre = data.match(/^export\s+(?:const|let)\s*titre\s*=\s*'((?:[^\\]\\'|[^'])*)'\s*$/msi) ||
+                  data.match(/^export\s+(?:const|let)\s*titre\s*=\s*"((?:[^\\]\\"|[^"])*)"\s*$/msi) ||
+                  data.match(/^export\s+(?:const|let)\s*titre\s*=\s*`((?:[^\\]\\`|[^`])*)`\s*$/msi)
                 if (matchTitre) {
                   // ToDo : Est-ce qu'il y a d'autres caractères spéciaux à gérer que l'apostrophe ?
                   infos.titre = matchTitre[1]
