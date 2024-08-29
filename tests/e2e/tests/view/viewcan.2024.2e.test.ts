@@ -331,7 +331,7 @@ async function testEleveViewPre2 (page: Page) {
     await page1.locator('#checkEx0Q13R1').click()
   }
   await page1.locator('#exercice0Q13 > div > button').click()
-  await expect('😎\nBravo !').toEqual(await page1.locator('#resultatCheckEx0Q13').first().innerText())
+  await expect('😎').toEqual(await page1.locator('#resultatCheckEx0Q13').first().innerText())
 
   await page1.locator('#champTexteEx0Q14').focus()
   await page1.locator('.key--1').click()
