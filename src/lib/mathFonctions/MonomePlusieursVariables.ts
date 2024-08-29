@@ -28,7 +28,7 @@ class MonomePlusieursVariables {
       denominateur = randint(-10, 10, [0, 1, -1])
     }
     do {
-      numerateur = randint(-10, 10)
+      numerateur = randint(-6, 6)
       randomCoefficient = new FractionEtendue(numerateur, denominateur)
     } while (numerateur === 0 || (randomCoefficient.estEntiere && typeofCoeff !== 'entier'))
 
@@ -139,10 +139,40 @@ class MonomePlusieursVariables {
       .join(' ')
     if (this.coefficient.num === 0) {
       return '0'
-    } else if (this.coefficient.num === 1 && this.coefficient.den === 1) {
+    } else if (this.coefficient.texFractionSimplifiee === '1') {
       return partieLitteraleString
     } else if (this.coefficient.texFractionSimplifiee === '-1') {
       return `-${partieLitteraleString}`
+    } else {
+      return `${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}`
+    }
+  }
+
+  toStringAvecParentheses (): string {
+    const partieLitteraleString = this.partieLitterale.variables
+      .map((variable, index) => {
+        const exposant = this.partieLitterale.exposants[index]
+        // Only include the variable if its exponent is not 0
+        if (exposant === 0) {
+          return ''
+        } else if (exposant === 1) {
+          return `${variable}`
+        } else {
+          return `${variable}^${exposant}`
+        }
+      })
+      .filter((part) => part !== '') // Exclude any empty strings from the result
+      .join(' ')
+    if (this.coefficient.num === 0) {
+      return '0'
+    } else if (this.coefficient.num === 1 && this.coefficient.den === 1) {
+      if (partieLitteraleString === '') {
+        return '1'
+      } else { return partieLitteraleString }
+    } else if (this.coefficient.texFractionSimplifiee === '-1') {
+      return `\\left(-${partieLitteraleString}\\right)`
+    } else if (this.coefficient.signe === -1) {
+      return `\\left(${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}\\right)`
     } else {
       return `${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}`
     }
