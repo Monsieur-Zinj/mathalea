@@ -6,6 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
 export const titre = 'Additionner et soustraire des monômes'
 export const dateDePublication = '19/08/2024'
 
@@ -92,6 +93,19 @@ export default class nomExercice extends Exercice {
             monomesListe.push(MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect))
           }
           monomesListe = shuffle(monomesListe)
+          // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
+          let testPremiereFraction = true
+          let denominateurCommun = 1
+          for (let i = 0; i < monomesListe.length; i++) {
+            if (monomesListe[i].coefficient.den !== 1) {
+              if (testPremiereFraction) {
+                denominateurCommun = monomesListe[i].coefficient.den
+                testPremiereFraction = false
+              } else {
+                monomesListe[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+              }
+            }
+          }
           const t = new PolynomePlusieursVariables(monomesListe)
           const rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
           texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$`

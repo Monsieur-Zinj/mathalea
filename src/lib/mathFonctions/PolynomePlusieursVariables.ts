@@ -73,46 +73,21 @@ class PolynomePlusieursVariables {
   // Convertit le polynome en une chaîne de caractères
   toString (): string {
     if (this.monomes.length === 0) return '0'
-
     let result = ''
-
     this.monomes.forEach((monome, index) => {
       const monomeStr = monome.toString() // Gets the string representation of the monomial
 
       if (monome.coefficient.num === 0) {
         return // Ignore zero terms
       }
-
       // Handle the first term separately
       if (index === 0) {
-        if (monome.coefficient.num === 1 && monome.coefficient.den === 1) {
-          result += monome.partieLitterale.variables.length > 0
-            ? monome.partieLitterale.variables.map((v, i) => monome.partieLitterale.exposants[i] > 1 ? `${v}^${monome.partieLitterale.exposants[i]}` : v).join(' ')
-            : '1'
-        } else if (monome.coefficient.texFractionSimplifiee === '-1') {
-          result += monome.partieLitterale.variables.length > 0
-            ? `-${monome.partieLitterale.variables.map((v, i) => monome.partieLitterale.exposants[i] > 1 ? `${v}^${monome.partieLitterale.exposants[i]}` : v).join(' ')}`
-            : '-1'
-        } else {
-          result += monomeStr
-        }
+        result += monomeStr
       } else {
         if (monome.coefficient.signe === 1) {
-          if (monome.coefficient.num === 1 && monome.coefficient.den === 1) {
-            result += ' + ' + (monome.partieLitterale.variables.length > 0
-              ? monome.partieLitterale.variables.map((v, i) => monome.partieLitterale.exposants[i] > 1 ? `${v}^${monome.partieLitterale.exposants[i]}` : v).join(' ')
-              : '1')
-          } else {
-            result += ' + ' + monomeStr
-          }
+          result += ' + ' + monomeStr
         } else {
-          if (monome.coefficient.texFractionSimplifiee === '-1') {
-            result += ' - ' + (monome.partieLitterale.variables.length > 0
-              ? monome.partieLitterale.variables.map((v, i) => monome.partieLitterale.exposants[i] > 1 ? `${v}^${monome.partieLitterale.exposants[i]}` : v).join(' ')
-              : '1')
-          } else {
-            result += ' - ' + monomeStr.replace('-', '') // Remove the leading '-' if already handled
-          }
+          result += monomeStr
         }
       }
     })
