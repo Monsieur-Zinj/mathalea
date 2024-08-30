@@ -44,7 +44,7 @@ export default class NomExercice extends Exercice {
         reponse: {
           value: b.simplifie().texFraction,
           compare: fonctionComparaison,
-          options: { fractionIdentique: true }
+          options: { fractionIrreductible: true }
         }
       }
     }

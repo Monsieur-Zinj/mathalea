@@ -21,7 +21,7 @@ export const refs = {
   'fr-fr': ['can3C03'],
   'fr-ch': []
 }
-export default function FractionIrreductible () {
+export default function FractionIrreductibleCan () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1

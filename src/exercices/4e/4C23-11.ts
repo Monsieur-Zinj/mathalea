@@ -246,7 +246,7 @@ export default class FractionEtPriorites extends Exercice {
       if (this.questionJamaisPosee(i, a.texFraction, b.texFraction, c.texFraction)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { avecFractions: true, fractionIrreductibleSeulement: true } } })
+        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { avecFractions: true, fractionIrreductible: true } } })
         i++
       }
       cpt++
