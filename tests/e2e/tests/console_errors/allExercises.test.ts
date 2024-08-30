@@ -48,8 +48,7 @@ async function getConsoleTest (page: Page, urlExercice: string) {
     // Listen for all console events and handle errors
     page.on('console', msg => {
       // if (msg.type() === 'error') {
-      if (msg.type() === 'error' &&
-          !msg.text().includes('[vite]') &&
+      if (!msg.text().includes('[vite]') &&
           !msg.text().includes('[bugsnag] Loaded!') &&
           !msg.text().includes('No character metrics for') && // katex
           !msg.text().includes('LaTeX-incompatible input') && // katex
