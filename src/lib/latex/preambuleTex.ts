@@ -262,6 +262,7 @@ export function loadPackagesFromContent (contents: contentsType) {
   testIfLoaded(['Stealth'], '\\usetikzlibrary{arrows.meta}', contents)
   testIfLoaded(['\\llbracket', '\\rrbracket'], '\\usepackage{stmaryrd}', contents)
   testIfLoaded(['\\newcommandtwoopt{'], '\\usepackage{twoopt}', contents)
+  testIfLoaded(['\\interval'], '\\usepackage{interval}\n \\intervalconfig{separator symbol=;}', contents)
   testIfLoaded(['\\getprime{', '\\primedecomp{'], decompDNB(), contents, 'decompNombresPremiersDNB')
   testIfLoaded(['\\SquarO['], squareO(), contents)
   testIfLoaded(['\\con{'], '\\newcommand{\\con}[1]{\\textcolor{violet}{#1}}', contents)
