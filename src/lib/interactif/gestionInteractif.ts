@@ -27,6 +27,7 @@ import {
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 import type Exercice from '../../exercices/Exercice'
+import { verifDragAndDrop } from './dragAndDrop'
 export interface ReponseParams {
   digits?: number
   decimals?: number
@@ -168,6 +169,27 @@ export function exerciceInteractif (
     const format = exercice.autoCorrection[i]?.reponse?.param?.formatInteractif
     let resultat: string
     switch (format) {
+      case 'dnd':{
+        const result = verifDragAndDrop(exercice, i)
+        nbQuestionsValidees += result.score.nbBonnesReponses
+        nbQuestionsNonValidees +=
+          result.score.nbReponses - result.score.nbBonnesReponses
+        if (result.feedback !== '') {
+          const spanFeedback = document.querySelector(
+            `#feedbackEx${exercice.numeroExercice}Q${i}`
+          )
+          if (spanFeedback != null) {
+            spanFeedback.innerHTML = `💡 ${result.feedback}`
+            spanFeedback.classList.add(
+              'py-2',
+              'italic',
+              'text-coopmaths-warn-darkest',
+              'dark:text-coopmathsdark-warn-darkest'
+            )
+          }
+        }
+      }
+        break
       case 'qcm':
         resultat = verifQuestionQcm(exercice, i)
         resultat === 'OK' ? nbQuestionsValidees++ : nbQuestionsNonValidees++

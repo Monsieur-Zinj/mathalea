@@ -638,3 +638,51 @@ table.tableauMathlive {
   }
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus
 }
+div.rectangleDND {
+  min-width: 70px;
+  min-height: 20px;
+  border: 2px dashed #888;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+div.rectangles {
+  display: flex;
+  gap: 5px;
+  margin: 5px;
+  width: px;
+min-height: 30px;
+}
+
+div.etiquette {
+  flex: 20%;
+  flex-basis: 70px;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  padding: 2px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.dragOk {
+  cursor: grab;
+}
+.noDrag {
+  cursor: not-allowed;
+}
+
+div.etiquettes {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-around;
+  align-items: center;
+  gap: 5px;
+  width: 60%;
+min-height: 60px;
+  margin-bottom: 5px;
+border: 1px dashed #AAA;
+
+}
