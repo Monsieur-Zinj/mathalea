@@ -229,7 +229,7 @@ export default function SommeFractionsDecimales () {
               formatInteractif: 'fraction'
             })
           } else {
-            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionIdentique: true } } })
+            handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionDecimale: true } } })
           }
           break
         case 3 :
@@ -251,7 +251,7 @@ export default function SommeFractionsDecimales () {
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
-              champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionIdentique: true } },
+              champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionDecimale: true } },
               champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } }
             })
           }

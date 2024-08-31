@@ -562,10 +562,10 @@ export function setReponse (
           })
         }
         break
-      // case 'fractionEgale':
-      //   if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses, exercice: exercice.uuid })
-      //   else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
-      //   break
+      case 'fractionEgale':
+        if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses, exercice: exercice.uuid })
+        else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
+        break
       case 'fraction':
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
@@ -952,7 +952,7 @@ export function setReponse (
                 value: reponse.texFSD,
                 // compare: fractionCompare
                 compare: fonctionComparaison,
-                options: { fractionIdentique: true }
+                options: { fractionIrreductible: true } // EE : Tester si dans certains exos, faudrait pas mettre, fractionDecimale pour les exos utilisant setReponse
               }
             },
             params
