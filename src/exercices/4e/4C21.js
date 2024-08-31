@@ -7,10 +7,11 @@ import { pgcd } from '../../lib/outils/primalite'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -26,7 +27,6 @@ export const interactifType = 'mathLive'
  * * Paramètre supplémentaire : utiliser des nombres relatifs (par défaut tous les nombres sont positifs)
  * * 2 fois sur 4 il faut faire une soustraction
  * @author Rémi Angot
- * 4C21
  */
 export const uuid = '5f429'
 export const ref = '4C21'
@@ -52,15 +52,13 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
     } else {
       this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée au maximum."
     }
-    this.sup = parseInt(this.sup)
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
-    }
-    if (this.sup === 2) {
+    } else {
       typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -210,14 +208,30 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '=' })
       }
-      reponse = fraction(num, den).simplifie()
-      setReponse(this, i, reponse, {
-        digits: 4,
-        digitsNum: 2,
-        digitsDen: 2,
-        formatInteractif: this.sup3 ? 'fraction' : 'fractionEgale'
-      })
-      if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+      reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
+      texte += ajouteFeedback(this, i)
+
+      if (context.isAmc) {
+        texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+        this.autoCorrection[i] = {
+          enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: '' // Si vide, le texte est la correction de l'exercice.
+            }
+          ],
+          reponse: {
+            valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            param: {
+              digits: 4,
+              digitsNum: 2,
+              digitsDen: 2
+            }
+          }
+        }
+      }
+
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
