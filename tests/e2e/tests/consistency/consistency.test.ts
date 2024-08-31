@@ -5,7 +5,7 @@ import prefs from '../../helpers/prefs'
 
 type ExerciseType = 'classique' | 'simple'
 type LatexModel = 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
-type AMCModel = 'AMCcodeGrid'
+type AMCModel = 'AMCcodeGrid' | 'AMCassociation' | 'manuscrits'
 
 type State = {
   url: string
@@ -44,6 +44,8 @@ async function testUrl (url: string, page: Page, context: BrowserContext, questi
   await checkLatex(page, 'LaTeX', 'Can', exerciseType, questionsNb)
   await pushState(page, 'start', exerciseType)
   await checkLatex(page, 'AMC', 'AMCcodeGrid', exerciseType, questionsNb)
+  await checkLatex(page, 'AMC', 'AMCassociation', exerciseType, questionsNb)
+  await checkLatex(page, 'AMC', 'manuscrits', exerciseType, questionsNb)
   await pushState(page, 'start', exerciseType)
 }
 
@@ -213,7 +215,7 @@ function getLatexNumbers (latex: string, view: 'LaTeX' | 'AMC', model: LatexMode
   }
 }
 
-function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, linesNumber: number, questionsNb: number) {
+function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 'AMC', model: LatexModel | AMCModel, linesNumber: number, questionsNb: number): string[] {
   if (view === 'LaTeX') {
     if (model === 'ProfMaquette' || model === 'ProfMaquetteQrcode') {
       const firstExercise = calculationsQuestionsAnswers.slice(0, questionsNb / 2)
@@ -223,7 +225,7 @@ function removeAnswers (calculationsQuestionsAnswers: string[], view: 'LaTeX' | 
       return calculationsQuestionsAnswers.slice(0, linesNumber / 2) // Supprime la deuxième moitié qui correspond aux réponses
     }
   } else {
-    return calculationsQuestionsAnswers.filter((_, index) => index % 2 === 0) // Supprime une ligne sur deux qui correspond aux réponses
+    return calculationsQuestionsAnswers
   }
 }
 
