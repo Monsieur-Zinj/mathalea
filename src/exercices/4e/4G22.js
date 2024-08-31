@@ -1,7 +1,7 @@
 import { choice, combinaisonListes, enleveElement } from '../../lib/outils/arrayOutils'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { RedactionPythagore } from './_pythagore.js'
@@ -10,6 +10,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { propositionsQcm } from '../../lib/interactif/qcm'
+import Figure from 'apigeom'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 export const dateDeModifImportante = '26/08/2024' // Ajout de l'interactivité par EE
 export const interactifReady = true
@@ -31,18 +32,19 @@ export const refs = {
   'fr-fr': ['4G22'],
   'fr-ch': ['10GM4-3', '11GM1-4']
 }
-export default function ProblemesPythagore () {
-  Exercice.call(this)
-  this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.sup = 3
-  context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+export default class ProblemesPythagore extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 2
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.spacing = 1
+    this.sup = 3
+    context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
+    this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange']
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
+  nouvelleVersion () {
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [
@@ -246,11 +248,7 @@ export default function ProblemesPythagore () {
             }
           }
           texte += this.interactif ? propositionsQcm(this, i).texte : ''
-          if (context.isHtml) {
-            texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
-          } else {
-            texteCorr = ''
-          }
+          texteCorr = drawParallelogramm(A, B, C, D)
           texteCorr += `Dans le triangle $${A + O + B
             }$, le plus grand côté est $[${A + B}]$.<br>`
           texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombre(
@@ -287,12 +285,7 @@ export default function ProblemesPythagore () {
             }
           }
           texte += this.interactif ? propositionsQcm(this, i).texte : ''
-
-          if (context.isHtml) {
-            texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
-          } else {
-            texteCorr = ''
-          }
+          texteCorr = drawParallelogramm(A, B, C, D)
           texteCorr += `Dans le triangle $${A + O + B
             }$, le plus grand côté est $[${A + B}]$.<br>`
           texteCorr += `$${A + B}^2=${texNombre(c)}^2=${texNombre(
@@ -332,12 +325,7 @@ export default function ProblemesPythagore () {
             }
           }
           texte += this.interactif ? propositionsQcm(this, i).texte : ''
-
-          if (context.isHtml) {
-            texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
-          } else {
-            texteCorr = ''
-          }
+          texteCorr = drawParallelogramm(A, B, C, D)
           texteCorr += `Dans le triangle $${A + B + C
             }$, le plus grand côté est $[${A + C}]$.<br>`
           texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombre(
@@ -374,11 +362,7 @@ export default function ProblemesPythagore () {
             }
           }
           texte += this.interactif ? propositionsQcm(this, i).texte : ''
-          if (context.isHtml) {
-            texteCorr = `<p style="margin-left:10%"><svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><defs id="mtg32_patterns"/><rect width="100%" height="100%" fill="rgb(255,255,255)"/><g id="mtg32svgTraces" transform="scale(1)"/><text x="85.5" y="46.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${A}</tspan></text><g id=""/><text x="252.5" y="45.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${B}</tspan></text><text x="302.5" y="156.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${C}</tspan></text><g id=""/><line x1="256.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="256.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><g id=""/><text x="137.5" y="155.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>${D}</tspan></text><line x1="307.5" y1="138.44" x2="143.5" y2="138.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="143.5" y1="138.44" x2="92.5" y2="52.44" style="stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="92.5" y1="52.44" x2="307.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><line x1="256.5" y1="52.44" x2="143.5" y2="138.44" style="stroke-dasharray:3 3;stroke-width:1;stroke:rgb(0,0,0);"  id=""/><text x="200" y="114.44" style="text-anchor : start;fill:rgb(0,0,0);font-size:16px;" id="name"  visibility="visible"><tspan>O</tspan></text></svg></p>`
-          } else {
-            texteCorr = ''
-          }
+          texteCorr = drawParallelogramm(A, B, C, D)
           texteCorr += `Dans le triangle $${A + B + C
             }$, le plus grand côté est $[${A + C}]$.<br>`
           texteCorr += `$${A + C}^2=${texNombre(c)}^2=${texNombre(
@@ -404,5 +388,21 @@ export default function ProblemesPythagore () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Sens direct ou réciproque/contraposée', 3, '1 : Sens direct\n2 : Réciproque/contraposée\n3 : Mélange']
+}
+
+function drawParallelogramm (labelA, labelB, labelC, labelD, labelO = 'O', x = 6, y = 3, dx = 1) {
+  const figureCorr = new Figure({ xMin: -1, yMin: -4, height: 160 })
+  const A = figureCorr.create('Point', { label: labelA, shape: '', x: 0, y: 0, labelDxInPixels: -10 })
+  const B = figureCorr.create('Point', { label: labelB, shape: '', x, y: 0 })
+  const C = figureCorr.create('Point', { label: labelC, shape: '', x: x + dx, y: -y, labelDyInPixels: -10 })
+  const D = figureCorr.create('Point', { label: labelD, shape: '', x: dx, y: -y, labelDxInPixels: -10, labelDyInPixels: -10 })
+  figureCorr.create('Middle', { label: labelO, labelDxInPixels: 0, shape: '', point1: A, point2: C })
+  figureCorr.create('Polygon', { points: [A, B, C, D] })
+  figureCorr.create('Segment', { point1: A, point2: C, isDashed: true })
+  figureCorr.create('Segment', { point1: B, point2: D, isDashed: true })
+
+  if (context.isHtml) {
+    return `<div>${figureCorr.getStaticHtml()}</div>`
+  }
+  return `${figureCorr.tikz()}\n\n`
 }

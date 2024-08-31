@@ -1,4 +1,4 @@
-import ProblemesPythagore from '../4e/4G22.js'
+import ProblemesPythagore from '../4e/4G22'
 export const titre = 'Résoudre des problèmes utilisant le théorème de Pythagore'
 export const interactifReady = false
 
@@ -13,6 +13,5 @@ export const refs = {
   'fr-fr': ['2G11-1'],
   'fr-ch': []
 }
-export default function ProblemesPythagore2nde () {
-  ProblemesPythagore.call(this)
+export default class ProblemesPythagore2nde extends ProblemesPythagore {
 }
