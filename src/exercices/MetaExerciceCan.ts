@@ -69,12 +69,15 @@ export default class MetaExercice extends Exercice {
             else setReponse(this, indexQuestion, Question.reponse, { formatInteractif: Question.formatInteractif ?? 'calcul' })
           } else {
             const compare = Question.compare
+            const options = Question.optionsDeComparaison == null ? {} : Question.optionsDeComparaison
+
             if (typeof Question.reponse === 'string' || typeof Question.reponse === 'number') {
               const reponse = String(Question.reponse)
               handleAnswers(this, indexQuestion, {
                 reponse: {
                   value: reponse,
-                  compare
+                  compare,
+                  options
                 }
               }, { formatInteractif: 'mathlive' })
             } else if (typeof Question.reponse === 'object') {
@@ -83,20 +86,22 @@ export default class MetaExercice extends Exercice {
                 handleAnswers(this, indexQuestion, {
                   reponse: {
                     value: reponse.texFraction,
-                    compare
+                    compare,
+                    options
                   }
                 }, { formatInteractif: 'mathlive' })
               } else if (reponse instanceof Decimal) {
                 handleAnswers(this, indexQuestion, {
                   reponse: {
                     value: reponse.toString(),
-                    compare
+                    compare,
+                    options
                   }
                 }, { formatInteractif: 'mathlive' })
               } else if (reponse instanceof Grandeur) {
-                handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare } }, { formatInteractif: 'mathlive' })
+                handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } }, { formatInteractif: 'mathlive' })
               } else {
-                handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' })
+                handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' }) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
               }
             } else {
               window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
