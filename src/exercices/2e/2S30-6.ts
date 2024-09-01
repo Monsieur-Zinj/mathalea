@@ -2,7 +2,7 @@ import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { setsCompare } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -70,7 +70,7 @@ export default class ProbaUnionInter extends Exercice {
       let pAinterB
       pAinterB = new Decimal(randint(1, 99)).div(100)
       let pAunionB = pA.add(pB).sub(pAinterB)
-      while (pAunionB.greaterThan(0.99) === true || pAunionB.lessThan(0.01) === true|| pAinterB.greaterThan(pA.sub(0.01)) === true || pAinterB.greaterThan(pB.sub(0.01)) === true) {
+      while (pAunionB.greaterThan(0.99) === true || pAunionB.lessThan(0.01) === true || pAinterB.greaterThan(pA.sub(0.01)) === true || pAinterB.greaterThan(pB.sub(0.01)) === true) {
         pA = new Decimal(randint(1, 99)).div(100)
         pB = new Decimal(randint(1, 99)).div(100)
         pAinterB = new Decimal(randint(1, 99)).div(100)
@@ -195,7 +195,7 @@ export default class ProbaUnionInter extends Exercice {
           break
       }
 
-      handleAnswers(this, i, { reponse: { value: reponse, compare: setsCompare } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

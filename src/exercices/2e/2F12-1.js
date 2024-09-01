@@ -6,14 +6,14 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu, randint
 } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { setsCompare } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Résoudre algébriquement une équation $f(x)=k$ avec une fonction de référence'
 export const dateDePublication = '07/01/2022'
 export const dateDeModifImportante = '16/05/2024'
@@ -80,7 +80,6 @@ export default function EquationsFonctionsRef () {
     }
     for (let i = 0, texte, texteCorr, a, b, c, k, k1, f1, listeaEtb, choix, enonce, correction, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // on ne choisit que des nombres compris entre 1 et 20
-  
 
       switch (listeTypeDeQuestions[i]) {
         case 1: // x^2=k
@@ -701,10 +700,11 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           }
           break
       }
-      handleAnswers(this, i, { reponse: { value: reponse, compare: setsCompare } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
+      texte += ajouteFeedback(this, i)
       texteCorr = correction
-      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations et écrire les solutions éventuelles dans l\'ordre croissant}$.' }
+      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations.}$.' }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

@@ -1,7 +1,7 @@
 // import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+import { ensembleNombres, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue'
@@ -182,6 +182,20 @@ export default function desTestsPourInteractivité () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)
+      const set1 = engine.box(['Set', 1, 2, 3, 4])
+      const set2 = engine.box(['Set', 1, 2, 4, 3])
+      // console.log(set1.isSame(set2))
+      // console.log(set1.isEqual(set2))
+      /*
+      console.log('test1')
+      ensembleNombres('1;2;3;3', '1;2;3;4')
+      console.log('test2')
+      ensembleNombres('1;2;3', '1;2;3;4')
+      console.log('test1')
+      ensembleNombres('1;2;4;3', '1;2;3;4')
+*/
+      console.log(parseFloat(5))
+
       // const reponse = '7\\sqrt{4-3}-6\\div\\sqrt2'
       // const reponse = '\\sqrt{2}'
       // const reponse = '6\\sqrt2-7'
