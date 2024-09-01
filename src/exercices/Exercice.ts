@@ -3,7 +3,7 @@
 import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
-import type DragAndDrop from '../lib/interactif/DragAndDrop'
+import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 
 /**
  *
@@ -44,6 +44,7 @@ export default class Exercice {
   formatChampTexte?: string // Seulement pour les exercices de type simple
   optionsChampTexte?: object // Seulement pour les exercices de type simple
   compare?: ((input: string, goodAnswer: string) => { isOk: boolean, feedback?: string }) | ((input: string, goodAnswer: Grandeur) => { isOk: boolean, feedback?: string }) // Seulement pour les exercices de type simple
+  optionsDeComparaison?: { [key in keyof OptionsComparaisonType]?: boolean }
   formatInteractif?: string // Options par défaut pour les champs Mathlive (très utile dans les exercices simples)
   contenu?: string
   contenuCorrection?: string
