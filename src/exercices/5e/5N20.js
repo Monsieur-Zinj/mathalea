@@ -8,10 +8,11 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { sp } from '../../lib/outils/outilString'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const dateDeModifImportante = '25/03/2024'
 export const amcReady = true
@@ -157,12 +158,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
           texte += '<br>' + props.texte
         }
-        if (context.isHtml && this.interactifType === 'mathLive') {
-          if (this.sup3) {
-            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fraction' })
-          } else {
-            setReponse(this, i, (new FractionEtendue(a * d + c * b, b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
-          }
+        if (this.interactifType === 'mathLive') {
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d + c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
@@ -229,12 +226,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
           texte += '<br>' + props.texte
         }
-        if (context.isHtml && this.interactifType === 'mathLive') {
-          if (this.sup3) {
-            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fraction' })
-          } else {
-            setReponse(this, i, (new FractionEtendue(Math.abs(a * d - c * b), b * d)).simplifie(), { formatInteractif: 'fractionEgale' })
-          }
+        if (this.interactifType === 'mathLive') {
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d - c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
       if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
