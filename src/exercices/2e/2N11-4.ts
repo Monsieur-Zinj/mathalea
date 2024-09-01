@@ -1,3 +1,4 @@
+import { customSortStringNumber } from '../../lib/components/sorting'
 import { combinaisonListes, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
@@ -91,40 +92,40 @@ export default class nomExercice extends Exercice {
           break
         }
       }
-      const listeElementsChoisis = getRandomSubarray(listeElements, this.sup2 * 2 + 6)
-      const ensemble1 = getRandomSubarray(listeElementsChoisis, this.sup2 + 1 - randint(0, 1))
-      const ensemble2 = getRandomSubarray(listeElementsChoisis, this.sup2 + 1)
-      const texte = `$A = \\{ ${ensemble1.sort().join('; ')} \\}$ et $B = \\{ ${ensemble2.sort().join('; ')} \\}$.`
+      const listeElementsChoisis = getRandomSubarray(listeElements, this.sup2 * 2 + 7)
+      const ensemble1 = getRandomSubarray(listeElementsChoisis, this.sup2 + 2 - randint(0, 1))
+      const ensemble2 = getRandomSubarray(listeElementsChoisis, this.sup2 + 2)
+      const texte = `$A = \\{ ${ensemble1.sort(customSortStringNumber).join('; ')} \\}$ et $B = \\{ ${ensemble2.sort(customSortStringNumber).join('; ')} \\}$.`
       texteCorr = ''
       if (this.sup3) {
         // I want to order alphabetically or by magnitude the union
-        texteCorr += `$A \\cup B = ${miseEnEvidence(`\\{ ${[...new Set([...ensemble1, ...ensemble2])].sort().join('; ')} \\}`)}$`
+        texteCorr += `$A \\cup B = ${miseEnEvidence(`\\{ ${[...new Set([...ensemble1, ...ensemble2])].sort(customSortStringNumber).join('; ')} \\}`)}$`
       }
       if (this.sup4) {
         if (this.sup3) {
           texteCorr += ',<br>'
         }
-        const intersection = ensemble1.filter(x => ensemble2.includes(x)).sort().join('; ')
+        const intersection = ensemble1.filter(x => ensemble2.includes(x)).sort(customSortStringNumber).join('; ')
         if (intersection === '') {
           texteCorr += `$A \\cap B = ${miseEnEvidence('\\emptyset')}$`
         } else {
-          texteCorr += `$A \\cap B = ${miseEnEvidence(`\\{ ${ensemble1.filter(x => ensemble2.includes(x)).sort().join('; ')} \\}`)}$`
+          texteCorr += `$A \\cap B = ${miseEnEvidence(`\\{ ${ensemble1.filter(x => ensemble2.includes(x)).sort(customSortStringNumber).join('; ')} \\}`)}$`
         }
       }
       if (this.sup5) {
         if (this.sup3 || this.sup4) {
           texteCorr += ',<br>'
         }
-        const setAMinusB = ensemble1.filter(x => !ensemble2.includes(x)).sort().join('; ')
-        const setBMinusA = ensemble2.filter(x => !ensemble1.includes(x)).sort().join('; ')
+        const setAMinusB = ensemble1.filter(x => !ensemble2.includes(x)).sort(customSortStringNumber).join('; ')
+        const setBMinusA = ensemble2.filter(x => !ensemble1.includes(x)).sort(customSortStringNumber).join('; ')
         if (setAMinusB === '') {
           texteCorr += `$A \\setminus B = ${miseEnEvidence('\\emptyset')}$`
         } else {
-          texteCorr += `$A \\setminus B = ${miseEnEvidence(`\\{ ${ensemble1.filter(x => !ensemble2.includes(x)).sort().join('; ')} \\}`)}$ et `
+          texteCorr += `$A \\setminus B = ${miseEnEvidence(`\\{ ${ensemble1.filter(x => !ensemble2.includes(x)).sort(customSortStringNumber).join('; ')} \\}`)}$ et `
         }
         if (setBMinusA === '') {
           texteCorr += `$B \\setminus A = ${miseEnEvidence('\\emptyset')}$`
-        } else { texteCorr += `$B \\setminus A = ${miseEnEvidence(`\\{ ${ensemble2.filter(x => !ensemble1.includes(x)).sort().join('; ')} \\}`)}$` }
+        } else { texteCorr += `$B \\setminus A = ${miseEnEvidence(`\\{ ${ensemble2.filter(x => !ensemble1.includes(x)).sort(customSortStringNumber).join('; ')} \\}`)}$` }
       }
       // replace {} by \emptyset
       if (this.questionJamaisPosee(i, texte)) {
