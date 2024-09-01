@@ -10,9 +10,11 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Diviser des fractions'
 export const amcReady = true
@@ -153,17 +155,44 @@ export default function ExerciceDiviserFractions () {
 
           break
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        if (context.isAmc) texte = 'calculer et donner le résultat sous forme irréductible\\\\\n' + texte
-        setReponse(this, i, reponse, {
-          formatInteractif: 'fraction',
-          digits: 5,
-          digitsNum: 3,
-          digitsDen: 2,
-          signe: true
-        })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        texte += ajouteFeedback(this, i)
+
+        if (context.isAmc) {
+          texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+          this.autoCorrection[i] = {
+            enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+            propositions: [
+              {
+                texte: '' // Si vide, le texte est la correction de l'exercice.
+              }
+            ],
+            reponse: {
+              valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+              param: {
+                digits: 5,
+                digitsNum: 3,
+                digitsDen: 2,
+                signe: true
+              }
+            }
+          }
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
