@@ -155,8 +155,20 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       }
       texteCorr += `=${texFractionFromString(num, den)}`
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       reponse = fraction(num, den).simplifie()
-      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
       texte += ajouteFeedback(this, i)
 

@@ -2,10 +2,11 @@ import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils
 import { obtenirListeFractionsIrreductibles } from '../../lib/outils/deprecatedFractions.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Multiplier ou/et diviser des fractions'
@@ -151,25 +152,30 @@ export default function ExerciceMultiplierFractions () {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
-        if (fractionIrreductibleDemandee) {
-          if (context.isAmc) texte = 'Calculer et donner la réponse sous forme irréductible\\\\\n' + texte
-          setReponse(this, i, reponse, {
-            formatInteractif: 'fraction',
-            digits: 5,
-            digitsNum: 3,
-            digitsDen: 2,
-            signe: true
-          })
-        } else {
-          if (context.isAmc) texte = 'Calculer\\\\\n' + texte
-          setReponse(this, i, reponse, {
-            formatInteractif: 'fractionEgale',
-            digits: 5,
-            digitsNum: 3,
-            digitsDen: 2,
-            signe: true
-          })
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: fractionIrreductibleDemandee } } })
+        texte += ajouteFeedback(this, i)
+
+        if (context.isAmc) {
+          texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+          this.autoCorrection[i] = {
+            enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+            propositions: [
+              {
+                texte: '' // Si vide, le texte est la correction de l'exercice.
+              }
+            ],
+            reponse: {
+              valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+              param: {
+                digits: 5,
+                digitsNum: 3,
+                digitsDen: 2,
+                signe: true
+              }
+            }
+          }
         }
+
         // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
         const textCorrSplit = texteCorr.split('=')
         let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
