@@ -3,17 +3,20 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString, simplificationDeFractionAvecEtapes } from '../../lib/outils/deprecatedFractions.js'
 import { ecritureParentheseSiNegatif } from '../../lib/outils/ecritures'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { context } from '../../modules/context'
 
 export const titre = 'Additionner deux fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
+export const dateDeModifImportante = '31/08/2024'
 /**
  * Effectuer la somme de deux fractions
  *
@@ -21,7 +24,6 @@ export const amcType = 'AMCNum'
  * * Niveau 2 : 2 fois sur 5, il faut trouver le ppcm, 1 fois sur 5 le ppcm correspond à leur produit, 1 fois sur 5 un dénominateur est multiple de l'autre, 1 fois sur 5 il faut additionner une fraction et un entier
  * * Paramètre supplémentaire : utiliser des nommbres relatifs (par défaut tous les nombres sont positifs)
  * @author Rémi Angot
- * 4C21-1
  */
 export const uuid = '5e8fc'
 export const ref = '4C21-1'
@@ -29,28 +31,29 @@ export const refs = {
   'fr-fr': ['4C21-1'],
   'fr-ch': ['9NO13-7']
 }
-export default function ExerciceAdditionnerDesFractions () {
-  Exercice.call(this)
-  this.sup = 2 // Niveau de difficulté
-  this.sup2 = false // Avec ou sans relatifs
-  this.titre = titre
-  this.consigne = "Calculer et donner le résultat sous la forme d'une fraction simplifiée."
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
+export default class ExerciceAdditionnerDesFractions extends Exercice {
+  constructor () {
+    super()
+    this.sup = 2 // Niveau de difficulté
+    this.sup2 = false // Avec ou sans relatifs
+    this.sup3 = false // Fraction irréductible attendue
+    this.titre = titre
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+    this.nbColsCorr = 1
+    this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
+    this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
+    this.besoinFormulaire3CaseACocher = ['Fraction irréductible attendue']
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+  nouvelleVersion () {
     const listeCouplesDeDenominateurs = [[6, 9], [4, 6], [8, 12], [9, 12], [10, 15], [10, 25], [6, 21], [12, 30], [6, 8], [50, 75]]
-
+    this.consigne = `Calculer et donner le résultat sous la forme d'une fraction${this.sup3 ? ' simplifiée au maximum.' : '.'}`
     let typesDeQuestionsDisponibles
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['b_multiple_de_d', 'd_multiple_de_b', 'b_multiple_de_d', 'd_multiple_de_b', 'entier']
-    }
-    if (this.sup === 2) {
+    } else {
       typesDeQuestionsDisponibles = ['ppcm', 'ppcm', 'premiers_entre_eux', choice(['b_multiple_de_d', 'd_multiple_de_b']), 'entier']
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -154,19 +157,33 @@ export default function ExerciceAdditionnerDesFractions () {
       texteCorr += simplificationDeFractionAvecEtapes(num, den) + '$'
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-      setReponse(this, i, reponse, {
-        formatInteractif: 'fraction',
-        digits: 5,
-        digitsNum: 3,
-        digitsDen: 2,
-        signe: true
-      })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
+      texte += ajouteFeedback(this, i)
+
+      if (context.isAmc) {
+        texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+        this.autoCorrection[i] = {
+          enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+          propositions: [
+            {
+              texte: '' // Si vide, le texte est la correction de l'exercice.
+            }
+          ],
+          reponse: {
+            valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            param: {
+              digits: 5,
+              digitsNum: 3,
+              digitsDen: 2,
+              signe: true
+            }
+          }
+        }
+      }
 
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 2, "1 : Un dénominateur multiple de l'autre\n2 : Cas général"]
-  this.besoinFormulaire2CaseACocher = ['Avec des nombres relatifs']
 }
