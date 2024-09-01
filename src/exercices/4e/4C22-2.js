@@ -86,7 +86,7 @@ export default function ExerciceDiviserFractions () {
 
       switch (typesDeQuestions) {
         case 1: // fraction / fraction tout positif
-          texte = `$${texFractionFromString(a, b)}\\div${texFractionFromString(c, d)}=$`
+          texte = `$${texFractionFromString(a, b)}\\div${texFractionFromString(c, d)}$`
           if (p === 1) {
             texteCorr = `$${texFractionFromString(a, b)}\\div${texFractionFromString(
                             c,
@@ -120,7 +120,7 @@ export default function ExerciceDiviserFractions () {
           } else {
             signe = '-'
           }
-          texte = `$${texFractionFromString(a, b)}\\div${texFractionFromString(c, d)}=$`
+          texte = `$${texFractionFromString(a, b)}\\div${texFractionFromString(c, d)}$`
           texteCorr = `$${texFractionFromString(a, b)}\\div${texFractionFromString(c, d)}$`
           a = abs(a)
           b = abs(b)
@@ -169,7 +169,7 @@ export default function ExerciceDiviserFractions () {
 
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
         handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
         texte += ajouteFeedback(this, i)
 

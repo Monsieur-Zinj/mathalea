@@ -72,12 +72,9 @@ export default class FractionEtPriorites extends Exercice {
       }
       switch (Number(listeTypeDeQuestion[i])) {
         case 2: // c +/- a*b
-          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -96,12 +93,9 @@ export default class FractionEtPriorites extends Exercice {
           break
         case 3: // c +/- a*b avec piège de priorité
           c = new FractionEtendue(c.num, a.den)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -120,12 +114,9 @@ export default class FractionEtPriorites extends Exercice {
           // dernière étape on simplifie si c'est nécessaire après le switch car étape commune
           break
         case 5: // c +/- a/b sans piège
-          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -144,12 +135,9 @@ export default class FractionEtPriorites extends Exercice {
           reponse = operation === '+' ? c.simplifie().sommeFraction(a.diviseFraction(b)) : c.differenceFraction(a.diviseFraction(b))
           break
         case 4: // a/b +/- c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\div ${b.texFraction}${operation}${c.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\div ${b.texFraction}${operation}${c.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -177,12 +165,9 @@ export default class FractionEtPriorites extends Exercice {
           break
         case 6: // a +/- b/c avec piège
           c = new FractionEtendue(c.num, a.den)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -204,12 +189,9 @@ export default class FractionEtPriorites extends Exercice {
           break
         case 1:
         default: // a*b +/- c
-          texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\times ${b.texFraction}${operation}${c.texFraction}=$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\times ${b.texFraction}${operation}${c.texFraction}$`
           texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
-          if (this.interactifReady) { // Pour gérer l'interactivité
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore')
-            texte += ajouteFeedback(this, i)
-          }
+
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
           if (b.signe === -1) { // on change le signe de b et donc de a pour conserver le signe du produit
@@ -235,6 +217,9 @@ export default class FractionEtPriorites extends Exercice {
           // dernière étape on simplifie si c'est nécessaire après le switch car étape commune
           break
       }
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+      texte += ajouteFeedback(this, i)
+
       // La dernière étape de réduction est commune on la fait maintenant si besoin
       if (!reponse.estIrreductible) {
         texteCorr += ` &= ${reponse.texFSD}`
