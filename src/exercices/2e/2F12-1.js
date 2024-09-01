@@ -704,7 +704,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
       texte += ajouteFeedback(this, i)
       texteCorr = correction
-      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations.}$.' }
+      if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
