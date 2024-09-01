@@ -5,7 +5,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { glossaire } from './c3N10-1'
-import { ajouteDragAndDrop } from '../../lib/interactif/dragAndDrop'
+import DragAndDrop from '../../lib/interactif/DragAndDrop'
 export const titre = 'Décomposition entier par drag and drop'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -22,6 +22,7 @@ export const refs = {
   'fr-ch': []
 }
 class DragAndDropNumerationEntiere extends Exercice {
+  dragAndDrops: DragAndDrop[]
   nombreDeChiffresMin: number
   morceaux!: string[][]
   exposantMorceaux!: number[][]
@@ -47,6 +48,7 @@ class DragAndDropNumerationEntiere extends Exercice {
     this.sup4 = '4'
     this.besoinFormulaire5CaseACocher = ['Décomposition désordonnée', false]
     this.sup5 = false
+    this.dragAndDrops = []
   }
 
   nouvelleVersion () {
@@ -170,7 +172,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       }
       const objetReponse = Object.fromEntries(reponses)
       enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 1)}`
-      const leDragAndDrop = ajouteDragAndDrop({
+      const leDragAndDrop = new DragAndDrop({
         exercice: this,
         question: i,
         etiquettes,
@@ -178,7 +180,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         enonceATrous
       })
       handleAnswers(this, i, objetReponse, { formatInteractif: 'dnd' })
-      texte += leDragAndDrop
+      texte += leDragAndDrop.ajouteDragAndDrop()
       for (let k = 0; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           texteCorr += enLettre
@@ -189,6 +191,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       texte = `${texte.substring(0, texte.length - 1)}$`
       texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
       if (this.questionJamaisPosee(i, nombreStr)) {
+        this.dragAndDrops.push(leDragAndDrop) // on stocke les instances de dragAndDrop dans l'exercice pour pouvoir accéder aux listeners à supprimer lors de la vérification.
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

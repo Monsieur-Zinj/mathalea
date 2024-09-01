@@ -1,12 +1,12 @@
-import type Exercice from '../../exercices/Exercice'
-import { context } from '../../modules/context'
-import { shuffle } from '../outils/arrayOutils'
+import type Exercice from '../../exercices/Exercice.js'
+import { context } from '../../modules/context.js'
+import { shuffle } from '../outils/arrayOutils.js'
 import { get } from '../html/dom.js'
-import { messageFeedback } from '../../modules/messages'
-import { toutPourUnPoint } from './mathLive'
+import { messageFeedback } from '../../modules/messages.js'
+import { toutPourUnPoint } from './mathLive.js'
 
 export type Etiquettes = {
-  id: number // Un numéro unique par étiquette ! (valeur réservée : 0 pour signaler l'absence d'étiquette !)
+  id: string // Un numéro unique par étiquette ! (valeur réservée : 0 pour signaler l'absence d'étiquette !)
   contenu: string // Ce que contient l'étiquette (aussi bien du texte, que du latex, qu'une image...)
   callback?: (e: Event) => void // @todo à implémenter.
 }
@@ -25,115 +25,6 @@ si c'est un nombre supérieur à 1, ajoute un 's' au contenu de l'étiquette 'dr
 Ce n'est qu'une idée, je ne sais même pas si c'est réalisable à l'heure où je mets au point ces fonctions !
 mais on peut imaginer que cette fonction soit mutualisée.
 */
-
-/** Une fonction pour ajouter un contenu interactif de type Drag and drop
- *  enonceATrous est une chaine de caractères avec le format suivant: 'blabla..%{rectangle1}blabla%{rectangle2}blibli...'
- *  Les différents % { rectanglen } sont remplacés par des div rectangulaires pouvant accueillir les étiquettes.
- * @param param0
- * @returns
- */
-export function ajouteDragAndDrop ({
-  exercice,
-  question,
-  consigne,
-  etiquettes,
-  enonceATrous
-}: {
-  exercice: Exercice
-  question: number
-  consigne: string
-  etiquettes: Etiquettes[]
-  enonceATrous: string
-}) {
-  const numeroExercice = exercice.numeroExercice
-  if (context.isHtml) {
-    let html = ''
-    html += `<div class="questionDND" id="divDragAndDropEx${numeroExercice}Q${question}">\n\t`
-    html += `<div class="consigneDND">${consigne}</div>\n\t`
-    html += `<div  class="etiquettes" id="etiquettesEx${numeroExercice}Q${question}">\n\t`
-    const etiquettesEnDesordre = shuffle(etiquettes.slice())
-    for (const etiquette of etiquettesEnDesordre) {
-      html += `<div class="etiquette${exercice.interactif ? ' dragOk' : ' noDrag'}" draggable="${exercice.interactif ? 'true' : 'false'}" id="etiquetteEx${numeroExercice}Q${question}I${etiquette.id}">${etiquette.contenu}</div>\n\t`
-    }
-    html += '</div>'
-
-    html += `<div class="rectangles" id="rectanglesEx${numeroExercice}Q${question}" >\n\t`
-    let resteEnonce = enonceATrous
-    let htmlEnonce = ''
-    while (resteEnonce) {
-      const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(resteEnonce)
-      if (chunks) {
-        const [, start, n, end] = chunks
-        const name = n
-        if (name == null) throw Error(`Définition de ${name} manquante`)
-        htmlEnonce += `<span>${start}</span>`
-        if (exercice.interactif) {
-          htmlEnonce += `<div class="rectangleDND" id="rectangleEx${numeroExercice}Q${question}R${name.substring(9)}"></div>`
-        } else {
-          htmlEnonce +=
-            '<hr style="height: 20px; width: 60px; border: 1px dashed #555;">'
-        }
-        resteEnonce = end ?? ''
-      } else {
-        htmlEnonce += resteEnonce
-        resteEnonce = ''
-      }
-    }
-    html += htmlEnonce
-    html += `<span id="resultatCheckEx${numeroExercice}Q${question}"></span></div>`
-    if (exercice.interactif) {
-      // ajoutons le div#feedback
-      html += `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice}Q${question}"></div>`
-      // Il faut mettre en place les listeners !
-      document.addEventListener('exercicesAffiches', () => {
-        const divEtiquettes = get(
-          `etiquettesEx${numeroExercice}Q${question}`,
-          false
-        )
-        if (divEtiquettes) {
-          divEtiquettes.addEventListener('drop', dropHandler)
-          divEtiquettes.addEventListener('dragover', dragOverHandler)
-          divEtiquettes.addEventListener('touchmove', touchMoveHandler)
-          divEtiquettes.addEventListener('touchend', touchEndHandler)
-          for (const etiquette of divEtiquettes.querySelectorAll(
-            '.etiquette'
-          )) {
-            etiquette.addEventListener('dragstart', dragStartHandler)
-            etiquette.addEventListener('touchstart', touchStartHandler)
-          }
-        }
-
-        const rectangles = get(
-          `rectanglesEx${numeroExercice}Q${question}`,
-          false
-        )
-        if (rectangles) {
-          for (const rectangle of rectangles.querySelectorAll(
-            '.rectangleDND'
-          )) {
-            rectangle.addEventListener('dragover', dragOverHandler)
-            rectangle.addEventListener('drop', dropHandler)
-            rectangle.addEventListener('touchmove', touchMoveHandler)
-            rectangle.addEventListener('touchend', touchEndHandler)
-          }
-        }
-      })
-    } else {
-      const divEtiquettes = get(
-        `etiquettesEx${numeroExercice}Q${question}`,
-        false
-      )
-      if (divEtiquettes) {
-        for (const etiquette of divEtiquettes.querySelectorAll('.etiquette')) {
-          etiquette.classList.add('noDrag')
-        }
-      }
-    }
-    return html
-  }
-  const latex = ''
-  return latex
-}
 
 function dragStartHandler (e) {
   e.dataTransfer.setData('text/plain', e.target.id)
@@ -180,7 +71,12 @@ function touchEndHandler (e: TouchEvent) {
     delete (etiquette as HTMLDivElement).dataset.touchId
   }
 }
-
+/**
+ * C'est la fonction utilisée par exerciceInteractif pour vérifier ce type de question
+ * @param exercice
+ * @param question
+ * @returns
+ */
 export function verifDragAndDrop (
   exercice: Exercice,
   question: number
@@ -189,6 +85,21 @@ export function verifDragAndDrop (
   feedback: string
   score: { nbBonnesReponses: number; nbReponses: number }
 } {
+  // tout d'abord on va supprimer les listeners !
+  const exoDragAndDrops = exercice.dragAndDrops
+  if (exoDragAndDrops == null) {
+    window.notify('Problème survenu dans verifDragAndDrop : il n\'y a pas d\'array dragAndDrops dans exercice', {})
+    return {
+      isOk: false,
+      feedback: 'Un problème est survenu',
+      score: { nbBonnesReponses, nbReponses }
+    }
+  }
+  const leDragAndDrop = exoDragAndDrops[question]
+  for (const [element, type, listener] of leDragAndDrop.listeners) {
+    element.removeEventListener(type, listener)
+  }
+  // fin de suppression des listeners
   const numeroExercice = exercice.numeroExercice
   const feedback = ''
   const objetReponses = exercice.autoCorrection[question].reponse?.valeur
@@ -230,6 +141,7 @@ export function verifDragAndDrop (
     }
     const reponses = Object.entries(objetReponses)
     const points: number[] = []
+    exercice.answers = {}
     for (let k = 1; k <= nbReponses; k++) {
       const rectangle = get(
         `rectangleEx${numeroExercice}Q${question}R${k}`,
@@ -239,6 +151,8 @@ export function verifDragAndDrop (
         const etiquetteDedans = rectangle.querySelector('.etiquette')
         const id = etiquetteDedans?.id ?? `etiquetteEx${numeroExercice}Q${question}I0`
         const etiquetteId = id.split('I')[1]
+        // @fixme vérifier que l'enregistrement de cet objet permet de retrouver les bonnes données.
+        exercice.answers = Object.assign(exercice.answers, Object.fromEntries([[`rectangle${k}`, etiquetteId]]))
         const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)
         if (
           goodAnswer &&
@@ -322,3 +236,147 @@ export function verifDragAndDrop (
     score: { nbBonnesReponses: 0, nbReponses: 0 }
   }
 }
+
+class DragAndDrop {
+  exercice: Exercice
+  question: number
+  consigne: string
+  etiquettes: Etiquettes[]
+  enonceATrous: string
+  listeners: [Element, string, (e)=>void][]
+  constructor ({
+    exercice,
+    question,
+    consigne,
+    etiquettes,
+    enonceATrous
+  }: {
+    exercice: Exercice
+    question: number
+    consigne: string
+    etiquettes: Etiquettes[]
+    enonceATrous: string
+  }) {
+    this.exercice = exercice
+    this.question = question
+    this.consigne = consigne
+    this.etiquettes = etiquettes
+    this.enonceATrous = enonceATrous
+    this.listeners = []
+  }
+
+  /** Une méthode pour ajouter un contenu interactif de type Drag and drop
+ *  enonceATrous est une chaine de caractères avec le format suivant: 'blabla..%{rectangle1}blabla%{rectangle2}blibli...'
+ *  Les différents % { rectanglen } sont remplacés par des div rectangulaires pouvant accueillir les étiquettes.
+ * @param param0
+ * @returns
+ */
+  ajouteDragAndDrop () {
+    const numeroExercice = this.exercice.numeroExercice
+    if (context.isHtml) {
+      let html = ''
+      html += `<div class="questionDND" id="divDragAndDropEx${numeroExercice}Q${this.question}">\n\t`
+      html += `<div class="consigneDND">${this.consigne}</div>\n\t`
+      html += `<div  class="etiquettes" id="etiquettesEx${numeroExercice}Q${this.question}">\n\t`
+      const etiquettesEnDesordre = shuffle(this.etiquettes.slice())
+      for (const etiquette of etiquettesEnDesordre) {
+        html += `<div class="etiquette${this.exercice.interactif ? ' dragOk' : ' noDrag'}" draggable="${this.exercice.interactif ? 'true' : 'false'}" id="etiquetteEx${numeroExercice}Q${this.question}I${etiquette.id}">${etiquette.contenu}</div>\n\t`
+      }
+      html += '</div>'
+
+      html += `<div class="rectangles" id="rectanglesEx${numeroExercice}Q${this.question}" >\n\t`
+      let resteEnonce = this.enonceATrous
+      let htmlEnonce = ''
+      while (resteEnonce) {
+        const chunks = /^(.*?)%\{([^}]+)}(.*?)$/.exec(resteEnonce)
+        if (chunks) {
+          const [, start, n, end] = chunks
+          const name = n
+          if (name == null) throw Error(`Définition de ${name} manquante`)
+          htmlEnonce += `<span>${start}</span>`
+          if (this.exercice.interactif) {
+            htmlEnonce += `<div class="rectangleDND" id="rectangleEx${numeroExercice}Q${this.question}R${name.substring(9)}"></div>`
+          } else {
+            htmlEnonce +=
+              '<hr style="height: 20px; width: 60px; border: 1px dashed #555;">'
+          }
+          resteEnonce = end ?? ''
+        } else {
+          htmlEnonce += resteEnonce
+          resteEnonce = ''
+        }
+      }
+      html += htmlEnonce
+      html += `<span id="resultatCheckEx${numeroExercice}Q${this.question}"></span></div>`
+      if (this.exercice.interactif) {
+        // ajoutons le div#feedback
+        html += `<div class ="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${numeroExercice}Q${this.question}"></div>`
+        // Il faut mettre en place les listeners !
+        document.addEventListener('exercicesAffiches', () => {
+          const divEtiquettes = get(
+            `etiquettesEx${numeroExercice}Q${this.question}`,
+            false
+          )
+          if (divEtiquettes) {
+            divEtiquettes.addEventListener('drop', dropHandler)
+            divEtiquettes.addEventListener('dragover', dragOverHandler)
+            divEtiquettes.addEventListener('touchmove', touchMoveHandler)
+            divEtiquettes.addEventListener('touchend', touchEndHandler)
+            this.listeners.push(
+              [divEtiquettes, 'drop', dropHandler],
+              [divEtiquettes, 'dragover', dragOverHandler],
+              [divEtiquettes, 'touchmove', touchMoveHandler],
+              [divEtiquettes, 'touchend', touchEndHandler]
+            )
+            for (const etiquette of divEtiquettes.querySelectorAll(
+              '.etiquette'
+            )) {
+              etiquette.addEventListener('dragstart', dragStartHandler)
+              etiquette.addEventListener('touchstart', touchStartHandler)
+              this.listeners.push(
+                [etiquette, 'dragstart', dragStartHandler],
+                [etiquette, 'touchstart', touchStartHandler]
+              )
+            }
+          }
+
+          const rectangles = get(
+            `rectanglesEx${numeroExercice}Q${this.question}`,
+            false
+          )
+          if (rectangles) {
+            for (const rectangle of rectangles.querySelectorAll(
+              '.rectangleDND'
+            )) {
+              rectangle.addEventListener('dragover', dragOverHandler)
+              rectangle.addEventListener('drop', dropHandler)
+              rectangle.addEventListener('touchmove', touchMoveHandler)
+              rectangle.addEventListener('touchend', touchEndHandler)
+              this.listeners.push(
+                [rectangle, 'dragover', dragOverHandler],
+                [rectangle, 'drop', dropHandler],
+                [rectangle, 'touchmove', touchMoveHandler],
+                [rectangle, 'touchend', touchEndHandler]
+              )
+            }
+          }
+        })
+      } else {
+        const divEtiquettes = get(
+          `etiquettesEx${numeroExercice}Q${this.question}`,
+          false
+        )
+        if (divEtiquettes) {
+          for (const etiquette of divEtiquettes.querySelectorAll('.etiquette')) {
+            etiquette.classList.add('noDrag')
+          }
+        }
+      }
+      return html
+    }
+    const latex = ''
+    return latex
+  }
+}
+
+export default DragAndDrop

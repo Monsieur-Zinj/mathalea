@@ -27,7 +27,7 @@ import {
 import Hms from '../../modules/Hms'
 import { context } from '../../modules/context.js'
 import type Exercice from '../../exercices/Exercice'
-import { verifDragAndDrop } from './dragAndDrop'
+import { verifDragAndDrop } from './DragAndDrop'
 export interface ReponseParams {
   digits?: number
   decimals?: number
