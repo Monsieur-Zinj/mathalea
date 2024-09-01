@@ -216,3 +216,17 @@ export const sortArrayOfResourcesBasedOnYearAndMonth = (
     }
   })
 }
+/**
+ * Trie selon l'ordre alphabétique ou numérique
+ * @param a nombre ou chaîne de caractères
+ * @param b nombre ou chaîne de caractères
+ * @returns le résultat de la comparaison
+ */
+// Define a custom sorting function
+export const customSortStringNumber = (a: number | string, b: number | string): number => {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a - b
+  } else {
+    return String(a).localeCompare(String(b))
+  }
+}
