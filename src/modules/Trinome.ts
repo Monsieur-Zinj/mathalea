@@ -397,16 +397,13 @@ class Trinome {
       const unSurDeuxA = this.a.multiplieEntier(2).inverse() as FractionEtendue
       if (this.a.valeurDecimale > 0) {
         return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
-      } else {
-        return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
       }
-    } else {
-      if (this.a.valeurDecimale > 0) {
-        return new FractionEtendue(Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision), 1)
-      } else {
-        return new FractionEtendue(Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision), 1)
-      }
+      return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    if (this.a.valeurDecimale > 0) {
+      return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    }
+    return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
   }
 
   /** Deuxième racine du trinome */
@@ -418,16 +415,13 @@ class Trinome {
       const unSurDeuxA = this.a.multiplieEntier(2).inverse()
       if (this.a.valeurDecimale > 0) {
         return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
-      } else {
-        return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
       }
-    } else {
-      if (this.a.valeurDecimale > 0) {
-        return new FractionEtendue(Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision), 1)
-      } else {
-        return new FractionEtendue(Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision), 1)
-      }
+      return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    if (this.a.valeurDecimale > 0) {
+      return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    }
+    return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
   }
 
   /**

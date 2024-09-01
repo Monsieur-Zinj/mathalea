@@ -8,6 +8,7 @@ import {
 import FractionEtendue from '../../modules/FractionEtendue'
 import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 import Trinome from '../../modules/Trinome'
+import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré'
 export const dateDePublication = '08/07/2024'
 export const interactifReady = false
@@ -174,14 +175,14 @@ export default class EtudeFctPoly3 extends Exercice {
               texteCorr += `Comme $\\Delta=${p.texCalculDiscriminant}$, le discriminant est strictement positif, donc le polynôme a deux racines :`
               texteCorr += `<br><br>$${p.texCalculRacine1(true)}$`
               texteCorr += `<br><br>$${p.texCalculRacine2(true)}$<br>`
-              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: 5, imgTex: '' },
-                { antVal: valX1, antTex: texX1, imgVal: Number(p.image(p.x1)), imgTex: '' },
-                { antVal: valX2, antTex: texX2, imgVal: Number(p.image(p.x2)), imgTex: '' },
-                { antVal: 10, antTex: '$+\\infty$', imgVal: 8, imgTex: '' }]
+              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: fonction(-10), imgTex: '' },
+                { antVal: valX1, antTex: texX1, imgVal: fonction(Number(p.x1)), imgTex: `${texNombre(fonction(Number(p.x1)), 2)}` },
+                { antVal: valX2, antTex: texX2, imgVal: fonction(Number(p.x2)), imgTex: `${texNombre(fonction(Number(p.x2)), 2)}` },
+                { antVal: 10, antTex: '$+\\infty$', imgVal: fonction(10), imgTex: '' }]
             } else {
               texteCorr += ''
-              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: 5, imgTex: '' },
-                { antVal: 10, antTex: '$+\\infty$', imgVal: 8, imgTex: '' }]
+              substituts = [{ antVal: -10, antTex: '$-\\infty$', imgVal: fonction(-10), imgTex: '' },
+                { antVal: 10, antTex: '$+\\infty$', imgVal: fonction(10), imgTex: '' }]
             }
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 0.1, tolerance })
 
