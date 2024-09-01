@@ -103,7 +103,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
         a = a * choice([-1, 1])
         c = c * choice([-1, 1])
       }
-      texte = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}=$`
+      texte = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}$`
       texteCorr = `$${texFractionFromString(a, b)}+${texFractionFromString(c, d)}`
 
       // a/b+c/d = num/den (résultat non simplifié)
@@ -140,12 +140,12 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
           n = n * choice([-1, 1])
         }
         if (choice([true, false])) {
-          texte = `$${n}+${texFractionFromString(a, b)}=$`
+          texte = `$${n}+${texFractionFromString(a, b)}$`
           texteCorr = texte
           texteCorr += `$${texFractionFromString(n + '\\times ' + b, b)}+${texFractionFromString(a, b)}`
           texteCorr += `=${texFractionFromString(n * b + '+' + ecritureParentheseSiNegatif(a), b)}`
         } else {
-          texte = `$${texFractionFromString(a, b)}+${ecritureParentheseSiNegatif(n)}=$`
+          texte = `$${texFractionFromString(a, b)}+${ecritureParentheseSiNegatif(n)}$`
           texteCorr = texte
           texteCorr += `$${texFractionFromString(a, b)}+${texFractionFromString(n + '\\times ' + b, b)}`
           texteCorr += `=${texFractionFromString(a + '+' + ecritureParentheseSiNegatif(n * b), b)}`
@@ -168,7 +168,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       // Fin de cette uniformisation
 
       reponse = fraction(num, den).simplifie()
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
       texte += ajouteFeedback(this, i)
 

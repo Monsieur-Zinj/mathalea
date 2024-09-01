@@ -13,9 +13,10 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Fractions et priorités opératoires'
 export const amcReady = true
@@ -28,7 +29,6 @@ export const interactifType = 'mathLive'
  3 : Des expressions pièges démarrant sur une opération prioritaire ou pas
  4 : Uniquement des expressions pièges démarrant sur une opération non prioritaire`
  * @author Jean-Claude Lhote
- * Référence 4C23
  */
 export const uuid = '18ddd'
 export const ref = '4C23-1'
@@ -43,7 +43,7 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.sup3 = true
   this.sup4 = true
   this.titre = titre
-  this.consigne = 'Calculer et donner un résultat simplifié.'
+  this.consigne = 'Calculer et donner un résultat simplifié au maximum.'
   this.nbCols = 2
   this.spacing = 1
   this.spacingCorr = 2
@@ -53,7 +53,6 @@ export default function ExerciceAdditionnerFractionProduit () {
   this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -276,14 +275,10 @@ export default function ExerciceAdditionnerFractionProduit () {
       }
 
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
-        setReponse(this, i, reponse, {
-          formatInteractif: 'fraction',
-          digits: 5,
-          digitsNum: 3,
-          digitsDen: 2,
-          signe: true
-        })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+        handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+        texte += ajouteFeedback(this, i)
+
         if (this.sup4) {
           texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`
           // On découpe
@@ -295,10 +290,42 @@ export default function ExerciceAdditionnerFractionProduit () {
             if (context.isHtml) {
               texteCorr += '<br>'
             }
-            texteCorr += `$ ${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
+            texteCorr += `$ ${lettreDepuisChiffre(i + 1)} = ${etape}$<br>`
           })
         }
-        if (context.isAmc) texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+        // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+        const textCorrSplit = texteCorr.split('=')
+        let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+        aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+        texteCorr = ''
+        for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+          texteCorr += textCorrSplit[ee] + '='
+        }
+        texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+        // Fin de cette uniformisation
+
+        if (context.isAmc) {
+          texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte
+          this.autoCorrection[i] = {
+            enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+            propositions: [
+              {
+                texte: '' // Si vide, le texte est la correction de l'exercice.
+              }
+            ],
+            reponse: {
+              valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+              param: {
+                digits: 5,
+                digitsNum: 3,
+                digitsDen: 2,
+                signe: true
+              }
+            }
+          }
+        }
+
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
