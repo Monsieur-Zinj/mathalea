@@ -7,6 +7,7 @@ import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/q
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Effectuer des calculs complexes avec des fractions'
 export const interactifReady = true
@@ -238,15 +239,16 @@ export default class FractionEtPriorites extends Exercice {
       if (!reponse.estIrreductible) {
         texteCorr += ` &= ${reponse.texFSD}`
         texteCorr += `${cd ? '&\\text{On pense à simplifier le résultat.}' : ''}\\\\`
-        texteCorr += `&= ${reponse.texFractionSimplifiee}\\\\`
+        texteCorr += `&= ${miseEnEvidence(reponse.texFractionSimplifiee)}\\\\`
       } else {
-        texteCorr += ` &= ${reponse.texFSD}\\\\`
+        texteCorr += ` &= ${miseEnEvidence(reponse.texFSD)}\\\\`
       }
       texteCorr += '\\end{aligned}$\n'
+
       if (this.questionJamaisPosee(i, a.texFraction, b.texFraction, c.texFraction)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { avecFractions: true, fractionIrreductible: true } } })
+        if (this.interactif) handleAnswers(this, i, { reponse: { value: reponse.texFractionSimplifiee, compare: fonctionComparaison, options: { fractionIrreductible: true } } })
         i++
       }
       cpt++
