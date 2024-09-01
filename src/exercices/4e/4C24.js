@@ -1,10 +1,11 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Simplifier des fractions à l\'aide des nombres premiers'
 export const interactifReady = true
@@ -98,9 +99,11 @@ export default function SimplifierFractions () {
           break
       }
       const f = new FractionEtendue(numerateur, denominateur)
-      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: ' =' })}`
+      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
-      setReponse(this, i, f.simplifie(), { formatInteractif: 'fraction' })
+      handleAnswers(this, i, { reponse: { value: f.simplifie().toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+      texte += ajouteFeedback(this, i)
+
       if (context.isAmc) {
         if (this.sup3 === 1) {
           this.autoCorrection[i] = {
@@ -131,7 +134,7 @@ export default function SimplifierFractions () {
                   statut: '',
                   reponse: {
                     texte: 'Rendre irréductible la fraction ' + texte + '.',
-                    valeur: [f.simplifie()],
+                    valeur: [f.simplifie().toLatex()],
                     param: {
                       digits: 2,
                       decimals: 0,
