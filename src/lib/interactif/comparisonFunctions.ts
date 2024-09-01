@@ -26,6 +26,7 @@ export type OptionsComparaisonType = {
   fractionDecimale?:boolean
   operationSeulementEtNonCalcul?: boolean
   calculSeulementEtNonOperation?: boolean
+  ensembleDeNombres ?:boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -501,6 +502,7 @@ export function fonctionComparaison (
     fractionDecimale, // Documenté
     operationSeulementEtNonCalcul, // Documenté
     calculSeulementEtNonOperation, // Documenté
+    ensembleDeNombres,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -523,6 +525,7 @@ export function fonctionComparaison (
     fractionDecimale: false,
     operationSeulementEtNonCalcul: false,
     calculSeulementEtNonOperation: false,
+    ensembleDeNombres: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -556,6 +559,7 @@ export function fonctionComparaison (
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
+  if (ensembleDeNombres) return ensembleNombres(input, goodAnswer)
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale) return comparaisonFractionSimplifiee(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
@@ -1244,17 +1248,18 @@ function powerCompare (input: string, goodAnswer: string): ResultType {
 
   return { isOk: false }
 }
-
+/* Remplacé par ensembleNombres
 /**
  * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
- * @param input
- * @param goodAnswer
+ * @param {string} input
+ * @param {string} goodAnswer
  * @return ResultType
  * @author Jean-Claude Lhote
- */
+
 export function setsCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   // const cleanUp = (s: string) => s.replace('{.}', '.').replace(',', '.') // @fixme vérifier si on a besoin d'éliminer ce {.} ? si oui, l'intégrer au cleauner 'virgules'
+  console.log(clean(input).replaceAll('\\{', '').replaceAll('\\}', '').split(';'), clean(goodAnswer))
   const elements1 = clean(input)
     .split(';')
     .sort((a: string, b: string) => Number(a) - Number(b))
@@ -1271,11 +1276,60 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
   }
   return { isOk: ok }
 }
+*/
+
+/**
+ * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
+ * Non importance de l'ordre des nombres
+ * Mise en place de feedback
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @return ResultType
+ * @author Eric Elter
+ */
+export function ensembleNombres (input: string, goodAnswer: string): ResultType {
+  const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
+  const cleanInput = clean(input)
+  if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
+  if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
+  const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+
+  const splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+
+  // Pour vérifier la présence de doublons
+  if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient des valeurs redondantes.' }
+
+  // Pour vérifier si les tableaux sont de la même taille
+  if (splitInput.length > splitGoodAnswer.length) {
+    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient trop de nombres.' }
+  }
+  if (splitInput.length < splitGoodAnswer.length) {
+    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble ne contient pas assez de nombres.' }
+  }
+
+  function sortMathExpressions (arr: string[]): string[] { // Nécessaire pour trier les racines carrées en LaTeX, par exemple.
+    return arr.sort((a, b) => {
+      const aValue = engine.parse(a).value
+      const bValue = engine.parse(b).value
+      return aValue - bValue
+    })
+  }
+
+  const inputSorted = sortMathExpressions(splitInput)
+  const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
+  const hasDifferentValues = inputSorted.some((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
+
+  if (hasDifferentValues) {
+    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
+  }
+
+  return { isOk: true }
+}
 
 /**
  * La fonction de comparaison des intervalles pour l'interactif
- * @param input
- * @param goodAnswer
+ * @param {string} input
+ * @param {string} goodAnswer
  * @author Jean-Claude Lhote
  */
 function intervalsCompare (input: string, goodAnswer: string) {

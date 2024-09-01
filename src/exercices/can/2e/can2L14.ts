@@ -2,7 +2,7 @@ import Exercice from '../../Exercice'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
-import { setsCompare } from '../../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../../lib/outils/ecritures'
 export const titre = 'Résoudre une équation du type $(x+a)^2=k$'
@@ -28,7 +28,8 @@ export default class EquationsCarree extends Exercice {
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.lycee
     this.formatInteractif = 'calcul'
-    this.compare = setsCompare
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { ensembleDeNombres: true }
   }
 
   nouvelleVersion () {
