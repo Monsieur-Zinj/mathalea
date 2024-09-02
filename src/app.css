@@ -639,7 +639,7 @@ table.tableauMathlive {
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus
 }
 div.rectangleDND {
-  min-width: 70px;
+  min-width: 30px;
   min-height: 20px;
   border: 2px dashed #888;
   border-radius: 10px;
@@ -654,15 +654,14 @@ div.rectangles {
   margin: 5px;
   width: px;
 min-height: 30px;
+align-items: center;
 }
 
 div.etiquette {
-  flex: 20%;
-  flex-basis: 70px;
-  box-sizing: border-box;
-  background-color: #f0f0f0;
+  flex: 0 1 auto;
+  box-sizing: content-box;
   padding: 2px;
-  margin: 0 5px;
+  margin: 0;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
@@ -672,6 +671,7 @@ div.etiquette {
 }
 .noDrag {
   cursor: not-allowed;
+  background-color: '#FFFFFF';
 }
 
 div.etiquettes {
@@ -679,10 +679,9 @@ div.etiquettes {
   flex-wrap: wrap;
   align-content: space-around;
   align-items: center;
+  justify-items: flex-start;
   gap: 5px;
   width: 60%;
 min-height: 60px;
   margin-bottom: 5px;
-border: 1px dashed #AAA;
-
 }
