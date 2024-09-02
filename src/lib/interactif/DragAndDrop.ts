@@ -59,6 +59,7 @@ function touchMoveHandler (e: TouchEvent) {
   }
 }
 function touchEndHandler (e: TouchEvent) {
+  const touch = e.touches[0]
   const etiquette = document.querySelector(
     `[data-touch-id="${touch.identifier}"]`
   )
@@ -154,7 +155,10 @@ export function verifDragAndDrop (
         // @fixme vérifier que l'enregistrement de cet objet permet de retrouver les bonnes données.
         exercice.answers = Object.assign(exercice.answers, Object.fromEntries([[`rectangle${k}`, etiquetteId]]))
         const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)
-        if (
+        if (! etiquetteDedans){
+          rectangle.classList.add('bg-coopmaths-action-200')
+          points.push(0)
+        } else if (
           goodAnswer &&
           goodAnswer[1] != null &&
           etiquetteId === goodAnswer[1].value
