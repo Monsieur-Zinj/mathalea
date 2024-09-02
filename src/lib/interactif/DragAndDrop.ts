@@ -26,21 +26,29 @@ Ce n'est qu'une idée, je ne sais même pas si c'est réalisable à l'heure où 
 mais on peut imaginer que cette fonction soit mutualisée.
 */
 
-function dragStartHandler (e) {
-  e.dataTransfer.setData('text/plain', e.target.id)
+function dragStartHandler (e: DragEvent) {
+  if (e.target instanceof HTMLElement) {
+    e.dataTransfer?.setData('text/plain', e.target.id)
+  }
 }
-function dragOverHandler (e) {
+function dragOverHandler (e: DragEvent) {
   e.preventDefault() // Nécessaire pour autoriser le drop
 }
-function dropHandler (e) {
+function dropHandler (e: DragEvent) {
   e.preventDefault()
-  const etiquetteId = e.dataTransfer.getData('text/plain')
-  const etiquette = get(etiquetteId, false)
-  if (etiquette) e.target.appendChild(etiquette)
+  const etiquetteId = e.dataTransfer?.getData('text/plain')
+  if (etiquetteId) {
+    const etiquette = document.getElementById(etiquetteId)
+    if (etiquette && e.target instanceof HTMLElement) {
+      e.target.appendChild(etiquette)
+    }
+  }
 }
-function touchStartHandler (e) {
+function touchStartHandler (e: TouchEvent) {
   const touch = e.touches[0]
-  e.target.dataset.touchId = touch.identifier
+  if (e.target instanceof HTMLElement) {
+    e.target.dataset.touchId = touch.identifier.toString()
+  }
 }
 function touchMoveHandler (e: TouchEvent) {
   e.preventDefault()
@@ -93,7 +101,7 @@ export function verifDragAndDrop (
     return {
       isOk: false,
       feedback: 'Un problème est survenu',
-      score: { nbBonnesReponses, nbReponses }
+      score: { nbBonnesReponses: 0, nbReponses: 0 }
     }
   }
   const leDragAndDrop = exoDragAndDrops[question]
@@ -142,7 +150,7 @@ export function verifDragAndDrop (
     }
     const reponses = Object.entries(objetReponses)
     const points: number[] = []
-    exercice.answers = {}
+    if (!exercice.answers) exercice.answers = {}
     for (let k = 1; k <= nbReponses; k++) {
       const rectangle = get(
         `rectangleEx${numeroExercice}Q${question}R${k}`,
@@ -153,9 +161,9 @@ export function verifDragAndDrop (
         const id = etiquetteDedans?.id ?? `etiquetteEx${numeroExercice}Q${question}I0`
         const etiquetteId = id.split('I')[1]
         // @fixme vérifier que l'enregistrement de cet objet permet de retrouver les bonnes données.
-        exercice.answers = Object.assign(exercice.answers, Object.fromEntries([[`rectangle${k}`, etiquetteId]]))
+        exercice.answers = Object.assign(exercice.answers, Object.fromEntries([[`rectangleEx${numeroExercice}Q${question}R${k}`, id]]))
         const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)
-        if (! etiquetteDedans){
+        if (!etiquetteDedans) {
           rectangle.classList.add('bg-coopmaths-action-200')
           points.push(0)
         } else if (
@@ -249,7 +257,7 @@ class DragAndDrop {
   consigne: string
   etiquettes: Etiquettes[]
   enonceATrous: string
-  listeners: [Element, string, (e)=>void][]
+  listeners: [Element, string, (e: DragEvent)=>void][]
   constructor ({
     exercice,
     question,
