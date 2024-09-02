@@ -159,11 +159,13 @@ export function verifDragAndDrop (
           goodAnswer[1] != null &&
           etiquetteId === goodAnswer[1].value
         ) {
-          rectangle.classList.add('bg-coopmaths-warn-100')
+          etiquetteDedans?.classList.remove('bg-gray-200')
+          etiquetteDedans.classList.add('bg-coopmaths-warn-100')
           nbBonnesReponses++
           points.push(1)
         } else {
-          rectangle.classList.add('bg-coopmaths-action-200')
+          etiquetteDedans?.classList.remove('bg-gray-200')
+          etiquetteDedans.classList.add('bg-coopmaths-action-200')
           points.push(0)
           if (goodAnswer && goodAnswer[1] != null && etiquetteId === '0') {
             nbMauvaisesReponses++
@@ -277,10 +279,10 @@ class DragAndDrop {
       let html = ''
       html += `<div class="questionDND" id="divDragAndDropEx${numeroExercice}Q${this.question}">\n\t`
       html += `<div class="consigneDND">${this.consigne}</div>\n\t`
-      html += `<div  class="etiquettes" id="etiquettesEx${numeroExercice}Q${this.question}">\n\t`
+      html += `<div  class="etiquettes" ${this.exercice.interactif ? 'style="border: 1px dashed #AAA" ' : ''} id="etiquettesEx${numeroExercice}Q${this.question}">\n\t`
       const etiquettesEnDesordre = shuffle(this.etiquettes.slice())
       for (const etiquette of etiquettesEnDesordre) {
-        html += `<div class="etiquette${this.exercice.interactif ? ' dragOk' : ' noDrag'}" draggable="${this.exercice.interactif ? 'true' : 'false'}" id="etiquetteEx${numeroExercice}Q${this.question}I${etiquette.id}">${etiquette.contenu}</div>\n\t`
+        html += `<div class="etiquette${this.exercice.interactif ? ' dragOk' : ' noDrag'} ${this.exercice.interactif ? ' bg-gray-200' : ''}" draggable="${this.exercice.interactif ? 'true' : 'false'}" id="etiquetteEx${numeroExercice}Q${this.question}I${etiquette.id}">${etiquette.contenu}</div>\n\t`
       }
       html += '</div>'
 

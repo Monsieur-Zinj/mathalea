@@ -110,7 +110,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       if (desordonne) {
         shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
       }
-      let enonceATrous = `${stringNombre(nombre, 0)}= `
+      let enonceATrous = `$${stringNombre(nombre, 0)}=$ `
       const etiquettes = []
       const reponses = []
       const callback = (e) => {
@@ -152,7 +152,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         k++
       ) {
         if (this.morceaux[i][k] !== '0') {
-          enonceATrous += `${this.morceaux[i][k]}%{rectangle${indiceRectangle}}+`
+          enonceATrous += `$${this.morceaux[i][k]}$%{rectangle${indiceRectangle}}$+$`
           if (this.exposantMorceaux[i][k] === 3) {
             reponses.push([
             `rectangle${indiceRectangle++}`,
@@ -171,7 +171,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         }
       }
       const objetReponse = Object.fromEntries(reponses)
-      enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 1)}`
+      enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 3)}`
       const leDragAndDrop = new DragAndDrop({
         exercice: this,
         question: i,
