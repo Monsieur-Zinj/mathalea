@@ -618,7 +618,6 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
   for (let i = 0, cptSecours = 0; i < exercice.nbQuestions && cptSecours < 50;) {
     const compare = exercice.compare == null ? calculCompare : exercice.compare
     const options = exercice.optionsDeComparaison == null ? {} : exercice.optionsDeComparaison
-    console.log(compare, options)
     seedrandom(String(exercice.seed) + i + cptSecours, { global: true })
     if (exercice.nouvelleVersion && typeof exercice.nouvelleVersion === 'function') exercice.nouvelleVersion(numeroExercice)
     if (exercice.questionJamaisPosee(i, String(exercice.question))) {
