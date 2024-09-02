@@ -119,7 +119,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `apigeomEx${this.numeroExercice}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -149,6 +149,11 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     if (i === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
+    if (this.answers === undefined) {
+      this.answers = {}
+    }
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[`apigeomEx${this.numeroExercice}Q${i}`] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
