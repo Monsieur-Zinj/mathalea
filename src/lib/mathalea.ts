@@ -750,30 +750,52 @@ export function mathaleaHandleComponentChange (oldComponent: string, newComponen
 
 export function mathaleaWriteStudentPreviousAnswers (answers?: { [key: string]: string }) {
   for (const answer in answers) {
-    // La réponse correspond à un champs texte
+    // La réponse correspond à un champs texte ?
     const field = document.querySelector(`#champTexte${answer}`) as MathfieldElement | HTMLInputElement
     if (field !== null) {
       if ('setValue' in field) {
         // C'est un MathfieldElement (créé avec ajouteChampTexteMathLive)
         field.setValue(answers[answer])
-      }
-    } else {
-      // La réponse correspond à une case à cocher qui doit être cochée
-      const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
-      if (checkBox !== null && answers[answer] === '1') {
-        checkBox.checked = true
       } else {
-      // La réponse correspond à une liste déroulante
-        const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
-        if (select !== null) {
-          select.value = answers[answer]
-        }
+        // C'est un champ texte classique
+        field.value = answers[answer]
       }
+      continue
+    }
+    // La réponse correspond à une case à cocher qui doit être cochée ?
+    const checkBox = document.querySelector(`#check${answer}`) as HTMLInputElement
+    if (checkBox !== null && answers[answer] === '1') {
+      checkBox.checked = true
+      continue
+    }
+    // La réponse correspond à une liste déroulante ?
+    const select = document.querySelector(`select#${answer}`) as HTMLSelectElement
+    if (select !== null) {
+      select.value = answers[answer]
+      continue
     }
     if (answer.includes('apigeom')) {
       // La réponse correspond à une figure
       const event = new CustomEvent(answer, { detail: answers[answer] })
       document.dispatchEvent(event)
+      continue
+    }
+    if (answer.includes('rectangle')) {
+      // ATTENTION le test est-il assez spécifique ? Une réponse "rectangle", une figure apigeom avec un texte rectangle...
+      try {
+        // On n'est pas sûr que la chaine `div#${answer}` soit un sélecteur valide
+        const rectangle = document.querySelector(`div#${answer}`)
+        if (rectangle !== null) {
+          const etiquette = document.querySelector(`div#${answers[answer]}`)
+          if (etiquette !== null) {
+            // Remet l'étiquette à la bonne réponse
+            rectangle.appendChild(etiquette)
+          }
+          continue
+        }
+      } catch (error) {
+        console.error('L\'exercice a été reconnu, sans doute à tort, comme un exercice de glisser-déposer')
+      }
     }
   }
 }
