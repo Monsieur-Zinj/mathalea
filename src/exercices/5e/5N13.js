@@ -7,10 +7,11 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = ['AMCOpen', 'AMCNum', 'qcmMult', 'qcmMono']
@@ -208,10 +209,25 @@ export default function Exercice_fractions_simplifier (max = 11) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (this.interactifType === 'mathLive' || this.amcType === 'AMCNum') {
-          if (this.sup2) {
-            setReponse(this, i, reponse, { formatInteractif: 'fraction' })
-          } else {
-            setReponse(this, i, reponse, { formatInteractif: 'fractionPlusSimple' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup2, fractionSimplifiee: !this.sup2 } } })
+          if (context.isAmc) {
+            texte = 'Simplifier la fraction suivante au maximum.\\\\\n' + texte
+            this.autoCorrection[i] = {
+              enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+              propositions: [
+                {
+                  texte: '' // Si vide, le texte est la correction de l'exercice.
+                }
+              ],
+              reponse: {
+                valeur: [reponse.simplifie().toLatex()], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+                param: {
+                  digits: 4,
+                  digitsNum: 2,
+                  digitsDen: 2
+                }
+              }
+            }
           }
         }
         i++
