@@ -168,6 +168,7 @@ export default function desTestsPourInteractivité () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   // this.consigne = 'Quel est le résultat des calculs suivants ?'
+  this.consigne = 'Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4. Ranger ces nombres par ordre croissant.'
   this.nouvelleVersion = function () {
     // console.info(customCanonicalEE(engine.parse('3x^2-3x-3', { canonical: false })).json)
     // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).json)
@@ -182,8 +183,8 @@ export default function desTestsPourInteractivité () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)
-      const set1 = engine.box(['Set', 1, 2, 3, 4])
-      const set2 = engine.box(['Set', 1, 2, 4, 3])
+      // const set1 = engine.box(['Set', 1, 2, 3, 4])
+      // const set2 = engine.box(['Set', 1, 2, 4, 3])
       // console.log(set1.isSame(set2))
       // console.log(set1.isEqual(set2))
       /*
@@ -194,7 +195,6 @@ export default function desTestsPourInteractivité () {
       console.log('test1')
       ensembleNombres('1;2;4;3', '1;2;3;4')
 */
-      console.log(parseFloat(5))
 
       // const reponse = '7\\sqrt{4-3}-6\\div\\sqrt2'
       // const reponse = '\\sqrt{2}'
@@ -204,10 +204,13 @@ export default function desTestsPourInteractivité () {
       // const reponse = '\\dfrac{3}{5}'
       // const reponse = '3x+2'
       // const enonce = 0.4
-      const reponse = 0.4
-      // const reponse = new FractionEtendue(20, 50).toLatex()
-      // const enonce = '$Donner une fraction décimale de $' + new FractionEtendue(20, 50).toLatex() + '$ : $'
-      const enonce = '$Donner une fraction décimale égale à 0.4 : $'
+      // const reponse = new FractionEtendue(6, 8).toLatex()
+      const reponse = '\\{1;3;2\\}'
+      // const reponse = new FractionEtendue(-20, 50).valeurDecimale
+      // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
+      // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
+      const enonce = ''
+      // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
       // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
@@ -217,7 +220,7 @@ export default function desTestsPourInteractivité () {
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { kUplet: true } } })
       // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a, b)) {

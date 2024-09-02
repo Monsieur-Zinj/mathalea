@@ -29,7 +29,7 @@ export type OptionsComparaisonType = {
   operationSeulementEtNonCalcul?: boolean
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
-  kUplets ? :boolean
+  kUplet ? :boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -503,12 +503,12 @@ export function fonctionComparaison (
     fractionSimplifiee, // Documenté
     fractionReduite, // Documenté
     fractionDecimale, // Documenté
-    fractionEgale,
-    nombreDecimalSeulement,
+    fractionEgale, // Documenté
+    nombreDecimalSeulement, // Documenté
     operationSeulementEtNonCalcul, // Documenté
     calculSeulementEtNonOperation, // Documenté
-    ensembleDeNombres,
-    kUplets,
+    ensembleDeNombres, // Documenté
+    kUplet,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -534,7 +534,7 @@ export function fonctionComparaison (
     operationSeulementEtNonCalcul: false,
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
-    kUplets: false,
+    kUplet: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -568,7 +568,7 @@ export function fonctionComparaison (
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
-  if (ensembleDeNombres || kUplets) return ensembleNombres(input, goodAnswer, { kUplets }) // ensembleDeNombres est non trié alors que kUplets nécessite le tri
+  if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
@@ -778,7 +778,7 @@ function expressionDeveloppeeEtReduiteCompare (
   const localGoodAnswer = clean(goodAnswer)
   if (nombreDecimalSeulement) {
     const saisieParsed = engine.parse(localInput, { canonical: false })
-    if (saisieParsed.head !== 'Number') return { isOk: false, feedback: 'Résultat incorrect car une valeur numérique est attendue.' }
+    if (saisieParsed.head !== 'Number') return { isOk: false, feedback: 'Résultat incorrect car une valeur décimale (ou entière) est attendue.' }
   }
   const saisieParsed = customCanonical(
     engine.parse(localInput, { canonical: false }),
@@ -818,16 +818,17 @@ function expressionDeveloppeeEtReduiteCompare (
       ? 'numérique'
       : 'littérale'
 
+  // La ligne du dessous est inutile mais il faut la laisser pour bien indiquer qu'elle est inutile
   // if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
   if (!(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
-    if (calculSeulementEtNonOperation) { // On veut un résultat numérique et pas un enchaînement de calculs
+    if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // On veut un résultat numérique et pas un enchaînement de calculs
       const saisieCalculeeParsed = customCanonical(
         engine.parse(localInput, { canonical: false }),
         {
           expressionsForcementReduites,
           fractionIrreductible,
           operationSeulementEtNonCalcul,
-          nombreDecimalSeulement,
+          nombreDecimalSeulement: false,
           calculSeulementEtNonOperation: false
         }
       )
@@ -1308,7 +1309,7 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
 
 /**
  * Comparaison d'ensembles de solutions séparés par des ; dans des {} comme {-5;4;10}
- * Non importance de l'ordre des nombres
+ * Si kUplet = true, alors les nombres de l'usager devront être rangés par ordre croissant. Sinon non importance de l'ordre des nombres
  * Mise en place de feedback
  * @param {string} input
  * @param {string} goodAnswer
@@ -1316,7 +1317,7 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  * @author Eric Elter
  */
 export function ensembleNombres (input: string, goodAnswer: string, {
-  kUplets = false
+  kUplet = false
 }
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
@@ -1324,7 +1325,6 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
   if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
   const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
-
   const splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
 
   // Pour vérifier la présence de doublons
@@ -1345,17 +1345,17 @@ export function ensembleNombres (input: string, goodAnswer: string, {
       return aValue - bValue
     })
   }
-
-  const inputSorted = sortMathExpressions(splitInput)
+  const splitInputBis = [...splitInput]
+  const inputSorted = sortMathExpressions(splitInputBis)
   const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
-  const hasDifferentValues = kUplets
-    ? inputSorted.every((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
-    : inputSorted.some((value, index) => !engine.parse(value).isSame(engine.parse(goodAnswerSorted[index])))
+  const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
 
   if (hasDifferentValues) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
-
+  if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
+    return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés par ordre croissant.' }
+  }
   return { isOk: true }
 }
 
