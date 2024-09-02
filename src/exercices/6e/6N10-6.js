@@ -4,13 +4,14 @@ import { texNombre, stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fraction } from '../../modules/fractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Donner l\'écriture (décimale ou en fraction décimale) d\'une somme (ou différence) de nombres avec fractions décimales'
 export const amcReady = true
@@ -210,11 +211,22 @@ export default function SommeFractionsDecimales () {
       switch (this.sup2) {
         case 1 :
           if (context.isAmc) {
-            setReponse(this, i, reponseAMC, {
-              digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-              decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-              signe: false
-            })
+            this.autoCorrection[i] = {
+              enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+              propositions: [
+                {
+                  texte: '' // Si vide, le texte est la correction de l'exercice.
+                }
+              ],
+              reponse: {
+                valeur: [reponseAMC], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+                param: {
+                  digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+                  decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+                  signe: false
+                }
+              }
+            }
           } else {
             handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } } })
           }
@@ -222,12 +234,22 @@ export default function SommeFractionsDecimales () {
           break
         case 2 :
           if (context.isAmc) {
-            setReponse(this, i, new FractionEtendue(numAMC, denAMC), {
-              digitsNum: nombreDeChiffresDe(numAMC),
-              digitsDen: nombreDeChiffresDe(denAMC) + 1,
-              signe: false,
-              formatInteractif: 'fraction'
-            })
+            this.autoCorrection[i] = {
+              enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+              propositions: [
+                {
+                  texte: '' // Si vide, le texte est la correction de l'exercice.
+                }
+              ],
+              reponse: {
+                valeur: [new FractionEtendue(numAMC, denAMC)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+                param: {
+                  digitsNum: nombreDeChiffresDe(numAMC),
+                  digitsDen: nombreDeChiffresDe(denAMC) + 1,
+                  signe: false
+                }
+              }
+            }
           } else {
             handleAnswers(this, i, { bareme: (listePoints) => [listePoints[0], 1], champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionDecimale: true } } })
           }
@@ -235,40 +257,63 @@ export default function SommeFractionsDecimales () {
         case 3 :
           if (context.isAmc) {
             if (choice([0, 1]) === 0) {
-              setReponse(this, i, new FractionEtendue(numAMC, denAMC), {
-                digitsNum: nombreDeChiffresDe(numAMC),
-                digitsDen: nombreDeChiffresDe(denAMC) + 1,
-                signe: false,
-                formatInteractif: 'fraction'
-              })
+              this.autoCorrection[i] = {
+                enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+                propositions: [
+                  {
+                    texte: '' // Si vide, le texte est la correction de l'exercice.
+                  }
+                ],
+                reponse: {
+                  valeur: [new FractionEtendue(numAMC, denAMC)], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+                  param: {
+                    digitsNum: nombreDeChiffresDe(numAMC),
+                    digitsDen: nombreDeChiffresDe(denAMC) + 1,
+                    signe: false
+                  }
+                }
+              }
             } else {
-              setReponse(this, i, reponseAMC, {
-                digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-                decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-                signe: false
-              })
+              this.autoCorrection[i] = {
+                enonce: texte, // Si vide, l'énoncé est celui de l'exercice.
+                propositions: [
+                  {
+                    texte: '' // Si vide, le texte est la correction de l'exercice.
+                  }
+                ],
+                reponse: {
+                  valeur: [reponseAMC], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+                  param: {
+                    digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+                    decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+                    signe: false
+                  }
+                }
+              }
             }
           } else {
             handleAnswers(this, i, {
               bareme: (listePoints) => [listePoints[0] + listePoints[1], 2],
               champ1: { value: fractionResultat, compare: fonctionComparaison, options: { fractionDecimale: true } },
-              champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } }
+              //  champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { avecFractions: false } }
+              champ2: { value: stringNombre(reponseAMC, 3), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } }
             })
           }
           break
       }
-
       if (this.interactif) {
         if (this.sup2 === 3) {
-          texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', 'inline college6', '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', 'inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
           //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         } else {
-          texte += remplisLesBlancs(this, i, '= %{champ1}', 'inline college6', '\\ldots\\ldots')
+          // texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + (this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction), '\\ldots\\ldots')
           // texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: `${sp(6)}=` })
         }
       }
 
+      texte += ajouteFeedback(this, i)
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

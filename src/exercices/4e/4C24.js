@@ -134,7 +134,7 @@ export default function SimplifierFractions () {
                   statut: '',
                   reponse: {
                     texte: 'Rendre irréductible la fraction ' + texte + '.',
-                    valeur: [f.simplifie().toLatex()],
+                    valeur: [f.simplifie()],
                     param: {
                       digits: 2,
                       decimals: 0,
