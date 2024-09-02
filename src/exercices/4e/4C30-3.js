@@ -3,11 +3,12 @@ import { puissanceEnProduit } from '../../lib/outils/puissance'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
-import { fraction } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { sp } from '../../lib/outils/outilString.js'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import FractionEtendue from '../../modules/FractionEtendue'
 
 export const titre = 'Donner l\'écriture entière d\'une puissance'
 export const interactifReady = true
@@ -50,7 +51,7 @@ export default function EcritureDecimalePuissance () {
       this.consigne = this.nbQuestions === 1
         ? "Donner l'écriture du nombre suivant sous la forme d'une fraction."
         : "Donner l'écriture des nombres suivants sous la forme d'une fraction."
-    } else if (this.sup === 3) {
+    } else {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
       this.consigne = this.nbQuestions === 1
         ? "Donner l'écriture du nombre suivant sous la forme d'un nombre entier ou d'une fraction."
@@ -63,18 +64,19 @@ export default function EcritureDecimalePuissance () {
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${n}}$`
           texteCorr = `$${a}^{${n}}=${puissanceEnProduit(a, n)}=${miseEnEvidence(texNombre(a ** n, 0))}$`
-          setReponse(this, i, a ** n)
+          handleAnswers(this, i, { reponse: { value: a ** n, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+
           break
         case '-':
           a = listeDeCalculs[i][0]
           n = listeDeCalculs[i][1]
           texte = `$${a}^{${-n}}$`
           texteCorr = `$${a}^{${-n}}=\\dfrac{1}{${a}^{${n}}}=\\dfrac{1}{${puissanceEnProduit(a, n)}}=${miseEnEvidence('\\dfrac{1}{' + texNombre(a ** n, 0)) + '}'}$`
-          setReponse(this, i, fraction(1, a ** n), { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: new FractionEtendue(1, a ** n).simplifie().toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
           break
       }
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore', { texteAvant: sp(2) + '$=$' + sp(2) })
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp(2) + '$=$' + sp(2) })
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, n)) {
         // Si la question n'a jamais été posée, on en crée une autre
