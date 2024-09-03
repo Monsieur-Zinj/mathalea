@@ -67,7 +67,6 @@ class squaro extends Exercice {
     this.sup4 = 7
     this.longueur = this.sup
     this.largeur = this.sup2
-    // this.interactif = true
   }
 
   nouvelleVersion (): void {
@@ -274,9 +273,7 @@ class squaro extends Exercice {
       document.addEventListener('exercicesAffiches', () => {
         this.blueButton.click()
       })
-    }
-
-    if (!this.interactif) {
+    } else {
       this.figure.isDynamic = false
       this.figure.divButtons.style.display = 'none'
       this.figure.divUserMessage.style.display = 'none'
