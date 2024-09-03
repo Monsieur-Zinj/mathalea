@@ -54,7 +54,7 @@
                 {@html currentSlide.vues[i].questionText}
               </div>
             </div>
-            <div>
+            <div class="flex flew-row">
               {#each currentSlide.vues[i].questionSvgs as questionSvg}
                 <div>
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
