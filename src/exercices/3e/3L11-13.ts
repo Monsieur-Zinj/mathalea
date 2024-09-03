@@ -1,0 +1,118 @@
+import { max, min } from 'mathjs'
+import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
+import { choice, combinaisonListes, getRandomSubarray, shuffle } from '../../lib/outils/arrayOutils'
+import { listeQuestionsToContenu, randint } from '../../modules/outils'
+import Exercice from '../Exercice'
+import { lettreDepuisChiffre } from '../../lib/outils/outilString'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import FractionEtendue from '../../modules/FractionEtendue'
+export const titre = 'Additionner et soustraire des polynômes'
+export const dateDePublication = '19/08/2024'
+
+/**
+ * Réduire une expression littérale
+ * @author Nathan Scheinmann
+*/
+
+export const uuid = '4b495'
+export const refs = {
+  'fr-fr': ['3L11-13'],
+  'fr-ch': ['11FA1-9']
+}
+
+export default class nomExercice extends Exercice {
+  constructor () {
+    super()
+    this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
+    this.nbQuestions = 10
+    this.besoinFormulaireNumerique = ['Type de calcul', 3, 'Addition\nSoustraction\nMélange']
+    this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
+    this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire5Numerique = ['Nombre de termes maximal dans un polynôme', 5, '2\n3\n4\n5\n6']
+    // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
+    // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
+    this.sup = 3
+    this.sup2 = 1
+    this.sup3 = 3
+    this.sup4 = 3
+    this.sup5 = 2
+    this.listeAvecNumerotation = false
+  }
+
+  nouvelleVersion () {
+    this.listeQuestions = []
+    this.listeCorrections = []
+    this.autoCorrection = []
+    let typeQuestionsDisponibles: ('addition' | 'soustraction')[]
+    if (this.sup === 1) {
+      typeQuestionsDisponibles = ['addition']
+    } else if (this.sup === 2) {
+      typeQuestionsDisponibles = ['soustraction']
+    } else {
+      typeQuestionsDisponibles = shuffle(['addition', 'soustraction', 'addition', 'soustraction'])
+    }
+    const degMin = 0
+    const listeTypeDeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let texte, texteCorr: string
+      const degMax = max(this.sup3, 0)
+      const variables = ['x', 'y', 'z', 'r', 's', 't']
+      const variablesSelect = getRandomSubarray(variables, this.sup4)
+      const typeCoeffListe = ['entier', 'fractionnaire']
+      let typeofCoeff = []
+      if (this.sup2 === 1) {
+        typeofCoeff = ['entier']
+      } else if (this.sup2 === 2) {
+        typeofCoeff = ['fraction']
+      } else {
+        typeofCoeff = typeCoeffListe
+      }
+      const p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5, choice(typeofCoeff), variablesSelect)
+      const p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(min(1, this.sup5 - 1), this.sup5)))
+      // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
+      let testPremiereFraction = true
+      let denominateurCommun = 1
+      for (let i = 0; i < p1.monomes.length; i++) {
+        if (p1.monomes[i].coefficient.den !== 1) {
+          if (testPremiereFraction) {
+            denominateurCommun = p1.monomes[i].coefficient.den
+            testPremiereFraction = false
+          } else {
+            p1.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+          }
+        }
+      }
+      for (let i = 0; i < p2.monomes.length; i++) {
+        if (p2.monomes[i].coefficient.den !== 1) {
+          if (testPremiereFraction) {
+            denominateurCommun = p2.monomes[i].coefficient.den
+            testPremiereFraction = false
+          } else {
+            p2.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+          }
+        }
+      }
+      switch (listeTypeDeQuestions[i]) {
+        case 'addition':{
+          texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}\\right)+\\left(${p2.toString()}\\right)$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${(p1.somme(p2)).toString()}=${miseEnEvidence((p1.somme(p2)).reduire().toString())}$`
+          break
+        }
+        case 'soustraction':{
+          texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}\\right)-\\left(${p2.toString()}\\right)$`
+          texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.difference(p2).toString()}=${miseEnEvidence(p1.difference(p2).reduire().toString())}$`
+          break
+        }
+      }
+      if (this.questionJamaisPosee(i, texte)) {
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}

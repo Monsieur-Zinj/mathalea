@@ -12,10 +12,12 @@ type partieLitterale = {
 class MonomePlusieursVariables {
   coefficient: FractionEtendue
   partieLitterale: partieLitterale
+  degre: number
 
   constructor (coefficient: numberOrFraction, partieLitterale: partieLitterale) {
     this.coefficient = rationnalise(coefficient)
     this.partieLitterale = { ...partieLitterale } // Clone to avoid mutations
+    this.degre = this.partieLitterale.exposants.reduce((acc, exposant) => acc + exposant, 0)
   }
 
   static genereCoefficients (typeofCoeff: string): FractionEtendue {
@@ -140,9 +142,17 @@ class MonomePlusieursVariables {
     if (this.coefficient.num === 0) {
       return '0'
     } else if (this.coefficient.texFractionSimplifiee === '1') {
-      return partieLitteraleString
+      if (partieLitteraleString === '') {
+        return '1'
+      } else {
+        return partieLitteraleString
+      }
     } else if (this.coefficient.texFractionSimplifiee === '-1') {
-      return `-${partieLitteraleString}`
+      if (partieLitteraleString === '') {
+        return '-1'
+      } else {
+        return `-${partieLitteraleString}`
+      }
     } else {
       return `${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}`
     }
