@@ -212,6 +212,41 @@ export default class Pythagore2DBlockly extends Exercice {
           },
           {
             kind: 'block',
+            type: 'egale_comp',
+            inputs: {
+              op1: {
+                block: {
+                  type: 'carre',
+                  inputs: {
+                    value: {
+                      block: {
+                        type: 'longueur'
+                      }
+                    }
+                  }
+                }
+              },
+              op2: {
+                block: {
+                  type: 'operation',
+                  inputs: {
+                    op1: {
+                      block: {
+                        type: 'carre'
+                      }
+                    },
+                    op2: {
+                      block: {
+                        type: 'carre'
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          {
+            kind: 'block',
             type: 'operation'
           },
           {
@@ -439,7 +474,7 @@ export default class Pythagore2DBlockly extends Exercice {
   correctionInteractive = (i) => {
     if (i === undefined) return ''
     if (this.answers === undefined) this.answers = {}
-    const result = ['OK']
+    let result = 'OK'
     const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
     spanResultat.innerHTML = ''
@@ -449,7 +484,7 @@ export default class Pythagore2DBlockly extends Exercice {
     if (!start) {
       feedback += 'Manque le bloc "démonstration"<br>'
       spanResultat.innerHTML = '☹️'
-      result[0] = 'KO'
+      result = 'KO'
       if (divFeedback) divFeedback.innerHTML = feedback
       return result
     }
@@ -457,7 +492,7 @@ export default class Pythagore2DBlockly extends Exercice {
     if (!demo) {
       feedback += 'Manque le bloc "Condition Propriété Conclusion"<br>'
       spanResultat.innerHTML = '☹️'
-      result[0] = 'KO'
+      result = 'KO'
       if (divFeedback) divFeedback.innerHTML = feedback
       return result
     }
@@ -466,14 +501,14 @@ export default class Pythagore2DBlockly extends Exercice {
     if (!condition) {
       feedback += 'Pas de condition définie<br>'
       spanResultat.innerHTML = '☹️'
-      result[0] = 'KO'
+      result = 'KO'
     } else {
       if (condition.type === 'triangle_rect_iso' && condition.getFieldValue('tritype') === 'rect') {
         feedback += 'Condition: le bloc triangle rectangle défini<br>'
       } else {
         feedback += 'Condition: le bloc triangle rectangle mal défini<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
       if (this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('prepoint')) &&
         this.saveArguments[i].nomDuPolygone.includes(condition.getFieldValue('deuxpoint')) &&
@@ -496,14 +531,14 @@ export default class Pythagore2DBlockly extends Exercice {
     if (!prop) {
       feedback += 'Pas de propriété définie<br>'
       spanResultat.innerHTML = '☹️'
-      result[0] = 'KO'
+      result = 'KO'
     } else {
       if (prop.type === 'pythagore') {
         feedback += 'Propriété: le bloc Pythagore défini<br>'
       } else {
         feedback += 'Propriété: le bloc Pythagore absent<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
 
       const egalitePyt = prop.getNextBlock() // égalité de Pythagore
@@ -518,7 +553,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback += 'Propriété: Egalité de Pythagore : bloc incorrecte à gauche<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
 
       if (egalitePyt && egalitePyt.type === 'egale_comp' &&
@@ -553,7 +588,7 @@ export default class Pythagore2DBlockly extends Exercice {
         if (!racineCarre) {
           feedback += feed
           spanResultat.innerHTML = '☹️'
-          result[0] = 'KO'
+          result = 'KO'
           break
         }
       }
@@ -563,7 +598,7 @@ export default class Pythagore2DBlockly extends Exercice {
     if (!conclusion) {
       feedback += 'Pas de conclusion définie<br>'
       spanResultat.innerHTML = '☹️'
-      result[0] = 'KO'
+      result = 'KO'
     } else {
       let equalOrApprox = ''
       let nomLongueur = ''
@@ -598,14 +633,15 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback += 'Conclusion: le bloc conclusion avec le mauvais block<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
+
       }
       if (conclusion.type === 'egale_comp' && conclusion.getFieldValue('op') === equalOrApprox) {
         feedback += 'Conclusion: le bloc conclusion défini avec le bon signe<br>'
       } else if (conclusion.type === 'egale_comp') {
         feedback += 'Conclusion: le bloc conclusion défini avec le mauvais signe<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
       const op1 = conclusion.getInputTargetBlock('op1')
       if (op1 && op1.type === 'longueur' && op1.getFieldValue('Longueur_triangle') === nomLongueur) {
@@ -613,7 +649,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback += 'Conclusion: le bloc conclusion défini avec le mauvais segment<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
       const op2 = conclusion.getInputTargetBlock('op2')
       if (op2 && op2.type === 'unite' && op2.getFieldValue('unite') === 'cm') {
@@ -628,10 +664,10 @@ export default class Pythagore2DBlockly extends Exercice {
       } else {
         feedback += 'Conclusion: le bloc conclusion défini avec la mauvaise longueur<br>'
         spanResultat.innerHTML = '☹️'
-        result[0] = 'KO'
+        result = 'KO'
       }
     }
-    if (result[0] === 'OK') spanResultat.innerHTML = '😎'
+    if (result === 'OK') spanResultat.innerHTML = '😎'
     if (divFeedback) divFeedback.innerHTML = feedback
     return result
   }

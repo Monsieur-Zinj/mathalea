@@ -80,8 +80,10 @@ export function updateFigures (svgContainer: Element, zoom: number) {
       const eltsInVariationTables = svgContainer.getElementsByClassName('divLatex') ?? []
       for (const elt of eltsInVariationTables) {
         const e = elt as HTMLDivElement
-        const initialTop = Number(e.dataset.top) ?? 0
-        const initialLeft = Number(e.dataset.left) ?? 0
+        if (!e.dataset.top) e.dataset.top = (e.style.top.replace('px', ''))
+        if (!e.dataset.left) e.dataset.left = (e.style.left.replace('px', ''))
+        const initialTop = Number(e.dataset.top)
+        const initialLeft = Number(e.dataset.left)
         e.style.setProperty('top', (initialTop * zoom).toString() + 'px')
         e.style.setProperty('left', (initialLeft * zoom).toString() + 'px')
       }

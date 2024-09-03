@@ -53,11 +53,11 @@ export default function ChiffreDes () {
         this.reponse = f
         break
     }
-    this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
+    this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br><br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
     this.correction += '\\hline\n'
-    this.correction += '\\\\\nCentaine &  Dizaine & Unité&  \\Large{\\textbf{,}}& Dixième & Centième & Millième \\\\\n \\\\\n'
+    this.correction += 'Centaine &  Dizaine & Unité&  \\Large{\\textbf{,}}& Dixième & Centième & Millième \\\\ \n'
     this.correction += '\\hline\n'
-    this.correction += `\\\\\n${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f} \\\\\n \\\\\n`
+    this.correction += `${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}\\\\ \n`
     this.correction += '\\hline\n'
     this.correction += '\\end{array}\n$'
     this.canEnonce = this.question

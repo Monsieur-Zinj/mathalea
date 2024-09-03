@@ -80,7 +80,18 @@ class ReperagePointDuPlan extends Exercice {
     // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
     this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
     const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
-    const texteCorr = figureCorr.getStaticHtml()
+    // MGU : gère le zoom des figures apigeom statiques comme les figures mathalea2d
+    figureCorr.divFigure.classList.add('svgContainer')
+    figureCorr.divFigure.querySelector('svg')?.classList.add('mathalea2d')
+    for (const di of figureCorr.divFigure.querySelectorAll('div')) {
+      di.classList.add('divLatex')
+    }
+    const tempDiv = document.createElement('div')
+    tempDiv.innerHTML = figureCorr.getStaticHtml()
+    const child = (tempDiv.firstChild as HTMLElement)
+    child.style.removeProperty('height')
+    child.style.removeProperty('weight')
+    const texteCorr = child.outerHTML
 
     if (context.isHtml) {
       this.question = enonce + emplacementPourFigure
