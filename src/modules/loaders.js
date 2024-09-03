@@ -207,6 +207,8 @@ export async function loadMathLive (divExercice) {
         mf.style.border = 'none'
         mf.style.boxShadow = 'none'
         mf.style.fontSize = '1em'
+        mf.style.marginTop = '1px'
+        mf.style.padding = '2px'
         mf.classList.remove('invisible')
       }
       mf.style.fontSize = '1em'

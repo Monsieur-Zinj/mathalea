@@ -30,7 +30,7 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
   document.addEventListener('zoomChanged', (event: Event) => {
     const customEvent = event as CustomEvent
     const zoom = Number(customEvent.detail.zoom)
-    figure.zoom(zoom, { changeHeight: true, changeWidth: true})
+    figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
   })
 
   document.addEventListener('exercicesAffiches', () => {

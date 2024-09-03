@@ -1,6 +1,6 @@
 import Exercice from '../Exercice.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import {listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
@@ -31,23 +31,36 @@ export default class InequationsLog extends Exercice {
     this.consigne = 'Compléter avec le signe < ou >.'
     this.spacingCorr = 3
     this.sup = '1'
-    this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Entiers et nombres à une décimale \n2 : Nombres décimaux à une ou deux décimale(s) \n3 : Nombres décimaux à trois décimales \n4 : Mélange']
+    this.besoinFormulaireTexte = ['Type de questions', 'Nombres séparés par des tirets\n1 : Nombres décimaux à une seule décimale \n2 : Nombres décimaux à deux décimales \n3 : Nombres décimaux à trois décimales \n4 : Mélange']
   }
 
   nouvelleVersion () {
-    let typeQuestionsDisponibles = []
-    if (this.sup === '1') {
-      typeQuestionsDisponibles = ['dixiemeMemeSignePos', 'dixiemeMemeSigneNeg','dixiemeMemeSignePos','dixiemeSignesContraires', ]
-    } else if (this.sup === '2') {
-      typeQuestionsDisponibles = ['centiemeMemeSignePos', 'centiemeMemeSigneNeg', 'centiemePiege', 'centiemeSigneContraire' ]
-    } else if (this.sup === '3') {
-      typeQuestionsDisponibles = ['milliemeMemeSignePos', 'milliemeMemeSigneNeg', 'milliemePiege', 'milliemeSigneContraire' ]
-    } else {
-      typeQuestionsDisponibles = ['dixiemeMemeSignePos', 'dixiemeMemeSigneNeg', 'dixiemeSignesContraires', 'centiemeMemeSignePos', 'centiemeMemeSigneNeg', 'centiemePiege', 'centiemeSigneContraire', 'milliemeMemeSignePos', 'milliemeMemeSigneNeg', 'milliemePiege', 'milliemeSigneContraire']
+    const typeQuestionsDisponibles = []
+    const questionsDisponibles = gestionnaireFormulaireTexte({
+      saisie: this.sup,
+      nbQuestions: this.nbQuestions,
+      min: 1,
+      max: 3,
+      melange: 4,
+      defaut: 1,
+      shuffle: false
+    })
+    const dixQuests = shuffle(['dixiemeMemeSignePos', 'dixiemeMemeSigneNeg', 'dixiemeMemeSigneNeg', 'dixiemeSignesContraires'])
+    const centQuests = shuffle(['centiemeMemeSignePos', 'centiemeMemeSigneNeg', 'centiemePiege', 'centiemeSigneContraire'])
+    const millQuests = shuffle(['milliemeMemeSignePos', 'milliemeMemeSigneNeg', 'milliemePiege', 'milliemeSigneContraire'])
+    for (const val of questionsDisponibles) {
+      if (val === 1) {
+        const val = dixQuests.shift()
+        if (val) typeQuestionsDisponibles.push(val)
+      } else if (val === 2) {
+        const val = centQuests.shift()
+        if (val) typeQuestionsDisponibles.push(val)
+      } else if (val === 3) {
+        const val = millQuests.shift()
+        if (val) typeQuestionsDisponibles.push(val)
+      }
     }
-
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
-    
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; cpt++) {
       let texte = ''
       let texteCorr = ''
@@ -69,6 +82,7 @@ export default class InequationsLog extends Exercice {
           const dixiemeB = randint(0, 9, dixiemeA)
           a = new Decimal(partieEntiere * 10 + dixiemeA).div(10)
           b = new Decimal(partieEntiere * 10 + dixiemeB).div(10)
+          randint(0, 1) === 1 ? a = a.neg() : b = b.neg()
           break
         }
         case 'dixiemeMemeSigneNeg': {
@@ -83,12 +97,12 @@ export default class InequationsLog extends Exercice {
         }
         case 'centiemeMemeSignePos': {
           const partieEntiere = randint(0, 9)
-          const dixiemeA = randint(0,9)
-          const dixiemeB = randint(0,9)
-          const centiemeA = randint(0,9)
-          const centiemeB = randint(0,9, centiemeA) 
-          a = new Decimal(partieEntiere * 100 + dixiemeA*10 +centiemeA).div(100)
-          b = new Decimal(partieEntiere * 100 + dixiemeB*10 +centiemeB).div(100)
+          const dixiemeA = randint(0, 9)
+          const dixiemeB = randint(0, 9)
+          const centiemeA = randint(0, 9)
+          const centiemeB = randint(0, 9, centiemeA)
+          a = new Decimal(partieEntiere * 100 + dixiemeA * 10 + centiemeA).div(100)
+          b = new Decimal(partieEntiere * 100 + dixiemeB * 10 + centiemeB).div(100)
           break
         }
         case 'centiemeMemeSigneNeg': {
@@ -96,26 +110,27 @@ export default class InequationsLog extends Exercice {
           const dixiemeA = randint(0, 9)
           const dixiemeB = randint(0, 9)
           const centiemeA = randint(0, 9)
-          const centiemeB = randint(0, 9, centiemeA) 
-          a = new Decimal(partieEntiere * 100 + dixiemeA*10 +centiemeA).div(100)
-          b = new Decimal(partieEntiere * 100 + dixiemeB*10 +centiemeB).div(100)
+          const centiemeB = randint(0, 9, centiemeA)
+          a = new Decimal(partieEntiere * 100 + dixiemeA * 10 + centiemeA).div(100)
+          b = new Decimal(partieEntiere * 100 + dixiemeB * 10 + centiemeB).div(100)
           a = a.neg()
           b = b.neg()
           break
         }
         case 'centiemePiege': {
           const partieEntiere = randint(0, 9)
-          const dixiemeA = randint(0, 9)
-          const dixiemeB = randint(0, 9)
+          const dixiemeA = randint(1, 9)
+          const dixiemeB = randint(0, dixiemeA)
           const centiemeA = 0
           let centiemeB = 0
-          if (dixiemeB == 0 ) {
+          if (dixiemeB === 0) {
             centiemeB = dixiemeA
           } else {
-            centiemeB = randint(1,9) 
+            centiemeB = randint(1, 9)
           }
-          a = new Decimal(partieEntiere * 100 + dixiemeA*10 + centiemeA).div(100)
-          b = new Decimal(partieEntiere * 100 + dixiemeB*10 + centiemeB).div(100)
+          a = new Decimal(partieEntiere * 100 + dixiemeA * 10 + centiemeA).div(100)
+          b = new Decimal(partieEntiere * 100 + dixiemeB * 10 + centiemeB).div(100)
+          if (randint(0, 1) === 1) [a, b] = [b, a]
           break
         }
         case 'centiemeSigneContraire': {
@@ -123,10 +138,10 @@ export default class InequationsLog extends Exercice {
           const dixiemeA = randint(0, 9)
           const dixiemeB = randint(0, 9)
           const centiemeA = randint(0, 9)
-          const centiemeB = randint(0, 9, centiemeA) 
-          a = new Decimal(partieEntiere * 100 + dixiemeA*10 +centiemeA).div(100)
-          b = new Decimal(partieEntiere * 100 + dixiemeB*10 +centiemeB).div(100)
-          b = b.neg()
+          const centiemeB = randint(0, 9, centiemeA)
+          a = new Decimal(partieEntiere * 100 + dixiemeA * 10 + centiemeA).div(100)
+          b = new Decimal(partieEntiere * 100 + dixiemeB * 10 + centiemeB).div(100)
+          randint(0, 1) === 1 ? a = a.neg() : b = b.neg()
           break
         }
         case 'milliemeMemeSignePos': {
@@ -137,8 +152,8 @@ export default class InequationsLog extends Exercice {
           const centiemeB = randint(0, 9)
           const milliemeA = randint(0, 9)
           const milliemeB = randint(0, 9, milliemeA)
-          a = new Decimal(partieEntiere * 1000 + dixiemeA*100 + centiemeA *10 + milliemeA).div(1000)
-          b = new Decimal(partieEntiere * 1000 + dixiemeB*100 + centiemeB *10 + milliemeB).div(1000)
+          a = new Decimal(partieEntiere * 1000 + dixiemeA * 100 + centiemeA * 10 + milliemeA).div(1000)
+          b = new Decimal(partieEntiere * 1000 + dixiemeB * 100 + centiemeB * 10 + milliemeB).div(1000)
           break
         }
         case 'milliemeMemeSigneNeg': {
@@ -149,12 +164,12 @@ export default class InequationsLog extends Exercice {
           const centiemeB = randint(0, 9)
           const milliemeA = randint(0, 9)
           const milliemeB = randint(0, 9, milliemeA)
-          a = new Decimal(partieEntiere * 1000 + dixiemeA*100 + centiemeA *10 + milliemeA).div(1000)
-          b = new Decimal(partieEntiere * 1000 + dixiemeB*100 + centiemeB *10 + milliemeB).div(1000)
+          a = new Decimal(partieEntiere * 1000 + dixiemeA * 100 + centiemeA * 10 + milliemeA).div(1000)
+          b = new Decimal(partieEntiere * 1000 + dixiemeB * 100 + centiemeB * 10 + milliemeB).div(1000)
           a = a.neg()
           b = b.neg()
           break
-      }
+        }
         case 'milliemePiege': {
           const partieEntiere = randint(0, 9)
           const dixiemeA = 0
@@ -163,18 +178,19 @@ export default class InequationsLog extends Exercice {
           const milliemeA = randint(0, 9)
           let milliemeB = 0
           let centiemeB = 0
-          if (milliemeA == 0) {
+          if (milliemeA === 0) {
             milliemeB = centiemeA
-            centiemeB = dixiemeA  
+            centiemeB = dixiemeA
           } else {
             milliemeB = randint(1, 9)
-            centiemeB = randint(1, 9)             
+            centiemeB = randint(1, 9)
           }
-          a = new Decimal(partieEntiere * 1000 + dixiemeA*100 + centiemeA *10 + milliemeA).div(1000)
-          b = new Decimal(partieEntiere * 1000 + dixiemeB*100 + centiemeB *10 + milliemeB).div(1000)
+          a = new Decimal(partieEntiere * 1000 + dixiemeA * 100 + centiemeA * 10 + milliemeA).div(1000)
+          b = new Decimal(partieEntiere * 1000 + dixiemeB * 100 + centiemeB * 10 + milliemeB).div(1000)
           break
         }
-        default : case 'milliemeSigneContraire': {
+        case 'milliemeSigneContraire':
+        default: {
           const partieEntiere = randint(0, 9)
           const dixiemeA = randint(0, 9)
           const dixiemeB = randint(0, 9)
@@ -182,13 +198,13 @@ export default class InequationsLog extends Exercice {
           const centiemeB = randint(0, 9)
           const milliemeA = randint(0, 9)
           const milliemeB = randint(0, 9, milliemeA)
-          a = new Decimal(partieEntiere * 1000 + dixiemeA*100 + centiemeA *10 + milliemeA).div(1000)
-          b = new Decimal(partieEntiere * 1000 + dixiemeB*100 + centiemeB *10 + milliemeB).div(1000)
-          a = a.neg()
+          a = new Decimal(partieEntiere * 1000 + dixiemeA * 100 + centiemeA * 10 + milliemeA).div(1000)
+          b = new Decimal(partieEntiere * 1000 + dixiemeB * 100 + centiemeB * 10 + milliemeB).div(1000)
+          randint(0, 1) === 1 ? a = a.neg() : b = b.neg()
           break
-        }      
+        }
       }
-      
+
       texte = `$${texNombre(a!)}$ &nbsp \\ldots\\ldots &nbsp $${texNombre(b!)}$`
       if (a.greaterThan(b)) {
         texteCorr = `$${texNombre(a!)} \\quad ${miseEnEvidence('>')} \\quad ${texNombre(b!)}$`
@@ -200,7 +216,6 @@ export default class InequationsLog extends Exercice {
         texteCorr = `$${texNombre(a!)} \\quad ${miseEnEvidence('=')} \\quad ${texNombre(b!)}$`
         answer = '='
       }
-        
       if (this.interactif) {
         handleAnswers(this, i,
           {

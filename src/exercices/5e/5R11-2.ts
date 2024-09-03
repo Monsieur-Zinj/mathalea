@@ -34,7 +34,7 @@ type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsSurAxeRelatifs extends Exercice {
   goodAnswers: goodAnswer[] = []
-  figures: Figure[] = []
+  figuresApiGeom: Figure[] = []
   constructor () {
     super()
     this.nbQuestions = 5
@@ -109,17 +109,24 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       const { figure, latex } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
-      this.figures[i] = figure
+      this.figuresApiGeom[i] = figure
 
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: abs0 - 1 / (stepBis * stepBis * stepBis * stepBis), xMax: abs0 + 7 / step + 1 / (stepBis * stepBis * stepBis), scale: step, points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: abs1, color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label2, x: abs2, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label3, x: abs3, color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
+      // MGU : gère le zoom des figures apigeom statiques comme les figures mathalea2d
+      figureCorr.divFigure.classList.add('svgContainer')
+      figureCorr.divFigure.querySelector('svg')?.classList.add('mathalea2d')
+      for (const di of figureCorr.divFigure.querySelectorAll('div')) {
+        di.classList.add('divLatex')
+      }
+
       texte = `Placer les points : $${label1}(${texNombre(abs1, 5)}), ${label2}(${texNombre(abs2, 5)}), ${label3}(${texNombre(abs3, 5)})$.`
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `apigeomEx${this.numeroExercice}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `ApigeomEx${this.numeroExercice}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -148,12 +155,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   correctionInteractive = (i?: number) => {
     if (i === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
-    const figure = this.figures[i]
-    if (this.answers === undefined) {
-      this.answers = {}
-    }
-    // Sauvegarde de la réponse pour Capytale
-    this.answers[`apigeomEx${this.numeroExercice}Q${i}`] = figure.json
+    const figure = this.figuresApiGeom[i]
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
