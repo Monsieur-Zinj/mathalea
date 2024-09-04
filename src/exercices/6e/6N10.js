@@ -65,6 +65,8 @@ export default function EcrirePetitsNombresEntiers () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
 
     const listeQuestions = gestionnaireFormulaireTexte({
       min: 2,
@@ -254,6 +256,8 @@ export default function EcrirePetitsNombresEntiers () {
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce ?? '')
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter ?? '')
         i++
       }
       cpt++

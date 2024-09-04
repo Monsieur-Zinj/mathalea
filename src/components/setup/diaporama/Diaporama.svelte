@@ -90,7 +90,7 @@
         }
         for (let idVue = 0; idVue < nbOfVues; idVue++) {
           if (idVue > 0 && isIntegerInRange0to3(idVue)) reroll(exercise, idVue)
-          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.introduction) : '')
+          const consigne = mathaleaFormatExercice(exercise.consigne + exercise.introduction ? ('\n' + exercise.consigne + exercise.introduction) : '')
           const question = mathaleaFormatExercice(exercise.listeQuestions[i])
           const correction = mathaleaFormatExercice(exercise.listeCorrections[i])
           const { svgs: questionSvgs, text: questionText } = splitSvgFromText(question)

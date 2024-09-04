@@ -36,6 +36,7 @@
       >
         {#if isQuestionVisible && currentSlide.vues[i]}
           <div class="py-4 flex items-center" id="question{i}">
+            <div class="flex flex-col">
             <div>
               {#each currentSlide.vues[i].consigneSvgs as consigneSvg}
                 <div>
@@ -54,13 +55,14 @@
                 {@html currentSlide.vues[i].questionText}
               </div>
             </div>
-            <div class="flex flew-row">
+            <div class="flex flex-row">
               {#each currentSlide.vues[i].questionSvgs as questionSvg}
                 <div>
                   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
                   {@html questionSvg}
                 </div>
               {/each}
+            </div>
             </div>
           </div>
         {/if}
