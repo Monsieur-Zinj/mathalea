@@ -48,6 +48,8 @@ export default function SommeFractionsDecimales () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
+    this.listeCanEnonces = []
+    this.listeCanReponsesACompleter = []
     // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)
     this.consigne = 'Donner le résultat de '
     this.consigne += this.nbQuestions === 1 ? 'ce' : 'chaque'
@@ -321,6 +323,8 @@ export default function SommeFractionsDecimales () {
           texteCorr = '\\setlength\\itemsep{2em}' + texteCorr
         } // espacement entre les questions
         this.listeCorrections.push(texteCorr)
+        this.listeCanEnonces.push(this.canEnonce ?? '')
+        this.listeCanReponsesACompleter.push(this.canReponseACompleter ?? '')
         i++
       }
       cpt++
