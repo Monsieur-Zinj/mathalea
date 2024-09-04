@@ -67,6 +67,10 @@ class PolynomePlusieursVariables {
     return new PolynomePlusieursVariables(monomesListe)
   }
 
+  static createPolynomeFromMonome (monome: MonomePlusieursVariables): PolynomePlusieursVariables {
+    return new PolynomePlusieursVariables(monome)
+  }
+
   // Ajoute un monome au PolynomePlusieursVariables, en combinant avec les monomes semblables
 
   // Additionne deux PolynomePlusieursVariabless ou un PolynomePlusieursVariables et un monome
@@ -86,6 +90,22 @@ class PolynomePlusieursVariables {
     const nouveauxMonomes = this.monomes.map(monome => monome.oppose())
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
+
+  // Une méthode pour déterminer si un terme est un carré
+  // Pas encore terminée
+  contientCarre (): boolean {
+    let estCarre = false
+    // check if a coefficient is a square
+    for (let i = 0; i < this.monomes.length; i++) {
+      if (this.monomes[i].coefficient.num === this.monomes[i].coefficient.den ** 2) {
+        estCarre = true
+        break
+      }
+    }
+    return estCarre
+  }
+
+  // Générer des identités remarquables sans avoir de carré dans les termes de départ
 
   difference (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
     const nouveauxMonomes = [...this.monomes]

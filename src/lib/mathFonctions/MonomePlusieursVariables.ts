@@ -30,7 +30,7 @@ class MonomePlusieursVariables {
       denominateur = randint(-10, 10, [0, 1, -1])
     }
     do {
-      numerateur = randint(-6, 6)
+      numerateur = randint(-10, 10)
       randomCoefficient = new FractionEtendue(numerateur, denominateur)
     } while (numerateur === 0 || (randomCoefficient.estEntiere && typeofCoeff !== 'entier'))
 
@@ -103,6 +103,8 @@ class MonomePlusieursVariables {
   oppose (): MonomePlusieursVariables {
     return new MonomePlusieursVariables(this.coefficient.oppose(), this.partieLitterale)
   }
+
+  // Déterminer si un monôme est un carré
 
   // Multiplie deux monômes
   produit (m: MonomePlusieursVariables): MonomePlusieursVariables {
