@@ -30,9 +30,9 @@ class PolynomePlusieursVariables {
         monomesNew.push(monome)
       }
     }
-    // order the monomials by increasing degree
+    // order the monomials by decreasing degree
     monomesNew.sort((a, b) => {
-      return a.degre - b.degre
+      return -(a.degre - b.degre)
     })
 
     return new PolynomePlusieursVariables(monomesNew)
