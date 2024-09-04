@@ -9,17 +9,16 @@ import { aleaVariables } from '../../modules/outilsMathjs.ts'
 import { all, create, sqrt } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-// const math = { simplify: simplify, parse: parse, derivative: derivative }
-export const titre = 'Calculs de probabilité avec la loi normale'
+export const titre = 'Calculer des probabilités avec la loi normale'
 const math = create(all)
 /**
  * Calculs de probas
  * @author Maxime Nguyen
- * Référence HPC102
  */
 
 export const uuid = '89071'
@@ -31,7 +30,7 @@ export const refs = {
 export default function CalculsLoiNormale () {
   Exercice.call(this)
   this.titre = titre
-  this.consigne = 'Calcul de probabilités pour une loi normale. Les évaluations numériques peuvent se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
+  this.consigne = 'Les évaluations numériques pourront se faire à l\'aide d\'une table de valeur de la loi normale centrée réduite.'
   this.nbQuestions = 4
   this.nbCols = 1 // Nombre de colonnes pour la sortie LaTeX
   this.nbColsCorr = 1 // Nombre de colonnes dans la correction pour la sortie LaTeX
@@ -39,18 +38,16 @@ export default function CalculsLoiNormale () {
   this.spacing = 1
   this.spacingCorr = 1.5
   this.nouvelleVersion = function () {
-    this.sup = Number(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {
       listeTypeDeQuestionsDisponibles = ['N01']
-    } else if (this.sup === 2) {
-      listeTypeDeQuestionsDisponibles = ['Nmusigma', 'Nmusigmaintervallecentre']
     } else {
-      listeTypeDeQuestionsDisponibles = ['N01']
+      listeTypeDeQuestionsDisponibles = ['Nmusigma', 'Nmusigmaintervallecentre']
     }
+
     const listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, variables, expression, gaussienne, r, C, I, graphique, resultat, resultatA, resultatB, bornea, oppbornea, borneb, oppborneb, mu, sigma, bornec, borned, calculstep, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {
@@ -66,8 +63,8 @@ export default function CalculsLoiNormale () {
           r = repere({
             xMin: -4,
             xMax: 4,
-            yMin: -1,
-            yMax: 3,
+            yMin: -0.1,
+            yMax: 0.51,
             xUnite: 2,
             yUnite: 6,
             axesEpaisseur: 1,
@@ -78,8 +75,8 @@ export default function CalculsLoiNormale () {
           graphique = mathalea2d({
             xmin: -9,
             xmax: 9,
-            ymin: -0.8,
-            ymax: 2.8,
+            ymin: -0.2,
+            ymax: 3.5,
             pixelsParCm: 30,
             scale: 0.75
           }, r, C, I)
@@ -92,8 +89,8 @@ export default function CalculsLoiNormale () {
           resultat = 0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2))
           expression = `$\\mathrm{P}(${bornea} < X < ${borneb})$`
           calculstep = []
-          texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité : ' + expression
-          texte += '<br>' + graphique
+          texte = 'Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(0,1)$. <br> Calculer à $10^{-2}$ près la probabilité ' + expression
+
           texteCorr = 'On décompose pour exprimer la probabilité avec la fonction de répartition $t \\mapsto \\mathrm{P}(X \\leq t)$ en utilisant la tabulation de ses valeurs pour $t \\geq 0$ : <br>'
           calculstep.push(`\\mathrm{P}(${bornea} < X < ${borneb}) &=  \\mathrm{P}(X < ${borneb}) - \\mathrm{P}(X \\leq ${bornea}) &&`)
           if (variables.b < 0) {
@@ -158,8 +155,8 @@ export default function CalculsLoiNormale () {
             hachures: 0
           })
           graphique = mathalea2d({
-            xmin: (-5 * variables.sigma + variables.mu) * r.xUnite,
-            xmax: (5 * variables.sigma + variables.mu) * r.xUnite,
+            xmin: (-4 * variables.sigma + variables.mu) * r.xUnite,
+            xmax: (4 * variables.sigma + variables.mu) * r.xUnite,
             ymin: -0.8,
             ymax: 2.8,
             pixelsParCm: 30,
@@ -176,8 +173,8 @@ export default function CalculsLoiNormale () {
           resultat = 0.5 * math.erf(variables.b / sqrt(2)) - 0.5 * math.erf(variables.a / sqrt(2))
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
-          texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
-          texte += '<br>' + graphique
+          texte = `Soit $X$ une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité ` + expression
+
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
@@ -248,8 +245,8 @@ export default function CalculsLoiNormale () {
             hachures: 0
           })
           graphique = mathalea2d({
-            xmin: r.xUnite * (-5 * variables.sigma + variables.mu),
-            xmax: (5 * variables.sigma + variables.mu) * r.xUnite,
+            xmin: r.xUnite * (-4 * variables.sigma + variables.mu),
+            xmax: (4 * variables.sigma + variables.mu) * r.xUnite,
             ymin: -0.8,
             ymax: 2.8,
             pixelsParCm: 30,
@@ -264,8 +261,8 @@ export default function CalculsLoiNormale () {
           resultat = 0.5 * math.erf(variables.a / sqrt(2)) - 0.5 * math.erf(-variables.a / sqrt(2))
           expression = `$\\mathrm{P}(${bornec} < X < ${borned})$`
           calculstep = []
-          texte = `Soit $X$  une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité : ` + expression
-          texte += '<br>' + graphique
+          texte = `Soit $X$  une variable aléatoire réelle suivant une loi normale $\\mathcal{N}(\\mu=${mu},\\sigma=${sigma})$. <br> Calculer à $10^{-2}$ près la probabilité ` + expression
+
           if (variables.mu < 0) {
             texteCorr = `On pose $Z = \\frac{X + ${texNombre(-variables.mu)}}{${sigma}}$ `
             calculstep.push(`\\mathrm{P}(${bornec} < X < ${borned}) &=  \\mathrm{P}\\left(\\frac{${bornec} + ${texNombre(-variables.mu)}}{${sigma}}   < \\frac{X + ${texNombre(-variables.mu)}}{${sigma}} < \\frac{${borned} + ${texNombre(-variables.mu)}}{${sigma}}  \\right) &&`)
@@ -282,19 +279,20 @@ export default function CalculsLoiNormale () {
           setReponse(this, i, resultat.toFixed(2))
           break
       }
+      texte += '.<br>' + graphique
       calculstep.push(`&\\approx  ${texNombre(resultat, 2)} &&`)
       texteCorr += String.raw`
       $\begin{aligned}
       ${calculstep.join('\\\\')}
       \end{aligned}$ <br>`
-      texteCorr += `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx ${texNombre(resultat, 2)}$` //  ${resultat}$`
+      texteCorr += `Et donc la probabilité $\\mathrm{P}(${bornec} < X < ${borned}) \\approx ${miseEnEvidence(texNombre(resultat, 2))}$.` //  ${resultat}$`
 
-      // texte = texte.replaceAll('frac', 'dfrac')
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
       if (this.interactif) {
         texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
       }
-      if (this.liste_valeurs.indexOf(expression) === -1) {
+
+      if (this.questionJamaisPosee(i, bornea, borneb, bornec, borned)) { // Si la question n'a jamais été posée, on en créé une autre
         this.liste_valeurs.push(expression)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
