@@ -100,6 +100,10 @@ class MonomePlusieursVariables {
     }
   }
 
+  oppose (): MonomePlusieursVariables {
+    return new MonomePlusieursVariables(this.coefficient.oppose(), this.partieLitterale)
+  }
+
   // Multiplie deux monômes
   produit (m: MonomePlusieursVariables): MonomePlusieursVariables {
     const nouveauCoefficient = this.coefficient.produitFraction(m.coefficient)
