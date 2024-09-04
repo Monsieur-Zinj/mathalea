@@ -11,6 +11,7 @@ import { range1 } from '../../lib/outils/nombres'
 import { choice } from '../../lib/outils/arrayOutils'
 
 export const dateDePublication = '31/07/2024'
+export const dateDeModifImportante = '03/09/2024'
 export const titre = 'Résoudre une grille de Shikaku'
 export const interactifReady = true
 export const interactifType = 'custom'
@@ -55,11 +56,11 @@ class shikaku extends Exercice {
     this.formatChampTexte = 'none'
     this.exoCustomResultat = true
     this.besoinFormulaireTexte = [
-      'Longueur de la grille',
+      'Hauteur de la grille',
       'Choisir un nombre entier entre 2 et 15.'
     ]
     this.besoinFormulaire2Texte = [
-      'Hauteur de la grille',
+      'Longueur de la grille',
       'Choisir un nombre entier entre 2 et 15.'
     ]
     this.besoinFormulaire3Texte = [
@@ -79,23 +80,26 @@ class shikaku extends Exercice {
     this.consigne += '<br>Pour être certain que rien ne se chevauche, les rectangles et carrés doivent tous avoir strictement la même couleur de fond. '
     this.comment = 'Grâce au choix de la longueur et de la hauteur de la grille, vous pouvez graduer la difficulté des grilles SquarO proposés.'
     this.comment += '<br>Si vous précisez un nombre minimum de rectangles ou carrés, alors si ce nombre minimum est trop élevé pour créer une grille pertinente pour la taille demandée, il ne sera pas pris en compte.'
-    this.interactif = true
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
     this.idApigeom = `apigeomEx${this.numeroExercice}EE`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
       yMin: -0.25,
-      width: this.longueur * 30 + 20, // On ajoute 20 pixels
-      height: this.largeur * 30 + 20,
+      // width: this.longueur * 30 + 20, // On ajoute 20 pixels
+      // height: this.largeur * 30 + 20,
+      height: this.longueur * 30 + 20, // On ajoute 20 pixels
+      width: this.largeur * 30 + 20,
       border: false
     })
     this.figure.create('Grid', {
       strokeWidthGrid: 1,
       color: 'black',
       yMin: 0,
-      yMax: this.largeur,
-      xMax: this.longueur,
+      // yMax: this.largeur,
+      // xMax: this.longueur,
+      xMax: this.largeur,
+      yMax: this.longueur,
       xMin: 0,
       axeX: false,
       axeY: false,
@@ -113,16 +117,20 @@ class shikaku extends Exercice {
     this.figureCorrection = new Figure({
       xMin: -0.25,
       yMin: -0.25,
-      width: this.longueur * 30 + 20,
-      height: this.largeur * 30 + 20,
+      // width: this.longueur * 30 + 20, // On ajoute 20 pixels
+      // height: this.largeur * 30 + 20,
+      height: this.longueur * 30 + 20, // On ajoute 20 pixels
+      width: this.largeur * 30 + 20,
       border: false
     })
     this.figureCorrection.create('Grid', {
       strokeWidthGrid: 1,
       color: 'black',
       yMin: 0,
-      yMax: this.largeur,
-      xMax: this.longueur,
+      // yMax: this.largeur,
+      // xMax: this.longueur,
+      xMax: this.largeur,
+      yMax: this.longueur,
       xMin: 0,
       axeX: false,
       axeY: false,
@@ -196,7 +204,8 @@ class shikaku extends Exercice {
           dejaMis.push(pourComparerAAire)
         }
       }
-      rectangles.push({ topLeft: [col, row], bottomRight: [col + width - 1, row + height - 1] })
+      // rectangles.push({ topLeft: [col, row], bottomRight: [col + width - 1, row + height - 1] })
+      rectangles.push({ topLeft: [row, col], bottomRight: [row + height - 1, col + width - 1] })
       regionIdCounter++
     }
 
@@ -230,6 +239,7 @@ class shikaku extends Exercice {
     } while (rectangles.length < parseInt(this.sup3) && compteur < 10)
 
     // Rotation des grilles pour éviter d'avoir toujours les gros nombres en bas à gauche.
+
     function rotate90 (grid: Cell[][], rectangles: Rectangle[]): { grid: Cell[][], rectangles: Rectangle[] } {
       const n = grid.length
       const newGrid: Cell[][] = Array.from({ length: n }, () => Array(n).fill({ value: ' ', regionId: -1 }))
@@ -239,8 +249,10 @@ class shikaku extends Exercice {
         }
       }
       const newRectangles = rectangles.map(rect => ({
-        topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]],
-        bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]]
+        // topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]],
+        // bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]]
+        topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
+        bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
@@ -272,6 +284,8 @@ class shikaku extends Exercice {
       const newRectangles = rectangles.map(rect => ({
         topLeft: [rows - 1 - rect.bottomRight[0], cols - 1 - rect.bottomRight[1]],
         bottomRight: [rows - 1 - rect.topLeft[0], cols - 1 - rect.topLeft[1]]
+        // bottomRight: [rows - 1 - rect.bottomRight[0], cols - 1 - rect.bottomRight[1]],
+        // topLeft: [rows - 1 - rect.topLeft[0], cols - 1 - rect.topLeft[1]]
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
@@ -285,18 +299,22 @@ class shikaku extends Exercice {
         }
       }
       const newRectangles = rectangles.map(rect => ({
-        topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
-        bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
+      //  topLeft: [rect.topLeft[1], n - 1 - rect.bottomRight[0]],
+        // bottomRight: [rect.bottomRight[1], n - 1 - rect.topLeft[0]]
+        bottomRight: [n - 1 - rect.topLeft[1], rect.bottomRight[0]],
+        topLeft: [n - 1 - rect.bottomRight[1], rect.topLeft[0]]
       })) as Rectangle[]
       return { grid: newGrid, rectangles: newRectangles }
     }
 
     let result = { grid, rectangles }
 
-    if (this.largeur === this.longueur) { // Si la grille est carrée, 3 rotation + l'identité sont possibles
-      switch (choice(range1(4))) {
+    if (this.largeur === this.longueur) { // Si la grille est carrée, 3 rotations + l'identité sont possibles
+      const choixRotation = choice(range1(4))
+      switch (choixRotation) {
         case 2 : {
           result = rotate90(grid, rectangles)
+          // result = { grid, rectangles }
           break
         }
         case 3 : {
@@ -319,20 +337,44 @@ class shikaku extends Exercice {
     const newGrid = result.grid
     const newRectangles = result.rectangles
 
+    /*
+    function displayRectanglesBeforeAndAfterRotation (
+      grid: Cell[][],
+      rectangles: Rectangle[]
+    ): void {
+      // Appel de la fonction pour effectuer la rotation
+      rectangles.forEach((rect, index) => {
+        const originalTopLeft = rect.topLeft
+        const originalBottomRight = rect.bottomRight
+
+        const rotatedTopLeft = result.rectangles[index].topLeft
+        const rotatedBottomRight = result.rectangles[index].bottomRight
+
+        console.log(`Rectangle ${index + 1}:`)
+        console.log(`  Avant rotation : topLeft = [${originalTopLeft}], bottomRight = [${originalBottomRight}]`)
+        console.log(`  Après rotation : topLeft = [${rotatedTopLeft}], bottomRight = [${rotatedBottomRight}]`)
+      })
+    }
+    displayRectanglesBeforeAndAfterRotation(grid, rectangles)
+    */
     // Positionnement des chiffres dans une grille
     for (let j = 0; j < this.largeur; j++) {
       for (let i = 0; i < this.longueur; i++) {
         this.figure.create('TextByPosition', {
           anchor: 'middleCenter',
           text: newGrid[this.largeur - j - 1][i].value.toString(),
-          x: i + 0.5,
-          y: this.largeur - j - 0.5
+          //  x: i + 0.5,
+          //  y: this.largeur - j - 0.5
+          y: i + 0.5,
+          x: this.largeur - j - 0.5
         })
         this.figureCorrection.create('TextByPosition', {
           anchor: 'middleCenter',
           text: newGrid[this.largeur - j - 1][i].value.toString(),
-          x: i + 0.5,
-          y: this.largeur - j - 0.5
+          // x: i + 0.5,
+          // y: this.largeur - j - 0.5
+          y: i + 0.5,
+          x: this.largeur - j - 0.5
         })
       }
     }
