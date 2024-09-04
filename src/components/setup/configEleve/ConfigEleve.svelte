@@ -69,7 +69,8 @@
     const nextView = $canOptions.isChoosen ? 'can' : 'eleve'
     const url = buildMathAleaURL({
       view: nextView,
-      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+      removeSeed: isDataRandom
     })
     window.open(url, '_blank')?.focus()
   }
@@ -90,7 +91,8 @@
   function getEmbededCode () {
     return `<iframe src="${buildMathAleaURL({
       view: $canOptions.isChoosen ? 'can' : 'eleve',
-      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+      removeSeed: isDataRandom
     })}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`
   }
 
@@ -439,7 +441,6 @@
                 "Chaque élève aura des pages avec des données différentes d'un autre élève.",
                 'Tous les élèves auront des pages identiques.'
               ]}
-              on:toggle={handleSeed}
             />
           </div>
         </div>
@@ -517,7 +518,8 @@
                 action="copy"
                 textToCopy={buildMathAleaURL({
                   view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom
                 }).toString()}
                 tooltip={'Lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage}
                 icon={'bx-link text-2xl'}
@@ -539,7 +541,8 @@
                 url={buildMathAleaURL(
                   {
                     view: $canOptions.isChoosen ? 'can' : 'eleve',
-                    isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                    isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+                    removeSeed: isDataRandom
                   }
                 ).toString()}
                 cornerIcon={availableLinkFormats[currentLinkFormat].icon}
@@ -575,7 +578,8 @@
                 action="download"
                 urlToDownload={buildMathAleaURL({
                   view: $canOptions.isChoosen ? 'can' : 'eleve',
-                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted
+                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom
                 }).toString()}
                 fileName={$globalOptions.title ? $globalOptions.title : 'mathAlea'}
                 successMessage="Le téléchargement va début dans quelques instants."

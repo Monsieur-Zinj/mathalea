@@ -8,8 +8,11 @@ export class MathAleaURL extends URL {
   /**
    * Utilise l'URL courante pour fabriquer l'URL lors de l' appel new MathAleaURL()
    */
-  constructor () {
-    super(document.URL)
+  constructor (url?: string) {
+    if (url === undefined) {
+      url = document.URL
+    }
+    super(url)
   }
 
   /**
@@ -30,6 +33,14 @@ export class MathAleaURL extends URL {
    */
   addParam (param: keyof InterfaceGlobalOptions, value: string): MathAleaURL {
     this.searchParams.append(param, value)
+    return this
+  }
+
+  /**
+   * Supprime la graine de l'aléatoire de l'URL et retourne l'URL modifiée
+   */
+  removeSeed (): MathAleaURL {
+    this.searchParams.delete('alea')
     return this
   }
 
@@ -64,9 +75,13 @@ export class MathAleaURL extends URL {
 export function buildMathAleaURL (options: {
   view: VueType,
   mode?: InterfaceGlobalOptions['presMode'],
-  isEncrypted?: boolean, isShort?: boolean}
+  isEncrypted?: boolean, isShort?: boolean,
+  removeSeed?: boolean}
 ): URL {
   const url = new MathAleaURL()
+  if (options.removeSeed) {
+    url.removeSeed()
+  }
   const global = get(globalOptions)
   const can = get(canOptions)
   url.setVue(options.view).addParam('es', buildEsParams(options.mode))
