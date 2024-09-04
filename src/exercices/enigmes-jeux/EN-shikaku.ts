@@ -82,7 +82,8 @@ class shikaku extends Exercice {
     this.comment += '<br>Si vous précisez un nombre minimum de rectangles ou carrés, alors si ce nombre minimum est trop élevé pour créer une grille pertinente pour la taille demandée, il ne sera pas pris en compte.'
     this.longueur = Math.max(2, Math.min(parseInt(this.sup), 15)) || 2
     this.largeur = Math.max(2, Math.min(parseInt(this.sup2), 15)) || 2
-    this.idApigeom = `apigeomEx${this.numeroExercice}EE`
+    // Quand on duplique un exercice le numeroExercice ne semble pas se mettre à jour
+    this.idApigeom = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
     this.figure = new Figure({
       xMin: -0.25, // On enlève 0.25 unités
       yMin: -0.25,
@@ -386,9 +387,11 @@ class shikaku extends Exercice {
       this.goodAnswers.push([{ x: A.x, y: A.y }, { x: B.x, y: B.y }, { x: C.x, y: C.y }, { x: D.x, y: D.y }])
       this.figureCorrection.create('Polygon', { points: [A, B, C, D], thickness: 3, color: orangeMathalea, fillColor: orangeMathaleaLight })
     }
-    document.addEventListener('exercicesAffiches', () => {
+    function handleExercicesAffiches () {
       drawBluePolygon()
-    })
+      document.removeEventListener('exercicesAffiches', handleExercicesAffiches)
+    }
+    document.addEventListener('exercicesAffiches', handleExercicesAffiches)
 
     const enonce = ''
     const texteCorr = 'Voici une solution possible :<br>'
