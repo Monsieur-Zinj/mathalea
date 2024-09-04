@@ -160,10 +160,10 @@
       bubbles: true
     })
     document.dispatchEvent(exercicesAffiches)
-    if (eleveSection) {
-      // utilise pour le zoom
-      mathaleaRenderDiv(eleveSection)
-    }
+    // if (eleveSection) {
+    //   // utilise pour le zoom
+    //   mathaleaRenderDiv(eleveSection)
+    // }
   })
 
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
