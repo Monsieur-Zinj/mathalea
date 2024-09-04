@@ -82,6 +82,11 @@ class PolynomePlusieursVariables {
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
+  oppose (): PolynomePlusieursVariables {
+    const nouveauxMonomes = this.monomes.map(monome => monome.oppose())
+    return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+  }
+
   difference (p: PolynomePlusieursVariables | MonomePlusieursVariables): PolynomePlusieursVariables {
     const nouveauxMonomes = [...this.monomes]
     if (p instanceof PolynomePlusieursVariables) {
