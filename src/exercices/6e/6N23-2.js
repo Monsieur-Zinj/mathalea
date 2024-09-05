@@ -79,7 +79,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           thickOff = 0
         } else {
           xmin = randint(1, 15)
-          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (this.sup)))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -224,7 +224,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           thickOff = 0
         } else {
           xmin = randint(1, 15) - 0.1
-          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (this.sup)))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -362,13 +362,13 @@ export default function LireAbscisseDecimaleTroisFormes () {
             ]
           }
         }
-      } else if (this.sup === 3) {
+      } else { // this.sup === 3
         if (this.niveau === 'CM') {
           xmin = 0
           thickOff = 0
         } else {
           xmin = calculANePlusJamaisUtiliser(randint(0, 15) + randint(0, 9) * 0.1)
-          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (parseInt(this.sup))))
+          thickOff = calculANePlusJamaisUtiliser(2 / (10 ** (this.sup)))
         }
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
@@ -403,7 +403,7 @@ export default function LireAbscisseDecimaleTroisFormes () {
           axeCouleur: 'black',
           axeHauteur: 4,
           pointListe: [[x1, `${noms[0]}`], [x2, `${noms[1]}`], [x3, `${noms[2]}`]],
-          labelListe: [[xmin + 0.09, stringNombre(xmin + 0.09, 2)], [xmin + 0.1, stringNombre(xmin + 0.1, 1)]],
+          labelListe: [[xmin + 0.09, stringNombre(xmin + 0.09, 2)]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
