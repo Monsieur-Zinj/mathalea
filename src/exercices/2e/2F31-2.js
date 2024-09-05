@@ -6,7 +6,7 @@ import { context } from '../../modules/context.js'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
@@ -22,9 +22,9 @@ export const uuid = '1ca05'
 export const ref = '2F31-2'
 export const refs = {
   'fr-fr': ['2F31-2'],
-  'fr-ch': [],
+  'fr-ch': []
 }
-export default function EncadrerAvecFctRef() {
+export default function EncadrerAvecFctRef () {
   Exercice.call(this)
   this.consigne = ''
   this.nbQuestions = 3
@@ -45,7 +45,7 @@ export default function EncadrerAvecFctRef() {
       melange: 5,
       defaut: 1,
       nbQuestions: this.nbQuestions,
-      listeOfCase: ['carré', 'inverse', 'racine carrée', 'cube'],
+      listeOfCase: ['carré', 'inverse', 'racine carrée', 'cube']
     })
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -83,9 +83,8 @@ export default function EncadrerAvecFctRef() {
                   {
                     antVal: -200,
                     antTex: '$-\\infty$',
-                    imgVal: 40000,
-                    imgTex: '',
-                  },
+                    imgTex: ' '
+                  }
                 ]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $x^2$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\leqslant' : ' < '} ${a}$ signifie $x\\in ]-\\infty;${a}${large1 ? ']' : ' [ '}$. <br>
@@ -112,9 +111,8 @@ export default function EncadrerAvecFctRef() {
                   {
                     antVal: 200,
                     antTex: '$+\\infty$',
-                    imgVal: 40000,
-                    imgTex: '',
-                  },
+                    imgTex: ' '
+                  }
                 ]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $x^2$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
@@ -197,14 +195,14 @@ export default function EncadrerAvecFctRef() {
                   antVal: a,
                   antTex: a.toString(),
                   imgVal: 1 / a,
-                  imgTex: `$\\frac{1}{${a}}$`,
+                  imgTex: `$\\frac{1}{${a}}$`
                 },
                 {
                   antVal: b,
                   antTex: b.toString(),
                   imgVal: 1 / b,
-                  imgTex: `$\\frac{1}{${b}}$`,
-                },
+                  imgTex: `$\\frac{1}{${b}}$`
+                }
               ]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
@@ -225,14 +223,14 @@ export default function EncadrerAvecFctRef() {
                   antVal: a,
                   antTex: a.toString(),
                   imgVal: 1 / a,
-                  imgTex: `$-\\frac{1}{${-a}}$`,
+                  imgTex: `$-\\frac{1}{${-a}}$`
                 },
                 {
                   antVal: b,
                   antTex: b.toString(),
                   imgVal: 1 / b,
-                  imgTex: `$-\\frac{1}{${-b}}$`,
-                },
+                  imgTex: `$-\\frac{1}{${-b}}$`
+                }
               ]
               texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ alors, ${sp(3)} .......  $\\dfrac{1}{x}$  .......`
               texteCorrAvantTableau = `$${a} ${large1 ? '\\leqslant' : ' < '} x ${large2 ? '\\leqslant' : ' < '}${b}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};${b}${large2 ? ']' : ' [ '}$. <br>
@@ -257,14 +255,14 @@ export default function EncadrerAvecFctRef() {
                     antVal: a,
                     antTex: a.toString(),
                     imgVal: 1 / a,
-                    imgTex: `$\\frac{1}{${a}}$`,
+                    imgTex: `$\\frac{1}{${a}}$`
                   },
                   {
                     antVal: b,
                     antTex: '$+\\infty$',
                     imgVal: 1 / b,
-                    imgTex: '',
-                  },
+                    imgTex: ''
+                  }
                 ]
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors, $\\dfrac{1}{x}$ ......`
                 texteCorrAvantTableau = `$x${large1 ? '\\geqslant' : ' > '} ${a}$ signifie $x\\in ${large1 ? '[' : ' ] '}${a};+\\infty[$. <br>
@@ -289,15 +287,14 @@ export default function EncadrerAvecFctRef() {
                   {
                     antVal: a,
                     antTex: '$-\\infty$',
-                    imgVal: 1 / a,
-                    imgTex: '',
+                    imgTex: ' '
                   },
                   {
                     antVal: a,
                     antTex: b.toString(),
                     imgVal: 1 / b,
-                    imgTex: `$\\frac{1}{${b}}$`,
-                  },
+                    imgTex: `$\\frac{1}{${b}}$`
+                  }
                 ]
               } // a est toujours le min et b le max
 
@@ -326,8 +323,8 @@ export default function EncadrerAvecFctRef() {
                     antVal: a,
                     antTex: a.toString(),
                     imgVal: Math.sqrt(a),
-                    imgTex: `$${racineDeA}$`,
-                  },
+                    imgTex: `$${racineDeA}$`
+                  }
                 ]
                 xMin = 0
                 xMax = a
@@ -357,14 +354,13 @@ Si $x${large1 ? '\\leqslant' : ' < '}${a}$ alors,  $\\sqrt{x}${large1 ? '\\leqsl
                     antVal: a,
                     antTex: a.toString(),
                     imgVal: Math.sqrt(a),
-                    imgTex: `$${racineDeA}$`,
+                    imgTex: `$${racineDeA}$`
                   },
                   {
                     antVal: 10000,
                     antTex: '$+\\infty$',
-                    imgVal: 100,
-                    imgTex: '',
-                  },
+                    imgTex: ' '
+                  }
                 ]
 
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $x${large1 ? '\\geqslant' : ' > '}${a}$
@@ -397,14 +393,14 @@ Si $x${large1 ? '\\geqslant' : ' > '}${a}$ alors,  $\\sqrt{x}${large1 ? '\\geqsl
                     antVal: a,
                     antTex: a.toString(),
                     imgVal: Math.sqrt(a),
-                    imgTex: `$${racineDeA}$`,
+                    imgTex: `$${racineDeA}$`
                   },
                   {
                     antVal: b,
                     antTex: b.toString(),
                     imgVal: Math.sqrt(b),
-                    imgTex: `$${racineDeB}$`,
-                  },
+                    imgTex: `$${racineDeB}$`
+                  }
                 ]
 
                 texte = `Compléter par l'information la plus précise possible (on pourra utiliser un tableau de variations) : <br>Si $${a}${large1 ? ' \\leqslant ' : ' < '} x ${large1 ? '\\leqslant' : ' < '} ${b}$
@@ -431,7 +427,7 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
             // cas x<a ou x>a
             const a = choice([
               randint(-10, 10),
-              randint(11, 20) * choice([-1, 1]),
+              randint(11, 20) * choice([-1, 1])
             ])
             const inférieur = choice([true, false]) // x < a ou x > a ?
             if (inférieur) {
@@ -441,9 +437,8 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
                 {
                   antVal: -200,
                   antTex: '$-\\infty$',
-                  imgVal: -8000000,
-                  imgTex: '',
-                },
+                  imgTex: ' '
+                }
               ]
             } else {
               xMin = a
@@ -452,9 +447,8 @@ Si $${a}${large1 ? '\\leqslant' : ' < '} x ${large1 ? '\\leqslant' : ' < '}${b}$
                 {
                   antVal: 200,
                   antTex: '$+\\infty$',
-                  imgVal: 8000000,
-                  imgTex: '',
-                },
+                  imgTex: ' '
+                }
               ]
             }
             let symbole
@@ -490,9 +484,9 @@ Si $x${symbole}${a}$ alors,  $x^3${symbole} ${Math.pow(a, 3)}$.`
               b = choice([randint(-10, 10), randint(11, 20) * choice([-1, 1])])
             }
             if (a > b) {
-              ;[a, b] = [b, a]
+              [a, b] = [b, a]
             }
-            ;[xMin, xMax] = [a, b]
+            [xMin, xMax] = [a, b]
             const inférieur = choice([true, false]) // a < x < b ou b > x > a ?
             substituts = []
             let inégalité
@@ -527,7 +521,7 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
       const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, {
         substituts,
         step: 1,
-        tolerance,
+        tolerance
       })
       texteCorr = texteCorrAvantTableau + tableau + texteCorrApresTableau
       if (this.questionJamaisPosee(i, this.listeQuestions[i], xMin, xMax)) {
@@ -542,6 +536,6 @@ Si $${inégalité}$ alors, $${Math.pow(a, 3)} ${large1 ? ' \\leqslant ' : ' < '}
   }
   this.besoinFormulaireTexte = [
     'Choix des questions ',
-    'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange',
+    'Nombres séparés par des tirets\n1 : carré\n2 : inverse\n3 : racine carrée\n4 : cube\n5 : mélange'
   ]
 }

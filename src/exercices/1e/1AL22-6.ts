@@ -26,7 +26,7 @@ export default class variationPol2 extends Exercice {
     super()
     this.nbQuestions = 1
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : Forme développée sur R\n2 : Forme développée sur un intervalle borné\n3 : Forme canonique sur R\n4 : Forme canonique sur un intervalle borné\n5 : Forme factorisée sur R \n6 : Forme factorisée sur un interavlle borné\n7 : Tableau de signes sur R\n8 : Mélange']
-    this.sup = '9'
+    this.sup = '8'
   }
 
   nouvelleVersion () {
@@ -102,9 +102,9 @@ export default class variationPol2 extends Exercice {
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgVal: fonction(-100), imgTex: '' },
+          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
             { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgVal: fonction(100), imgTex: '' }]
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p}$.<br>`
           texte += `${texte2}`
@@ -141,9 +141,9 @@ export default class variationPol2 extends Exercice {
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgVal: fonction(-100), imgTex: '' },
+          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
             { antVal: -b / (2 * a), antTex: p.alpha.simplifie().texFSD, imgVal: fonction(-b / (2 * a)), imgTex: `$${p.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgVal: fonction(100), imgTex: '' }]
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${p.texFormeCanonique}$.<br>`
           texte += `${texte2}`
@@ -178,9 +178,9 @@ export default class variationPol2 extends Exercice {
           tolerance = 0.005
           xMin = -100
           xMax = 100
-          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgVal: fonctionFactorisee(-100), imgTex: '' },
+          substituts = [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
             { antVal: (rac1 + rac2) / 2, antTex: q.alpha.simplifie().texFSD, imgVal: fonctionFactorisee((rac1 + rac2) / 2), imgTex: `$${q.beta.simplifie().texFSD}$` },
-            { antVal: 100, antTex: '$+\\infty$', imgVal: fonctionFactorisee(100), imgTex: '' }]
+            { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
           texte = `${texte1}`
           texte += `$${nomF}(x)=${q.texFormeFactorisee}$.<br>`
           texte += `${texte2}`
@@ -222,19 +222,16 @@ export default class variationPol2 extends Exercice {
             {
               step: 0.1,
               tolerance: 0.001,
-              substituts: [
-                { antVal: -100, antTex: '$-\\infty$', imgVal: fonction(-100), imgTex: '' },
-                { antVal: 100, antTex: '$+\\infty$', imgVal: fonction(100), imgTex: '' }
-              ]
+              substituts: [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' }, { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }]
             })
           texte += `<br>Dresser le tableau de variations de la fonction $${nomF}$ sur $\\mathbb{R}$ sachant que son extrémum vaut $${q.beta.simplifie().texFSD}$.`
           texteCorr = `${CorrTableauSignes}`
           texteCorr += `${CorrToutesFormes}`
           texteCorr += tableauVariationsFonction(fonctionFactorisee, deriveeFactorisee, xMin, xMax, {
             ligneDerivee: false,
-            substituts: [{ antVal: -100, antTex: '$-\\infty$', imgVal: fonctionFactorisee(-100), imgTex: '' },
+            substituts: [{ antVal: -100, antTex: '$-\\infty$', imgTex: ' ' },
               { antVal: (rac1 + rac2) / 2, antTex: q.alpha.simplifie().texFSD, imgVal: fonctionFactorisee((rac1 + rac2) / 2), imgTex: `$${q.beta.simplifie().texFSD}$` },
-              { antVal: 100, antTex: '$+\\infty$', imgVal: fonctionFactorisee(100), imgTex: '' }],
+              { antVal: 100, antTex: '$+\\infty$', imgTex: ' ' }],
             step: 0.5,
             tolerance: 0.001
           })
