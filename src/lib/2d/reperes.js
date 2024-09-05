@@ -239,7 +239,7 @@ export function DroiteGraduee ({
         p[1],
         x - labelCustomDistance * absord[1] + (p[0] - Min) * absord[0] * Unite,
         y - labelCustomDistance * absord[0] + (p[0] - Min) * absord[1] * Unite,
-        {}
+        { letterSize: 'scriptsize' }
       )
       objets.push(t)
     }
