@@ -18,7 +18,7 @@ import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '.
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 4e sujet 2022'
 export const interactifReady = true

@@ -21,7 +21,7 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { min, round } from 'mathjs'
 import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true
