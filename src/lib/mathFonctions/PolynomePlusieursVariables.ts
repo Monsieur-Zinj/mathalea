@@ -42,9 +42,9 @@ class PolynomePlusieursVariables {
   static createRandomPolynome (degMin: number, degMax: number, nbTermes: number, typeCoeff: string, variables: string[], monomes: MonomePlusieursVariables[] = []): PolynomePlusieursVariables {
     const monomesListe = []
     // Add a check to make sure that all the monomials have a different literal part
-    for (let i = 0; i < nbTermes; i++) {
-      if (monomes.length > i) {
-        monomesListe.push(MonomePlusieursVariables.createMonomeFromPartieLitterale(typeCoeff, monomes[i].partieLitterale))
+    while (monomesListe.length < nbTermes) {
+      if (monomes.length > monomesListe.length) {
+        monomesListe.push(MonomePlusieursVariables.createMonomeFromPartieLitterale(typeCoeff, monomes[monomesListe.length].partieLitterale))
       } else {
         let isSemblable = false
         do {
