@@ -67,11 +67,11 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       a = a * k[0]
       b = b * k[1]
       if (this.sup4) {
-        a = new Decimal(randint(1, this.sup * 10)).div(10).toNumber()
+        a = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[0]).toNumber()
         if (partieDecimaleAUnChiffre[i]) {
-          b = new Decimal(randint(1, this.sup * 10)).div(10).toNumber()
+          b = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[1]).toNumber()
         } else {
-          b = new Decimal(randint(1, this.sup * 100)).div(100).toNumber()
+          b = new Decimal(randint(1, this.sup * 100)).div(100).mul(k[1]).toNumber()
         }
         if (choice([true, false])) {
           [a, b] = [b, a]
@@ -85,9 +85,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
       }
       this.autoCorrection[i] = {}
-      // @ts-expect-error : options n'existe sur le type autoCorrection
       this.autoCorrection[i].options = {}
-      // @ts-expext-error : enoncé n'existe pas sur le type autoCorrection
       this.autoCorrection[i].enonce = `${texte}\n`
       this.autoCorrection[i].propositions = [
         {

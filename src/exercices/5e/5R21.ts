@@ -71,11 +71,11 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
       a = a * k[0]
       b = b * k[1]
       if (this.sup3) {
-        a = new Decimal(randint(1, this.sup * 10)).div(10).toNumber()
+        a = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[0]).toNumber()
         if (partieDecimaleAUnChiffre[i]) {
-          b = new Decimal(randint(1, this.sup * 10)).div(10).toNumber()
+          b = new Decimal(randint(1, this.sup * 10)).div(10).mul(k[1]).toNumber()
         } else {
-          b = new Decimal(randint(1, this.sup * 100)).div(100).toNumber()
+          b = new Decimal(randint(1, this.sup * 100)).div(100).mul(k[1]).toNumber()
         }
         if (choice([true, false])) {
           [a, b] = [b, a]
