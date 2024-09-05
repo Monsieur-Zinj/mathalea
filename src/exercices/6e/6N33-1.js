@@ -1,7 +1,7 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -26,32 +26,43 @@ export const refs = {
   'fr-fr': ['6N33-1'],
   'fr-ch': ['9NO14-3']
 }
-export default function PourcentageDunNombre () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.spacingCorr = 3.5
-  this.nbCols = 2
-  this.nbColsCorr = 1
-  this.sup = 1
-  this.interactif = false
-  this.sup2 = false
-  this.sup3 = 10
+export default class PourcentageDunNombre extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 5
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.spacingCorr = 3.5
+    this.nbCols = 2
+    this.nbColsCorr = 1
+    this.sup = true
+    this.interactif = false
+    this.sup2 = '1-2-4-5'
+    this.besoinFormulaireCaseACocher = ['Plusieurs méthodes']
+    this.besoinFormulaire2Texte = ['Choix des pourcentages', `Nombres séparés par des tirets
+1 : 10%
+2 : 20%
+3 : 25%
+4 : 30%
+5 : 40%
+6 : 50%
+7 : 60%
+8 : 75%
+9 : 90%
+10 : Mélange`]
+  }
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+  nouvelleVersion () {
     const pourcentages = gestionnaireFormulaireTexte({
-      saisie: this.sup3,
+      saisie: this.sup2,
       min: 1,
-      max: 8,
-      defaut: 9,
-      melange: 9,
+      max: 9,
+      defaut: 10,
+      melange: 10,
       nbQuestions: this.nbQuestions,
       listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
     })
+    console.log(pourcentages)
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
@@ -121,21 +132,4 @@ $${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = [
-    'Niveau de difficulté',
-    2,
-    ' 1 : Pourcentages 10, 20, 30, 40, 50 \n 2 : Pourcentages 10, 20, 25, 30, 40, 50, 60, 90'
-  ]
-  this.besoinFormulaire2CaseACocher = ['Plusieurs méthodes']
-  this.besoinFormulaire4Texte = ['Choix des pourcentages', `Nombres séparés par des tirets
-1 : 10%
-2 : 20%
-3 : 25%
-4 : 30%
-5 : 40%
-6 : 50%
-7 : 60%
-8 : 75%
-9 : 90%
-10 : Mélange`]
 }
