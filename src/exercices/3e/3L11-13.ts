@@ -25,14 +25,14 @@ export default class nomExercice extends Exercice {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
     this.nbQuestions = 10
-    this.besoinFormulaireNumerique = ['Type de calcul', 3, 'Addition\nSoustraction\nMélange']
+    this.besoinFormulaireNumerique = ['Type de calcul', 4, 'Addition\nSoustraction\n Avec un signe devant la première parenthèse\nMélange']
     this.besoinFormulaire2Numerique = ['Coefficients', 3, 'Entiers \n2 : Fractionnaires \n3 : Mélange']
     this.besoinFormulaire3Numerique = ['Degré maximum (au moins égal au degré minimum)', 5, '1\n2\n3\n4\n5']
     this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
     this.besoinFormulaire5Numerique = ['Nombre de termes maximal dans un polynôme', 5, '2\n3\n4\n5\n6']
     // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
     // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
-    this.sup = 3
+    this.sup = 4
     this.sup2 = 1
     this.sup3 = 3
     this.sup4 = 3
@@ -44,13 +44,15 @@ export default class nomExercice extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    let typeQuestionsDisponibles: ('addition' | 'soustraction')[]
+    let typeQuestionsDisponibles: ('addition' | 'soustraction' | 'signe')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['addition']
     } else if (this.sup === 2) {
       typeQuestionsDisponibles = ['soustraction']
+    } else if (this.sup === 3) {
+      typeQuestionsDisponibles = ['signe']
     } else {
-      typeQuestionsDisponibles = shuffle(['addition', 'soustraction', 'addition', 'soustraction'])
+      typeQuestionsDisponibles = shuffle(['addition', 'soustraction', 'signe'])
     }
     const degMin = 0
     const listeTypeDeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
@@ -69,8 +71,8 @@ export default class nomExercice extends Exercice {
       } else {
         typeofCoeff = typeCoeffListe
       }
-      const p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5, choice(typeofCoeff), variablesSelect)
-      const p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(min(1, this.sup5 - 1), this.sup5)))
+      const p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5 + 1, choice(typeofCoeff), variablesSelect)
+      const p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, this.sup5 + 1, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(min(1, this.sup5), this.sup5 + 1)))
       // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
       let testPremiereFraction = true
       let denominateurCommun = 1
@@ -103,6 +105,19 @@ export default class nomExercice extends Exercice {
         case 'soustraction':{
           texte = `$${lettreDepuisChiffre(i + 1)}=\\left(${p1.toString()}\\right)-\\left(${p2.toString()}\\right)$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.difference(p2).toString()}=${miseEnEvidence(p1.difference(p2).reduire().toString())}$`
+          break
+        }
+        case 'signe':{
+          const randomInt = randint(0, 1)
+          const signe = randomInt === 0 ? '-' : '+'
+          if (signe === '-') {
+            texte = `$${lettreDepuisChiffre(i + 1)}=-\\left(${p1.toString()}\\right)-\\left(${p2.toString()}\\right)$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.oppose().difference(p2).toString()}=${miseEnEvidence(p1.oppose().difference(p2).reduire().toString())}$`
+          } else {
+            texte = `$${lettreDepuisChiffre(i + 1)}=-\\left(${p1.toString()}\\right)+\\left(${p2.toString()}\\right)$`
+            texteCorr = `$${lettreDepuisChiffre(i + 1)}=${p1.oppose().somme(p2).toString()}=${miseEnEvidence(p1.oppose().somme(p2).reduire().toString())}$`
+          }
+
           break
         }
       }
