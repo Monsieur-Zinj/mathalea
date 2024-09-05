@@ -17,14 +17,14 @@ import { min, round } from 'mathjs'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, printlatex, randint } from '../../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'CAN Seconde sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '05/04/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
@@ -44,9 +44,6 @@ export const refs = {
 }
 export default function SujetCAN2021Seconde () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -398,7 +395,8 @@ export default function SujetCAN2021Seconde () {
           texteCorr = `$\\dfrac{${b.n * k1}}{${b.d * k1}}=\\dfrac{${b.n}\\times ${k1}}{${b.d}\\times ${k1}}=\\dfrac{${b.n}}{${b.d}}$.`
 
           reponse = fraction(b.n, b.d).simplifie()
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }
@@ -861,7 +859,7 @@ Donner une valeur approchée de l'antécédent de $${a}$ par $f$ ?<br>`
             texteCorr = `Sur $36$ cas possibles équiprobables, il y en a $${p[c - 2]}$ qui donnent une somme de $${c}$. Donc la probabilité d'obtenir un total de $${c}$ est $\\dfrac{${p[c - 2]}}{36}${simplificationDeFractionAvecEtapes(p[c - 2], 36)}$.`
             reponse = fraction(p[c - 2], 36).simplifie()
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }

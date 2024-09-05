@@ -17,14 +17,14 @@ import { listeQuestionsToContenu, printlatex, randint } from '../../../modules/o
 import Hms from '../../../modules/Hms'
 import { min, round } from 'mathjs'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'CAN 3e sujet 2021'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 // Les exports suivants sont optionnels mais au moins la date de publication semble essentielle
 export const dateDePublication = '30/03/2022' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
-// export const dateDeModifImportante = '24/10/2021' // Une date de modification importante au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
 
 /**
  * Description didactique de l'exercice
@@ -43,9 +43,6 @@ export const refs = {
 }
 export default function SujetCAN20213ieme () {
   Exercice.call(this)
-  this.titre = titre
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
   this.nbQuestions = 30// 10,20,30
   this.nbCols = 1
   this.nbColsCorr = 1
@@ -694,7 +691,8 @@ export default function SujetCAN20213ieme () {
 
           reponse = b.simplifie()
 
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
+
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }
@@ -968,7 +966,7 @@ export default function SujetCAN20213ieme () {
   On en déduit que la probabilité d'obtenir un nombre premier est : $${texFractionFromString(b + 4, a)}${simplificationDeFractionAvecEtapes(b + 4, a)}$.`
             reponse = [fraction(b + 4, a), fraction(b + 4, a).simplifie()]
           }
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: fraction(b + 4, a).toLatex(), compare: fonctionComparaison } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }

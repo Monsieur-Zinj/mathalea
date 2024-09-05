@@ -20,7 +20,8 @@ import FractionEtendue from '../../../modules/FractionEtendue'
 
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { min, round } from 'mathjs'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'CAN 6e sujet 2018'
 export const interactifReady = true
@@ -275,7 +276,7 @@ export default function SujetCAN20186ieme () {
             step2: 1
           }))
           texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
-          setReponse(this, index, reponse, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
           }
