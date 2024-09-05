@@ -21,7 +21,8 @@ import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { context } from '../../../modules/context.js'
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'CAN 4e sujet 2021'
 export const interactifReady = true
@@ -611,7 +612,7 @@ export default function SujetCAN20214ieme () {
            <br>
           `
 
-          setReponse(this, index, r, { formatInteractif: 'fraction' })
+          handleAnswers(this, i, { reponse: { value: r.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
           if (this.interactif) {
             texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
           }
