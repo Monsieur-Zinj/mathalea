@@ -471,9 +471,8 @@ export default function ExprimerCosSinTan () {
           }
         }
       } else if (this.sup === 2) {
-        texte += 'Exprimer les 6 rapports trigonométriques pour ce triangle rectangle, en fonction des longueurs respectives de ses côtés.'
-        texteInit = texte
-        texte += `<br>Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$ et $${B.nom + C.nom}$ : `
+        texteInit = 'Exprimer les rapports trigonométriques pour ' + (this.nbQuestions === 1 ? 'ce' : 'chaque') + ' triangle rectangle, en fonction des longueurs respectives de ses côtés.'
+        texte += `Compléter à l'aide des longueurs $${A.nom + B.nom}$, $${A.nom + C.nom}$ et $${B.nom + C.nom}$ : `
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           if (!context.isAmc) {
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
@@ -584,6 +583,6 @@ export default function ExprimerCosSinTan () {
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 
-  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Compléter 3 rapports trigonométriques\n2 : Donner les 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
+  this.besoinFormulaireNumerique = ['Type de questions', 3, '1 : Donner jusque 3 rapports trigonométriques\n2 : Donner jusque 6 rapports trigonométriques\n3 : Deux triangles imbriqués, donner un rapport de deux manières différentes']
   this.besoinFormulaire2Texte = ['Rapports trigonométriques', 'Nombres séparés par des tirets : \n1 : Cosinus\n2 : Sinus\n3 : Tangente\n4 : Les trois']
 }
