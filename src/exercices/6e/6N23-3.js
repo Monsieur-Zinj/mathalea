@@ -3,7 +3,7 @@ import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { choisitLettresDifferentes } from '../../lib/outils/aleatoires'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
-import { nombreDeChiffresDe, troncature } from '../../lib/outils/nombres'
+import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -11,7 +11,10 @@ import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import Decimal from 'decimal.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
@@ -20,7 +23,7 @@ export const amcType = 'AMCHybride'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '22/11/2022'
+export const dateDeModifImportante = '05/09/2024'
 /**
  * Ajout Interactivité et AMC : Janvier 2022 par EE
  */
@@ -34,7 +37,6 @@ export default function LireUneAbscisseAvecZoom () {
   Exercice.call(this)
   this.niveau = 'sixième'
   this.sup = 3
-  this.consigne = ''
   if (context.isHtml) {
     this.spacing = 2
     this.spacingCorr = 3
@@ -46,7 +48,6 @@ export default function LireUneAbscisseAvecZoom () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.nbQuestions = 1
-  // this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -100,11 +101,14 @@ export default function LireUneAbscisseAvecZoom () {
         } else {
           xmin = randint(5, 10) - 0.2
           origine = Math.round(xmin + 0.2)
-          extreme = calculANePlusJamaisUtiliser(origine + 9)
+          extreme = origine + 9
           thickOff = 0.1
           xmax = origine + 9.2
         }
-        x1 = calculANePlusJamaisUtiliser(xmin + 0.2 + randint(1, 5) + randint(2, 8) / 10)
+
+        const alea1 = new Decimal(randint(2, 8)).div(10)
+        x1 = new Decimal(xmin).add(alea1).add(0.2).add(randint(1, 5))
+
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
 
@@ -123,7 +127,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: false,
           labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -131,12 +135,13 @@ export default function LireUneAbscisseAvecZoom () {
           pointEpaisseur: 2,
           axeStyle: extremite
         })
+
         d2 = droiteGraduee({
-          x: Math.floor(x1) - xmin + 1.5,
+          x: x1.sub(xmin).add(1.5).floor().toNumber(),
           y: 0,
-          Min: Math.floor(x1),
+          Min: x1.floor().toNumber(),
           axePosition: 'H',
-          Max: Math.floor(x1 + 1),
+          Max: x1.add(1).floor().toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 20,
@@ -145,7 +150,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeCouleur: 'black',
           axeHauteur: 4,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [x1.add(1).floor(), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -168,7 +173,7 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: true,
           labelListe: [[origine, `${stringNombre(origine)}`], [extreme, `${stringNombre(extreme)}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -177,11 +182,11 @@ export default function LireUneAbscisseAvecZoom () {
           axeStyle: extremite
         })
         d2Corr = droiteGraduee({
-          x: Math.floor(x1) - xmin + 1.5,
+          x: x1.floor().sub(xmin).add(1.5).toNumber(),
           y: 0,
-          Min: Math.floor(x1),
+          Min: x1.floor().toNumber(),
           axePosition: 'H',
-          Max: Math.floor(x1 + 1),
+          Max: x1.add(1).floor().toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 20,
@@ -191,8 +196,8 @@ export default function LireUneAbscisseAvecZoom () {
           axeHauteur: 4,
           labelsPrincipaux: false,
           labelsSecondaires: true,
-          labelListe: [[Math.floor(x1), `${stringNombre(Math.floor(x1))}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
-          pointListe: [[x1, `${noms[1]}`], [Math.floor(x1), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
+          labelListe: [[x1.floor(), `${stringNombre(x1.floor())}`], [x1, `${stringNombre(x1)}`], [Math.ceil(x1), `${stringNombre(Math.ceil(x1))}`]],
+          pointListe: [[x1, `${noms[1]}`], [x1.floor(), `${noms[0]}`], [Math.floor(x1 + 1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -201,10 +206,10 @@ export default function LireUneAbscisseAvecZoom () {
           axeStyle: extremite
         })
 
-        pA1 = point((Math.floor(x1) - xmin) * 3, 3)
-        pA2 = point(Math.floor(x1) - xmin + 1.5, 0)
-        pB1 = point((Math.floor(x1) + 1 - xmin) * 3, 3)
-        pB2 = point(Math.floor(x1) - xmin + 21.5, 0)
+        pA1 = point((x1.floor().toNumber() - xmin) * 3, 3)
+        pA2 = point(x1.floor().toNumber() - xmin + 1.5, 0)
+        pB1 = point((x1.floor().toNumber() + 1 - xmin) * 3, 3)
+        pB2 = point(x1.floor().toNumber() - xmin + 21.5, 0)
         sA = segment(pA1, pA2)
         sB = segment(pB1, pB2)
         sA.pointilles = 5
@@ -212,12 +217,16 @@ export default function LireUneAbscisseAvecZoom () {
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(Math.floor(x1))} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x1 - Math.floor(x1))), 10)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
+        texteCorr = `L'abscisse de $${noms[1]} $est : $${texNombre(x1)}=${texNombre(x1.floor())} + ${texFractionFromString(calculANePlusJamaisUtiliser(10 * (x1 - x1.floor())), 10)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 10), 10)}$.<br>`
+
+        const partent = x1.floor()
+        const pardec = new Decimal(x1).sub(partent)
+        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 10, 10).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 10, 10).toLatex())}$.<br>`
 
         reponse1 = x1
-        reponse2A = Math.floor(x1)
-        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(10 * (x1 - Math.floor(x1))), 10)
-        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 10), 10)
+        reponse2A = partent
+        reponse2B = new FractionEtendue(new Decimal(pardec).mul(10).toNumber(), 10)
+        reponse3 = new FractionEtendue(new Decimal(x1).mul(10).toNumber(), 10)
       } else if (this.sup === 2) {
         if (this.niveau === 'CM') {
           xmin = 0
@@ -226,21 +235,23 @@ export default function LireUneAbscisseAvecZoom () {
           xmin = randint(1, 15) - 0.02
           thickOff = 0.01
         }
+        let alea1 = new Decimal(randint(2, 8)).div(10)
+        const alea2 = new Decimal(randint(2, 8)).div(100)
+        x1 = new Decimal(xmin).add(alea1).add(alea2)
+        x2 = x1.mul(10).floor().div(10)
+        alea1 = new Decimal(1).div(10)
+        x3 = x2.add(alea1)
+        xmin = this.niveau === 'CM' ? new Decimal(0) : x2.floor()
+        xmax = new Decimal(xmin).add(1)
 
-        xmax = xmin + 1.05
-        x1 = calculANePlusJamaisUtiliser(xmin + 0.02 + randint(2, 8) / 10 + randint(2, 8) / 100)
-        x2 = calculANePlusJamaisUtiliser(Math.floor(x1 * 10) / 10)
-        x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
-        //      xmin=calcul(x2-0.8)
-        //      xmax=calcul(xmin+1.7)
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
         d1 = droiteGraduee({
           x: 0,
           y: 3,
-          Min: xmin,
+          Min: xmin.sub(0.01).toNumber(),
           axePosition: 'H',
-          Max: xmax,
+          Max: xmax.add(0.01).toNumber(),
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -252,7 +263,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.1,
           thickTerDist: 0.01,
           labelsPrincipaux: false,
-          labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+          labelListe: [[x1.floor(), `${x1.floor()}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
           pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
@@ -262,11 +273,11 @@ export default function LireUneAbscisseAvecZoom () {
           axeStyle: extremite
         })
         d2 = droiteGraduee({
-          x: (x2 - xmin) + 6,
+          x: x2.sub(xmin).add(6).toNumber(),
           y: 0,
-          Min: x2,
+          Min: x2.toNumber(),
           axePosition: 'H',
-          Max: x2 + 0.1,
+          Max: x2.add(0.1).toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 200,
@@ -278,7 +289,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.01,
           thickTerDist: 0.001,
           labelsPrincipaux: false,
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -289,9 +300,9 @@ export default function LireUneAbscisseAvecZoom () {
         d1Corr = droiteGraduee({
           x: 0,
           y: 3,
-          Min: xmin,
+          Min: xmin.toNumber(),
           axePosition: 'H',
-          Max: xmax,
+          Max: xmax.toNumber(),
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -303,7 +314,7 @@ export default function LireUneAbscisseAvecZoom () {
           thickSecDist: 0.1,
           thickTerDist: 0.01,
           labelsSecondaires: true,
-          labelListe: [[Math.floor(x1), `${Math.floor(x1)}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
+          labelListe: [[x1.floor(), `${x1.floor()}`], [Math.ceil(x1), `${Math.ceil(x1)}`]],
           pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x3, `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
@@ -315,9 +326,9 @@ export default function LireUneAbscisseAvecZoom () {
         d2Corr = droiteGraduee({
           x: (x2 - xmin) + 6,
           y: 0,
-          Min: x2,
+          Min: x2.toNumber(),
           axePosition: 'H',
-          Max: x2 + 0.1,
+          Max: x2.add(0.1).toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 200,
@@ -331,7 +342,7 @@ export default function LireUneAbscisseAvecZoom () {
           labelsPrincipaux: false,
           labelsSecondaires: true,
           labelListe: [[x2, `${stringNombre(x2)}`], [x1, `${stringNombre(x1)}`], [x3, `${stringNombre(x3)}`]],
-          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2 + 0.1, `${noms[2]}`]],
+          pointListe: [[x1, `${noms[1]}`], [x2, `${noms[0]}`], [x2.add(0.1), `${noms[2]}`]],
           pointTaille: 6,
           pointOpacite: 0.8,
           pointCouleur: 'blue',
@@ -351,44 +362,42 @@ export default function LireUneAbscisseAvecZoom () {
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 4.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, sA, sB)
         objetsCorr.push(d1Corr, d2Corr, sA, sB)
-        const partent = Math.floor(x1)
-        const pardec = calculANePlusJamaisUtiliser(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFractionFromString(calculANePlusJamaisUtiliser(pardec * 100), 100)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 100), 100)}$.<br>`
+        const partent = x1.floor()
+        const pardec = new Decimal(x1).sub(partent)
+        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 100, 100).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 100, 100).toLatex())}$.<br>`
 
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(pardec * 100), 100)
-        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 100), 100)
-      } else if (this.sup === 3) {
+        reponse2B = new FractionEtendue(new Decimal(pardec).mul(100).toNumber(), 100)
+        reponse3 = new FractionEtendue(new Decimal(x1).mul(100).toNumber(), 100)
+      } else { // this.sup === 3
         if (this.niveau === 'CM') {
           xmin = 0
-          xmax = 1
           thickOff = 0
-          x1 = calculANePlusJamaisUtiliser(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
-          x2 = troncature(x1, 1)
-          x21 = troncature(x1, 2)
-          x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
-          x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
         } else {
           xmin = randint(1, 15)
-          xmax = xmin + 1
-          x1 = calculANePlusJamaisUtiliser(xmin + randint(2, 8) / 10 + randint(2, 8) / 100 + randint(2, 8) * 0.001)
-          x2 = troncature(x1, 1)
-          x21 = troncature(x1, 2)
-          x3 = calculANePlusJamaisUtiliser(x2 + 0.1)
-          x31 = calculANePlusJamaisUtiliser(x21 + 0.01)
-          xmin = Math.floor(x2)
-          xmax = xmin + 1
           thickOff = 0.001
         }
+        let alea1 = new Decimal(randint(2, 8)).div(10)
+        const alea2 = new Decimal(randint(2, 8)).div(100)
+        const alea3 = new Decimal(randint(2, 8)).div(1000)
+        x1 = new Decimal(xmin).add(alea1).add(alea2).add(alea3)
+        x2 = x1.mul(10).floor().div(10)
+        x21 = x1.mul(100).floor().div(100)
+        alea1 = new Decimal(1).div(10)
+        x3 = x2.add(alea1)
+        alea1 = new Decimal(1).div(100)
+        x31 = x21.add(alea1)
+        xmin = this.niveau === 'CM' ? new Decimal(0) : x2.floor()
+        xmax = new Decimal(xmin).add(1)
         if (xmin === 0) extremite = '|->'
         else extremite = '->'
         d1 = droiteGraduee({
           x: 0,
           y: 6,
-          Min: xmin - 0.002,
+          Min: xmin.toNumber() - 0.002,
           axePosition: 'H',
-          Max: xmax + 0.002,
+          Max: xmax.toNumber() + 0.002,
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -412,9 +421,9 @@ export default function LireUneAbscisseAvecZoom () {
         d2 = droiteGraduee({
           x: 6.5,
           y: 3,
-          Min: x2,
+          Min: x2.toNumber(),
           axePosition: 'H',
-          Max: x3,
+          Max: x3.toNumber(),
           thickSec: true,
           thickTer: true,
           Unite: 200,
@@ -437,9 +446,9 @@ export default function LireUneAbscisseAvecZoom () {
         d3 = droiteGraduee({
           x: 6.5,
           y: 0,
-          Min: x21,
+          Min: x21.toNumber(),
           axePosition: 'H',
-          Max: x31,
+          Max: x31.toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 2000,
@@ -460,9 +469,9 @@ export default function LireUneAbscisseAvecZoom () {
         d1Corr = droiteGraduee({
           x: 0,
           y: 6,
-          Min: xmin - 0.002,
+          Min: xmin.toNumber() - 0.002,
           axePosition: 'H',
-          Max: xmax + 0.002,
+          Max: xmax.toNumber() + 0.002,
           thickSec: true,
           thickTer: true,
           Unite: 30,
@@ -487,9 +496,9 @@ export default function LireUneAbscisseAvecZoom () {
         d2Corr = droiteGraduee({
           x: 6.5,
           y: 3,
-          Min: x2,
+          Min: x2.toNumber(),
           axePosition: 'H',
-          Max: x3,
+          Max: x3.toNumber(),
           thickSec: true,
           thickTer: true,
           Unite: 200,
@@ -514,9 +523,9 @@ export default function LireUneAbscisseAvecZoom () {
         d3Corr = droiteGraduee({
           x: 6.5,
           y: 0,
-          Min: x21,
+          Min: x21.toNumber(),
           axePosition: 'H',
-          Max: x31,
+          Max: x31.toNumber(),
           thickSec: true,
           thickTer: false,
           Unite: 2000,
@@ -556,41 +565,33 @@ export default function LireUneAbscisseAvecZoom () {
         fenetre = { xmin: -1.5, xmax: 35, ymin: -1.5, ymax: 7.5, pixelsParCm: 25, scale: 0.5 }
         objets.push(d1, d2, d3, sA, sB, sC, sD)
         objetsCorr.push(d1Corr, d2Corr, d3Corr, sA, sB, sC, sD)
-        const partent = Math.floor(x1)
-        const pardec = calculANePlusJamaisUtiliser(x1 - partent)
-        texteCorr = `L'abscisse de ${noms[1]} est : $${texNombre(x1)}=${texNombre(partent)} + ${texFractionFromString(calculANePlusJamaisUtiliser(pardec * 1000), 1000)}=${texFractionFromString(calculANePlusJamaisUtiliser(x1 * 1000), 1000)}$.<br>`
+        const partent = x1.floor()
+        const pardec = new Decimal(x1).sub(partent)
+        texteCorr = `L'abscisse de $${noms[1]} $est : $${miseEnEvidence(texNombre(x1))}=${miseEnEvidence(`${texNombre(partent)} + ${new FractionEtendue(pardec * 1000, 1000).toLatex()}`)}=${miseEnEvidence(new FractionEtendue(x1 * 1000, 1000).toLatex())}$.<br>`
         reponse1 = x1
         reponse2A = partent
-        reponse2B = new FractionEtendue(calculANePlusJamaisUtiliser(pardec * 1000), 1000)
-        reponse3 = new FractionEtendue(calculANePlusJamaisUtiliser(x1 * 1000), 1000)
+        reponse2B = new FractionEtendue(new Decimal(pardec).mul(1000).toNumber(), 1000)
+        reponse3 = new FractionEtendue(new Decimal(x1).mul(1000).toNumber(), 1000)
       }
-      texte = `Donner l'abscisse de ${noms[1]} sous `
+      texte = `Donner l'abscisse de $${noms[1]} $sous `
       texte += context.isAmc ? 'deux ' : 'trois '
       texte += 'formes : en écriture décimale'
       texte += context.isAmc ? '' : ', comme somme d\'un nombre entier et d\'une fraction décimale inférieure à 1,'
       texte += ' et sous forme d\'une seule fraction décimale.<br>'
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
-        setReponse(this, 4 * i, reponse1)
-        setReponse(this, 4 * i + 1, reponse2A)
-        setReponse(this, 4 * i + 2, reponse2B, { formatInteractif: 'fraction' })
-        setReponse(this, 4 * i + 3, reponse3, { formatInteractif: 'fraction' })
-        texte += ajouteChampTexteMathLive(this, i * 4, 'largeur01 inline nospacebefore', {
-          // tailleExtensible: true,
-          texteAvant: `Abscisse de ${noms[1]} en écriture décimale : `
+        handleAnswers(this, i, { reponse: { value: reponse1, compare: fonctionComparaison } })
+        handleAnswers(this, i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+        handleAnswers(this, i + 2, { reponse: { value: reponse1, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+
+        texte += ajouteChampTexteMathLive(this, i * 3, 'largeur01 inline nospacebefore', {
+          texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 1, 'largeur01 inline nospacebefore', {
-          // tailleExtensible: true,
-          texteAvant: `Abscisse de ${noms[1]} comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
-        }) + ajouteChampTexteMathLive(this, i * 4 + 2, 'largeur01 inline nospacebefore', {
-          formatInteractif: 'fraction',
-          // tailleExtensible: true,
-          texteAvant: '+'
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur01 inline nospacebefore', {
+          texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 4 + 3, 'largeur01 inline nospacebefore', {
-          formatInteractif: 'fraction',
-          // tailleExtensible: true,
-          texteAvant: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur01 inline nospacebefore', {
+          texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `
         })
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -603,7 +604,7 @@ export default function LireUneAbscisseAvecZoom () {
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {
                   reponse: { // utilisé si type = 'AMCNum'
-                    texte: `Abscisse de ${noms[1]} en écriture décimale : `, // facultatif
+                    texte: `Abscisse de $${noms[1]}$ en écriture décimale : `, // facultatif
                     valeur: reponse1, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
@@ -620,15 +621,15 @@ export default function LireUneAbscisseAvecZoom () {
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {
                   reponse: { // utilisé si type = 'AMCNum'
-                    texte: `Abscisse de ${noms[1]} sous forme d'une fraction décimale : `,
+                    texte: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `,
                     valeur: reponse3, // obligatoire (la réponse numérique à comparer à celle de l'élève). EE : Si une fraction est la réponse, mettre un tableau sous la forme [num,den]
                     alignement: 'center', // EE : ce champ est facultatif et n'est fonctionnel que pour l'hybride. Il permet de choisir où les cases sont disposées sur la feuille. Par défaut, c'est comme le texte qui le précède. Pour mettre à gauche, au centre ou à droite, choisir parmi ('flushleft', 'center', 'flushright').
                     param: {
                       digits: 0, // obligatoire pour AMC (le nombre de chiffres pour AMC, si digits est mis à 0, alors il sera déterminé pour coller au nombre décimal demandé)
                       decimals: 0, // facultatif. S'il n'est pas mis, il sera mis à 0 et sera déterminé automatiquement comme décrit ci-dessus
                       signe: false, // (présence d'une case + ou -)
-                      digitsNum: nombreDeChiffresDe(reponse2B.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
-                      digitsDen: nombreDeChiffresDe(reponse2B.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
+                      digitsNum: nombreDeChiffresDe(reponse3.num), // Facultatif. digitsNum correspond au nombre TOTAL de chiffres du numérateur à coder si la réponse est une fraction.
+                      digitsDen: nombreDeChiffresDe(reponse3.den) // Facultatif. digitsDencorrespond au nombre TOTAL de chiffres du dénominateur à coder si la réponse est une fraction.
                     }
                   }
                 }
