@@ -10,7 +10,7 @@ import {
   calculCompare,
   // fractionCompare,
   // equalFractionCompare,
-  simplerFractionCompare,
+  // simplerFractionCompare,
   // hmsCompare,
   // intervalCompare,
   // numberCompare,
@@ -571,7 +571,8 @@ export function setReponse (
           )
         }
         break
-      case 'fractionPlusSimple':
+        /*
+      case 'fractionPlusSimple': // Avec handleAnswers(), ce case n'a plus lieu d'être !
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fractionPlusSimple" une fraction est attendue !',
@@ -584,11 +585,13 @@ export function setReponse (
           })
         }
         break
+        */
       case 'fractionEgale':
         if (!(reponse instanceof FractionEtendue)) window.notify('setReponse : type "fractionEgale" une fraction est attendue !', { reponses, exercice: exercice.uuid })
         else if (isNaN(reponse.num) || isNaN(reponse.den)) window.notify('setReponse : La fraction ne convient pas !', { reponses, exercice: exercice.uuid })
         break
-      case 'fraction':
+      /*
+        case 'fraction': // Avec handleAnswers(), ce case n'a plus lieu d'être !
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fraction" une fraction est attendue !',
@@ -601,6 +604,7 @@ export function setReponse (
           })
         }
         break
+        */
       case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
         if (!(reponse instanceof Grandeur)) {
           window.notify(
@@ -894,7 +898,8 @@ export function setReponse (
           },
           params
         )
-      case 'fractionPlusSimple':
+        /*
+      case 'fractionPlusSimple': // Avec handleAnswers(), ce case n'a plus lieu d'être !
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fractionPlusSimple" une fraction est attendue !',
@@ -920,6 +925,7 @@ export function setReponse (
           )
         }
         break
+        */
       case 'fractionEgale':
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
@@ -953,7 +959,7 @@ export function setReponse (
           )
         }
         break
-      case 'fraction':
+      /* case 'fraction': // Avec handleAnswers(), ce case n'a plus lieu d'être !
         if (!(reponse instanceof FractionEtendue)) {
           window.notify(
             'setReponse : type "fraction" une fraction est attendue !',
@@ -980,7 +986,7 @@ export function setReponse (
             params
           )
         }
-        break
+        break */
       case 'unites': // Pour les exercices où l'on attend une mesure avec une unité au choix
         if (precision == null) precision = 0 // Des exercices utilisent le format 'unites' mais ne définissent pas la précision
         if (!(reponse instanceof Grandeur)) {
