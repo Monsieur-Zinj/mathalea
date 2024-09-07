@@ -4,5 +4,9 @@
         "printlatex",
         "reponse"
     ],
-    "genieai.openai.model": "gpt-3.5-turbo"
+    "genieai.openai.model": "gpt-3.5-turbo",
+    "javascript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.importModuleSpecifier": "relative",
+    "typescript.preferences.importModuleSpecifierEnding": "minimal",
+    "javascript.preferences.importModuleSpecifierEnding": "minimal",
 }

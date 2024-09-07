@@ -1,6 +1,5 @@
 .idea/
 .DS_Store
-.vscode/extensions.json
 node_modules/
 docs/
 dist/
