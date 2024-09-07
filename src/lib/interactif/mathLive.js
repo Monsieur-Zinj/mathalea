@@ -40,8 +40,18 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
   const callback = reponses.callback
   try {
     const variables = Object.entries(reponses).filter(([key]) => key !== 'callback' && key !== 'bareme' && key !== 'feedback')
-    // console.log(`reponses entrie 0 : ${variables[0]} et variables[0][0] : ${variables[0][0]}`)
     if (callback != null && typeof callback === 'function') { // Là c'est une correction custom ! Celui qui passe une callback doit savoir ce qu'il fait !
+      // La fonction de callback gère le score et le feedback
+      // Ici, on sauvegarde les réponses dans l'objet exercice.answers
+      const mfe = document.querySelector(`#champTexteEx${exercice.numeroExercice}Q${i}`)
+      if (mfe != null) {
+        if (mfe.getValue().length > 0 && typeof exercice.answers === 'object') {
+          exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.getValue()
+        }
+        if (mfe.value.length > 0 && typeof exercice.answers === 'object') {
+          exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = mfe.value
+        }
+      }
       return callback(exercice, i, variables, reponses.bareme)
     }
     if (variables.length > 1 || variables[0][0] !== 'reponse') {
