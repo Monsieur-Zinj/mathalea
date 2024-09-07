@@ -73,7 +73,7 @@ export default class FractionEtPriorites extends Exercice {
       switch (Number(listeTypeDeQuestion[i])) {
         case 2: // c +/- a*b
           texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
@@ -94,7 +94,7 @@ export default class FractionEtPriorites extends Exercice {
         case 3: // c +/- a*b avec piège de priorité
           c = new FractionEtendue(c.num, a.den)
           texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\times ${b.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
@@ -115,7 +115,7 @@ export default class FractionEtPriorites extends Exercice {
           break
         case 5: // c +/- a/b sans piège
           texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
@@ -136,7 +136,7 @@ export default class FractionEtPriorites extends Exercice {
           break
         case 4: // a/b +/- c
           texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\div ${b.texFraction}${operation}${c.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
@@ -166,7 +166,7 @@ export default class FractionEtPriorites extends Exercice {
         case 6: // a +/- b/c avec piège
           c = new FractionEtendue(c.num, a.den)
           texte = `$${lettreDepuisChiffre(i + 1)}=${c.texFraction}${operation}${a.texFraction}\\div ${b.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
@@ -190,7 +190,7 @@ export default class FractionEtPriorites extends Exercice {
         case 1:
         default: // a*b +/- c
           texte = `$${lettreDepuisChiffre(i + 1)}=${a.texFraction}\\times ${b.texFraction}${operation}${c.texFraction}$`
-          texteCorr = texte.slice(3, -2) // La correction de base reprend l'énoncé
+          texteCorr = texte.slice(3, -1) // La correction de base reprend l'énoncé
 
           // on utilise l'environnement aligned pour les calculs
           texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)} &=` + texteCorr
