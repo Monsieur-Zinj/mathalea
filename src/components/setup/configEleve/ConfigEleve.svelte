@@ -88,14 +88,6 @@
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
   }
 
-  function getEmbededCode () {
-    return `<iframe src="${buildMathAleaURL({
-      view: $canOptions.isChoosen ? 'can' : 'eleve',
-      isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
-      removeSeed: isDataRandom
-    })}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`
-  }
-
   function toggleCan () {
     if ($canOptions.isChoosen) {
       $globalOptions.setInteractive = '1'
@@ -558,7 +550,11 @@
             <div class="my-1">
               <ButtonActionInfo
                 action="copy"
-                textToCopy={getEmbededCode()}
+                textToCopy={`<iframe src="${buildMathAleaURL({
+                  view: $canOptions.isChoosen ? 'can' : 'eleve',
+                  isEncrypted: availableLinkFormats[currentLinkFormat].isEncrypted,
+                  removeSeed: isDataRandom
+                }).toString()}" width="100%" height="100%" frameborder="0" allowfullscreen></iframe>`}
                 tooltip={'Code (lien ' + availableLinkFormats[currentLinkFormat].toolTipsMessage + ')'}
                 icon={'bx-code-alt text-2xl'}
                 cornerIcon={availableLinkFormats[currentLinkFormat].icon}
