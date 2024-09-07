@@ -35,6 +35,7 @@
   import Keyboard from '../../keyboard/Keyboard.svelte'
   import { keyboardState } from '../../keyboard/stores/keyboardStore'
   import { buildExercisesList, splitExercisesIntoQuestions } from '../../../lib/components/exercisesUtils'
+  import { resizeContent } from '../../../lib/components/sizeTools'
 
   let currentIndex: number = 0
   let exercices: TypeExercice[] = []
@@ -160,10 +161,11 @@
       bubbles: true
     })
     document.dispatchEvent(exercicesAffiches)
-    // if (eleveSection) {
-    //   // utilise pour le zoom
-    //   mathaleaRenderDiv(eleveSection)
-    // }
+    if (eleveSection) {
+      const params = $globalOptions
+      const zoom = Number(params.z) ?? 1
+      resizeContent(eleveSection, zoom)
+    }
   })
 
   $: questionTitle = buildQuestionTitle(currentWindowWidth, questions.length)
@@ -660,7 +662,7 @@
                 >
                   Question {k + 1}
                   <div
-                    class="relative ml-2 h-2 w-2 rounded-full {currentIndex ===  k
+                    class="relative ml-2 h-2 w-2 rounded-full {currentIndex === k
                       ? 'bg-coopmaths-canvas-darkest'
                       : 'bg-coopmaths-canvas-dark'} group-hover:bg-coopmaths-canvas-darkest"
                   >
@@ -672,7 +674,7 @@
                     />
                     <div
                       class="absolute h-2 w-2 rounded-full bg-red-600 {resultsByQuestion[k] === false ? '' : 'hidden'}"
-                    />                    
+                    />
                   {/if}
                 </div>
               </div>
