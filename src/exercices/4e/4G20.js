@@ -7,7 +7,7 @@ import { rotation, similitude } from '../../lib/2d/transformations.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { arrondi, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { creerNomDePolygone, sp } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -103,8 +103,6 @@ export function pythagoreCompare (input, goodAnswer) {
   return { isOk: parsedInput.isEqual(parsedAnswer), feedback: '' }
 }
 
-// Il existait une version MG32 cf le commit aba9446 https://github.com/mathalea/mathalea/commit/aba9446cb809c140f599c9a6ebd83dea0176da0f
-
 /**
  * Exercices sur le théorème de Pythagore avec MathALEA2D
  * @author Rémi Angot (Factorisation de la rédaction de Pythagore par Eric Elter )
@@ -116,25 +114,22 @@ export const refs = {
   'fr-fr': ['4G20'],
   'fr-ch': ['10GM4-1', '11GM1-1']
 }
-export default function Pythagore2D () {
-  Exercice.call(this)
-  this.titre = titre
-  this.amcReady = amcReady
-  this.amcType = amcType
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.nbQuestions = 3
-  this.nbCols = 3
-  this.nbColsCorr = 1
-  this.sup = 3
-  this.sup2 = 3
-  this.typeDeQuestion = 'Calculer :'
-  this.video = 'M9sceJ8gzNc'
 
-  this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
+export default class Pythagore2D extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 3
+    this.nbCols = 3
+    this.nbColsCorr = 1
+    this.sup = 3
+    this.sup2 = 3
+    this.sup3 = false
+    this.typeDeQuestion = 'Calculer :'
+    this.video = 'M9sceJ8gzNc'
+    this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Mélange']
+  }
+
+  nouvelleVersion () {
     let listeTypeDeQuestions
     if (this.sup2 === 1) {
       listeTypeDeQuestions = ['BC']
@@ -156,9 +151,11 @@ export default function Pythagore2D () {
       if (i % 5 === 0) listeDeNomsDePolygones = ['QD']
       texte = ''
       texteCorr = ''
+      const c1 = randint(22, 50) / 10
+      const c2 = randint(22, 50) / 10
       const A1 = point(0, 0)
-      const B1 = point(randint(22, 50) / 10, 0)
-      const C1 = similitude(B1, A1, 90, randint(22, 50) / 10 / longueur(A1, B1))
+      const B1 = point(c1, 0)
+      const C1 = similitude(B1, A1, 90, c2 / longueur(A1, B1))
       const p1 = polygone(A1, B1, C1)
       p1.isVisible = false
       const p2 = rotation(p1, A1, randint(0, 360))
@@ -298,5 +295,4 @@ export default function Pythagore2D () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaire2Numerique = ['Recherche de côtés ', 3, '1 : Hypoténuse\n2 : Côtés de l\'angle droit\n3: Mélange']
 }
