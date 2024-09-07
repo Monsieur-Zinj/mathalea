@@ -3207,7 +3207,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_1_cor.tex',
-    tags: ['']
+    tags: ['Convexité', 'Exponentielle', 'Primitives']
   },
   bac_2024_06_sujet1_asie_2: {
     annee: '2024',
@@ -3220,7 +3220,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_2_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet1_asie_3: {
     annee: '2024',
@@ -3233,7 +3233,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_3_cor.tex',
-    tags: ['']
+    tags: ['Loi binomiale', 'Probabilités conditionnelles']
   },
   bac_2024_06_sujet1_asie_4: {
     annee: '2024',
@@ -3246,7 +3246,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_asie_4_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Suites', 'Python']
   },
   bac_2024_06_sujet1_metropole_1: {
     annee: '2024',
@@ -3259,7 +3259,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_1_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Exponentielle', 'Équations différentielles', 'Suites']
   },
   bac_2024_06_sujet1_metropole_2: {
     annee: '2024',
@@ -3272,7 +3272,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
   bac_2024_06_sujet1_metropole_3: {
     annee: '2024',
@@ -3285,7 +3285,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_3_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet1_metropole_4: {
     annee: '2024',
@@ -3298,7 +3298,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_4_cor.tex',
-    tags: ['']
+    tags: ['Logarithme', 'TVI', 'Intégration']
   },
   bac_2024_06_sujet1_metropole_devoile_1: {
     annee: '2024',
@@ -3311,7 +3311,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_1_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet1_metropole_devoile_2: {
     annee: '2024',
@@ -3324,7 +3324,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_2_cor.tex',
-    tags: ['']
+    tags: ['Loi binomiale', 'Variables aléatoires']
   },
   bac_2024_06_sujet1_metropole_devoile_3: {
     annee: '2024',
@@ -3337,7 +3337,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_3_cor.tex',
-    tags: ['']
+    tags: ['Logarithme', 'Suites', 'Python', 'Intégration']
   },
   bac_2024_06_sujet1_metropole_devoile_4: {
     annee: '2024',
@@ -3350,7 +3350,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_metropole_devoile_4_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Exponentielle', 'Convexité', 'Logarithme', 'TVI']
   },
   bac_2024_06_sujet1_polynesie_1: {
     annee: '2024',
@@ -3363,7 +3363,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_1_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Espace']
   },
   bac_2024_06_sujet1_polynesie_2: {
     annee: '2024',
@@ -3376,7 +3376,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_2_cor.tex',
-    tags: ['']
+    tags: ['Équations différentielles', 'Intégration']
   },
   bac_2024_06_sujet1_polynesie_3: {
     annee: '2024',
@@ -3389,7 +3389,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_3_cor.tex',
-    tags: ['']
+    tags: ['Loi binomiale', 'Probabilités conditionnelles']
   },
   bac_2024_06_sujet1_polynesie_4: {
     annee: '2024',
@@ -3402,7 +3402,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_polynesie_4_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python']
   },
   bac_2024_06_sujet2_asie_1: {
     annee: '2024',
@@ -3415,7 +3415,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_1_cor.tex',
-    tags: ['']
+    tags: ['Logarithme', 'Convexité', 'Suites']
   },
   bac_2024_06_sujet2_asie_2: {
     annee: '2024',
@@ -3428,7 +3428,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_2_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Suites', 'Python']
   },
   bac_2024_06_sujet2_asie_3: {
     annee: '2024',
@@ -3441,7 +3441,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_3_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Convexité', 'Dénombrement', 'Logarithme', 'Équations différentielles']
   },
   bac_2024_06_sujet2_asie_4: {
     annee: '2024',
@@ -3454,7 +3454,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_asie_4_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
   bac_2024_06_sujet2_metropole_1: {
     annee: '2024',
@@ -3467,7 +3467,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
   bac_2024_06_sujet2_metropole_2: {
     annee: '2024',
@@ -3480,7 +3480,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_2_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python', 'Équations différentielles']
   },
   bac_2024_06_sujet2_metropole_3: {
     annee: '2024',
@@ -3493,7 +3493,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_3_cor.tex',
-    tags: ['']
+    tags: ['Convexité', 'Logarithme', 'TVI']
   },
   bac_2024_06_sujet2_metropole_4: {
     annee: '2024',
@@ -3506,7 +3506,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_4_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Espace']
   },
   bac_2024_06_sujet2_metropole_devoile_1: {
     annee: '2024',
@@ -3519,7 +3519,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale', 'Variables aléatoires']
   },
   bac_2024_06_sujet2_metropole_devoile_2: {
     annee: '2024',
@@ -3532,7 +3532,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_2_cor.tex',
-    tags: ['']
+    tags: ['Vrai/Faux', 'Espace']
   },
   bac_2024_06_sujet2_metropole_devoile_3: {
     annee: '2024',
@@ -3545,7 +3545,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_3_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Python', 'Logarithme']
   },
   bac_2024_06_sujet2_metropole_devoile_4: {
     annee: '2024',
@@ -3558,7 +3558,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_metropole_devoile_4_cor.tex',
-    tags: ['']
+    tags: ['Convexité', 'Primitives', 'Exponentielle', 'Intégration']
   },
   bac_2024_06_sujet2_polynesie_1: {
     annee: '2024',
@@ -3571,7 +3571,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_1.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_1_cor.tex',
-    tags: ['']
+    tags: ['Probabilités conditionnelles', 'Loi binomiale']
   },
   bac_2024_06_sujet2_polynesie_2: {
     annee: '2024',
@@ -3584,7 +3584,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_2.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_2_cor.tex',
-    tags: ['']
+    tags: ['QCM', 'Équations différentielles', 'Intégration', 'Logarithme', 'Dénombrement']
   },
   bac_2024_06_sujet2_polynesie_3: {
     annee: '2024',
@@ -3597,7 +3597,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_3.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_3_cor.tex',
-    tags: ['']
+    tags: ['Suites', 'Logarithme', 'Python']
   },
   bac_2024_06_sujet2_polynesie_4: {
     annee: '2024',
@@ -3610,7 +3610,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_06_sujet2_polynesie_4_cor.tex',
-    tags: ['']
+    tags: ['Espace']
   },
 
 }
