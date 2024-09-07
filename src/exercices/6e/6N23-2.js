@@ -28,7 +28,7 @@ export const amcType = 'AMCHybride'
 export const dateDeModifImportante = '05/09/2024'
 /**
  * @author Jean-Claude Lhote (sauf erreur de ma part)
- * amélioré par Eric Elter
+ * Amélioré par Eric Elter
  * Trois points sont placés sur un droite graduée
  * Il faut donner leurs abscisses respectives
  * Trois formes sont demandées : décimale, fraction décimale, décomposition partie entière + partie décimale fractionnaire.
