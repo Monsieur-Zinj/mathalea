@@ -1322,6 +1322,10 @@ export function ensembleNombres (input: string, goodAnswer: string, {
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
+  if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
+  if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
+
+  console.log(cleanInput, goodAnswer, goodAnswer.length)
   if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
   if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
   const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
