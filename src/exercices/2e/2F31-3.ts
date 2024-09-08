@@ -7,12 +7,12 @@ import Trinome from '../../modules/Trinome'
 import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Comparer des images dans un tableau de variations'
-export const dateDeModifImportante = '31/08/2024'
+export const dateDeModifImportante = '08/09/2024'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const uuid = '2f857'
 export const refs = {
-  'fr-fr': [''],
+  'fr-fr': ['2F31-3'],
   'fr-ch': []
 }
 
@@ -27,6 +27,7 @@ export default class ComparerImagesTableau extends Exercice {
     this.nbQuestions = 1
     this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 : On peut comparer avec le sens de variation\n2 : On peut comparer par encadrement\n3 : On ne peut pas comparer\n4  : Mélange']
     this.sup = '4'
+    this.spacingCorr = 1.5
   }
 
   nouvelleVersion () {
@@ -87,10 +88,10 @@ export default class ComparerImagesTableau extends Exercice {
                 ]
                 texte = enonce + `$f(${x1})$ et $f(${x2})$.<br><br>`
                 texte += tableauVariationsFonction(fonction1, derivee1, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
-                texteCorr = `D'après le tableau de variations, la fonction $f$ est ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur ${choix ? `$[${borneInf}\\,;\\,${alpha}]$` : `$[${alpha}\\,;\\,${borneSup}]$`}. <br>
+                texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur ${choix ? `$[${borneInf}\\,;\\,${alpha}]$` : `$[${alpha}\\,;\\,${borneSup}]$`}. <br>
           De plus,<br>
            ${choix ? `$\\bullet$ $${x1}\\in [${borneInf}\\,;\\,${alpha}]$,<br>$\\bullet$ $${x2}\\in [${borneInf}\\,;\\,${alpha}]$, <br>$\\bullet$ $${x1}<${x2}$` : `$\\bullet$ $${x1}\\in [${alpha}\\,;\\,${borneSup}]$,<br> $\\bullet$ $${x2}\\in [${alpha}\\,;\\,${borneSup}]$, <br>$\\bullet$ $${x1}<${x2}$`}.<br>
-         On sait que si une fonction est ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
+         On sait que si une fonction est strictement ${a > 0 ? `${choix ? 'décroissante' : 'croissante'}` : `${choix ? 'croissante' : 'décroissante'}`} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
          ${a > 0 ? `${choix ? 'l\'ordre inverse' : 'le même ordre'}` : `${choix ? 'le même ordre' : 'l\'ordre inverse'}`}.
          <br>
          Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${choix ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br><br>
@@ -153,12 +154,13 @@ export default class ComparerImagesTableau extends Exercice {
                 texte += tableauVariationsFonction(fonction2, derivee2, xMin, xMax, { ligneDerivee: false, substituts, step: 0.5, tolerance })
 
                 if (choixIntervalle === 1 || choixIntervalle === 3) { // corr dans le cas ou x1 et x2 sont dans l'intervalle 1 ou 3
-                  texteCorr = `D'après le tableau de variations, la fonction $f$ est ${a > 0 ? 'croissante' : 'décroissante'}  sur $[${borneInf}\\,;\\,${rac1}]$. <br>
+                  texteCorr = `D'après le tableau de variations, la fonction $f$ est strictement ${a > 0 ? 'croissante' : 'décroissante'}  sur 
+                  ${a > 0 ? `$[${borneInf}\\,;\\,${rac1}]$` : `$[${rac2}\\,;\\,${borneSup}]$`}. <br>
           De plus,<br>
           $\\bullet$ $${x1}\\in ${choixIntervalle === 1 ? `[${borneInf}\\,;\\,${rac1}]` : `[${rac2}\\,;\\,${borneSup}]`}$,<br>
           $\\bullet$ $${x2}\\in ${choixIntervalle === 1 ? `[${borneInf}\\,;\\,${rac1}]` : `[${rac2}\\,;\\,${borneSup}]`}$, <br>
             $\\bullet$ $${x1}<${x2}$.<br>
-         On sait que si une fonction est ${a > 0 ? 'croissante' : 'décroissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
+         On sait que si une fonction est strictement ${a > 0 ? 'croissante' : 'décroissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
          ${a > 0 ? 'le même ordre' : 'l\'ordre inverse'}.
          <br>
          Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) < f(x_2)$' : '$f(x_1) > f(x_2)$'}. <br><br>
@@ -170,7 +172,7 @@ export default class ComparerImagesTableau extends Exercice {
                     $\\bullet$ $${x1}\\in [${rac1}\\,;\\,${rac2}]$,<br>
                     $\\bullet$ $${x2}\\in [${rac1}\\,;\\,${rac2}]$, <br>
                       $\\bullet$ $${x1}<${x2}$.<br>
-                   On sait que si une fonction est ${a > 0 ? 'décroissante' : 'croissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
+                   On sait que si une fonction est strictement ${a > 0 ? 'décroissante' : 'croissante'} sur un intervalle $[a\\,;\\,b]$, alors ses antécédents et ses images sont rangés dans 
                    ${a > 0 ? 'l\'ordre inverse' : 'le même ordre'}.
                    <br>
                    Cela signifie que pour tout $x_1\\in[a\\,;\\,b]$ et $x_2\\in[a\\,;\\,b]$, si $x_1 < x_2$ alors ${a > 0 ? '$f(x_1) > f(x_2)$' : '$f(x_1) < f(x_2)$'}. <br><br>
