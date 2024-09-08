@@ -4,6 +4,7 @@ import { Yohaku } from '../../lib/outils/Yohaku'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import { context } from '../../modules/context.js'
 import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { saveAnswersFromTable } from '../../lib/saveAnswers'
 
 export const titre = 'Générateur de Yohaku'
 export const interactifReady = true
@@ -98,6 +99,7 @@ export default function FabriqueAYohaku () {
     const spanResultat = []
     const saisies = []
     const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${i}`)
+    saveAnswersFromTable(this, i, 2, this.sup3)
     for (let l = 0; l < taille; l++) {
       spanResultat[l] = []
       for (let c = 0; c < taille; c++) {
