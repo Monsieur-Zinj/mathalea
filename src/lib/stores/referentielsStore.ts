@@ -22,7 +22,7 @@ import {
 } from '../components/refUtils'
 import {
   sortArrayOfResourcesBasedOnProp,
-  sortArrayOfResourcesBasedOnYearAndMonth
+  triAnnales
 } from '../components/sorting'
 const activations: Record<ActivationName, boolean> = { ...referentielsActivation }
 
@@ -32,7 +32,7 @@ const activations: Record<ActivationName, boolean> = { ...referentielsActivation
 // on trie les examens dans l'ordre inverse des années/mois
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 let examens = getAllEndings(examsReferentiel)
-examens = [...sortArrayOfResourcesBasedOnYearAndMonth(examens, 'desc')]
+examens = [...triAnnales(examens, 'desc')]
 const orderedExamsReferentiel = buildReferentiel(examens)
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
@@ -109,7 +109,7 @@ export const originalReferentiels = [...activatedReferentielsInMenu]
 // on trie les examens dans l'ordre inverse des années/mois
 const examsReferentielCH: JSONReferentielObject = { ...referentielExamsCH }
 let examensCH = getAllEndings(examsReferentielCH)
-examensCH = [...sortArrayOfResourcesBasedOnYearAndMonth(examensCH, 'desc')]
+examensCH = [...triAnnales(examensCH, 'desc')]
 const orderedExamsReferentielCH = buildReferentiel(examensCH)
 const baseReferentielCH: JSONReferentielObject = { ...referentielAleaCH }
 const newExercisesCH: ResourceAndItsPath[] = getRecentExercices(baseReferentielCH)

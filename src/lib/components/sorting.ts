@@ -230,3 +230,81 @@ export const customSortStringNumber = (a: number | string, b: number | string): 
     return String(a).localeCompare(String(b))
   }
 }
+
+type Order = 'asc' | 'desc';
+
+// Fonction qui divise une chaîne en parties numériques et non numériques (pour mettre dans l'ordre sujet1, sujet2 et sujet10)
+function splitAlphaNumeric (str: string): (string | number)[] {
+  return str.split(/(\d+)/).map(part => (isNaN(Number(part)) ? part : Number(part)))
+}
+
+// Fonction de comparaison prenant en compte les parties numériques
+function compareAlphaNumeric (a: string, b: string, order: Order): number {
+  const aParts = splitAlphaNumeric(a)
+  const bParts = splitAlphaNumeric(b)
+
+  for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
+    const aPart = aParts[i] ?? ''
+    const bPart = bParts[i] ?? ''
+
+    if (typeof aPart === 'number' && typeof bPart === 'number') {
+      if (aPart !== bPart) {
+        return order === 'desc' ? aPart - bPart : bPart - aPart
+      }
+    } else if (aPart !== bPart) {
+      return order === 'desc' ? (aPart < bPart ? -1 : 1) : (aPart > bPart ? -1 : 1)
+    }
+  }
+  return 0
+}
+
+/**
+ * Trie les annales selon le type (bac, brevet.... par thème ou par année) puis suivant l'année ou le thème puis suivant le nom (donc rangement alphabétique)
+ * @param {ResourceAndItsPath[]} data liste de ressources
+ * @param {'asc' | 'desc'} order ordre de tri (ascendant ou descendant)
+ * @returns {ResourceAndItsPath[]} la liste triée
+ * @author Eric Elter
+ */
+
+// Exemple d'utilisation : Ne pas supprimer car c'est pratique pour des tests.
+/* const data: DataItem[] = [
+  {
+    pathToResource: ['Paris1', 'Agrandissement-réduction', 'dnb_2013_04_pondichery_5'],
+    resource: { uuid: 'dnb_2013_04_pondichery_5', annee: '2013', lieu: 'Pondichéry' }
+  },
+  {
+    pathToResource: ['Paris11', 'Agrandissement-réduction', 'dnb_2023_04_pondichery_5'],
+    resource: { uuid: 'dnb_2023_04_pondichery_5', annee: '2023', lieu: 'Pondichéry' }
+  },
+  {
+    pathToResource: ['Paris2', 'Agrandissement-réduction', 'dnb_2013_04_pondichery_5'],
+    resource: { uuid: 'dnb_2013_04_pondichery_5', annee: '2013', lieu: 'Pondichéry' }
+  }
+] */
+export const triAnnales = (
+  data: ResourceAndItsPath[],
+  order: Order = 'asc'
+): ResourceAndItsPath[] => {
+  if (data.length === 0) {
+    return data
+  } return data.sort((a, b) => {
+    // Premier critère de tri : pathToResource[0]
+    let result = compareAlphaNumeric(a.pathToResource[0], b.pathToResource[0], order)
+    if (result !== 0) return result
+
+    // Deuxième critère de tri : pathToResource[1] (si disponible)
+    if (a.pathToResource[1] && b.pathToResource[1]) {
+      result = compareAlphaNumeric(a.pathToResource[1], b.pathToResource[1], order)
+      if (result !== 0) return result
+    }
+
+    // Troisième critère de tri : pathToResource[2] (si disponible)
+    if (a.pathToResource[2] && b.pathToResource[2]) {
+      result = compareAlphaNumeric(a.pathToResource[2], b.pathToResource[2], order)
+      if (result !== 0) return result
+    }
+
+    // Si tout est égal
+    return 0
+  })
+}
