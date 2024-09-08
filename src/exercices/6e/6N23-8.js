@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
@@ -20,7 +20,6 @@ export const dateDePublication = '28/09/22'
  * ou réciproquement
  * Le numérateur est de la forme X, XX, X0X, X00X ou XXX
  * @author Mickael Guironet
- * 6N23-8
  */
 export const ref = '6N23-8'
 export const refs = {
@@ -37,28 +36,13 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.sup = '1-2' // Type de question
+  this.sup2 = true
+  this.sup3 = true
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    /*
-        let listeTypeDeQuestions = []
-        if (!this.sup) { // Si aucune liste n'est saisie ou mélange demandé
-          listeTypeDeQuestions = combinaisonListes([1, 2], this.nbQuestions)
-        } else {
-          const quests = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-          for (let i = 0; i < quests.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-            const choixtp = parseInt(quests[i])
-            if (choixtp >= 1 && choixtp <= 2) {
-              listeTypeDeQuestions.push(choixtp)
-            }
-          }
-          if (listeTypeDeQuestions.length === 0) { listeTypeDeQuestions = [1, 2] }
-          listeTypeDeQuestions = combinaisonListes(listeTypeDeQuestions, this.nbQuestions)
-        }
-        */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 2,
@@ -121,9 +105,16 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           )
 
           if (this.interactif) {
-            texte = remplisLesBlancs(this, i, `${texNombre(n, precision, true)} = \\dfrac{%{champ1}}{$${texNombre(b)}}`, 'fillInTheBlanks')
+            texte = this.sup2
+              ? remplisLesBlancs(this, i, `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{$${texNombre(b)}}`, 'fillInTheBlanks')
+              : ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${texNombre(n, precision, this.sup3)} = $` })
+
+            if (!this.sup2) {
+              handleAnswers(this, i, { reponse: { value: n, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+            }
+            texte += ajouteFeedback(this, i)
           } else {
-            texte = `$${texNombre(n, precision, true)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
+            texte = `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }
           texteCorr = '$ ' + texNombre(n) + ' = ' + texFraction(texNombre(a), texNombre(b)) + ' $'
           this.autoCorrection[i].reponse.param.digits = 6
@@ -156,5 +147,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
       '3 : Mélange'
     ].join('\n')
   ]
+  this.besoinFormulaire2CaseACocher = ['Dénominateur déjà saisi']
+  this.besoinFormulaire3CaseACocher = ['Avec des zéros inutiles']
 }
 const texFraction = (a, b) => `\\dfrac{${a}}{${b}}`
