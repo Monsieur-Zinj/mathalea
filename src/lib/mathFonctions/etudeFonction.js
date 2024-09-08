@@ -2214,16 +2214,16 @@ export function tableauSignesFonction (
   return tableauDeVariation({
     tabInit: [
       [
-        [nomVariable, 2, 10],
-        [nomFonction, 2, 10]
+        [nomVariable, 1.5, 10],
+        [nomFonction, 1.5, 10]
       ],
       premiereLigne
     ],
     tabLines: [tabLine],
     colorBackground: '',
-    escpl: 3.5, // taille en cm entre deux antécédents
+    escpl: 2.1, // taille en cm entre deux antécédents
     deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
-    lgt: 8 // taille de la première colonne en cm
+    lgt: 3 // taille de la première colonne en cm
   })
 }
 
