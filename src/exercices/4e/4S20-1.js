@@ -2,15 +2,16 @@ import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const titre = 'Compléter avec du vocabulaire sur les probabilités.'
+export const titre = 'Compléter avec du vocabulaire sur les probabilités'
 export const uuid = '4703c'
 export const dateDePublication = '29/7/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '08/09/2024'
 export const refs = {
   'fr-fr': ['4S20-1'],
   'fr-ch': []
@@ -18,7 +19,6 @@ export const refs = {
 /**
  * Description didactique de l'exercice
  * @author Mireille Gain
- * Référence 4S20-1
 */
 export default class nomExercice extends Exercice {
   constructor () {
@@ -66,7 +66,7 @@ export default class nomExercice extends Exercice {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur10' + KeyboardType.alphanumeric)
+        texte += ajouteChampTexte(this, i, 'inline largeur10' + KeyboardType.alphanumeric)
         handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
