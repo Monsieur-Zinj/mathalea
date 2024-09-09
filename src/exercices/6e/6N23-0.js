@@ -4,9 +4,11 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
+import { setReponse, handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
+export const dateDeModifImportante = '08/09/2024'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -17,7 +19,6 @@ export const interactifType = 'mathLive'
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
  * On peut fixer la classe maximale : unités, milliers, millions, milliards
  * @author Jean-Claude Lhote
- * 6N23-0
  */
 
 export const uuid = '5eb83'
@@ -36,9 +37,9 @@ export default function ÉcrireNombresDecimal () {
   this.sup3 = 3
   this.nouvelleVersion = function () {
     let formatEcriture = []
-    if (parseInt(this.sup) === 1) {
+    if (this.sup === 1) {
       formatEcriture = combinaisonListes([true], this.nbQuestions)
-    } else if (parseInt(this.sup) === 2) {
+    } else if (this.sup === 2) {
       formatEcriture = combinaisonListes([false], this.nbQuestions)
     } else {
       formatEcriture = combinaisonListes([false, true], this.nbQuestions)
@@ -47,13 +48,10 @@ export default function ÉcrireNombresDecimal () {
       formatEcriture = combinaisonListes([false], this.nbQuestions)
       this.sup2 = 1
     }
-    if (this.interactif && context.isHtml) {
-      formatEcriture = combinaisonListes([false], this.nbQuestions)
-    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    const typesDeQuestionsDemandees = parseInt(this.sup2) + 1 // <1 000, <1 000 000)
+    const typesDeQuestionsDemandees = this.sup2 + 1 // <1 000, <1 000 000)
     let typesDeQuestionsDisponibles
     if (this.sup3 === 1) {
       typesDeQuestionsDisponibles = [2]
@@ -86,23 +84,22 @@ export default function ÉcrireNombresDecimal () {
         }
         for (let j = 1; j < typesDeQuestionsDemandees; j++) {
           partEnt += tranche[j] * 10 ** ((j - 1) * 3)
-          // nombre += tranche[j] * 10 ** ((j-1)*3)
         }
         partDec = tranche[0]
         nombre = calculANePlusJamaisUtiliser(partEnt + partDec / 1000, 3)
-        // if (tranche[listeTypeDeQuestions[i]-1]==0) nombre=0
         if (tranche[1] < 2) nombre = 0
         if (tranche[0] === 0) nombre = 0
       }
       if (formatEcriture[i]) {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : \\dotfill`
+          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : ${this.interactif ? ajouteChampTexte(this, i, 'largeur10 inline') : '\\dotfill'}`
         } else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') {
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
         } else {
           texteCorr = `${nombreEnLettres(nombre, type)}.`
         }
+        handleAnswers(this, i, { reponse: { value: nombreEnLettres(200.3, 1), compare: fonctionComparaison, options: { texteSansCasse: true } } })
       } else {
         if (context.vue !== 'diap') {
           texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\dotfill'}`
@@ -114,10 +111,9 @@ export default function ÉcrireNombresDecimal () {
         } else {
           texteCorr = `$${texNombre(nombre)}$.`
         }
-      }
-      if (!formatEcriture[i]) {
         setReponse(this, i, nombre, { formatInteractif: 'calcul' })
       }
+
       texte = texte.replace('et-un unités', 'et-une unités')
       texteCorr = texteCorr.replace('et-un unités', 'et-une unités')
       if (context.isAmc) {
