@@ -4,7 +4,7 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback, ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -231,15 +231,15 @@ export default function EcrirePetitsNombresEntiers () {
               ]
             }
         } else {
-          setReponse(this, i, nombreEnLettres(NombreAEcrire))
+          handleAnswers(this, i, { reponse: { value: nombreEnLettres(NombreAEcrire), compare: fonctionComparaison, options: { texteSansCasse: true } } })
         }
-        if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexteMathLive(this, i, 'alphanumeric')}`
+        if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexte(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(NombreAEcrire)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
       } else {
         if (context.isAmc) {
-          setReponse(this, i, NombreAEcrire)
+          setReponse(this, i, NombreAEcrire) // Utile uniquement pour l'AMC
           this.autoCorrection[i].enonce = this.consigne + '\\\\' + nombreEnLettres(NombreAEcrire) + '\\\\'
         } else {
           handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
