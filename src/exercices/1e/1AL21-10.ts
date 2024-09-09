@@ -4,10 +4,10 @@ import engine from '../../lib/interactif/comparisonFunctions.js'
 import { Point } from '../../lib/2d/points.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import type { SemiBoxedExpression } from '@cortex-js/compute-engine'
-// import fonctionAffine from './recherches'
 
 export const titre = 'Interpolation polynomiale'
 export const dateDePublication = '10/07/2024'
+export const dateDeModifImportante = '08/09/2024'
 
 /**
  * Interpolation polynomiale :
@@ -79,7 +79,8 @@ function questionRacine () {
 
   return [
     texte,
-    polynomeInterpolation(a, b, c, h).details
+    polynomeInterpolation(a, b, c, h).details,
+    a, b, c, h
   ]
 }
 
@@ -116,14 +117,13 @@ function questionInterpolation () {
   texteCorr += `<br> ${numAlpha(1)}`
   texteCorr += details
   texteCorr += `<br> Comme $f(x) = h(x) + g(x)$, on trouve $f(x) = ${f.simplify().latex}$`
-  return [texte, texteCorr]
+  return [texte, texteCorr, ax, ay, bx, by]
 }
 
 export default class nomExercice extends Exercice {
   constructor () {
     super()
-    this.consigne = ''
-    this.nbQuestions = 10
+    this.nbQuestions = 2
   }
 
   nouvelleVersion () {
@@ -131,11 +131,9 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const questions = [questionRacine, questionInterpolation]
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const [texte, texteCorr] = questions[i]()
-      if (this.questionJamaisPosee(i, texte)) {
+      const [texte, texteCorr, ax, ay, bx, by] = i % 2 === 0 ? questionRacine() : questionInterpolation()
+      if (this.questionJamaisPosee(i, ax, ay, bx, by)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
