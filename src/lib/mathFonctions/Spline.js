@@ -455,11 +455,11 @@ export class Spline {
   }
 
   /**
-     * Retourne une valeur de y (si trouvée) pôur laquelle il y a exactement n antécédents
+     * Retourne une valeur de y (si trouvée) pour laquelle il y a exactement n antécédents
      * @param {number} n
      * @param {number} yMin
      * @param {number} yMax
-     * @returns {string|*}
+     * @returns {boolean|string|*}
      */
   trouveYPourNAntecedents (n, yMin, yMax, yEntier = true, antecedentsEntiers = true) {
     const candidats = []
@@ -482,7 +482,8 @@ export class Spline {
       window.notify('trouveYPourNAntecedentsEntiers() appelé avec des valeurs incorrectes', { n, yMin, yMax })
     }
     if (candidats.length < 1) {
-      window.notify('trouveYPourNAntecedents() : Je n\'ai rien trouvé !', { n, yMin, yMax })
+      // window.notify('trouveYPourNAntecedents() : Je n\'ai rien trouvé !', { n, yMin, yMax })
+      return false
     }
     return choice(candidats) // normalement, il ne devrait jamais retourner cette valeur.
   }

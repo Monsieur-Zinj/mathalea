@@ -12,13 +12,16 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../Exercice'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre graphiquement une équation du type $f(x)=k$'
 export const interactifReady = true
-export const interactifType = 'custom'
+export const interactifType = 'mathLive'
 
 export const dateDePublication = '06/07/2023' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+export const dateDeModifImportante = '08/09/2024'
 export const uuid = 'a2ac2'
 export const ref = '2F22-1'
 export const refs = {
@@ -89,7 +92,6 @@ function aleatoiriseCourbe (listeFonctions) {
 /**
  * Aléatoirise une courbe et demande les antécédents d'une valeur entière (eux aussi entiers)
  * @author Jean-Claude Lhote (Gilles Mora)
- * Référence (2F22-1)
  */
 export default class LecturesGraphiquesSurSplines extends Exercice {
   constructor () {
@@ -124,13 +126,19 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         y0 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches0, bornes.yMin - 1, bornes.yMax + 1, true, true)
         nombreAntecedentCherches1 = randint(0, nbAntecedentsEntiersMaximum, nombreAntecedentCherches0)
         y1 = theSpline.trouveYPourNAntecedents(nombreAntecedentCherches1, bornes.yMin - 1, bornes.yMax + 1, true, true)
-        nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0])
-        y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, false, false), 1)
+        nombreAntecedentsCherches2 = randint(0, nbAntecedentsMaximum, [nombreAntecedentCherches1, nombreAntecedentCherches0, 0])
+        y2 = arrondi(theSpline.trouveYPourNAntecedents(nombreAntecedentsCherches2, bornes.yMin - 1, bornes.yMax + 1, true, false), 1)
       } while (isNaN(y0) || isNaN(y1) || isNaN(y2) || y0 === 0 || y2 === 0)
+
+      const reponseQ3 = []
+      for (let ee = bornes.yMin; ee <= bornes.yMax; ee++) {
+        if (theSpline.nombreAntecedents(ee) === nombreAntecedentsCherches2) reponseQ3.push(ee)
+      }
+      y2 = choice(reponseQ3)
 
       const solutions0 = theSpline.solve(y0, 0)
       const solutions1 = theSpline.solve(y1, 0)
-      const reponse1 = solutions1.length === 0 ? 'aucune' : `${solutions1.join(';')}`
+      const reponse1 = solutions1.length === 0 ? '\\emptyset' : `${solutions1.join(';')}`
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
       const nomD1 = texteParPosition(`$y=${y1}$`, bornes.xMax + 1.5, y1 + 0.3, 0, 'green', 1.5)
@@ -150,18 +158,16 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
 
-      let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.'
-      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur10')
-      enonceSousRepere += `<br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$.`
-      if (this.interactif) {
-        enonceSousRepere += '<br>Écrire les solutions rangées dans l\'ordre croissant séparés par des points-virgules (saisir "aucune" s\'il n\'y en a pas).<br>'
-        enonceSousRepere += 'Solution(s) : ' + ajouteChampTexteMathLive(this, 3 * i + 1, 'alphanumeric nospacebefore inline largeur15') + '<br>'
-      }
-      enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}.` +
-                ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur25')
-      setReponse(this, 3 * i, nombreAntecedentCherches0)
-      setReponse(this, 3 * i + 1, reponse1)
-      setReponse(this, 3 * i + 2, y2)
+      let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
+      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+      enonceSousRepere += `<br><br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$. Donner l'ensemble solution` + (this.interactif ? ' : ' : '.')
+      enonceSousRepere += ajouteChampTexteMathLive(this, 3 * i + 1, 'nospacebefore inline largeur01 ' + KeyboardType.clavierEnsemble, { texteAvant: '$S=$' }) + '<br>'
+      enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
+      (this.interactif ? ' : ' : '.') + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 nospacebefore')
+
+      handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0, compare: fonctionComparaison } })
+      handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+      handleAnswers(this, 3 * i + 2, { reponse: { value: reponseQ3, compare: fonctionComparaison } })
       const correctionPartA = `${numAlpha(0)} Le nombre de solutions de l'équation $f(x)=${y0}$ est donné par le nombre d'antécédents de $${y0}$ par $f$. <br>
           ${solutions0.length === 0 ? 'Il n\'y en a pas, donc l\'équation n\'a pas de solution.' : 'Il y en a $' + solutions0.length + '$ (tracé rouge en pointillés).'}<br>`
       const correctionPartB = `${numAlpha(1)} Résoudre l'équation $f(x)=${y1}$ graphiquement revient à lire les abscisses des points d'intersection entre $\\mathscr{C}_f$ et ${y1 === 0 ? 'l\'axe des abscisses.' : `la droite (parallèle à l'axe des abscisses tracée en pointillés verts) d'équation $y = ${y1}$.`}<br>
@@ -233,77 +239,5 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       cpt++
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
-  }
-
-  correctionInteractive = (i) => {
-    // 10/10/2023 le console.info() ci-dessous est à décommenter pour enquêter sur ce qui semble être un bug : deux passages dans cette fonction au lieu d'un !
-    // console.info(`passage dans this.correctionInteractive avec la valeur i = ${i}`)
-    let resultat1, resultat2, resultat3
-    for (let k = 0; k < 3; k++) {
-      const spanResultat = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i * 3 + k}`)
-      const reponseEleve = document.getElementById(`champTexteEx${this.numeroExercice}Q${i * 3 + k}`)?.value
-      if (reponseEleve != null) {
-        if (this.autoCorrection[i * 3 + k] != null && this.autoCorrection[i * 3 + k].reponse != null) {
-          switch (k) {
-            case 0:
-              if (Number(reponseEleve) === Number(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
-                spanResultat.innerHTML = '😎'
-                resultat1 = 'OK'
-              } else {
-                spanResultat.innerHTML = '☹️'
-                resultat1 = 'KO'
-              }
-              break
-            case 1:
-              if ((reponseEleve === this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value) ||
-                (reponseEleve.replaceAll(/\s/g, '') === this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
-                spanResultat.innerHTML = '😎'
-                resultat2 = 'OK'
-              } else {
-                spanResultat.innerHTML = '☹️'
-                resultat2 = 'KO'
-              }
-              break
-            case 2:
-            // Si l'élève répond autre chose qu'un nombre, il faut blinder ici !
-              if (isNaN(Number(reponseEleve.replace(',', '.'))) || isNaN(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
-                if (isNaN(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
-                  window.notify('La réponse ne sont pas des number', {
-                    reponse: this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value
-                  })
-                }
-                spanResultat.innerHTML = '☹️'
-                resultat3 = 'KO'
-              } else {
-                if (this.spline.nombreAntecedents(Number(reponseEleve.replace(',', '.'))) === this.spline.nombreAntecedents(this.autoCorrection[i * 3 + k].reponse.valeur.reponse.value)) {
-                  spanResultat.innerHTML = '😎'
-                  resultat3 = 'OK'
-                } else {
-                  spanResultat.innerHTML = '☹️'
-                  resultat3 = 'KO'
-                }
-              }
-              break
-          }
-        }
-      } else {
-        window.notify('Quelque chose de pas normal avec l\'autoCorrection : ', { nbQuestions: this.nbQuestions, index: i * 3 + k, autoCorrection: this.autoCorrection })
-        switch (k) {
-          case 0:
-            spanResultat.innerHTML = '☹️'
-            resultat1 = 'KO'
-            break
-          case 1:
-            spanResultat.innerHTML = '☹️'
-            resultat2 = 'KO'
-            break
-          case 2:
-            spanResultat.innerHTML = '☹️'
-            resultat3 = 'KO'
-            break
-        }
-      }
-    }
-    return [resultat1, resultat2, resultat3]
   }
 }
