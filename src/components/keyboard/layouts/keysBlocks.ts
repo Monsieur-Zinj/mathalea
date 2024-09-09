@@ -56,8 +56,8 @@ const fullOperationCaps: CompleteKeysList = {
   block: ['ADD', 'SUB', 'xMath', 'DEG', 'MULT', 'DIV', 'SQ', 'SQRT', '(', ')', 'POW', 'PERCENT', '=', 'FRAC', 'POW10', 'SEMICOLON']
 }
 const terminaleCaps: CompleteKeysList = {
-  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD', 'SQRT', 'SQRTN'],
-  block: ['SQRT', 'SQRTN','LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, '(', ')', '[', ']', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
+  inline: [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 'LOG', 'LN', 'POW', 'FRAC', 'SEMICOLON', 'COMMA', 'DIV', 'MULT', 'SUB', 'ADD', 'SQRT', 'SQRTN', 'e^', 'INFTY', 'PARENTHESES', 'POW10', 'BRACES', 'BRACKETS'],
+  block: ['SQRT', 'SQRTN', 'LN', 'LOG', 7, 8, 9, 'POW', 'e^', 'FRAC', 'INFTY', 4, 5, 6, 'POW10', 'PARENTHESES', 'BRACES', 'BRACKETS', 1, 2, 3, 'ADD', 'SUB', 'MULT', 'DIV', 0, 'COMMA', 'SEMICOLON']
 }
 
 const numerationCaps: CompleteKeysList = {
@@ -109,7 +109,6 @@ const trigoCaps: CompleteKeysList = {
   inline: ['COS', 'SIN', 'TAN', 'ANG'],
   block: ['COS', 'SIN', 'TAN', 'ANG']
 }
-
 
 const advancedCaps: CompleteKeysList = {
   inline: [
@@ -430,7 +429,6 @@ export const uppercaseXToZ: KeyboardBlock = {
   title: 'Majuscules: X à Z',
   isUnits: false
 }
-
 
 // eslint-disable-next-line no-unused-vars
 export const keyboardBlocks: { [key in Exclude<BlockForKeyboard, 'alphanumeric'>]: KeyboardBlock } = {
