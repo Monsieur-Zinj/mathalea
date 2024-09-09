@@ -33,10 +33,12 @@ export const refs = {
 export default function CalculerCoeffPropo () {
   Exercice.call(this)
   this.sup = 1
+  this.sup2 = false
   this.spacing = 2
   this.spacingCorr = 3
   this.nbQuestions = 5
   this.besoinFormulaireNumerique = ['Type de coefficient', 4, '1 : Entier\n2 : Decimal\n3 : Fraction\n4 : Mélange']
+  this.besoinFormulaire2CaseACocher = ['Calcul mental (entier)', false] // MGU : à généraliser pour les autres catégories
   this.nouvelleVersion = function () {
     const isBetterWithLinearity = function (nombres) {
       const [a, b, c] = nombres
@@ -58,6 +60,8 @@ export default function CalculerCoeffPropo () {
 
     if (this.sup === 4) listeTypesDeCoefficient = combinaisonListes(typeDeCoefficient, this.nbQuestions)
     else listeTypesDeCoefficient = combinaisonListes([typeDeCoefficient[this.sup - 1]], this.nbQuestions)
+
+    const listCoefficientUsed = []
     for (let i = 0, texte, texteCorr; i < this.nbQuestions; i++) {
       if (context.isAmc) this.autoCorrection[i] = {}
       // Je suis en js, je fais du typage inline JsDoc pratique pour récupérer l'autocomplétion
@@ -68,14 +72,15 @@ export default function CalculerCoeffPropo () {
       /** @type Array<{ nombre: number, visible: boolean }> */
       const deuxiemeLigne = []
       const colonneReference = randint(0, 2) // La colonne qui contiendra deux valeurs visibles pour faire le calcul
+      if (listCoefficientUsed.length >= 9) listCoefficientUsed.splice(0, listCoefficientUsed.length)
       do {
         switch (listeTypesDeCoefficient[i]) {
           case 'Entier': // On choisit un coefficient dans les listes => tout est entier
-            coefficient = choice(tableauxCoefficientsEntiers[i % 4])
+            coefficient = this.sup2 ? choice([2, 3, 4, 5, 6, 7, 8, 9, 10], listCoefficientUsed) : choice(tableauxCoefficientsEntiers[i % 4])
             for (let colonne = 0; colonne < 3; colonne++) {
               const contenuVisible = choice([true, false])
               premiereLigne[colonne] = {
-                nombre: choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
+                nombre: this.sup2 ? choice([2, 4, 6, 8, 10, 3, 5, 7, 9, 11, 12], premiereLigne.map(elt => elt.nombre)) : choice(choice(tableauxEntiers), premiereLigne.map(elt => elt.nombre)),
                 visible: colonne === colonneReference ? true : contenuVisible
               }
               deuxiemeLigne[colonne] = {
@@ -127,6 +132,7 @@ export default function CalculerCoeffPropo () {
           }
         }
       } while (isBetterWithLinearity(premiereLigne.map(elt => elt.nombre)))
+      listCoefficientUsed[i] = coefficient
       const coefficientRationnel = coefficient instanceof FractionEtendue
       const coefficientDecimal = coefficient instanceof Decimal
       const coefficientTex = coefficientRationnel ? coefficient.texFraction : stringNombre(coefficient)
