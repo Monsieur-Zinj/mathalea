@@ -686,8 +686,9 @@
                     {@html mathaleaFormatExercice(item)}
                   </li>
                   {#if isCorrectionVisible}
-                    <div
-                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"
+                  <!-- EE : remplacement de ce class pour celui du dessous class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"  -->
+                  <div
+                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4"
                       id="correction${exerciseIndex}Q${i}"
                     >
                       <div
