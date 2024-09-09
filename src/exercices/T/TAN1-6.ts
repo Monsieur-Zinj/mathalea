@@ -1,5 +1,5 @@
 import Exercice from '../Exercice.js'
-import { choice} from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
@@ -141,7 +141,7 @@ export default class EquationsLog extends Exercice {
         resultat = `\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}` // dfrac pour avoir fraction de taille normale
       }
 
-      let answer = resultat
+      const answer = resultat
       texte = `$${texNombre(a, 5)}^x = ${stringB}$`
       texteCorr = `On sait que pour tous réels $a$ et $b$ strictement positifs $a = b$ si, et seulement si, $${logString}(a) = ${logString}(b)$. D'où :`
       texteCorr += `<br>$${texNombre(a, 5)}^x = ${stringB}$`
@@ -164,8 +164,8 @@ export default class EquationsLog extends Exercice {
             champ1: { value: answer }
           }
         )
-        texte+=`<br>`
-        texte += remplisLesBlancs(this, i, `S=\\{%{champ1}\\}`, KeyboardType.clavierFonctionsTerminales)
+        texte += '<br>'
+        texte += remplisLesBlancs(this, i, 'S=\\{%{champ1}\\}', KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

@@ -109,7 +109,7 @@ const basicKeys = {
     insert: '\\rparen'
   },
   PARENTHESES: {
-    display: '()',
+    display: '$(\\square)$',
     insert: '\\lparen#0\\rparen'
   },
   '{': {
