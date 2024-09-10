@@ -75,7 +75,7 @@
   function checkAnswers () {
     for (let i = 0; i < questions.length; i++) {
       const exercice = exercises[indiceExercice[i]]
-      const type = exercice.autoCorrection[indiceQuestionInExercice[i]].reponse.param.formatInteractif
+      const type = exercice.autoCorrection?.[indiceQuestionInExercice[i]]?.reponse?.param?.formatInteractif
       if (type === 'mathlive') {
         resultsByQuestion[i] =
           verifQuestionMathLive(exercice, indiceQuestionInExercice[i])
@@ -94,7 +94,6 @@
           verifQuestionQcm(exercice, indiceQuestionInExercice[i]) === 'OK'
         if (resultsByQuestion[i] && exercice.score !== undefined) { exercice.score++ }
         // récupération de la réponse
-        // @ts-expect-error typage pour les QCM
         const propositions = exercice.autoCorrection[indiceQuestionInExercice[i]].propositions
         const qcmAnswers: string[] = []
         // @ts-expect-error typage pour les QCM
@@ -124,7 +123,6 @@
         resultsByQuestion[i] = exercice.correctionInteractive!(i) === 'OK'
       }
     }
-  }
     // Désactiver l'interactivité avant l'affichage des solutions
     for (const param of exercises) {
       param.interactif = false
@@ -156,7 +154,6 @@
       l = resultsByExerciceArray
       return l
     })
-
     if ($globalOptions.recorder === 'capytale') {
       sendToCapytaleSaveStudentAssignment({
         indiceExercice: 'all',
@@ -166,6 +163,7 @@
         }
       })
     }
+  }
 
   /**
    * Construit la chaîne qui sera affichée pour le score
