@@ -1,6 +1,7 @@
 import FractionEtendue from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
 import { shuffle } from '../outils/arrayOutils'
+import { miseEnEvidence } from '../outils/embellissements'
 import MonomePlusieursVariables from './MonomePlusieursVariables'
 
 class PolynomePlusieursVariables {
@@ -89,6 +90,49 @@ class PolynomePlusieursVariables {
   oppose (): PolynomePlusieursVariables {
     const nouveauxMonomes = this.monomes.map(monome => monome.oppose())
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+  }
+
+  melangerTermes (): PolynomePlusieursVariables {
+    const nouveauxMonomes = shuffle(this.monomes)
+    return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+  }
+
+  toStringSansLeDernierTerme (): string {
+    let result = ''
+    if (this.monomes.length === 0) {
+      result = '\\ldots\\ldots'
+    } else {
+      const polynomeSansDernierTerme = PolynomePlusieursVariables.PolynomeNonReduit(this.monomes.slice(0, this.monomes.length - 1))
+      result += polynomeSansDernierTerme.toString()
+      if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
+        result += ' + \\ldots\\ldots'
+      } else {
+        result += '-\\ldots\\ldots'
+      }
+    }
+    return result
+  }
+
+  toStringAvecDernierTermeEnEvidence (): string {
+    let result = ''
+    if (this.monomes.length === 0) {
+      result = ''
+    } else {
+      const polynomeSansDernierTerme = PolynomePlusieursVariables.PolynomeNonReduit(this.monomes.slice(0, this.monomes.length - 1))
+      result += polynomeSansDernierTerme.toString()
+      if (this.monomes[this.monomes.length - 1].coefficient.signe === 1) {
+        result += ' + '
+      } else {
+        result += '- '
+      }
+    }
+    const dernierTerme = this.monomes[this.monomes.length - 1]
+    if (dernierTerme.coefficient.signe === -1) {
+      result += miseEnEvidence(dernierTerme.oppose().toString())
+    } else {
+      result += miseEnEvidence(dernierTerme.toString())
+    }
+    return result
   }
 
   // Une méthode pour déterminer si un terme est un carré
