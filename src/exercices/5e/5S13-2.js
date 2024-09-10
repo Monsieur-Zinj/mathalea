@@ -302,7 +302,7 @@ export default function CalculerDesFrequences () {
         setReponse(exercice, numero * 2 + 1, frequenceDemandee, { formatInteractif: 'calcul' })
         questions = [preambule,
           numAlpha(0) + 'Déterminer l\'effectif manquant.' + ajouteChampTexteMathLive(exercice, numero * 2, 'largeur10 inline') + '<br>',
-          numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline') + '<br>']
+          numAlpha(1) + `Déterminer la fréquence de la valeur ${serie.modalites[rangValeurChoisie]} (en pourcentage, arrondir au dixième si besoin).` + ajouteChampTexteMathLive(exercice, numero * 2 + 1, 'largeur10 inline', { texteApres: '%'}) + '<br>']
       } else { // Pour AMC, on ne peut pas doubler les questions, il faut les intégrer dans un seul AMCHybride.
         exercice.autoCorrection[numero] = {
           options: { multicols: true },
