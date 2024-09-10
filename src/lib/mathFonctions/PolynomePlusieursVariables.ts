@@ -94,15 +94,24 @@ class PolynomePlusieursVariables {
   // Une méthode pour déterminer si un terme est un carré
   // Pas encore terminée
   contientCarre (): boolean {
-    let estCarre = false
-    // check if a coefficient is a square
-    for (let i = 0; i < this.monomes.length; i++) {
-      if (this.monomes[i].coefficient.num === this.monomes[i].coefficient.den ** 2) {
-        estCarre = true
-        break
-      }
+    return this.monomes.some(monome => monome.estCarre())
+  }
+
+  // Une méthode pour déterminer la mise en facteur commun
+  miseEnFacteurCommun (): MonomePlusieursVariables {
+    const monomes = this.monomes
+    let pgcdMonome = monomes[0]
+    for (let i = 1; i < monomes.length; i++) {
+      pgcdMonome = pgcdMonome.pgcd(monomes[i])
     }
-    return estCarre
+    return pgcdMonome
+  }
+
+  // une méthode pour diviser un polynome par un monome
+  diviserParMonome (m: MonomePlusieursVariables): PolynomePlusieursVariables {
+    // un nouveau polynome dont tous les termes sont divisés par le monome
+    const nouveauxMonomes = this.monomes.map(monome => monome.diviserPar(m))
+    return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
   // Générer des identités remarquables sans avoir de carré dans les termes de départ
