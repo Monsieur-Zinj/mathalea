@@ -1,6 +1,7 @@
 import type Decimal from 'decimal.js'
 import FractionEtendue, { rationnalise } from '../../modules/FractionEtendue'
 import { randint } from '../../modules/outils'
+import { pgcd } from '../outils/primalite'
 
 type numberOrFraction = number | FractionEtendue | Decimal;
 
@@ -18,6 +19,11 @@ class MonomePlusieursVariables {
     this.coefficient = rationnalise(coefficient)
     this.partieLitterale = { ...partieLitterale } // Clone to avoid mutations
     this.degre = this.partieLitterale.exposants.reduce((acc, exposant) => acc + exposant, 0)
+    const sortedPartieLitterale = this.partieLitterale.variables.map((variable, index) => {
+      return { variable, exposant: this.partieLitterale.exposants[index] }
+    }).sort((a, b) => a.variable.localeCompare(b.variable))
+    this.partieLitterale.variables = sortedPartieLitterale.map(part => part.variable)
+    this.partieLitterale.exposants = sortedPartieLitterale.map(part => part.exposant)
   }
 
   static genereCoefficients (typeofCoeff: string): FractionEtendue {
@@ -105,6 +111,75 @@ class MonomePlusieursVariables {
   }
 
   // Déterminer si un monôme est un carré
+  estCarre (): boolean {
+    if (this.coefficient.estParfaite) {
+      if (this.partieLitterale.exposants.every(exposant => exposant % 2 === 0)) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      return false
+    }
+  }
+
+  // Déterminer le pgdc de deux monômes (cela va fonction seulement si les coefficients sont entiers)
+  pgcd (m: MonomePlusieursVariables): MonomePlusieursVariables {
+    if (this.coefficient.estEntiere && m.coefficient.estEntiere) {
+      const a = this.coefficient.num
+      const b = m.coefficient.num
+      const pgcdCoefficient = pgcd(a, b)
+      // Les variables qui apparaissent dans les deux monômes avec un exposant minimum de 1
+      const variables = this.partieLitterale.variables.filter(variable => m.partieLitterale.variables.includes(variable))
+      const nouvellePartieLitterale: partieLitterale = {
+        variables: [],
+        exposants: []
+      }
+      variables.forEach(variable => {
+        const indexThis = this.partieLitterale.variables.indexOf(variable)
+        const indexM = m.partieLitterale.variables.indexOf(variable)
+        const exposant = Math.min(this.partieLitterale.exposants[indexThis], m.partieLitterale.exposants[indexM])
+        nouvellePartieLitterale.variables.push(variable)
+        nouvellePartieLitterale.exposants.push(exposant)
+      })
+
+      return new MonomePlusieursVariables(pgcdCoefficient, nouvellePartieLitterale)
+    } else {
+      throw new Error('Impossible de calculer le pgcd de deux monômes avec des coefficients non entiers')
+    }
+  }
+
+  // diviser deux monômes (cela va fonction seulement si les coefficients sont entiers)
+  diviserPar (m: MonomePlusieursVariables): MonomePlusieursVariables {
+    if (this.coefficient.estEntiere && m.coefficient.estEntiere) {
+      const quotientCoefficient = this.coefficient.diviseFraction(m.coefficient)
+      if (quotientCoefficient.estEntiere) {
+      // Les variables qui apparaissent dans les deux monômes avec un exposant minimum de 1
+        const variables = this.partieLitterale.variables.filter(variable => m.partieLitterale.variables.includes(variable))
+        const nouvellePartieLitterale: partieLitterale = {
+          variables: [],
+          exposants: []
+        }
+        variables.forEach(variable => {
+          // throw an error if the variable is not in the monome or if the variable is in the monome but with an exponent of 0 or if the difference of the exponents is negative
+          if (!this.partieLitterale.variables.includes(variable) || !m.partieLitterale.variables.includes(variable) || this.partieLitterale.exposants[this.partieLitterale.variables.indexOf(variable)] < m.partieLitterale.exposants[m.partieLitterale.variables.indexOf(variable)]) {
+            throw new Error('Impossible de diviser deux monômes avec des variables qui ne sont pas semblables')
+          } else {
+            const indexThis = this.partieLitterale.variables.indexOf(variable)
+            const indexM = m.partieLitterale.variables.indexOf(variable)
+            const exposant = this.partieLitterale.exposants[indexThis] - m.partieLitterale.exposants[indexM]
+            nouvellePartieLitterale.variables.push(variable)
+            nouvellePartieLitterale.exposants.push(exposant)
+          }
+        })
+        return new MonomePlusieursVariables(quotientCoefficient, nouvellePartieLitterale)
+      } else {
+        throw new Error(`Impossible de diviser deux monômes avec des coefficients qui ne se divisent pas entièrement ${this.coefficient.num} et ${m.coefficient.num}`)
+      }
+    } else {
+      throw new Error('Impossible de diviser deux monômes avec des coefficients non entiers')
+    }
+  }
 
   // Multiplie deux monômes
   produit (m: MonomePlusieursVariables): MonomePlusieursVariables {
