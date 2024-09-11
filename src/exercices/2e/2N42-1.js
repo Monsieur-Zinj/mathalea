@@ -356,7 +356,7 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
                               \\end{aligned}$
                    <br> Une expression de $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ est 
                    $${nomV[4]}=\\dfrac{-${nomV[0]}+${nomV[1]}${nomV[3]}+${nomV[2]}${nomV[3]}}{${nomV[1]}+${nomV[2]}}$ 
-                   ou pus simplement 
+                   ou plus simplement 
                    $${nomV[4]}= -\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}+${nomV[3]}$.<br>
                    `
           } else if (choix === 3) { // a=(b+c)/(d-e) on cherche  d
@@ -446,7 +446,9 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) + `$${varAExprimer} =$` })
+      const GilllesDAccord = false // EE : Quand Gilles sera d'accord, on pourra changer. ;-)
+      if (GilllesDAccord) texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) + `$${varAExprimer} =$` })
+      else texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) })
       setReponse(this, i, reponse)
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
@@ -457,9 +459,10 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
 
       texteCorr = ''
       for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-        texteCorr += textCorrSplit[ee] + '='
+        texteCorr += textCorrSplit[ee]
+        texteCorr += ee < textCorrSplit.length - 2 ? '=' : ''
       }
-      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      texteCorr = texteCorr.slice(0, texteCorr.length - 1) + sp(2) + `${miseEnEvidence(texteCorr[texteCorr.length - 1] + '=' + aRemplacer)}$`
 
       // Fin de cette uniformisation
 
