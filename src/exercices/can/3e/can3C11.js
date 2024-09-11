@@ -3,6 +3,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
+import { pgcd } from '../../../lib/outils/primalite'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -32,10 +33,10 @@ export default function SimplifieFractionOuRacinesCarrees () {
         do {
           a = randint(1, 12)
           b = randint(2, 12, [a, a / 2, a / 3, a / 4, 11])
-        } while (Number.isInteger(a / b))
+        } while (pgcd(a, b) !== 1)
         k = choice([2, 4, 6, 8, 9, 10])
         maFraction = new FractionEtendue(a * k, b * k)
-        k = maFraction.n / maFraction.numIrred
+        // k = maFraction.n / maFraction.numIrred
         resultat = maFraction.simplifie()
         this.question = `Écrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
         this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`
