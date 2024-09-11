@@ -169,7 +169,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
 
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
-      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionSimplifiee: !this.sup3, fractionIrreductible: this.sup3 } } })
+      handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
       texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
