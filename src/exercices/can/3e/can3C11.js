@@ -4,6 +4,7 @@ import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { pgcd } from '../../../lib/outils/primalite'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -41,7 +42,8 @@ export default function SimplifieFractionOuRacinesCarrees () {
         this.question = `Écrire $${maFraction.texFraction}$ sous la forme d'une fraction irréductible.`
         this.correction = `$${maFraction.texFraction}=\\dfrac{${resultat.n}\\times ${k}}{${resultat.d}\\times ${k}} =${resultat.texFraction}$.`
         this.reponse = resultat
-        this.formatInteractif = 'fraction'
+        this.compare = fonctionComparaison
+        this.optionsDeComparaison = { fractionIrreductible: true }
         break
 
       case 2:// racine carrée ()^2 ou rac(0,04) par ex

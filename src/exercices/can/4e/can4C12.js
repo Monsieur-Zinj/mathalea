@@ -1,3 +1,4 @@
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
@@ -24,8 +25,10 @@ export default function CalculMoitieFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatInteractif = 'fraction'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionSimplifiee: true }
+
   this.nouvelleVersion = function () {
     const listeFractions = [[2, 3], [2, 5], [2, 7], [2, 9], [2, 11],
       [2, 13], [2, 15], [4, 3], [4, 7], [4, 9], [4, 11], [4, 13], [4, 15],

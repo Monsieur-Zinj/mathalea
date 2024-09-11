@@ -3,6 +3,7 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../../lib/outils/embellissements'
 import { obtenirListeFractionsIrreductibles } from '../../../modules/fractions.js'
 import Exercice from '../../deprecatedExercice.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer la fraction d’entier'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -25,8 +26,10 @@ export default function FractionDEntierQuiVaBien () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur25 inline'
-  this.formatInteractif = 'fraction'
+  this.formatChampTexte = 'largeur01 inline'
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionSimplifiee: true }
+
   this.nouvelleVersion = function () {
     const a = choice(obtenirListeFractionsIrreductibles())
     const c = choice([2, 3, 4, 5, 6])

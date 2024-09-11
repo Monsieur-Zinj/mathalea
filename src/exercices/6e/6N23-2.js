@@ -30,7 +30,7 @@ export const dateDeModifImportante = '05/09/2024'
  * @author Jean-Claude Lhote (sauf erreur de ma part)
  * Amélioré par Eric Elter
  * Trois points sont placés sur un droite graduée
- * Il faut donner leurs abscisses respectives
+ * Il faut donner leur abscisse respective
  * Trois formes sont demandées : décimale, fraction décimale, décomposition partie entière + partie décimale fractionnaire.
  */
 export const uuid = '12773'

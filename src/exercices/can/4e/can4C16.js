@@ -1,3 +1,4 @@
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
@@ -24,8 +25,10 @@ export default function MultiplierFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fraction'
+  this.formatChampTexte = 'largeur01 inline'
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionSimplifiee: true }
+
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
       [1, 6], [5, 6], [1, 7], [2, 7], [3, 7], [4, 7], [5, 7], [6, 7], [1, 8], [3, 8],
