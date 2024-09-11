@@ -4,15 +4,16 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { sp } from '../../lib/outils/outilString'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Exprimer une variable en fonction des autres'
 export const dateDePublication = '25/09/2023'
+export const dateDeModifImportante = '10/09/2024'
 /**
  *
  * @author Gilles Mora
- * 2N42-1
  */
 export const uuid = 'ef686'
 export const ref = '2N42-1'
@@ -22,7 +23,6 @@ export const refs = {
 }
 export default function ExprimerEnFonctionDesAutres () {
   Exercice.call(this)
-  this.titre = titre
   this.nbCols = 1
   this.nbColsCorr = 1
   this.spacing = 1
@@ -30,7 +30,6 @@ export default function ExprimerEnFonctionDesAutres () {
   this.nbQuestions = 1
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.sup = parseInt(this.sup)
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
@@ -45,7 +44,7 @@ export default function ExprimerEnFonctionDesAutres () {
     } // Tous les cas possibles sauf fractions
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    for (let i = 0, texte, texteCorr, reponse, cpt = 0, typesDeQuestions, intro, nomVariables, nomV, choix; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte, texteCorr, reponse, cpt = 0, typesDeQuestions, intro, nomVariables, nomV, choix, varAExprimer; i < this.nbQuestions && cpt < 50;) {
       typesDeQuestions = listeTypeDeQuestions[i]
 
       texteCorr = ''
@@ -62,6 +61,7 @@ export default function ExprimerEnFonctionDesAutres () {
             texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres vérifiant l'égalité suivante : 
           $${nomV[0]}=${nomV[1]}-${nomV[2]}$.<br>
           Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=${nomV[0]}+${nomV[2]}`, `${nomV[0]}+${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
             $\\begin{aligned}
@@ -70,11 +70,11 @@ export default function ExprimerEnFonctionDesAutres () {
             ${nomV[0]}+${nomV[2]}&= ${nomV[1]}
                            \\end{aligned}$
                        <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$ est $${nomV[1]}= ${nomV[0]}+${nomV[2]}$.`
-          }
-          if (choix === 2) { // a=b+c on cherche b
+          } else if (choix === 2) { // a=b+c on cherche b
             texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres vérifiant l'égalité suivante :
              $${nomV[0]}=${nomV[1]}+${nomV[2]}$.<br>
             Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=${nomV[0]}-${nomV[2]}`, `${nomV[0]}-${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
               $\\begin{aligned}
@@ -83,12 +83,11 @@ export default function ExprimerEnFonctionDesAutres () {
               ${nomV[0]}-${nomV[2]}&= ${nomV[1]}
                              \\end{aligned}$
                          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$ est $${nomV[1]}= ${nomV[0]}-${nomV[2]}$.`
-          }
-
-          if (choix === 3) { // a=b/c on cherche b
+          } else if (choix === 3) { // a=b/c on cherche b
             texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante : 
   $${nomV[0]}=\\dfrac{${nomV[1]}}{${nomV[2]}}$.<br>
                             Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=${nomV[0]}\\times ${nomV[2]}`, `${nomV[0]}\\times ${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
                               $\\begin{aligned}
@@ -96,12 +95,11 @@ export default function ExprimerEnFonctionDesAutres () {
                               ${nomV[0]}\\times ${nomV[2]}&=${nomV[1]}                              
                                              \\end{aligned}$
                                          <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$ est $${nomV[1]}=${nomV[0]}\\times ${nomV[2]}$.`
-          }
-
-          if (choix === 4) { // a=b/c on cherche c
+          } else if (choix === 4) { // a=b/c on cherche c
             texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante :
   $${nomV[0]}=\\dfrac{${nomV[1]}}{${nomV[2]}}$.<br>
 Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$ et $${nomV[1]}$.`
+            varAExprimer = nomV[2]
             reponse = [`${nomV[2]}=\\dfrac{${nomV[1]}}{${nomV[0]}}`, `\\dfrac{${nomV[1]}}{${nomV[0]}}=${nomV[2]}`]
             texteCorr = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br>
 $\\begin{aligned}   
@@ -110,12 +108,11 @@ $\\begin{aligned}
  ${nomV[2]}&=\\dfrac{${nomV[1]}}{${nomV[0]}}                        
  \\end{aligned}$
 <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$ et $${nomV[1]}$ est $${nomV[2]}=\\dfrac{${nomV[1]}}{${nomV[0]}}$.`
-          }
-
-          if (choix === 5) { // a=b*c on cherche b
+          } else { // a=b*c on cherche b
             texte = `Soient $${nomV[0]}$, $${nomV[1]}$ et $${nomV[2]}$ trois nombres non nuls vérifiant l'égalité suivante :
   $${nomV[0]}=${nomV[1]}\\times ${nomV[2]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$ et $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[2]}}`, `\\dfrac{${nomV[0]}}{${nomV[2]}}}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br>
     $\\begin{aligned}
@@ -138,6 +135,7 @@ $\\begin{aligned}
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
    Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[2]
             reponse = [`${nomV[2]}=\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}`, `\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}=${nomV[2]}`]
             texteCorr = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br>
        $\\begin{aligned}
@@ -147,11 +145,11 @@ $\\begin{aligned}
        \\dfrac{-${nomV[0]}+${nomV[1]}}{${nomV[3]}}&=${nomV[2]}
                  \\end{aligned}$
       <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$ est $${nomV[2]}=  \\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[3]}}$.`
-          }
-          if (choix === 2) { // a=b-cd on cherche  d
+          } else if (choix === 2) { // a=b-cd on cherche  d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
           Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}`, `\\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}=${nomV[3]}`]
             texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br>
               $\\begin{aligned}
@@ -161,12 +159,11 @@ $\\begin{aligned}
               \\dfrac{-${nomV[0]}+${nomV[1]}}{${nomV[2]}}&=${nomV[3]}
                         \\end{aligned}$
       <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}=  \\dfrac{${nomV[1]}-${nomV[0]}}{${nomV[2]}}$.`
-          }
-
-          if (choix === 3) { // a=b-cd on cherche  b
+          } else if (choix === 3) { // a=b-cd on cherche  b
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=${nomV[1]}-${nomV[2]}${nomV[3]}$.<br>
      Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=${nomV[0]}+${nomV[2]}${nomV[3]}`, `${nomV[0]}+${nomV[2]}${nomV[3]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br> 
          $\\begin{aligned}
@@ -174,12 +171,11 @@ $\\begin{aligned}
         ${nomV[0]}+${nomV[2]}${nomV[3]}&=${nomV[1]}
                    \\end{aligned}$
  <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[2]}$ est $${nomV[1]}= ${nomV[0]}+${nomV[2]}${nomV[3]}$.`
-          }
-
-          if (choix === 4) { // a=bc+d on cherche  b
+          } else if (choix === 4) { // a=bc+d on cherche  b
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=${nomV[1]}${nomV[2]}+${nomV[3]}$.<br>
     Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}`, `\\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br> 
         $\\begin{aligned}
@@ -188,11 +184,11 @@ $\\begin{aligned}
         \\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}&=${nomV[1]}
                   \\end{aligned}$
        <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$ est $${nomV[1]}=  \\dfrac{${nomV[0]}-${nomV[3]}}{${nomV[2]}}$.`
-          }
-          if (choix === 5) { // a=bc+d on cherche  d
+          } else if (choix === 5) { // a=bc+d on cherche  d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=${nomV[1]}${nomV[2]}+${nomV[3]}$.<br>
      Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=${nomV[0]}-${nomV[1]}${nomV[2]}`, `${nomV[0]}-${nomV[1]}${nomV[2]}=${nomV[3]}`]
             texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br> 
  $\\begin{aligned}
@@ -200,12 +196,11 @@ $\\begin{aligned}
   ${nomV[0]}-${nomV[1]}${nomV[2]}&=${nomV[3]}
  \\end{aligned}$
    <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}=  ${nomV[0]}-${nomV[1]}${nomV[2]}$.`
-          }
-
-          if (choix === 6) { // a=(b+c)/d on cherche  b
+          } else if (choix === 6) { // a=(b+c)/d on cherche  b
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$  quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=${nomV[3]}\\times ${nomV[0]}-${nomV[2]}`, `${nomV[3]}\\times ${nomV[0]}-${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -214,12 +209,11 @@ $\\begin{aligned}
  ${nomV[0]}\\times ${nomV[3]}-${nomV[2]}&=${nomV[1]}
  \\end{aligned}$
     <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$ et  $${nomV[3]}$ est $${nomV[1]}= ${nomV[3]}\\times ${nomV[0]}-${nomV[2]}$.`
-          }
-
-          if (choix === 7) { // a=(b+c)/d on cherche  c
+          } else if (choix === 7) { // a=(b+c)/d on cherche  c
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[2]
             reponse = [`${nomV[2]}=${nomV[3]}\\times ${nomV[0]}-${nomV[1]}`, `${nomV[3]}\\times ${nomV[0]}-${nomV[1]}=${nomV[2]}`]
             texteCorr = `On isole $${nomV[2]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -228,12 +222,11 @@ $\\begin{aligned}
  ${nomV[0]}\\times ${nomV[3]}-${nomV[1]}&=${nomV[2]}
  \\end{aligned}$
     <br> Une expression de $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$ est $${nomV[2]}= ${nomV[3]}\\times ${nomV[0]}-${nomV[1]}$.`
-          }
-
-          if (choix === 8) { // a=(b+c)/d on cherche  d
+          } else if (choix === 8) { // a=(b+c)/d on cherche  d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ et $${nomV[0]}$  non nuls) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}}$.<br>
   Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=\\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}`, `\\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}=${nomV[3]}`]
             texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -242,12 +235,11 @@ $\\begin{aligned}
   ${nomV[3]}&=\\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}
  \\end{aligned}$
     <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est $${nomV[3]}= \\dfrac{${nomV[1]} +${nomV[2]}}{${nomV[0]}}$.`
-          }
-
-          if (choix === 9) { // a=(b+c)*d on cherche  b
+          } else if (choix === 9) { // a=(b+c)*d on cherche  b
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=(${nomV[1]}+${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=\\dfrac{${nomV[0]} -${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}`, `\\dfrac{${nomV[0]} -${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}=${nomV[1]}`, `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}-${nomV[2]}`, `\\dfrac{${nomV[0]}}{${nomV[3]}}-${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -258,12 +250,11 @@ $\\begin{aligned}
  \\end{aligned}$
     <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$ est 
     $${nomV[1]}= \\dfrac{${nomV[0]} -${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}$ ou plus simplement $${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}-${nomV[2]}$.`
-          }
-
-          if (choix === 10) { // a=(b+c)*d on cherche  d
+          } else if (choix === 10) { // a=(b+c)*d on cherche  d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[1]}+${nomV[2]}$  non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=(${nomV[1]}+${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}`, `\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}=${nomV[3]}`]
             texteCorr = `On isole $${nomV[3]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -272,12 +263,11 @@ $\\begin{aligned}
  \\end{aligned}$
     <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[2]}$ est 
     $${nomV[3]}= \\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}$.`
-          }
-
-          if (choix === 11) { // a=(b-c)*d on cherche  b
+          } else if (choix === 11) { // a=(b-c)*d on cherche  b
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=(${nomV[1]}-${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=\\dfrac{${nomV[0]} +${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}`, `\\dfrac{${nomV[0]} +${nomV[2]}\\times ${nomV[3]}}{${nomV[3]}}=${nomV[1]}`, `${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}+${nomV[2]}`, `\\dfrac{${nomV[0]}}{${nomV[3]}}+${nomV[2]}=${nomV[1]}`]
             texteCorr = `On isole $${nomV[1]}$ dans un membre de l'égalité :<br> 
   $\\begin{aligned}
@@ -288,12 +278,11 @@ $\\begin{aligned}
  \\end{aligned}$
     <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[3]}$ et  $${nomV[2]}$ est 
     $${nomV[1]}= \\dfrac{${nomV[0]} +${nomV[2]}${nomV[3]}}{${nomV[3]}}$ ou plus simplement $${nomV[1]}=\\dfrac{${nomV[0]}}{${nomV[3]}}+${nomV[2]}$.`
-          }
-
-          if (choix === 12) { // a=(b-c)*d on cherche  c
+          } else { // a=(b-c)*d on cherche  c
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$   quatre nombres (avec $${nomV[3]}$  non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + `  $${nomV[0]}=(${nomV[1]}-${nomV[2]})${nomV[3]}$.<br>
   Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$ et  $${nomV[3]}$.`
+            varAExprimer = nomV[2]
             reponse = [`${nomV[2]}=\\dfrac{-${nomV[0]} +${nomV[1]}\\times ${nomV[3]}}{${nomV[3]}}`,
   `\\dfrac{-${nomV[0]} +${nomV[1]}\\times ${nomV[3]}}{${nomV[3]}}=${nomV[2]}`,
    `${nomV[2]}=${nomV[1]}-\\dfrac{${nomV[0]}}{${nomV[3]}}`, `${nomV[1]}-\\dfrac{${nomV[0]}}{${nomV[3]}}=${nomV[2]}`]
@@ -324,6 +313,7 @@ $\\begin{aligned}
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=(${nomV[1]}+${nomV[2]})(${nomV[3]}-${nomV[4]})$.<br>
        Exprimer $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$.`
+            varAExprimer = nomV[1]
             reponse = [`${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}`,
         `\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}=${nomV[1]}`,
         `${nomV[1]}= \\dfrac{${nomV[0]}}{${nomV[3]}-${nomV[4]}}-${nomV[2]}`,
@@ -339,12 +329,11 @@ $\\begin{aligned}
                      \\end{aligned}$
           <br> Une expression de $${nomV[1]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[3]}$ et $${nomV[4]}$ est $${nomV[1]}=\\dfrac{${nomV[0]}-${nomV[2]}${nomV[3]}+${nomV[2]}${nomV[4]}}{${nomV[3]}-${nomV[4]}}$ ou plus simplement 
           $${nomV[1]}= \\dfrac{${nomV[0]}}{${nomV[3]}-${nomV[4]}}-${nomV[2]}$.`
-          }
-
-          if (choix === 2) { // a=(b+c)(d-e) on cherche  e
+          } else if (choix === 2) { // a=(b+c)(d-e) on cherche  e
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[1]}+${nomV[2]}$ non nul) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=(${nomV[1]}+${nomV[2]})(${nomV[3]}-${nomV[4]})$.<br>
                 Exprimer $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[1]}$.`
+            varAExprimer = nomV[4]
             reponse = [`${nomV[4]}=\\dfrac{${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}}{-${nomV[1]}-${nomV[2]}}`,
                  `\\dfrac{${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}}{-${nomV[1]}-${nomV[2]}}=${nomV[4]}`,
                  `${nomV[4]}=\\dfrac{-${nomV[0]}+${nomV[1]}${nomV[3]}+${nomV[2]}${nomV[3]}}{${nomV[1]}+${nomV[2]}}`,
@@ -370,12 +359,11 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
                    ou pus simplement 
                    $${nomV[4]}= -\\dfrac{${nomV[0]}}{${nomV[1]}+${nomV[2]}}+${nomV[3]}$.<br>
                    `
-          }
-
-          if (choix === 3) { // a=(b+c)/(d-e) on cherche  d
+          } else if (choix === 3) { // a=(b+c)/(d-e) on cherche  d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}$ non nuls) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}-${nomV[4]}}$.<br>
  Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}`,
     `\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}=${nomV[3]}`,
      `${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[0]}}+${nomV[4]}`,
@@ -390,11 +378,11 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
      \\end{aligned}$
      <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$ est 
        $${nomV[3]}=\\dfrac{${nomV[1]}+${nomV[2]}+${nomV[0]}${nomV[4]}}{${nomV[0]}}$.`
-          }
-          if (choix === 4) { // a=(b+c)/(d-e) on cherche  e
+          } else if (choix === 4) { // a=(b+c)/(d-e) on cherche  e
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (avec $${nomV[3]}-${nomV[4]}$ et $${nomV[0]}$ non nuls) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=\\dfrac{${nomV[1]}+${nomV[2]}}{${nomV[3]}-${nomV[4]}}$.<br>
     Exprimer $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$.`
+            varAExprimer = nomV[4]
             reponse = [`${nomV[4]}=\\dfrac{${nomV[1]}+${nomV[2]}-${nomV[0]}${nomV[4]}}{-${nomV[0]}}`,
       `\\dfrac{${nomV[1]}+${nomV[2]}-${nomV[0]}${nomV[4]}}{-${nomV[0]}}=${nomV[4]}`,
      `${nomV[4]}=\\dfrac{-${nomV[1]}-${nomV[2]}+${nomV[0]}${nomV[3]}}{${nomV[0]}}`,
@@ -413,11 +401,11 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
          \\end{aligned}$
          <br> Une expression de $${nomV[4]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[3]}$ est 
            $${nomV[4]}=\\dfrac{-${nomV[1]}-${nomV[2]}+${nomV[0]}${nomV[3]}}{${nomV[0]}}$.`
-          }
-          if (choix === 5) { // a=b+c\sqrt{d+e} on cherche d
+          } else if (choix === 5) { // a=b+c\sqrt{d+e} on cherche d
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (strictement positifs) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=${nomV[1]}+${nomV[2]}\\sqrt{${nomV[3]}+${nomV[4]}}$.<br>
     Exprimer $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$.`
+            varAExprimer = nomV[3]
             reponse = [`${nomV[3]}=\\dfrac{${nomV[0]}^2-2${nomV[0]}${nomV[1]}+${nomV[1]}^2}{${nomV[2]}^2}-${nomV[4]}`,
   `\\dfrac{${nomV[0]}^2-2${nomV[0]}${nomV[1]}+${nomV[1]}^2}{${nomV[2]}^2}-${nomV[4]}=${nomV[3]}`,
   `${nomV[3]}=(\\dfrac{${nomV[0]}-${nomV[1]}}{${nomV[2]}})^2-${nomV[4]}`,
@@ -438,12 +426,11 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
  <br> Une expression de $${nomV[3]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$ et $${nomV[4]}$ est 
    $${nomV[3]}=\\left(\\dfrac{${nomV[0]}-${nomV[1]}}{${nomV[1]}}\\right)^2-${nomV[4]}$ ou par exemple $${nomV[3]}=\\dfrac{\\left(${nomV[0]}-${nomV[1]}\\right)^2-${nomV[4]}${nomV[1]}^2}{${nomV[1]}^2}$.
  `
-          }
-
-          if (choix === 6) { // a=b+c\sqrt{d+e} on cherche c
+          } else { // a=b+c\sqrt{d+e} on cherche c
             intro = `Soient $${nomV[0]}$, $${nomV[1]}$, $${nomV[2]}$, $${nomV[3]}$ et $${nomV[4]}$ cinq nombres (strictement positifs) vérifiant l'égalité suivante :`
             texte = `${intro}` + ` $${nomV[0]}=${nomV[1]}+${nomV[2]}\\sqrt{${nomV[3]}+${nomV[4]}}$.<br>
      Exprimer $${nomV[2]}$ en fonction de $${nomV[0]}$, $${nomV[1]}$, $${nomV[3]}$ et $${nomV[4]}$.`
+            varAExprimer = nomV[2]
             reponse = [`${nomV[2]}=\\dfrac{${nomV[0]}-${nomV[1]}}{\\sqrt{${nomV[3]}+${nomV[4]}}}`,
    `\\dfrac{${nomV[0]}-${nomV[1]}}{\\sqrt{${nomV[3]}+${nomV[4]}}}=${nomV[2]}`
             ]
@@ -459,8 +446,23 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) + `$${varAExprimer} =$` })
       setReponse(this, i, reponse)
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, typesDeQuestions, choix, nomV)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
