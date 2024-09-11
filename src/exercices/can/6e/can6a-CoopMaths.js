@@ -14,7 +14,10 @@ import { setReponse } from '../../../lib/interactif/gestionInteractif'
 import { arrondi } from '../../../lib/outils/nombres'
 import Hms from '../../../modules/Hms'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import Decimal from 'decimal.js'
 
+export const dateDeModifImportante = '11/09/2024'
+export const dateDePublication = '5/08/2021'
 export const titre = 'Course aux nombres fin de 6e'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -24,9 +27,8 @@ export const amcType = 'AMCNum'
 /**
  * Course aux nombres avec 30 questions pour fin de 6e
  * @author Jean-Claude Lhote
- * Créé pendant l'été 2021
- * Référence can Predef6-3
  */
+
 export const uuid = '3a526'
 export const ref = 'can6a-CoopMaths'
 export const refs = {
@@ -128,7 +130,7 @@ export default function CourseAuxNombres6e () {
           c = new FractionEtendue(a, b)
           resultat = a / b
           texte = `Quel est le nombre qui, multiplié par ${b} donne ${a} ?`
-          texteCorr = `c'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
+          texteCorr = `C'est $${c.texFraction}$ car $${c.texFraction}\\times ${b} = ${a}$`
           if (!c.valeurDecimale) {
             setReponse(this, q, [c.texFraction, `${Math.floor(a / b)}+\\dfrac{${a % b}}{${b}}`])
           } else {
@@ -183,14 +185,13 @@ export default function CourseAuxNombres6e () {
             resultat = 3 * c
             texte = `Quel est le triple de $${texNombre(c)}$ ?`
             texteCorr = `Le triple de $${texNombre(c)}$ est $3 \\times ${texNombre(c)}=${texNombre(3 * c)}$.`
-            setReponse(this, q, resultat)
           } else {
             resultat = 2 * c
             texte = `Quel est le double de $${texNombre(c)}$ ?`
             texteCorr = `Le double de $${texNombre(c)}$ est $2 \\times ${texNombre(c)}=${texNombre(2 * c)}$.`
-            setReponse(this, q, resultat)
-            texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase)
           }
+          setReponse(this, q, resultat)
+          texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase)
           break
         case 'q7':
           a = randint(1, 3)
@@ -296,33 +297,36 @@ export default function CourseAuxNombres6e () {
           setReponse(this, q, resultat)
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase)
           break
-        case 'q17':
+        case 'q17': {
           a = randint(1, 9)
           b = randint(1, 9, a)
+          const bDiv10 = new Decimal(b).div(10)
           c = randint(1, 9, [a, b])
-          d = a + b * 0.1 + c * 0.01
-          resultat = 100 * d
+          const cDiv100 = new Decimal(c).div(100)
+          d = new Decimal(a).add(bDiv10).add(cDiv100)
+
+          resultat = new Decimal(d).mul(100)
           switch (choice([1, 2, 3, 4])) {
             case 1:
               texte = `$4 \\times ${texNombre(d)}\\times 25$`
-              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${100 * d}$`
+              texteCorr = `$4 \\times ${texNombre(d)}\\times 25 = 100 \\times ${texNombre(d)} = ${resultat}$`
               break
             case 2:
               texte = `$2 \\times ${texNombre(d)}\\times 50$`
-              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${100 * d}$`
+              texteCorr = `$2 \\times ${texNombre(d)}\\times 50 = 100 \\times ${texNombre(d)} = ${resultat}$`
               break
             case 3:
               texte = `$25 \\times ${texNombre(d)}\\times 4$`
-              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${100 * d}$`
+              texteCorr = `$25 \\times ${texNombre(d)}\\times 4 = 100 \\times ${texNombre(d)} = ${resultat}$`
               break
             case 4:
               texte = `$50 \\times ${texNombre(d)}\\times 2$`
-              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${100 * d}$`
+              texteCorr = `$50 \\times ${texNombre(d)}\\times 2 = 100 \\times ${texNombre(d)} = ${resultat}$`
               break
           }
           setReponse(this, q, resultat)
           texte += ajouteChampTexteMathLive(this, q, KeyboardType.clavierDeBase)
-          break
+          break }
         case 'q18':
           a = randint(5, 9)
           b = randint(6, 9)
