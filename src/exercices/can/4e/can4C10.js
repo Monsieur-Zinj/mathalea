@@ -4,6 +4,7 @@ import { simplificationDeFractionAvecEtapes } from '../../../lib/outils/deprecat
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Calculer une somme/différence de fractions égyptiennes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -13,7 +14,6 @@ export const amcType = 'AMCNum'
  * 1/n +/- 1/m
  * @author Gilles Mora
  * publié le 23/10/2021
- * Référence can4C10
 */
 export const uuid = '8cbb4'
 export const ref = 'can4C10'
@@ -26,8 +26,10 @@ export default function SommeDifferenceFractionsEgyptiennes () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
-  this.formatInteractif = 'fraction'
+  this.formatChampTexte = 'largeur01 inline'
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { fractionIrreductible: true }
+
   this.nouvelleVersion = function () {
     const a = randint(2, 7)
     const b = randint(2, 7, a)

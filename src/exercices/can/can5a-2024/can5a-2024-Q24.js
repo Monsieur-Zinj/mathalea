@@ -4,6 +4,7 @@ import { randint } from '../../../modules/outils'
 import { choice } from '../../../lib/outils/arrayOutils'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Simplifier une fraction'
 export const interactifReady = true
@@ -17,13 +18,13 @@ export const uuid = '00625'
 export default class NomExercice extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fraction'
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { fractionSimplifiee: true }
+
     this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {

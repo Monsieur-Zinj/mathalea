@@ -4,6 +4,7 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 import { texNombre } from '../../../lib/outils/texNombre'
 import FractionEtendue from '../../../modules/FractionEtendue'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Additionner des fractions'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -16,11 +17,12 @@ export const uuid = '9bbc7'
 export default class additionnerFrac extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
-    this.formatInteractif = 'fraction'
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { fractionIrreductible: true }
+
     this.canOfficielle = false
   }
 
