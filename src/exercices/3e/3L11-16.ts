@@ -40,7 +40,7 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.consigne = 'Développer et réduire en utilisant les identités remarquables.'
+    this.consigne = 'Compléter le terme manquant afin d\'obtenir une identité remarquable. Écrire ensuite l\'identité remarquable correspondante factorisée.'
     this.listeCorrections = []
     this.autoCorrection = []
     const listeDeQuestions = gestionnaireFormulaireTexte({
