@@ -171,7 +171,7 @@ export function mathalea2d (
     return codeTikz
   }
   // On prépare le code HTML
-  const m2dId = 'M2D' + String(randint(1, 1000000))
+  const m2dId = 'M2D' + id // utilise l'identifiant du svg UNIQUE ca devrait faire l'affaire
   const divsLatex = []
   let codeSvg = `<svg class="mathalea2d" ${style} id="${id}" width="${(xmax - xmin) * pixelsParCm * zoom}" height="${
     (ymax - ymin) * pixelsParCm * zoom
@@ -328,8 +328,9 @@ export function colorToLatexOrHTML (couleur) {
       { couleur }
     )
     return ''
-  } else if (couleur === 'none') { return ['none', ''] } // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
-  else {
+  } else if (couleur === 'none') {
+    return ['none', ''] // 'none' n'est pas une couleur valide en latex ! Modifié par Jean-Claude Lhote le 19:&é:éàé"
+  } else {
     tabCouleur[0] = couleur
     if (couleur[0] === '#') {
       rgb = convertHexToRGB(couleur.replace('#', ''))
