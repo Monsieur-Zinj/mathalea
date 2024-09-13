@@ -5,7 +5,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -38,7 +38,7 @@ export const refs = {
   'fr-fr': ['5N20'],
   'fr-ch': ['9NO13-6']
 }
-export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
+export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
   Exercice.call(this)
   this.sup = max // Correspond au facteur commun
   this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
@@ -91,48 +91,49 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
       const f1 = new FractionEtendue(a, b)
       const f2 = new FractionEtendue(c, d)
       if (listeTypeDeQuestions[i] === '+') { // une addition
-        /** ***************** Choix des réponses du QCM ***********************************/
-        this.autoCorrection[i].propositions = [
-          {
-            texte: this.sup3 ? `$${fraction(a * k + c, d).texFractionSimplifiee}$` : `$${fraction(a * k + c, d).texFraction}$`,
-            statut: true
-          },
-          {
-            texte: this.sup3 ? `$${fraction(a + c, d).texFractionSimplifiee}$` : `$${fraction(a + c, d).texFraction}$`,
-            statut: false
-          },
-          {
-            texte: this.sup3 ? `$${fraction(a + c, b + d).texFractionSimplifiee}$` : `$${fraction(a + c, b + d).texFraction}$`,
-            statut: false
-          },
-          {
-            texte: this.sup3 ? `$${fraction(a * c, d).texFractionSimplifiee}$` : `$${fraction(a * c, d).texFraction}$`,
-            statut: false
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          /** ***************** Choix des réponses du QCM ***********************************/
+          this.autoCorrection[i].propositions = [
+            {
+              texte: this.sup3 ? `$${fraction(a * k + c, d).texFractionSimplifiee}$` : `$${fraction(a * k + c, d).texFraction}$`,
+              statut: true
+            },
+            {
+              texte: this.sup3 ? `$${fraction(a + c, d).texFractionSimplifiee}$` : `$${fraction(a + c, d).texFraction}$`,
+              statut: false
+            },
+            {
+              texte: this.sup3 ? `$${fraction(a + c, b + d).texFractionSimplifiee}$` : `$${fraction(a + c, b + d).texFraction}$`,
+              statut: false
+            },
+            {
+              texte: this.sup3 ? `$${fraction(a * c, d).texFractionSimplifiee}$` : `$${fraction(a * c, d).texFraction}$`,
+              statut: false
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
           }
-        ]
-        this.autoCorrection[i].options = {
-          ordered: false,
-          lastChoice: 5
-        }
-        if (this.level === 6) {
+          if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${fraction(a + c, b).texFraction}$`
-        }
-        /*************************************************************************/
-        ordreDesFractions = randint(1, 2)
-        if (ordreDesFractions === 1) {
-          texte = `$${f1.texFraction}+${f2.texFraction}$`
-          /** ****************** AMC question/questionmult ********************************/
-          this.autoCorrection[i].enonce = `${texte}\n`
+            this.autoCorrection[i].propositions[0].texte = `$${fraction(a + c, b).texFraction}$`
+          }
+          /*************************************************************************/
+          ordreDesFractions = randint(1, 2)
+          if (ordreDesFractions === 1) {
+            texte = `$${f1.texFraction}+${f2.texFraction}$`
+            /** ****************** AMC question/questionmult ********************************/
+            this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
-        } else {
-          texte = `$${f2.texFraction}+${f1.texFraction}$`
-          /** ****************** AMC question/questionmult ******************************/
-          this.autoCorrection[i].enonce = `${texte}\n`
+          } else {
+            texte = `$${f2.texFraction}+${f1.texFraction}$`
+            /** ****************** AMC question/questionmult ******************************/
+            this.autoCorrection[i].enonce = `${texte}\n`
           /*******************************************************************************/
+          }
         }
-
         if (ordreDesFractions === 1) {
           texteCorr = `$${f1.texFraction}+${f2.texFraction}=`
 
@@ -154,8 +155,8 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=\\dfrac{${(a * k + c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((a * k + c) / s, d / s).texFractionSimplifiee}$`
           }
         }
-        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          const props = propositionsQcm(this, i)
           texte += '<br>' + props.texte
         }
         if (this.interactifType === 'mathLive') {
@@ -163,35 +164,37 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
         }
       } else { // une soustraction
         /** ***************** Choix des réponses du QCM ***********************************/
-        this.autoCorrection[i].propositions = [
-          {
-            texte: this.sup3 ? `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFractionSimplifiee}$` : `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFraction}$`,
-            statut: true
-          },
-          {
-            texte: this.sup3 ? `$${fraction(Math.abs(a - c), Math.abs(b - d)).texFractionSimplifiee}$` : `$${fraction(Math.abs(a - c), Math.abs(b - d)).texFraction}$`,
-            statut: false
-          },
-          {
-            texte: this.sup3 ? `$${fraction(Math.abs(a - c), d).texFractionSimplifiee}$` : `$${fraction(Math.abs(a - c), d).texFraction}$`,
-            statut: false
-          },
-          {
-            texte: this.sup3 ? `$${fraction(a * c, d).texFractionSimplifiee}$` : `$${fraction(a * c, d).texFraction}$`,
-            statut: false
+        if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          this.autoCorrection[i].propositions = [
+            {
+              texte: this.sup3 ? `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFractionSimplifiee}$` : `$${fraction(Math.abs(a * k - c), Math.abs(d)).texFraction}$`,
+              statut: true
+            },
+            {
+              texte: this.sup3 ? `$${fraction(Math.abs(a - c), Math.abs(b - d)).texFractionSimplifiee}$` : `$${fraction(Math.abs(a - c), Math.abs(b - d)).texFraction}$`,
+              statut: false
+            },
+            {
+              texte: this.sup3 ? `$${fraction(Math.abs(a - c), d).texFractionSimplifiee}$` : `$${fraction(Math.abs(a - c), d).texFraction}$`,
+              statut: false
+            },
+            {
+              texte: this.sup3 ? `$${fraction(a * c, d).texFractionSimplifiee}$` : `$${fraction(a * c, d).texFraction}$`,
+              statut: false
+            }
+          ]
+          this.autoCorrection[i].options = {
+            ordered: false,
+            lastChoice: 5
           }
-        ]
-        this.autoCorrection[i].options = {
-          ordered: false,
-          lastChoice: 5
-        }
-        if (this.level === 6) {
+          if (this.level === 6) {
           // En 6e, pas de fraction simplifiée
           // Les fractions ont le même dénominateur (b=d)
-          this.autoCorrection[i].propositions[0].texte = `$${fraction(Math.abs(a - c), b).texFraction}$`
-        }
+            this.autoCorrection[i].propositions[0].texte = `$${fraction(Math.abs(a - c), b).texFraction}$`
+          }
 
-        /*********************************************************************************/
+          /*********************************************************************************/
+        }
         if ((a / b) > (c / d)) {
           texte = `$${f1.texFraction}-${f2.texFraction}$`
         } else {
@@ -200,6 +203,7 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
 
           /*****************************************************************************/
         }
+
         if ((a / b) > (c / d)) {
           texteCorr = `$${f1.texFraction}-${f2.texFraction}=`
           if (this.level !== 6) {
@@ -222,16 +226,20 @@ export default function ExerciceAdditionnerSoustraireFractions5e (max = 11) {
             texteCorr += `$=\\dfrac{${abs(a * k - c) / s}${miseEnEvidence('\\times ' + s, 'blue')}}{${d / s}${miseEnEvidence('\\times ' + s, 'blue')}}=${fraction((abs(a * k - c) / s), d / s).texFractionSimplifiee}$`
           }
         }
-        const props = propositionsQcm(this, i)
         if ((this.modeQcm && !context.isAmc) || (this.interactif && this.interactifType === 'qcm')) {
+          const props = propositionsQcm(this, i)
           texte += '<br>' + props.texte
         }
+
         if (this.interactifType === 'mathLive') {
+          console.log(i, this.interactifType, new FractionEtendue(a * d - c * b, b * d).toLatex(), this.sup3)
           handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d - c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
-      if (context.isHtml && this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      if (this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
+      texte += ajouteFeedback(this, i)
+
       texteCorr = texteCorr.replaceAll('$$', ' ')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
