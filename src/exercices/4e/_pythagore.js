@@ -27,6 +27,7 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
   texte += `<br> $${B + C}^2=${A + B}^2+${A + C}^2$`
   if (rechercheHypotenuse === 1) {
     texte += `<br> $${B + C}^2=${texNombre(AB, 2)}^2+${texNombre(AC, 2)}^2$`
+    texte += `<br> $${B + C}^2=${texNombre(AB ** 2)}+${texNombre(AC ** 2)}$`
     texte += `<br> $${B + C}^2=${texNombre(AB ** 2 + AC ** 2, 2)}$`
     texte += `<br> $${B + C}=\\sqrt{${texNombre(AB ** 2 + AC ** 2, 2)}}$`
     if (arrondi(Math.sqrt(AB ** 2 + AC ** 2), 1) === arrondi(Math.sqrt(AB ** 2 + AC ** 2), 5)) signeEgal = '='
@@ -35,6 +36,7 @@ export function RedactionPythagore (A = 'A', B = 'B', C = 'C', rechercheHypotenu
   } else if (rechercheHypotenuse === 2) {
     texte += `<br> D'où  $${A + B}^2=${B + C}^2-${A + C}^2$.`
     texte += `<br> $${A + B}^2=${texNombre(BC, 2)}^2-${texNombre(AC, 2)}^2$`
+    texte += `<br> $${A + B}^2=${texNombre(BC ** 2)} - ${texNombre(AC ** 2)}$`
     texte += `<br> $${A + B}^2=${texNombre(BC ** 2 - AC ** 2, 2)}$`
     texte += `<br> $${A + B}=\\sqrt{${texNombre(BC ** 2 - AC ** 2, 2)}}$`
     if (arrondi(Math.sqrt(BC ** 2 - AC ** 2), 1) === arrondi(Math.sqrt(BC ** 2 - AC ** 2), 5)) signeEgal = '='
