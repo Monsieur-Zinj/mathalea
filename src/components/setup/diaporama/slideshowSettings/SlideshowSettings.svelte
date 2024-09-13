@@ -14,6 +14,7 @@
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
+  import { listOfRandomIndexes } from '../../../../lib/components/shuffle'
 
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
@@ -21,9 +22,19 @@
   export let start: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
+  let previousNumberOfSelectedExercises: number
 
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
+  }
+
+  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
+    let selection: number[] | undefined
+    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
+      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
+    }
+    previousNumberOfSelectedExercises = numberOfSelectedExercises
+    updateSelect(selection)
   }
 
   function goToOverview () {
@@ -71,6 +82,7 @@
 
   function remove (exerciseIndex: number) {
     exercises.splice(exerciseIndex, 1)
+    applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
     updateExercises(exercises)
     exercises = exercises // to refresh ExercisesSettings component
   }
@@ -120,7 +132,7 @@
       <SelectedExercisesSettings
         {exercises}
         selectedExercisesIndexes={$globalOptions.select ?? []}
-        {updateSelect}
+        {applyRandomSelectionOfExercises}
       />
       <LinksSettings />
     </div>

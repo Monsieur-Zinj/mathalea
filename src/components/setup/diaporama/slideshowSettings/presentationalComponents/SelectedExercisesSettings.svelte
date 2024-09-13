@@ -1,23 +1,14 @@
 <script lang="ts">
   import type Exercice from '../../../../../exercices/Exercice'
-  import { listOfRandomIndexes } from '../../../../../lib/components/shuffle'
   import CheckboxWithLabel from '../../../../shared/forms/CheckboxWithLabel.svelte'
   import NumberInput from '../../../../shared/forms/InputNumber.svelte'
 
   export let exercises: Exercice[]
   export let selectedExercisesIndexes: number[]
-  export let updateSelect: (selection: number[] | undefined) => void
+  export let applyRandomSelectionOfExercises: (numberOfSelectedExercises: number) => void
 
   const isSelectedExercises: boolean = selectedExercisesIndexes.length > 0
   let selectedExercisesCount: number = selectedExercisesIndexes.length
-
-  function applyRandomSelectionOfExercises (numberOfSelectedExercises: number) {
-    let selection: number[] | undefined
-    if (numberOfSelectedExercises > 0 && numberOfSelectedExercises < exercises.length) {
-      selection = [...listOfRandomIndexes(exercises.length, numberOfSelectedExercises)].sort((a, b) => a - b)
-    }
-    updateSelect(selection)
-  }
 
 </script>
 
