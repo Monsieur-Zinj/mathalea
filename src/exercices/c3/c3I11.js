@@ -2,7 +2,7 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { texteParPositionEchelle } from '../../lib/2d/textes.ts'
 import { choice } from '../../lib/outils/arrayOutils'
-import { createLink, modalPdf, modalUrl } from '../../lib/outils/modales.js'
+import { createLink } from '../../lib/outils/modales.js'
 import { stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { colorToLatexOrHTML, mathalea2d } from '../../modules/2dGeneralites.js'
@@ -15,17 +15,16 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choixDeroulant } from '../../lib/interactif/questionListeDeroulante.js'
 
-export const titre = 'Note la couleur (scratch)'
+export const titre = 'Note la couleur (Scratch)'
 export const interactifReady = true
 export const interactifType = 'listeDeroulante'
-export const dateDeModifImportante = '27/12/2023'
+export const dateDeModifImportante = '14/09/2024'
 export const dateDePublication = '11/04/2021'
 
 /**
  * Note_la_couleur() Exercice inspiré de l'activité débranchée de Jean-Yves Labouche Note La Couleur
  * https://www.monclasseurdemaths.fr/profs/algorithmique-scratch/note-la-couleur/
  * variante de 6I11 avec des dalles de 20 x 20
- * Publié le 11/04/2021
  * @author Jean-Claude Lhote
  */
 export const uuid = 'e380b'
@@ -52,7 +51,7 @@ export default function NoteLaCouleurC3 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     const damier = [
       ['Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc', 'Blanc'],
       ['Blanc', 'Noir', 'Orange', 'Rouge', 'Orange', 'Jaune', 'Rouge', 'Jaune', 'Rose', 'Blanc'],
@@ -74,7 +73,8 @@ export default function NoteLaCouleurC3 () {
     let j, test
     let objetsEnonce = []
     let objetsCorrection = []
-    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 30, scale: echelleDessin }
+    // const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 30, scale: echelleDessin }
+    const paramsCorrection = { xmin: -1, ymin: -1, xmax: 16, ymax: 13, pixelsParCm: 20, scale: echelleDessin }
     let commandes_disponibles
     const sequences_disponibles = []
     let sequence
@@ -89,9 +89,20 @@ export default function NoteLaCouleurC3 () {
     let xdepart
     let ydepart
     context.unitesLutinParCm = 13.33
-    context.pixelsParCm = 30
+    // context.pixelsParCm = 30
+    context.pixelsParCm = 20
     let pion
-    const lePlateau = plateau2dNLC({
+    const lePlateauEnonce = plateau2dNLC({
+      type: this.sup,
+      melange: !this.sup4,
+      scale: echelleDessin,
+      relatif: this.relatif,
+      nx: 10,
+      ny: 8,
+      pas: 20,
+      plateau: damier
+    })
+    const lePlateauCorr = plateau2dNLC({
       type: this.sup,
       melange: !this.sup4,
       scale: echelleDessin,
@@ -104,8 +115,8 @@ export default function NoteLaCouleurC3 () {
     for (let q = 0; q < this.nbQuestions;) {
       objetsCorrection = []
       objetsEnonce = []
-      objetsEnonce.push(lePlateau.plateau2d)
-      objetsCorrection.push(lePlateau.plateau2d)
+      objetsEnonce.push(lePlateauEnonce.plateau2d)
+      objetsCorrection.push(lePlateauCorr.plateau2d)
       let reponseCouleur = []
       let texte = ''
       let texteCorr = ''
@@ -132,7 +143,7 @@ export default function NoteLaCouleurC3 () {
           x: xdepart,
           y: ydepart,
           orientation: angledepart,
-          plateau: lePlateau.plateauNLC,
+          plateau: lePlateauCorr.plateauNLC,
           relatif: this.relatif,
           nx: 10,
           ny: 8,
@@ -239,20 +250,20 @@ export default function NoteLaCouleurC3 () {
         }
       }
       reponseCouleur = couleurs
-      if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateau.traducNum(couleurs[0]) + ') ' + couleurs[0]
+      if (this.sup % 2 === 0) reponseCouleur[0] = '(' + lePlateauCorr.traducNum(couleurs[0]) + ') ' + couleurs[0]
       texteCorr = 'On obtient la série de couleurs suivante :<br> '
       texteCorr += `${texteEnCouleurEtGras(reponseCouleur[q * couleurs.length])} `
       texte += !this.interactif ? '' : 'Couleur n°1 : ' + choixDeroulant(this, q * couleurs.length, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
       handleAnswers(this, q * couleurs.length, { reponse: { value: couleurs[0] } }, { formatInteractif: 'listeDeroulante' })
       /*
-      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
+      texteCorr += `${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateauCorr.traducNum(couleurs[0]) + ')' + couleurs[0] : couleurs[0])} `
       for (let i = 1; i < couleurs.length; i++) {
-        texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateau.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
+        texteCorr += `- ${texteGras(this.sup === 4 || this.sup === 2 ? '(' + lePlateauCorr.traducNum(couleurs[i]) + ')' + couleurs[i] : couleurs[i])} `
       }
       texteCorr += '<br>'
       */
       for (let i = 1; i < couleurs.length; i++) {
-        if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateau.traducNum(couleurs[i]) + ') ' + couleurs[i]
+        if (this.sup % 2 === 0) reponseCouleur[i] = '(' + lePlateauCorr.traducNum(couleurs[i]) + ') ' + couleurs[i]
         texteCorr += `${texteEnCouleurEtGras(reponseCouleur[i])} `
         texte += !this.interactif ? '' : 'Couleur n°' + (i + 1) + ' : ' + choixDeroulant(this, q * couleurs.length + i, choixListeDeroulante[(this.sup - 1) % 2], 'une couleur') + '<br>'
         handleAnswers(this, q * couleurs.length + i, { reponse: { value: couleurs[i] } }, { formatInteractif: 'listeDeroulante' })

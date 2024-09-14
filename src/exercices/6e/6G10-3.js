@@ -47,7 +47,8 @@ export default function CliqueFigure () {
       const B = point(4, randint(-1, 3, 0))
       A.nom = lettreDepuisChiffre(numeroLettre)
       B.nom = lettreDepuisChiffre(numeroLettre + 1)
-      context.pixelsParCm = 10
+      // context.pixelsParCm = 10
+      context.pixelsParCm = 20
       const labels = labelPoint(A, B)
       this.figures[i] = [{ id: `figure0Ex${this.numeroExercice}Q${i}`, solution: false },
         { id: `figure1Ex${this.numeroExercice}Q${i}`, solution: false },
