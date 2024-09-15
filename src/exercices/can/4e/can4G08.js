@@ -9,10 +9,12 @@ import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { randint } from '../../../modules/outils.js'
 import { fraction } from '../../../modules/fractions.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
-export const titre = 'Calculer une aire ou un périmètre (carré et rectangle)'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+export const titre = 'Calculer une aire, un périmètre ou une longueur'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-
+export const dateDeModificationImportante = '15/09/2024'
 /**
  * @author Gilles Mora
  * Référence can4G08
@@ -27,28 +29,29 @@ export const refs = {
 export default function QuestionsAiresEtPerimetres () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    let a, b, c, n, d, A, B, C, D, N, maFraction
+    let a, b, c, n, d, A, B, C, D, N, a1, maFraction
     const objets = []
-    switch (choice([1, 2, 3, 4, 5, 6, 7])) {
+    switch (choice([1, 2, 3, 4, 5, 6, 7])) { //
       case 1://
         a = randint(3, 9)
         b = randint(0, 1)
-        this.question = `Un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ? (oui ou non)`
+        this.question = `Un carré de côté ${a} cm a le même périmètre qu'un rectangle de largeur ${a - b} cm et de longueur ${a + 1} cm ?`
         if (b === 0) {
-          this.correction = `Faux car $4\\times ${a}$ cm$\\neq 2\\times ${a}$ cm$ + 2\\times ${a + 1}$ cm.`
-          this.reponse = 'non'
+          this.correction = `${texteEnCouleurEtGras('Faux')} car $4\\times ${a}$ cm$\\neq 2\\times ${a}$ cm$ + 2\\times ${a + 1}$ cm.`
+          this.reponse = 'F'
         } else {
-          this.correction = `Vrai car $4\\times ${a}$ cm = $2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm$= ${4 * a}$ cm.`
-          this.reponse = 'oui'
+          this.correction = `${texteEnCouleurEtGras('Vrai')} car $4\\times ${a}$ cm = $2\\times ${a - 1}$ cm $ + 2\\times ${a + 1}$ cm$= ${4 * a}$ cm.`
+          this.reponse = 'V'
         }
         this.ignoreCasse = true
-        this.formatInteractif = 'texte'
+        this.formatChampTexte = 'largeur01 inline ' + KeyboardType.vFON
+        if (this.interactif) { this.question += '<br> Vrai (V) ou Faux (F)' }
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''
         break
@@ -57,7 +60,8 @@ export default function QuestionsAiresEtPerimetres () {
         this.reponse = a * a
         this.formatInteractif = 'calcul'
         this.question = `Quelle est l'aire d'un carré en cm$^2$ dont le périmètre est $${4 * a}$ cm ? `
-        this.correction = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${a ** 2}$ cm$^2$.`
+
+        this.correction = `Le côté du carré est $${4 * a}\\div 4=${a}$, donc son aire est : $${a}\\times ${a}=${miseEnEvidence(a ** 2)}$ cm$^2$.`
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ cm'
         break
@@ -67,17 +71,19 @@ export default function QuestionsAiresEtPerimetres () {
         this.reponse = 4 * a
         this.formatInteractif = 'calcul'
         this.question = `Déterminer le périmètre (en cm) d'un carré d'aire $${c}$ cm$^2$. `
-        this.correction = `Le côté du carré est $\\sqrt{${c}}=${a}$. Son périmètre est donc $4\\times ${a}=${4 * a}$ cm.`
+        this.correction = `Le côté du carré est $\\sqrt{${c}}=${a}$.<br>
+         Son périmètre est donc $4\\times ${a}=${miseEnEvidence(4 * a)}$ cm.`
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ cm'
         break
 
       case 4:// côté d'un carré connaissant son perimètre
-        a = randint(5, 20) * 4
-        this.reponse = a / 4
+        a1 = randint(5, 20)
+        a = a1 * 4
+        this.reponse = a1
         this.formatInteractif = 'calcul'
-        this.question = `Le périmètre d'un carré est $${a}$ cm. Quelle est la longueur (en cm) du côté du carré ? `
-        this.correction = `Le côté du carré est $${a}\\div 4=${a / 4}$.`
+        this.question = `Le périmètre d'un carré est $${a}$ cm. <br>Quelle est la longueur (en cm) du côté du carré ? `
+        this.correction = `Le côté du carré est $${a}\\div 4=${miseEnEvidence(a1)}$.`
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = '$\\ldots$ cm'
         break
@@ -102,7 +108,7 @@ export default function QuestionsAiresEtPerimetres () {
         
         `
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 8, ymax: 6, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
-        this.correction = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${texNombre(a + b + c + d)}$.<br>`
+        this.correction = ` Le périmètre est donné par : $${texNombre(a)}+${texNombre(b)}+${texNombre(c)}+${texNombre(d)}=${miseEnEvidence(a + b + c + d)}$.<br>`
         this.reponse = a + b + c + d
         this.formatInteractif = 'calcul'
         this.canEnonce = this.question// 'Compléter'
@@ -119,7 +125,7 @@ export default function QuestionsAiresEtPerimetres () {
           `
           this.formatInteractif = 'calcul'
           this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$, soit ici par $${c}^2=${c ** 2}$.<br>
-          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${a * c * c}$ cm$^2$.
+          Ainsi, l'aire du nouveau rectangle est : $${a}\\times ${c * c}=${miseEnEvidence(a * c * c)}$ cm$^2$.
       <br>`
 
           this.reponse = a * c * c
@@ -136,7 +142,7 @@ export default function QuestionsAiresEtPerimetres () {
           `
 
           this.correction = ` Si les longueurs sont multiplées par $k$, les aires sont multipliées par $k^2$.<br>
-          Ainsi, l'aire a été multipliée par : $\\left(${maFraction.texFraction}\\right)^2=${this.reponse.texFraction}$.
+          Ainsi, l'aire a été multipliée par : $\\left(${maFraction.texFraction}\\right)^2=${miseEnEvidence(this.reponse.texFraction)}$.
       <br>`
 
           this.formatInteractif = 'fractionEgale'
@@ -153,7 +159,7 @@ export default function QuestionsAiresEtPerimetres () {
           `
 
           this.correction = ` Si les aires sont multiplées par $k$, les longueurs sont multipliées par $\\sqrt{k}$.<br>
-          Ainsi, les longueurs ont été multipliées par : $\\sqrt{${maFractionAuCarre}=${maFraction.texFraction}$.
+          Ainsi, les longueurs ont été multipliées par : $\\sqrt{${maFractionAuCarre}=${miseEnEvidence(maFraction.texFraction)}$.
       <br>`
           this.reponse = maFraction
           this.formatInteractif = 'fractionEgale'
@@ -172,13 +178,14 @@ export default function QuestionsAiresEtPerimetres () {
         objets.push(texteParPosition(`${texNombre(a)} m`, milieu(B, C).x + 0.5, milieu(B, C).y + 0.5)
         )
 
-        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. Donner la longueur $AC$ (en m).<br>
+        this.question = ` L'aire du triangle $ABC$ est $${b}$ m$^2$. <br>
+        Donner la longueur $AC$ (en m).<br>
         
         `
         this.question += mathalea2d({ xmin: -1, ymin: -1, xmax: 9, ymax: 4.5, pixelsParCm: 20, mainlevee: true, amplitude: 0.5, scale: 0.7, style: 'margin: auto' }, objets)
         this.correction = ` L'aire de ce triangle rectangle est donnée par : $\\dfrac{BC\\times AC}{2}$.<br>
           On cherche $AC$ telle que $\\dfrac{${a}\\times AC}{2}=${b}$. <br>
-          $AC=\\dfrac{2\\times ${b}}{${a}}=${new FractionEtendue(2 * b, a).simplifie().texFraction}$ m.
+          $AC=\\dfrac{2\\times ${b}}{${a}}=${miseEnEvidence(new FractionEtendue(2 * b, a).simplifie().texFraction)}$ m.
       <br>`
         this.reponse = 2 * b / a
         this.formatInteractif = 'calcul'
