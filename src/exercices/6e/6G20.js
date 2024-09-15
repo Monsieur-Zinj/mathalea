@@ -64,7 +64,8 @@ export default function NommerEtCoderDesPolygones () {
 
     ) {
       if (i % 4 === 0) listeDeNomsDePolygones = ['PQD']
-      context.pixelsParCm = 40
+      // context.pixelsParCm = 40
+      context.pixelsParCm = 20
       let pol, polcode, polsom
       const choisirPolygone = (n) => { // n compris entre 1 et 8 (1 à 4 pour un triangle, 5 à 8 pour une quadrilatère)
         let A, B, C, D
