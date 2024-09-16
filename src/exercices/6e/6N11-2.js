@@ -1,15 +1,18 @@
 import { point, tracePoint } from '../../lib/2d/points.js'
 import { droiteGraduee } from '../../lib/2d/reperes.js'
-import { labelPoint } from '../../lib/2d/textes.ts'
+import { labelPoint, latex2d } from '../../lib/2d/textes.ts'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser, egal } from '../../modules/outils.js'
 import { pointCliquable } from '../../modules/2dinteractif.js'
 import { context } from '../../modules/context.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 
+export const dateDeModifImportante = '16/09/2024'
 export const titre = 'Placer un point d\'abscisse entière (grands nombres)'
 export const interactifReady = false
 // remettre interactif_Ready à true qd point_Cliquable sera de nouveau opérationnel
@@ -19,7 +22,6 @@ export const amcType = 'AMCOpen'
 /**
  * Placer un point d'abscisse entière
  * @author Jean-Claude Lhote et Rémi Angot
- * référence 6N11-2
  * Relecture : Novembre 2021 par EE
  * Correction : Problème de score 19/10/22 par Rémi ANGOT
  */
@@ -52,9 +54,9 @@ export default function PlacerUnPointAbscisseEntiere2d () {
     this.autoCorrection = []
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-    if (parseInt(this.sup) === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
+    if (this.sup === 4) { typesDeQuestions = combinaisonListes([1, 2, 3], this.nbQuestions) } else {
       typesDeQuestions = combinaisonListes(
-        [parseInt(this.sup)],
+        [this.sup],
         this.nbQuestions
       )
     }
@@ -104,7 +106,7 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         labelsPrincipaux: false,
         thickSec: true,
         step1: 10,
-        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calculANePlusJamaisUtiliser(abs0 + pas1)) : texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))]]
+        labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))}`]]
       })
       d[2 * i + 1] = droiteGraduee({
         Unite: 4,
@@ -114,10 +116,19 @@ export default function PlacerUnPointAbscisseEntiere2d () {
         pointTaille: 5,
         pointStyle: 'x',
         labelsPrincipaux: false,
-        labelListe: [[0, !context.isAmc ? stringNombre(abs0) : texNombre(abs0, 0)], [1, !context.isAmc ? stringNombre(calculANePlusJamaisUtiliser(abs0 + pas1)) : texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))]],
+        // labelListe: [[0, `${texNombre(abs0, 0)}`], [1, `${texNombre(calculANePlusJamaisUtiliser(abs0 + pas1))}`]],
+        labelListe: [
+          [x1, miseEnEvidence(texNombre(x11, 0))],
+          [x2, miseEnEvidence(texNombre(x22, 0))],
+          [x3, miseEnEvidence(texNombre(x33, 0))]
+        ],
         thickSec: true,
-        step1: 10
+        step1: 10,
+        labelCustomDistance: 1.5
       })
+      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, { letterSize: 'scriptsize' })
+      const label2 = latex2d(`${texNombre(abs0 + pas1, 0)}`, 4, -0.7, { letterSize: 'scriptsize' })
+
       const mesObjets = [d[2 * i]]
       if (this.interactif) {
         texte = `Placer le point $${l1}\\left(${texNombre(abscisse[0][1])}\\right).$`
@@ -142,28 +153,26 @@ export default function PlacerUnPointAbscisseEntiere2d () {
       }
 
       A = point(abscisse[0][0] * tailleUnite, 0, l1)
-      traceA = tracePoint(A, 'blue')
+      traceA = tracePoint(A, orangeMathalea)
       traceA.epaisseur = 3
       traceA.taille = 5
       labels = labelPoint(A)
       if (!this.interactif) {
         A.nom = lettreIndiceeDepuisChiffre(i * 3 + 1)
         B = point(abscisse[1][0] * tailleUnite, 0, l2)
-        traceB = tracePoint(B, 'blue')
+        traceB = tracePoint(B, orangeMathalea)
         traceB.epaisseur = 3
         traceB.taille = 5
         C = point(abscisse[2][0] * tailleUnite, 0, l3)
-        traceC = tracePoint(C, 'blue')
+        traceC = tracePoint(C, orangeMathalea)
         traceC.epaisseur = 3
         traceC.taille = 5
         labels = labelPoint(A, B, C)
       }
       if (this.interactif) {
-        texteCorr = `$${l1}\\left(${stringNombre(abscisse[0][1])}\\right).$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, labels)
+        texteCorr = mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, labels)
       } else {
-        texteCorr = `$${l1}\\left(${stringNombre(abscisse[0][1])}\\right)$, $~${l2}\\left(${stringNombre(abscisse[1][1])}\\right)$ et $~${l3}\\left(${stringNombre(abscisse[2][1])}\\right)$`
-        texteCorr += '<br>' + mathalea2d({ xmin: -2, xmax: 30, ymin: -1, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, traceB, traceC, labels)
+        texteCorr = mathalea2d({ xmin: -2, xmax: 30, ymin: -2, ymax: 1, pixelsParCm: 20, scale: 0.5 }, d[2 * i + 1], traceA, traceB, traceC, labels, label1, label2)
       }
       if (context.isAmc) {
         this.autoCorrection[i] =
