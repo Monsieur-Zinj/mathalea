@@ -5,6 +5,11 @@ import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Résoudre des équations se ramenant au produit-nul'
 
 /**
@@ -34,9 +39,13 @@ export default function Equationspresqueproduitnulle () {
 
   this.nouvelleVersion = function () {
     this.consigne = `Résoudre dans $\\mathbb R$ ${this.nbQuestions > 1 ? 'les équations suivantes' : 'l\'équation suivante'} :`
+    if (this.interactif) {
+      this.consigne += "<br>On donnera la réponse sous forme d'un ensemble de solution."
+    }
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
+    let valeursSolution
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, texte, texteCorr, cpt = 0, a, b, c, d, e, f, f1, f2, typesDeQuestions; i < this.nbQuestions && cpt < 50;) {
@@ -69,9 +78,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d - f, c + e)}$<br>
                        On en déduit :  `
             if ((-d - f) / (c + e) < -b / a) {
-              texteCorr += `$S=\\left\\{${fraction(-d - f, c + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-d - f, c + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}`
             } else {
-              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d - f, c + e).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-b, a).texFractionSimplifiee};${fraction(-d - f, c + e).texFractionSimplifiee}`
             }
           }
 
@@ -100,9 +109,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + f, c - e)}$<br>
                    On en déduit :  `
             if ((-d + f) / (c - e) < -b / a) {
-              texteCorr += `$S=\\left\\{${fraction(-d + f, c - e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-d + f, c - e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}`
             } else {
-              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d + f, c - e).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-b, a).texFractionSimplifiee};${fraction(-d + f, c - e).texFractionSimplifiee}`
             }
           }
 
@@ -130,9 +139,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-b - f, a + e)}$<br>
                On en déduit :  `
             if ((-b - f) / (a + e) < -b / a) {
-              texteCorr += `$S=\\left\\{${fraction(-b - f, a + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-b - f, a + e).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}`
             } else {
-              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-b - f, a + e).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-b, a).texFractionSimplifiee};${fraction(-b - f, a + e).texFractionSimplifiee}`
             }
           }
 
@@ -160,9 +169,9 @@ export default function Equationspresqueproduitnulle () {
             texteCorr += `$\\iff x=${texFractionSigne(-b, a)}\\quad$ ou $\\quad x=${texFractionSigne(-d + b, c - a)}$<br>
            On en déduit :  `
             if ((-d + b) / (c - b) < -b / a) {
-              texteCorr += `$S=\\left\\{${fraction(-d + b, c - a).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-d + b, c - a).texFractionSimplifiee};${fraction(-b, a).texFractionSimplifiee}`
             } else {
-              texteCorr += `$S=\\left\\{${fraction(-b, a).texFractionSimplifiee};${fraction(-d + b, c - a).texFractionSimplifiee}\\right\\}$`
+              valeursSolution = `${fraction(-b, a).texFractionSimplifiee};${fraction(-d + b, c - a).texFractionSimplifiee}`
             }
           }
 
@@ -195,12 +204,26 @@ export default function Equationspresqueproduitnulle () {
           f2 = fraction(-d + f, c - e)
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > (-d + f) / (c - e)) {
-            texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
+            valeursSolution = `${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}`
           } else if (-b / a < (-d + f) / (c - e)) {
-            texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
-          } else texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
+            valeursSolution = `${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}`
+          } else {
+            valeursSolution = `${f1.texFractionSimplifiee}`
+          }
           break
       }
+      texteCorr += `$S=\\left\\{${valeursSolution}\\right\\}$`
+      if (this.interactif) {
+        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01')
+        texte += ajouteFeedback(this, i)
+      }
+      handleAnswers(this, i, {
+        reponse: {
+          value: `\\{${valeursSolution}\\}`,
+          compare: fonctionComparaison,
+          options: { ensembleDeNombres: true }
+        }
+      }, { formatInteractif: 'calcul' })
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
