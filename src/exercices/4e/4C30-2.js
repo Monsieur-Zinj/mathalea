@@ -7,10 +7,11 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Decimal from 'decimal.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
-export const dateDeModifImportante = '05/09/2023'
+export const dateDeModifImportante = '16/09/2024'
 export const titre = 'Donner l\'écriture décimale d\'une puissance de 10'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -75,7 +76,7 @@ export default function EcritureDecimalePuissanceDe10 () {
           texte = this.interactif
             ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur15 inline nospacebefore')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
-          setReponse(this, i, Decimal.pow(10, -n))
+          handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           if (context.isHtml) {
             texteCorr = `$10^{${-n}}=\\dfrac{1}{10^{${n}}}=\\dfrac{1}{${puissanceEnProduit(10, n)}}=\\dfrac{1}{${texNombre(10 ** n, 0)}}=${miseEnEvidence(texNombre(Decimal.pow(10, -n), n))}$`
           } else {
