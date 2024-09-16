@@ -1,5 +1,6 @@
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import Exercice from '../../deprecatedExercice.js'
 export const titre = 'Calculer la moitié d’une fraction'
@@ -27,8 +28,8 @@ export default function CalculMoitieFraction () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur01 inline'
   this.compare = fonctionComparaison
-  this.optionsDeComparaison = { fractionSimplifiee: true }
-
+  this.optionsDeComparaison = { fractionIrreductible: true }
+  this.spacingCorr = 2.5
   this.nouvelleVersion = function () {
     const listeFractions = [[2, 3], [2, 5], [2, 7], [2, 9], [2, 11],
       [2, 13], [2, 15], [4, 3], [4, 7], [4, 9], [4, 11], [4, 13], [4, 15],
@@ -40,11 +41,13 @@ export default function CalculMoitieFraction () {
 
     const a = choice(listeFractions)
     const f = new FractionEtendue(a[0], a[1])
-    const reponse = new FractionEtendue(a[0], a[1] * 2).simplifie()
-    this.reponse = reponse
-    this.question = `Calculer la moitié de $${f.texFraction}$ et écrire le résultat sous la forme d'une fraction simplifiée.`
-    this.correction = `$${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
+    const reponse = new FractionEtendue(a[0], a[1] * 2)
+    this.reponse = reponse.simplifie()
+    this.question = `Calculer la moitié de $${f.texFraction}$ et écrire le résultat sous la forme d'une fraction simplifiée.<br>`
+    this.correction = `Prendre la moitié revient à diviser par $2$ et cela revient à multiplier par $\\dfrac{1}{2}$.<br>
+    $${f.texFraction}\\div 2=${f.texFraction}\\times \\dfrac{1}{2}=${reponse.texFraction}${reponse.texSimplificationAvecEtapes()}$
           `
+    this.correction += `<br>La moitié de $${f.texFraction}$ est $${miseEnEvidence(this.reponse.texFraction)}$.`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
