@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '29/08/2022'
-export const dateDeModifImportante = '27/09/2023'
+export const dateDeModifImportante = '16/09/2024'
 /**
  *
  * Attendus de 3e : Recourir à une décomposition en facteurs premiers dans des cas simples
@@ -141,7 +141,7 @@ export default function RecourirDecompositionFacteursPremiers () {
           setReponse(this, i, solution, { formatInteractif: 'texte' })
           break
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
