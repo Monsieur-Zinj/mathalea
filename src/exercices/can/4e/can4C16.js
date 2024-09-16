@@ -27,7 +27,7 @@ export default function MultiplierFraction () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur01 inline'
   this.compare = fonctionComparaison
-  this.optionsDeComparaison = { fractionSimplifiee: true }
+  this.optionsDeComparaison = { fractionIrreductible: true }
 
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],
@@ -45,7 +45,7 @@ export default function MultiplierFraction () {
     const f1 = new FractionEtendue(n1, d1)
     const f2 = new FractionEtendue(n2, d2)
     this.reponse = f1.produitFraction(f2).simplifie()
-    this.question = `Calculer et écrire sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.`
+    this.question = `Calculer et écrire sous la forme d'une fraction simplifiée : $${f1.texFraction}\\times ${f2.texFraction}$.<br>`
     this.correction = `$${f1.texProduitFraction(f2, false)}$`
     this.canEnonce = this.question
     this.canReponseACompleter = ''
