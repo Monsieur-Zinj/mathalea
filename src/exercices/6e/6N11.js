@@ -29,7 +29,6 @@ export const dateDeModificationImportante = '26/08/2024'
 /**
  * Lire l'abscisse entière d'un point
  * @author Jean-Claude Lhote et Rémi Angot
- * référence 6N11
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = 'acd4a'
@@ -160,8 +159,8 @@ export default function LireAbscisseEntiere2d () {
         ],
         labelCustomDistance: 1.5
       })
-      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, {})
-      const label2 = latex2d(`${texNombre(abs0 + 1 / pas1, 0)}`, 4, -0.7, {})
+      const label1 = latex2d(`${texNombre(abs0, 0)}`, 0, -0.7, { letterSize: 'scriptsize' })
+      const label2 = latex2d(`${texNombre(abs0 + 1 / pas1, 0)}`, 4, -0.7, { letterSize: 'scriptsize' })
       texte = mathalea2d(
         { xmin: -2, ymin: -1, xmax: 30, ymax: 2, pixelsParCm: 20, scale: 0.5 },
         d[2 * i]
@@ -211,7 +210,7 @@ export default function LireAbscisseEntiere2d () {
                 texte: '',
                 statut: '',
                 reponse: {
-                  texte: `Lire l\'abscisse de chacun des points.<br>${texte}<br>Abscisse de $${l1}$ :`,
+                  texte: `Lire l'abscisse de chacun des points.<br>${texte}<br>Abscisse de $${l1}$ :`,
                   valeur: reponse1,
                   param:
                   {
