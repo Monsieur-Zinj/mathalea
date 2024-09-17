@@ -9,6 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ecritureParentheseSiMoins } from '../../lib/outils/ecritures'
 
 export const titre = 'Calculer un carré'
 export const dateDePublication = '17/01/2023'
@@ -92,7 +93,7 @@ export default class calculsDeCarre extends Exercice {
           setReponse(this, i, entier * entier)
           break
         case 2: // entier relatif
-          texte = this.interactif ? `$${signe * entier}^2=$` : `$${signe * entier}$`
+          texte = this.interactif ? `$${ecritureParentheseSiMoins(signe * entier)}^2=$` : `$${signe * entier}$`
           texteCorr = signe === -1 ? `$(${signe * entier})^2` : `$${signe * entier}^2`
           texteCorr += `=${miseEnEvidence(entier * entier)}$`
           setReponse(this, i, entier * entier)
@@ -104,7 +105,7 @@ export default class calculsDeCarre extends Exercice {
           setReponse(this, i, decimal.pow(2))
           break
         case 4: // décimal relatif
-          texte = this.interactif ? `$${texNombre(signe * decimal, 2)}^2=$` : `$${texNombre(signe * decimal, 2)}$`
+          texte = this.interactif ? `$${ecritureParentheseSiMoins(texNombre(signe * decimal, 2))}^2=$` : `$${texNombre(signe * decimal, 2)}$`
           texteCorr = signe === -1 ? `$(${texNombre(signe * decimal, 2)})^2` : `$${texNombre(signe * decimal, 2)}^2`
           texteCorr += `=${miseEnEvidence(texNombre(decimal.pow(2), 2))}$`
           setReponse(this, i, decimal.pow(2))
