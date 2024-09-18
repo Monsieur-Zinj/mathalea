@@ -57,7 +57,7 @@ class ConstructionCarre extends Exercice {
     this.answers[this.idApigeom] = this.figure.json
     const resultat = []
     let feedback = ''
-    // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)
+    // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le carré est tracé)
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q0`) as HTMLDivElement
     const { isValid, message } = this.figure.checkAngle({ angle: 90, label1: 'A', label2: 'B', label3: 'C' })
     resultat.push(isValid ? 'OK' : 'KO')
