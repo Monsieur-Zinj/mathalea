@@ -389,7 +389,7 @@ function afficherNombre (nb: number | Decimal | FractionEtendue | string, precis
     if (nb.abs().lt(1)) {
       nbChiffresPartieEntiere = 0
     } else {
-      nbChiffresPartieEntiere = nb.abs().toFixed(0).length
+      nbChiffresPartieEntiere = nb.abs().floor().toFixed(0).length
     }
     if (nb.isInteger() && !aussiCompleterEntiers) precision = 0
     else if (typeof precision !== 'number') { // Si precision n'est pas un nombre, on le remplace par la valeur max acceptable

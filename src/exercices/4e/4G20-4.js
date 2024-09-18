@@ -7,10 +7,12 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '27/06/2021'
+export const dateDeModifImportante = '18/09/2024'
 export const titre = 'Arrondir une racine carrée'
 
 /**
@@ -29,7 +31,8 @@ export default function ArrondirUneValeur () {
   this.nbQuestions = 3
   this.nbColsCorr = 1
   this.version = 1
-  context.isHtml ? (this.spacingCorr = 2.5) : (this.spacingCorr = 3.5)
+  context.isHtml ? (this.spacing = 1.5) : (this.spacing = 2.5)
+  context.isHtml ? (this.spacingCorr = 1.5) : (this.spacingCorr = 2.5)
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
@@ -59,28 +62,28 @@ export default function ArrondirUneValeur () {
         }
       }
 
-      texte = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
+      texte = `Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n, 10)}.$`
 
-      texte += '<br>Arrondi à l\'unité : '
-      texte += ajouteChampTexteMathLive(this, 3 * i)
-      texteCorr = `$\\text{Quand~on~écrit~sur~la~calculatrice~} ${nb}, \\text{~elle~renvoie} : ${texNombre(n, 10)}.$`
-      texteCorr += '<br>Arrondi à l\'unité : '
-      texteCorr += `$${texNombre(n, 0)}$`
+      texte += '<br>Son arrondi à l\'unité est : '
+      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i) : '$\\ldots\\ldots\\ldots$'
+      // texteCorr = `Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n, 10)}.$`
+      texteCorr = `Arrondi à l'unité de $${texNombre(n, 10)}$ : `
+      texteCorr += `$${miseEnEvidence(texNombre(n, 0))}$`
       setReponse(this, 3 * i, n.round())
 
-      texte += '<br>Arrondi au dixième : '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 1)
-      texteCorr += '<br>Arrondi au dixième : '
-      texteCorr += `$${texNombre(n, 1)}$`
+      texte += '<br>Son arrondi au dixième est : '
+      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 1) : '$\\ldots\\ldots\\ldots$'
+      texteCorr += `<br>Arrondi au dixième de $${texNombre(n, 10)}$ : `
+      texteCorr += `$${miseEnEvidence(texNombre(n, 1, true))}$`
       setReponse(this, 3 * i + 1, n.toDP(1))
 
-      texte += '<br>Arrondi au centième : '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 2)
-      texteCorr += '<br>Arrondi au centième : '
-      texteCorr += `$${texNombre(n, 2)}$`
+      texte += '<br>Son arrondi au centième est : '
+      texte += this.interactif ? ajouteChampTexteMathLive(this, 3 * i + 2) : '$\\ldots\\ldots\\ldots$'
+      texteCorr += `<br>Arrondi au centième de $${texNombre(n, 10)}$ : `
+      texteCorr += `$${miseEnEvidence(texNombre(n, 2, true))}$`
       setReponse(this, 3 * i + 2, n.toDP(2))
 
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      if (this.questionJamaisPosee(i, n)) { // Si la question n'a jamais été posée, on en créé une autre
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
