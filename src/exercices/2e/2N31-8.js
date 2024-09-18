@@ -17,7 +17,6 @@ export const dateDePublication = '05/02/2021'
 /**
  * Utiliser les puissances de 10 et les préfixes kilo, Méga, Giga, Téra
  * @author Rémi Angot
-4C32-2
 */
 export const uuid = 'fedae'
 export const ref = '2N31-8'
@@ -61,7 +60,6 @@ nano : milliardième $\\times10^{-9}$<br>
       texteCorr = ''
       switch (listeTypeDeQuestions[i]) { // Suivant le type de question, le contenu sera différent
         case 'm>km':
-          texte = 'AAAAA '
           n = randint(6, 12)
           uniteOrdre = listeDeSens[i] === 'div' ? ['\\text{m}', '\\text{km}'] : ['\\text{km}', '\\text{m}']
           exposantReponse = listeDeSens[i] === 'div' ? n - 3 : n + 3
@@ -81,7 +79,7 @@ nano : milliardième $\\times10^{-9}$<br>
         case 'u>G':
           n = listeDeSens[i] === 'div' ? randint(13, 20) : randint(4, 10)
           unite = choice([['W', 'watts', 'watt'], ['Wh', 'watts-heure', 'watt-heure']])
-          uniteOrdre = listeDeSens[i] === 'div' ? [`\\text{${unite[0]}}`, `\\text{M${unite[0]}}`] : [`\\text{M${unite[0]}}`, `\\text{${unite[0]}}`]
+          uniteOrdre = listeDeSens[i] === 'div' ? [`\\text{${unite[0]}}`, `\\text{G${unite[0]}}`] : [`\\text{G${unite[0]}}`, `\\text{${unite[0]}}`]
           exposantReponse = listeDeSens[i] === 'div' ? n - 9 : n + 9
           correctionDetail = [`Il faut 1 milliard de ${unite[1]} pour 1 G${unite[0]}, on va donc diviser par 1 milliard, c'est-à-dire multiplier par $10^{-9}$.<br>`,
                `1 G${unite[0]}, c'est 1 milliard de ${unite[1]}, on va donc multiplier par 1 milliard, c'est-à-dire multiplier par $10^{9}$.<br>`

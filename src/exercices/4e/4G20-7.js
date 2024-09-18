@@ -290,9 +290,6 @@ export default class Pythagore2DBlockly extends Exercice {
         })
         secondaryWorkspace.idkey = 'workspace_sol_' + numExercice + '_' + questId + '_' + key
         const solution1 = JSON.parse(JSON.stringify(blocklypyt)) // POUR CLONER SINON BUG
-        // console.log('questId:' + questId)
-        // console.log('blockly loaded nbr:' + Blockly.Workspace.getAll().length)
-        // console.log('secondaryWorkspace.idkey:' + secondaryWorkspace.idkey)
         solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.prepoint = nomDuPolygone[0]
         solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.deuxpoint = nomDuPolygone[1]
         solution1.blocks.blocks[0].next.block.inputs.Condition.block.fields.troispoint = nomDuPolygone[2]
@@ -634,7 +631,6 @@ export default class Pythagore2DBlockly extends Exercice {
         feedback += 'Conclusion: le bloc conclusion avec le mauvais block<br>'
         spanResultat.innerHTML = '☹️'
         result = 'KO'
-
       }
       if (conclusion.type === 'egale_comp' && conclusion.getFieldValue('op') === equalOrApprox) {
         feedback += 'Conclusion: le bloc conclusion défini avec le bon signe<br>'
