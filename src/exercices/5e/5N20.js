@@ -2,7 +2,7 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { abs } from '../../lib/outils/nombres'
 import { pgcd } from '../../lib/outils/primalite'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
@@ -38,17 +38,21 @@ export const refs = {
   'fr-fr': ['5N20'],
   'fr-ch': ['9NO13-6']
 }
-export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
-  Exercice.call(this)
-  this.sup = max // Correspond au facteur commun
-  this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
-  this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
-  this.spacing = 2
-  this.spacingCorr = 2
-  this.nbQuestions = 5
-  this.nbColsCorr = 1
+export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercice {
+  constructor () {
+    super()
+    this.sup = 11 // Correspond au facteur commun
+    this.sup2 = 3 // Si 1 alors il n'y aura pas de soustraction
+    this.sup3 = true // Si false alors le résultat n'est pas en fraction simplifiée
+    this.spacing = 2
+    this.spacingCorr = 2
+    this.nbQuestions = 5
+    this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
+    this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
+    this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     if (this.sup3 && !context.isAmc) {
       this.consigne = 'Calculer'
       this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final simplifié au maximum.' : ' et simplifier au maximum le résultat.'
@@ -136,13 +140,14 @@ export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
         }
         if (ordreDesFractions === 1) {
           texteCorr = `$${f1.texFraction}+${f2.texFraction}=`
-
+          texte = `$${f1.texFraction}+${f2.texFraction}$`
           if (this.level !== 6) {
             texteCorr += `\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}+${f2.texFraction}=${fraction(a * k, b * k).texFraction}+${f2.texFraction}=`
           }
           texteCorr += `\\dfrac{${a * k}+${c}}{${d}}=${fraction(a * k + c, d).texFraction}$`
         } else {
           texteCorr = `$${f2.texFraction}+${f1.texFraction}=`
+          texte = `$${f2.texFraction}+${f1.texFraction}$`
           if (this.level !== 6) {
             texteCorr += `${f2.texFraction}+\\dfrac{${a}${miseEnEvidence('\\times ' + k, 'blue')}}{${b}${miseEnEvidence('\\times ' + k, 'blue')}}=${f2.texFraction}+${fraction(a * k, b * k).texFraction}=`
           }
@@ -232,7 +237,6 @@ export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
         }
 
         if (this.interactifType === 'mathLive') {
-          console.log(i, this.interactifType, new FractionEtendue(a * d - c * b, b * d).toLatex(), this.sup3)
           handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d - c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
@@ -255,7 +259,6 @@ export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
       }
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
-
       if (this.questionJamaisPosee(i, a, k, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
@@ -264,8 +267,4 @@ export default function ExerciceAdditionnerSoustraireFractions5ebis (max = 11) {
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
-
-  this.besoinFormulaireNumerique = ['Valeur maximale du coefficient multiplicateur', 99999]
-  this.besoinFormulaire2Numerique = ['Type de calculs', 3, '1 : Additions\n2 : Soustractions\n3 : Mélange']
-  this.besoinFormulaire3CaseACocher = ['Avec l\'écriture simplifiée de la fraction résultat']
 }
