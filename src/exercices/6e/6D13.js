@@ -53,6 +53,8 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
         this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
       } else {
         texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
+        this.canEnonce = `Convertir $${d}$ secondes en minutes et secondes.`
+        this.canReponseACompleter = '$\\ldots$ min $\\ldots$ s'
       }
       if (can) {
         if (listeTypeQuestions[i] === 'min vers h et min') {

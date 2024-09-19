@@ -21,5 +21,6 @@ export default function ConvertirMinutesHeures () {
   ConversionHeuresMinutesOuMinutesEtSecondes.call(this, true)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.correctionDetaillee = true
+  this.correctionDetailleeDisponible = false
+  this.correctionDetaillee = false
 }
