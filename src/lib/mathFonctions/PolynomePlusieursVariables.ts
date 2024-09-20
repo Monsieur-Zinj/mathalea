@@ -92,9 +92,13 @@ class PolynomePlusieursVariables {
     return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
   }
 
-  melangerTermes (): PolynomePlusieursVariables {
-    const nouveauxMonomes = shuffle(this.monomes)
-    return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+  melangerTermes (melange : boolean): PolynomePlusieursVariables {
+    if (melange) {
+      const nouveauxMonomes = shuffle(this.monomes)
+      return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+    } else {
+      return this
+    }
   }
 
   toStringSansLeDernierTerme (): string {

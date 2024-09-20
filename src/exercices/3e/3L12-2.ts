@@ -1,13 +1,15 @@
-import { max } from 'mathjs'
+import { max, min } from 'mathjs'
 import PolynomePlusieursVariables from '../../lib/mathFonctions/PolynomePlusieursVariables'
-import { choice, combinaisonListes, getRandomSubarray } from '../../lib/outils/arrayOutils'
+import { choice, getRandomSubarray } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import MonomePlusieursVariables from '../../lib/mathFonctions/MonomePlusieursVariables'
+import { pgcd } from '../../lib/outils/primalite'
+import IdentiteRemarquable from '../../lib/mathFonctions/IdentiteRemarquable'
 import FractionEtendue from '../../modules/FractionEtendue'
-export const titre = 'Factoriser à l\'aide de la mise en évidence'
-// ou des identités remarquables'
+export const titre = 'Factoriser à l\'aide de la mise en évidence ou des identités remarquables'
 export const dateDePublication = '10/09/2024'
 
 /**
@@ -26,15 +28,11 @@ export default class nomExercice extends Exercice {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
     this.nbQuestions = 10
-    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Mélange']
-    // this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Mélange']
-    this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence', 3, '1\n2\n3']
+    this.besoinFormulaireTexte = ['Choix des questions', 'Nombres séparés par des tirets\n1 - Mise en évidence\n2 - Identité remarquable (sans somme-produit)\n3 - Mise en évidence puis identité (sans somme-produit)\n4 - Identité remarquable (somme-produit)\n5 - Mise en évidence puis identité (somme-produit)\n6 - Identité remarquable (somme-produit avec degré > 0)\n7 - Mise en évidence puis identité (somme-produit avec degré > 0)\n8 - Mélange']
+    this.besoinFormulaire2Numerique = ['Degré maximum du monôme en évidence ou du monôme de l\'identité', 3, '1\n2\n3']
     this.besoinFormulaire3Numerique = ['Degré maximum du facteur restant', 5, '1\n2\n3\n4\n5']
     this.besoinFormulaire4Numerique = ['Nombre de variables différentes', 5, '1\n2\n3\n4\n5']
-    this.besoinFormulaire5CaseACocher = ['Consigne avec la méthode']
-    this.comment = 'Exercice en cours de développement. Les identités remarquables seront bientôt ajoutées.'
-    // this.besoinFormulaireCaseACocher = ['Type de coefficients', 3, 'Entiers\nFractionnaires\nMélange']
-    // this.besoinFormulaire5Numerique = ['Nombre de termes', 5, '1\n2\n3\n4\n5']
+    this.besoinFormulaire5CaseACocher = ['Mélanger les termes dans les identités']
     this.sup = 1
     this.sup2 = 1
     this.sup3 = 2
@@ -45,48 +43,31 @@ export default class nomExercice extends Exercice {
 
   nouvelleVersion () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser au maximum les expressions suivantes' : 'Factoriser au maximum l\'expression suivante'
-    if (this.sup5) {
-      if (this.sup === 1) {
-        this.consigne += ' en utilisant la méthode de la mise en évidence d\'un facteur commun.'
-      }
-      if (this.sup === 2) {
-        this.consigne += ' en utilisant la méthode des identités remarquables.'
-      }
-      if (this.sup === 3) {
-        this.consigne += ' en utilisant la méthode de la mise en évidence d\'un facteur commun ou des identités remarquables.'
-      }
-      if (this.sup === 4) {
-        this.consigne += ' en utilisant la méthode de la mise en évidence d\'un facteur commun et des identités remarquables.'
-      }
-    } else {
-      this.consigne += '.'
-    }
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
     const listeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
-      max: 1,
-      melange: 2,
-      defaut: 1,
+      max: 7,
+      melange: 8,
+      defaut: 2,
       nbQuestions: this.nbQuestions
 
     })
-    const degMin = 0
-    const listeTypeDeQuestions = combinaisonListes(listeDeQuestions, this.nbQuestions)
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr: string
       texte = ''
       texteCorr = ''
-      const degMax = max(this.sup3, 0)
       const variables = ['x', 'y', 'z', 'r', 's', 't']
-      const variablesSelect = getRandomSubarray(variables, this.sup4)
+      let variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeofCoeff = ['entier']
       let p1: PolynomePlusieursVariables
       let p2: PolynomePlusieursVariables
-      switch (listeTypeDeQuestions[i]) {
+      p1 = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] }))
+      p2 = PolynomePlusieursVariables.createPolynomeFromMonome(new MonomePlusieursVariables(new FractionEtendue(1, 1), { variables: [], exposants: [] }))
+      switch (listeDeQuestions[i]) {
         case 1:{
           do {
             do {
@@ -129,49 +110,97 @@ export default class nomExercice extends Exercice {
           }
           break
         }
-        case 2:{
-          p1 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 2, choice(typeofCoeff), variablesSelect)
-          p2 = PolynomePlusieursVariables.createRandomPolynome(degMin, degMax, 2, choice(typeofCoeff), variablesSelect, getRandomSubarray(p1.monomes, randint(1, 0)))
-          // On redéfinit à présent le coefficient des monômes fractionnaires afin que toutes les fractions soient des multiples les unes des autres
-          let testPremiereFraction = true
-          let denominateurCommun = 1
-          for (let i = 0; i < p1.monomes.length; i++) {
-            if (p1.monomes[i].coefficient.den !== 1) {
-              if (testPremiereFraction) {
-                denominateurCommun = p1.monomes[i].coefficient.den
-                testPremiereFraction = false
-              } else {
-                p1.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        {
+          if (this.sup4 === 1 && (listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7)) {
+            variablesSelect = getRandomSubarray(variables, this.sup4 + 1)
+          }
+          let pSP1: MonomePlusieursVariables
+          let pSP2: MonomePlusieursVariables
+          pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+          pSP2 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+          let pSP3: MonomePlusieursVariables
+          if (listeDeQuestions[i] === 3 || listeDeQuestions[i] === 5 || listeDeQuestions[i] === 7) {
+            pSP3 = MonomePlusieursVariables.createRandomMonome(randint(1, max(1, this.sup2)), choice(typeofCoeff), variablesSelect)
+            pSP3.coefficient = new FractionEtendue(choice([-5, -3, -2, -1, 2, 3, 5]), 1)
+          } else {
+            pSP3 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+            pSP3.coefficient = new FractionEtendue(1, 1)
+          }
+          do {
+            p1 = PolynomePlusieursVariables.createPolynomeFromMonome(MonomePlusieursVariables.createRandomMonome(randint(1, max(1, this.sup3)), choice(typeofCoeff), variablesSelect))
+          } while (p1.contientCarre())
+          do {
+            p2 = PolynomePlusieursVariables.createPolynomeFromMonome(MonomePlusieursVariables.createRandomMonome(randint(0, max(1, this.sup3)), choice(typeofCoeff), variablesSelect))
+          }
+          while (p2.somme(p1).miseEnFacteurCommun().toString() !== '1' || p2.monomes[0].estSemblable(p1.monomes[0]) || (p2.monomes[0].estCarre() && p2.monomes[0].toString() !== '1'))
+          if (listeDeQuestions[i] === 4 || listeDeQuestions[i] === 5) {
+            do {
+              pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+              pSP2 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
+            } while (pSP2.coefficient.num === pSP1.coefficient.num || pSP2.coefficient.num === -pSP1.coefficient.num || pgcd(p1.monomes[0].coefficient.num, pSP1.coefficient.num) !== 1 || pgcd(p1.monomes[0].coefficient.num, pSP2.coefficient.num) !== 1)
+          } else if (listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7) {
+            do {
+              do {
+                p1 = PolynomePlusieursVariables.createPolynomeFromMonome(MonomePlusieursVariables.createRandomMonome(randint(1, max(1, this.sup3)), choice(typeofCoeff), variablesSelect))
+              } while (p1.contientCarre())
+              pSP1 = MonomePlusieursVariables.createRandomMonome(randint(1, min(p1.monomes[0].degre, 2)), 'entier', variablesSelect)
+              pSP2 = MonomePlusieursVariables.createMonomeFromPartieLitterale('entier', pSP1.partieLitterale)
+            } while (pSP2.coefficient.num === pSP1.coefficient.num || pSP2.coefficient.num === -pSP1.coefficient.num || pgcd(p1.monomes[0].coefficient.num, pSP1.coefficient.num) !== 1 || pgcd(p1.monomes[0].coefficient.num, pSP2.coefficient.num) !== 1 || p1.somme(pSP1).miseEnFacteurCommun().toString() !== '1')
+          }
+          // if p1 is negative, take its opposite
+          if (p1.monomes[0].coefficient.signe < 0) {
+            p1 = p1.oppose()
+          }
+          if (p2.monomes[0].coefficient.signe < 0) {
+            p2 = p2.oppose()
+          }
+          if (listeDeQuestions[i] === 2 || listeDeQuestions[i] === 3) {
+            const j = choice([1, 1, 2, 2, 3])
+            if (j === 1) {
+              texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneSomme(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
+              if (listeDeQuestions[i] === 3) {
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}+${p2.toString()}\\right)\\mathclose{}^2`)}\\end{aligned}$`
+              } else if (listeDeQuestions[i] === 2) {
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
+              }
+            } else if (j === 2) {
+              texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.carreDuneDifference(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
+              if (listeDeQuestions[i] === 3) {
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}-${p2.toString()}\\right)\\mathclose{}^2`)}\\end{aligned}$`
+              } else if (listeDeQuestions[i] === 2) {
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}-${p2.toString()}\\right)^2`)}$`
+              }
+            } else if (j === 3) {
+              const signe = ['+', '-']
+              const choixSigne = randint(0, 1)
+              texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
+              if (listeDeQuestions[i] === 3) {
+                texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)\\mathclose{}`)}\\end{aligned}$`
+              } else if (listeDeQuestions[i] === 2) {
+                texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)`)}$`
               }
             }
           }
-          for (let i = 0; i < p2.monomes.length; i++) {
-            if (p2.monomes[i].coefficient.den !== 1) {
-              if (testPremiereFraction) {
-                denominateurCommun = p2.monomes[i].coefficient.den
-                testPremiereFraction = false
-              } else {
-                p2.monomes[i].coefficient = new FractionEtendue(randint(-10, 10, [0]), denominateurCommun * randint(-2, 2, [0]))
-              }
+          if (listeDeQuestions[i] === 4 || listeDeQuestions[i] === 5 || listeDeQuestions[i] === 6 || listeDeQuestions[i] === 7) {
+            const signeT1 = pSP1.coefficient.signe < 0 ? '' : '+'
+            const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
+            texte = `$${lettreDepuisChiffre(i + 1)}=${IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).produit(pSP3).melangerTermes(this.sup5).toString()}$`
+            if (listeDeQuestions[i] === 5 || listeDeQuestions[i] === 7) {
+              texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${miseEnEvidence(pSP3.toString())}\\mathopen{}\\left(${IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes(this.sup5).toString()}\\right)\\mathclose{}\\\\&=${miseEnEvidence(`${pSP3.toString()}\\mathopen{}\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\mathclose{}\\mathopen{}\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)\\mathclose{}`)}\\end{aligned}$`
+            } else if (listeDeQuestions[i] === 4 || listeDeQuestions[i] === 6) {
+              texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(`\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)`)}$`
             }
           }
-          let p3 : PolynomePlusieursVariables
-          p3 = p1
-          let avecSigne = false
-          if (this.sup5) {
-            if (randint(0, 1) === 0) {
-              p3 = p1.oppose()
-              avecSigne = true
-            } else {
-              p3 = p1
-            }
-          }
-          texte = `$${p3.produit(p2).miseEnFacteurCommun()}$ $p_3=${p3}, p_2=${p2}$`
-          texteCorr = `$\\begin{aligned}${lettreDepuisChiffre(i + 1)}&=${avecSigne ? `\\left(${p1.oppose().toString()}\\right)\\left(${p2.toString()}\\right)\\\\&=` : ''}${p3.produit(p2).toString()}\\\\&=${miseEnEvidence(p3.produit(p2).reduire().toString())}\\end{aligned}$`
           break
         }
       }
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, p1.monomes[0].coefficient.num.toString() + p2.monomes[0].coefficient.num.toString())) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

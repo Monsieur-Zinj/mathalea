@@ -109,7 +109,7 @@ export default class nomExercice extends Exercice {
         case 1:
         case 5:
         {
-          const expr = IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes()
+          const expr = IdentiteRemarquable.carreDuneSomme(p1, p2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}+${p2.toString()}\\right)^2`)}$`
           break
@@ -117,7 +117,7 @@ export default class nomExercice extends Exercice {
         case 2:
         case 6:
         {
-          const expr = IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes()
+          const expr = IdentiteRemarquable.carreDuneDifference(p1, p2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}-${p2.toString()}\\right)^2`)}$`
           break
@@ -127,7 +127,7 @@ export default class nomExercice extends Exercice {
         {
           const signe = ['+', '-']
           const choixSigne = randint(0, 1)
-          const expr = IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).melangerTermes()
+          const expr = IdentiteRemarquable.differenceDeDeuxCarres(p1, p2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}${signe[choixSigne]} ${p2.toString()}\\right)\\left(${p1.toString()}${signe[(choixSigne + 1) % 2]}${p2.toString()}\\right)`)}$`
           break
@@ -137,7 +137,7 @@ export default class nomExercice extends Exercice {
         {
           const signeT1 = pSP1.coefficient.signe < 0 ? '' : '+'
           const signeT2 = pSP2.coefficient.signe < 0 ? '' : '+'
-          const expr = IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes()
+          const expr = IdentiteRemarquable.sommeProduit(p1, pSP1, pSP2).melangerTermes(true)
           texte = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringSansLeDernierTerme()}\\,=\\,\\ldots\\ldots$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${expr.toStringAvecDernierTermeEnEvidence()}=${miseEnEvidence(`\\left(${p1.toString()}${signeT1}${pSP1.toString()}\\right)\\left(${p1.toString()}${signeT2}${pSP2.toString()}\\right)`)}$`
           break
