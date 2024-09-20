@@ -142,7 +142,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         } else {
           etiquettes.push({
             id: String(e + 1),
-            contenu: `$\\times ${texNombre(10 ** e, 0)}$`
+            contenu: `× ${stringNombre(10 ** e, 0)}`
           })
         }
       }
