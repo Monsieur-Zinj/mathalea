@@ -27,8 +27,6 @@ export default class ProblemeFractions extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBase
-    this.correctionDetailleeDisponible = true
-    this.correctionDetaillee = false
     this.spacing = 1.5
     this.spacingCorr = 1.5
     this.formatChampTexte = 'largeur01 inline'
