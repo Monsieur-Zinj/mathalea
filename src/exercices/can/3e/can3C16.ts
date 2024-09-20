@@ -1,0 +1,26 @@
+import NotationScientifique from '../../4e/4C32.js'
+export const titre = 'Simplifier des expressions exponentielles'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const amcReady = true
+export const amcType = 'AMCNum'
+
+export const dateDePublication = '20/09/2024' // La date de publication initiale au format 'jj/mm/aaaa' pour affichage temporaire d'un tag
+
+/*!
+ * @author
+ */
+export const uuid = '74fc9'
+
+export const refs = {
+  'fr-fr': ['can3C16'],
+  'fr-ch': []
+}
+class NotSci extends NotationScientifique {
+  constructor () {
+    super()
+    this.nbQuestions = 1
+    this.sup2 = 3
+  }
+}
+export default NotSci

@@ -35,12 +35,11 @@ export default function NotationScientifique () {
   this.nbColsCorr = 1
   this.nbQuestions = 5
   this.interactif = false
-
   this.nouvelleVersion = function () {
     Decimal.set({ toExpNeg: -15, toExpPos: 20 })
     let reponse
-    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique des nombres suivants.' : 'Donner la notation scientifique du nombre suivant.'
-    else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale des nombres suivants.' : 'Donner l\'écriture décimale du nombre suivant.'
+    if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique du nombre suivant.' : 'Donner la notation scientifique des nombres suivants.'
+    else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale du nombre suivant.' : 'Donner l\'écriture décimale des nombres suivants.'
     let typesDeQuestionsDisponibles
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -87,6 +86,7 @@ export default function NotationScientifique () {
           } else {
             exp = randint(1, 3) * choice([-1, 1])
           }
+
           break
       }
 
@@ -128,6 +128,7 @@ export default function NotationScientifique () {
             decimals: Math.max(0, listeTypeDeQuestions[i] - exp)
           })
         }
+
         if (context.isAmc) {
           texteAMC += '.'
           this.autoCorrection[i].reponse.valeur = [mantisse.mul(Decimal.pow(10, exp)).toString()]
