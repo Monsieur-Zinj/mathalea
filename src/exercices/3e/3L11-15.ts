@@ -96,7 +96,7 @@ export default class nomExercice extends Exercice {
         pSP1 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
         do {
           pSP2 = MonomePlusieursVariables.createRandomMonome(0, 'entier', variablesSelect)
-        } while (pSP2 === pSP1 || pSP2.oppose() === pSP1)
+        } while (pSP2.coefficient.num === pSP1.coefficient.num || pSP2.coefficient.num === -pSP1.coefficient.num)
         // if p1 is negative, take its opposite
         if (p1.coefficient.signe < 0) {
           p1 = p1.oppose()
