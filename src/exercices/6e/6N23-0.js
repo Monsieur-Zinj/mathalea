@@ -12,8 +12,8 @@ export const dateDeModifImportante = '08/09/2024'
 export const titre = 'Écrire un nombre décimal en chiffres ou en lettres'
 export const amcReady = true
 export const amcType = 'AMCNum'
-export const interactifReady = true
-export const interactifType = 'mathLive'
+// export const interactifReady = true // EE : J'enlève l'interactivité car elle a été mal codée. Faudrait le refaire avec des remplisLesBlancs ou Drag & Drop
+// export const interactifType = 'mathLive'
 
 /**
  * Lire un nombre / écrire un nombre : passer d'une écriture à une autre et inversement
