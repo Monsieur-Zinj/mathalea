@@ -351,9 +351,9 @@ class shikaku extends Exercice {
         const rotatedTopLeft = result.rectangles[index].topLeft
         const rotatedBottomRight = result.rectangles[index].bottomRight
 
-        console.log(`Rectangle ${index + 1}:`)
-        console.log(`  Avant rotation : topLeft = [${originalTopLeft}], bottomRight = [${originalBottomRight}]`)
-        console.log(`  Après rotation : topLeft = [${rotatedTopLeft}], bottomRight = [${rotatedBottomRight}]`)
+        console log(`Rectangle ${index + 1}:`)
+        console log(`  Avant rotation : topLeft = [${originalTopLeft}], bottomRight = [${originalBottomRight}]`)
+        console log(`  Après rotation : topLeft = [${rotatedTopLeft}], bottomRight = [${rotatedBottomRight}]`)
       })
     }
     displayRectanglesBeforeAndAfterRotation(grid, rectangles)

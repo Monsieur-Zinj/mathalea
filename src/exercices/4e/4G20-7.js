@@ -148,9 +148,9 @@ export default class Pythagore2DBlockly extends Exercice {
     const createAllBlockly = function () {
       const nbQ = that.nbQuestions
       const numExercice = numeroExercice
-      // console.log('nbQ:' + nbQ)
+      // console log('nbQ:' + nbQ)
       for (let k = 0; k < nbQ; k++) {
-        // console.log('k:' + k)
+        // console log('k:' + k)
         createBlockly(k, numExercice, that.saveArguments[k].nomDuPolygone, that.saveArguments[k].longueurBC, that.saveArguments[k].longueurAC, that.saveArguments[k].longueurAB, that.saveArguments[k].listeTypeDeQuestion, that.saveArguments[k].key)
       }
     }
@@ -272,7 +272,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else if (secondaryDiv !== null) {
         const workspaceExisting = retrieveWorkspace('workspace_sol_' + numExercice + '_' + questId)
         if (workspaceExisting) {
-          // console.log('dispatchEvent: dispose')
+          // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
         }
         const secondaryWorkspace = Blockly.inject(secondaryDiv, {
@@ -383,7 +383,7 @@ export default class Pythagore2DBlockly extends Exercice {
             y += element.offsetTop
             element = element.offsetParent
             nb++
-            // console.log('Co:x:' + x + ';y=' + y)
+            // console log('Co:x:' + x + ';y=' + y)
           } while (element && nb < 2)
           // Position blocklyDiv over blocklyArea.
           secondaryDiv.style.left = x + 'px'
@@ -391,7 +391,7 @@ export default class Pythagore2DBlockly extends Exercice {
           secondaryDiv.style.width = secondaryArea.offsetWidth + 'px'
           secondaryDiv.style.height = secondaryArea.offsetHeight + 'px'
           Blockly.svgResize(secondaryWorkspace)
-          // console.log('resize2')
+          // console log('resize2')
         }
         onresize2()
         window.addEventListener('resize', onresize2, false)
@@ -407,7 +407,7 @@ export default class Pythagore2DBlockly extends Exercice {
       } else if (blocklyDiv !== null) {
         const workspaceExisting = retrieveWorkspace('workspace_quest_' + numExercice + '_' + questId)
         if (workspaceExisting) {
-          // console.log('dispatchEvent: dispose')
+          // console log('dispatchEvent: dispose')
           workspaceExisting.dispose()
         }
         const demoWorkspace = Blockly.inject(blocklyDiv, {
@@ -436,8 +436,8 @@ export default class Pythagore2DBlockly extends Exercice {
           }
         })
         demoWorkspace.idkey = 'workspace_quest_' + numExercice + '_' + questId + '_' + key
-        // console.log('blockly loaded nbr:' + Blockly.Workspace.getAll().length)
-        // console.log('demoWorkspace.idkey:' + demoWorkspace.idkey)
+        // console log('blockly loaded nbr:' + Blockly.Workspace.getAll().length)
+        // console log('demoWorkspace.idkey:' + demoWorkspace.idkey)
 
         const onresize = function () {
           // Compute the absolute coordinates and dimensions of blocklyArea.
@@ -449,7 +449,6 @@ export default class Pythagore2DBlockly extends Exercice {
             x += element.offsetLeft
             y += element.offsetTop
             element = element.offsetParent
-            // console.log('x:' + x + ';y=' + y + ';w=' + blocklyArea.offsetWidth + ';h=' + blocklyArea.offsetHeight)
             nb++
           } while (element && nb < 2)
           // Position blocklyDiv over blocklyArea.
@@ -457,7 +456,6 @@ export default class Pythagore2DBlockly extends Exercice {
           blocklyDiv.style.top = y + 'px'
           blocklyDiv.style.width = blocklyArea.offsetWidth + 'px'
           blocklyDiv.style.height = blocklyArea.offsetHeight + 'px'
-          // console.log('fi:x:' + x + ';y=' + y + ';w=' + blocklyArea.offsetWidth + ';h=' + blocklyArea.offsetHeight)
           Blockly.svgResize(demoWorkspace)
         }
         window.addEventListener('resize', onresize, false)

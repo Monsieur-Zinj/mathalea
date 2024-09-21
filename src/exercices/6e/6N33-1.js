@@ -62,7 +62,6 @@ export default class PourcentageDunNombre extends Exercice {
       nbQuestions: this.nbQuestions,
       listeOfCase: [10, 20, 25, 30, 40, 50, 60, 75, 90]
     })
-    console.log(pourcentages)
     for (
       let i = 0, texte, texteCorr, cpt = 0;
       i < this.nbQuestions && cpt < 50;
