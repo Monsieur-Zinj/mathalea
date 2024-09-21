@@ -406,9 +406,10 @@ export class TexteParPointEchelle extends ObjetMathalea2D {
   }
 
   tikz () {
-    if (this.mathOn && this.texte[0] !== '$') this.texte = '$' + this.texte + '$'
+    let copyThistexte = this.texte
+    if (this.mathOn && copyThistexte[0] !== '$') copyThistexte = '$' + this.texte + '$'
     return `\\draw [color=${this.color[1]}] (${String(arrondi(this.point.x))},${String(arrondi(this.point.y))
-        }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${this.texte}};`
+        }) node[anchor = ${tikzAncrages[this.ancrageDeRotation]}, rotate = ${String(-this.orientation)}, scale=${(this.scale * this.scaleFigure * 1.25).toFixed(2)}] {${copyThistexte}};`
   }
 }
 export function texteParPointEchelle (texte:string, A:Point, orientation:number = 0, color:string = 'black', scale:number = 1, ancrageDeRotation:'milieu'|'droite'|'gauche' = 'milieu', mathOn:boolean = false, scaleFigure: number = 1):TexteParPointEchelle {
