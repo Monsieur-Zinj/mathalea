@@ -8,6 +8,7 @@ import type {
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
 import { canOptions } from './canStore'
+import { buildDsParams } from '../components/urls'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -181,15 +182,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('recorder')
   }
   if (options.v === 'diaporama' || options.v === 'overview') {
-    let ds = ''
-    ds += options.nbVues?.toString() ?? '1'
-    ds += options.flow?.toString() ?? '0'
-    ds += options.screenBetweenSlides ? '1' : '0'
-    ds += options.sound?.toString() ?? '0'
-    ds += options.shuffle ? '1' : '0'
-    ds += options.manualMode ? '1' : '0'
-    ds += options.pauseAfterEachQuestion ? '1' : '0'
-    url.searchParams.append('ds', ds)
+    url.searchParams.append('ds', buildDsParams())
     if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
       url.searchParams.append('select', options.select.join('-'))
     }

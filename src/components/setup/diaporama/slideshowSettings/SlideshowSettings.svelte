@@ -24,8 +24,6 @@
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
 
-  updateSelect($globalOptions.select?.filter((index: number) => index < exercises.length))
-
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
   }

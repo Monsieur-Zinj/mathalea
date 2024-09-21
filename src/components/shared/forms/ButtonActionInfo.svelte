@@ -28,6 +28,13 @@
   let actionFunction: () => void
   $: actionFunction = action === 'copy' ? copyToClipboard : downloadFile
 
+  // Reactive statement to update actionFunction when textToCopy changes
+  $: if (action === 'copy') {
+    actionFunction = copyToClipboard
+  } else {
+    actionFunction = downloadFile
+  }
+
   function copyToClipboard () {
     if (textToCopy === '') {
       console.error('Le texte à copier est vide')
