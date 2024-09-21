@@ -26,7 +26,7 @@ export const refs = {
   'fr-fr': ['4G20-4'],
   'fr-ch': ['10NO3-2']
 }
-export default function ArrondirUneValeur () {
+export default function ArrondirUneValeur4e () {
   Exercice.call(this)
   this.nbQuestions = 3
   this.nbColsCorr = 1

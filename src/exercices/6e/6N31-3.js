@@ -5,7 +5,6 @@ import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { troncature } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
-import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -30,7 +29,7 @@ export const refs = {
   'fr-fr': ['6N31-3'],
   'fr-ch': ['9NO7-6']
 }
-export default function ArrondirUneValeur () {
+export default function ArrondirUneValeur6e () {
   Exercice.call(this)
 
   this.nbQuestions = 3
@@ -45,8 +44,6 @@ export default function ArrondirUneValeur () {
     } else if (this.version === 4) {
       this.sup = 4
     }
-    this.sup = parseInt(this.sup)
-    this.sup2 = parseInt(this.sup2)
     if (this.sup === 2 && !context.isHtml) {
       this.spacingCorr = 2.5
       this.spacing = 1.5
@@ -62,21 +59,15 @@ export default function ArrondirUneValeur () {
       this.consigne = 'Quels sont les encadrements où la valeur orange est la valeur arrondie du nombre à l\'unité, au dixième et au centième ?'
     }
 
-    const tabrep = []
-    const tabicone = []
-    const preTabRep = []
-    let preTabIcone = []
-    let espace = ''
-    if (context.isHtml) {
-      espace = '<br>'
-    } else {
-      espace = '\\\\'
-    }
     this.listeQuestions = []
     this.listeCorrections = []
     let m, c, d, u, di, ci, mi, me, ce, de, n, den, num, nb, nbSansDegree, rac, angle, v
     const listeTypeDeQuestion = this.sup < 5 ? combinaisonListes([this.sup], this.nbQuestions) : combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     for (let i = 0, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      const tabrep = []
+      const tabicone = []
+      const preTabRep = []
+      let preTabIcone = []
       this.autoCorrection[i] = {}
       switch (listeTypeDeQuestion[i]) {
         case 1: // arrondir un nombre simplement
@@ -93,7 +84,6 @@ export default function ArrondirUneValeur () {
           n = me * m * 1000 + ce * c * 100 + de * d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001)
           nb = texNombre(n)
           texte = `$${nb}$`
-
           break
         case 2: // arrondir une fraction
           den = choice([7, 9, 11, 13])
@@ -103,16 +93,18 @@ export default function ArrondirUneValeur () {
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = ` $${nb}\\quad (\\text{Quand on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${num}\\div ${den}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.$`
+          texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${num}\\div ${den}$, elle renvoie : $${texNombre(n)}$.)`
           break
         case 3: // arrondir une racine carrée
-          rac = randint(2, 300, [listeNombresPremiersStrictJusqua(300)])
+          rac = randint(2, 300, [4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289])
+          rac = choice([2, 28, 14, 15])
           n = Math.sqrt(rac)
           nb = `\\sqrt{${rac}}`
           di = 10 * (troncature(n - troncature(n, 0), 1))
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
-          texte = ` $${nb}\\quad (\\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nb}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}.)$`
+          texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n)}$.)`
+          console.log(n, di)
           break
         case 4: // arrondir un calcul de longueur avec un cosinus
           v = randint(11, 99) / 10
@@ -132,7 +124,7 @@ export default function ArrondirUneValeur () {
             ci = 100 * (troncature(n - troncature(n, 1), 2))
             mi = 1000 * (troncature(n - troncature(n, 2), 3))
           }
-          texte = `$${nb}\\quad \\text{Quand${sp()}on${sp()}écrit${sp()}sur${sp()}la${sp()}calculatrice${sp()}} ${nbSansDegree}, \\text{${sp()}elle${sp()}renvoie} : ${texNombre(n)}$.`
+          texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${nbSansDegree}$, elle renvoie : $${texNombre(n)}$.)`
           break
       }
 
@@ -182,7 +174,7 @@ export default function ArrondirUneValeur () {
         tabicone.push(preTabIcone[0], preTabIcone[1])
       }
 
-      texteCorr += `<br>Encadrement et arrondi au centième : ${sp()}`
+      texteCorr += '<br>Encadrement et arrondi au centième :  '
       if (mi < 5) {
         texteCorr += `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
         preTabRep[0] = `$${miseEnEvidence(texNombre(troncature(n, 2)))} < ${nb} < ${texNombre(troncature(n + 0.01, 2))}$`
@@ -243,13 +235,12 @@ export default function ArrondirUneValeur () {
       if (this.modeQcm && !context.isAmc) {
         texte += '<br><br>Réponses possibles : <br>  '
         texteCorr = ''
-        // shuffle2tableaux(tabrep, tabicone);
         for (let i = 0; i < 6; i++) {
-          texte += `$\\square\\;$ ${tabrep[i]}` + espace
+          texte += `$\\square\\;$ ${tabrep[i]}<br>`
           if (tabicone[i] === 1) {
-            texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}` + espace
+            texteCorr += `$\\blacksquare\\;$ ${tabrep[i]}<br>`
           } else {
-            texteCorr += `$\\square\\;$ ${tabrep[i]}` + espace
+            texteCorr += `$\\square\\;$ ${tabrep[i]}<br>`
           }
         }
       }
@@ -282,10 +273,10 @@ export default function ArrondirUneValeur () {
           ]
         }
       }
-      const props = propositionsQcm(this, i)
       if (this.questionJamaisPosee(i, di, ci, mi)) {
         // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
+          const props = propositionsQcm(this, i)
           texte += props.texte
         }
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
@@ -299,7 +290,5 @@ export default function ArrondirUneValeur () {
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de nombres', 2, ' 1 : Nombres décimaux\n 2 : Fractions']
-  if (context.isAmc) {
-    this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Questions ouvertes']
-  }
+  this.besoinFormulaire2Numerique = ['Choix de sortie AMC', 2, ' 1 : QCM\n 2 : Question ouverte']
 }
