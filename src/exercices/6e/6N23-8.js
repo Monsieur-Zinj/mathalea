@@ -8,7 +8,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
-export const titre = 'Donner l\'écriture décimale d\'une fraction décimale'
+export const titre = 'Donner l\'écriture décimale ou la fraction décimale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true

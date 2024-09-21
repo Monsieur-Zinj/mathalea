@@ -6,7 +6,7 @@ import {
   texteEnCouleurEtGras
 } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import {
   gestionnaireFormulaireTexte,
@@ -17,7 +17,7 @@ import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre =
-  "Ranger une liste de nombres entiers dans l'ordre croissant ou décroissant"
+  "Ranger des nombres entiers dans l'ordre croissant ou décroissant"
 export const dateDeModificationImportante = '28/08/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -46,25 +46,25 @@ function myOrdre (ordre, tab) {
   }
 }
 
-export default function RangerOrdreCroissantDecroissant () {
-  Exercice.call(this)
-  this.beta = false
-  this.sup = 1
-  if (this.beta) {
+export default class RangerOrdreCroissantDecroissant extends Exercice {
+  constructor () {
+    super()
+    this.sup = 1
+    this.sup2 = false
     this.nbQuestions = 2
-  } else {
-    this.nbQuestions = 2
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.spacing = context.isHtml ? 3 : 1.5
+    this.spacingCorr = context.isHtml ? 2.5 : 1.5
+
+    this.besoinFormulaireTexte = [
+      'Croissance',
+      'Nombres séparés par des tirets\n1 : Croissant\n2 : Décroissant\n3 : Mélange'
+    ]
+    this.besoinFormulaire2CaseACocher = ['Nombres décimaux']
   }
 
-  // this.consigne = `Classer les nombres suivants dans l'ordre indiqué.`;
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  // this.nbQuestionsModifiable = false;
-  this.spacing = context.isHtml ? 3 : 2
-  this.spacingCorr = context.isHtml ? 2.5 : 1.5
-
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.reinit()
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -89,25 +89,39 @@ export default function RangerOrdreCroissantDecroissant () {
       const ordre = croissant ? 'croissant' : 'décroissant'
       const symbole = croissant ? '~<~' : '~>~'
       const symboleCorr = miseEnEvidence(symbole)
-      // pour les situations, autant de situations que de cas dans le switch !
-      const n1 = Number([c1, c2, c3, c4, c5].map(String).join(''))
-      const n2 = Number([c1, c3, c3, c4, c5].map(String).join(''))
-      const n3 = Number([c1, c2, c5, c4, c3].map(String).join(''))
-      const n4 = Number([c1, randint(0, 9), randint(0, 9), randint(0, 9)].map(String).join(''))
-      const n5 = Number([1, randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9)].map(String).join(''))
-      const n6 = Number([c1, c2, randint(0, 9), randint(0, 9), randint(0, 9)].map(String).join(''))
-      // const enonces = []
-      const nombres = shuffle([n1, n2, n3, n4, n5, n6])
-      const nombresRanges = myOrdre(ordre, nombres.slice())
+      // pour les situations, autant de situations
+      let nombres
+      let nombresRanges
+      if (this.sup2) {
+        const pos = randint(0, 1) // virgule
+        const n1 = Number([c1, c2, pos === 0 ? '.' : '', c3, pos === 1 ? '.' : '', c4, c5].map(String).join(''))
+        const n2 = Number([c1, c3, pos === 0 ? '.' : '', c3, pos === 1 ? '.' : '', c4, c5].map(String).join(''))
+        const n3 = Number([c1, c2, pos === 0 ? '.' : '', c5, pos === 1 ? '.' : '', c4, c3].map(String).join(''))
+        const n4 = Number([c1, c2, pos === 0 ? '.' : '', randint(0, 9), pos === 1 ? '.' : '', randint(0, 9)].map(String).join(''))
+        const n5 = Number([c1, randint(0, 9), pos === 0 ? '.' : '', 0, pos === 1 ? '.' : '', randint(0, 9)].map(String).join(''))
+        const n6 = Number([c1, c2, pos === 0 ? '.' : '', randint(0, 9)].map(String).join(''))
+        nombres = shuffle([n1, n2, n3, n4, n5, n6])
+        nombresRanges = myOrdre(ordre, nombres.slice())
+      } else {
+        const n1 = Number([c1, c2, c3, c4, c5].map(String).join(''))
+        const n2 = Number([c1, c3, c3, c4, c5].map(String).join(''))
+        const n3 = Number([c1, c2, c5, c4, c3].map(String).join(''))
+        const n4 = Number([c1, randint(0, 9), randint(0, 9), randint(0, 9)].map(String).join(''))
+        const n5 = Number([1, randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9), randint(0, 9)].map(String).join(''))
+        const n6 = Number([c1, c2, 0, randint(0, 9), randint(0, 9)].map(String).join(''))
+        nombres = shuffle([n1, n2, n3, n4, n5, n6])
+        nombresRanges = myOrdre(ordre, nombres.slice())
+      }
 
       // autant de case que d'elements dans le tableau des situations
-      texte = `Classer les nombres suivants dans l'ordre ${ordre} :<br>$${nombres.map((nb) => texNombre(nb, 0)).join('\\text{ ; }')}$.<br>`
+      texte = `Classer les nombres suivants dans l'ordre ${ordre} :<br>$${nombres.map((nb) => texNombre(nb, this.sup2 ? 8 : 0)).join('\\text{  ; \\ \\  }')}$.<br>`
       texte += remplisLesBlancs(this,
         i,
         `%{champ1}${symbole}%{champ2}${symbole}%{champ3}${symbole}%{champ4}${symbole}%{champ5}${symbole}%{champ6}`,
-        ` ${KeyboardType.numbersSpace}`
+        ` ${KeyboardType.numbersSpace}`,
+        '\\ldots\\ldots'
       )
-      texteCorr = `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(ordre)} :<br>$${nombresRanges.map((nb) => texNombre(nb, 0)).join(symboleCorr)}$`
+      texteCorr = `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(ordre)} :<br>$${nombresRanges.map((nb) => texNombre(nb, this.sup2 ? 8 : 0)).join(symboleCorr)}$`
       const listeChamps = nombresRanges.map(nb => texNombre(nb, 0)).map((el, index) => [`champ${index + 1}`, { value: el }])
       const objetReponse = Object.fromEntries([...listeChamps])
       handleAnswers(this, i, objetReponse)
@@ -121,8 +135,4 @@ export default function RangerOrdreCroissantDecroissant () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireTexte = [
-    'Croissance',
-    'Nombres séparés par des tirets\n1 : Croissant\n2 : Décroissant\n3 : Mélange'
-  ]
 }
