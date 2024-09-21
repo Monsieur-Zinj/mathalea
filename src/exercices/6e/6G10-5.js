@@ -109,6 +109,8 @@ export default class constructionElementaire extends Exercice {
       if (this.interactif) {
         this.idApigeom = `apiGeomEx${this.numeroExercice}Q${i}`
         const figure = new Figure({ xMin: -0.9, yMin: -8.9, width: 408, height: 468 })
+        figure.options.labelAutomaticBeginsWith = E.nom
+        figure.options.thickness = 2
         this.figures[i] = figure
         /* if (this.sup < 3) { // Je l'ai enlevé car il n'existe pas les carreaux Seyes en interactif.
           figure.create('Grid', {
@@ -122,10 +124,14 @@ export default class constructionElementaire extends Exercice {
         this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom, isFree: false })
         this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom, isFree: false })
         this.D = figure.create('Point', { x: D.x, y: D.y, label: D.nom, isFree: false })
+        this.A.isDeletable = false
+        this.B.isDeletable = false
+        this.C.isDeletable = false
+        this.D.isDeletable = false
         this.Enom = E.nom
         this.Fnom = F.nom
 
-        figure.setToolbar({ tools: ['POINT', 'LINE', 'SEGMENT', 'RAY', 'POINT_INTERSECTION', 'POINT_ON', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE', 'SHAKE', 'SET_OPTIONS'] })
+        figure.setToolbar({ tools: ['POINT', 'LINE', 'SEGMENT', 'RAY', 'POINT_INTERSECTION', 'POINT_ON', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE', 'SET_OPTIONS'] })
         const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure })
         enonce += emplacementPourFigure
       } else {
@@ -256,7 +262,6 @@ export default class constructionElementaire extends Exercice {
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
-    figure.buttons.get('SHAKE')?.click()
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
