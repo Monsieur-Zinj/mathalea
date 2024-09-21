@@ -1,9 +1,7 @@
 import loadjs from 'loadjs'
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 // import JSON uuidsRessources
-import uuidsRessources from '../json/uuidsRessources.json'
 import renderMathInElement from 'katex/dist/contrib/auto-render.js'
 import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
@@ -11,7 +9,7 @@ import type TypeExercice from '../exercices/Exercice'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
 import referentielStaticFR from '../json/referentielStaticFR.json'
 import referentielStaticCH from '../json/referentielStaticCH.json'
@@ -32,7 +30,6 @@ import { delay } from './components/time.js'
 import { contraindreValeur } from '../modules/outils.js'
 import { isIntegerInRange0to2, isIntegerInRange0to4, isIntegerInRange1to4 } from './types/integerInRange.js'
 import { resizeContent } from './components/sizeTools.js'
-import { isStatic } from './components/exercisesUtils'
 
 const ERROR_MESSAGE = 'Erreur - Veuillez actualiser la page et nous contacter si le problème persiste.'
 
@@ -651,10 +648,10 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
-            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {}) + ajouteFeedback(exercice, i)
           )
         } else {
-          exercice.listeQuestions.push(exercice.question)
+          exercice.listeQuestions.push(exercice.question || '')
         }
       } else {
         // La question doit contenir une unique variable %{champ1} On est en fillInTheBlank
@@ -666,8 +663,8 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
         }
       }
       exercice.listeCorrections.push(exercice.correction ?? '')
-      exercice.listeCanEnonces.push(exercice.canEnonce ?? '')
-      exercice.listeCanReponsesACompleter.push(exercice.canReponseACompleter ?? '')
+      exercice.listeCanEnonces?.push(exercice.canEnonce ?? '')
+      exercice.listeCanReponsesACompleter?.push(exercice.canReponseACompleter ?? '')
       cptSecours = 0
       i++
     } else {
@@ -736,7 +733,7 @@ export function mathaleaFormatExercice (texte = ' ') {
  * @param {string} oldComponent composant à changer
  * @param {string} newComponent composant à afficher
  */
-export function mathaleaHandleComponentChange (oldComponent: string, newComponent: string) {
+export function mathaleaHandleComponentChange (oldComponent: string, newComponent: '' | 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle') {
   const oldPart = '&v=' + oldComponent
   const newPart = newComponent === '' ? '' : '&v=' + newComponent
   const urlString = window.location.href.replace(oldPart, newPart)
@@ -829,7 +826,7 @@ async function load (name: 'giac' | 'mathgraph') {
   // loadjs.ready veut une callback, on emballe ça dans une promesse
   return new Promise((resolve, reject) => {
     loadjs.ready(name, {
-      // @ts-ignore
+      // @ts-expect-error : on ne peut pas typé correctement les callbacks de loadjs
       success: resolve,
       // si le chargement précédent a réussi on voit pas trop comment on pourrait arriver là, mais ça reste plus prudent de gérer l'erreur éventuelle
       error: () => reject(new Error(`Le chargement de ${name} a échoué`))
@@ -843,17 +840,17 @@ async function load (name: 'giac' | 'mathgraph') {
  */
 function waitForGiac () {
   /* global Module */
-  // @ts-ignore
+  // @ts-expect-error : Module est défini par giacsimple
   if (typeof Module !== 'object' || typeof Module.ready !== 'boolean') return Promise.reject(Error('Le loader giac n’a pas été correctement appelé'))
   const timeout = 60 // en s
   const tsStart = Date.now()
   return new Promise((resolve, reject) => {
     const monInterval = setInterval(() => {
       const delay = Math.round((Date.now() - tsStart) / 1000)
-      // @ts-ignore
+      // @ts-expect-error : Module est défini par giacsimple
       if (Module.ready === true) {
         clearInterval(monInterval)
-        // @ts-ignore
+        // @ts-expect-error : Module est défini par giacsimple
         resolve()
       } else if (delay > timeout) {
         clearInterval(monInterval)
@@ -876,8 +873,8 @@ export async function loadGiac () {
 
 function animationLoading (state: boolean) {
   if (state) {
-    document.getElementById('loading').classList.remove('hidden')
+    document.getElementById('loading')?.classList.remove('hidden')
   } else {
-    document.getElementById('loading').classList.add('hidden')
+    document.getElementById('loading')?.classList.add('hidden')
   }
 }
