@@ -148,9 +148,6 @@ export type ReferentielForList = {
   activated: boolean
 }
 
-// Pour designer la page appelant un export
-export type CallerComponentType = '' | 'tools'
-
 // Pour les exercices statiques de la bibliotheque
 export interface bibliothequeExercise {
   uuid: string

@@ -1,9 +1,9 @@
 import { get, writable } from 'svelte/store'
 import type {
-  CallerComponentType,
   InterfaceGlobalOptions,
   InterfaceParams,
   InterfaceResultExercice,
+  VueType,
   bibliothequeExercise
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
@@ -81,7 +81,7 @@ export const isExportMenuVisible = writable<boolean>(false)
 export const isSideMenuVisible = writable<boolean>(true)
 
 // pour garder trace de la page appelant l'export
-export const callerComponent = writable<CallerComponentType>('')
+export const previousView = writable<'' | VueType>('')
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])

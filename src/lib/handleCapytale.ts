@@ -1,6 +1,6 @@
 import type { Activity, InterfaceResultExercice } from '../lib/types.js'
 import { capytaleMode, exercicesParams, globalOptions, resultsByExercice } from './stores/generalStore.js'
-import { mathaleaHandleComponentChange, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
+import { mathaleaGoToView, mathaleaWriteStudentPreviousAnswers } from './mathalea.js'
 import { get } from 'svelte/store'
 import { RPC } from '@mixer/postmessage-rpc'
 import { canOptions as canOptionsStore } from './stores/canStore.js'
@@ -72,13 +72,13 @@ async function toolSetActivityParams ({ mode, activity, workflow, studentAssignm
   if (mode !== 'create') {
     // Vue élève
     if (newCanOptions?.isChoosen) {
-      mathaleaHandleComponentChange('', 'can')
+      mathaleaGoToView('can')
       globalOptions.update((l) => {
         l.v = 'can'
         return l
       })
     } else {
-      mathaleaHandleComponentChange('', 'eleve')
+      mathaleaGoToView('eleve')
       globalOptions.update((l) => {
         l.v = 'eleve'
         return l

@@ -7,7 +7,7 @@ import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
@@ -731,18 +731,15 @@ export function mathaleaFormatExercice (texte = ' ') {
   return formattedText
 }
 
-/**
- * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
- * @param {string} oldComponent composant à changer
- * @param {string} newComponent composant à afficher
- */
-export function mathaleaHandleComponentChange (oldComponent: string, newComponent: '' | VueType) {
-  const oldPart = '&v=' + oldComponent
-  const newPart = newComponent === '' ? '' : '&v=' + newComponent
+export function mathaleaGoToView (destinationView: '' | VueType) {
+  const originView = get(globalOptions).v ?? ''
+  const oldPart = '&v=' + originView
+  const newPart = destinationView === '' ? '' : '&v=' + destinationView
   const urlString = window.location.href.replace(oldPart, newPart)
+  previousView.set(originView)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
-    l.v = newComponent === '' ? undefined : newComponent
+    l.v = destinationView === '' ? undefined : destinationView
     return l
   })
 }
