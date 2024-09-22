@@ -9,10 +9,9 @@ import { texteGras } from '../../lib/format/style'
 import { abs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre, numAlpha } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { max, min } from 'mathjs'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -46,7 +45,7 @@ export default function MesurerUnAngleAvecRapporteur () {
     this.autoCorrection = []
     let figureExo
 
-    for (let i = 0, texteAMC, posA, sudOuest, nordOuest, sudEst, nordEst, texte, texteCorr, paramsEnonce, paramsCorrection; i < this.nbQuestions; i++) {
+    for (let i = 0, texteAMC, posA, sudOuest, nordOuest, sudEst, nordEst, texte, texteCorr; i < this.nbQuestions; i++) {
       const propositionsAMC = []
       // On prépare la figure...
       const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
@@ -276,28 +275,8 @@ export default function MesurerUnAngleAvecRapporteur () {
           }
         }
       }
-      // paramètres de la fenêtre Mathalea2d pour l'énoncé normal
 
-      paramsEnonce = {
-        xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-        ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
-        xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-        ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
-        pixelsParCm: 20,
-        scale: context.isHtml ? 1 : 0.75,
-        mainlevee: false
-      }
-      paramsCorrection = {
-        xmin: min(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-        ymin: -1 + min(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
-        xmax: max(nordEst.x, nordOuest.x, sudEst.x, sudOuest.x),
-        ymax: 1 + max(nordEst.y, nordOuest.y, sudEst.y, sudOuest.y),
-        pixelsParCm: 20,
-        scale: 0.9,
-        mainlevee: false
-      }
-      // figureExo = mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1, mainlevee: false }, fixeBordures(objetsEnonce)), objetsEnonce)
-      figureExo = mathalea2d(paramsEnonce, objetsEnonce)
+      figureExo = mathalea2d(Object.assign({ pixelsParCm: 20, scale: context.isHtml ? 1 : 0.75, mainlevee: false }, fixeBordures(objetsEnonce)), objetsEnonce)
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: figureExo,
@@ -316,7 +295,7 @@ export default function MesurerUnAngleAvecRapporteur () {
       // On ajoute au texte de l'énoncé, la figure à main levée et la figure de l'enoncé.
       texte += '<br>' + figureExo
       // On ajoute au texte de la correction, la figure de la correction
-      texteCorr += mathalea2d(paramsCorrection, objetsCorrection)
+      texteCorr += mathalea2d(Object.assign({ pixelsParCm: 20, scale: context.isHtml ? 0.9 : 0.65, mainlevee: false }, fixeBordures(objetsCorrection)), objetsCorrection)
       this.listeQuestions.push(texte)
       this.listeCorrections.push(texteCorr)
       listeQuestionsToContenu(this)
