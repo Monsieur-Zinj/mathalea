@@ -25,7 +25,7 @@ import {
     type LatexFileInfos
 
   } from '../../../lib/Latex'
-  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { afterUpdate, beforeUpdate, onDestroy, onMount } from 'svelte'
   import { downloadTexWithImagesZip, downloadZip } from '../../../lib/files'
@@ -509,7 +509,7 @@ import {
           <SimpleCard title={'Télécharger le code'} icon={'bx-download'}>
             <div>Je souhaite télécharger le matériel sur mon ordinateur.</div>
             <div slot="button1">
-              <ButtonText
+              <ButtonTextAction
                 class="px-2 py-1 rounded-md"
                 id="downloadFullArchive"
                 on:click={async () => {
@@ -523,7 +523,7 @@ import {
               {#await promise}
                 <p></p>
               {:then}
-              <ButtonText
+              <ButtonTextAction
                 class="inline-block px-2 py-1 rounded-md"
                 id="downloadPicsButton"
                 on:click={handleDownloadPicsModalDisplay}
@@ -564,7 +564,7 @@ import {
             {/each}
           </div>
           <div slot="footer">
-            <ButtonText
+            <ButtonTextAction
               text="Télécharger les figures"
               on:click={handleActionFromDownloadPicsModal}
             />

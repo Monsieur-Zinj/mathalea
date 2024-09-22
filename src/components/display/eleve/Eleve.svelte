@@ -21,7 +21,7 @@
   import { onDestroy, onMount, tick, afterUpdate } from 'svelte'
   // import seedrandom from 'seedrandom'
   import { loadMathLive } from '../../../modules/loaders'
-  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import { verifQuestionMathLive } from '../../../lib/interactif/mathLive'
   import { verifQuestionQcm } from '../../../lib/interactif/qcm'
   import { verifQuestionListeDeroulante } from '../../../lib/interactif/questionListeDeroulante'
@@ -570,7 +570,7 @@
                   Question {k + 1}
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
-                  <ButtonText
+                  <ButtonTextAction
                     text="Vérifier"
                     class="p-1 font-bold rounded-lg text-xs ml-2"
                     on:click={() => checkQuestion(k)}
@@ -747,7 +747,7 @@
                 </div>
                 {#if exercices[indiceExercice[k]].interactif}
                   <div class="pb-4 mt-10">
-                    <ButtonText
+                    <ButtonTextAction
                       text="Vérifier"
                       on:click={() => checkQuestion(k)}
                       disabled={isDisabledButton[k]}

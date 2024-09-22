@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { InterfaceGlobalOptions } from '../../../../../lib/types'
   import type { CanOptions } from '../../../../../lib/types/can'
-  import ButtonText from '../../../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../../../shared/forms/ButtonTextAction.svelte'
   import BasicClassicModal from '../../../../shared/modal/BasicClassicModal.svelte'
   import ModalCapytalSettingsCan from './ModalCapytalSettingsCAN.svelte'
   import ModalCapytalSettingsCorrection from './ModalCapytalSettingsCorrection.svelte'
@@ -71,7 +71,7 @@
   </div>
   <div slot="footer" class="flex flex-row justify-end space-x-4 w-full">
     <div class="pt-4 pb-8 px-4">
-      <ButtonText
+      <ButtonTextAction
         class="text-sm py-1 px-2 rounded-md h-7"
         on:click={() => {
           isSettingsDialogDisplayed = false
@@ -80,7 +80,7 @@
       />
     </div>
     <div class="pt-4 pb-8 px-4">
-      <ButtonText
+      <ButtonTextAction
         class="text-sm py-1 px-2 rounded-md h-7"
         on:click={() => {
           buildUrlAndOpenItInNewTab('eleve')

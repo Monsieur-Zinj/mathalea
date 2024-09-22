@@ -1,7 +1,7 @@
 <script lang="ts">
   import BasicInfoModal from '../modal/BasicInfoModal.svelte'
   import ButtonIconTooltip from './ButtonIconTooltip.svelte'
-  import ButtonText from './ButtonText.svelte'
+  import ButtonTextAction from './ButtonTextAction.svelte'
 
   export let action: 'copy' | 'download'
   export let textToCopy: string = ''
@@ -88,7 +88,7 @@
       on:click={actionFunction}
   />
 {:else}
-  <ButtonText
+  <ButtonTextAction
       {text}
       {title}
       {disabled}
