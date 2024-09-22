@@ -1,5 +1,5 @@
 import NotationScientifique from '../../4e/4C32.js'
-export const titre = 'Simplifier des expressions exponentielles'
+export const titre = 'Donner l\'écriture scientifique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
