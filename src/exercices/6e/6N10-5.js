@@ -1,15 +1,14 @@
-import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
-import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../modules/outils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
 export const titre = 'Parcourir un labyrinthe de numération décimale'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const dateDePublication = '9/12/2020'
-export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
+export const dateDeModifImportante = '22/09/2024' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
  * Publié le 9/12/2020
@@ -25,94 +24,85 @@ export const refs = {
 }
 export default function ExerciceLabyrintheNumeration () {
   Exercice.call(this)
-  this.consigne = ''
-  this.niveau = '6e'
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
   this.sup2 = 1
   this.sup3 = 1
   this.sup4 = 1
   this.sup = true
+  this.sup5 = false
 
   this.nouvelleVersion = function () {
     this.listeCorrections = []
     this.listeQuestions = []
     this.autoCorrection = []
-    const tailleChiffre = 0.7
+    const tailleChiffre = !this.sup5 ? 0.7 : 1.1
     let texte, texteCorr
-    const nbL = this.sup3 === 1 ? randint(2, 8) : Math.max(2, this.sup3)
-    const nbC = this.sup4 === 1 ? randint(3, 11 - nbL) : Math.max(3, this.sup4)
+    const nbL = this.sup3 === 1 ? randint(2, 7) : Math.max(2, this.sup3)
+    const nbC = this.sup4 === 1 ? randint(3, 7) : Math.max(3, this.sup4)
     const laby = labyrinthe({ nbLignes: nbL, nbColonnes: nbC })
     laby.niveau = randint(1, 6) // Le niveau (de 1 à 6=mélange) définit le nombre d'étapes
     const monchemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
     laby.murs2d = laby.construitMurs(monchemin) // On construit le labyrinthe
     laby.chemin2d = laby.traceChemin(monchemin) // On trace le chemin solution
     const positions = this.sup ? ['dix-millièmes', 'millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille', 'dizaines de mille'] : ['millièmes', 'centièmes', 'dixièmes', 'unités', 'dizaines', 'centaines', 'unités de mille']
-    let rangMax; let rang; let rangbis; let nombretemp
+    let rang; let rangbis; let nombretemp
 
-    if (this.niveau === 'CM') {
-      rangMax = 5
-    } else {
-      if (this.sup) {
-        rangMax = 8
-      } else {
-        rangMax = 6
-      }
-    }
-    const inversePosition = this.sup ? [8, 7, 6, 5, 4, 3, 2, 1, 0] : [6, 5, 4, 3, 2, 1, 0]
+    const rangMax = this.sup ? 8 : 6
+    const rangMin = !this.sup5 ? 0 : this.sup ? 4 : 3
 
-    this.sup2 = parseInt(this.sup2)
     if (this.sup2 === 3) {
-      rang = randint(0, rangMax)
-      rangbis = randint(0, rangMax, [rang, inversePosition[rang]])
-    } else if (this.sup2 === 2) {
+      rang = randint(rangMin, rangMax)
+    } else if (this.sup2 === 2 && !this.sup5) {
       rang = this.sup ? randint(0, 3) : randint(0, 2)
-      rangbis = this.sup ? randint(0, 3, [rang]) : randint(0, 2, [rang])
     } else {
       rang = this.sup ? randint(4, rangMax) : randint(3, rangMax)
-      rangbis = this.sup ? randint(4, rangMax, [rang]) : randint(3, rangMax, [rang])
     }
-
     const chiffre = randint(1, 9)
     texte = `Trouver la sortie en ne passant que par les cases contenant un nombre dont le chiffre des ${positions[rang]} est un $${miseEnEvidence(chiffre, 'black')}$.<br>`
     texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
-
-    const nombreLaby = []
-    const rangs = [inversePosition[rang], inversePosition[rangbis], rangbis]
-
     const reponsesOK = []
-    for (let a = 1; a < nbC * nbL; a++) {
-      for (let a = 1; a < nbC * nbL; a++) {
-        for (let k = 0; k <= rangMax; k++) {
-          nombreLaby[k] = randint(0, 9)
+    for (let a = 0; a < nbC * nbL; a++) {
+      let partieEntiere = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      let partieDecimale = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      if (this.sup) {
+        if (rang > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 3)) * Math.pow(10, rang - 3) + chiffre * Math.pow(10, rang - 4) + (partieEntiere % Math.pow(10, rang - 4))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 2)) * Math.pow(10, rang + 2) + chiffre * Math.pow(10, rang + 1) + (partieDecimale % Math.pow(10, rang + 1))
         }
-        // nombreLaby[choice(rangs)] = chiffre
-        nombreLaby[rang] = chiffre
-        nombretemp = 0
-        for (let k = 0; k <= rangMax; k++) {
-          nombretemp = this.sup ? calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
-        }
-        reponsesOK.push(nombretemp)
+      } else {
+        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + chiffre * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
       }
+
+      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 5) : Math.pow(10, 4)) : partieEntiere
+      reponsesOK.push(nombretemp)
     }
     const reponsesPasOK = []
-    for (let a = 1; a < nbC * nbL; a++) {
-      for (let a = 1; a < nbC * nbL; a++) {
-        for (let k = 0; k <= rangMax; k++) {
-          nombreLaby[k] = randint(0, 9)
+    for (let a = 0; a < nbC * nbL; a++) {
+      let partieEntiere = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      let partieDecimale = this.sup ? randint(1, Math.pow(10, 5)) : randint(1, Math.pow(10, 4))
+      if (this.sup) {
+        if (rang > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 3)) * Math.pow(10, rang - 3) + randint(0, 9, [chiffre]) * Math.pow(10, rang - 4) + (partieEntiere % Math.pow(10, rang - 4))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rang + 2)) * Math.pow(10, rang + 2) + randint(0, 9, [chiffre]) * Math.pow(10, rang + 1) + (partieDecimale % Math.pow(10, rang + 1))
         }
-        nombreLaby[choice(rangs)] = chiffre
-        nombreLaby[rang] = randint(0, 9, [chiffre])
-        nombretemp = 0
-        for (let k = 0; k <= rangMax; k++) {
-          nombretemp = this.sup ? calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 4) * nombreLaby[k]) : calculANePlusJamaisUtiliser(nombretemp + Math.pow(10, k - 3) * nombreLaby[k])
+        rangbis = randint(rangMin, rangMax, [rang])
+        if (rangbis > 3) {
+          partieEntiere = Math.floor(partieEntiere / Math.pow(10, rangbis - 3)) * Math.pow(10, rangbis - 3) + chiffre * Math.pow(10, rangbis - 4) + (partieEntiere % Math.pow(10, rangbis - 4))
+        } else {
+          partieDecimale = Math.floor(partieDecimale / Math.pow(10, rangbis + 2)) * Math.pow(10, rangbis + 2) + chiffre * Math.pow(10, rangbis + 1) + (partieDecimale % Math.pow(10, rangbis + 1))
         }
-        reponsesPasOK.push(nombretemp)
+      } else {
+        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rang - 2)) * Math.pow(10, rang - 2) + randint(0, 9, [chiffre]) * Math.pow(10, rang - 3) + (partieEntiere % Math.pow(10, rang - 3))
+        rangbis = randint(rangMin, rangMax, [rang])
+        partieEntiere = Math.floor(partieEntiere / Math.pow(10, rangbis - 2)) * Math.pow(10, rangbis - 2) + chiffre * Math.pow(10, rangbis - 3) + (partieEntiere % Math.pow(10, rangbis - 3))
       }
+      nombretemp = !this.sup5 ? partieEntiere + partieDecimale / (this.sup ? Math.pow(10, 5) : Math.pow(10, 4)) : partieEntiere
+      reponsesPasOK.push(nombretemp)
     }
     // Le tableau de nombre étant fait, on place les objets nombres.
     laby.nombres2d = laby.placeNombres(monchemin, reponsesOK, reponsesPasOK, tailleChiffre)
@@ -140,6 +130,7 @@ export default function ExerciceLabyrintheNumeration () {
   this.besoinFormulaireCaseACocher = ['Avec des dizaines de mille et des dix-millièmes']
   // this.besoinFormulaire2Numerique = ['Niveau de rapidité', 6, ' 1 : Escargot\n 2 : Tortue\n 3 : Lièvre\n 4 : Antilope\n 5 : Guépard\n 6 : Au hasard']
   this.besoinFormulaire2Numerique = ['Quel chiffre recherché ?', 3, ' 1 : Unité ou au-dessus\n 2 : En dessous de l\'unité\n 3 : Peu importe']
-  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
-  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 8 ou bien 1 si vous laissez le hasard décider)', 8]
+  this.besoinFormulaire3Numerique = ['Nombre de lignes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
+  this.besoinFormulaire4Numerique = ['Nombre de colonnes du labyrinthe (entre 2 et 7 ou bien 1 si vous laissez le hasard décider)', 7]
+  this.besoinFormulaire5CaseACocher = ['Que des nombres entiers']
 } // Fin de l'exercice.
