@@ -235,11 +235,13 @@ type Order = 'asc' | 'desc';
 
 // Fonction qui divise une chaîne en parties numériques et non numériques (pour mettre dans l'ordre sujet1, sujet2 et sujet10)
 function splitAlphaNumeric (str: string): (string | number)[] {
-  return str.split(/(\d+)/).map(part => (isNaN(Number(part)) ? part : Number(part)))
+  return str
+    .split(/(\d+)/)
+    .map((part) => (isNaN(Number(part)) ? part : Number(part)))
 }
 
-// Fonction de comparaison prenant en compte les parties numériques
-function compareAlphaNumeric (a: string, b: string, order: Order): number {
+// Fonction de comparaison prenant en compte les parties numériques et les majuscules accentuées
+function compareAlphaNumeric (a: string, b: string, order: 'asc' | 'desc'): number {
   const aParts = splitAlphaNumeric(a)
   const bParts = splitAlphaNumeric(b)
 
@@ -252,7 +254,15 @@ function compareAlphaNumeric (a: string, b: string, order: Order): number {
         return order === 'desc' ? aPart - bPart : bPart - aPart
       }
     } else if (aPart !== bPart) {
-      return order === 'desc' ? (aPart < bPart ? -1 : 1) : (aPart > bPart ? -1 : 1)
+      // Utiliser localeCompare pour comparer les chaînes de manière insensible aux accents et à la casse
+      const comparison = (aPart as string).normalize('NFD').localeCompare(
+        (bPart as string).normalize('NFD'),
+        undefined,
+        { sensitivity: 'base' }
+      )
+      if (comparison !== 0) {
+        return order === 'desc' ? comparison : -comparison
+      }
     }
   }
   return 0
