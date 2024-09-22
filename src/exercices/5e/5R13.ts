@@ -205,7 +205,7 @@ export default class InequationsLog extends Exercice {
         }
       }
 
-      texte = `$${texNombre(a!)}$ &nbsp \\ldots\\ldots &nbsp $${texNombre(b!)}$`
+      texte = `$${texNombre(a!)} \\quad \\ldots\\ldots   \\quad${texNombre(b!)}$`
       if (a.greaterThan(b)) {
         texteCorr = `$${texNombre(a!)} \\quad ${miseEnEvidence('>')} \\quad ${texNombre(b!)}$`
         answer = '>'
