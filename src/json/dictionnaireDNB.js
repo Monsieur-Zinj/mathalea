@@ -8516,4 +8516,125 @@ export const dictionnaireDNB = {
     tags: ['Algorithmique-programmation', "Recherche d'informations"]
   },
 
+  dnb_2024_06_polynesie_1: {
+                annee: '2024',
+                lieu: 'Polynésie',
+                mois: 'Juin',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_polynesie_2: {
+                annee: '2024',
+                lieu: 'Polynésie',
+                mois: 'Juin',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_polynesie_3: {
+                annee: '2024',
+                lieu: 'Polynésie',
+                mois: 'Juin',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_polynesie_4: {
+                annee: '2024',
+                lieu: 'Polynésie',
+                mois: 'Juin',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_06_polynesie_5: {
+                annee: '2024',
+                lieu: 'Polynésie',
+                mois: 'Juin',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_06_polynesie_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_07_metropole_1: {
+                annee: '2024',
+                lieu: 'Métropole',
+                mois: 'Juillet',
+                numeroInitial: '1',
+                png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_1.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_1_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_07_metropole_1.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_1_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_07_metropole_2: {
+                annee: '2024',
+                lieu: 'Métropole',
+                mois: 'Juillet',
+                numeroInitial: '2',
+                png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_2.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_2_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_07_metropole_2.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_2_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_07_metropole_3: {
+                annee: '2024',
+                lieu: 'Métropole',
+                mois: 'Juillet',
+                numeroInitial: '3',
+                png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_3.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_3_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_07_metropole_3.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_3_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_07_metropole_4: {
+                annee: '2024',
+                lieu: 'Métropole',
+                mois: 'Juillet',
+                numeroInitial: '4',
+                png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_4.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_4_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_07_metropole_4.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_4_cor.tex',
+                tags: ['']
+            },
+  dnb_2024_07_metropole_5: {
+                annee: '2024',
+                lieu: 'Métropole',
+                mois: 'Juillet',
+                numeroInitial: '5',
+                png: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_5.png',
+                pngCor: 'static/dnb/2024/tex/png/dnb_2024_07_metropole_5_cor.png',
+                typeExercice: 'dnb',
+                url: 'static/dnb/2024/tex/dnb_2024_07_metropole_5.tex',
+                urlcor: 'static/dnb/2024/tex/dnb_2024_07_metropole_5_cor.tex',
+                tags: ['']
+            },
+
 }
