@@ -120,10 +120,10 @@ export default class constructionElementaire extends Exercice {
             labelY: false
           })
         } */
-        this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom, isFree: false })
-        this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom, isFree: false })
-        this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom, isFree: false })
-        this.D = figure.create('Point', { x: D.x, y: D.y, label: D.nom, isFree: false })
+        this.A = figure.create('Point', { x: A.x, y: A.y, label: A.nom })
+        this.B = figure.create('Point', { x: B.x, y: B.y, label: B.nom })
+        this.C = figure.create('Point', { x: C.x, y: C.y, label: C.nom })
+        this.D = figure.create('Point', { x: D.x, y: D.y, label: D.nom })
         this.A.isDeletable = false
         this.B.isDeletable = false
         this.C.isDeletable = false
@@ -283,7 +283,7 @@ export default class constructionElementaire extends Exercice {
     resultat.push(isValid3 ? 'OK' : 'KO')
     if (message3 !== '') { feedback += numAlpha(questind++) + message3 + '<br>' }
 
-    const { isValid: isValid4, message: message4 } = figure.checkPointOnIntersectionLL({ labelPt: this.Enom, nameLine1: `(${this.A.label}${this.B.label})`, nameLine2: `[${this.C.label}${this.D.label})` })
+    const { isValid: isValid4, message: message4 } = figure.checkPointOnIntersectionLL({ labelPt: this.Enom, nameLine1: [`(${this.A.label}${this.B.label})`, `(${this.B.label}${this.A.label})`], nameLine2: `[${this.C.label}${this.D.label})` })
     resultat.push(isValid4 ? 'OK' : 'KO')
     if (message4 !== '') { feedback += numAlpha(questind++) + message4 + '<br>' }
 
