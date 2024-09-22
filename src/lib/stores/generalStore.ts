@@ -81,7 +81,7 @@ export const isExportMenuVisible = writable<boolean>(false)
 export const isSideMenuVisible = writable<boolean>(true)
 
 // pour garder trace de la page appelant l'export
-export const previousView = writable<'' | VueType>('')
+export const previousView = writable<undefined | '' | VueType>(undefined)
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
