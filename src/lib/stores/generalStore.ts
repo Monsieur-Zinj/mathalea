@@ -1,13 +1,14 @@
 import { get, writable } from 'svelte/store'
 import type {
-  CallerComponentType,
   InterfaceGlobalOptions,
   InterfaceParams,
   InterfaceResultExercice,
+  VueType,
   bibliothequeExercise
 } from '../types'
 import { type JSONReferentielEnding } from '../types/referentiels'
 import { canOptions } from './canStore'
+import { buildDsParams } from '../components/urls'
 
 /**
  * Pour bloquer la mise à jour de l'url
@@ -80,7 +81,7 @@ export const isExportMenuVisible = writable<boolean>(false)
 export const isSideMenuVisible = writable<boolean>(true)
 
 // pour garder trace de la page appelant l'export
-export const callerComponent = writable<CallerComponentType>('')
+export const previousView = writable<undefined | '' | VueType>(undefined)
 
 // pour sauvegarder l'objet correspondant à la rubrique choisie pour les exos statiques
 export const bibliothequeSectionContent = writable<bibliothequeExercise[]>([])
@@ -181,15 +182,7 @@ export function updateGlobalOptionsInURL (url: URL) {
     url.searchParams.delete('recorder')
   }
   if (options.v === 'diaporama' || options.v === 'overview') {
-    let ds = ''
-    ds += options.nbVues?.toString() ?? '1'
-    ds += options.flow?.toString() ?? '0'
-    ds += options.screenBetweenSlides ? '1' : '0'
-    ds += options.sound?.toString() ?? '0'
-    ds += options.shuffle ? '1' : '0'
-    ds += options.manualMode ? '1' : '0'
-    ds += options.pauseAfterEachQuestion ? '1' : '0'
-    url.searchParams.append('ds', ds)
+    url.searchParams.append('ds', buildDsParams())
     if (options.select !== undefined && options.select !== undefined && options.select.length > 0 && options.select.length < get(exercicesParams).length) {
       url.searchParams.append('select', options.select.join('-'))
     }

@@ -1,6 +1,6 @@
 <script lang="ts">
   import ButtonIconTooltip from '../../../shared/forms/ButtonIconTooltip.svelte'
-  import ButtonText from '../../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../../shared/forms/ButtonTextAction.svelte'
   import InputText from '../../../shared/forms/InputText.svelte'
   import ButtonsDeck from '../../../shared/ui/ButtonsDeck.svelte'
 
@@ -83,7 +83,7 @@
           bind:value={urlFeuilleEleve}
           classAddenda="w-50"
         />
-        <ButtonText
+        <ButtonTextAction
           class="text-sm py-1 px-2 rounded-md h-7"
           text="Ajouter"
           disabled={urlFeuilleEleve === ''}

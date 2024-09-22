@@ -20,10 +20,15 @@
   import {
     exercicesParams,
     globalOptions,
-    darkMode
+    darkMode,
+    previousView
   } from '../../../lib/stores/generalStore'
   import { context } from '../../../modules/context.js'
   import { isIntegerInRange0to3 } from '../../../lib/types/integerInRange'
+  import KickOff from '../../display/can/presentationalComponents/KickOff.svelte'
+  import type { CanState } from '../../../lib/types/can'
+  import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
+  import ButtonText from '../../shared/forms/ButtonText.svelte'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -32,6 +37,7 @@
     3: new Audio('assets/sounds/transition_sound_04.mp3')
   }
 
+  let state: CanState = 'end'
   let exercises: Exercice[] = []
   let slideshow: Slideshow = {
     slides: [],
@@ -40,8 +46,10 @@
   }
 
   $: if ($globalOptions.v === 'overview' && exercises.length > 0) updateExercises()
+  $: if (state === 'race') startSlideshow()
 
   onMount(async () => {
+    if ($previousView === undefined) state = 'start'
     context.vue = 'diap'
     document.addEventListener('updateAsyncEx', forceUpdate)
     exercises = await getExercisesFromExercicesParams()
@@ -192,7 +200,7 @@
     exercicesParams.set(newParams)
   }
 
-  function start () {
+  function startSlideshow () {
     updateExercises()
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = 0
@@ -201,6 +209,14 @@
   function backToSettings () {
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = -1
+  }
+
+  function goToHome () {
+    $globalOptions.v = undefined
+  }
+
+  function goToOverview () {
+    $globalOptions.v = 'overview'
   }
 </script>
 
@@ -212,7 +228,7 @@
   </style>
 </svelte:head>
 
-<div id="diaporama" class={$darkMode.isActive ? 'dark' : ''}>
+<div id="diaporama" class="h-screen {$darkMode.isActive ? 'dark' : ''}">
   {#if $globalOptions.v === 'overview' && slideshow.slides.length > 0}
     <SlideshowOverview
       {exercises}
@@ -222,18 +238,43 @@
     />
   {:else}
     {#if slideshow.currentQuestion === -1}
-      <SlideshowSettings
-        {exercises}
-        {updateExercises}
-        {transitionSounds}
-        {start}
-      />
+      {#if state === 'start'}
+        <KickOff
+          title="Diaporama"
+          subTitle=""
+          bind:state={state}
+        >
+          <ButtonText
+            class="mt-8 py-3 px-6 text-3xl rounded-xl font-bold border-2
+              border-coopmaths-struct-light dark:border-coopmathsdark-struct-light
+              text-coopmaths-canvas dark:text-coopmathsdark-canvas
+              bg-coopmaths-struct dark:bg-coopmathsdark-struct
+              hover:bg-coopmaths-struct-light dark:hover:bg-coopmathsdark-struct-lightest"
+            text="Paramètres"
+            on:click={() => {
+              state = 'end'
+            }}
+          />
+        </KickOff>
+      {:else if state === 'countdown'}
+        <CountDown bind:state />
+      {:else}
+        <SlideshowSettings
+          {exercises}
+          {updateExercises}
+          {transitionSounds}
+          {startSlideshow}
+          {goToOverview}
+          {goToHome}
+        />
+      {/if}
     {/if}
     {#if slideshow.currentQuestion > -1}
       <SlideshowPlay
         {slideshow}
         {transitionSounds}
         {backToSettings}
+        {goToOverview}
       />
     {/if}
   {/if}

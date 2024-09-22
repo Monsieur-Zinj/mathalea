@@ -16,7 +16,7 @@
   export let zoomMinus: () => void
   export let zoomPlus: () => void
   export let pause: () => void
-  export let play: () => void
+  export let play: (isUserAction?: boolean) => void
   export let currentSlideDuration: number
 
   const BUTTONS_CLASS = 'mx-1.5 bx-sm md:bx-lg'

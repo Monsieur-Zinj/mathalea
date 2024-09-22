@@ -16,7 +16,7 @@
   import seedrandom from 'seedrandom'
   import { onMount } from 'svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore.js'
-  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
   import BasicClassicModal from '../../shared/modal/BasicClassicModal.svelte'
 
@@ -325,7 +325,7 @@
         displayDuration={3000}
         class="px-2 py-1 rounded-md"
       />
-      <ButtonText
+      <ButtonTextAction
         class="px-2 py-1 rounded-md"
         id="open-btn"
         on:click={() => {
@@ -353,7 +353,7 @@
       </li>
     </ul>
     <div slot="footer">
-      <ButtonText
+      <ButtonTextAction
         text="Compiler sur OverLeaf"
         on:click={handleOverLeaf}
       />

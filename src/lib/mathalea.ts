@@ -7,7 +7,7 @@ import Exercice from '../exercices/deprecatedExercice.js'
 import type TypeExercice from '../exercices/Exercice'
 // import context from '../modules/context.js'
 import seedrandom from 'seedrandom'
-import { exercicesParams, freezeUrl, globalOptions, presModeId, updateGlobalOptionsInURL } from './stores/generalStore.js'
+import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
 import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
@@ -397,6 +397,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let flow: 0 | 1 | 2 = 0
   let screenBetweenSlides
   let pauseAfterEachQuestion
+  let isImagesOnSides = false
   let sound: 0 | 1 | 2 | 3 | 4 = 0
   let shuffle = false
   let manualMode
@@ -550,6 +551,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     shuffle = ds.charAt(4) === '1'
     manualMode = ds.charAt(5) === '1'
     pauseAfterEachQuestion = ds.charAt(6) === '1'
+    isImagesOnSides = ds.charAt(7) === '1'
   }
 
   /**
@@ -582,6 +584,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     flow,
     screenBetweenSlides,
     pauseAfterEachQuestion,
+    isImagesOnSides,
     sound,
     shuffle,
     manualMode,
@@ -728,18 +731,15 @@ export function mathaleaFormatExercice (texte = ' ') {
   return formattedText
 }
 
-/**
- * Gérer le changement d'affichage (quel composant remplace l'autre dans App.svelte)
- * @param {string} oldComponent composant à changer
- * @param {string} newComponent composant à afficher
- */
-export function mathaleaHandleComponentChange (oldComponent: string, newComponent: '' | 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle') {
-  const oldPart = '&v=' + oldComponent
-  const newPart = newComponent === '' ? '' : '&v=' + newComponent
+export function mathaleaGoToView (destinationView: '' | VueType) {
+  const originView = get(globalOptions).v ?? ''
+  const oldPart = '&v=' + originView
+  const newPart = destinationView === '' ? '' : '&v=' + destinationView
   const urlString = window.location.href.replace(oldPart, newPart)
+  previousView.set(originView)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
-    l.v = newComponent
+    l.v = destinationView === '' ? undefined : destinationView
     return l
   })
 }

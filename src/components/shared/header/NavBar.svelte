@@ -1,11 +1,10 @@
 <script lang="ts">
   import {
     globalOptions,
-    darkMode,
-    callerComponent
+    darkMode
   } from '../../../lib/stores/generalStore'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
-  import { mathaleaHandleComponentChange } from '../../../lib/mathalea'
+  import { mathaleaGoToView } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
@@ -24,11 +23,6 @@
 
   let showLanguageChoiceModal: boolean = false
 
-  function goToMathalea (paramV: string | undefined) {
-    if (paramV !== undefined) {
-      mathaleaHandleComponentChange(paramV, $callerComponent)
-    }
-  }
 </script>
 
 <!--
@@ -66,8 +60,8 @@
         flex-col md:flex-row">
         <div>
           <div
-            on:click={() => goToMathalea($globalOptions.v)}
-            on:keydown={() => goToMathalea($globalOptions.v)}
+            on:click={() => mathaleaGoToView('')}
+            on:keydown={() => mathaleaGoToView('')}
             role="link"
             tabindex="0"
             class="relative inline-flex font-logo9 tracking-tighter font-black
@@ -140,7 +134,7 @@
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
         on:click={() => {
-          goToMathalea($globalOptions.v)
+          mathaleaGoToView('')
         }}
       />
     </div>

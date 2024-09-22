@@ -10,7 +10,7 @@
   //
   import { onDestroy, onMount, setContext, tick } from 'svelte'
   import {
-    callerComponent,
+    previousView,
     darkMode,
     exercicesParams,
     globalOptions
@@ -251,7 +251,7 @@
   }
 
   function handleExport (vue: VueType) {
-    $callerComponent = ''
+    $previousView = ''
     globalOptions.update((params) => {
       params.v = vue
       return params

@@ -1,4 +1,4 @@
-import { globalOptions } from '../stores/generalStore'
+import { exercicesParams, globalOptions } from '../stores/generalStore'
 import { canOptions } from '../stores/canStore'
 import { get } from 'svelte/store'
 import { type InterfaceGlobalOptions, type VueType } from '../../lib/types'
@@ -93,6 +93,14 @@ export function buildMathAleaURL (options: {
       .addParam('canSA', can.solutionsAccess ? '1' : '0')
       .addParam('canSM', can.solutionsMode)
       .addParam('canI', can.isInteractive ? '1' : '0')
+  } else if (options.view === 'diaporama') {
+    url.addParam('ds', buildDsParams())
+    if (global.select !== undefined && global.select !== undefined && global.select.length > 0 && global.select.length < get(exercicesParams).length) {
+      url.addParam('select', global.select.join('-'))
+    }
+    if (global.order !== undefined && global.order.length > 0 && global.shuffle) {
+      url.addParam('order', global.order.join('-'))
+    }
   } else {
     url.addParam('title', global.title)
   }
@@ -129,6 +137,20 @@ export function buildEsParams (
   es += options.twoColumns ? '1' : '0'
   es += options.isTitleDisplayed ? '1' : '0'
   return es
+}
+
+export function buildDsParams (): string {
+  let ds = ''
+  const options = get(globalOptions)
+  ds += options.nbVues?.toString() ?? '1'
+  ds += options.flow?.toString() ?? '0'
+  ds += options.screenBetweenSlides ? '1' : '0'
+  ds += options.sound?.toString() ?? '0'
+  ds += options.shuffle ? '1' : '0'
+  ds += options.manualMode ? '1' : '0'
+  ds += options.pauseAfterEachQuestion ? '1' : '0'
+  ds += options.isImagesOnSides ? '1' : '0'
+  return ds
 }
 
 export async function getShortenedCurrentUrl (addendum: string = ''): Promise<string> {

@@ -19,7 +19,7 @@
   import { buildMathAleaURL } from '../../../lib/components/urls'
   // pour les tabs
   import { Tab, initTE } from 'tw-elements'
-  import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../shared/forms/ButtonTextAction.svelte'
   import ButtonActionInfo from '../../shared/forms/ButtonActionInfo.svelte'
 
   onMount(() => {
@@ -459,7 +459,7 @@
       <div
         class="pt-4 pb-8 px-4 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        <ButtonText
+        <ButtonTextAction
           on:click={handleVueSetUp}
           class="px-2 py-1 rounded-md"
           text="Visualiser"

@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import ButtonText from '../../../shared/forms/ButtonText.svelte'
+  import ButtonTextAction from '../../../shared/forms/ButtonTextAction.svelte'
   import { canOptions } from '../../../../lib/stores/canStore'
   import type { CanState } from '../../../../lib/types/can'
   export let state: CanState
@@ -25,7 +25,7 @@
     </div>
   </div>
   {#if $canOptions.solutionsAccess}
-    <ButtonText
+    <ButtonTextAction
       text="Accéder aux solutions"
       class="p-2 md:p-4 font-bold rounded-lg text-sm md:text-xl mt-6 md:mt-10"
       on:click={() => {

@@ -12,7 +12,7 @@
     getPicsNames,
     type LatexFileInfos
   } from '../../../lib/Latex'
-  import ButtonText from './ButtonText.svelte'
+  import ButtonTextAction from './ButtonTextAction.svelte'
   import { onDestroy, onMount, tick } from 'svelte'
 
   export let latex: Latex
@@ -250,7 +250,7 @@
           </div>
         </div>
         <div id="imagesLatex"></div>
-        <ButtonText
+        <ButtonTextAction
           disabled={clockAbled}
           class="px-2 py-1 rounded-md"
           text="Compiler en PDF"

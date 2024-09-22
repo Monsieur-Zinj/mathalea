@@ -5,12 +5,12 @@
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
   import GlobalDurationSettings from './presentationalComponents/GlobalDurationSettings.svelte'
   import LinksSettings from './presentationalComponents/LinksSettings.svelte'
-  import NbOfViewsSettings from './presentationalComponents/NbOfViewsSettings.svelte'
+  import ViewSettings from './presentationalComponents/ViewSettings.svelte'
   import OrderSettings from './presentationalComponents/OrderSettings.svelte'
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
-  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
@@ -19,12 +19,12 @@
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
-  export let start: () => void
+  export let startSlideshow: () => void
+  export let goToOverview: () => void
+  export let goToHome: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
-
-  updateSelect($globalOptions.select?.filter((index: number) => index < exercises.length))
 
   $: if (divTableDurationsQuestions) {
     mathaleaRenderDiv(divTableDurationsQuestions)
@@ -37,10 +37,6 @@
     }
     previousNumberOfSelectedExercises = numberOfSelectedExercises
     updateSelect(selection)
-  }
-
-  function goToOverview () {
-    mathaleaHandleComponentChange('diaporama', 'overview')
   }
 
   function updateNbOfViews (nbVues: NumberRange<1, 4>) {
@@ -82,8 +78,15 @@
     $globalOptions.durationGlobal = durationGlobal
   }
 
+  function updateIsImagesOnSides (isImagesOnSides: boolean) {
+    $globalOptions.isImagesOnSides = isImagesOnSides
+  }
+
   function remove (exerciseIndex: number) {
     exercises.splice(exerciseIndex, 1)
+    if (exercises.length === 0) {
+      goToHome()
+    }
     applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
     updateExercises(exercises)
     exercises = exercises // to refresh ExercisesSettings component
@@ -111,9 +114,11 @@
       <DisplaySettings
         {goToOverview}
       />
-      <NbOfViewsSettings
+      <ViewSettings
         nbOfViews={$globalOptions.nbVues ?? 1}
         {updateNbOfViews}
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
+        {updateIsImagesOnSides}
       />
       <TransitionSettings
         {transitionSounds}
@@ -171,8 +176,8 @@
               bg-coopmaths-action dark:bg-coopmathsdark-action
               hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
               text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-            on:click={start}
-            on:keydown={start}
+            on:click={startSlideshow}
+            on:keydown={startSlideshow}
           >
             Play<i class="bx bx-play" />
           </button>

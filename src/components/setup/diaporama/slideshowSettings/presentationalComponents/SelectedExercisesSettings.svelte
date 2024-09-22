@@ -34,7 +34,7 @@
   <div class="pl-8 mt-1 flex">
     <NumberInput
       id="slideshow-selected-exercises-count-input"
-      max={exercises.length}
+      max={exercises.length - 1}
       value={selectedExercisesCount}
       isDisabled={!selectedExercisesCount}
       on:change={(e) => {

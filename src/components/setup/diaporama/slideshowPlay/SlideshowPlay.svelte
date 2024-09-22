@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Slide, Slideshow } from '../types'
-  import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
+  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
@@ -12,6 +12,7 @@
   export let slideshow: Slideshow
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let backToSettings: () => void
+  export let goToOverview: () => void
 
   const divQuestion: HTMLDivElement[] = []
   const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
@@ -102,13 +103,15 @@
       return
     }
     await renderAllViews()
-    if (!isManualPause) {
-      if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
-        transitionSounds[$globalOptions.sound - 1].play()
-      }
-      if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
-      play()
+    if (isManualPause) {
+      ratioTime = 0
+      return
     }
+    if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
+      transitionSounds[$globalOptions.sound - 1].play()
+    }
+    if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
+    play(false)
   }
 
   async function renderAllViews (optimalZoomUpdate : boolean = true) {
@@ -233,10 +236,15 @@
     renderAllViews()
   }
 
-  function play () {
-    if (ratioTime >= 100) nextQuestion()
+  function play (isUserAction: boolean = false) {
+    if (ratioTime >= 100) {
+      nextQuestion()
+    }
+    if (isUserAction) isManualPause = false
+    if (isManualPause) {
+      return
+    }
     isPause = false
-    isManualPause = false
     if (ratioTime === 0) { // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
       isQuestionVisible = true
       isCorrectionVisible = false
@@ -275,7 +283,7 @@
       return
     }
     if (isPause || ratioTime >= 100) {
-      play()
+      play(isUserAction)
     } else {
       pause(isUserAction)
     }
@@ -287,12 +295,12 @@
     }
     slideshow.currentQuestion = questionNumber
     ratioTime = 0
-    playCurrentQuestion()
   }
 
   function returnToStart () {
     isQuestionVisible = true
     isCorrectionVisible = false
+    pause(true)
     goToQuestion(0)
   }
 </script>
@@ -329,6 +337,7 @@
         {currentSlide}
         currentQuestion={slideshow.currentQuestion}
         selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
       />
     </main>
     <footer class="sticky flex flex-row justify-between w-full py-1 bottom-0 opacity-100
@@ -367,6 +376,7 @@
     <SlideshowPlayEndButtons
       {returnToStart}
       {backToSettings}
+      {goToOverview}
     />
   </div>
 {/if}
