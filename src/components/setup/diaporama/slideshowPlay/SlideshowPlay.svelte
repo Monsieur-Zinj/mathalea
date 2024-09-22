@@ -103,13 +103,15 @@
       return
     }
     await renderAllViews()
-    if (!isManualPause) {
-      if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
-        transitionSounds[$globalOptions.sound - 1].play()
-      }
-      if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
-      play()
+    if (isManualPause) {
+      ratioTime = 0
+      return
     }
+    if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
+      transitionSounds[$globalOptions.sound - 1].play()
+    }
+    if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
+    play(false)
   }
 
   async function renderAllViews (optimalZoomUpdate : boolean = true) {
@@ -234,10 +236,15 @@
     renderAllViews()
   }
 
-  function play () {
-    if (ratioTime >= 100) nextQuestion()
+  function play (isUserAction: boolean = false) {
+    if (ratioTime >= 100) {
+      nextQuestion()
+    }
+    if (isUserAction) isManualPause = false
+    if (isManualPause) {
+      return
+    }
     isPause = false
-    isManualPause = false
     if (ratioTime === 0) { // Permet de ne pas sauter une question si la correction est affichée et qu'on se déplace en cliquant sur les steps
       isQuestionVisible = true
       isCorrectionVisible = false
@@ -276,7 +283,7 @@
       return
     }
     if (isPause || ratioTime >= 100) {
-      play()
+      play(isUserAction)
     } else {
       pause(isUserAction)
     }
@@ -288,12 +295,12 @@
     }
     slideshow.currentQuestion = questionNumber
     ratioTime = 0
-    playCurrentQuestion()
   }
 
   function returnToStart () {
     isQuestionVisible = true
     isCorrectionVisible = false
+    pause(true)
     goToQuestion(0)
   }
 </script>
