@@ -1,11 +1,11 @@
 import { combinaisonListes, combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
-import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { tableauColonneLigne } from '../../lib/2d/tableau'
 export const titre = 'Trouver l\'opposé d\'un nombre relatif'
-export const dateDeModifImportante = '26/11/2021'
+export const dateDeModifImportante = '21/09/2024'
 
 /**
 * * Remplir un tableau en utilisant la notion d'opposé
@@ -20,92 +20,93 @@ export const refs = {
   'fr-fr': ['5R10-0'],
   'fr-ch': ['9NO9-3']
 }
-export default function TrouverOppose () {
-  Exercice.call(this)
-  this.debug = false
-  this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']
-  this.sup = true
-  if (this.debug) {
+export default class TrouverOppose extends Exercice {
+  constructor () {
+    super()
+    this.besoinFormulaireCaseACocher = ['Afficher quelques fois le signe des nombres positifs']
+    this.besoinFormulaire2CaseACocher = ['Avec distance à zéro']
+    this.sup = true
+    this.sup2 = true
     this.nbQuestions = 1
-  } else {
-    this.nbQuestions = 1
+    this.titre = titre
+    this.consigne = 'Compléter le tableau suivant.'
   }
 
-  this.titre = titre
-  this.consigne = 'Compléter le tableau suivant.'
-
-  this.nbCols = 1
-  this.nbColsCorr = 1
-
-  let typesDeQuestionsDisponibles
-
-  this.nouvelleVersion = function () {
-    if (this.debug) {
-      typesDeQuestionsDisponibles = [1]
-    } else {
-      typesDeQuestionsDisponibles = [1]
-    }
-
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
-
+  nouvelleVersion () {
+    this.reinit()
+    const typesDeQuestionsDisponibles = [1]
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées --> à remettre comme ci-dessus
     const listeSignesPositifs = combinaisonListes(['+', ''], 6 * this.nbQuestions)
     const listeSignes = combinaisonListes(['+', '-'], 6 * this.nbQuestions)
 
-    for (let i = 0, texte, texteCorr, signePositif, indice = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      let sup
-      parseInt(this.sup) === 1 ? sup = false : sup = this.sup // Pour rester compatible avec l'ancien paramètre this.sup = 1 par défaut (et inutilisé)
+    for (let i = 0, texte, texteCorr, indice = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // une fonction pour générer un relatif et son opposé
-      const nbRelatifEtSonOppose = function () {
-        sup ? signePositif = listeSignesPositifs[indice] : signePositif = ''
+      const nbRelatifEtSonOppose = function (signe) {
+        const signePositif = signe ? listeSignesPositifs[indice] : ''
         const nbNum = randint(0, 9) + randint(0, 9) / 10
         if (listeSignes[indice] === '+') {
           indice++
           return {
             nb: signePositif + texNombre(nbNum),
+            dz: texNombre(nbNum), // distance à zéro
             opp: texNombre(-nbNum)
           }
         } else {
           indice++
           return {
             nb: texNombre(-nbNum),
+            dz: texNombre(nbNum),
             opp: signePositif + texNombre(nbNum)
           }
         }
       }
-      const nbLigneNombres = ['\\text{Nombre}']
-      const nbLigneNombresCorr = ['\\text{Nombre}']
+      const nbLigneNombres = []
+      const nbLigneNombresCorr = []
       const nbLigneNombresOpp = []
       const nbLigneNombresOppCorr = []
-      let nb
+      const nbLigneNombresDistZero = []
+      const nbLigneNombresDistZeroCorr = []
       for (let k = 0; k < 6; k++) {
-        nb = nbRelatifEtSonOppose()
-        if (randint(0, 1) === 1) {
-          nbLigneNombres[k + 1] = ''
-          nbLigneNombresCorr[k + 1] = miseEnEvidence(nb.nb)
+        const nb = nbRelatifEtSonOppose(this.sup)
+        const lig = this.sup2 ? randint(0, 2) : randint(0, 1)
+        if (lig === 0) {
+          nbLigneNombres.push('\\phantom{rrrrr}')
+          nbLigneNombresCorr.push(miseEnEvidence(nb.nb))
           nbLigneNombresOpp.push(nb.opp)
           nbLigneNombresOppCorr.push(nb.opp)
-        } else {
+          nbLigneNombresDistZero.push('\\phantom{rrrrr}')
+          nbLigneNombresDistZeroCorr.push(miseEnEvidence(nb.dz))
+        } else if (lig === 1) {
           nbLigneNombres.push(nb.nb)
           nbLigneNombresCorr.push(nb.nb)
-          nbLigneNombresOpp[k] = ''
-          nbLigneNombresOppCorr[k] = miseEnEvidence(nb.opp)
+          nbLigneNombresOpp.push('\\phantom{rrrrr}')
+          nbLigneNombresOppCorr.push(miseEnEvidence(nb.opp))
+          nbLigneNombresDistZero.push('\\phantom{rrrrr}')
+          nbLigneNombresDistZeroCorr.push(miseEnEvidence(nb.dz))
+        } else {
+          nbLigneNombres.push('\\phantom{rrrrr}')
+          nbLigneNombresCorr.push(miseEnEvidence(nb.nb))
+          nbLigneNombresOpp.push('\\phantom{rrrrr}')
+          nbLigneNombresOppCorr.push(miseEnEvidence(nb.opp))
+          nbLigneNombresDistZero.push(nb.dz)
+          nbLigneNombresDistZeroCorr.push(nb.dz)
         }
       }
 
       const enonces = []
-      enonces.push({
-        enonce: `${tableauColonneLigne(nbLigneNombres, ['\\text{Opposé du nombre}'], nbLigneNombresOpp)}`,
-        question: '',
-        correction: `${tableauColonneLigne(nbLigneNombresCorr, ['\\text{Opposé du nombre}'], nbLigneNombresOppCorr)}`
-      })
-      enonces.push({
-        enonce: 'énoncé type 2',
-        question: '',
-        correction: `${texteEnCouleur('correction type2')}`
-      })
+      if (this.sup2) {
+        enonces.push({
+          enonce: `${tableauColonneLigne([], ['\\text{Nombre}', '\\text{Distance à zéro du nombre}', '\\text{Opposé du nombre}'], nbLigneNombres.concat(nbLigneNombresDistZero).concat(nbLigneNombresOpp))}`,
+          question: '',
+          correction: `${tableauColonneLigne([], ['\\text{Nombre}', '\\text{Distance à zéro du nombre}', '\\text{Opposé du nombre}'], nbLigneNombresCorr.concat(nbLigneNombresDistZeroCorr).concat(nbLigneNombresOppCorr))}`
+        })
+      } else {
+        enonces.push({
+          enonce: `${tableauColonneLigne([], ['\\text{Nombre}', '\\text{Opposé du nombre}'], nbLigneNombres.concat(nbLigneNombresOpp))}`,
+          question: '',
+          correction: `${tableauColonneLigne([], ['\\text{Nombre}', '\\text{Opposé du nombre}'], nbLigneNombresCorr.concat(nbLigneNombresOppCorr))}`
+        })
+      }
 
       switch (listeTypeDeQuestions[i]) {
         case 1:

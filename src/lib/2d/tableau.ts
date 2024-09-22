@@ -285,9 +285,9 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   isInteractif = false,
   style: {[key: string]: string} = {}): string {
   // on définit le nombre de colonnes
-  const nbColonnes = tabEntetesColonnes.length
+  const nbColonnes = tabEntetesColonnes.length > 0 ? tabEntetesColonnes.length : tabLignes.length / tabEntetesLignes.length
   // on définit le nombre de lignes
-  const nbLignes = tabEntetesLignes.length
+  const nbLignes = tabEntetesLignes.length > 0 ? tabEntetesLignes.length : tabLignes.length / tabEntetesColonnes.length
   // On construit le string pour obtenir le tableau pour compatibilité HTML et LaTeX
   if (context.isHtml) {
     const tableauCL = AddTabDbleEntryMathlive.create(exo, question, AddTabDbleEntryMathlive.convertTclToTableauMathlive(tabEntetesColonnes, tabEntetesLignes, tabLignes), 'tableauMathlive', isInteractif, style)
@@ -309,22 +309,24 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
 
     tableauCL += '\\hline\n'
     const color0 = style.L0C0 != null ? style.L0C0 : 'lightgray'
-    if (typeof tabEntetesColonnes[0] === 'number') {
-      tableauCL += `\\cellcolor{${color0}} ${latex ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
-    } else {
-      tableauCL += `\\cellcolor{${color0}} ${latex ? tabEntetesColonnes[0] : ('\\text{' + tabEntetesColonnes[0] + '}')}`
-    }
-    for (let k = 1; k < nbColonnes; k++) {
-      const enTeteColonne = tabEntetesColonnes[k]
-      const color = style[`L0C${k}`] != null ? style[`L0C${k}`] : 'lightgray'
-      if (typeof enTeteColonne === 'number') {
-        tableauCL += ` & \\cellcolor{${color}} ${latex ? texNombre(enTeteColonne, 6) : '\\text{' + stringNombre(enTeteColonne, 6) + '}'}`
+    if (tabEntetesColonnes.length > 0) {
+      if (typeof tabEntetesColonnes[0] === 'number') {
+        tableauCL += `\\cellcolor{${color0}} ${latex ? texNombre(tabEntetesColonnes[0], 2) : '\\text{' + stringNombre(tabEntetesColonnes[0], 2) + '}'}`
       } else {
-        tableauCL += ` & \\cellcolor{${color}} ${latex ? enTeteColonne : ('\\text{' + enTeteColonne + '}')}`
+        tableauCL += `\\cellcolor{${color0}} ${latex ? tabEntetesColonnes[0] : ('\\text{' + tabEntetesColonnes[0] + '}')}`
       }
+      for (let k = 1; k < nbColonnes; k++) {
+        const enTeteColonne = tabEntetesColonnes[k]
+        const color = style[`L0C${k}`] != null ? style[`L0C${k}`] : 'lightgray'
+        if (typeof enTeteColonne === 'number') {
+          tableauCL += ` & \\cellcolor{${color}} ${latex ? texNombre(enTeteColonne, 6) : '\\text{' + stringNombre(enTeteColonne, 6) + '}'}`
+        } else {
+          tableauCL += ` & \\cellcolor{${color}} ${latex ? enTeteColonne : ('\\text{' + enTeteColonne + '}')}`
+        }
+      }
+      tableauCL += '\\\\\n'
+      tableauCL += '\\hline\n'
     }
-    tableauCL += '\\\\\n'
-    tableauCL += '\\hline\n'
     // on construit toutes les lignes
     for (let k = 0; k < nbLignes; k++) {
       const enTeteLigne = tabEntetesLignes[k]

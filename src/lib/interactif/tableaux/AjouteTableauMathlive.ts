@@ -288,10 +288,10 @@ export class AddTabDbleEntryMathlive {
     const raws: Array<Icell[]> = []
     const haveHeadC = headingCols.length > 0
     const haveHeadL = headingLines.length > 0
-    if (!haveHeadL || !haveHeadC) throw Error('Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne')
+    if (!haveHeadL && !haveHeadC) throw Error('Un tableau à double entrée doit avoir des entête de colonne et des entête de ligne')
     // on boucle sur les lignes mais il peut ne pas y avoir de headingLines ! On doit alors diviser le nombre de cellules par le nombre de colonnes à remplir.
-    const nbCols = haveHeadL ? headingCols.length - 1 : headingCols.length
-    const nbLines = headingLines.length
+    const nbCols = haveHeadL && haveHeadC ? headingCols.length - 1 : haveHeadC ? headingCols.length : tabLignes.length / headingLines.length
+    const nbLines = haveHeadL ? headingLines.length : tabLignes.length / nbCols
     for (let i = 0; i < nbLines; i++) {
       const raw: Icell[] = []
       for (let j = 0; j < nbCols; j++) {
