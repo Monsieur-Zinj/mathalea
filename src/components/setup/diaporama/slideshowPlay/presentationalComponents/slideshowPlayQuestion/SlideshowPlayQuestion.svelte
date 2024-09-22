@@ -1,5 +1,9 @@
 <script lang="ts">
-  import type { Slide } from '../../types'
+  import type { Slide } from '../../../types'
+  import CorrectionWithImagesInside from './CorrectionWithImagesInside.svelte'
+  import CorrectionWithImagesOnSides from './CorrectionWithImagesOnSides.svelte'
+  import QuestionWithImagesInside from './QuestionWithImagesInside.svelte'
+  import QuestionWithImagesOnSides from './QuestionWithImagesOnSides.svelte'
 
   export let divQuestion: HTMLDivElement[]
   export let isQuestionVisible: boolean
@@ -7,6 +11,7 @@
   export let currentSlide: Slide
   export let currentQuestion: number
   export let selectedQuestionsNumber: number
+  export let isImagesOnSides: boolean
 
   let nbVues
   $: nbVues = currentSlide.vues.length
@@ -36,34 +41,15 @@
       >
         {#if isQuestionVisible && currentSlide.vues[i]}
           <div class="py-4 flex items-center" id="question{i}">
-            <div class="flex flex-col">
-            <div>
-              {#each currentSlide.vues[i].consigneSvgs as consigneSvg}
-                <div>
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html consigneSvg}
-                </div>
-              {/each}
-            </div>
-            <div>
-              <div>
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html currentSlide.vues[i].consigneText}
-              </div>
-              <div>
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html currentSlide.vues[i].questionText}
-              </div>
-            </div>
-            <div class="flex flex-row">
-              {#each currentSlide.vues[i].questionSvgs as questionSvg}
-                <div>
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html questionSvg}
-                </div>
-              {/each}
-            </div>
-            </div>
+            {#if isImagesOnSides}
+              <QuestionWithImagesOnSides
+                slideView={currentSlide.vues[i]}
+              />
+            {:else}
+              <QuestionWithImagesInside
+                slideView={currentSlide.vues[i]}
+              />
+            {/if}
           </div>
         {/if}
         {#if isCorrectionVisible && currentSlide.vues[i]}
@@ -73,18 +59,15 @@
               bg-opacity-30 dark:bg-opacity-30
               bg-coopmaths-warn-light dark:bg-coopmathsdark-warn-light"
           >
-            <div>
-              <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-              {@html currentSlide.vues[i].correctionText}
-            </div>
-            <div>
-              {#each currentSlide.vues[i].correctionSvgs as correctionSvg}
-                <div>
-                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                  {@html correctionSvg}
-                </div>
-              {/each}
-            </div>
+            {#if isImagesOnSides}
+              <CorrectionWithImagesOnSides
+                slideView={currentSlide.vues[i]}
+              />
+            {:else}
+              <CorrectionWithImagesInside
+                slideView={currentSlide.vues[i]}
+              />
+            {/if}
           </div>
         {/if}
       </div>

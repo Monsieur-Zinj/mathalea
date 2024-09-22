@@ -397,6 +397,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
   let flow: 0 | 1 | 2 = 0
   let screenBetweenSlides
   let pauseAfterEachQuestion
+  let isImagesOnSides = false
   let sound: 0 | 1 | 2 | 3 | 4 = 0
   let shuffle = false
   let manualMode
@@ -550,6 +551,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     shuffle = ds.charAt(4) === '1'
     manualMode = ds.charAt(5) === '1'
     pauseAfterEachQuestion = ds.charAt(6) === '1'
+    isImagesOnSides = ds.charAt(7) === '1'
   }
 
   /**
@@ -582,6 +584,7 @@ export function mathaleaUpdateExercicesParamsFromUrl (urlString = window.locatio
     flow,
     screenBetweenSlides,
     pauseAfterEachQuestion,
+    isImagesOnSides,
     sound,
     shuffle,
     manualMode,

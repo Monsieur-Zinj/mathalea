@@ -149,6 +149,7 @@ export function buildDsParams (): string {
   ds += options.shuffle ? '1' : '0'
   ds += options.manualMode ? '1' : '0'
   ds += options.pauseAfterEachQuestion ? '1' : '0'
+  ds += options.isImagesOnSides ? '1' : '0'
   return ds
 }
 

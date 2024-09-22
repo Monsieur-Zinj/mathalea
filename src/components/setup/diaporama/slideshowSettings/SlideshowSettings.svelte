@@ -5,7 +5,7 @@
   import ExercisesSettings from './presentationalComponents/ExercisesSettings.svelte'
   import GlobalDurationSettings from './presentationalComponents/GlobalDurationSettings.svelte'
   import LinksSettings from './presentationalComponents/LinksSettings.svelte'
-  import NbOfViewsSettings from './presentationalComponents/NbOfViewsSettings.svelte'
+  import ViewSettings from './presentationalComponents/ViewSettings.svelte'
   import OrderSettings from './presentationalComponents/OrderSettings.svelte'
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
@@ -78,6 +78,10 @@
     $globalOptions.durationGlobal = durationGlobal
   }
 
+  function updateIsImagesOnSides (isImagesOnSides: boolean) {
+    $globalOptions.isImagesOnSides = isImagesOnSides
+  }
+
   function remove (exerciseIndex: number) {
     exercises.splice(exerciseIndex, 1)
     if (exercises.length === 0) {
@@ -110,9 +114,11 @@
       <DisplaySettings
         {goToOverview}
       />
-      <NbOfViewsSettings
+      <ViewSettings
         nbOfViews={$globalOptions.nbVues ?? 1}
         {updateNbOfViews}
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
+        {updateIsImagesOnSides}
       />
       <TransitionSettings
         {transitionSounds}

@@ -29,6 +29,7 @@ export interface InterfaceGlobalOptions {
   screenBetweenSlides?: boolean
   pauseAfterEachQuestion?: boolean
   sound?: 0 | 1 | 2 | 3 | 4
+  isImagesOnSides?: boolean
   shuffle?: boolean
   select?: number[]
   order?: number[]

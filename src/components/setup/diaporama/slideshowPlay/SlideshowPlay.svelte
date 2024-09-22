@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Slide, Slideshow } from '../types'
-  import SlideshowPlayQuestion from './presentationalComponents/SlideshowPlayQuestion.svelte'
+  import SlideshowPlayQuestion from './presentationalComponents/slideshowPlayQuestion/SlideshowPlayQuestion.svelte'
   import SlideshowPlaySettings from './presentationalComponents/slideshowPlaySettings/SlideshowPlaySettings.svelte'
   import SlideshowPlaySteps from './presentationalComponents/SlideshowPlaySteps.svelte'
   import SlideshowPlayEndButtons from './presentationalComponents/SlideshowPlayEndButtons.svelte'
@@ -337,6 +337,7 @@
         {currentSlide}
         currentQuestion={slideshow.currentQuestion}
         selectedQuestionsNumber={slideshow.selectedQuestionsNumber}
+        isImagesOnSides={!!$globalOptions.isImagesOnSides}
       />
     </main>
     <footer class="sticky flex flex-row justify-between w-full py-1 bottom-0 opacity-100
