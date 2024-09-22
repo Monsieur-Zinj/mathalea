@@ -6,12 +6,14 @@
   export let switchDisplayMode: () => void
   export let backToSettings: (event: Event) => void
   export let pause: () => void
-  export let play: () => void
+  export let play: (isUserAction: boolean) => void
   export let isManualModeActive: boolean | undefined
   export let isQuestionVisible: boolean
   export let isCorrectionVisible: boolean
   export let currentSlideDuration: number
   export let BUTTONS_CLASS: string
+
+  let isTimerSettingsModalDisplayedOnce = false
 
   $: getDisplayMode = () => {
     if (isQuestionVisible && !isCorrectionVisible) {
@@ -33,8 +35,9 @@
 
   $: if (isTimerSettingsModalDisplayed) {
     pause()
-  } else {
-    play()
+    isTimerSettingsModalDisplayedOnce = true
+  } else if (isTimerSettingsModalDisplayedOnce) {
+    play(true)
   }
 
 </script>
