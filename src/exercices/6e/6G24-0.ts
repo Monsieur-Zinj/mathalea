@@ -223,7 +223,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
         objets.push(label)
         objetsCorrection.push(trace, labelSym, egalite)
       }
-      objetsCorrection = [...objets, ...objetsCorrection]
+      objetsCorrection = [...objets, ...objetsCorrection, ...guideDroites]
       if (this.sup2 === 2) {
         guideDroites.forEach(guide => {
           guide.epaisseur = 1
@@ -343,7 +343,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
     }
     if (divFeedback) divFeedback.innerHTML = feedback
-    // mathaleaRenderDiv(divFeedback)
     this.figures[i].isDynamic = false
     this.figures[i].divButtons.style.display = 'none'
     this.figures[i].divUserMessage.style.display = 'none'
