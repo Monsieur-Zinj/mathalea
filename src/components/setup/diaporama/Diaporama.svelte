@@ -192,7 +192,7 @@
     exercicesParams.set(newParams)
   }
 
-  function start () {
+  function startSlideshow () {
     updateExercises()
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = 0
@@ -201,6 +201,14 @@
   function backToSettings () {
     $globalOptions.v = 'diaporama'
     slideshow.currentQuestion = -1
+  }
+
+  function goToHome () {
+    $globalOptions.v = undefined
+  }
+
+  function goToOverview () {
+    $globalOptions.v = 'overview'
   }
 </script>
 
@@ -226,7 +234,9 @@
         {exercises}
         {updateExercises}
         {transitionSounds}
-        {start}
+        {startSlideshow}
+        {goToOverview}
+        {goToHome}
       />
     {/if}
     {#if slideshow.currentQuestion > -1}
@@ -234,6 +244,7 @@
         {slideshow}
         {transitionSounds}
         {backToSettings}
+        {goToOverview}
       />
     {/if}
   {/if}

@@ -733,13 +733,13 @@ export function mathaleaFormatExercice (texte = ' ') {
  * @param {string} oldComponent composant à changer
  * @param {string} newComponent composant à afficher
  */
-export function mathaleaHandleComponentChange (oldComponent: string, newComponent: '' | 'diaporama' | 'can' | 'eleve' | 'latex' | 'confeleve' | 'amc' | 'anki' | 'moodle') {
+export function mathaleaHandleComponentChange (oldComponent: string, newComponent: '' | VueType) {
   const oldPart = '&v=' + oldComponent
   const newPart = newComponent === '' ? '' : '&v=' + newComponent
   const urlString = window.location.href.replace(oldPart, newPart)
   window.history.pushState(null, '', urlString)
   globalOptions.update((l) => {
-    l.v = newComponent
+    l.v = newComponent === '' ? undefined : newComponent
     return l
   })
 }

@@ -12,6 +12,7 @@
   export let slideshow: Slideshow
   export let transitionSounds: Record<string, HTMLAudioElement>
   export let backToSettings: () => void
+  export let goToOverview: () => void
 
   const divQuestion: HTMLDivElement[] = []
   const exercicesAffiches = new window.Event('exercicesAffiches', { bubbles: true })
@@ -367,6 +368,7 @@
     <SlideshowPlayEndButtons
       {returnToStart}
       {backToSettings}
+      {goToOverview}
     />
   </div>
 {/if}

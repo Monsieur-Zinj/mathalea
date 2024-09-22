@@ -10,7 +10,7 @@
   import SelectedExercisesSettings from './presentationalComponents/SelectedExercisesSettings.svelte'
   import TransitionSettings from './presentationalComponents/TransitionSettings.svelte'
   import NavBar from '../../../shared/header/NavBar.svelte'
-  import { mathaleaHandleComponentChange, mathaleaRenderDiv } from '../../../../lib/mathalea'
+  import { mathaleaRenderDiv } from '../../../../lib/mathalea'
   import { globalOptions } from '../../../../lib/stores/generalStore'
   import { referentielLocale } from '../../../../lib/stores/languagesStore'
   import { isIntegerInRange0to4 } from '../../../../lib/types/integerInRange'
@@ -19,7 +19,9 @@
   export let exercises: Exercice[]
   export let updateExercises: (updatedExercises: Exercice[]) => void
   export let transitionSounds: { 0: HTMLAudioElement; 1: HTMLAudioElement; 2: HTMLAudioElement; 3: HTMLAudioElement; }
-  export let start: () => void
+  export let startSlideshow: () => void
+  export let goToOverview: () => void
+  export let goToHome: () => void
 
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
@@ -35,10 +37,6 @@
     }
     previousNumberOfSelectedExercises = numberOfSelectedExercises
     updateSelect(selection)
-  }
-
-  function goToOverview () {
-    mathaleaHandleComponentChange('diaporama', 'overview')
   }
 
   function updateNbOfViews (nbVues: NumberRange<1, 4>) {
@@ -82,6 +80,9 @@
 
   function remove (exerciseIndex: number) {
     exercises.splice(exerciseIndex, 1)
+    if (exercises.length === 0) {
+      goToOverview()
+    }
     applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
     updateExercises(exercises)
     exercises = exercises // to refresh ExercisesSettings component
@@ -100,6 +101,7 @@
     subtitleType="export"
     handleLanguage={() => {}}
     locale={$referentielLocale}
+    goToStart={goToHome}
   />
   <div class="flex justify-end items-start mt-10
     flex-col md:flex-row"
@@ -169,8 +171,8 @@
               bg-coopmaths-action dark:bg-coopmathsdark-action
               hover:bg-coopmaths-action-lightest dark:hover:bg-coopmathsdark-action-lightest
               text-coopmaths-canvas dark:text-coopmathsdark-canvas"
-            on:click={start}
-            on:keydown={start}
+            on:click={startSlideshow}
+            on:keydown={startSlideshow}
           >
             Play<i class="bx bx-play" />
           </button>

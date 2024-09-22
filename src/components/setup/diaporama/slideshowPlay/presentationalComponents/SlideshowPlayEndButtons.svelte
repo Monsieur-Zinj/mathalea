@@ -1,12 +1,12 @@
 <script lang="ts">
   import { buildMathAleaURL } from '../../../../../lib/components/urls'
-  import { mathaleaHandleComponentChange } from '../../../../../lib/mathalea'
   import ButtonQRCode from '../../../../shared/forms/ButtonQRCode.svelte'
   import ButtonActionInfo from '../../../../shared/forms/ButtonActionInfo.svelte'
   import ButtonIconTooltip from '../../../../shared/forms/ButtonIconTooltip.svelte'
 
   export let returnToStart: () => void
   export let backToSettings: () => void
+  export let goToOverview: () => void
 
 </script>
 
@@ -19,7 +19,7 @@
   <ButtonIconTooltip
     icon="bx-detail mx-[3vw] my-2 text-[6vw]"
     tooltip="Questions + Réponses"
-    on:click={() => mathaleaHandleComponentChange('diaporama', 'overview')}
+    on:click={goToOverview}
   />
   <ButtonActionInfo
     action="copy"

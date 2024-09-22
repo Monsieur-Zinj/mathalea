@@ -1,11 +1,9 @@
 <script lang="ts">
   import {
     globalOptions,
-    darkMode,
-    callerComponent
+    darkMode
   } from '../../../lib/stores/generalStore'
   import ButtonIcon from '../forms/ButtonIcon.svelte'
-  import { mathaleaHandleComponentChange } from '../../../lib/mathalea'
   import NavBarSubtitle from './NavBarSubtitle.svelte'
   import {
     VUES_WITH_LANG_STATUS_ONLY,
@@ -15,20 +13,16 @@
   import LanguageDropdown from '../ui/LanguageDropdown.svelte'
   import LanguageIcon from '../ui/LanguageIcon.svelte'
   import ModalLanguageChoice from '../modal/ModalLanguageChoice.svelte'
+  import type { VueType } from '../../../lib/types'
 
   export let title: string = 'MathALÉA'
   export let subtitle: string = ''
   export let subtitleType: 'export' | 'design' = 'export'
   export let locale: Language
   export let handleLanguage: (lang: string) => void
+  export let goToStart: (v: VueType | undefined) => void
 
   let showLanguageChoiceModal: boolean = false
-
-  function goToMathalea (paramV: string | undefined) {
-    if (paramV !== undefined) {
-      mathaleaHandleComponentChange(paramV, $callerComponent)
-    }
-  }
 </script>
 
 <!--
@@ -66,8 +60,8 @@
         flex-col md:flex-row">
         <div>
           <div
-            on:click={() => goToMathalea($globalOptions.v)}
-            on:keydown={() => goToMathalea($globalOptions.v)}
+            on:click={() => goToStart($globalOptions.v)}
+            on:keydown={() => goToStart($globalOptions.v)}
             role="link"
             tabindex="0"
             class="relative inline-flex font-logo9 tracking-tighter font-black
@@ -140,7 +134,7 @@
         icon="bx-x {subtitleType === 'design' ? 'hidden' : ''}"
         class="text-3xl"
         on:click={() => {
-          goToMathalea($globalOptions.v)
+          goToStart($globalOptions.v)
         }}
       />
     </div>
