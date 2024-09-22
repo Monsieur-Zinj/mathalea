@@ -1,4 +1,4 @@
-import ArrondirUneValeur from '../6e/6N31-3.js'
+import ArrondirUneValeur6e from '../6e/6N31-3.js'
 export const titre = 'Arrondir une valeur'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -15,6 +15,6 @@ export const refs = {
   'fr-ch': ['10NO3-7']
 }
 export default function ArrondirUneValeur2nde () {
-  ArrondirUneValeur.call(this)
+  ArrondirUneValeur6e.call(this)
   this.sup = 5
 }
