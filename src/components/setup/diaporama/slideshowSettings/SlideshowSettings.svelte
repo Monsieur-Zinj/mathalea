@@ -81,7 +81,7 @@
   function remove (exerciseIndex: number) {
     exercises.splice(exerciseIndex, 1)
     if (exercises.length === 0) {
-      goToOverview()
+      goToHome()
     }
     applyRandomSelectionOfExercises(previousNumberOfSelectedExercises)
     updateExercises(exercises)
@@ -101,7 +101,6 @@
     subtitleType="export"
     handleLanguage={() => {}}
     locale={$referentielLocale}
-    goToStart={goToHome}
   />
   <div class="flex justify-end items-start mt-10
     flex-col md:flex-row"
