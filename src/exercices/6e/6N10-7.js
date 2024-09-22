@@ -1,6 +1,5 @@
 import {
-  enleveElementDouble,
-  shuffle2tableaux,
+  shuffle2tableaux
 } from '../../lib/outils/arrayOutils'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -8,7 +7,7 @@ import {
   contraindreValeur,
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
+  randint
 } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 
@@ -18,6 +17,7 @@ import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { calculCompare } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recomposer un décimal ou un entier'
 export const interactifReady = true
@@ -27,7 +27,7 @@ export const amcType = 'AMCOpen'
 export const dateDePublication = '14/08/2022'
 export const dateDeModifImportante = '09/10/2023'
 
-function remplaceParZero(chaine, place) {
+function remplaceParZero (chaine, place) {
   if (place > chaine.length) return chaine // On ne peut pas remplacer en dehors de la chaine !
   if (place === 0) return chaine // on ne veut pas remplacer le premier chiffre
   try {
@@ -36,7 +36,7 @@ function remplaceParZero(chaine, place) {
     return `${debut}0${fin}`
   } catch (error) {
     console.error(
-      `Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`,
+      `Problème dans remplaceParZero avec le nombre : ${chaine} et la position : ${place})`
     )
   }
 }
@@ -48,9 +48,9 @@ export const uuid = 'f899b'
 export const ref = '6N10-7'
 export const refs = {
   'fr-fr': ['6N10-7'],
-  'fr-ch': ['9NO1-9'],
+  'fr-ch': ['9NO1-9']
 }
-export default function RecomposerEntierC3() {
+export default function RecomposerEntierC3 () {
   Exercice.call(this)
   this.nbQuestions = 4
   this.sup = 5 // nombre de chiffres minimum du nombre à décomposer
@@ -69,7 +69,7 @@ export default function RecomposerEntierC3() {
       melange: 13,
       nbQuestions: this.nbQuestions,
       saisie: this.sup3,
-      shuffle: false,
+      shuffle: false
     })
     /**
      * Une fonction pour ajouter tous les nombres passés en argument.
@@ -85,7 +85,7 @@ export default function RecomposerEntierC3() {
       melange: 4,
       nbQuestions: this.nbQuestions,
       saisie: String(this.sup4),
-      shuffle: false,
+      shuffle: false
     })
 
     this.nombreDeChamps = []
@@ -104,7 +104,7 @@ export default function RecomposerEntierC3() {
       ['dizaine de mille', 'dizaines de mille'],
       ['centaine de mille', 'centaines de mille'],
       ['million', 'millions'],
-      ['dizaine de millions', 'dizaines de millions'],
+      ['dizaine de millions', 'dizaines de millions']
     ]
     for (
       let i = 0,
@@ -128,13 +128,13 @@ export default function RecomposerEntierC3() {
         nombreDeChiffresDec[i] + 3,
         6,
         this.sup,
-        5,
+        5
       )
       nombreDeChiffresMax = contraindreValeur(
         nombreDeChiffresMin,
         7,
         this.sup2,
-        nombreDeChiffresMin + 1,
+        nombreDeChiffresMin + 1
       )
       nbChiffres = randint(nombreDeChiffresMin, nombreDeChiffresMax)
       let formule = ''
@@ -146,8 +146,8 @@ export default function RecomposerEntierC3() {
           nameProperty,
           {
             value: String(10 ** exposantMorceaux[i][k]),
-            compare: calculCompare,
-          },
+            compare: calculCompare
+          }
         ])
       }
       const completeLesMantisses = (
@@ -155,31 +155,31 @@ export default function RecomposerEntierC3() {
         i,
         morceaux,
         exposantMorceaux,
-        nombreDeChiffresDec,
+        nombreDeChiffresDec
       ) => {
         formule += `(%{champ${k + 1}}\\times${texNombre(10 ** exposantMorceaux[i][k], nombreDeChiffresDec)})+`
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], compare: calculCompare },
+          { value: morceaux[i][k], compare: calculCompare }
         ])
       }
-      const chiffreDes = (k, i, morceaux, exposantMorceaux) => {
+      /* const chiffreDes = (k, i, morceaux, exposantMorceaux) => {
         formule += `\\quad%{champ${k + 1}}\\quad\\text{${glossaire[exposantMorceaux[i][k] + 3][Number(morceaux[i][k]) > 1 ? 1 : 0]}}\\quad+`
         const nameProperty = `champ${k + 1}`
         listeReponses.push([
           nameProperty,
-          { value: morceaux[i][k], compare: calculCompare },
+          { value: morceaux[i][k], compare: calculCompare }
         ])
-      }
+      } */
       const trouveLeNombre = (nombre, nombreDeChiffresDec) => {
         formule = ': %{champ1}+' // Le '+' c'est parce qu'il y en a dans toutes les autres formules et que le dernier caractère est supprimé
         listeReponses.push([
           'champ1',
           {
             value: nombre.div(10 ** nombreDeChiffresDec).toString(),
-            compare: calculCompare,
-          },
+            compare: calculCompare
+          }
         ])
       }
       const morcelleNombre = (
@@ -187,7 +187,7 @@ export default function RecomposerEntierC3() {
         nombreStr,
         melange,
         morceaux,
-        exposantMorceaux,
+        exposantMorceaux
       ) => {
         for (let k = 0; k < nbChiffres; k++) {
           morceaux[i][k] = nombreStr[k]
@@ -202,14 +202,14 @@ export default function RecomposerEntierC3() {
             str += randint(
               1,
               9,
-              str === '' ? [] : Array.from(str).map((el) => Number(el)),
+              str === '' ? [] : Array.from(str).map((el) => Number(el))
             ).toString() // On veut des chiffres tous différents sinon ça pose un problème pour l'interactif
             // En effet, chaque chiffre ayant une place définie par rapport à son placeholder, avec des doublons, on aurait des fausses mauvaises réponses.
           } else {
             str += randint(
               0,
               9,
-              Array.from(str).map((el) => Number(el)),
+              Array.from(str).map((el) => Number(el))
             ).toString() // On veut des chiffres tous différents sinon ça pose un problème pour l'interactif
             // En effet, chaque chiffre ayant une place définie par rapport à son placeholder, avec des doublons, on aurait des fausses mauvaises réponses.
           }
@@ -231,7 +231,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             false,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesMantisses(
@@ -239,7 +239,7 @@ export default function RecomposerEntierC3() {
               i,
               this.morceaux,
               this.exposantMorceaux,
-              nombreDeChiffresDec[i],
+              nombreDeChiffresDec[i]
             )
             texteCorr += `(${miseEnEvidence(this.morceaux[i][k])}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
           }
@@ -255,7 +255,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             true,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesMantisses(
@@ -263,7 +263,7 @@ export default function RecomposerEntierC3() {
               i,
               this.morceaux,
               this.exposantMorceaux,
-              nombreDeChiffresDec[i],
+              nombreDeChiffresDec[i]
             )
             texteCorr += `(${miseEnEvidence(this.morceaux[i][k])}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
           }
@@ -284,7 +284,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             false,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesPuissances(
@@ -292,7 +292,7 @@ export default function RecomposerEntierC3() {
               i,
               this.morceaux,
               this.exposantMorceaux,
-              nombreDeChiffresDec[i],
+              nombreDeChiffresDec[i]
             )
             texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
           }
@@ -314,7 +314,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             true,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             completeLesPuissances(
@@ -322,7 +322,7 @@ export default function RecomposerEntierC3() {
               i,
               this.morceaux,
               this.exposantMorceaux,
-              nombreDeChiffresDec[i],
+              nombreDeChiffresDec[i]
             )
             texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
           }
@@ -339,7 +339,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             false,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
@@ -348,7 +348,7 @@ export default function RecomposerEntierC3() {
                 i,
                 this.morceaux,
                 this.exposantMorceaux,
-                nombreDeChiffresDec[i],
+                nombreDeChiffresDec[i]
               )
               texteCorr += `(${miseEnEvidence(this.morceaux[i][k])}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
             }
@@ -365,7 +365,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             true,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
@@ -374,7 +374,7 @@ export default function RecomposerEntierC3() {
                 i,
                 this.morceaux,
                 this.exposantMorceaux,
-                nombreDeChiffresDec[i],
+                nombreDeChiffresDec[i]
               )
               texteCorr += `(${miseEnEvidence(this.morceaux[i][k])}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i])})+`
             }
@@ -396,7 +396,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             false,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
@@ -405,7 +405,7 @@ export default function RecomposerEntierC3() {
                 i,
                 this.morceaux,
                 this.exposantMorceaux,
-                nombreDeChiffresDec[i],
+                nombreDeChiffresDec[i]
               )
               texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
             }
@@ -428,7 +428,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             true,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.morceaux[i][k] !== '0') {
@@ -437,7 +437,7 @@ export default function RecomposerEntierC3() {
                 i,
                 this.morceaux,
                 this.exposantMorceaux,
-                nombreDeChiffresDec[i],
+                nombreDeChiffresDec[i]
               )
               texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
             }
@@ -454,7 +454,7 @@ export default function RecomposerEntierC3() {
             nombreStr,
             false,
             this.morceaux,
-            this.exposantMorceaux,
+            this.exposantMorceaux
           )
           texteCorr = '$'
           for (let k = 0; k < this.morceaux[i].length - 1; k++) {
@@ -490,7 +490,7 @@ export default function RecomposerEntierC3() {
             } while (this.morceaux[i][k] === '' && testeur < 100)
             if (testeur === 100) {
               window.notify('boucle sans fin detectée case 10 6N10-7', {
-                nombreStr,
+                nombreStr
               })
             }
             index += j
@@ -528,7 +528,7 @@ export default function RecomposerEntierC3() {
             } while (this.morceaux[i][k] === '' && testeur < 100)
             if (testeur === 100) {
               window.notify('boucle sans fin detectée case 11 6N10-7', {
-                nombreStr,
+                nombreStr
               })
             }
             index += j
@@ -573,7 +573,7 @@ export default function RecomposerEntierC3() {
               } while (this.morceaux[i][k] === '' && testeur < 100)
               if (testeur === 100) {
                 window.notify('boucle sans fin detectée case 14 6N10-7', {
-                  nombreStr,
+                  nombreStr
                 })
               }
               this.exposantMorceaux[i][k] =
@@ -590,7 +590,7 @@ export default function RecomposerEntierC3() {
                   i,
                   this.morceaux,
                   this.exposantMorceaux,
-                  nombreDeChiffresDec[i],
+                  nombreDeChiffresDec[i]
                 )
                 texteCorr += `(${this.morceaux[i][k]}\\times ${miseEnEvidence(texNombre(10 ** this.exposantMorceaux[i][k], nombreDeChiffresDec[i]))})+`
               }
@@ -599,13 +599,13 @@ export default function RecomposerEntierC3() {
           blanc = '\\ldots\\ldots\\ldots'
           break
       }
-      // if (this.interactif) {
+
       texte += remplisLesBlancs(
         this,
         i,
         formule.substring(0, formule.length - 1),
-        'inline college6eme largeur01 nospacebefore',
-        blanc,
+        'inline largeur01 nospacebefore ' + KeyboardType.numbersSpace,
+        blanc
       )
       // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
       handleAnswers(
@@ -615,12 +615,12 @@ export default function RecomposerEntierC3() {
           {
             bareme: (listePoints) => [
               Math.floor(somme(listePoints) / listePoints.length),
-              1,
-            ],
+              1
+            ]
           },
-          Object.fromEntries(listeReponses),
+          Object.fromEntries(listeReponses)
         ),
-        { formatInteractif: 'fillInTheBlank' },
+        { formatInteractif: 'fillInTheBlank' }
       )
       //   }
       texte = `${texte.substring(0, texte.length - 1)}$`
@@ -635,9 +635,9 @@ export default function RecomposerEntierC3() {
             {
               texte: texteCorr,
               statut: 1, // OBLIGATOIRE (ici c'est le nombre de lignes du cadre pour la réponse de l'élève sur AMC)
-              sanscadre: true,
-            },
-          ],
+              sanscadre: true
+            }
+          ]
         }
       }
 
@@ -657,31 +657,31 @@ export default function RecomposerEntierC3() {
   }
   this.besoinFormulaireNumerique = [
     'Nombre de chiffres minimum des nombres à décomposer',
-    6,
+    6
   ]
   this.besoinFormulaire2Numerique = [
     'Nombre de chiffres maximum des nombres à décomposer',
-    7,
+    7
   ]
   this.besoinFormulaire3Texte = [
     'Type de questions',
-    'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange',
+    'Nombres séparés par des tirets\n1 : Chiffrée en ordre sans zéro\n2 : Chiffrée en désordre sans zéro\n3 : Puissances de dix en ordre sans zéro\n4 : Puissances de dix en désordre sans zéro\n5 : Chiffrée en ordre avec zéros possibles\n6 : Chiffrée en désordre avec zéros possibles\n7 : Puissances de dix en ordre avec zéros possibles\n8 : Puissances de dix en désordre avec zéros possibles\n9 : Trouver le nombre en ordre sans zéro\n10 : Trouver le nombre en désordre avec zéro avec groupement\n11 : Trouver le nombre en désordre sans zéro avec groupement\n12 : Puissances de dix en désordre deux zéros consécutifs sans groupement\n13 : Mélange'
   ]
   this.besoinFormulaire4Texte = [
     'Nombre de chiffres de la partie décimale',
-    '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange',
+    '0 : Aucun chiffre dans la partie décimale\n1 : Un seul chiffre dans la partie décimale\n2 : Que deux chiffres dans la partie décimale\n3 : Que trois chiffres dans la partie décimale\n4 : Mélange'
   ]
   this.correctionInteractive = (i) => {
     const champsTexte = []
     const saisies = []
     if (this.premierChamp[i] === undefined) return 'OK'
     const spanResultat = document.querySelector(
-      `#resultatCheckEx${this.numeroExercice}Q${i}`,
+      `#resultatCheckEx${this.numeroExercice}Q${i}`
     )
     let resultatOK = true
     for (let k = 0; k < this.nombreDeChamps[i]; k++) {
       champsTexte[k] = document.getElementById(
-        `champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`,
+        `champTexteEx${this.numeroExercice}Q${k + this.premierChamp[i]}`
       )
       saisies[k] = champsTexte[k].value
         .replace(',', '.')
@@ -691,7 +691,7 @@ export default function RecomposerEntierC3() {
         Number.parseInt(saisies[k]) ===
           Number.parseInt(
             this.autoCorrection[this.premierChamp[i] + k].reponse.valeur.reponse
-              .value,
+              .value
           )
     }
     if (resultatOK) {

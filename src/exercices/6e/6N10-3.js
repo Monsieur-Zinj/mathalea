@@ -5,13 +5,14 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
 import { pow } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
-export const dateDeModifImportante = '11/10/2023'
+export const dateDeModifImportante = '22/09/2024'
 export const titre = 'Décomposer un nombre entier (nombre de ..., chiffres des ...)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -294,8 +295,7 @@ export default function ChiffreNombreDe () {
       }
       texte = `${enonces[listeTypeDeQuestions[i]].enonce}`
       texteCorr = `${enonces[listeTypeDeQuestions[i]].correction}`
-      // setReponse(this, i, reponses[listeTypeDeQuestions[i]])
-      setReponse(this, i, texNombre(reponses[listeTypeDeQuestions[i]]), { formatInteractif: 'texte' })
+      handleAnswers(this, i, { reponse: { value: texNombre(reponses[listeTypeDeQuestions[i]]), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
 
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(1, 2)
@@ -322,7 +322,8 @@ export default function ChiffreNombreDe () {
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
-        texte += ajouteChampTexteMathLive(this, i, `largeur25 ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
+        texte += ajouteChampTexteMathLive(this, i, `largeur01 inline ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
+        texte += ajouteFeedback(this, i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
