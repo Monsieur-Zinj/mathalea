@@ -21,6 +21,7 @@ export class ElementButtonInstrumenpoche extends HTMLElement {
     const id = this.getAttribute('id')
     const xml = StoreIep.getXml(id)
     const divIep = document.createElement('div')
+    divIep.classList.add('max-w-xl')
     const button = document.createElement('button')
     divIep.style.display = 'none'
     button.innerText = 'Montrer l\'animation'
