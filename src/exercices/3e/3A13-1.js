@@ -8,7 +8,6 @@ export const interactifType = 'mathLive'
 
 /**
  * Poser et effectuer les divisions euclidiennes suivantes puis donner l'égalité fondamentale correspondante.
- * Ref 3A13-1
  *
  * @author Eric Elter
  */

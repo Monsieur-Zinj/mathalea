@@ -33,7 +33,6 @@ export const titre = 'Effectuer des divisions euclidiennes'
  * * division par 13,14,21,22,23 ou 24 et un 0 dans le quotient
  * * division par un multiple de 10 et un 0 dans le quotient
  * @author Rémi Angot
- * Référence 6C11
  */
 export const uuid = '2da81'
 export const ref = '6C11'
@@ -45,16 +44,21 @@ export default function DivisionsEuclidiennes () {
   Exercice.call(this)
   this.sup = 1
   this.sup2 = false
-  this.titre = titre
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon opidiv n'est pas joli
   this.nbQuestions = 4
   this.classe = 6
 
   this.nouvelleVersion = function () {
-    this.consigne = 'Poser et effectuer '
-    this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
-    this.consigne += "puis donner l'égalité fondamentale correspondante."
+    if (this.sup2) {
+      this.consigne = 'À partir '
+      this.consigne += this.nbQuestions === 1 ? 'de la division euclidienne suivante' : 'des divisions euclidiennes suivantes'
+      this.consigne += ", donner l'égalité fondamentale correspondante."
+    } else {
+      this.consigne = 'Poser et effectuer '
+      this.consigne += this.nbQuestions === 1 ? 'la division euclidienne suivante ' : 'les divisions euclidiennes suivantes '
+      this.consigne += "puis donner l'égalité fondamentale correspondante."
+    }
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
