@@ -1,7 +1,7 @@
 import { obtenirListeFacteursPremiers } from '../lib/outils/primalite'
 import { texNombre2 } from '../lib/outils/texNombre'
 import { context } from './context.js'
-import { ConstantNode, SymbolNode, all, create, type Fraction, type MathNode } from 'mathjs'
+import { all, create, type Fraction, type MathNode } from 'mathjs'
 import { Node, Negative, solveEquation, simplifyExpression, factor } from 'mathsteps'
 import { getNewChangeNodes } from './Change.js'
 import Decimal from 'decimal.js'
@@ -39,7 +39,7 @@ function searchLastNode (node: Node, op?: string) {
  */
 export function assignVariables (expression: string, variables: Variables) {
   let node = math.parse(expression)
-  node = node.transform((node: Node, path, parent) => {
+  node = node.transform((node: Node) => {
     if (node.isSymbolNode) {
       const nodeName = node.name
       const variable = variables[nodeName as keyof Variables]
@@ -447,6 +447,7 @@ export function aleaExpression (expression: string = '(a*x+b)*(c*x-d)', assignat
 }
 
 /**
+ * @deprecated // A cause de la génération d'une graine, cette fonction crée des différences entre la sortie HTML et la sortie PDF.
  * @description Retourne des valeurs aléatoires sous certaines contraintes données.
  * Les calculs se font si possible avec mathjs au format fraction
  * @param {Object} variables // Propriété réservée : test
@@ -878,7 +879,7 @@ export function resoudre (equation, params) {
       'decimal' : decimal lorsque c'est possible, sinon fraction
       'fraction' : fraction (ou entier lorsque c'est possible)
   */
-  params = Object.assign({ comment: false, color: 'red', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false, changeType: [], produitsencroix: false, verifications: false }, params)
+  params = Object.assign({ comment: false, color: 'blue', comments: {}, reduceSteps: true, formatSolution: 2, substeps: false, changeType: [], produitsencroix: false, verifications: false }, params)
   // Un bug de mathsteps ne permet pas de résoudre 2/x=2 d'où la ligne suivante qui permettait de le contourner
   // const equation0 = equation.replace(comparator, `+0${comparator}0+`)
   // A priori le traitement actuel n'occure plus ce bug (raison ?).
