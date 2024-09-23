@@ -233,7 +233,7 @@ export default function EcrirePetitsNombresEntiers () {
         } else {
           handleAnswers(this, i, { reponse: { value: nombreEnLettres(NombreAEcrire), compare: fonctionComparaison, options: { texteSansCasse: true } } })
         }
-        if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexte(this, i, 'alphanumeric')}`
+        if (context.vue !== 'diap') texte = `$${texNombre(NombreAEcrire)} ${!context.isHtml ? ': \\pointilles[5cm]$' : !this.interactif ? ' : \\dotfill $' : '$ <br>' + ajouteChampTexte(this, i, 'alphanumeric')}`
         else texte = `$${texNombre(NombreAEcrire)}$`
         if (context.vue !== 'diap') texteCorr = `$${texNombre(NombreAEcrire)}$ : ${nombreEnLettres(NombreAEcrire)}`
         else texteCorr = `${nombreEnLettres(NombreAEcrire)}`
@@ -244,7 +244,7 @@ export default function EcrirePetitsNombresEntiers () {
         } else {
           handleAnswers(this, i, { reponse: { value: texNombre(NombreAEcrire), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
         }
-        if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
+        if (context.vue !== 'diap') texte = `${nombreEnLettres(NombreAEcrire)} ${!context.isHtml ? ': $\\pointilles[5cm]$' : !this.interactif ? ' : $\\dotfill$' : ' <br>' + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true })}`
         else texte = `${nombreEnLettres(NombreAEcrire)}`
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
