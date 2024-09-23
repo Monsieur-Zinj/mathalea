@@ -387,8 +387,8 @@ export default function CourseAuxNombresCM () {
               break
             case 3:
               texte = `Le quadruple du double de $${a}$`
-              texteCorr = `$${a} \\times 8=${calculANePlusJamaisUtiliser(a * 8)}$`
-              setReponse(this, i, calculANePlusJamaisUtiliser(a * 8), { formatInteractif: 'calcul' })
+              texteCorr = `$${a} \\times 4=${calculANePlusJamaisUtiliser(a * 4)}$`
+              setReponse(this, i, calculANePlusJamaisUtiliser(a * 4), { formatInteractif: 'calcul' })
               break
           }
           break
