@@ -4,6 +4,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -174,7 +175,7 @@ export default function NotationPuissance () {
         }
       }
 
-      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { tailleExtensible: true }) : ''
+      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') : ''
       if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {
@@ -182,6 +183,21 @@ export default function NotationPuissance () {
         this.autoCorrection[i].enonce = this.sup === 3 ? texte + ' $=\\ldots$<br>' : ('Compléter : ' + texte + ' $=\\ldots$')
         this.autoCorrection[i].propositions = [{ statut: 1, sanscadre: true, texte: texteCorr }]
       }
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
+
       // Si la question n'mantisse jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, mantisse, exposant, listeTypeDeQuestions[i], listeSignesExposants[i], listeSignes[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple mantisse, exposant, c et d)
         this.listeQuestions.push(texte)

@@ -6,6 +6,7 @@ import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Transformer une écriture de puissance en écriture décimale ou fractionnaire'
 
@@ -17,7 +18,6 @@ export const amcType = 'AMCNum'
 
 /**
  * @author Rémi Angot
- * Référence 4C35
  */
 export const uuid = '125bd'
 export const ref = '4C35'
@@ -27,12 +27,10 @@ export const refs = {
 }
 export default function PuissanceDecimaleOuFractionnaire () {
   Exercice.call(this)
-  this.titre = titre
   this.consigne = 'Calculer de tête l\'écriture décimale ou fractionnaire des nombres suivants.'
   this.nbQuestions = 8
   this.nbCols = 2
   this.nbColsCorr = 2
-  this.video = ''
   this.sup = false
   this.besoinFormulaireCaseACocher = ['Avec des nombres négatifs']
   this.besoinFormulaire2CaseACocher = ['Avec que des exposants positifs (incontournable pour AMC)']
@@ -137,6 +135,20 @@ export default function PuissanceDecimaleOuFractionnaire () {
       }
       if (!context.isAmc) setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
       else setReponse(this, i, Number(reponse), { formatInteractif: 'calcul' })
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
 
       texte += ajouteChampTexteMathLive(this, i)
       if (this.questionJamaisPosee(i, a, n, listeTypeQuestions[i])) {
