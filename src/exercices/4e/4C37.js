@@ -2,6 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 export const amcReady = true
 export const amcType = 'qcmMono'
 export const titre = 'Déterminer le signe d\'une puissance'
@@ -13,7 +14,6 @@ export const dateDePublication = '30/06/2022' // La date de publication initiale
  * Déterminer le signe d'une puissance, on choisira la possibilité d'avoir un nombre positif ou négatif et un
  * exposant positif ou négatif
  * @author Delphine David
- * Référence 4C37
 */
 export const uuid = '67432'
 export const ref = '4C37'
@@ -24,18 +24,15 @@ export const refs = {
 export default class SignePuissance extends Exercice {
   constructor () {
     super()
-    this.consigne = 'Déterminer le signe des expressions suivantes.'
+    this.consigne = 'Déterminer le signe '
     this.nbQuestions = 5
     this.nbCols = 1
     this.nbColsCorr = 1
     this.interactif = false
-    this.interactifReady = interactifReady
-    this.interactifType = interactifType
-    this.amcType = amcType
-    this.amcReady = amcReady
   }
 
   nouvelleVersion () {
+    this.consigne += this.nbQuestions > 1 ? 'des expressions suivantes.' : 'de l\'expression suivante.'
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -51,7 +48,7 @@ export default class SignePuissance extends Exercice {
           a = randint(2, 9)
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$${a}^{${n}}$`
-          texteCorr = `$${a}^{${n}}$ est positif car $${a}$ est positif.`
+          texteCorr = `$${a}^{${n}}$ est ${texteEnCouleurEtGras('positif')} car $${a}$ est positif.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -69,7 +66,7 @@ export default class SignePuissance extends Exercice {
           a = randint(2, 9)
           n = 2 * randint(1, 4) // permet de n'avoir que des exposant positif, cas intéressant ici
           texte = `$-${a}^{${n}}$`
-          texteCorr = `$-${a}^{${n}}$ est négatif. Attention il n'y a pas de parenthèses autour de $-${a}$.`
+          texteCorr = `$-${a}^{${n}}$ est ${texteEnCouleurEtGras('négatif')} car c'est l'opposé de $${a}^{${n}}$ qui est positif. Attention, il n'y a pas de parenthèses autour de $-${a}$.`
           this.autoCorrection[i] = {}
           this.autoCorrection[i].enonce = `${texte}\n`
           this.autoCorrection[i].propositions = [
@@ -88,7 +85,7 @@ export default class SignePuissance extends Exercice {
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$(-${a})^{${n}}$`
           if (n % 2 === 0) {
-            texteCorr = `$(-${a})^{${n}}$ est positif car l'exposant est pair.`
+            texteCorr = `$(-${a})^{${n}}$ est ${texteEnCouleurEtGras('positif')} car l'exposant est pair.`
             this.autoCorrection[i] = {}
             this.autoCorrection[i].enonce = `${texte}\n`
             this.autoCorrection[i].propositions = [
@@ -102,7 +99,7 @@ export default class SignePuissance extends Exercice {
               }
             ]
           } else {
-            texteCorr = `$(-${a})^{${n}}$ est négatif car l'exposant est impair.`
+            texteCorr = `$(-${a})^{${n}}$ est ${texteEnCouleurEtGras('négatif')} car l'exposant est impair et -${a} est négatif.`
             this.autoCorrection[i] = {}
             this.autoCorrection[i].enonce = `${texte}\n`
             this.autoCorrection[i].propositions = [
@@ -122,7 +119,7 @@ export default class SignePuissance extends Exercice {
           n = randint(-9, 9, [-1, 0, 1])
           texte = `$-(-${a})^{${n}}$`
           if (n % 2 === 0) {
-            texteCorr = `$-(-${a})^{${n}}$ est négatif. L'exposant est pair donc $(-${a})^{${n}}$ est positif et son opposé est négatif.`
+            texteCorr = `$-(-${a})^{${n}}$ est ${texteEnCouleurEtGras('négatif')}. L'exposant est pair donc $(-${a})^{${n}}$ est positif et son opposé est négatif.`
             this.autoCorrection[i] = {}
             this.autoCorrection[i].enonce = `${texte}\n`
             this.autoCorrection[i].propositions = [
@@ -136,7 +133,7 @@ export default class SignePuissance extends Exercice {
               }
             ]
           } else {
-            texteCorr = `$-(-${a})^{${n}}$ est positif. L' exposant est impair donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
+            texteCorr = `$-(-${a})^{${n}}$ est ${texteEnCouleurEtGras('positif')}. L' exposant est impair et -${a} est négatif donc $(-${a})^{${n}}$ est négatif et son opposé est positif.`
             this.autoCorrection[i] = {}
             this.autoCorrection[i].enonce = `${texte}\n`
             this.autoCorrection[i].propositions = [
