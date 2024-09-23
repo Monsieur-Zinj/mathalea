@@ -45,12 +45,11 @@ export const refs = {
 export default function APartirDeDivisionsEuclidiennes () {
   Exercice.call(this)
   this.sup = 3
-  this.titre = titre
   this.spacing = 2
   this.spacing = context.isHtml ? 2 : 1 // Important sinon opidiv n'est pas joli
   this.spacingCorr = context.isHtml ? 2 : 1
   this.nbQuestions = 4
-    this.classe = 6
+  this.classe = 6
 
   this.nouvelleVersion = function () {
     this.consigne = 'À partir '
