@@ -1,20 +1,11 @@
 import { sqrt } from 'mathjs'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../lib/outils/ecritures'
 import FractionEtendue from './FractionEtendue'
-import { ComputeEngine } from '@cortex-js/compute-engine'
 import { shuffle2tableauxSansModif } from '../lib/outils/arrayOutils'
 import { randint } from './outils'
-import type { Expression } from 'mathlive'
 import { getLang } from '../lib/stores/languagesStore'
-
-const ce = new ComputeEngine()
-ce.latexOptions = {
-  multiply: '\\times',
-  // precision: 3,
-  // decimalMarker: "{,}",
-  // invisiblePlus : '',
-  fractionStyle: (expr: Expression, level: number) => 'block-quotient'
-}
+import { pgcd } from '../lib/outils/primalite'
+import { extraireRacineCarree } from '../lib/outils/calculs'
 
 interface Options {
   format: string;
@@ -87,9 +78,32 @@ class EquationSecondDegre {
         this.solutionsListeTex = [`${this.coefficientsEqReduite[1].multiplieEntier(-1).differenceFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`, `${this.coefficientsEqReduite[1].multiplieEntier(-1).sommeFraction(new FractionEtendue(sqrt(this.delta.num) as number, sqrt(this.delta.den) as number)).produitFraction((this.coefficientsEqReduite[0].multiplieEntier(2)).inverse()).texFractionSimplifiee}`]
         // parse la réponse latex en CE qui la simplifie et l'imprime
       } else if (this.natureDesSolutions === 'irrationnel') {
-        const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
-        const sol2Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`.replaceAll('dfrac', 'frac')
-        this.solutionsListeTex = [ce.serialize(ce.parse(sol1Tex, { canonical: true }).simplify()).replaceAll('\\frac', '\\dfrac').replaceAll('\\times1}', '}').replaceAll('\\times 1+', '+'), ce.serialize(ce.parse(sol2Tex, { canonical: true }).simplify()).replaceAll('\\frac', '\\dfrac').replaceAll('\\times1}', '}').replaceAll('\\times1+', '+')]
+        const sol1Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`
+        const sol2Tex = `\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}`
+        const racineDelta = extraireRacineCarree(this.delta.num)
+        if (this.delta.estEntiere) {
+          if (this.delta.num === 0) {
+            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1], 2 * this.coefficientsEqReduite[0])
+            this.solutionsListeTex = [sol1.texFractionSimplifiee, sol1.texFractionSimplifiee]
+          } else if (racineDelta[1] === 1) {
+            const sol1 = new FractionEtendue(-this.coefficientsEqReduite[1] + racineDelta[0], 2 * this.coefficientsEqReduite[0])
+            const sol2 = new FractionEtendue(-this.coefficientsEqReduite[1] - racineDelta[0], 2 * this.coefficientsEqReduite[0])
+            this.solutionsListeTex = [sol1.texFractionSimplifiee, sol2.texFractionSimplifiee]
+          } else {
+            let pgcdRacines = pgcd(2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den, this.coefficientsEqReduite[1].num * this.coefficientsEqReduite[0].den)
+            pgcdRacines = pgcd(pgcdRacines, this.coefficientsEqReduite[0].den * this.coefficientsEqReduite[1].den * racineDelta[0])
+            // s = (a - b*sqrt(c))/d
+            const a = -this.coefficientsEqReduite[1].num * this.coefficientsEqReduite[0].den / pgcdRacines
+            const b = this.coefficientsEqReduite[0].den * this.coefficientsEqReduite[1].den * racineDelta[0] / pgcdRacines
+            const c = racineDelta[1]
+            const d = 2 * this.coefficientsEqReduite[0].num * this.coefficientsEqReduite[1].den / pgcdRacines
+            const sol1RevisiteeTex = `\\dfrac{${a} - ${b}\\sqrt{${c}}}{${d}}`
+            const sol2RevisiteeTex = `\\dfrac{${a} + ${b}\\sqrt{${c}}}{${d}}`
+            this.solutionsListeTex = [sol1RevisiteeTex, sol2RevisiteeTex]
+          }
+        } else {
+          this.solutionsListeTex = [sol1Tex, sol2Tex]
+        }
       }
     }
     this.ensembleDeSolutionsTex = this.delta.num < 0 ? 'S=\\emptyset' : this.delta.num > 0 ? 'S = \\left\\{' + this.solutionsListeTex.join(';') + '\\right\\}' : `S=\\left\\{${this.solutionsListeTex[0]}\\right\\}`
@@ -109,7 +123,11 @@ class EquationSecondDegre {
         this.correctionDetailleeTex += `\\[s_{1}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}+\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\quad`
         this.correctionDetailleeTex += ` s_{2}=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}-\\sqrt{${this.delta.texFSD}}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]`
       }
-      this.correctionDetailleeTex += `Ainsi, $${this.ensembleDeSolutionsTex}$.`
+      if (this.natureDesSolutions === 'entier' || this.natureDesSolutions === 'fractionnaire') {
+        this.correctionDetailleeTex += `En réduisant si besoin des fractions et en simplifiant les racines, on obtient $${this.ensembleDeSolutionsTex}$.`
+      } else {
+        this.correctionDetailleeTex += `Ainsi, $${this.ensembleDeSolutionsTex}$.`
+      }
     } else if (this.nombreSolutions === 1) {
       this.correctionDetailleeTex += `l'équation a une solution donnée par
     \\[s=\\dfrac{-${this.coefficientsEqReduite[1].ecritureParentheseSiNegatif}}{2\\times${this.coefficientsEqReduite[0].ecritureParentheseSiNegatif}}\\]
