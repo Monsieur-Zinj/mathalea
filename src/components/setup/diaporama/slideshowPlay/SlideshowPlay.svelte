@@ -108,7 +108,19 @@
       return
     }
     if ($globalOptions.sound !== undefined && $globalOptions.sound > 0) {
-      transitionSounds[$globalOptions.sound - 1].play()
+      try {
+        await transitionSounds[$globalOptions.sound - 1].play()
+      } catch (error) {
+        if (error instanceof Error) {
+          if (error.name === 'NotAllowedError') {
+            console.error('Audio playback was not allowed. Please interact with the page to enable audio.')
+          } else {
+            console.error('An error occurred while trying to play the audio:', error)
+          }
+        } else {
+          console.error('An unknown error occurred:', error)
+        }
+      }
     }
     if ($globalOptions.screenBetweenSlides) await showDialogForLimitedTime('transition', 1000)
     play(false)
