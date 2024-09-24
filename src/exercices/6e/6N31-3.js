@@ -104,7 +104,6 @@ export default function ArrondirUneValeur6e () {
           ci = 100 * (troncature(n - troncature(n, 1), 2))
           mi = 1000 * (troncature(n - troncature(n, 2), 3))
           texte = ` $${nb}$${sp(10)}(Quand on écrit sur la calculatrice $${nb}$, elle renvoie : $${texNombre(n)}$.)`
-          console.log(n, di)
           break
         case 4: // arrondir un calcul de longueur avec un cosinus
           v = randint(11, 99) / 10

@@ -18,7 +18,7 @@ export const interactifReady = true
 export const interactifType = ['qcm', 'mathLive']
 
 export const titre = 'Addition de deux nombres relatifs'
-export const dateDeModifImportante = '23/8/2024'
+export const dateDeModifImportante = '24/9/2024'
 
 /**
  * Additionner deux relatifs inférieurs à la valeur maximale en paramètre qui est par défaut à 20.
@@ -54,12 +54,9 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
 
   nouvelleVersion () {
     // Rétrocompatibilité avec les liens vers les exercices quand c'était des cases à cocher
-    console.log(this.sup2)
     if (this.sup2 === false) {
-      console.log('1')
       this.sup2 = 1
     } else if (this.sup2 === true) {
-      console.log('1')
       this.sup2 = 3
     }
     this.sup = parseInt(this.sup)
