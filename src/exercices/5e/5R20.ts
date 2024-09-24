@@ -1,5 +1,5 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
-import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc } from '../../lib/outils/ecritures.js'
+import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecritureParentheseSiNegatif } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
@@ -37,7 +37,6 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
   constructor () {
     super()
     this.sup = 20
-    this.sup2 = false // écriture simplifiée
     this.sup4 = false // nombres décimaux
     this.consigne = 'Calculer.'
     this.spacing = 0.5
@@ -46,13 +45,23 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
     this.nbCols = 3
     this.nbColsCorr = 3
     this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-    this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, 'Tous les nombres entre parenthèses \n2 : Seul le 2e terme négatif est entre parenthèses \n3 : Écriture simplifiée']
+    this.sup2 = 1 // écriture simplifiée
     this.besoinFormulaire4CaseACocher = ['Avec des nombres décimaux']
     if (context.isHtml) this.besoinFormulaire3CaseACocher = ['QCM']
     this.comment = "Si l'option « Avec des nombres décimaux » est activée, 2 fois sur 3 les nombres auront un chiffre après la virgule et une fois sur 3 un seul terme aura deux chiffres après la virgule."
   }
 
   nouvelleVersion () {
+    // Rétrocompatibilité avec les liens vers les exercices quand c'était des cases à cocher
+    console.log(this.sup2)
+    if (this.sup2 === false) {
+      console.log('1')
+      this.sup2 = 1
+    } else if (this.sup2 === true) {
+      console.log('1')
+      this.sup2 = 3
+    }
     this.sup = parseInt(this.sup)
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     const partieDecimaleAUnChiffre = combinaisonListes([true, true, false], this.nbQuestions)
@@ -77,12 +86,15 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
           [a, b] = [b, a]
         }
       }
-      if (this.sup2) {
-        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} =$`
-        texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
-      } else {
+      if (this.sup2 === 1) {
         texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' =$'
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
+      } else if (this.sup2 === 2) {
+        texte = `$ ${texNombre(a)} + ${ecritureParentheseSiNegatif(b)} =$`
+        texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)} = ${a + b} $`
+      } else {
+        texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} =$`
+        texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].options = {}
@@ -90,18 +102,22 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       this.autoCorrection[i].propositions = [
         {
           texte: `$${texNombre(a + b)}$`,
+          // @ts-expect-error problème typage handleAnswers
           statut: true
         },
         {
           texte: `$${texNombre(a - b)}$`,
+          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a + b)}$`,
+          // @ts-expect-error problème typage handleAnswers
           statut: false
         },
         {
           texte: `$${texNombre(-a - b)}$`,
+          // @ts-expect-error problème typage handleAnswers
           statut: false
         }
       ]
