@@ -4,11 +4,12 @@ import {
   ecritureAlgebrique,
   ecritureAlgebriquec,
   ecritureNombreRelatif,
-  ecritureNombreRelatifc
+  ecritureNombreRelatifc,
+  ecritureParentheseSiNegatif
 } from '../../lib/outils/ecritures'
 import { nombreDeChiffresDansLaPartieEntiere, signe, triePositifsNegatifs } from '../../lib/outils/nombres'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -20,6 +21,7 @@ export const interactifReady = true
 export const amcReady = true
 export const amcType = 'AMCNum'
 export const interactifType = 'mathLive'
+export const dateDeModifImportante = '25/9/2024'
 
 /**
  * Effectuer la somme de 5 nombres relatifs.
@@ -37,76 +39,81 @@ export const refs = {
   'fr-fr': ['5R20-3'],
   'fr-ch': ['9NO9-8']
 }
-export default function ExerciceAdditionsDe5Relatifs (max = 20) {
-  Exercice.call(this)
-  this.sup = max
-  this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.consigne = 'Calculer.'
-  this.spacing = 2
-  this.spacingCorr = 0.5
-  this.nbCols = 2
-  this.nbColsCorr = 2
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
+export default class ExerciceAdditionsDe5Relatifs extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 4
+    this.sup = 20
+    this.sup2 = 1
+    this.consigne = 'Calculer.'
+    this.spacing = 2
+    this.spacingCorr = context.isHtml ? 3 : 0.5
+    this.nbCols = 2
+    this.nbColsCorr = 2
+    this.interactifReady = interactifReady
+    this.interactifType = interactifType
+    this.amcType = amcType
+    this.amcReady = amcReady
+    this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
+    this.besoinFormulaire2Numerique = ['Type de questions', 3, 'Tous les nombres entre parenthèses \n2 : Seul les termes négatifs sont entre parenthèses \n3 : Écriture simplifiée']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
+    // Rétrocompatibilité avec les liens vers les exercices quand c'était des cases à cocher
+    if (this.sup2 === false) {
+      this.sup2 = 1
+    } else if (this.sup2 === true) {
+      this.sup2 = 3
+    }
     if (!context.isHtml) this.interactif = false
-    this.sup = parseInt(this.sup)
     if (this.interactif) {
       this.spacing = 3
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
-    for (let i = 0, a, b, c, d, e, s1, s2, s3, s4, relatifs, texte, texteCorr, reponse, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let c, relatifs
+      let texte = ''
+      let texteCorr = ''
       // On limite le nombre d'essais pour chercher des valeurs nouvelles
-      a = randint(1, this.sup) * choice([-1, 1])
-      b = randint(1, this.sup) * choice([-1, 1])
-      if ((a === 1) & (b === 1)) {
+      const a = randint(1, this.sup) * choice([-1, 1])
+      const b = randint(1, this.sup) * choice([-1, 1])
+      if (a * b > 0) {
         // On s'assure que les 3 premières termes n'ont pas le même signe
-        c = -1
-      } else if ((a === -1) & (b === -1)) {
-        c = 1
+        c = randint(1, this.sup) * (a > 0 ? -1 : 1)
       } else {
         c = randint(1, this.sup) * choice([-1, 1])
       }
-      d = randint(1, this.sup) * choice([-1, 1])
-      e = randint(1, this.sup) * choice([-1, 1])
-      s1 = 1 // Que des additions
-      s2 = 1
-      s3 = 1
-      s4 = 1
-      reponse = a + b + c + d + e
-      if (this.sup2) {
+      const d = randint(1, this.sup) * choice([-1, 1])
+      const e = randint(1, this.sup) * choice([-1, 1])
+      const s1 = 1 // Que des additions
+      const s2 = 1
+      const s3 = 1
+      const s4 = 1
+      const reponse = a + b + c + d + e
+      if (this.sup2 === 3) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
                     e
                 )}$`
-        if (this.interactif && !context.isAmc) {
-          texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)} = $`
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
-        }
-        if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
-        }
+
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(
                     e
-                )} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} = ${a + b + c + d + e} $`
-      } else {
+                )}$`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]}${ecritureAlgebrique(sommeDesTermesParSigne([a, b, c, d, e])[1])} $`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${a + b + c + d + e} $`
+      } else if (this.sup2 === 2) {
+        texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
+                    e
+                )}$`
+
+        texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${a} + ${ecritureParentheseSiNegatif(b)} + ${ecritureParentheseSiNegatif(c)} + ${ecritureParentheseSiNegatif(d)} + ${ecritureParentheseSiNegatif(
+                    e
+                )}$`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${sommeDesTermesParSigne([a, b, c, d, e])[0]} + ${ecritureParentheseSiNegatif(sommeDesTermesParSigne([a, b, c, d, e])[1])}$`
+        texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)} = ${a + b + c + d + e} $`
+      } else if (this.sup2 === 1) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
                     c
                 )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
-        if (this.interactif && !context.isAmc) {
-          texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
-                        c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} = $`
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
-        }
 
-        if (!context.isHtml && !context.isAmc) {
-          texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
-        }
         texteCorr = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(
                     c
                 )}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)} $`
@@ -127,6 +134,16 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1])}$<br>`
         }
       }
+
+      if (!context.isHtml && !context.isAmc) {
+        texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
+      }
+
+      if (this.interactif && !context.isAmc) {
+        // Supprime le dernier caractère de texte et le remplace par = $
+        texte += `<br> $${lettreDepuisChiffre(i + 1)} = $ ` + ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
+      }
+
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en créé une autre
         setReponse(this, i, reponse, {
@@ -142,6 +159,4 @@ export default function ExerciceAdditionsDe5Relatifs (max = 20) {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Valeur maximale', 99999]
-  this.besoinFormulaire2CaseACocher = ['Avec des écritures simplifiées']
 }
