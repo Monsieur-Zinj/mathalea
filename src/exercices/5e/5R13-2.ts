@@ -6,6 +6,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Encadrer un nombre relatif'
 
 export const dateDePublication = '25/9/2024'
@@ -51,6 +52,7 @@ export default class EncadrerRelatif extends Exercice {
       let borneInf : Decimal
       let borneSup : Decimal
       let texte = `Encadrer $${texNombre(a)}$ `
+      let remarque = ''
       switch (listeTypeQuestions[i]) {
         case 'unite':
           texte += 'à l\'unité.'
@@ -63,12 +65,23 @@ export default class EncadrerRelatif extends Exercice {
           borneSup = a.mul(10).ceil().div(10)
           break
         default : // 'centieme
-          texte += 'au centième.'
-          borneInf = a.mul(100).floor().div(100)
-          borneSup = a.mul(100).ceil().div(100)
+          { texte += 'au centième.'
+            borneInf = a.mul(100).floor().div(100)
+            borneSup = a.mul(100).ceil().div(100)
+            const borneInfDixieme = a.mul(10).floor().div(10)
+            const borneSupDixieme = a.mul(10).ceil().div(10)
+            if (borneInfDixieme.equals(borneInf)) {
+              remarque = `Remarque : $${texNombre(borneInf)} = ${texNombre(borneInf)}0$.`
+            }
+            if (borneSupDixieme.equals(borneSup)) {
+              remarque = `Remarque : $${texNombre(borneSup)} = ${texNombre(borneSup)}0$.`
+            } }
           break
       }
-      const texteCorr = `$${texNombre(borneInf)}<${texNombre(a)}<${texNombre(borneSup)}$`
+      let texteCorr = `$${miseEnEvidence(texNombre(borneInf))}<${texNombre(a)}<${miseEnEvidence(texNombre(borneSup))}$`
+      if (remarque) {
+        texteCorr += `<br><br>${remarque}`
+      }
       texte += '<br><br>' + remplisLesBlancs(this, i, `%{champ1}\\quad<\\quad${texNombre(a)}\\quad<\\quad%{champ2}`,
         ` ${KeyboardType.clavierNumbers}`,
         '\\ldots\\ldots'
