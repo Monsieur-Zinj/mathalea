@@ -1,0 +1,91 @@
+import Exercice from '../Exercice.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import Decimal from 'decimal.js'
+import { texNombre } from '../../lib/outils/texNombre'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+export const titre = 'Encadrer un nombre relatif'
+
+export const dateDePublication = '25/9/2024'
+export const uuid = '4b644'
+export const interactifReady = true
+export const interactifType = 'mathLive'
+export const refs = {
+  'fr-fr': ['5R13-2'],
+  'fr-ch': ['']
+}
+
+/**
+ * Encadrer un nombre relatif à l'unité, au dixième ou au centième
+ * @author Rémi Angot
+ * Référence 5R13-2
+*/
+export default class EncadrerRelatif extends Exercice {
+  constructor () {
+    super()
+    this.nbQuestions = 4
+    this.comment = 'Trois fois sur 4, le nombre à encadrer sera négatif. L\'encadrement se fera à l\'unité, au dixième ou au centième avec équiprobabilité'
+  }
+
+  nouvelleVersion () {
+    const typeQuestionsDisponibles = ['unite', 'dixieme', 'centieme']
+
+    const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
+    const nombreDeChiffresPartieDecimaleEnPlus = combinaisonListes([1, 2, 3], this.nbQuestions)
+    const signe = combinaisonListes([1, -1, -1, -1], this.nbQuestions)
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
+      let a = new Decimal(choice([true, false]) ? randint(1, 100) : randint(1, 10))
+      let nombreDeChiffresPartieDecimale = nombreDeChiffresPartieDecimaleEnPlus[i]
+      if (listeTypeQuestions[i] === 'dixieme' && nombreDeChiffresPartieDecimale < 2) {
+        nombreDeChiffresPartieDecimale = 2
+      } else if (listeTypeQuestions[i] === 'centieme' && nombreDeChiffresPartieDecimale < 3) {
+        nombreDeChiffresPartieDecimale = 3
+      }
+      for (let j = 0; j < nombreDeChiffresPartieDecimale; j++) {
+        const partieDecimale = new Decimal(randint(1, 9)).div(10 ** (j + 1))
+        a = a.add(partieDecimale)
+      }
+      a = a.mul(signe[i])
+      let borneInf : Decimal
+      let borneSup : Decimal
+      let texte = `Encadrer $${texNombre(a)}$ `
+      switch (listeTypeQuestions[i]) {
+        case 'unite':
+          texte += 'à l\'unité.'
+          borneInf = a.floor()
+          borneSup = a.ceil()
+          break
+        case 'dixieme':
+          texte += 'au dixième.'
+          borneInf = a.mul(10).floor().div(10)
+          borneSup = a.mul(10).ceil().div(10)
+          break
+        default : // 'centieme
+          texte += 'au centième.'
+          borneInf = a.mul(100).floor().div(100)
+          borneSup = a.mul(100).ceil().div(100)
+          break
+      }
+      const texteCorr = `$${texNombre(borneInf)}<${texNombre(a)}<${texNombre(borneSup)}$`
+      texte += '<br><br>' + remplisLesBlancs(this, i, `%{champ1}\\quad<\\quad${texNombre(a)}\\quad<\\quad%{champ2}`,
+        ` ${KeyboardType.clavierNumbers}`,
+        '\\ldots\\ldots'
+      )
+      handleAnswers(this, i,
+        {
+          champ1: { value: borneInf.toString() },
+          champ2: { value: borneSup.toString() }
+        }
+      )
+      if (this.questionJamaisPosee(i, a.toString())) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
+    }
+    listeQuestionsToContenu(this)
+  }
+}
