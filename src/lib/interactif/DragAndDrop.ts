@@ -5,7 +5,7 @@ import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
 import { toutPourUnPoint } from './mathLive.js'
 
-export type Etiquettes = {
+export type Etiquette = {
   id: string // Un numéro unique par étiquette ! (valeur réservée : 0 pour signaler l'absence d'étiquette !)
   contenu: string // Ce que contient l'étiquette (aussi bien du texte, que du latex, qu'une image...)
   callback?: (e: Event) => void // @todo à implémenter.
@@ -22,10 +22,23 @@ rectangle2: {value: etiquetteId, callback?: ()=>void},
 La fonction de callback est exécutée sur le rectangle (div) correspondant.
 Par exemple, on peut imaginer un fonction qui regarde le textContent de l'élément précédent et qui,
 si c'est un nombre supérieur à 1, ajoute un 's' au contenu de l'étiquette 'droppée' dans le rectangle.
-Ce n'est qu'une idée, je ne sais même pas si c'est réalisable à l'heure où je mets au point ces fonctions !
-mais on peut imaginer que cette fonction soit mutualisée.
+Ce n'est qu'une idée, je ne sais même pas si c'est réalisable, ni même souhaitable à l'heure où je mets au point ces fonctions !
+En fait, c'était pour éviter de doubler le nombre d'étiquettes avec des singuliers et des pluriels...
+Pour l'instant, l'utilisation de cette callback n'est pas implémentée.
 */
-
+type DragHandler = (e: DragEvent) => void
+type TouchHandler = (e: TouchEvent) => void
+/*
+function dontTouchSpanInside (element: HTMLSpanElement | HTMLDivElement) {
+  const childs = element.querySelectorAll('span')
+  if (childs.length === 0 && element instanceof HTMLSpanElement) element.draggable = false
+  else {
+    for (const child of childs) {
+      if (child instanceof HTMLSpanElement) dontTouchSpanInside(child)
+    }
+  }
+}
+*/
 function dragStartHandler (e: DragEvent) {
   if (e.target instanceof HTMLElement) {
     e.dataTransfer?.setData('text/plain', e.target.id)
@@ -41,43 +54,114 @@ function dropHandler (e: DragEvent) {
     const etiquette = document.getElementById(etiquetteId)
     if (etiquette && e.target instanceof HTMLElement) {
       e.target.appendChild(etiquette)
+      e.target.classList.remove('hovered') // Enlève l'effet après le drop
     }
   }
 }
+
 function touchStartHandler (e: TouchEvent) {
-  const touch = e.touches[0]
-  if (e.target instanceof HTMLElement) {
-    e.target.dataset.touchId = touch.identifier.toString()
+  let target = e.target as HTMLElement
+
+  // Si le touch a été déclenché sur un élément interne (comme un <span>), on remonte jusqu'au parent <div>
+  while (target && target.tagName !== 'DIV') {
+    target = target.parentElement as HTMLElement
+  }
+
+  if (target?.classList.contains('etiquette')) {
+    const touch = e.touches[0]
+    target.dataset.touchId = touch.identifier.toString()
   }
 }
+
 function touchMoveHandler (e: TouchEvent) {
   e.preventDefault()
-  const touch = e.touches[0]
-  const etiquette = document.querySelector(
-    `[data-touch-id="${touch.identifier}"]`
-  )
+  const touch = e.changedTouches[0]
+  let etiquette = touch.target as HTMLElement
+  while (etiquette && etiquette.tagName !== 'DIV') {
+    etiquette = etiquette.parentElement as HTMLElement
+  }
+
   if (etiquette) {
-    const touchX = touch.clientX
-    const touchY = touch.clientY
-    ;(etiquette as HTMLDivElement).style.position = 'absolute'
-    ;(etiquette as HTMLDivElement).style.left =
-      `${touchX - (etiquette as HTMLDivElement).offsetWidth / 2}px`
-    ;(etiquette as HTMLDivElement).style.top =
-      `${touchY - (etiquette as HTMLDivElement).offsetHeight / 2}px`
+    if (etiquette.parentElement) {
+      const top = etiquette.parentElement.offsetTop
+      const left = etiquette.parentElement.offsetLeft
+      const rectangleBounds = etiquette.parentElement.getBoundingClientRect()
+      if (rectangleBounds) {
+        const touchX = touch.clientX
+        const touchY = touch.clientY
+        ;(etiquette as HTMLDivElement).style.position = 'absolute'
+        ;(etiquette as HTMLDivElement).style.left =
+          `${touchX - rectangleBounds.left + left + touch.radiusX}px`
+        ;(etiquette as HTMLDivElement).style.top =
+          `${touchY - rectangleBounds.top + top - touch.radiusY * 2}px`
+      }
+    }
+    const rectangles = document.querySelectorAll('div.rectangleDND')
+    for (const rectangle of rectangles) {
+      const rectangleBounds = rectangle.getBoundingClientRect()
+      const isHovered =
+        touch.clientX > rectangleBounds.left &&
+        touch.clientX < rectangleBounds.right &&
+        touch.clientY > rectangleBounds.top &&
+        touch.clientY < rectangleBounds.bottom
+      if (isHovered) {
+        rectangle.classList.add('hovered')
+      } else {
+        rectangle.classList.remove('hovered')
+      }
+    }
   }
 }
+
 function touchEndHandler (e: TouchEvent) {
-  const touch = e.touches[0]
-  const etiquette = document.querySelector(
-    `[data-touch-id="${touch.identifier}"]`
-  )
+  const touch = e.changedTouches[0]
+  let etiquette = touch.target as HTMLElement
+  while (etiquette && etiquette.tagName !== 'DIV') {
+    etiquette = etiquette.parentElement as HTMLElement
+  }
   if (etiquette) {
-    const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY)
-    if (dropTarget?.classList.contains('rectangle')) {
+    const centerX = touch.clientX
+    const centerY = touch.clientY
+    const rectangles = document.querySelectorAll('div.rectangleDND')
+    let dropTarget: HTMLDivElement | null = null
+    for (const rectangle of rectangles) {
+      const rectangleBounds = rectangle.getBoundingClientRect()
+      if (
+        centerX > rectangleBounds.left &&
+        centerX < rectangleBounds.right &&
+        centerY > rectangleBounds.top &&
+        centerY < rectangleBounds.bottom
+      ) {
+        dropTarget = rectangle as HTMLDivElement
+        break
+      }
+    }
+    if (!dropTarget) return
+    console.log(`DropTarget : ${dropTarget}`)
+    if (dropTarget?.classList.contains('rectangleDND')) {
       dropTarget.appendChild(etiquette)
+      dropTarget.classList.remove('hovered') // Enlève l'effet après le drop
     }
     (etiquette as HTMLDivElement).style.position = 'static'
     delete (etiquette as HTMLDivElement).dataset.touchId
+  }
+}
+
+function dragEnterHandler (e: DragEvent) {
+  if (
+    e.target instanceof HTMLElement &&
+    e.target.classList.contains('rectangleDND')
+  ) {
+    e.target.classList.add('hovered')
+  }
+}
+
+function dragLeaveHandler (e: DragEvent) {
+  if (
+    e.target instanceof HTMLElement &&
+    e.target.classList.contains('rectangleDND')
+  ) {
+    e.target.classList.remove('hovered')
   }
 }
 /**
@@ -97,7 +181,10 @@ export function verifDragAndDrop (
   // tout d'abord on va supprimer les listeners !
   const exoDragAndDrops = exercice.dragAndDrops
   if (exoDragAndDrops == null) {
-    window.notify('Problème survenu dans verifDragAndDrop : il n\'y a pas d\'array dragAndDrops dans exercice', {})
+    window.notify(
+      "Problème survenu dans verifDragAndDrop : il n'y a pas d'array dragAndDrops dans exercice",
+      {}
+    )
     return {
       isOk: false,
       feedback: 'Un problème est survenu',
@@ -113,7 +200,8 @@ export function verifDragAndDrop (
   const feedback = ''
   const objetReponses = exercice.autoCorrection[question].reponse?.valeur
   let nbBonnesReponses = 0
-  let nbMauvaisesReponses = 0
+  let etiquettesAbsentes = 0
+  let etiquettesMalPlacees = 0
   if (objetReponses) {
     const bareme = objetReponses.bareme ?? toutPourUnPoint
 
@@ -150,6 +238,7 @@ export function verifDragAndDrop (
     }
     const reponses = Object.entries(objetReponses)
     const points: number[] = []
+
     if (!exercice.answers) exercice.answers = {}
     for (let k = 1; k <= nbReponses; k++) {
       const rectangle = get(
@@ -158,14 +247,27 @@ export function verifDragAndDrop (
       )
       if (rectangle) {
         const etiquetteDedans = rectangle.querySelector('.etiquette')
-        const id = etiquetteDedans?.id ?? `etiquetteEx${numeroExercice}Q${question}I0`
+        const id =
+          etiquetteDedans?.id ?? `etiquetteEx${numeroExercice}Q${question}I0`
         const etiquetteId = id.split('I')[1]
         // @fixme vérifier que l'enregistrement de cet objet permet de retrouver les bonnes données.
-        exercice.answers = Object.assign(exercice.answers, Object.fromEntries([[`rectangleEx${numeroExercice}Q${question}R${k}`, id]]))
+        exercice.answers = Object.assign(
+          exercice.answers,
+          Object.fromEntries([
+            [`rectangleEx${numeroExercice}Q${question}R${k}`, id]
+          ])
+        )
         const goodAnswer = reponses.find(([key]) => key === `rectangle${k}`)
-        if (!etiquetteDedans) {
-          rectangle.classList.add('bg-coopmaths-action-200')
-          points.push(0)
+        if (!etiquetteDedans) { // Faut peut-être pas compter faux si l'absence d'étiquette est normal, mais faut voir comment on fait
+          // si le rectangle peut rester vide, il faut que goodAnswer[1].value soit ''
+          if (goodAnswer && goodAnswer[1] != null && goodAnswer[1].value === '') {
+            nbBonnesReponses++
+            points.push(1)
+          } else {
+            rectangle.classList.add('bg-coopmaths-action-200')
+            points.push(0)
+            etiquettesAbsentes++
+          }
         } else if (
           goodAnswer &&
           goodAnswer[1] != null &&
@@ -180,14 +282,16 @@ export function verifDragAndDrop (
           etiquetteDedans.classList.add('bg-coopmaths-action-200')
           points.push(0)
           if (goodAnswer && goodAnswer[1] != null && etiquetteId === '0') {
-            nbMauvaisesReponses++
+            etiquettesAbsentes++ // Normalement, ce cas a été traité par !etiquetteDedans
+          } else {
+            etiquettesMalPlacees++
           }
         }
       }
     }
     // gestion du feedback
     const spanReponseLigne = document.querySelector(
-    `#resultatCheckEx${numeroExercice}Q${question}`
+      `#resultatCheckEx${numeroExercice}Q${question}`
     )
 
     let typeFeedback = 'positive'
@@ -203,25 +307,24 @@ export function verifDragAndDrop (
       resultat = 'KO'
     }
     // Gestion du feedback global de la question
-    if (spanReponseLigne) { (spanReponseLigne as HTMLSpanElement).style.fontSize = 'large' }
+    if (spanReponseLigne) {
+      (spanReponseLigne as HTMLSpanElement).style.fontSize = 'large'
+    }
     const eltFeedback = get(`feedbackEx${numeroExercice}Q${question}`, false)
     let message = ''
     if (eltFeedback) {
       eltFeedback.innerHTML = ''
     }
     if (resultat === 'KO') {
-    // Juste mais incomplet
-      if (nbBonnesReponses > 0 && nbMauvaisesReponses === 0) {
+      // Juste mais incomplet
+      if (nbBonnesReponses > 0) {
         message = `${nbBonnesReponses} bonne${nbBonnesReponses > 1 ? 's' : ''} réponse${nbBonnesReponses > 1 ? 's' : ''}`
-      } else if (nbBonnesReponses > 0 && nbMauvaisesReponses > 0) {
-      // Du juste et du faux
-        message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-      } else if (nbBonnesReponses === 0 && nbMauvaisesReponses > 0) {
-      // Que du faux
-        message = `${nbMauvaisesReponses} erreur${nbMauvaisesReponses > 1 ? 's' : ''}`
-      /* } else { // Aucune réponse
-              message = ''
-            */
+      }
+      if (etiquettesAbsentes > 0) {
+        message += ` ${etiquettesAbsentes} réponse${etiquettesAbsentes > 1 ? 's' : ''} manquante${etiquettesAbsentes > 1 ? 's' : ''}`
+      }
+      if (etiquettesMalPlacees > 0) {
+        message += ` ${etiquettesMalPlacees} réponse${etiquettesMalPlacees > 1 ? 's' : ''} mal placée${etiquettesMalPlacees > 1 ? 's' : ''}`
       }
     } else {
       message = ''
@@ -255,9 +358,9 @@ class DragAndDrop {
   exercice: Exercice
   question: number
   consigne: string
-  etiquettes: Etiquettes[]
+  etiquettes: Etiquette[]
   enonceATrous: string
-  listeners: [Element, string, (e: DragEvent)=>void][]
+  listeners: [Element, string, DragHandler | TouchHandler][]
   constructor ({
     exercice,
     question,
@@ -268,7 +371,7 @@ class DragAndDrop {
     exercice: Exercice
     question: number
     consigne: string
-    etiquettes: Etiquettes[]
+    etiquettes: Etiquette[]
     enonceATrous: string
   }) {
     this.exercice = exercice
@@ -280,11 +383,11 @@ class DragAndDrop {
   }
 
   /** Une méthode pour ajouter un contenu interactif de type Drag and drop
- *  enonceATrous est une chaine de caractères avec le format suivant: 'blabla..%{rectangle1}blabla%{rectangle2}blibli...'
- *  Les différents % { rectanglen } sont remplacés par des div rectangulaires pouvant accueillir les étiquettes.
- * @param param0
- * @returns
- */
+   *  enonceATrous est une chaine de caractères avec le format suivant: 'blabla..%{rectangle1}blabla%{rectangle2}blibli...'
+   *  Les différents % { rectanglen } sont remplacés par des div rectangulaires pouvant accueillir les étiquettes.
+   * @param param0
+   * @returns
+   */
   ajouteDragAndDrop () {
     const numeroExercice = this.exercice.numeroExercice
     if (context.isHtml) {
@@ -334,7 +437,9 @@ class DragAndDrop {
           if (divEtiquettes) {
             divEtiquettes.addEventListener('drop', dropHandler)
             divEtiquettes.addEventListener('dragover', dragOverHandler)
-            divEtiquettes.addEventListener('touchmove', touchMoveHandler)
+            divEtiquettes.addEventListener('touchmove', touchMoveHandler, {
+              capture: true
+            })
             divEtiquettes.addEventListener('touchend', touchEndHandler)
             this.listeners.push(
               [divEtiquettes, 'drop', dropHandler],
@@ -345,8 +450,15 @@ class DragAndDrop {
             for (const etiquette of divEtiquettes.querySelectorAll(
               '.etiquette'
             )) {
-              etiquette.addEventListener('dragstart', dragStartHandler)
-              etiquette.addEventListener('touchstart', touchStartHandler)
+              (etiquette as HTMLDivElement).addEventListener(
+                'dragstart',
+                dragStartHandler
+              )
+              ;(etiquette as HTMLDivElement).addEventListener(
+                'touchstart',
+                touchStartHandler,
+                { capture: false }
+              )
               this.listeners.push(
                 [etiquette, 'dragstart', dragStartHandler],
                 [etiquette, 'touchstart', touchStartHandler]
@@ -362,15 +474,37 @@ class DragAndDrop {
             for (const rectangle of rectangles.querySelectorAll(
               '.rectangleDND'
             )) {
-              rectangle.addEventListener('dragover', dragOverHandler)
-              rectangle.addEventListener('drop', dropHandler)
-              rectangle.addEventListener('touchmove', touchMoveHandler)
-              rectangle.addEventListener('touchend', touchEndHandler)
+              (rectangle as HTMLDivElement).addEventListener(
+                'dragover',
+                dragOverHandler
+              )
+              ;(rectangle as HTMLDivElement).addEventListener(
+                'drop',
+                dropHandler
+              )
+              ;(rectangle as HTMLDivElement).addEventListener(
+                'touchmove',
+                touchMoveHandler
+              )
+              ;(rectangle as HTMLDivElement).addEventListener(
+                'touchend',
+                touchEndHandler
+              )
+              ;(rectangle as HTMLDivElement).addEventListener(
+                'dragenter',
+                dragEnterHandler
+              )
+              ;(rectangle as HTMLDivElement).addEventListener(
+                'dragleave',
+                dragLeaveHandler
+              )
               this.listeners.push(
                 [rectangle, 'dragover', dragOverHandler],
                 [rectangle, 'drop', dropHandler],
                 [rectangle, 'touchmove', touchMoveHandler],
-                [rectangle, 'touchend', touchEndHandler]
+                [rectangle, 'touchend', touchEndHandler],
+                [rectangle, 'dragenter', dragEnterHandler],
+                [rectangle, 'dragleave', dragLeaveHandler]
               )
             }
           }
@@ -381,7 +515,9 @@ class DragAndDrop {
           false
         )
         if (divEtiquettes) {
-          for (const etiquette of divEtiquettes.querySelectorAll('.etiquette')) {
+          for (const etiquette of divEtiquettes.querySelectorAll(
+            '.etiquette'
+          )) {
             etiquette.classList.add('noDrag')
           }
         }

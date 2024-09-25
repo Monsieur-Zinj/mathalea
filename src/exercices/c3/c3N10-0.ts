@@ -5,12 +5,12 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import { glossaire } from './c3N10-1'
-import DragAndDrop from '../../lib/interactif/DragAndDrop'
-export const titre = 'Décomposition entier par drag and drop'
+import DragAndDrop, { type Etiquette } from '../../lib/interactif/DragAndDrop'
+export const titre = 'Décomposition entière facile'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
-export const dateDeModifImportante = '25/08/2024'
+export const dateDeModifImportante = '24/09/2024'
 /**
  * Exercice modèle pour la nouvelle fonctionnalité de Drag&Drop
  * @author Jean-Claude Lhote
@@ -111,8 +111,9 @@ class DragAndDropNumerationEntiere extends Exercice {
         shuffle2tableaux(this.morceaux[i], this.exposantMorceaux[i])
       }
       let enonceATrous = `$${stringNombre(nombre, 0)}=$ `
-      const etiquettes = []
+      const etiquettes: Etiquette[] = []
       const reponses = []
+      // Je ne sais plus à quoi ça sert !
       const callback = (e) => {
         const rectangle = e.target
         const spanPrec = rectangle.previousSibling
@@ -142,10 +143,11 @@ class DragAndDropNumerationEntiere extends Exercice {
         } else {
           etiquettes.push({
             id: String(e + 1),
-            contenu: `× ${stringNombre(10 ** e, 0)}`
+            contenu: `$\\times ${texNombre(10 ** e, 0)}$`
           })
         }
       }
+
       for (
         let k = 0, indiceRectangle = 1;
         k < this.morceaux[i].length;
@@ -171,7 +173,7 @@ class DragAndDropNumerationEntiere extends Exercice {
         }
       }
       const objetReponse = Object.fromEntries(reponses)
-      enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 3)}`
+      enonceATrous = `${enonceATrous.substring(0, enonceATrous.length - 3)}` // En fin de boucle on a ajouté un '+$' inutile, il faut le supprimer
       const leDragAndDrop = new DragAndDrop({
         exercice: this,
         question: i,
@@ -184,7 +186,7 @@ class DragAndDropNumerationEntiere extends Exercice {
       for (let k = 0; k < this.morceaux[i].length; k++) {
         if (this.morceaux[i][k] !== '0') {
           texteCorr += enLettre
-            ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}}+`
+            ? `${this.morceaux[i][k]}~\\text{${glossaire[this.exposantMorceaux[i][k]][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}}+`
             : `(${this.morceaux[i][k]}\\times ${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
         }
       }

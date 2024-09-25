@@ -639,31 +639,46 @@ table.tableauMathlive {
   @apply mx-auto mt-2 border-collapse text-center border-2 border-coopmaths-corpus dark:border-coopmathsdark-corpus
 }
 div.rectangleDND {
-  min-width: 30px;
-  min-height: 20px;
+  min-width: 40px;
+  min-height: 36px;
   border: 2px dashed #888;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  zoom: 1;
+}
+
+.rectangleDND.hovered {
+  border: 4px dashed green; /* Indique la zone de drop */
+  zoom: 2;
 }
 
 div.rectangles {
   display: flex;
-  gap: 5px;
-  margin: 5px;
-  width: px;
+  gap: 5px; /* Pour espacer du texte devant et derrière les différents divs */
+   min-width: 30px;
 min-height: 30px;
 align-items: center;
+font-size: 30px;
 }
 
 div.etiquette {
   flex: 0 1 auto;
   box-sizing: content-box;
-  padding: 2px;
+  padding: 3px;
   margin: 0;
   border: 1px solid #ccc;
   border-radius: 10px;
+  min-height: 30px;
+  align-content: center;
+  font-size: 30px;
+}
+div.etiquette:active {
+  cursor: grabbing;
+}
+div.etiquette>span {
+  touch-action: none;
 }
 
 .dragOk {

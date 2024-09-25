@@ -13,6 +13,14 @@ export function exportedReinit (this: Exercice) {
   this.listeCanReponsesACompleter = []
   this.listeArguments = []
   this.autoCorrection = []
+  if (this.dragAndDrops && this.dragAndDrops.length > 0) {
+    for (const leDragAndDrop of this.dragAndDrops) {
+      for (const [element, type, listener] of leDragAndDrop.listeners) {
+        element.removeEventListener(type, listener)
+      }
+    }
+    this.dragAndDrops = []
+  }
 }
 
 export function exportedApplyNewSeed (this: Exercice) {
