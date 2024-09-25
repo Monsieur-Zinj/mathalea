@@ -65,7 +65,6 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
   }
 
   nouvelleVersion () {
-    this.reinit()
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
@@ -122,9 +121,24 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
         '\\ldots\\ldots'
       )
       texteCorr = `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(ordre)} :<br>$${nombresRanges.map((nb) => texNombre(nb, this.sup2 ? 8 : 0)).join(symboleCorr)}$`
-      const listeChamps = nombresRanges.map(nb => texNombre(nb, 0)).map((el, index) => [`champ${index + 1}`, { value: el }])
-      const objetReponse = Object.fromEntries([...listeChamps])
-      handleAnswers(this, i, objetReponse)
+      console.log(nombresRanges)
+      handleAnswers(this, i,
+        {
+          // @ts-expect-error problème typage handleAnswers
+          champ1: { value: nombresRanges[0] },
+          // @ts-expect-error problème typage handleAnswers
+          champ2: { value: nombresRanges[1] },
+          // @ts-expect-error problème typage handleAnswers
+          champ3: { value: nombresRanges[2] },
+          // @ts-expect-error problème typage handleAnswers
+          champ4: { value: nombresRanges[3] },
+          // @ts-expect-error problème typage handleAnswers
+          champ5: { value: nombresRanges[4] },
+          // @ts-expect-error problème typage handleAnswers
+          champ6: { value: nombresRanges[5] }
+        }
+      )
+
       if (this.listeQuestions.indexOf(texte) === -1) {
       // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
