@@ -94,8 +94,16 @@ class PolynomePlusieursVariables {
 
   melangerTermes (melange : boolean): PolynomePlusieursVariables {
     if (melange) {
-      const nouveauxMonomes = shuffle(this.monomes)
-      return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+      let nouveauxMonomes = shuffle(this.monomes)
+      if (this.monomes.length === 1) {
+        return this
+      } else {
+        do {
+          nouveauxMonomes = shuffle(this.monomes)
+        }
+        while (nouveauxMonomes.map(m => m.toString()).join('') === this.monomes.map(m => m.toString()).join(''))
+        return PolynomePlusieursVariables.PolynomeNonReduit(nouveauxMonomes)
+      }
     } else {
       return this
     }
@@ -197,6 +205,14 @@ class PolynomePlusieursVariables {
   reduire (): PolynomePlusieursVariables {
     const reduit = PolynomePlusieursVariables.PolynomeReduit(this.monomes)
     return reduit
+  }
+
+  ordonner (): PolynomePlusieursVariables {
+    const monomes = this.monomes
+    monomes.sort((a, b) => {
+      return -a.degre + b.degre
+    })
+    return PolynomePlusieursVariables.PolynomeNonReduit(monomes)
   }
 
   // Convertit le polynome en une chaîne de caractères
