@@ -239,6 +239,43 @@ class MonomePlusieursVariables {
     }
   }
 
+  // Convertit le monôme en une chaîne de caractères
+  toStringAvecSigne (): string {
+    const partieLitteraleString = this.partieLitterale.variables
+      .map((variable, index) => {
+        const exposant = this.partieLitterale.exposants[index]
+        // Only include the variable if its exponent is not 0
+        if (exposant === 0) {
+          return ''
+        } else if (exposant === 1) {
+          return `${variable}`
+        } else {
+          return `${variable}^${exposant}`
+        }
+      })
+      .filter((part) => part !== '') // Exclude any empty strings from the result
+      .join(' ')
+    if (this.coefficient.num === 0) {
+      return '0'
+    } else if (this.coefficient.texFractionSimplifiee === '1') {
+      if (partieLitteraleString === '') {
+        return '+1'
+      } else {
+        return `+${partieLitteraleString}`
+      }
+    } else if (this.coefficient.texFractionSimplifiee === '-1') {
+      if (partieLitteraleString === '') {
+        return '-1'
+      } else {
+        return `-${partieLitteraleString}`
+      }
+    } else if (this.coefficient.signe === -1) {
+      return `${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}`
+    } else {
+      return `+${this.coefficient.texFractionSimplifiee} ${partieLitteraleString}`
+    }
+  }
+
   toStringAvecParentheses (): string {
     const partieLitteraleString = this.partieLitterale.variables
       .map((variable, index) => {
