@@ -567,13 +567,13 @@ export class GVSegment extends GVLine {
      * @returns {Vide2d|LatexParCoordonnees}
      */
   showLabel () {
-    let label
+    // let label
     const P = new GVPoint((this.A.x + this.B.x) / 2, (this.A.y + this.B.y) / 2)
-    if (context.isHtml) {
+    // if (context.isHtml) {
+    const label = latexParCoordonnees(this.name, P.x, P.y, 'black', 0, 0, '')
+    /* } else {
       label = latexParCoordonnees(this.name, P.x, P.y, 'black', 0, 0, '')
-    } else {
-      label = latexParCoordonnees(this.name, P.x, P.y, 'black', 0, 0, '')
-    }
+    } */
     this.label = true
     return label
   }

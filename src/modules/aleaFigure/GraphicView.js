@@ -781,7 +781,7 @@ export class GVGraphicView {
         const [A, B, D] = this.addRectPoint()
         const C = this.addParallelogram(D, A, B).vertices[3]
         rectangle = new GVRectangle(A, B, C, D)
-      } while (rectangle.ratio < 1.2 || rectangle.ratio > 1.7)
+      } while (rectangle.ratio < 1.2 || rectangle.ratio > 1.7 || rectangle.longueur < 6 || rectangle.largeur < 4)
     }
     return rectangle
   }
