@@ -55,21 +55,22 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
       [2, 3, 4, 5, 6, 7, 8, 9, 10],
       this.nbQuestions
     ) // Liste tous les couples possibles (2,3)≠(3,2)
-    for (let i = 0, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
+    for (let i = 0, reponse, cpt = 0, a, b, texte, texteCorr; i < this.nbQuestions && cpt < 100;) {
       a = couples[i][0]
       b = couples[i][1]
       const ordre = this.sup3 ? [true] : [true, false]
       const choix = choice(ordre)
       const typeDeQuestion = listeTypeDeQuestions[i]
       if (typeDeQuestion === 'classique') {
+        reponse = a * b
         if (choix) {
           texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
-          texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
+          texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         } else {
           texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
-          texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(a * b, 0))}$`
+          texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         }
         texte += ajouteFeedback(this, i)
         handleAnswers(this, i, { reponse: { value: a * b, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
@@ -78,21 +79,23 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           texte = '$' + a.toString() + '\\times '
           texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierNumbers, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
           texte += ajouteFeedback(this, i)
-          handleAnswers(this, i, { reponse: { value: b, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+          reponse = b
         } else {
           texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierNumbers, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           texte += ajouteFeedback(this, i)
-          handleAnswers(this, i, { reponse: { value: a, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+          reponse = a
         }
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
         texteCorr = choix
-          ? `$${a.toString()} \\times ${miseEnEvidence(b.toString())} =${(a * b).toString()}$`
-          : `$${miseEnEvidence(a.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
+          ? `$${a.toString()} \\times ${miseEnEvidence(reponse.toString())} =${(a * b).toString()}$`
+          : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else { // typeDeQuestion === 'quotient'
         texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
         texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur10 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         texte += ajouteFeedback(this, i)
-        handleAnswers(this, i, { reponse: { value: b, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+        reponse = b
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -103,7 +106,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
             }
           ],
           reponse: {
-            valeur: [b], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
+            valeur: [reponse], // obligatoire (la réponse numérique à comparer à celle de l'élève), NE PAS METTRE DE STRING à virgule ! 4.9 et non pas 4,9. Cette valeur doit être passée dans un tableau d'où la nécessité des crochets.
             param: {
               digits: 2,
               decimals: 0,
