@@ -48,8 +48,6 @@ export default function ExercicePerimetresEtAires () {
   // Calculer le périmètre et l'aire de figures
   Exercice.call(this)
   this.sup = '1-2'
-  this.consigne = ''
-  this.spacing = 1
   this.nbQuestions = 4
   this.sup2 = false // décimaux ou pas
   this.sup3 = false // avec figure
@@ -153,7 +151,7 @@ export default function ExercicePerimetresEtAires () {
               texte += `d'un carré $${nomCarre}$ tel que $${nomCarre[0] + nomCarre[1]} = ${texNombre(cote)}$ cm.` + '<br>'
             }
           }
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
           texteCorr = `$\\mathcal{P}_{${nomCarre}}=4\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombre(4 * cote)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomCarre}}=${texNombre(cote)}${sp()}\\text{cm}\\times${texNombre(cote)}${sp()}\\text{cm}=${texNombre(cote * cote)}${sp()}\\text{cm}^2$`
           resultat1 = 4 * cote
@@ -197,7 +195,7 @@ export default function ExercicePerimetresEtAires () {
               texte += `d'un rectangle $${nomRectangle}$ tel que $${nomRectangle[0] + nomRectangle[1] + ' = ' + texNombre(L)}$ cm et $${nomRectangle[1] + nomRectangle[2] + ' = ' + l}$ cm.` + '<br>'
             }
           }
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
           texteCorr = `$\\mathcal{P}_{${nomRectangle}}=(${texNombre(L)}${sp()}\\text{cm}+${l}${sp()}\\text{cm})\\times2=${texNombre((L + l) * 2)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomRectangle}}=${texNombre(L)}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${texNombre(L * l)}${sp()}\\text{cm}^2$`
           resultat1 = 2 * L + 2 * l
@@ -251,7 +249,7 @@ export default function ExercicePerimetresEtAires () {
               texte += `d'un triangle rectangle $${nomTriangle}$ qui a pour côtés : $${texNombre(a)}$ cm, $${texNombre(c)}$ cm et $${texNombre(b)}$ cm.` + '<br>'
             }
           }
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' }) + (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
           texteCorr = `$\\mathcal{P}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}+${texNombre(b)}
           ${sp()}\\text{cm}+${texNombre(c)}${sp()}\\text{cm}=${texNombre(a + b + c)}${sp()}\\text{cm}$<br>`
           texteCorr += `$\\mathcal{A}_{${nomTriangle}}=${texNombre(a)}${sp()}\\text{cm}\\times${texNombre(b)}${sp()}\\text{cm}\\div2=${texNombre(a * b / 2)}${sp()}\\text{cm}^2$`
@@ -299,7 +297,7 @@ export default function ExercicePerimetresEtAires () {
             }
           }
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
           }
 
           if (this.sup4) {
@@ -357,7 +355,7 @@ export default function ExercicePerimetresEtAires () {
           }
           texteCorr += 'Pour le périmètre, à la moitié d\'un cercle, il faut penser à ajouter le diamètre du demi-cercle, pour fermer la figure.<br>'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ' })
+            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>Périmètre : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' }) + '<br>' + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline unites[longueurs,aires]', { texteAvant: '<br>' + sp(13) + 'Aire : ', texteApres: '<em class="ml-2">(Une unité est attendue.)</em>' })
           }
           if (this.sup4) {
             texteCorr += `<br>Si on utilise $\\pi \\approx 3,14$, alors <br> $\\mathcal{P}\\approx (2 \\times ${texNombre(R)} \\times 3,14 \\div 2) + (2 \\times ${texNombre(R)}) \\approx ${texNombre(2 * R * (this.sup4 ? 3.14 : Math.PI) / 2 + 2 * R, 3)}${sp()}${texTexte('cm')}$.<br>`
