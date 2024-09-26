@@ -64,9 +64,7 @@ export function reorganiseProduitPuissance (b1, b2, e, couleur1, couleur2) {
 
 export default function PuissancesDunRelatif1 () {
   Exercice.call(this)
-  context.isHtml
-    ? (this.consigne = 'Écrire sous la forme $\\mathbf{a^n}$.')
-    : (this.consigne = 'Écrire sous la forme $a^n$.')
+  this.consigne = 'Écrire sous la forme $a^n$ avec $a$ entier positif le plus petit possible.'
   context.isHtml ? (this.spacing = 3) : (this.spacing = 2)
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1)
   this.nbQuestions = 5

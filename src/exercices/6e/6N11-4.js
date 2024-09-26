@@ -121,7 +121,6 @@ export default class RangerOrdreCroissantDecroissant extends Exercice {
         '\\ldots\\ldots'
       )
       texteCorr = `Les nombres rangés dans l'ordre ${texteEnCouleurEtGras(ordre)} :<br>$${nombresRanges.map((nb) => texNombre(nb, this.sup2 ? 8 : 0)).join(symboleCorr)}$`
-      console.log(nombresRanges)
       handleAnswers(this, i,
         {
           // @ts-expect-error problème typage handleAnswers
