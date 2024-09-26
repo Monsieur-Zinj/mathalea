@@ -11,6 +11,7 @@ import Trinome from '../../modules/Trinome'
 import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Étudier le sens de variations d\'une fonction polynôme du troisième degré'
 export const dateDePublication = '08/07/2024'
+export const dateDeModifImportante = '26/09/2024'
 export const interactifReady = false
 export const uuid = 'e1890'
 export const refs = {
@@ -19,7 +20,7 @@ export const refs = {
 }
 
 /**
- * Description didactique de l'exercice
+ * Étudier le sens de variations d'une fonction polynôme du troisième degré'
  * @author Gilles Mora
 */
 
@@ -67,9 +68,15 @@ export default class EtudeFctPoly3 extends Exercice {
             tolerance = 0.005
             xMin = -10
             xMax = 10
-            substituts = [{ antVal: -10, antTex: '$-\\infty$', 
-              imgTex: ' ' }, { antVal: 10, antTex: '$+\\infty$', 
-                imgTex: ' ' }]
+            substituts = [{
+              antVal: -10,
+              antTex: '$-\\infty$',
+              imgTex: ' '
+            }, {
+              antVal: 10,
+              antTex: '$+\\infty$',
+              imgTex: ' '
+            }]
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
             texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(2 * a, -3 * a * x1 - 3 * a * x2, 6 * a * x1 * x2, k)}$.<br>
@@ -114,7 +121,7 @@ export default class EtudeFctPoly3 extends Exercice {
               c = randint(-5, 5, 0)
               d = randint(-3, 3)
             } while (4 * b ** 2 - 12 * a * c >= 0)
-            const p = new Trinome(a, b, c)
+            const p = new Trinome(3 * a, 2 * b, c)
             const sol = new FractionEtendue(-c, 3 * a)
             fonction = (x:number) => a * x ** 3 + b * x ** 2 + c * x + d
             derivee = (x:number) => 3 * a * x ** 2 + 2 * b * x + c
@@ -128,7 +135,7 @@ export default class EtudeFctPoly3 extends Exercice {
             }, { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
-            texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
+            texte = `On considèreXXXXXX la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
       Étudier le sens de variations de la fonction $f$ sur $\\mathbb{R}$.`
             texteCorr = `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
       Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${reduirePolynomeDegre3(0, 3 * a, 2 * b, c)}$.<br><br>
