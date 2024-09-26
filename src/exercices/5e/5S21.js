@@ -48,7 +48,7 @@ export default class FonctionsProbabilite1 extends Exercice {
     qualites[4] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
     qualites[5] = ['rouges', 'verts', 'bleus', 'noirs', 'blancs']
     qualites[6] = ['rouges', 'verts', 'bleus', 'noirs', 'jaunes']
-    const natureDeLIssue = ['la couleur', 'le parfum', 'la couleur', 'la couleur', 'la couleur', 'la couleur', 'la couleur']
+    const natureDeLIssue = ['le parfum', 'le parfum', 'la couleur', 'la couleur', 'la couleur', 'la couleur', 'la couleur']
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = ''
       let texteCorr = ''
@@ -73,7 +73,7 @@ export default class FonctionsProbabilite1 extends Exercice {
       const q = randint(0, 4, [p, m])
       const indexEvenementContraire = range(4, [m, p])
 
-      texte = `Dans ${lieu} il y a ${somme} ${objets}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `
+      texte = `Dans ${lieu}, il y a ${somme} ${objets}. ${n[0]} sont ${qualites[index1][0]}, ${n[1]} sont ${qualites[index1][1]}, ${n[2]} sont ${qualites[index1][2]}, ${n[3]} sont ${qualites[index1][3]} et ${n[4]} sont ${qualites[index1][4]}.<br> `
       texte += `${quidam} choisit au hasard l'${article} d'entre ${pronom}.`
       if (parseInt(this.niveau) === 1) {
         texte += `<br> ${numAlpha(0)} Quelle est la probabilité que son choix tombe sur l'${article} des ${objets} ${qualites[index1][m]} ?<br>`
