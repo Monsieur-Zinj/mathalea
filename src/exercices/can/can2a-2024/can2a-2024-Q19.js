@@ -46,6 +46,8 @@ export default class NomExercice extends Exercice {
           this.question = `${a}^{${n}}\\times ${a}^{${p}}=${a}^{%{champ1}}`
           this.correction = `On utilise la formule $a^n\\times a^m=a^{n+m}$ avec $a=${a}$, $n=${n}$ et $p=${p}$.<br>
             $${a}^{${n}}\\times ${a}^{${p}}=${a}^{${n}+${p}}=${a}^{${miseEnEvidence(s)}}$`
+          this.canEnonce = `${a}^{${n}}\\times ${a}^{${p}}`
+          this.canReponseACompleter = `$${a}^{\\ldots}$`
           break
 
         case 'b':
@@ -58,10 +60,10 @@ export default class NomExercice extends Exercice {
           this.correction = `On utilise la formule $\\left(a^n\\right)^p=a^{n\\times p}$
             avec $a=${a}$,  $n=${n}$ et $p=${p}$.<br>
             $\\left(${a}^{${n}}\\right)^{${p}}=${a}^{${n}\\times ${p}}=${a}^{${miseEnEvidence(s)}}$`
+          this.canEnonce = `$\\left(${a}^{${n}}\\right)^{${p}}$`
+          this.canReponseACompleter = `$${a}^{\\ldots}$`
           break
       }
-      this.canEnonce = this.question// 'Compléter'
-      this.canReponseACompleter = ''
       this.consigne = `Écrire sous la forme d'une puissance de ${a} : `
     }
   }
