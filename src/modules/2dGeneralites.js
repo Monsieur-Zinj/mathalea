@@ -1,7 +1,6 @@
 import { context } from './context.js'
 import katex from 'katex'
 import { arrondi } from '../lib/outils/nombres'
-import { randint } from './outils'
 
 /*
   MathALEA2D
@@ -34,8 +33,9 @@ export function ObjetMathalea2D ({ classe = true } = {}) {
   // this.styleTikz = ''
   this.epaisseur = 1
   this.opacite = 1
-  this.pointilles = ''
+  this.pointilles = 0
   this.id = numId
+  this.opacite = 1
   numId++
   if (classe && context.isInEditor) context.objets2D.push(this)
 }
