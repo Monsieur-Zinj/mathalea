@@ -135,7 +135,7 @@ export default class EtudeFctPoly3 extends Exercice {
             }, { antVal: 10, antTex: '$+\\infty$', imgTex: ' ' }]
             const tableau = tableauVariationsFonction(fonction, derivee, xMin, xMax, { ligneDerivee: true, substituts, step: 1, tolerance })
 
-            texte = `On considèreXXXXXX la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
+            texte = `On considère la fonction $f$ définie sur $\\mathbb{R}$ par : $f(x)=${reduirePolynomeDegre3(a, b, c, d)}$.<br>
       Étudier le sens de variations de la fonction $f$ sur $\\mathbb{R}$.`
             texteCorr = `$f$ est une fonction polynôme du troisième degré, dérivable sur $\\mathbb{R}$.<br>
       Pour tout  $x\\in\\mathbb{R}$, $f'(x)=${reduirePolynomeDegre3(0, 3 * a, 2 * b, c)}$.<br><br>
