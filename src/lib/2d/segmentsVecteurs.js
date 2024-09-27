@@ -546,14 +546,19 @@ export function segmentAvecExtremites (...args) {
  * @param {string} [color = 'black'] Couleur de la demi-droite : du type 'blue' ou du type '#f15929'
  * @param {boolean} [extremites = false] Trace (ou pas) l'origine de la demi-droite
  * @property {string} color Couleur de la demi-droite. À associer obligatoirement à colorToLatexOrHTML().
+ * @property {number} opacite
+ * @property {number} pointilles (0 pour pas de pointillés)
  * @author Rémi Angot
  * @class
  */
 // JSDOC Validee par EE Aout 2022
 export function DemiDroite (A, B, color = 'black', extremites = false) {
   ObjetMathalea2D.call(this, {})
+  this.opacite = 1
+  this.pointilles = 0
+  this.epaisseur = 1
   const B1 = pointSurSegment(B, A, -10)
-  this.color = color
+  this.color = colorToLatexOrHTML(color)
   if (extremites) return new Segment(A, B1, this.color, '|-')
   else return new Segment(A, B1, this.color)
 }

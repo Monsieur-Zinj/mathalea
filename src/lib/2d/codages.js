@@ -34,6 +34,8 @@ export function CodageMilieu (A, B, color = 'black', mark = '×', mil = true) {
   const M = tracePointSurDroite(O, d, this.color)
   const v = codageSegments(mark, this.color, A, O, O, B)
   let code = ''
+  // Pour les bordures, on prends celles de [AB], vu qu'on code le milieu de [AB]
+  this.bordures = [Math.min(A.bordures[0], B.bordures[0]), Math.min(A.bordures[1], B.bordures[1]), Math.max(A.bordures[2], B.bordures[2]), Math.max(A.bordures[3], B.bordures[3])]
   this.svg = function (coeff) {
     if (mil) code = M.svg(coeff) + '\n' + v.svg(coeff)
     else code = v.svg(coeff)
