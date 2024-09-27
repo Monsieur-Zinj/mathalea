@@ -58,15 +58,15 @@ export default class TrouverLongueur extends Exercice {
     if (!this.interactif) {
       this.question = 'Entoure la réponse possible. <br>'
       this.question += `La hauteur d'${choix[a][0]} est :<br>
-    ${propositions2[0]} ${sp(2)}  ${propositions2[1]} ${sp(2)} ${propositions2[2]} ${sp(2)} ${propositions2[3]} `
+    ${propositions2[0]} ${sp(1)}  ${propositions2[1]} ${sp(1)} ${propositions2[2]} ${sp(1)} ${propositions2[3]} `
     } else {
       this.question = 'Coche la réponse possible.<br>'
       this.question += ` La hauteur d'${choix[a][0]} est :` + qcm.texte
     }
 
-    this.canEnonce = 'Entoure la réponse possible.'
-    this.canReponseACompleter = `La hauteur d'${choix[a][0]} est :<br>
-${propositions2[0]} ${sp(1)} ${propositions2[1]} <br> ${propositions2[2]}${sp(1)} ${propositions2[3]}`
+    this.canEnonce = `Coche la réponse possible.<br>
+    La hauteur d'${choix[a][0]} est : `
+    this.canReponseACompleter = ''
     this.correction = `La hauteur d'${choix[a][0]} est $${miseEnEvidence(b)}$ ${choix[a][3]}.`
   }
 }
