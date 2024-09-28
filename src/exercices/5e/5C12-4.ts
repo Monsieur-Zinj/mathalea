@@ -180,7 +180,7 @@ class MettreDesParentheses extends Exercice {
       // Les données de la question (expression sans parenthèse, expression avec parenthèses, test )
       const materiel = choice(choix)
       // l'objet qui sert à assigner les valeurs dans l'expression
-      const assignations: Variables = aleaVariables({
+      /* const assignations = aleaVariables({
         a: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
         b: 'randomInt(1,10)',
         c: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,

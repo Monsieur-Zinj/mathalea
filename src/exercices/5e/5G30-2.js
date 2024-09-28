@@ -14,6 +14,7 @@ import { pickRandom } from 'mathjs'
 import { aleaVariables } from '../../modules/outilsMathjs.ts'
 import { miseEnEvidence, texteEnCouleurEtGras, texteGras } from '../../lib/outils/embellissements'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
+import { abs } from '../../lib/outils/nombres'
 export const titre = 'Effectuer des liens entre angles et parallélisme'
 export const dateDeModifImportante = '21/01/2024'
 export const amcReady = true
@@ -124,7 +125,7 @@ export default function ExercicesAnglesAIC () {
         case 1: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -133,7 +134,24 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: 'O-A>30 and O-B>30'
             }
-          )
+          ) */
+          let param
+          do {
+            const createVariables = (O, A, B) => ({
+              O,
+              A,
+              B,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A > 30 && param.O - param.B > 30))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -202,7 +220,7 @@ export default function ExercicesAnglesAIC () {
         case 2: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -211,14 +229,42 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
             }
-          )
-          const ab = aleaVariables(
+          ) */
+          let param
+          do {
+            const createVariables = (O, A) => ({
+              O,
+              A,
+              B: A,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A < 70 && param.O - param.A > 30))
+
+          /* const ab = aleaVariables(
             {
               a: 'randomInt(0,3)',
               b: 'randomInt(0,3)',
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
-          )
+          ) */
+          let ab
+          do {
+            const createVariables = (a, b) => ({
+              a,
+              b
+            })
+
+            ab = createVariables(
+              randint(0, 3),
+              randint(0, 3)
+            )
+          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
 
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
@@ -360,7 +406,7 @@ export default function ExercicesAnglesAIC () {
         case 4: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -369,14 +415,42 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
             }
-          )
-          const ab = aleaVariables(
+          ) */
+          let param
+          do {
+            const createVariables = (O, A) => ({
+              O,
+              A,
+              B: A,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A < 70 && param.O - param.A > 30))
+          /* const ab = aleaVariables(
             {
               a: 'randomInt(0,3)',
               b: 'randomInt(0,3)',
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
-          )
+          ) */
+          let ab
+          do {
+            const createVariables = (a, b) => ({
+              a,
+              b
+            })
+
+            ab = createVariables(
+              randint(0, 3),
+              randint(0, 3)
+            )
+          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -548,7 +622,7 @@ export default function ExercicesAnglesAIC () {
         case 6: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -557,7 +631,24 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '40<O-A<140 and 40<O-B<140 and abs(B-A)<20'
             }
-          )
+          ) */
+          let param
+          do {
+            const createVariables = (O, A, B) => ({
+              O,
+              A,
+              B,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A > 40 && param.O - param.A < 140 && param.O - param.B > 30 && param.O - param.B < 140 && abs(param.B - param.A) < 20))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -676,7 +767,7 @@ export default function ExercicesAnglesAIC () {
         case 7: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -685,7 +776,24 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '40<O-A<140 and 40<O-B<140 and abs(B-A)<20'
             }
-          )
+          ) */
+          let param
+          do {
+            const createVariables = (O, A, B) => ({
+              O,
+              A,
+              B,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A > 40 && param.O - param.A < 140 && param.O - param.B > 30 && param.O - param.B < 140 && abs(param.B - param.A) < 20))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -795,7 +903,7 @@ export default function ExercicesAnglesAIC () {
         case 3: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -804,14 +912,42 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
             }
-          )
-          const ab = aleaVariables(
+          ) */
+          let param
+          do {
+            const createVariables = (O, A) => ({
+              O,
+              A,
+              B: A,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A < 70 && param.O - param.A > 30))
+          /* const ab = aleaVariables(
             {
               a: 'randomInt(0,3)',
               b: 'randomInt(0,3)',
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
-          )
+          ) */
+          let ab
+          do {
+            const createVariables = (a, b) => ({
+              a,
+              b
+            })
+
+            ab = createVariables(
+              randint(0, 3),
+              randint(0, 3)
+            )
+          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
@@ -992,7 +1128,7 @@ export default function ExercicesAnglesAIC () {
         case 5: {
           const objetsEnonce = [] // on initialise le tableau des objets Mathalea2d de l'enoncé
           const objetsCorrection = [] // Idem pour la correction
-          const param = aleaVariables(
+          /* const param = aleaVariables(
             {
               O: 'randomInt(0,90)',
               A: 'randomInt(-90,90)',
@@ -1001,14 +1137,42 @@ export default function ExercicesAnglesAIC () {
               r2: 'pickRandom([1.5,2])',
               test: '70>O-A>30 and 70>O-B>30 and abs(A-B)<45'
             }
-          )
-          const ab = aleaVariables(
+          ) */
+          let param
+          do {
+            const createVariables = (O, A) => ({
+              O,
+              A,
+              B: A,
+              r1: choice([1.5, 2]),
+              r2: choice([1.5, 2])
+            })
+
+            param = createVariables(
+              randint(0, 90),
+              randint(-90, 90)
+            )
+          } while (!(param.O - param.A < 70 && param.O - param.A > 30))
+          /* const ab = aleaVariables(
             {
               a: 'randomInt(0,3)',
               b: 'randomInt(0,3)',
               test: 'a!=b and (a!=2 or b!=0) and (a!=3 or b!=1)'
             }
-          )
+          ) */
+          let ab
+          do {
+            const createVariables = (a, b) => ({
+              a,
+              b
+            })
+
+            ab = createVariables(
+              randint(0, 3),
+              randint(0, 3)
+            )
+          } while (!(ab.a !== ab.b && (ab.a !== 2 || ab.b !== 0) && (ab.a !== 3 || ab.b !== 1)))
+
           const O = point(0, 0)
           const anglesA = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O), O, param.r1), { O: param.O, A: param.A })
           const anglesB = anglesSecantes(homothetie(rotation(point(1, 0), O, param.O + 180), O, param.r2), { O: param.O, A: param.B })
