@@ -1,11 +1,10 @@
 import Exercice from '../Exercice.js'
-import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'
-import { aleaVariables } from '../../modules/outilsMathjs.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
@@ -23,7 +22,6 @@ export const refs = {
 /**
  * Description didactique de l'exercice
  * @autor  Jean-Claude Lhote
- * Référence TAN1-4
  */
 export default class EquationsLog extends Exercice {
   version: string
@@ -31,7 +29,7 @@ export default class EquationsLog extends Exercice {
     super()
     this.version = 'ln'
     this.nbQuestions = 5
-    this.consigne = ''
+    this.spacing = 1.5
     this.spacingCorr = 3
     this.sup = '1'
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : log(ax+b)=n\n2 : log(ax+b)=log(cx+d)\n3 : Mélange']
@@ -52,12 +50,24 @@ export default class EquationsLog extends Exercice {
       let texteCorr: string
       const fracPlusInf = new FractionEtendue(10 ** 15, 1)
       const fracMoinsInf = new FractionEtendue(-(10 ** 15), 1)
-      const { a, b, c, d, n } = aleaVariables({ a: true, b: true, c: true, d: true, n: true, test: 'a!=c and b!=d and b/c!=d/c' }) as {a: number, b: number, c: number, d:number, n: number}
+      // const { a, b, c, d, n } = aleaVariables({ a: true, b: true, c: true, d: true, n: true, test: 'a!=c and b!=d and b/c!=d/c' }) as {a: number, b: number, c: number, d:number, n: number}
+      let a: number
+      let b: number
+      let c: number
+      let d:number
+      let n: number
+      do {
+        a = randint(-10, 10)
+        b = randint(-10, 10)
+        c = randint(-10, 10)
+        d = randint(-10, 10)
+        n = randint(-10, 10)
+      } while (!(a !== c && b !== d && b / c !== d / c))
       let domaine : string
       let solution : string
       let intervalle: [FractionEtendue, FractionEtendue]
       if (listeTypeQuestions[i] === 1) { // log(ax+b)=n
-        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${n}$<br>`
+        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${n}$.<br>`
         texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` + ajouteChampTexteMathLive(this, 2 * i, `inline largeur10 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
         texte += `<br>${numAlpha(1)} Donner la solution de cette équation.` + ajouteChampTexteMathLive(this, 2 * i + 1, `inline largeur10 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^{*}$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
@@ -78,16 +88,16 @@ export default class EquationsLog extends Exercice {
         intervalle = a > 0 ? [f1, new FractionEtendue(10 ** 15, 1)] : [new FractionEtendue(-(10 ** 15), 1), f1]// une notion relative de \\infty ;-)
         const valeurSolution = base === '10' ? (10 ** n - b) / a : (Math.E ** n - b) / a
         if (intervalle[1].valeurDecimale > valeurSolution && intervalle[0].valeurDecimale < valeurSolution) {
-          texteCorr += `<br>$${solution}\\in ${domaine}$ donc l'équation admet $${solution}$ comme solution unique.`
+          texteCorr += `<br>$${solution}\\in ${domaine}$ donc l'équation admet $${miseEnEvidence(solution)}$ comme solution unique.`
           solution = `{${solution}}`
         } else {
           texteCorr += `<br>$${solution}\\notin ${domaine}$ donc l'équation n'admet aucune solution.`
           solution = '\\emptyset'
         }
       } else { // log(ax+b)=log(cx+d)
-        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})$<br>`
+        texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})$.<br>`
         texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i, `inline largeur10 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
-        texte += `<br>${numAlpha(1)} Donner la solution de cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i + 1, `inline largeur10 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
+        texte += `${numAlpha(1)} Donner la solution de cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i + 1, `inline largeur10 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ et $${rienSi1(c)}x${ecritureAlgebrique(d)}$ doivent être strictement positifs.<br>`
         const f2 = new FractionEtendue(-b, a)
         const f3 = new FractionEtendue(-d, c)
@@ -191,7 +201,7 @@ export default class EquationsLog extends Exercice {
             solution = '\\emptyset'
           }
         } else {
-          texteCorr += `<br>${numAlpha(1)} Le domaine de définition de l'équation étant l'ensemble vide, il en est de même pour l'ensemble de solution de l'équation.<br>`
+          texteCorr += `<br>${numAlpha(1)} Le domaine de définition de l'équation étant l'ensemble vide, il en est de même pour l'ensemble de solutions de l'équation.<br>`
           solution = '\\emptyset'
         }
         texteCorr += `<br>$\\mathcal{S}=${miseEnEvidence(solution)}$`
