@@ -9,7 +9,6 @@ export const amcType = 'AMCOpen'
 /**
  * Générateur de tirages pour un compte est bon avec en correction la solution mathador (4 opérations différentes).
  * @author Jean-Claude Lhote
- * référence CM019
  */
 
 export const uuid = '1e528'

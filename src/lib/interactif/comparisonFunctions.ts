@@ -4,6 +4,7 @@ import {
   type Parser,
   type LatexDictionaryEntry
 } from '@cortex-js/compute-engine'
+import { abs } from '../../lib/outils/nombres'
 // import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -508,7 +509,7 @@ export function fonctionComparaison (
     operationSeulementEtNonCalcul, // Documenté
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
-    kUplet,
+    kUplet, // Documenté
     HMS,
     intervalle,
     estDansIntervalle,
@@ -1938,4 +1939,94 @@ export function exprCompare (
     }
   }
   return { isOk, feedback }
+}
+
+export function checkLeCompteEstBon ( // Ne fonctionne que si numbers est un tableau de nombres POSITIFS.
+  input: string,
+  numbers: number[],
+  target: number,
+  quatreOperationsObligatoires:boolean
+): ResultType {
+  const clean = generateCleaner([
+    'virgules',
+    'parentheses',
+    'fractions',
+    'divisions'
+  ])
+  const inputClean = clean(input)
+
+  // At first, check that the value of the expression is correct
+  const answer = engine.parse(inputClean, { canonical: false }) as BoxedExpression
+  const value = answer.value
+  if (value !== target) { return { isOk: false, feedback: `L'expression vaut ${value} et non ${target}.` } }
+
+  // Count each operator
+  let addCount = 0
+  let multiplyCount = 0
+  let divideCount = 0
+  let subtractCount = 0
+
+  let tropDeNombres = false
+  let nombresEnDoublon = false
+  let mauvaisNombre = false
+  let symboleNonAutorise = false
+  let operationNonAutorisee = false
+
+  const listeNombresEnonce = [...numbers]
+  const visit: (node: BoxedExpression) => void = (node) => {
+    if (node.numericValue !== null) {
+      if (listeNombresEnonce.length === 0) {
+        if (numbers.includes(abs(node.value as number))) { // abs obligatoire car sinon, poir 5-3, il tente de chercher -3.
+          nombresEnDoublon = true
+          return 'Au moins un nombre en doublon'
+        } else {
+          tropDeNombres = true
+          return 'Au moins un nombre en trop'
+        }
+      } else if (listeNombresEnonce.includes(abs(node.value as number))) {
+        // J'enlève cet élément de la liste
+        listeNombresEnonce.splice(listeNombresEnonce.indexOf(abs(node.value)), 1)
+      } else {
+        mauvaisNombre = true
+        return 'Au moins un mauvais nombre parmi ceux proposés'
+      }
+    }
+
+    if (node.symbol) {
+      symboleNonAutorise = true
+      return 'L\'expression contient un symbole non autorisé.'
+    }
+    if (node.head) {
+      if (node.head !== 'Number' && node.head !== 'Delimiter') {
+        switch (node.head) {
+          case 'Add':
+            addCount++
+            break
+          case 'Multiply':
+            multiplyCount++
+            break
+          case 'Divide':
+            divideCount++
+            break
+          case 'Subtract':
+            subtractCount++
+            break
+          default:
+            operationNonAutorisee = true
+        }
+      }
+      if (node.ops !== null) node.ops!.forEach(visit)
+      else return ('OK')
+    }
+  }
+
+  visit(answer)
+  if (tropDeNombres) return { isOk: false, feedback: 'L\'expression utilise plus de nombres que demandés.' }
+  if (nombresEnDoublon) return { isOk: false, feedback: 'L\'expression utilise plusieurs fois un même nombre parmi ceux proposés.' }
+  if (mauvaisNombre) return { isOk: false, feedback: 'L\'expression utilise au moins un nombre non autorisé.' }
+  if (symboleNonAutorise) return { isOk: false, feedback: 'L\'expression contient un symbole non autorisé.' }
+  if (operationNonAutorisee) return { isOk: false, feedback: 'L\'expression de doit contenir que des additions, des soustractions, des multiplications, des divisions ou des parenthèses.' }
+  if (quatreOperationsObligatoires && !(addCount === 1 && divideCount === 1 && subtractCount === 1 && multiplyCount === 1)) return { isOk: false, feedback: 'L\'expression doit contenir une addition, une soustraction, une multiplication et une division.' }
+
+  return { isOk: true, feedback: '' } // L'expression est correcte.
 }
