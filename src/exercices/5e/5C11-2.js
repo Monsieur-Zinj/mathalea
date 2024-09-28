@@ -4,20 +4,21 @@ import { prenom } from '../../lib/outils/Personne'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import Exercice from '../deprecatedExercice.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { checkLeCompteEstBon, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { sp } from '../../lib/outils/outilString'
 export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
-export const interactifType = 'mathLive'
+export const interactifType = ['mathLive', 'custom']
 
 export const titre = 'Traduire une succession d\'opérations par une expression'
+export const dateDeModificationImportante = '26/09/2024'
 
 /**
  * Transformer un programme de calcul avec les 4 opérations dans un ordre aléatoire en un seul calcul.
  * @author Jean-Claude Lhote
- * Référence 5C11-2
  */
 export const uuid = '3406a'
 export const ref = '5C11-2'
@@ -27,33 +28,49 @@ export const refs = {
 }
 export default function ÉcrireUneExpressionMathador () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.nbQuestions = 4
-  this.nbCols = 1
-  this.nbColsCorr = 1
+  this.besoinFormulaireCaseACocher = ['Calculs cachés', false]
+  this.besoinFormulaire2CaseACocher = ['4 opérations différentes obligatoires', false]
+  this.sup = false
+  this.sup2 = false
 
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-    let expression, calculsSuccessifs, tirage, cible, solutionMathador, quidam
+    let expression, calculsSuccessifs, solutionMathador, quidam
+    this.tirage = []
+    this.cible = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       // traduire un calcul mathador
       solutionMathador = TrouverSolutionMathador(30, 90)
-      tirage = solutionMathador[0]
-      cible = solutionMathador[1]
+      this.tirage[i] = solutionMathador[0]
+      this.cible[i] = solutionMathador[1]
       calculsSuccessifs = solutionMathador[2]
       expression = solutionMathador[3]
       quidam = prenom()
-      texte = `${quidam} a trouvé une solution mathador pour le tirage suivant $${tirage[0]}~;~${tirage[1]}~;~${tirage[2]}~;~${tirage[3]}~;~${tirage[4]}$ et pour la cible $${cible}$, voici ses calculs :<br>`
-      for (let j = 0; j < 4; j++) {
-        texte += `$${calculsSuccessifs[j]}$<br>`
+      texte = `${quidam} a trouvé une solution du jeu "Le compte est bon" pour le tirage suivant $${this.tirage[i][0]}~;~${this.tirage[i][1]}~;~${this.tirage[i][2]}~;~${this.tirage[i][3]}~;~${this.tirage[i][4]}$ et pour la cible $${this.cible[i]}$`
+      texte += (this.sup && this.sup2) ? '<br>Pour que la solution soit gagnante, il faut que l\'enchaînement de calculs possède chacune des quatre opérations élémentaires.' : ''
+      texte += this.sup ? '.<br>' : ', voici ses calculs :<br>'
+      if (!this.sup) {
+        for (let j = 0; j < 4; j++) {
+          texte += `$${calculsSuccessifs[j]}$<br>`
+        }
+        this.interactifType = 'mathLive'
+      } else this.interactifType = 'custom'
+
+      texte += 'Écrire la succession d\'opérations en une seule expression.' + (this.interactif ? ajouteChampTexteMathLive(this, i, 'inLine largeur01 nospacebefore', { texteAvant: sp(10) + '$E=$' }) : '')
+      texte += this.sup ? ajouteFeedback(this, i) : ''
+      texteCorr = ''
+      if (this.sup) {
+        texteCorr += `${quidam} a proposé les calculs suivants :<br>`
+        for (let j = 0; j < 4; j++) {
+          texteCorr += `$${calculsSuccessifs[j]}$<br>`
+        }
       }
-      texte += 'Écrire cette succession d\'opérations en une seule expression.' + ajouteChampTexteMathLive(this, i, 'inLine largeur10 nospacebefore', { texteAvant: '$E=$' })
-      // texte += ajouteFeedback(this, i) // le feedback de fonctionComparaison avec cette option n'est pas adapté.
-      texteCorr = `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
-      handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+
+      texteCorr += `L'expression correspondante au calcul de ${quidam} est :<br>$${miseEnEvidence(expression)}$ ou $${miseEnEvidence(solutionMathador[4])}$.`
+      if (!this.sup) handleAnswers(this, i, { reponse: { value: [expression, solutionMathador[4]], compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
       if (context.isAmc) {
         this.autoCorrection[i] =
         {
@@ -69,7 +86,7 @@ export default function ÉcrireUneExpressionMathador () {
         }
       }
 
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, solutionMathador, this.tirage[i], this.cible[i])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -77,5 +94,38 @@ export default function ÉcrireUneExpressionMathador () {
       cpt++
     }
     listeQuestionsToContenu(this)
+  }
+  // EE : Modele Correction Interactive
+  this.correctionInteractive = function (i) {
+    // Champ réponse : Son nom est en dur, ne rien changer
+    const mf = document.querySelector(`math-field#champTexteEx${this.numeroExercice}Q${i}`)
+
+    // Sauvegarde de la réponse pour Capytale
+    if (this.answers == null) this.answers = {}
+    this.answers[`Ex${this.numeroExercice}Q${i}`] = mf.getValue()
+
+    // Saisie fournie par l'utilisateur qu'on va comparer éventuellement avec la réponse attendue.
+    const input = mf.value
+
+    // Partie test de la saisie de l'utilisateur
+    const { isOk, feedback } = checkLeCompteEstBon(input, this.tirage[i], this.cible[i], this.sup2)
+    let reponse
+    let smiley
+    if (isOk) {
+      smiley = '😎'
+      reponse = 'OK'
+    } else {
+      smiley = '☹️'
+      reponse = 'KO'
+    }
+    // Affichage du smiley final
+    const spanResultat = document.querySelector(`span#resultatCheckEx${this.numeroExercice}Q${i}`)
+    spanResultat.innerHTML = smiley
+
+    // Affichage du feedback final qu'il fait penser à créer avec ajouteFeedback dans l'exercice
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
+    divFeedback.innerHTML = feedback
+
+    return reponse
   }
 }
