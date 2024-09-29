@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../deprecatedExercice.js'
+import Exercice from '../Exercice'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
@@ -25,22 +25,25 @@ export const refs = {
   'fr-fr': ['6N10-2'],
   'fr-ch': ['9NO1-3']
 }
-export default function DecompositionNombreDecimal () {
-  Exercice.call(this)
-  this.consigne = 'Compléter les phrases suivantes.'
-  this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.sup = 7
+export default class DecompositionNombreDecimal extends Exercice {
+  constructor () {
+    super()
+    this.consigne = 'Compléter les phrases suivantes.'
+    this.nbQuestions = 5
+    this.nbCols = 1
+    this.nbColsCorr = 1
+    this.sup = 7
+    this.besoinFormulaireNumerique = ['Choix de questions', 7, "1 : 'Chiffre des'\n2 : 'Nombre de'\n3 : Partie entière ou partie décimale\n4 : 'Chiffre des' ou 'nombre de'\n5 : 'Chiffre des' ou partie entière ou partie décimale\n6 : 'Nombre de' ou partie entière ou partie décimale\n7 : Mélange"]
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
     let typesDeQuestionsDisponibles
     switch (parseInt(this.sup)) {
       case 1:
-        typesDeQuestionsDisponibles = [3, 4, 5, 6, 7, 8]
+        typesDeQuestionsDisponibles = [3, 4, 5, 6, 7, 8, 'chiffreDesUnites']
         break
       case 2:
         typesDeQuestionsDisponibles = [9, 10, 11, 12]
@@ -49,10 +52,10 @@ export default function DecompositionNombreDecimal () {
         typesDeQuestionsDisponibles = [1, 2]
         break
       case 4:
-        typesDeQuestionsDisponibles = [3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+        typesDeQuestionsDisponibles = [3, 4, 5, 6, 7, 8, 'chiffreDesUnites', 9, 10, 11, 12]
         break
       case 5:
-        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
+        typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 'chiffreDesUnites']
         break
       case 6:
         typesDeQuestionsDisponibles = [1, 2, 9, 10, 11, 12]
@@ -61,7 +64,7 @@ export default function DecompositionNombreDecimal () {
         typesDeQuestionsDisponibles = [
           1,
           2,
-          choice([3, 4, 5]),
+          choice([3, 4, 5, 'chiffreDesUnites']),
           choice([6, 7, 8]),
           choice([9, 10]),
           choice([11, 12])
@@ -121,6 +124,14 @@ export default function DecompositionNombreDecimal () {
           texteCorr = texte + `$${miseEnEvidence(d)}$`
           texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
           setReponse(this, i, d)
+          this.autoCorrection[i].reponse.param.digits = 1
+          this.autoCorrection[i].reponse.param.decimals = 0
+          break
+        case 'chiffreDesUnites':
+          texte = `Le chiffre des unités du nombre $${n}$ est : `
+          texteCorr = texte + `$${miseEnEvidence(u)}$`
+          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          setReponse(this, i, u)
           this.autoCorrection[i].reponse.param.digits = 1
           this.autoCorrection[i].reponse.param.decimals = 0
           break
@@ -210,5 +221,4 @@ export default function DecompositionNombreDecimal () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Choix de questions', 7, "1 : 'Chiffre des'\n2 : 'Nombre de'\n3 : Partie entière ou partie décimale\n4 : 'Chiffre des' ou 'nombre de'\n5 : 'Chiffre des' ou partie entière ou partie décimale\n6 : 'Nombre de' ou partie entière ou partie décimale\n7 : Mélange"]
 }
