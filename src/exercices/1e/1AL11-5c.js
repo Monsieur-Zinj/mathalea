@@ -1,10 +1,10 @@
-import { choice } from '../../lib/outils/arrayOutils'
-import { texteGras } from '../../lib/format/style'
-import { arrondi } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
-import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils.js'
+import { texteGras } from '../../lib/format/style.js'
+import { arrondi } from '../../lib/outils/nombres.js'
+import { texNombre } from '../../lib/outils/texNombre.js'
+import Exercice from '../Exercice.js'
 import { randint } from '../../modules/outils.js'
-export const titre = 'Somme des termes d\'une suite géométrique'
+export const titre = 'Calculer la somme des termes d\'une suite géométrique'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -15,9 +15,9 @@ export const dateDePublication = '28/12/2022'
  * @author Rémi Angot
  * Référence 1N13
 */
-export const ref = '1AL11-42'
+export const ref = '1AL11-5c'
 export const refs = {
-  'fr-fr': ['1AL11-42'],
+  'fr-fr': ['1AL11-5c'],
   'fr-ch': []
 }
 
