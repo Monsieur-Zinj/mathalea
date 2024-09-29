@@ -1,7 +1,7 @@
 import { getUniqueStringBasedOnTimeStamp } from '../components/time.js'
 import { context } from '../../modules/context.js'
 
-const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
+// const unorderedListTypes: string[] = ['puces', 'carres', 'qcm', 'fleches']
 const orderedListTypes: string[] = [
   'nombres',
   'alpha',
@@ -9,6 +9,19 @@ const orderedListTypes: string[] = [
   'roman',
   'Roman'
 ]
+
+const labelsByStyle = new Map([
+  ['puces', '$\\bullet$'],
+  ['carres', '\\tiny$\\blacksquare$'],
+  ['qcm', '$\\square$'],
+  ['fleches', '\\tiny$\\blacktriangleright$'],
+  ['nombres', '\\arabic*.'],
+  ['alpha', '\\alph*.'],
+  ['Alpha', '\\Alph*.'],
+  ['roman', '\\roman*.'],
+  ['Roman', '\\Roman*.']
+])
+
 type ListStyle =
   | 'none'
   | 'puces'
@@ -68,139 +81,76 @@ export function isDescriptionItem (
 /**
  * Contruit une liste formattée suivant un style à partir d'un tableau de chaînes de caractères comme entrées.
  * @param {NestedList} list Objet décrivant la liste
- * @returns {HTMLUListElement|HTMLOListElement|string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
- * @author sylvain
+ * @returns {string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
+ * @author sylvain, Jean-Léon Henry
  */
 export function createList (
   list: NestedList,
   shift: string = ''
-): HTMLUListElement | HTMLOListElement | string {
-  let theList: HTMLUListElement | HTMLOListElement | string
+): string {
+  const isOrdered: boolean = orderedListTypes.includes(list.style)
+  let lineStart = list.style === 'none' ? '' : '\t\\item '
+  let lineEnd = list.style === 'none' ? '\\par' : ''
+  const lineBreak: string = '\n'
+  const label: string = labelsByStyle.get(list.style) ?? '' // only used in latex output
+  let openingTagOrdered = '\\begin{enumerate}'
+  let openingTagUnordered = '\\begin{itemize}'
+  let closingTagOrdered = '\\end{enumerate}'
+  let closingTagUnordered = '\\end{itemize}'
+  let openingTagLine: string
+  let output = ''
+
   if (context.isHtml) {
-    switch (list.style) {
-      case 'none':
-      case 'puces':
-      case 'carres':
-      case 'qcm':
-      case 'fleches':
-        theList = document.createElement('ul')
-        break
-      case 'nombres':
-      case 'alpha':
-      case 'Alpha':
-      case 'roman':
-      case 'Roman':
-        theList = document.createElement('ol')
-        break
-      default:
-        theList = document.createElement('ul')
-        break
-    }
-    theList.setAttribute('class', list.style + ' ' + list.classOptions)
+    lineStart = list.style === 'none' ? '<li>' : '\t<li>'
+    lineEnd = '</li>'
 
-    for (const item of list.items) {
-      const li: HTMLLIElement = document.createElement('li')
-      if (typeof item === 'string') {
-        li.appendChild(document.createTextNode(item))
-      } else if (isDescriptionItem(item)) {
-        const span = document.createElement('span')
-        span.setAttribute(
-          'id',
-          'list-item-description-' + getUniqueStringBasedOnTimeStamp('i')
-        )
-        const description = document.createTextNode(item.description)
-        const text = document.createTextNode(item.text)
-        span.appendChild(description)
-        li.appendChild(span)
-        li.appendChild(text)
-      } else {
-        if (item.introduction) {
-          li.appendChild(document.createTextNode(item.introduction))
-        }
-        li.appendChild(createList(item) as HTMLUListElement | HTMLOListElement)
-      }
-      theList.appendChild(li)
+    let classOptionsFormatted = list.classOptions ?? ''
+    if (classOptionsFormatted !== '') {
+      classOptionsFormatted = ' ' + classOptionsFormatted
     }
-  } else {
-    theList = ''
-    let label: string
-    let openingTag: string = ''
-    let closingTag: string = ''
-    switch (list.style) {
-      case 'none':
-        label = ''
-        openingTag = ''
-        closingTag = ''
-        break
-      case 'puces':
-        label = '$\\bullet$'
-        break
-      case 'carres':
-        label = '\\tiny$\\blacksquare$'
-        break
-      case 'qcm':
-        label = '$\\square$'
-        break
-      case 'fleches':
-        label = '\\tiny$\\blacktriangleright$'
-        break
-
-      case 'nombres':
-        label = '\\arabic*.'
-        break
-      case 'alpha':
-        label = '\\alph*.'
-        break
-      case 'Alpha':
-        label = '\\Alph*.'
-        break
-      case 'roman':
-        label = '\\roman*.'
-        break
-      case 'Roman':
-        label = '\\Roman*.'
-        break
-    }
-    const lineStart: string = list.style === 'none' ? '' : '\t\\item '
-    const lineEnd: string = list.style === 'none' ? '\\par\n' : '\n'
-    const lineBreak: string = shift.length === 0 ? '\n' : ''
-    if (unorderedListTypes.includes(list.style)) {
-      openingTag = lineBreak + shift + '\\begin{itemize}'
-      if (label.length !== 0) {
-        openingTag += '[label=' + label + ']' + lineEnd
-      }
-      closingTag = shift + '\\end{itemize}' + lineEnd
-    } else if (orderedListTypes.includes(list.style)) {
-      openingTag = lineBreak + shift + '\\begin{enumerate}'
-      if (label.length !== 0) {
-        openingTag += '[label=' + label + ']' + lineEnd
-      }
-      closingTag = shift + '\\end{enumerate}' + lineEnd
-    }
-    theList += openingTag
-    for (const item of list.items) {
-      if (typeof item === 'string') {
-        theList += shift + lineStart + item + lineEnd
-      } else if (isDescriptionItem(item)) {
-        theList +=
-          shift +
-          '\\textbf{' +
-          item.description +
-          '}' +
-          lineStart +
-          item.text +
-          lineEnd
-      } else {
-        if (item.introduction) {
-          theList += shift + lineStart + item.introduction + lineEnd
-          theList += createList(item, shift + '\t')
-        } else {
-          theList += shift + lineStart
-          theList += '\n' + createList(item, shift + '\t')
-        }
-      }
-    }
-    theList += closingTag
+    openingTagOrdered = `<ol class='${list.style}${classOptionsFormatted}'>`
+    openingTagUnordered = `<ul class='${list.style}${classOptionsFormatted}'>`
+    closingTagOrdered = '</ol>'
+    closingTagUnordered = '</ul>'
   }
-  return theList
+
+  const openingTag = isOrdered ? openingTagOrdered : openingTagUnordered
+  const closingTag = isOrdered ? closingTagOrdered : closingTagUnordered
+  openingTagLine = lineBreak + shift + openingTag
+  const closingTagLine = shift + closingTag + lineBreak
+
+  if (!context.isHtml && !isOrdered && label.length !== 0) {
+    openingTagLine += `[label=${label}]`
+  }
+
+  openingTagLine += lineBreak
+  output += openingTagLine
+
+  function lineFactory (
+    inside: string,
+    before: string = shift + lineStart,
+    after: string = lineEnd + lineBreak) {
+    return before + inside + after
+  }
+
+  for (const item of list.items) {
+    let liContent = ''
+    if (typeof item === 'string') {
+      liContent = item
+    } else if (isDescriptionItem(item)) {
+      if (!context.isHtml) {
+        output += lineFactory(item.text, shift + `\t\\item[\\textbf{${item.description}}] `)
+        continue
+      }
+      const span = `<span id="list-item-description-${getUniqueStringBasedOnTimeStamp('i')}">${item.description} </span>`
+      liContent = span + item.text
+    } else {
+      // item is neither a string or a DescriptionItem, it's probably a sublist
+      liContent = (item.introduction ?? '') + createList(item, shift + '\t')
+    }
+    output += lineFactory(liContent)
+  }
+
+  output += closingTagLine
+  return output
 }

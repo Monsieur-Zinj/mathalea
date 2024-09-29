@@ -5,6 +5,8 @@ import Trinome from '../../modules/Trinome.js'
 import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre.js'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
+import { createList } from '../../lib/format/lists.js'
+import { context } from '../../modules/context.js'
 export const titre = 'Résoudre une équation en choisissant la forme la plus appropriée'
 
 export const dateDePublication = '22/09/2024'
@@ -23,7 +25,7 @@ export const refs = {
 }
 
 export default class ResolutionEquationDifferentesFormes extends Exercice {
-  constructor () {
+  constructor() {
     super()
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
@@ -31,7 +33,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
     this.sup = true
   }
 
-  nouvelleVersion () {
+  nouvelleVersion() {
     if (this.sup) {
       let a: number
       let b: number
@@ -57,13 +59,19 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
 
       const trinome = new Trinome(a, b, c)
       this.introduction = 'Voici trois formes possibles de la fonction $f$ :'
-      this.introduction += '<br><br>'
-      this.introduction += `$f(x) = ${trinome.tex}$`
-      this.introduction += '<br><br>'
-      this.introduction += `$f(x) = ${trinome.texFormeFactorisee}$`
-      this.introduction += '<br><br>'
-      this.introduction += `$f(x) = ${trinome.texFormeCanonique}$`
-      this.introduction += '<br><br>'
+      const items = [
+        trinome.tex,
+        trinome.texFormeFactorisee,
+        trinome.texFormeCanonique
+      ].map(s => `$f(x)=${s}$`)
+      const list = createList(
+        {
+          items,
+          style: 'puces',
+          classOptions: 'space-y-2 p-4'
+        })
+
+      this.introduction += list
       this.introduction += 'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
       this.introduction += '<br><br>'
 
@@ -154,7 +162,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       let alpha: number
       let beta: number
       let R: number
-      let delta : number
+      let delta: number
 
       do {
         a = choice([-1, 1]) * randint(1, 5)
@@ -167,12 +175,19 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
       } while (c === 0 || R === 0 || R === c || beta === 0 || delta >= 0)
 
       const trinome = new Trinome(a, b, c)
+      const items = [
+        trinome.tex,
+        trinome.texFormeCanonique
+      ].map(s => `$f(x)=${s}$`)
+      const list = createList(
+        {
+          items,
+          style: 'puces',
+          classOptions: 'space-y-2 p-4'
+        })
+
       this.introduction = 'Voici deux formes possibles de la fonction $f$ :'
-      this.introduction += '<br><br>'
-      this.introduction += `$f(x) = ${trinome.tex}$`
-      this.introduction += '<br><br>'
-      this.introduction += `$f(x) = ${trinome.texFormeCanonique}$`
-      this.introduction += '<br><br>'
+      this.introduction += list
       this.introduction += 'En choisissant la forme la plus adaptée, résoudre les équations suivantes :'
       this.introduction += '<br><br>'
 
