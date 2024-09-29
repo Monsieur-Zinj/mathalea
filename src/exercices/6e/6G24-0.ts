@@ -68,7 +68,7 @@ function checkDistance (points: {x: number, y:number}[]) {
  * @author Jean-Claude Lhote
  */
 class ConstrctionsSymetriquesPoints extends Exercice {
-  figures!: Figure[]
+  figuresApiGeom!: Figure[]
   idApigeom!: string[]
   nbPoints!: number
   antecedents!: object[][]
@@ -101,7 +101,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
     let choixDeLaxe: number[] = []
-    this.figures = []
+    this.figuresApiGeom = []
     this.idApigeom = []
     if (this.sup === 5) {
       choixDeLaxe = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
@@ -247,51 +247,51 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       const options = {}
       if (this.sup2 === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figures[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
-        this.figures[i].scale = 0.5
-        this.figures[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
-        const O = this.figures[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
+        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+        this.figuresApiGeom[i].scale = 0.5
+        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'LINE_PERPENDICULAR', 'CIRCLE_CENTER_POINT', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+        const O = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: false, isSelectable: false })
         let pointB
         if (choixDeLaxe[i] === 1) {
-          pointB = this.figures[i].create('Point', { x: 7, y: 0, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 0, isVisible: false })
         } else if (choixDeLaxe[i] === 2) {
-          pointB = this.figures[i].create('Point', { x: 0, y: 7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 0, y: 7, isVisible: false })
         } else if (choixDeLaxe[i] === 3) {
-          pointB = this.figures[i].create('Point', { x: 7, y: 7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: 7, isVisible: false })
         } else {
-          pointB = this.figures[i].create('Point', { x: 7, y: -7, isVisible: false })
+          pointB = this.figuresApiGeom[i].create('Point', { x: 7, y: -7, isVisible: false })
         }
-        this.d[i] = this.figures[i].create('Line', { point1: O, point2: pointB }) as Line
+        this.d[i] = this.figuresApiGeom[i].create('Line', { point1: O, point2: pointB }) as Line
         this.d[i].color = 'blue'
         this.d[i].thickness = 2
         const labelX = labelD.x
         const labelY = labelD.y
-        this.figures[i].create('TextByPosition', { text: '$(d)$', x: labelX, y: labelY })
+        this.figuresApiGeom[i].create('TextByPosition', { text: '$(d)$', x: labelX, y: labelY })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          (this.antecedents[i][k] as PointApigeom) = this.figures[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
+          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
         }
         if (this.sup2 === 1) {
-          this.figures[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
+          this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
         }
         if (this.sup2 === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figures[i].create('LinePerpendicular', { point: (this.antecedents[i][k] as PointApigeom), line: this.d[i], isDashed: true, color: 'gray' })
+            this.figuresApiGeom[i].create('LinePerpendicular', { point: (this.antecedents[i][k] as PointApigeom), line: this.d[i], isDashed: true, color: 'gray' })
           }
         }
         if (this.sup2 === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figures[i].create('CircleCenterPoint', {
-              center: this.figures[i].create('Point', { isVisible: false, x: middle[k].x, y: middle[k].y }),
+            this.figuresApiGeom[i].create('CircleCenterPoint', {
+              center: this.figuresApiGeom[i].create('Point', { isVisible: false, x: middle[k].x, y: middle[k].y }),
               point: (this.antecedents[i][k] as PointApigeom),
               isDashed: true,
               color: 'gray'
             })
           }
         }
-        this.figures[i].options.limitNumberOfElement.set('Point', 1)
+        this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
         this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figures[i], question: i })
+        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
@@ -303,7 +303,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figures[i].json
+    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
     const resultat = []
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''
@@ -311,7 +311,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = reflectOverLineCoord((this.antecedents[i][k] as PointApigeom), this.d[i])
-      const elts = Array.from(this.figures[i].elements.values())
+      const elts = Array.from(this.figuresApiGeom[i].elements.values())
       const points = elts
         .filter(e => e.type !== 'pointer' &&
               (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as PointApigeom[]
@@ -343,9 +343,9 @@ class ConstrctionsSymetriquesPoints extends Exercice {
       }
     }
     if (divFeedback) divFeedback.innerHTML = feedback
-    this.figures[i].isDynamic = false
-    this.figures[i].divButtons.style.display = 'none'
-    this.figures[i].divUserMessage.style.display = 'none'
+    this.figuresApiGeom[i].isDynamic = false
+    this.figuresApiGeom[i].divButtons.style.display = 'none'
+    this.figuresApiGeom[i].divUserMessage.style.display = 'none'
     return resultat
   }
 }

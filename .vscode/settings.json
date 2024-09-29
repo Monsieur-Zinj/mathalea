@@ -9,4 +9,5 @@
     "typescript.preferences.importModuleSpecifier": "relative",
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
     "javascript.preferences.importModuleSpecifierEnding": "minimal",
+    "vitest.disableWorkspaceWarning": true,
 }

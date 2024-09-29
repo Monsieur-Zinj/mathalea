@@ -4,6 +4,7 @@ import type Grandeur from '../modules/Grandeur'
 import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJamaisPosee, exportedReinit } from './exerciseMethods'
 import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
+import type DragAndDrop from '../lib/interactif/DragAndDrop'
 
 /**
  *
