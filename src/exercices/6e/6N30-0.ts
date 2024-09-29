@@ -6,7 +6,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { choice } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { texNombre } from '../../lib/outils/texNombre'
-import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
+import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
@@ -15,6 +15,8 @@ import {
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
@@ -195,13 +197,15 @@ class ReperageEntiersOuDecimaux extends Exercice {
         ((nombreATrouver - premiereGraduation) * distanceGrossesGraduations) /
         pasPrincipal
       const abscisseATrouver = latex2d(
-        texNombre(nombreATrouver, nbDecimales),
+        miseEnEvidence(texNombre(nombreATrouver, nbDecimales)),
         xPoint,
         -1.2,
         {}
       )
       const guide = segment(point(xPoint, -0.3), point(xPoint, -0.9))
       guide.styleExtremites = '->'
+      guide.color = colorToLatexOrHTML(orangeMathalea)
+      guide.epaisseur = 2
       guide.pointilles = 2
       const pointATrouver = point(xPoint, 0, lettreDepuisChiffre(i + 1))
       const trace = tracePoint(pointATrouver)
@@ -240,23 +244,22 @@ class ReperageEntiersOuDecimaux extends Exercice {
       texteCorr += `Ensuite, ${nombreATrouver < repere1 ? 'on retire' : 'on ajoute'} le pas autant de fois que nécessaire pour trouver l'abscisse : `
       texteCorr +=
         nombreATrouver < repere1
-          ? `$${texNombre(repere1, nbDecimales)}-${texNombre((repere1 - nombreATrouver) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$.<br>`
+          ? `$${texNombre(repere1, nbDecimales)}-${texNombre((repere1 - nombreATrouver) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
           : nombreATrouver > repere2
-            ? `$${texNombre(repere2, nbDecimales)}+${texNombre((nombreATrouver - repere2) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$.<br>`
-            : `$${texNombre(repere1, nbDecimales)}+${texNombre((nombreATrouver - repere1) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$.<br>`
+            ? `$${texNombre(repere2, nbDecimales)}+${texNombre((nombreATrouver - repere2) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
+            : `$${texNombre(repere1, nbDecimales)}+${texNombre((nombreATrouver - repere1) / pas, nbDecimales)}\\times ${texNombre(pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
       if (repere1 - nombreATrouver > pasPrincipal) {
         const nbGrosseGrad = Math.floor((repere1 - nombreATrouver) / pasPrincipal)
         const nbPetiteGrad = Math.round((repere1 - nbGrosseGrad * pasPrincipal - nombreATrouver) * subdivision / pasPrincipal)
         texteCorr += `<br>On aurait pu aussi utiliser les grosses graduations, ainsi : $${texNombre(repere1, nbDecimales)}-${nbGrosseGrad}\\times ${texNombre(pasPrincipal, nbDecimales)}=${texNombre(repere1 - nbGrosseGrad * pasPrincipal, nbDecimales)}$.<br>`
-        texteCorr += `Puis $${texNombre(repere1 - nbGrosseGrad * pasPrincipal, nbDecimales)}-${texNombre(nbPetiteGrad, 0)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(repere1 - nbGrosseGrad * pasPrincipal, nbDecimales)}-${texNombre(nbPetiteGrad * pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$.<br>`
-      }
-      if (nombreATrouver - repere2 > pasPrincipal) {
+        texteCorr += `Puis $${texNombre(repere1 - nbGrosseGrad * pasPrincipal, nbDecimales)}-${texNombre(nbPetiteGrad, 0)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(repere1 - nbGrosseGrad * pasPrincipal, nbDecimales)}-${texNombre(nbPetiteGrad * pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
+      } else if (nombreATrouver - repere2 > pasPrincipal) {
         const nbGrosseGrad = Math.floor((nombreATrouver - repere2) / pasPrincipal)
         const nbPetiteGrad = Math.round((nombreATrouver - nbGrosseGrad * pasPrincipal - repere2) * subdivision / pasPrincipal)
         texteCorr += `<br>On aurait pu aussi utiliser les grosses graduations, ainsi : $${texNombre(repere2, nbDecimales)}+${nbGrosseGrad}\\times ${texNombre(pasPrincipal, nbDecimales)}=${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}$.<br>`
-        texteCorr += `Puis $${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad, 0)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad * pas, nbDecimales)}=${texNombre(nombreATrouver, nbDecimales)}$.<br>`
+        texteCorr += `Puis $${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad, 0)}\\times ${texNombre(pas, nbDecimales)}=${texNombre(repere2 + nbGrosseGrad * pasPrincipal, nbDecimales)}+${texNombre(nbPetiteGrad * pas, nbDecimales)}=${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>`
       }
-      const correctionRapide = `L'abscisse du point $${lettreDepuisChiffre(i + 1)}$ est : $${texNombre(nombreATrouver, nbDecimales)}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${texNombre(nombreATrouver, nbDecimales)})$.`
+      const correctionRapide = `L'abscisse du point $${lettreDepuisChiffre(i + 1)}$ est : $${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))}$.<br>Notation : $${lettreDepuisChiffre(i + 1)}(${miseEnEvidence(texNombre(nombreATrouver, nbDecimales))})$.`
       if (this.questionJamaisPosee(i, repere1, repere2, nombreATrouver, pas)) {
         this.listeQuestions.push(texte)
         if (this.interactif) {
