@@ -80,7 +80,6 @@ export default class RepresenterUneFraction extends Exercice {
           num = randint(1, den * 3)
           break
       }
-      num = randint(1, den * 3)
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       if (this.interactif) {
