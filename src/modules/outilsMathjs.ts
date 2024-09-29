@@ -434,6 +434,9 @@ export function expressionLitterale (expression = '(a*x+b)*(c*x-d)', assignation
   return math.simplify(expression, rules ?? [{ l: '1*n', r: 'n' }, { l: '-1*n', r: '-n' }, { l: 'n/1', r: 'n' }, { l: 'c/c', r: '1' }, { l: '0*v', r: '0' }, { l: '0+v', r: 'v' }], assignations)
 }
 
+/**
+ * @deprecated // A cause de l'utilisation dépréciée de aleaVariables
+*/
 export function aleaExpression (expression: string = '(a*x+b)*(c*x-d)', assignations: Variables = { a: 1, b: 2, c: 3, d: -6 }) {
   // const assignationsDecimales = Object.assign({}, assignations)
   const assignationsDecimales = Object.assign({}, aleaVariables(assignations))
