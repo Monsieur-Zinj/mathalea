@@ -162,7 +162,7 @@ export default function TableDoubleDistributivite () {
       texte += context.isHtml ? '<br> Développement : ' : '\\par\\medskip Développement : '
       texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01')
       texte += context.isHtml ? '<br> Développement réduit : ' : '\\par\\medskip Développement réduit: '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline', { tailleExtensible: true })
+      texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01')
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
       if (typesDeQuestions === 1) {
         texteCorr += tableauColonneLigne(['\\times', 'x', `${b}`], ['x', `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`], 1, true, this.numeroExercice, i, false, { L0C0: 'red' })

@@ -122,7 +122,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, reponse)
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du triangle ${nom}.`
@@ -213,7 +213,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, reponse)
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du carré ${nom}.`
@@ -309,13 +309,13 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1, reponse2))
               ii++
-              texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1, reponse2))
               ii++
-              texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la dernière longueur sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               let derniereReponse = [reponse, reponse1, reponse2].slice([reponse, reponse1, reponse2].indexOf(min(reponse, reponse1, reponse2)))
               derniereReponse = derniereReponse.slice(derniereReponse.indexOf(max(reponse, reponse1, reponse2)))
               setReponse(this, i + ii, derniereReponse)
@@ -457,10 +457,10 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus petite longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1))
               ii++
-              texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau triangle, la plus grande longueur à trouver sera :' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1))
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} du triangle ${nom} de telle sorte que la longueur du côté associé à [${lettreDepuisChiffre(numB) + lettreDepuisChiffre(numC)}] mesurera $${texNombre(reponse2)}$.`
@@ -583,10 +583,10 @@ class AgrandirReduireFigure extends Exercice {
             if (this.interactif) {
               texte = enonceInit
               texte += enonceAMC
-              texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau rectangle, le côté le moins long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, min(reponse, reponse1))
               ii++
-              texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += '<br> Dans le nouveau rectangle, le côté le plus long aura pour longueur : ' + ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               setReponse(this, i + ii, max(reponse, reponse1))
             } else if (!context.isAmc) {
               texte = `Trace un${texteAgrandissementOuReduction[0][choixAgrandissementOuReduction < 4 ? 0 : 1]} de coefficient $${texNombre(coefAgrandissement[choixAgrandissementOuReduction])}$ du rectangle ${nom}.`
@@ -708,7 +708,7 @@ class AgrandirReduireFigure extends Exercice {
             }, fixeBordures(objets)), objets)
             if (this.interactif) {
               texte = enonceInit
-              texte += ajouteChampTexteMathLive(this, i + ii, 'inline', { tailleExtensible: true })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'inline largeur01')
               texte += enonceAMC
               setReponse(this, i + ii, reponse1)
             } else if (!context.isAmc) {

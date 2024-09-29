@@ -279,7 +279,7 @@ export default class NomExercice extends Exercice {
       if (this.interactif && context.isHtml) {
         setReponse(this, i, valeurArrivee)
         texte += `<br> $${valeurDepart}$ ${unite1Depart.unite}${operateur}${unite2Depart.unite} = `
-        texte += ajouteChampTexteMathLive(this, i, 'inline', { tailleExtensible: true })
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
         texte += ` ${unite1Arrivee.unite}${operateur}${unite2Arrivee.unite}`
       }
       if (this.questionJamaisPosee(i, texte)) {

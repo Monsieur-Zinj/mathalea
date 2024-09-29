@@ -481,7 +481,7 @@ export default function ExprimerCosSinTan () {
               { formatInteractif: 'texte' })
 
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction, { tailleExtensible: true })
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
             setReponse(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, correctionTrigo[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1],
               { formatInteractif: 'texte' })
           } else {

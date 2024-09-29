@@ -194,11 +194,11 @@ export default function LireAbscisseEntiere2d () {
             options: { nombreAvecEspace: true }
           }
         })
-        texte += `<br>${ajouteChampTexte(this, 3 * i, 'largeur01', { tailleExtensible: true, texteAvant: `${l1}(`, texteApres: ')' })}`
+        texte += `<br>${ajouteChampTexte(this, 3 * i, 'largeur01', { texteAvant: `${l1}(`, texteApres: ')' })}`
 
-        texte += `<br>${ajouteChampTexte(this, 3 * i + 1, 'largeur01', { tailleExtensible: true, texteAvant: `${l2}(`, texteApres: ')' })}`
+        texte += `<br>${ajouteChampTexte(this, 3 * i + 1, 'largeur01', { texteAvant: `${l2}(`, texteApres: ')' })}`
 
-        texte += `<br>${ajouteChampTexte(this, 3 * i + 2, 'largeur01', { tailleExtensible: true, texteAvant: `${l3}(`, texteApres: ')' })}`
+        texte += `<br>${ajouteChampTexte(this, 3 * i + 2, 'largeur01', { texteAvant: `${l3}(`, texteApres: ')' })}`
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
