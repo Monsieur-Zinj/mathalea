@@ -270,7 +270,7 @@ export default function MultiplierDecimauxPar101001000 () {
           reponse = den
           break
       }
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte

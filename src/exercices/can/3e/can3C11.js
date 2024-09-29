@@ -28,7 +28,7 @@ export default function SimplifieFractionOuRacinesCarrees () {
   this.nouvelleVersion = function () {
     let a, b, n, k, maFraction
     let resultat
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     switch (randint(1, 3)) {
       case 1:// simplification de fraction
         do {

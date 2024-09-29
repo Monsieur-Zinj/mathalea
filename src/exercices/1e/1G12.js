@@ -175,7 +175,7 @@ export default function MesurePrincipale () {
     for (let i = 0, texte, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       texte = listeTypeQuestions[i].texte
       handleAnswers(this, i, { reponse: { value: listeTypeQuestions[i].reponse, options: { variable: 'x', domaine: [0, 7] }, compare: functionCompare } })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore grecTrigo') // n'ajoute rien si on n'est pas en interactif
       if (!this.interactif) texte += '$\\ldots$'
 
       // Si la question n'a jamais été posée, on l'enregistre

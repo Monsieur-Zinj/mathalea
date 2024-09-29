@@ -26,7 +26,7 @@ export default function NormeVecteur () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     let a, b, nom
     switch (choice(['a'])) {

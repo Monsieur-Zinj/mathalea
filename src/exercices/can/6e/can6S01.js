@@ -24,7 +24,7 @@ export const refs = {
 export default function LectureDiagrammeBarre () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nbQuestions = 1
   const valeurs = [['fruits', 'une corbeille', ['bananes', 'oranges', 'pommes']],
     ['voitures', 'un garage', ['berline', 'utilitaire', 'cross over']],

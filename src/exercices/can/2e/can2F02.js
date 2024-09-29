@@ -24,7 +24,7 @@ export const refs = {
 export default function CalculImageQuotient () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nbQuestions = 1
   this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.tailleDiaporama = 2

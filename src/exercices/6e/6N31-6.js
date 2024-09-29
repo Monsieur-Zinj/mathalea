@@ -81,7 +81,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi au centième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -100,7 +100,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi au dixième de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -119,7 +119,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `Donner un arrondi à l'unité de
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -138,7 +138,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au centième de ' : 'Donner une valeur par excès au centième de ')}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -157,7 +157,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut au dixième de ' : 'Donner une valeur par excès au dixième de ')}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }
@@ -176,7 +176,7 @@ export default class ArrondirUnDecimal extends Exercice {
           texte = `${(valeurdegaucheoudroite === 1 ? 'Donner une valeur par défaut à l\'unité de ' : 'Donner une valeur par excès à l\'unité de ')}
                     $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + (di * 0.1 + ci * 0.01 + mi * 0.001))}$ : `
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline')
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline')
           } else {
             texte += '$\\ldots\\ldots\\ldots $'
           }

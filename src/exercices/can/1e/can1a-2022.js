@@ -91,7 +91,7 @@ export default function SujetCAN2022Premiere () {
           reponse = new Decimal(a).mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += ' $\\ldots$'
           }
@@ -107,7 +107,7 @@ export default function SujetCAN2022Premiere () {
             reponse = new FractionEtendue(a * b[1] + b[0], b[1])
             texte = `$${a}+${f.texFraction}= $`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             } else {
               texte += ' $\\ldots$'
             }
@@ -116,7 +116,7 @@ export default function SujetCAN2022Premiere () {
             reponse = new FractionEtendue(a * b[1] - b[0], b[1])
             texte = `$${a}-${f.texFraction}= $`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             } else {
               texte += ' $\\ldots$'
             }
@@ -139,7 +139,7 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
 
@@ -167,7 +167,7 @@ export default function SujetCAN2022Premiere () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -192,7 +192,7 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -258,7 +258,7 @@ export default function SujetCAN2022Premiere () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' €'
           }
           nbChamps = 1
           break
@@ -291,7 +291,7 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -307,7 +307,7 @@ export default function SujetCAN2022Premiere () {
                       `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -333,7 +333,7 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -351,7 +351,7 @@ export default function SujetCAN2022Premiere () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += ' $\\ldots$'
           }
@@ -370,7 +370,7 @@ export default function SujetCAN2022Premiere () {
           texteCorr = `Le volume de ce pavé droit est : $${L}\\times ${l}\\times ${h}=${reponse}$ cm$^3$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' cm$^3$'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' cm$^3$'
           }
           nbChamps = 1
           break
@@ -401,7 +401,7 @@ export default function SujetCAN2022Premiere () {
             reponse = u
             if (this.interactif) {
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
+              texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
             } else {
               texte += ' $\\ldots$'
             }
@@ -423,7 +423,7 @@ export default function SujetCAN2022Premiere () {
             reponse = u
             if (this.interactif) {
               setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-              texte += ajouteChampTexteMathLive(this, index, 'largeur15 inline')
+              texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
             } else {
               texte += ' $\\ldots$'
             }
@@ -440,7 +440,7 @@ export default function SujetCAN2022Premiere () {
             texteCorr = `$1$ m $=10^6$ $\\mu$m, donc $1$ cm $=10^4 =${texNombre(10000, 0)}$ $\\mu$m.<br>
             Ainsi, $${texNombre(a, 1)}$ cm $=${texNombre(a * 10000, 0)}$ $\\mu$m.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\mu$m'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + '$\\mu$m'
             } else {
               texte += ' ..... $\\mu$m'
             }
@@ -450,7 +450,7 @@ export default function SujetCAN2022Premiere () {
             texteCorr = `$1$ $\\mu$m $=10^{-6}$ m, donc $1$ $\\mu$m  $=10^{-4}$ cm  $=${texNombre(0.0001, 4)}$ cm.<br>
             Ainsi, $${texNombre(b, 1)}$ $\\mu$m $=${texNombre(b / 10000, 5)}$ cm.`
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm'
             } else {
               texte += ' ..... cm'
             }
@@ -536,7 +536,7 @@ export default function SujetCAN2022Premiere () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
 
@@ -578,7 +578,7 @@ export default function SujetCAN2022Premiere () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -618,7 +618,7 @@ export default function SujetCAN2022Premiere () {
           reponse = a * k + b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += ' $\\ldots$'
           }
@@ -635,7 +635,7 @@ export default function SujetCAN2022Premiere () {
           La vitesse moyenne est donc $${b * a[3]}$ km/h. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km/h'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'km/h'
           } else {
             texte += ' $\\ldots$ km/h'
           }
@@ -652,7 +652,7 @@ export default function SujetCAN2022Premiere () {
           reponse = new Decimal(a).mul(-1).add(1).mul(100)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '$\\%$'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + '$\\%$'
           } else {
             texte += ' $\\ldots$ $\\%$'
           }
@@ -670,8 +670,8 @@ export default function SujetCAN2022Premiere () {
             texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $  = ${a}$ h $${texNombre(d, 0)}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
-            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
+            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur01 inline', { texteApres: sp(5) + 'min' })
             texteCorr = `$${texNombre(a + b, 2)}$ h $ = ${a}$ h $ + ${texNombre(b, 2)} \\times 60$ min $ = ${a}$ h $${texNombre(d, 0)}$ min`
             setReponse(this, index, a)
             setReponse(this, index + 1, d)
@@ -713,7 +713,7 @@ export default function SujetCAN2022Premiere () {
             texte = `On donne la courbe représentative d'une fonction $f$. <br>
             $f(0)\\times f(1)=$ `
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             } else {
               texte += ' $\\ldots$<br>'
             }
@@ -731,7 +731,7 @@ export default function SujetCAN2022Premiere () {
             texte = `On donne la courbe représentative d'une fonction $f$. <br>
             $f(-1)\\times f(1)=$ `
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
             } else {
               texte += ' $\\ldots$<br>'
             }
@@ -808,7 +808,7 @@ export default function SujetCAN2022Premiere () {
               reponse = 1
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'solution(s)'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'solution(s)'
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           } else {
@@ -881,7 +881,7 @@ export default function SujetCAN2022Premiere () {
               reponse = 1
             }
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'solution(s)'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'solution(s)'
             }
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
@@ -941,7 +941,7 @@ export default function SujetCAN2022Premiere () {
           reponse = f(nbre)
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
@@ -957,7 +957,7 @@ export default function SujetCAN2022Premiere () {
             texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${texNombre(reponse, 0)}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'L'
             } else {
               texte += ' $\\ldots$ L'
             }
@@ -968,7 +968,7 @@ export default function SujetCAN2022Premiere () {
             texteCorr = `Comme $1$ L= $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${texNombre(reponse, 4)}$  m$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' m$^3$'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' m$^3$'
             } else {
               texte += ' $\\ldots$ m$^3$'
             }
@@ -1001,7 +1001,7 @@ export default function SujetCAN2022Premiere () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -1020,7 +1020,7 @@ export default function SujetCAN2022Premiere () {
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
             texte += 'Compléter $M($'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur11') + `$;${ordonnee})$`
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + `$;${ordonnee})$`
           } else {
             texte += `${sp(5)}Compléter $M(\\ldots$ ; $${ordonnee})$`
           }
@@ -1057,7 +1057,7 @@ export default function SujetCAN2022Premiere () {
           reponse = n
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -1104,7 +1104,7 @@ export default function SujetCAN2022Premiere () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$CE=$'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += ' $CE=\\ldots$ '
           }
@@ -1185,7 +1185,7 @@ export default function SujetCAN2022Premiere () {
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '<br>$P(A\\cap B)=\\ldots$ '
           }
@@ -1210,7 +1210,7 @@ export default function SujetCAN2022Premiere () {
           Le périmètre est donc $4\\times ${a}=${4 * a}$ cm. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm'
             }
           } else {
             a = randint(2, 10)
@@ -1222,7 +1222,7 @@ export default function SujetCAN2022Premiere () {
                       L'aire est donc $ ${a}\\times ${a}=${a * a}$ cm$^2$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$'
+              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm$^2$'
             }
           }
 
@@ -1241,7 +1241,7 @@ export default function SujetCAN2022Premiere () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$\\text{e}^a$ avec $a=$'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }

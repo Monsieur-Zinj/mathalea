@@ -90,7 +90,7 @@ export default function SujetCAN20214ieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -118,7 +118,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -136,7 +136,7 @@ export default function SujetCAN20214ieme () {
           reponse = calculANePlusJamaisUtiliser(a - b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -153,7 +153,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -174,7 +174,7 @@ export default function SujetCAN20214ieme () {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -194,7 +194,7 @@ export default function SujetCAN20214ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -232,7 +232,7 @@ export default function SujetCAN20214ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -257,7 +257,7 @@ export default function SujetCAN20214ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -278,7 +278,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + ' €'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' €'
           }
           nbChamps = 1
           break
@@ -294,7 +294,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -309,7 +309,7 @@ export default function SujetCAN20214ieme () {
           reponse = a - b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -346,7 +346,7 @@ export default function SujetCAN20214ieme () {
           texteCorr = `$${a}^{${b}}$ est le produit de $${b}$ facteurs tous égaux à $${a}$. Ainsi, $${a}^{${b}}=${miseEnEvidence(a ** b)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -362,7 +362,7 @@ export default function SujetCAN20214ieme () {
           reponse = calculANePlusJamaisUtiliser(a / L)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'm'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'm'
           }
           nbChamps = 1
           break
@@ -397,7 +397,7 @@ export default function SujetCAN20214ieme () {
           reponse = fraction(a.n * c + b.n, b.d)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -415,7 +415,7 @@ export default function SujetCAN20214ieme () {
           ${miseEnEvidence(calculANePlusJamaisUtiliser(c / a))}$ km.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'km'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'km'
           }
           nbChamps = 1
           break
@@ -430,7 +430,7 @@ export default function SujetCAN20214ieme () {
           $${a}+${b}\\times ${c}=${a}+${b * c}=${miseEnEvidence(a + b * c)}$. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -446,7 +446,7 @@ export default function SujetCAN20214ieme () {
           texteCorr = `$${a.texFraction}\\times ${b}= ${a.n}\\times\\dfrac{${b}}{${a.d}}=${a.n}\\times ${c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -476,7 +476,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -492,7 +492,7 @@ export default function SujetCAN20214ieme () {
           reponse = calculANePlusJamaisUtiliser(10 ** a[0] + 10 ** a[1] + 10 ** a[2])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -511,7 +511,7 @@ export default function SujetCAN20214ieme () {
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           } else {
             texte += '$\\ldots$'
           }
@@ -594,7 +594,7 @@ export default function SujetCAN20214ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm$^2$'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm$^2$'
           }
           nbChamps = 1
           break
@@ -614,7 +614,7 @@ export default function SujetCAN20214ieme () {
 
           handleAnswers(this, i, { reponse: { value: r.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -631,7 +631,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
 
           nbChamps = 1
@@ -662,7 +662,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
 
           nbChamps = 1
@@ -676,7 +676,7 @@ export default function SujetCAN20214ieme () {
           texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a)}$ m$^3=${miseEnEvidence(a * 1000)}$ L.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'L'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'L'
           } else {
             texte += '$\\ldots$ L'
           }
@@ -693,7 +693,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -720,7 +720,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'secondes'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'secondes'
           }
           nbChamps = 1
           break
@@ -822,7 +822,7 @@ export default function SujetCAN20214ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm'
           } else {
             texte += ' $\\ldots$ cm'
           }
@@ -837,7 +837,7 @@ export default function SujetCAN20214ieme () {
           reponse = calculANePlusJamaisUtiliser(fraction1[0] / fraction1[1])
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
           }
           nbChamps = 1
           break
@@ -872,7 +872,7 @@ export default function SujetCAN20214ieme () {
           reponse = calculANePlusJamaisUtiliser(a - (b * a) / 100)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15') + '€'
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + '€'
           }
           nbChamps = 1
           break

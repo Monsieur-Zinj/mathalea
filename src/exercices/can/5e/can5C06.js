@@ -24,7 +24,7 @@ export default function ResteDivision5e () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = choice([25, 20, 50, 40, 15])
     const b = randint(5, a - 1)

@@ -27,7 +27,7 @@ export default function ProblemesDeLongueurs () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' cm' }
   this.nouvelleVersion = function () {
     const objets = []

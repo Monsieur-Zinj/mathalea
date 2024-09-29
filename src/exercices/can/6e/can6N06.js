@@ -24,7 +24,7 @@ export default function ArrondiDixiemeCentieme () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.consigne = ''
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

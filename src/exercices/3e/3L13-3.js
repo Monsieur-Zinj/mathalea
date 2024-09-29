@@ -390,7 +390,7 @@ export default class ProblemesEnEquation extends Exercice {
           break
       }
 
-      texte = enonce + figure + ajouteChampTexteMathLive(this, i, 'largeur10 inline' + uniteOptions[0], { texteApres: sp(2) + uniteOptions[2] })
+      texte = enonce + figure + ajouteChampTexteMathLive(this, i, 'largeur01 inline' + uniteOptions[0], { texteApres: sp(2) + uniteOptions[2] })
       texte += ajouteFeedback(this, i)
       texteCorr = intro
       texteCorr += `$${resolution.equation}$`

@@ -237,13 +237,13 @@ export default function CalculerCoeffPropo () {
       if (context.isHtml) { // Pour HTML on utilise mathalea2d
         texte += mathalea2d(Object.assign({}, fixeBordures([monTableau])), monTableau)
         if (this.interactif) {
-          texte += 'Coefficient de proportionnalité de A à B : ' + ajouteChampTexteMathLive(this, 3 * i, 'largeur15 inline')
+          texte += 'Coefficient de proportionnalité de A à B : ' + ajouteChampTexteMathLive(this, 3 * i, 'largeur01 inline')
           setReponse(this, 3 * i, coefficient, { formatInteractif: coefficientRationnel ? 'fractionEgale' : 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse1.lettre} pour la colonne ${reponsesAttendue.reponse1.colonne} :`
-          texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur15 inline')
+          texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur01 inline')
           setReponse(this, 3 * i + 1, reponsesAttendue.reponse1.reponse.valeur, { formatInteractif: 'calcul' })
           texte += `<br>Valeur de la grandeur ${reponsesAttendue.reponse2.lettre} pour la colonne ${reponsesAttendue.reponse2.colonne} :`
-          texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur15 inline')
+          texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur01 inline')
           setReponse(this, 3 * i + 2, reponsesAttendue.reponse2.reponse.valeur, { formatInteractif: 'calcul' })
         }
       } else { // pour LAtex, c'est profCollege dans le texte

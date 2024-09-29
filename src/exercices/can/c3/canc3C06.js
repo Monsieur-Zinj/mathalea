@@ -25,7 +25,7 @@ export default function ComplementAuDixiemeOuALaDizaine () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierNumbers
+  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     let a, b
     if (choice([true, false])) { // décimal ou entier ?

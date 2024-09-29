@@ -23,7 +23,7 @@ export default function ReunionIntervalles () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1
-  this.formatChampTexte = 'largeur15 inline lycee'
+  this.formatChampTexte = 'largeur01 inline lycee'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     const cours = 'La réunion de deux intervalles $I$ et $J$ (notée $I\\cup J$) est l’ensemble qui contient les nombres appartenant à  au moins un des deux intervalles $I$ ou $J$.<br>'

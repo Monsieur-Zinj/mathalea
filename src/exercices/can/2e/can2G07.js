@@ -27,7 +27,7 @@ export default function CoordonneesVecteur1 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const xA = randint(-5, 5)
     const yA = randint(-5, 5)

@@ -29,7 +29,7 @@ export default function PoucentageP2 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
 
   this.besoinFormulaireNumerique = ['Déterminer ou Calculer', 3, '1 : Déterminer\n2 : Calculer\n3 : Mélange']
   this.sup = 3

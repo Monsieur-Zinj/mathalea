@@ -27,7 +27,7 @@ export default function FractionVersDecimal () {
   this.nouvelleVersion = function () {
     let a, b, c, maFraction
     let resultat
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     this.formatInteractif = 'calcul'
     switch (choice([1, 2, 3])) {
       case 1:// conversion fraction <->décimale cinquième

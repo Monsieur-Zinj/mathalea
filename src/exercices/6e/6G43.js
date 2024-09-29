@@ -147,7 +147,7 @@ export default function DenombrerCubes () {
       // début de l'exercice
       switch (listeTypeDeQuestions[q]) {
         case 1:
-          texte += 'Combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
+          texte += 'Combien de petits cubes contient cet empilement de cubes ?' + ajouteChampTexteMathLive(this, q, 'largeur01 inline')
           texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
           // correction :
           texteCorr += "On peut représenter l'empilement par tranches : <br>"
@@ -156,7 +156,7 @@ export default function DenombrerCubes () {
           setReponse(this, q, L.length)
           break
         case 2:
-          texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur10 inline')
+          texte += `Combien de petits cubes manque-t-il pour reconstruire un grand cube de côté ${longueur} ?` + ajouteChampTexteMathLive(this, q, 'largeur01 inline')
           texte += '<br>' + deuxColonnes(mathalea2d(paramsEnonce, objetsEnonce), mathalea2d(paramsEnonce2, objetsEnonce2))
           // correction :
           texteCorr += "On peut, par exemple, représenter l'empilement par tranches : <br>"

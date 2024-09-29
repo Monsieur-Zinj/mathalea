@@ -71,7 +71,7 @@ export default function Agrandissement () {
           texteCorr += k.gt(1) ? ' agrandie, ' : ' réduite, '
           texteCorr += `on a l'égalité :  $A=${texNombre(k, 1)}^2\\times${A1}.$`
           texteCorr += `<br>D'où :  $A=${texNombre(A2, 2)}$ cm²`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueurs,Aires,Volumes]')
           setReponse(this, i, new Grandeur(A2, 'cm^2'), { formatInteractif: 'unites' })
 
           break
@@ -86,7 +86,7 @@ export default function Agrandissement () {
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume obtenu est donc $V=${V1}\\times ${texNombre(k, 1)}^3=${texNombre(V2, 3)} ~cm^3$.`
           setReponse(this, i, new Grandeur(V2, 'cm^3'), { formatInteractif: 'unites' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueurs,Aires,Volumes]')
           break
         case 3: // Calcul de A1 connaissant k et A2
           texte = 'Une figure a été '
@@ -97,7 +97,7 @@ export default function Agrandissement () {
           texteCorr += '<br>Dans notre exercice, en appelant $A$ l\'aire de la figure initiale, '
           texteCorr += `on a l'égalité :  $${texNombre(A2, 2)}=${texNombre(k, 1)}^2\\times A.$`
           texteCorr += `<br>D'où :  $A=\\dfrac{${texNombre(A2, 2)}}{${texNombre(k, 1)}^2}=${A1}$ cm²`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueurs,Aires,Volumes]')
           setReponse(this, i, new Grandeur(A1, 'cm^2'), { formatInteractif: 'unites' })
 
           break
@@ -112,7 +112,7 @@ export default function Agrandissement () {
           texteCorr += `<br>Le volume obtenu est donc multiplié par $${texNombre(k, 1)}^3$.`
           texteCorr += `<br>Le volume initial est donc $V=\\dfrac{${texNombre(V2, 3)}}{${texNombre(k, 1)}^3}=${V1} ~cm^3$.`
           setReponse(this, i, new Grandeur(V1, 'cm^3'), { formatInteractif: 'unites' })
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline unites[Longueurs,Aires,Volumes]')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueurs,Aires,Volumes]')
           break
         case 5:// calcul de k connaissant l1 et l2
           texte = `Sur une figure, on relève une longueur de $${l1}$ cm. <br>`
@@ -127,7 +127,7 @@ export default function Agrandissement () {
           texteCorr += '1$, on en déduit qu\'il s\'agit d\'un'
           texteCorr += k.gt(1) ? ' agrandissement' : 'e réduction'
           texteCorr += ` à l'échelle $${texNombre(k, 1)}$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           setReponse(this, i, k)
 
           break
@@ -147,7 +147,7 @@ export default function Agrandissement () {
           texteCorr += '<br>Le coefficient'
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
 
           setReponse(this, i, k)
           break
@@ -166,7 +166,7 @@ export default function Agrandissement () {
           texteCorr += '<br>L\'échelle '
           texteCorr += k.gt(1) ? ' d\'agrandissement' : ' de réduction'
           texteCorr += ` est donc $k=${texNombre(k, 1)}$ `
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
 
           setReponse(this, i, k)
           break
@@ -180,7 +180,7 @@ export default function Agrandissement () {
           texteCorr = 'On sait que dans un agrandissement ou une réduction à l\'échelle $k$,  '
           texteCorr += 'les longueurs sont toutes multipliées par $k$.<br> Par contre, les mesures d\'angles ne sont pas modifiées.<br>'
           texteCorr += `<br>On en déduit : $\\widehat{A'B'C'}=\\widehat{ABC}=${V1} °$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline collège')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline collège')
           setReponse(this, i, k)
           setReponse(this, i, new Grandeur(V1, '°'), { formatInteractif: 'unites' })
 

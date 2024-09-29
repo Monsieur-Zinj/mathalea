@@ -22,7 +22,7 @@ export const refs = {
 export default function ProblemesDeRobinets () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

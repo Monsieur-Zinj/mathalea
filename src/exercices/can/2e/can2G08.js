@@ -27,7 +27,7 @@ export default function CoordonneesVecteur2 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(-6, 6, [0, 1, -1])
     const b = randint(2, 10)

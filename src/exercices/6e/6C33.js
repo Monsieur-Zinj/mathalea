@@ -369,7 +369,7 @@ export default function Priorites () {
           texteCorr += `${lettreDepuisChiffre(i + 1)} = $${etape}$ <br>`
         })
       }
-      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      if (this.interactif && context.isHtml) texte = texte.substring(0, texte.length - 1) + '~=$' + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       if (this.listeQuestions.indexOf(texte) === -1) {
         if (context.isAmc) {
           this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$'

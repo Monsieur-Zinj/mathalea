@@ -96,7 +96,7 @@ export default function CalculerUneExpressionNumerique () {
       reponse = resultats[4]
       if (this.questionJamaisPosee(i, expn, expf)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore', { texteAvant: '$=$' })
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$=$' })
           setReponse(this, i, reponse)
         } else if (context.isAmc) {
           texte += '<br>Détailler les calculs dans le cadre et coder le résultat.<br>'

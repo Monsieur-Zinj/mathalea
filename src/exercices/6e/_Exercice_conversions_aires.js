@@ -337,7 +337,7 @@ export default function ExerciceConversionsAires () {
         }
         if (this.interactif && this.interactifType !== 'qcm') {
           texte = texte.replace(
-            '\\dotfills', '$' + ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore') + '$')
+            '\\dotfills', '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') + '$')
           setReponse(this, i, parseFloat(resultat))
         }
         if (context.isHtml) {

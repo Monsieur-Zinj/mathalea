@@ -242,7 +242,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(2, [tabfigA[indexA][0], tabfigA[indexA][1]], [xmil1, ymil1])
           }
         }
-        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  ?` + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  ?` + ajouteChampTexteMathLive(this, 0, 'largeur01 inline') + '<br>'
         texte += texteAMC1
         texteCorr += numAlpha(0) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_1)', context.isAmc ? 'black' : 'green')}$  porte le numéro ${texteEnCouleurEtGras(num1)}.<br>`
 
@@ -287,7 +287,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(1, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  ?` + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  ?` + ajouteChampTexteMathLive(this, 1, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += '<br>' + numAlpha(1) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_2)', context.isAmc ? 'black' : 'red')}$  porte le numéro ${texteEnCouleurEtGras(num2)}.<br>`
 
@@ -331,7 +331,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(3, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3])
           }
         }
-        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  ?` + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  ?` + ajouteChampTexteMathLive(this, 2, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += '<br>' + numAlpha(2) + ' La figure symétrique de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ` dans la symétrie d'axe  $${miseEnEvidence('(d_3)', context.isAmc ? 'black' : 'blue')}$  porte le numéro ${texteEnCouleurEtGras(num3)}.<br>`
 
@@ -436,7 +436,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexA][0], tabfigC[indexA][1]], [xmil1, ymil1])
           }
         }
-        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur01 inline') + '<br>'
         texte += texteAMC1
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numA} dans la symétrie de centre ${s0} porte le numéro ${num1}.<br>`, context.isAmc ? 'black' : 'green')
         // Deuxième question : une figure dans tabfigD, une symétrie par rapport au milieu d'un [C'D'], le résultat est une figure dans tabfigA et C' est l'image de D !
@@ -472,7 +472,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2])
           }
         }
-        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numD} dans la symétrie de centre ${s1} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
         // troisième question : une figure dans tabfigC, une symétrie par rapport au symétrique du milieu de [A'D'] par rapport au milieu de [C'D']... pas très clair
@@ -508,7 +508,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(7, [tabfigC[indexC][0] + xC, tabfigC[indexC][1] + yC], [xmil3, ymil3])
           }
         }
-        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Quel est le numéro de la figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure symétrique de la figure ${numC} dans la symétrie de centre ${s2} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
         labelCentre1 = tracePoint(centre1, 'red')
@@ -618,7 +618,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigA[indexA][0], tabfigA[indexA][1]], [0, 0], [xV1, yV1])
           }
         }
-        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]}, quel est le numéro de l'image de la figure ${numA} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]}, quel est le numéro de l'image de la figure ${numA} ?`, context.isAmc ? 'black' : 'green') + ajouteChampTexteMathLive(this, 0, 'largeur01 inline') + '<br>'
         texte += texteAMC1
         texteCorr = numAlpha(0) + texteEnCouleurEtGras(` La figure image de la figure ${numA}  dans la translation qui transforme la figure ${tabfigB[iB1][2]} en la figure ${tabfigB[iB2][2]} porte le numéro ${num1}.<br>`, context.isAmc ? 'black' : 'green')
         // Deuxième question : une figure dans tabfigD, l'image dans tabfigB...
@@ -659,7 +659,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigD[indexD][0], tabfigD[indexD][1]], [0, 0], [xV2, yV2])
           }
         }
-        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]}, quel est le numéro de l'image de la figure ${numD} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]}, quel est le numéro de l'image de la figure ${numD} ?`, context.isAmc ? 'black' : 'red') + ajouteChampTexteMathLive(this, 1, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += numAlpha(1) + texteEnCouleurEtGras(` La figure image de la figure ${numD}  dans la translation qui transforme la figure ${tabfigC[iC1][2]} en la figure ${tabfigA[iA1][2]} porte le numéro ${num2}.<br>`, context.isAmc ? 'black' : 'red')
 
@@ -701,7 +701,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(8, [tabfigC[indexC][0], tabfigC[indexC][1]], [0, 0], [xV3, yV3])
           }
         }
-        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]}, quel est le numéro de l'image de la figure ${numC} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + texteEnCouleurEtGras(` Dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]}, quel est le numéro de l'image de la figure ${numC} ?`, context.isAmc ? 'black' : 'blue') + ajouteChampTexteMathLive(this, 2, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += numAlpha(2) + texteEnCouleurEtGras(` La figure image de la figure ${numC}  dans la translation qui transforme la figure ${tabfigC[iD1][2]} en la figure ${tabfigA[iB3][2]} porte le numéro ${num3}.<br>`, context.isAmc ? 'black' : 'blue')
 
@@ -784,7 +784,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigB[indexA][0], tabfigB[indexA][1]], [xmil1, ymil1]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, context.isAmc ? 'black' : 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 0, 'largeur25 inline') + '<br>'
+        texteAMC1 = numAlpha(0) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, context.isAmc ? 'black' : 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 0, 'largeur01 inline') + '<br>'
         texte += texteAMC1
         texteCorr += numAlpha(0) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numA}`, context.isAmc ? 'black' : 'green') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s0}`, context.isAmc ? 'black' : 'green') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num1}`, '#f15929') + '.<br>'
 
@@ -818,7 +818,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(5, [tabfigD[indexD][0], tabfigD[indexD][1]], [xmil2, ymil2]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, context.isAmc ? 'black' : 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 1, 'largeur25 inline') + '<br>'
+        texteAMC2 = numAlpha(1) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, context.isAmc ? 'black' : 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 1, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC2
         texteCorr += '<br>' + numAlpha(1) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numD}`, context.isAmc ? 'black' : 'red') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s1}`, context.isAmc ? 'black' : 'red') + ' et d\'angle 90° dans le sens contraire des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num2}`, '#f15929') + '.<br>'
 
@@ -852,7 +852,7 @@ export default function PavagesEtTransformations () {
             punto = imagePointParTransformation(6, [tabfigC[indexC][0], tabfigC[indexC][1]], [xmil3, ymil3]) // le repère est direct, donc le sens de rotation est inversé...
           }
         }
-        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, context.isAmc ? 'black' : 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 2, 'largeur25 inline') + '<br>'
+        texteAMC3 = numAlpha(2) + ' Quel est le numéro de la figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, context.isAmc ? 'black' : 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre ?' + ajouteChampTexteMathLive(this, 2, 'largeur01 inline') + '<br>'
         texte += '<br>' + texteAMC3
         texteCorr += '<br>' + numAlpha(2) + ' La figure image de la figure ' + texteEnCouleurEtGras(`${numC}`, context.isAmc ? 'black' : 'blue') + ' dans la rotation de centre ' + texteEnCouleurEtGras(`${s2}`, context.isAmc ? 'black' : 'blue') + ' et d\'angle 90° dans le sens des aiguilles d\'une montre porte le numéro ' + texteEnCouleurEtGras(`${num3}`, '#f15929') + '.<br>'
 

@@ -66,33 +66,33 @@ export default function ValeurApprocheeDivisionDecimale () {
       const choix = randint(1, 4)
       switch (choix) {
         case 1:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i, listeDeQuestions1[0][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i + 1, listeDeQuestions1[4][1])
           texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[0][0]} $ ${texNombre(listeDeQuestions1[0][1])}$`
           texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[4][0]} $ ${texNombre(listeDeQuestions1[4][1])}$`
           break
         case 2:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i, listeDeQuestions1[1][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[5][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[5][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i + 1, listeDeQuestions1[5][1])
           texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[1][0]} $ ${texNombre(listeDeQuestions1[1][1])}$`
           texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[5][0]} $ ${texNombre(listeDeQuestions1[5][1])}$`
           break
         case 3:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[3][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[3][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i, listeDeQuestions1[3][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i + 1, listeDeQuestions1[7][1])
           texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[3][0]} $ ${texNombre(listeDeQuestions1[3][1])}$`
           texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} $ ${texNombre(listeDeQuestions1[7][1])}$`
           break
         case 4:
-          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[4][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i, listeDeQuestions1[4][1])
-          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur10 inline') : '\\ldots'}`
+          texte += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 1, 'largeur01 inline') : '\\ldots'}`
           setReponse(this, 4 * i + 1, listeDeQuestions1[7][1])
           texteCorr += `<br><br> ${numAlpha(0)} ${listeDeQuestions1[4][0]} $ ${texNombre(listeDeQuestions1[4][1])}$`
           texteCorr += `<br><br> ${numAlpha(1)} ${listeDeQuestions1[7][0]} $ ${texNombre(listeDeQuestions1[7][1])}$`
@@ -100,9 +100,9 @@ export default function ValeurApprocheeDivisionDecimale () {
       }
       shuffle(listeDeQuestions2)
 
-      texte += `<br><br> ${numAlpha(2)} ${listeDeQuestions2[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur10 inline') : '\\ldots'}`
+      texte += `<br><br> ${numAlpha(2)} ${listeDeQuestions2[0][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 2, 'largeur01 inline') : '\\ldots'}`
       setReponse(this, 4 * i + 2, listeDeQuestions2[0][1])
-      texte += `<br><br> ${numAlpha(3)} ${listeDeQuestions2[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur10 inline') : '\\ldots'}`
+      texte += `<br><br> ${numAlpha(3)} ${listeDeQuestions2[1][0]} ${this.interactif ? ajouteChampTexteMathLive(this, 4 * i + 3, 'largeur01 inline') : '\\ldots'}`
       setReponse(this, 4 * i + 3, listeDeQuestions2[1][1])
 
       texteCorr += `<br><br> ${numAlpha(2)} ${listeDeQuestions2[0][0]} $ ${texNombre(listeDeQuestions2[0][1])}$`

@@ -502,10 +502,10 @@ export default function PerimetreOuAireDeFiguresComposees () {
         }
       }
       if (this.sup4 === 1 || this.sup4 === 3) {
-        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), 'largeur25 inline nospacebefore unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' })
+        texte += ajouteChampTexteMathLive(this, i * (this.sup4 === 3 ? 2 : 1), 'largeur01 inline nospacebefore unites[longueurs]', { texteAvant: 'Périmètre ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm près)` : '') + ' : ' })
       }
       if (this.sup4 === 2 || this.sup4 === 3) {
-        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), 'largeur25 inline nospacebefore unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' })
+        texte += ajouteChampTexteMathLive(this, (this.sup4 === 3 ? 1 : 0) + i * (this.sup4 === 3 ? 2 : 1), 'largeur01 inline nospacebefore unites[aires]', { texteAvant: (typesDeQuestions[i] > 3 ? '<br>' : sp(15)) + 'Aire ' + (typesDeQuestions[i] > 3 ? `(valeur approchée au ${this.sup3 === 2 ? 'dixième de' : ''} cm$^2$ près)` : '') + ' : ' })
       }
       if (context.isAmc) {
         this.autoCorrection[i] = {

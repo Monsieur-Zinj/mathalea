@@ -22,7 +22,7 @@ export const refs = {
 export default function PyramideAdd3EtagesBaseInconnue () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

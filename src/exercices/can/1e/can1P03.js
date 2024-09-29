@@ -124,7 +124,7 @@ export default function CalculerProbabiliteIntersection () {
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           
@@ -209,7 +209,7 @@ export default function CalculerProbabiliteIntersection () {
 
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           
@@ -295,7 +295,7 @@ export default function CalculerProbabiliteIntersection () {
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           
@@ -389,7 +389,7 @@ export default function CalculerProbabiliteIntersection () {
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{A}\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           

@@ -59,7 +59,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br> $P_A(B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
           } else {
             texte += 'Déterminer $P_A(B)$. '
           }
@@ -74,7 +74,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>Calculer $P(B)$. '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
             texte += 'Déterminer $P(B)$. '
           }
@@ -89,7 +89,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br>  $P(\\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
             texte += 'Déterminer $P(\\overline{B})$. '
           }
@@ -104,7 +104,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br> $P(A\\cap B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
             texte += ' Déterminer $P(A\\cap B)$. '
           }
@@ -119,7 +119,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br> $P(A\\cap \\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
             texte += '  Déterminer $P(A\\cap \\overline{B})$. '
           }
@@ -134,7 +134,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau} `
           if (this.interactif) {
             texte += '<br>$P(\\overline{A}\\cap B)=$. '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous forme décimale)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous forme décimale)' })
           } else {
             texte += `${sp(5)}Déterminer $P(\\overline{A}\\cap B)$. `
           }
@@ -149,7 +149,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>$P_B(A)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
           } else {
             texte += ' Déterminer $P_B(A)$. '
           }
@@ -164,7 +164,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}         `
           if (this.interactif) {
             texte += '<br> $P_B(\\overline{A})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
           } else {
             texte += 'Déterminer $P_B(\\overline{A})$. '
           }
@@ -180,7 +180,7 @@ export default function CalculProbaTableau () {
           texte += `${tableau}`
           if (this.interactif) {
             texte += '<br>$P_{\\overline{B}}(\\overline{A})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee', { texteApres: '(Résultat sous la forme d’une fraction d’entiers)' })
           } else {
             texte += '       Déterminer $P_{\\overline{B}}(\\overline{A})$. '
           }

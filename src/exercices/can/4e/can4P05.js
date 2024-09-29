@@ -26,7 +26,7 @@ export default function ImageSpline () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const r = repere({ xMin: -7, xMax: 7, yMin: -6, yMax: 6 })
     let c

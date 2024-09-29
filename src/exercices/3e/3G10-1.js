@@ -620,7 +620,7 @@ export default function TransformationsDuPlanEtCoordonnees () {
             break
         }
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
         }
         texte += '<br>'
         setReponse(this, i, [`${punto[i][0]};${punto[i][1]}`, `(${punto[i][0]};${punto[i][1]})`])

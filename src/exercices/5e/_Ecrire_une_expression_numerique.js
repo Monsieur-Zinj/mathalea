@@ -228,7 +228,7 @@ export default function EcrireUneExpressionNumerique () {
               ]
             }
           } else {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteAvant: ' Résultat : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }

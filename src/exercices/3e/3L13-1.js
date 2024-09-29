@@ -72,7 +72,7 @@ export default function ExerciceEquation1Tiret2 () {
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur25') + '<br><br>'
+          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur01') + '<br><br>'
           setReponse(this, i, new FractionEtendue(d - b, a - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {

@@ -28,7 +28,7 @@ export default function LectureCoordonnees () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const k2 = choice([3, 4, 5])
     const k1 = choice([3, 4, 5])

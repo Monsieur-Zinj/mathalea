@@ -29,7 +29,7 @@ export const refs = {
 export default function ResoudreEquationSecondDegre () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -62,9 +62,9 @@ export default function ResoudreEquationSecondDegre () {
         texte += '.'
       } else {
         texte += 'dans l\'ordre croissant :'
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
         texte += ' et '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
         setReponse(this, 2 * i, Math.min(x1, x2))
         setReponse(this, 2 * i + 1, Math.max(x1, x2))
       }

@@ -116,7 +116,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         texte = `$${texNombre(a)} ${texTexte(prefixeMulti[k][0] + unite)} = `
         texte +=
           this.interactif && context.isHtml
-            ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
+            ? `$${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           `$ ${texNombre(a)}${texTexte(prefixeMulti[k][0] + unite)} =  ${texNombre(a)}\\times${prefixeMulti[k][1]}${texTexte(unite)} = ${texNombre(resultat)}${texTexte(unite)}$`
@@ -132,7 +132,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
         texte = `$${texNombre(a)} ${texTexte(prefixeDiv[k][0] + unite)} = `
         texte +=
           this.interactif && context.isHtml
-            ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
+            ? `$${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: `${sp()}$${texTexte(unite)}$` })}`
             : `\\dotfills  ${texTexte(unite)}$`
         texteCorr =
           `$ ${texNombre(a)}${texTexte(prefixeDiv[k][0] + unite)} =  ${texNombre(a)}\\div${texTexte(prefixeDiv[k][1])}${texTexte(unite)} = ${texNombre(resultat)}${texTexte(unite)}$`
@@ -160,7 +160,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite2])} = `
           texte +=
             this.interactif && context.isHtml
-              ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
+              ? `$${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: `${sp()}$${texTexte(listeUnite[unite1])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite1])}$`
           texteCorr =
             `$ ${texNombre(a)}${texTexte(listeUnite[unite2])} =  ${texNombre(a)}\\times${texNombre(10 ** ecart)}${texTexte(listeUnite[unite1])} = ${texNombre(resultat)}${texTexte(listeUnite[unite1])}$`
@@ -176,7 +176,7 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
           texte = `$${texNombre(a)} ${texTexte(listeUnite[unite1])} = `
           texte +=
             this.interactif && context.isHtml
-              ? `$${ajouteChampTexteMathLive(this, i, 'largeur25 inline', { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
+              ? `$${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: `${sp()}$${texTexte(listeUnite[unite2])}$` })}`
               : `\\dotfills  ${texTexte(listeUnite[unite2])}$`
           texteCorr =
             `$ ${texNombre(a)}${texTexte(listeUnite[unite1])} =  ${texNombre(a)}\\div${texNombre(10 ** ecart)}${texTexte(listeUnite[unite2])} = ${texNombre(resultat)}${texTexte(listeUnite[unite2])}$`

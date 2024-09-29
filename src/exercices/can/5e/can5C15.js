@@ -25,7 +25,7 @@ export default function NombreATrouver () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(-9, 9, 0)
     const b = randint(1, 8)

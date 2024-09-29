@@ -24,7 +24,7 @@ export default function TripleEtMoitie () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(3, 20)
     this.question = `Le triple d'un nombre vaut $${3 * a}$, combien vaut sa moitié ?`

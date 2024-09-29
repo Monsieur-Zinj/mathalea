@@ -21,7 +21,7 @@ export default function Proportion () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 3
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   // this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     const b = randint(3, 80)/* Pourcentage */

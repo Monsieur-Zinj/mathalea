@@ -24,7 +24,7 @@ export default function SommePuissancesDeDix () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = combinaisonListes([0, 1, 2, 3, 4, 5, 6], 3)
     this.question = `Calculer $10^${a[0]}+10^${a[1]}+10^${a[2]}$.`

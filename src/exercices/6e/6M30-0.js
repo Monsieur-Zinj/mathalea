@@ -59,7 +59,7 @@ export default function VolumesPavesParDenombrement () {
         ymax: h + 0.6 * p,
         scale: context.isHtml ? 1 : 0.6
       }, ...monPave.c2d)
-      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur25')
+      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur01')
       for (let i = 0; i < h - 1; i++) {
         plaques.push(...plaque3d(0, 0, i * 1.5, 1, l, p).c2d)
       }

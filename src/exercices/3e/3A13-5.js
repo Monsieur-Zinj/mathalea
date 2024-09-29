@@ -90,7 +90,7 @@ export default function DivisionEuclienneEtAjout () {
 
       if (this.interactif) {
         setReponse(this, i, reponse)
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur15')
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01')
       }
       if (context.isAmc) {
         this.autoCorrection[i] = this.sup

@@ -296,7 +296,7 @@ export default function ExerciceConversionsVolumes () {
       if (this.interactif && this.interactifType === 'qcm') {
         texte += props.texte
       } else if (this.interactif && this.interactifType === 'mathLive') {
-        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur25')}$`)
+        texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'longueur inline largeur01')}$`)
         setReponse(this, i, resultat)
       }
       if (this.listeQuestions.indexOf(texte) === -1) {

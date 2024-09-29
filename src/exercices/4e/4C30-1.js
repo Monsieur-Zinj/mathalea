@@ -122,7 +122,7 @@ export default function PuissancesEncadrement () {
       if (listeTypeDeQuestions[i] < 7) { // nombre entier positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', { texteApres: sp(10) }) + `$\\leqslant ${entPos[listeTypeDeQuestions[i] - 1].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
           : consigneAMC
         exposantInf = entPos[listeTypeDeQuestions[i] - 1].exposantInf
         exposantSup = entPos[listeTypeDeQuestions[i] - 1].exposantSup
@@ -133,7 +133,7 @@ export default function PuissancesEncadrement () {
       } else if (listeTypeDeQuestions[i] < 11) { // nombre décimal positif
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPos[listeTypeDeQuestions[i] - 7].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
           : consigneAMC
         exposantInf = decPos[listeTypeDeQuestions[i] - 7].exposantInf
         exposantSup = decPos[listeTypeDeQuestions[i] - 7].exposantSup
@@ -144,7 +144,7 @@ export default function PuissancesEncadrement () {
       } else { // nombre décimal positif inferieur à 1
         consigneAMC = `$\\dots\\dots\\dots${sp(1)}\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant${sp(1)}\\dots\\dots\\dots$`
         texte = this.interactif
-          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur15 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur15 inline')
+          ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', { texteApres: sp(10) }) + `$\\leqslant ${decPosInfUn[listeTypeDeQuestions[i] - 11].val}\\leqslant $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
           : consigneAMC
         exposantInf = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantInf
         exposantSup = decPosInfUn[listeTypeDeQuestions[i] - 11].exposantSup

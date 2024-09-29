@@ -62,7 +62,7 @@ export default function TermeInconnuDeSomme () {
         a = arrondi(randint(4 * decimal, 20 * decimal) / decimal, 1)
         b = arrondi(randint(2 * decimal, 20 * decimal) / decimal, 1)
       }
-      if (this.interactif) inconnue = ajouteChampTexteMathLive(this, i, 'inline largeur15 nospacebefore')
+      if (this.interactif) inconnue = ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore')
       else if (this.sup3 === 1) {
         inconnue = ' $\\ldots\\ldots$ '
       } else {
@@ -87,7 +87,7 @@ export default function TermeInconnuDeSomme () {
 
         case 4:
           if (this.interactif && !context.isAmc) {
-            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, 'inline largeur15')}`
+            texte = `$ ${texNombre(b)} = ${texNombre(a)} + $${ajouteChampTexteMathLive(this, i, 'inline largeur01')}`
           } else {
             texte = `$${texNombre(b)} = ${texNombre(a)} + $` + inconnue
           }

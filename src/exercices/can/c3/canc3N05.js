@@ -27,7 +27,7 @@ export default function CompositionDeNombreDecimalC3 () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
+  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierDeBase
   this.nouvelleVersion = function () {
     const a = randint(1, 9)
     const b = randint(1, 9, a)

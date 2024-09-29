@@ -416,11 +416,11 @@ export default function CourseAuxNombres5e () {
           break
       }
       if (listeTypeQuestions[i] === 'q22') {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ' m' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' m' })
       } else if (listeTypeQuestions[i] === 'q25') {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteApres: ` ${hauteurs[a][3]}` })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ` ${hauteurs[a][3]}` })
       } else if (listeTypeQuestions[i] === 'q27') {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline unites[longueurs]')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[longueurs]')
       } else {
         texte += ajouteChampTexteMathLive(this, i)
       }

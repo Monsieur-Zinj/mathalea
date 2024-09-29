@@ -54,7 +54,7 @@ export default function ExtraireUnCarreParfaitDUneRacineCarree () {
       // Pb MathLive 01/11/23 : ligne 48, supprimer 3 dernières réponses
       setReponse(this, i, reponse, { formatInteractif: 'texte' })
       if (this.interactif) {
-        texte = ajouteChampTexteMathLive(this, i, 'largeur15 inline', { texteAvant: enonce.replace('}$', '}=$') })
+        texte = ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: enonce.replace('}$', '}=$') })
       } else texte = enonce
       if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

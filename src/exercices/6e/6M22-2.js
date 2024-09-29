@@ -155,11 +155,11 @@ export default function Perimetre_aire_et_portions_de_disques () {
       }
       if (this.sup !== 2) {
         setReponse(this, this.sup === 3 ? 2 * i : i, [reponseL1, reponseL1bis])
-        texte = (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, 'largeur10 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}$' })
+        texte = (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}$ du périmètre : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i : i, 'largeur01 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}$' })
       }
       if (this.sup !== 1) {
         setReponse(this, this.sup === 3 ? 2 * i + 1 : i, [reponseA1, reponseA1bis])
-        texte += (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, 'largeur10 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}^2$' })
+        texte += (this.sup === 3 ? '<br>' : '') + 'Valeur approchée au dixième de $\\text{cm}^2$ de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup === 3 ? 2 * i + 1 : i, 'largeur01 inline nospacebefore nospacebefore', { texteApres: ' $\\text{cm}^2$' })
       }
       if (this.questionJamaisPosee(i, r)) { // Si la question n'a jamais été posée, on en créé une autre
         const figure = mathalea2d(Object.assign({ zoom: 1, scale: 0.6 }, fixeBordures(objetsEnonce)), objetsEnonce)

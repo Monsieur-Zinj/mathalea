@@ -26,7 +26,7 @@ export default function EcritureDeNombreEntier () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

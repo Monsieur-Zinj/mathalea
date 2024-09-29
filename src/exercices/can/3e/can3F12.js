@@ -27,7 +27,7 @@ export default function AntecedentSpline () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const noeuds1 = [{ x: -4, y: -1, deriveeGauche: 0, deriveeDroit: 0, isVisible: true },
       { x: -3, y: 0, deriveeGauche: 1, deriveeDroit: 1, isVisible: true },

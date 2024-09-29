@@ -43,8 +43,8 @@ export default function HeuresDecimalesHeuresMinutes2 () {
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
-            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur10 inline', { texteApres: sp(5) + 'min' })
+            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, index + 1, 'largeur01 inline', { texteApres: sp(5) + 'min' })
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60$ min $ = ${a}$ h $${d}$ min`
             setReponse(this, index, a)
             setReponse(this, index + 1, d)
@@ -65,7 +65,7 @@ export default function HeuresDecimalesHeuresMinutes2 () {
             Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
           } else {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
-            texte += ajouteChampTexteMathLive(this, index, 'largeur10 inline', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: sp(5) + 'h' })
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
             Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
             setReponse(this, index, a + b)

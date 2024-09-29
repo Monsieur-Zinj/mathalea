@@ -45,7 +45,7 @@ export default function Ajouter9 () {
       texte = `$${a}+9 = $`
       texteCorr = `$${a}+9=${a + 9}$`
       setReponse(this, i, a + 9)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

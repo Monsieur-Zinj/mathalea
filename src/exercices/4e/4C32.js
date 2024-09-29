@@ -104,7 +104,7 @@ export default function NotationScientifique () {
       }
       texte = texteAMC + `$${sp()}=$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
       } else {
         texte += `$${sp()}\\dots$`
       }

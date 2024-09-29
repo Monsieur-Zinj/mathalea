@@ -268,31 +268,31 @@ export default function Can10Questions6N1 () {
         if (!this.interactif) {
           texte += '.... minutes'
         } else {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'min'
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + 'min'
         }
       } else {
         if (typeQuestionsDisponibles[listeIndex[i]] === '8') {
           if (!this.interactif) {
             texte += ''
           } else {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + '€'
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + '€'
           }
         } else {
           if (typeQuestionsDisponibles[listeIndex[i]] === '9') {
             if (!this.interactif) {
               texte += ''
             } else {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + 'ans'
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + 'ans'
             }
           } else {
             if (typeQuestionsDisponibles[listeIndex[i]] === '10') {
               if (!this.interactif) {
                 texte += '... m'
               } else {
-                texte += ajouteChampTexteMathLive(this, i, 'inline largeur15') + ' m'
+                texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + ' m'
               }
             } else {
-              texte += ajouteChampTexteMathLive(this, i, 'inline largeur15')
+              texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
             }
           }
         }

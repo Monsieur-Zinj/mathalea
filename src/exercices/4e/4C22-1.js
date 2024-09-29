@@ -364,7 +364,7 @@ export default function ExerciceTrouverInverse () {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: sp(5) })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: sp(5) })
       }
       if (this.questionJamaisPosee(i, typesDeQuestions, nombreChoisi)) {
         // Si la question n'a jamais été posée, on en créé une autre

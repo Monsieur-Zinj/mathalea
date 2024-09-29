@@ -28,7 +28,7 @@ export const refs = {
 export default function CoordonneesSommetParabole () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
@@ -43,8 +43,8 @@ export default function CoordonneesSommetParabole () {
         texte = `Les coordonnées du sommet de la parabole représentant
     la fonction $f$ définie sur $\\mathbb{R}$
     par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + sp(2) : sp(5)} ;
+    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
         if (b > 0) {
           texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
@@ -66,8 +66,8 @@ export default function CoordonneesSommetParabole () {
         texte = `Les coordonnées du sommet de la parabole représentant
     la fonction $f$ définie sur $\\mathbb{R}$
     par     $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + sp(2) : sp(5)} ;
+    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
         if (b > 0) {
           texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :

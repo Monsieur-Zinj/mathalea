@@ -26,7 +26,7 @@ export default function SuiteSurDroiteGraduee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierDeBase
+  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierDeBase
   this.nbQuestions = 1
   this.nouvelleVersion = function () {
     const a = randint(1, 6) // choix de la table = écart entre deux graduations

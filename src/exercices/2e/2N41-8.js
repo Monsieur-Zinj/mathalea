@@ -76,7 +76,7 @@ export default function MettreAuMemeDenominateurLit () {
             if (this.interactif) {
               texte = consigneI1
               texte += ` $${rienSi1(b)}x${choix ? '-' : '+'}\\dfrac{${a}}{x}=$` +
-                            ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+                            ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -98,7 +98,7 @@ export default function MettreAuMemeDenominateurLit () {
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI1
-              texte += ` $${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += ` $${b}${choix ? '+' : '-'}\\dfrac{${a}}{x}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -136,7 +136,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI1
-              texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += `$${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -174,7 +174,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += `$\\dfrac{${a}}{x}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -213,7 +213,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += `$${rienSi1(a)}x+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -253,7 +253,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += `$${reduireAxPlusB(a, e)}+\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break
@@ -296,7 +296,7 @@ ${a}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}&=\\dfrac{${a}(${r
             setReponse(this, i, reponse)
             if (this.interactif) {
               texte = consigneI2
-              texte += `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+              texte += `$\\dfrac{${a}}{${reduireAxPlusB(e, f)}}${choix ? '+' : '-'}\\dfrac{${b}}{${reduireAxPlusB(c, d)}}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
             }
           }
           break

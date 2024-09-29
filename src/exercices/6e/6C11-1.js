@@ -90,11 +90,11 @@ export default function DivisionsEuclidiennesEgalite () {
           <br> On a donc : ${texteEnCouleurEtGras(q)} le quotient et ${texteEnCouleurEtGras(r)} le reste.`
           break
       }
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur10 inline ' + KeyboardType.clavierDeBase, {
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline ' + KeyboardType.clavierDeBase, {
         texteAvant: 'Quotient : ',
         texteApres: sp(5)
       })
-      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur10 inline ' + KeyboardType.clavierDeBase, { texteAvant: ' Reste : ' })
+      texte += (this.interactif ? '<br>' : '') + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline ' + KeyboardType.clavierDeBase, { texteAvant: ' Reste : ' })
       setReponse(this, 2 * i, q)
       setReponse(this, 2 * i + 1, r)
       if (context.isAmc) {

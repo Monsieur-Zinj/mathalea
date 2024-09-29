@@ -141,7 +141,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
 
       if (this.interactif && !context.isAmc) {
         // Supprime le dernier caractère de texte et le remplace par = $
-        texte += `<br> $${lettreDepuisChiffre(i + 1)} = $ ` + ajouteChampTexteMathLive(this, i, 'inline largeur25 nospacebefore')
+        texte += `<br> $${lettreDepuisChiffre(i + 1)} = $ ` + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore')
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

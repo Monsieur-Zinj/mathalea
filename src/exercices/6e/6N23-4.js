@@ -142,7 +142,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
         signe: false
       })
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

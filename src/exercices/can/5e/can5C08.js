@@ -24,7 +24,7 @@ export default function ProchainMultipleDeTroisOuDeNeuf () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(225, 528) * 3 + choice([0, 1, 2])
     const b = randint(143, 254) * 9 + randint(0, 8)

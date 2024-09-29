@@ -25,7 +25,7 @@ export default function VocabulaireImageAntecedent () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   const ListeNomF = ['f', 'g', 'h', 'u', 'v', 'w', 'c', 'd']
 
   this.nouvelleVersion = function () {

@@ -73,7 +73,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
           handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: fonctionComparaison } })
-          texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur25 inline')
+          texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
           this.autoCorrection[i].reponse.param.decimals = 3

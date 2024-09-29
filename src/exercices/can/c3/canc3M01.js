@@ -27,7 +27,7 @@ export default function TrouverLaBonneUnite () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatInteractif = 'texte'
-  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.alphanumeric
+  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.alphanumeric
   this.nouvelleVersion = function () {
     const prefixes = [[10, 'd'], [100, 'c'], [1000, 'm'], [10, 'da'], [100, 'h'], [1000, 'k']]
     const unite = choice(['g', 'm', 'L'])

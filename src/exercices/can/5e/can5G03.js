@@ -119,7 +119,7 @@ export default function CompterlesSymetriquesCan5e () {
         scale: 0.7
       }, ...objetsEnonce, labelPoint(O))
       if (this.interactif && context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       texteCorr += mathalea2d({
         xmin: -0.5,

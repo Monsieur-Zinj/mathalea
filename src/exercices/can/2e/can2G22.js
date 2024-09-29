@@ -25,7 +25,7 @@ export default function CoordonneesMilieuExtremite () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(2, 'PQDO')
 

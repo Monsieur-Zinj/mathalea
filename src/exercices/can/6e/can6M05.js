@@ -36,7 +36,7 @@ export default function ConversionM3EtLitres () {
         if (!this.interactif) {
           this.question += '$ ....$ L'
         }
-        this.formatChampTexte = 'largeur15 inline'
+        this.formatChampTexte = 'largeur01 inline'
         this.optionsChampTexte = { texteApres: ' L' }
         this.correction = ` $${texNombre(a)}$ m$^3 = ${texNombre(a * 1000)}$ L`
         this.correction += texteEnCouleur(`<br> Mentalement : <br>
@@ -52,7 +52,7 @@ export default function ConversionM3EtLitres () {
         if (!this.interactif) {
           this.question += ' .... m$^3$ '
         }
-        this.formatChampTexte = 'largeur15 inline'
+        this.formatChampTexte = 'largeur01 inline'
         this.optionsChampTexte = { texteApres: ' m$^3$' }
         this.canEnonce = 'Compléter.'
         this.canReponseACompleter = `$${texNombre(a)}$ L $ = \\dots$ m$^3$`

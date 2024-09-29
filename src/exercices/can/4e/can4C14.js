@@ -28,7 +28,7 @@ export default function AugmenterFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatInteractif = 'calcul'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     switch (choice([1, 2, 3, 4])) {
       case 1 :// tiers
