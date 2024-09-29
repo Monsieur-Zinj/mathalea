@@ -177,10 +177,10 @@ export async function loadMathLive (divExercice) {
           ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
         if (!mf.classList.contains('fillInTheBlanks') &&
           !mf.classList.contains('largeur01') &&
-          !mf.classList.contains('largeur01') &&
-          !mf.classList.contains('largeur01') &&
-          !mf.classList.contains('largeur01') &&
-          !mf.classList.contains('largeur01')
+          !mf.classList.contains('largeur10') &&
+          !mf.classList.contains('largeur25') &&
+          !mf.classList.contains('largeur50') &&
+          !mf.classList.contains('largeur75')
         ) {
           style += ' width: 25%;'
         }
@@ -188,13 +188,13 @@ export async function loadMathLive (divExercice) {
         style +=
           ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
       }
-      if (mf.classList.contains('largeur01')) {
+      if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
-      } else if (mf.classList.contains('largeur01')) {
+      } else if (mf.classList.contains('largeur25')) {
         style += ' width: 25%;'
-      } else if (mf.classList.contains('largeur01')) {
+      } else if (mf.classList.contains('largeur50')) {
         style += ' width: 50%;'
-      } else if (mf.classList.contains('largeur01')) {
+      } else if (mf.classList.contains('largeur75')) {
         style += ' width: 75%;'
       }
       if (mf.classList.contains('largeur01')) {
