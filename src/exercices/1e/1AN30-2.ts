@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Trinome from '../../modules/Trinome'
 import { Add, ExponentialOperande, Frac, Mul, Pow, Sub } from '../../lib/mathFonctions/Calcul.js'

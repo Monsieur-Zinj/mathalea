@@ -6,7 +6,7 @@ import {
   ecritureParentheseSiNegatif,
   rienSi1
 } from '../../../lib/outils/ecritures.js'
-import { abs } from '../../../lib/outils/nombres.js'
+import { abs } from '../../../lib/outils/nombres'
 
 import { context } from '../../../modules/context.js'
 import { listeQuestionsToContenu, ppcm, randint } from '../../../modules/outils.js'

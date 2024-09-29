@@ -2,7 +2,7 @@
 import { point } from '../../../lib/2d/points.js'
 import { barycentre, carre, polygone } from '../../../lib/2d/polygones.js'
 import { rotation } from '../../../lib/2d/transformations.js'
-import { combinaisonListes } from '../../../lib/outils/arrayOutils.js'
+import { combinaisonListes } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d, colorToLatexOrHTML } from '../../../modules/2dGeneralites.js'
 import { context } from '../../../modules/context.js'

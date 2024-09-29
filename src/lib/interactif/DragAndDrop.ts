@@ -1,6 +1,6 @@
 import type Exercice from '../../exercices/Exercice.js'
 import { context } from '../../modules/context.js'
-import { shuffle } from '../outils/arrayOutils.js'
+import { shuffle } from '../outils/arrayOutils'
 import { get } from '../html/dom.js'
 import { messageFeedback } from '../../modules/messages.js'
 import { toutPourUnPoint } from './mathLive.js'

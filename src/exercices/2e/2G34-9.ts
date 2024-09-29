@@ -7,7 +7,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { listeDesDiviseurs, premiersEntreBornes } from '../../lib/outils/primalite.js'
-import { abs } from '../../lib/outils/nombres.js'
+import { abs } from '../../lib/outils/nombres'
 import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements.js'
 export const titre = 'Problèmes avec les systèmes d\'équations du premier degré'
 export const interactifReady = true

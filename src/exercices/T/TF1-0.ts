@@ -1,4 +1,4 @@
-import Exercice from '../Exercice.js'
+import Exercice from '../Exercice'
 import {
   ajouteChampTexteMathLive,
   ajouteFeedback,
@@ -18,7 +18,7 @@ import {
   rienSi1,
 } from '../../lib/outils/ecritures.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import { choice } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { tableauDeVariation } from '../../lib/mathFonctions/etudeFonction.js'
 

@@ -1,6 +1,6 @@
 import { context } from '../context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
-import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres.js'
+import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { listeQuestionsToContenu } from '../outils.js'
 
 export function exerciceSimpleToContenu (exercice) {

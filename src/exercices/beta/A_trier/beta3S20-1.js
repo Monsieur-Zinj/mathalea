@@ -1,5 +1,5 @@
 import { diagrammeBarres } from '../../../lib/2d/diagrammes.js'
-import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { decompositionFacteursPremiers } from '../../../lib/outils/primalite.js'
 import { listeEntiersSommeConnue } from '../../../modules/debarras/listeEntiersSommeConnue.js'
 import Exercice from '../../deprecatedExercice.js'

@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 export const titre = 'Nom de l\'exercice'
 

@@ -1,7 +1,7 @@
 import { repere } from '../../../lib/2d/reperes.js'
 import { inferieurSuperieur } from '../../../lib/mathFonctions/etudeFonction.js'
 import { spline } from '../../../lib/mathFonctions/Spline.js'
-import { choice } from '../../../lib/outils/arrayOutils.js'
+import { choice } from '../../../lib/outils/arrayOutils'
 import { fixeBordures, mathalea2d } from '../../../modules/2dGeneralites.js'
 import FractionEtendue from '../../../modules/FractionEtendue.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'

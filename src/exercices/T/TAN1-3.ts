@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { choice } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice'
+import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'

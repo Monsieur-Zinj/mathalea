@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 

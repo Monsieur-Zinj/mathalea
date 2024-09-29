@@ -1,5 +1,5 @@
-import Exercice from '../Exercice.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'

@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive, ajouteFeedback } from '../../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
