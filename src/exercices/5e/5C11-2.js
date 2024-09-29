@@ -29,6 +29,7 @@ export const refs = {
 export default function ÉcrireUneExpressionMathador () {
   Exercice.call(this)
   this.nbQuestions = 4
+  this.spacing = 1.5
   this.besoinFormulaireCaseACocher = ['Calculs cachés', false]
   this.besoinFormulaire2CaseACocher = ['4 opérations différentes obligatoires', false]
   this.sup = false
@@ -49,9 +50,10 @@ export default function ÉcrireUneExpressionMathador () {
       calculsSuccessifs = solutionMathador[2]
       expression = solutionMathador[3]
       quidam = prenom()
-      texte = `${quidam} a trouvé une solution du jeu "Le compte est bon" pour le tirage suivant $${this.tirage[i][0]}~;~${this.tirage[i][1]}~;~${this.tirage[i][2]}~;~${this.tirage[i][3]}~;~${this.tirage[i][4]}$ et pour la cible $${this.cible[i]}$`
-      texte += (this.sup && this.sup2) ? '<br>Pour que la solution soit gagnante, il faut que l\'enchaînement de calculs possède chacune des quatre opérations élémentaires.' : ''
-      texte += this.sup ? '.<br>' : ', voici ses calculs :<br>'
+      texte = `${quidam} a trouvé une solution d'une variante du jeu « Le compte est bon » pour le tirage suivant $${this.tirage[i][0]}~;~${this.tirage[i][1]}~;~${this.tirage[i][2]}~;~${this.tirage[i][3]}~;~${this.tirage[i][4]}$ et pour la cible $${this.cible[i]}$.<br>`
+      texte += 'Il faut utiliser, obligatoirement, tous les nombres du tirage, pour obtenir avec des opérations élémentaires, le nombre indiqué par la cible.<br>'
+      texte += (this.sup && this.sup2) ? 'Pour que la solution soit gagnante, il faut que l\'enchaînement de calculs possède chacune des quatre opérations élémentaires.<br>' : ''
+      texte += this.sup ? '' : `Voici les calculs de ${quidam} :<br>`
       if (!this.sup) {
         for (let j = 0; j < 4; j++) {
           texte += `$${calculsSuccessifs[j]}$<br>`
