@@ -65,7 +65,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
   centres!: Point[]|PointApigeom[]
   exoCustomResultat: boolean
   nbPoints!: number
-  figs!: SuperFigure[]
+  figuresApiGeom!: SuperFigure[]
   constructor () {
     super()
     this.exoCustomResultat = true
@@ -88,7 +88,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
-    this.figs = []
+    this.figuresApiGeom = []
     this.idApigeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire
     this.antecedents = []
@@ -187,35 +187,35 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figs[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
-        this.figs[i].scale = 0.5
-        this.figs[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
-        this.centres[i] = this.figs[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
+        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+        this.figuresApiGeom[i].scale = 0.5
+        this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
+        this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
         this.antecedents[i] = []
         for (let k = 0; k < this.nbPoints; k++) {
-          (this.antecedents[i][k] as PointApigeom) = this.figs[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
+          (this.antecedents[i][k] as PointApigeom) = this.figuresApiGeom[i].create('Point', { x: antecedents[k].x, y: antecedents[k].y, isFree: false, isSelectable: true, label: antecedents[k].nom })
         }
         if (this.sup === 1) {
-          this.figs[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
+          this.figuresApiGeom[i].create('Grid', { xMin: -10, yMin: -10, xMax: 10, yMax: 10, stepX: 1, stepY: 1, color: 'gray', axeX: false, axeY: false, labelX: false, labelY: false })
         }
         if (this.sup === 2) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figs[i].create('Ray', { point1: (this.antecedents[i][k] as PointApigeom), point2: this.centres[i] as PointApigeom, isDashed: true, color: 'gray' })
+            this.figuresApiGeom[i].create('Ray', { point1: (this.antecedents[i][k] as PointApigeom), point2: this.centres[i] as PointApigeom, isDashed: true, color: 'gray' })
           }
         }
         if (this.sup === 3) {
           for (let k = 0; k < this.nbPoints; k++) {
-            this.figs[i].create('CircleCenterPoint', {
-              center: this.figs[i].create('Point', { isVisible: false, x: this.centres[i].x, y: this.centres[i].y }),
+            this.figuresApiGeom[i].create('CircleCenterPoint', {
+              center: this.figuresApiGeom[i].create('Point', { isVisible: false, x: this.centres[i].x, y: this.centres[i].y }),
               point: (this.antecedents[i][k] as PointApigeom),
               isDashed: true,
               color: 'gray'
             })
           }
         }
-        this.figs[i].options.limitNumberOfElement.set('Point', 1)
+        this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
         this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figs[i], question: i })
+        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets))
@@ -227,7 +227,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figs[i].json
+    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
     const resultat = []
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''
@@ -235,7 +235,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
       const { x, y } = (this.antecedents[i][k] as PointApigeom).rotate(this.centres[i] as PointApigeom, 180)
-      const elts = Array.from(this.figs[i].elements.values())
+      const elts = Array.from(this.figuresApiGeom[i].elements.values())
       const points = elts
         .filter(e => e.type !== 'pointer' &&
               (e.type === 'Point' || e.type === 'PointOnLine' || e.type === 'PointOnCircle' || e.type === 'PointIntersectionLL' || e.type === 'PointIntersectionLC' || e.type === 'PointIntersectionCC')) as PointApigeom[]
@@ -267,9 +267,9 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       }
     }
     if (divFeedback) divFeedback.innerHTML = feedback
-    this.figs[i].isDynamic = false
-    this.figs[i].divButtons.style.display = 'none'
-    this.figs[i].divUserMessage.style.display = 'none'
+    this.figuresApiGeom[i].isDynamic = false
+    this.figuresApiGeom[i].divButtons.style.display = 'none'
+    this.figuresApiGeom[i].divUserMessage.style.display = 'none'
     return resultat
   }
 }
