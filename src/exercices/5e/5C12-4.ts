@@ -9,16 +9,16 @@ import {
   remplisLesBlancs
 } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
-import { gestionnaireFormulaireTexte } from '../../modules/outils'
+import { gestionnaireFormulaireTexte, randint } from '../../modules/outils'
 import {
-  aleaVariables,
   assignVariables,
-  calculer,
-  type Variables
+  calculer
 } from '../../modules/outilsMathjs'
 import Exercice from '../Exercice'
 import { evaluate } from 'mathjs'
 import engine from '../../lib/interactif/comparisonFunctions'
+import { type Fraction } from 'mathjs'
+
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -35,9 +35,13 @@ export const refs = {
  */
 
 type Materiel = { expSP: string; expAP: string; test: string }
+
+type ListeVariableExo = 'a'| 'b'| 'c'| 'd'
+type VariablesExo =Partial<Record<ListeVariableExo, string|number|boolean|Fraction|object>>
+
 // Les tirets bas sont placés là où il n'y a pas de parenthèses mais qu'il pourrait y en avoir une. Cela sert à placer les placeholders et à savoir à quelle position on a quelle parenthèse
 // Pour l'analyse et l'utilisation de l'expression, ces tirets bas sont remplacés par du vide.
-// test est la valeur qui vient compléter a,b,c et d dans aleaVariables afin d'obtenir des données aux petits oignons
+// test est la valeur qui vient compléter a,b,c et d afin d'obtenir des données aux petits oignons
 const dicoDesExpressions: {
   troisSignesToutPositif: Materiel[]
   troisSignesRelatifs: Materiel[]
@@ -186,7 +190,17 @@ class MettreDesParentheses extends Exercice {
         c: `${this.sup2 ? 'pickRandom([-1,1])' : '1'}*randomInt(1,10)`,
         d: 'randomInt(1,10)',
         test: materiel.test
-      })
+      }) */
+      let assignations
+      do {
+        assignations = {
+          a: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
+          b: randint(1, 10),
+          c: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
+          d: randint(1, 10)
+        }
+      } while (!materiel.test)
+
       const a = Number(assignations.a)
       const b = Number(assignations.b)
       const c = Number(assignations.c)
@@ -209,7 +223,7 @@ class MettreDesParentheses extends Exercice {
         if (char === '+' || char === '-') content += `~${char}`
         if (char === '*') content += '~\\times'
         if (['a', 'b', 'c', 'd'].includes(char)) {
-          const value = Number(assignations[char as keyof Variables])
+          const value = Number(assignations[char as keyof VariablesExo])
           if (value < 0) content += `~(${value})`
           else content += `~${value}`
         }
@@ -223,8 +237,8 @@ class MettreDesParentheses extends Exercice {
         a: assignations.a,
         b: assignations.b,
         c: assignations.c,
-        d: assignations.d,
-        test: assignations.test
+        d: assignations.d
+        // test: assignations.test
       }
       // La fonction calculer() de Frédéric Piou fournit la correction, mais elle fournit aussi le résultat, et bien d'autres choses que je n'utilise pas...
       const answer = parentheses

@@ -275,7 +275,6 @@ class AgrandirReduireFigure extends Exercice {
           case 3: { // Triangle avec coefficient de réduction ou d'agrandissement
             const absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
             // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
-            // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
             const absD = choixAgrandissementOuReduction < 4 ? randint(1 + Math.abs(absB - absC), absB + absC - 1, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
             const reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
             const reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
@@ -424,7 +423,6 @@ class AgrandirReduireFigure extends Exercice {
           case 4: { // Triangle avec longueur initiale et longueur finale
             const absC = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB]) : 2 * randint(4, 7, [arrondi(absB / 2, 0)])
             // Le code ci-dessous ne permet pas dans certains cas de trouver une valeur aléatoire
-            // absD = Object.values(aleaVariables({ absD: true, test: `absD>0 and absD<${absB + absC} and ${absB}<absD+${absC} and ${absC}<absD+${absB}` }, { valueOf: true }))[0]
             const absD = choixAgrandissementOuReduction < 4 ? randint(5, 11, [6, 9, absB, absC]) : 2 * randint(4, 7, [arrondi(absB / 2, 0), arrondi(absC / 2, 0)])
             const reponse = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absB, 1)
             const reponse1 = arrondi(coefAgrandissement[choixAgrandissementOuReduction] * absC, 1)
