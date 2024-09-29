@@ -109,10 +109,10 @@ export default function NotationScientifique () {
         texte += `$${sp()}\\dots$`
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, mantisse, exp)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (parseInt(this.sup) === 1) {
+        if (this.sup === 1) {
           setReponse(this, i, reponse.replace(/\\thickspace /g, '').replace(/ /g, ''), {
             formatInteractif: 'ecritureScientifique',
             digits: listeTypeDeQuestions[i] + 1,
