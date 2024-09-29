@@ -3,7 +3,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { randint } from '../../modules/outils.js'
 
-export const titre = 'Calculer une somme'
+export const titre = 'Calculer une somme de termes'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -15,9 +15,9 @@ export const dateDePublication = '28/12/2022'
  * Référence 1N14
 */
 export const uuid = '8ed19'
-export const ref = '1AL11-40'
+export const ref = '1AL11-5'
 export const refs = {
-  'fr-fr': ['1AL11-40'],
+  'fr-fr': ['1AL11-5'],
   'fr-ch': []
 }
 export default class SommeSuite extends Exercice {
