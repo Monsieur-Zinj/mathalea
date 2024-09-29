@@ -22,6 +22,7 @@
   export let startSlideshow: () => void
   export let goToOverview: () => void
   export let goToHome: () => void
+  export let link: string
 
   let divTableDurationsQuestions: HTMLDivElement
   let previousNumberOfSelectedExercises: number
@@ -141,7 +142,9 @@
         selectedExercisesIndexes={$globalOptions.select ?? []}
         {applyRandomSelectionOfExercises}
       />
-      <LinksSettings />
+      <LinksSettings
+        {link}
+      />
     </div>
     <!-- Right Side -->
     <div class="flex flex-col justify-start

@@ -29,6 +29,7 @@
   import type { CanState } from '../../../lib/types/can'
   import CountDown from '../../display/can/presentationalComponents/CountDown.svelte'
   import ButtonText from '../../shared/forms/ButtonText.svelte'
+  import { buildMathAleaURL } from '../../../lib/components/urls'
 
   const transitionSounds = {
     0: new Audio('assets/sounds/transition_sound_01.mp3'),
@@ -39,6 +40,7 @@
 
   let state: CanState = 'end'
   let exercises: Exercice[] = []
+  let link: string = window.location.href
   let slideshow: Slideshow = {
     slides: [],
     currentQuestion: -1,
@@ -80,6 +82,9 @@
     if ($globalOptions.v !== 'overview') adjustQuestionsOrder()
     updateExerciseParams(exercises)
     mathaleaUpdateUrlFromExercicesParams($exercicesParams)
+    setTimeout(() => {
+      link = buildMathAleaURL({ view: 'diaporama' }).toString()
+    }, 600) // to update link after the updateGlobalOptionsInURL setTimout
   }
 
   function setSlidesContent (newExercises: Exercice[]) {
@@ -266,6 +271,7 @@
           {startSlideshow}
           {goToOverview}
           {goToHome}
+          {link}
         />
       {/if}
     {/if}
