@@ -88,7 +88,7 @@ export default function MesurePrincipale () {
       texte = `$${alfa}=\\dfrac{${angle}\\pi}{${n}}$` // Le LateX entre deux symboles $, les variables dans des ${ }
       if (this.interactif) {
         setReponse(this, i, `$\\dfrac{${rienSi1(p)}\\pi}{${n}}$`)
-        texte += ' et sa mesure principale est :' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore', { tailleExtensible: true })
+        texte += ' et sa mesure principale est :' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore')
       }
 
       kMin = angle / (2 * n) < k ? k - 1 : k // Ce parametre permet d'adapter le code selon si k est la borne inférieure ou supérieure de l'encadrement entre deux entiers de angle/2n.

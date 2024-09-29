@@ -24,7 +24,7 @@ export function ajouteChampTexte (exercice, i, style, {
   texteApres = '',
   texteAvant = '',
   blocCenter = false,
-  tailleExtensible = false,
+  // tailleExtensible = false,
   espace = false
 } = {}) {
   if (texteApres !== '') texteApres = sp() + texteApres
@@ -38,8 +38,8 @@ export function ajouteChampTexte (exercice, i, style, {
     if (style === 'none') return ''
     if (style === '') {
       html = `<label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    } else if (tailleExtensible) {
-      html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    // } else if (tailleExtensible) {
+    //  html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else if (blocCenter) {
       html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
     } else html = `<label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
@@ -53,7 +53,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
   texteApres = '',
   texteAvant = '',
   blocCenter = false,
-  tailleExtensible = false,
+  // tailleExtensible = false,
   espace = false
 } = {}) {
   if (texteApres !== '') texteApres = sp() + texteApres
@@ -67,8 +67,8 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
     if (style === 'none') return ''
     if (style === '') {
       html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''}<span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    } else if (tailleExtensible) {
-      html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
+    // } else if (tailleExtensible) {
+    //  html = `<label>${sp()}${texteAvant}${sp()}</label><table style="text-align:center;font-family:Arial,Times,serif;display:inline;height:1px;"><tr><td style="position: relative; display: inline;padding:0 0;margin:0"><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''}  class="${style}" virtual-keyboard-mode=manual id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} </td></tr></table><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
     } else if (blocCenter) {
       html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
     } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
