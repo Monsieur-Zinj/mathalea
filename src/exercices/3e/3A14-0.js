@@ -54,35 +54,18 @@ export default function DesChocolatsDansDesBoites () {
     let texte = 'Pour fêter les 25 ans de sa boutique, un chocolatier souhaite offrir aux premiers clients de la journée une boîte contenant des truffes au chocolat.<br><br>'
     texte += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
 
-    if (context.isHtml) {
-      texte += createList({
-        items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-          'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
-          'Toutes les truffes soient utilisées.'],
-        style: 'fleches',
-        classOptions: 'style="color: red; backgroundColor: red"'
-      }).outerHTML
-    } else {
-      texte += createList({
-        items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-          'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
-          'Toutes les truffes soient utilisées.'],
-        style: 'fleches',
-        classOptions: 'style="color: red; backgroundColor: red"'
-      })
-    }
+    texte += createList({
+      items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
+        'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
+        'Toutes les truffes soient utilisées.'],
+      style: 'fleches',
+      classOptions: 'style="color: red; backgroundColor: red"'
+    })
 
-    if (context.isHtml) {
-      texte += `${numAlpha(0)} Décomposer $${nbTruffesCafe}$ et $${nbTruffesCoco}$ en produit de facteurs premiers.<br>`
-      texte += `${numAlpha(1)} En déduire la liste des diviseurs communs à $${nbTruffesCafe}$ et $${nbTruffesCoco}$.<br>`
-      texte += `${numAlpha(2)} Quel nombre maximal de boîtes pourra-t-il réaliser ?<br>`
-      texte += `${numAlpha(3)} Dans ce cas, combien y aura-t-il de truffes de chaque sorte dans chaque boîte ?<br><br>`
-    } else {
-      texte += `${numAlpha(0)} Décomposer $${nbTruffesCafe}$ et $${nbTruffesCoco}$ en produit de facteurs premiers.<br>`
-      texte += `${numAlpha(1)} En déduire la liste des diviseurs communs à $${nbTruffesCafe}$ et $${nbTruffesCoco}$.<br>`
-      texte += `${numAlpha(2)} Quel nombre maximal de boîtes pourra-t-il réaliser ?<br>`
-      texte += `${numAlpha(3)} Dans ce cas, combien y aura-t-il de truffes de chaque sorte dans chaque boîte ?<br><br>`
-    }
+    texte += `${numAlpha(0)} Décomposer $${nbTruffesCafe}$ et $${nbTruffesCoco}$ en produit de facteurs premiers.<br>`
+    texte += `${numAlpha(1)} En déduire la liste des diviseurs communs à $${nbTruffesCafe}$ et $${nbTruffesCoco}$.<br>`
+    texte += `${numAlpha(2)} Quel nombre maximal de boîtes pourra-t-il réaliser ?<br>`
+    texte += `${numAlpha(3)} Dans ce cas, combien y aura-t-il de truffes de chaque sorte dans chaque boîte ?<br><br>`
     const largeurCadre = 30
     const hauteurCadre = 20
     const cadrePrincipal = polygone([point(0, 0), point(largeurCadre, 0), point(largeurCadre, hauteurCadre), point(0, hauteurCadre)])
@@ -145,69 +128,50 @@ export default function DesChocolatsDansDesBoites () {
     this.listeQuestions[0] = texte
     let texteCorr = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
     texteCorr += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
-    // @todo remplacer cet appel par une nouvelle fonction permettant de faire des listes à puces selon le contexte.
-    if (context.isHtml) {
-      texteCorr += createList({
-        items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-          'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
-          'Toutes les truffes soient utilisées.'],
-        style: 'fleches',
-        classOptions: 'style="backGroundColor: red";'
-      }).outerHTML
-    } else {
-      texteCorr += createList({
-        items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-          'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
-          'Toutes les truffes soient utilisées.'],
-        style: 'fleches',
-        classOptions: 'style="backGroundColor: red";'
-      })
-    }
-    if (context.isHtml) {
-      texteCorr += `${numAlpha(0)} $${nbTruffesCafe}=${decompositionFacteursPremiers(nbTruffesCafe)}$ et $${nbTruffesCoco}=${decompositionFacteursPremiers(nbTruffesCoco)}$.<br>`
-      texteCorr += `${numAlpha(1)} On cherche le plus grand diviseur commun de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$.<br>`
-      texteCorr += `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.<br>`
-      texteCorr += `${numAlpha(2)} Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.<br>`
-      texteCorr += `${numAlpha(3)} Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
-    } else {
-      texteCorr += `${numAlpha(0)} $${nbTruffesCafe}=${decompositionFacteursPremiers(nbTruffesCafe)}$ et $${nbTruffesCoco}=${decompositionFacteursPremiers(nbTruffesCoco)}$.<br>`
-      texteCorr += `${numAlpha(1)} On cherche le plus grand diviseur commun de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$.<br>`
-      texteCorr += `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.<br>`
-      texteCorr += `${numAlpha(2)} Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.<br>`
-      texteCorr += `${numAlpha(3)} Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
-    }
+    texteCorr += createList({
+      items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
+        'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
+        'Toutes les truffes soient utilisées.'],
+      style: 'fleches',
+      classOptions: 'style="backGroundColor: red";'
+    })
+    texteCorr += `${numAlpha(0)} $${nbTruffesCafe}=${decompositionFacteursPremiers(nbTruffesCafe)}$ et $${nbTruffesCoco}=${decompositionFacteursPremiers(nbTruffesCoco)}$.<br>`
+    texteCorr += `${numAlpha(1)} On cherche le plus grand diviseur commun de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$.<br>`
+    texteCorr += `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.<br>`
+    texteCorr += `${numAlpha(2)} Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.<br>`
+    texteCorr += `${numAlpha(3)} Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
     texteCorr += `${texteGras('2.')} Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
     texteCorr += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
     const sousListe1 = {
       items: [`La pyramide a une base carrée de côté $${texNombre(basePyramide, 1)}$ cm, l'aire de sa base est donc en cm$^2$ : $${texNombre(basePyramide, 1)}\\times ${texNombre(basePyramide, 1)} = ${texNombre(basePyramide ** 2, 2)}$cm$^2$.`,
-        `Son volume en cm$^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}$ cm$^3$.`,
-        `Le volume de la pyramide est d'environ $${texNombre(volumePyramide, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
-        `Le volume non occupé par les truffes est d'environ $${texNombre(volumePyramide, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePyramide - volumeTotalTruffe, 1)}$ cm$^3$`,
-        paveQuiConvient
-          ? 'il est supérieur au volume des truffes, donc la boite en forme de pyramide ne convient pas.'
-          : 'il est inférieur au volume des truffes, donc la boite en forme de pyramide convient.'],
+      `Son volume en cm$^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}$ cm$^3$.`,
+      `Le volume de la pyramide est d'environ $${texNombre(volumePyramide, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
+      `Le volume non occupé par les truffes est d'environ $${texNombre(volumePyramide, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePyramide - volumeTotalTruffe, 1)}$ cm$^3$`,
+      paveQuiConvient
+        ? 'il est supérieur au volume des truffes, donc la boite en forme de pyramide ne convient pas.'
+        : 'il est inférieur au volume des truffes, donc la boite en forme de pyramide convient.'],
       style: 'fleches',
-      introduction: 'La pyamide :'
+      introduction: 'La pyramide :'
     }
     const sousListe2 = {
       items: [`Le pavé droit a pour volume en cm$^3$ de : $${texNombre(largeurPave, 1)}\\times ${texNombre(longueurPave, 1)} \\times ${texNombre(hauteurPave, 1)}=${texNombre(volumePave, 3)}$.`,
-        `Le volume du pavé droit est de $${texNombre(volumePave, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
-        `Le volume non occupé par les truffes est d'environ $${texNombre(volumePave, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePave - volumeTotalTruffe, 1)}$ cm$^3$.`,
-        paveQuiConvient
-          ? 'il est inférieur au volume des truffes, donc la boite en forme de pavé droit convient.'
-          : 'il est supérieur au volume des truffes, donc la boite en forme de pavé droit ne convient pas.'],
+      `Le volume du pavé droit est de $${texNombre(volumePave, 1)}$ cm$^3$ ; celui des truffes est d'environ $${texNombre(volumeTotalTruffe, 1)}$ cm$^3$.`,
+      `Le volume non occupé par les truffes est d'environ $${texNombre(volumePave, 1)}-${texNombre(volumeTotalTruffe, 1)}$ soit $${texNombre(volumePave - volumeTotalTruffe, 1)}$ cm$^3$.`,
+      paveQuiConvient
+        ? 'il est inférieur au volume des truffes, donc la boite en forme de pavé droit convient.'
+        : 'il est supérieur au volume des truffes, donc la boite en forme de pavé droit ne convient pas.'],
       style: 'fleches',
       introduction: 'Le pavé droit :'
     }
     const liste = createList({
       items: [`Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm, donc de rayon $${texNombre(diametreTruffes / 2, 2)}$ cm et son voulme en cm$^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
-        `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre(nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3, 1)}$cm$^3$.`,
-        sousListe1,
-        sousListe2
+      `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre(nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3, 1)}$cm$^3$.`,
+      sousListe1,
+      sousListe2
       ],
       style: 'puces'
     })
-    texteCorr += context.isHtml ? liste.outerHTML : liste
+    texteCorr += liste
     this.listeCorrections[0] = texteCorr
     listeQuestionsToContenu(this)
   }
