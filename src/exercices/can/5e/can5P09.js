@@ -29,7 +29,7 @@ export default function CalculPrix () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     let a, b, n, b1, b2, reponse

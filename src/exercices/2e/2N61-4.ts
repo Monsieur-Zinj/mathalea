@@ -797,7 +797,7 @@ $\\bullet$ On résout l'inéquation sur $\\R ${texSymbole('\\')} \\{${fractionMd
         correctionInteractif = correctionInteractif.replaceAll('dfrac', 'frac').replace('bigcup', 'cup')
       }
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur25', { texteAvant: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: '<br>S = ' })
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,

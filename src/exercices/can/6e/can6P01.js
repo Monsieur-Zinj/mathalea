@@ -24,7 +24,7 @@ export default function ProportionnaliteSimple () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   const fruits = [
     ['pêches', 4, 10, 30],

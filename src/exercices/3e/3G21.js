@@ -188,7 +188,7 @@ export default function ReciproqueThales () {
           texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
           texteCorr = ''
         }
-        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, i, 'largeur15 inline')}<br>`
+        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}<br>`
 
         texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
                     s15

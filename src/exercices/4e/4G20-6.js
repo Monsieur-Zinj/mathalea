@@ -89,7 +89,7 @@ export default function CalculValeurApprocheeRacineCarree () {
           texte = `Encadrer $\\sqrt{${a}}$ ${type} près et en donner un arrondi ${type} près.`
         } else {
           texte = `Donner la valeur arrondie de $\\sqrt{${a}}$ ${type} près : `
-          texte += ajouteChampTexteMathLive(this, indexRep, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, indexRep, 'largeur01 inline')
         }
         texteCorr = `$\\sqrt{${a}} \\simeq ${texNombre(Math.sqrt(a), 6)}$.<br>`
         texteCorr += `Or $${reponseG} < ${texNombre(Math.sqrt(a), 6)} < ${reponseD}$,<br>`
@@ -101,9 +101,9 @@ export default function CalculValeurApprocheeRacineCarree () {
         reponseD = Math.ceil(Math.sqrt(a))
         texte = `Sans utiliser de calculatrice, encadrer $\\sqrt{${a}}$ entre deux nombres entiers consécutifs.<br>`
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, indexRep, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, indexRep, 'largeur01 inline')
           texte += ` $< \\sqrt{${a}} <$ `
-          texte += ajouteChampTexteMathLive(this, indexRep + 1, 'largeur10 inline')
+          texte += ajouteChampTexteMathLive(this, indexRep + 1, 'largeur01 inline')
           setReponse(this, indexRep, reponseG)
           setReponse(this, indexRep + 1, reponseD)
         }

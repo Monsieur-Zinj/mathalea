@@ -26,7 +26,7 @@ export default function AdditionRelatifATrou2 () {
   this.sup = 20
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     this.formatInteractif = 'calcul'
 
     let a = randint(1, this.sup)

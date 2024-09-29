@@ -77,8 +77,8 @@ export default function AntecedentGraphique () {
         b = a.mul(x1).sub(fx1)
         f = x => a * x - b
         texte += `Déterminer par lecture graphique les antécédents de $${fx1}$ et de $${fx2}$ par cette fonction $f$.<br><br>`
-        texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur5 inline', { texteAvant: `Le ou les antécédents de $${fx1}$ (séparer les nombres avec un point-virgule) :` })
-        texte += ajouteChampTexteMathLive(this, indexInteractif + 1, 'largeur5 inline', { texteAvant: `<br>Le ou les antécédents de $${fx2}$ (séparer les nombres avec un point-virgule) :` })
+        texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur01 inline', { texteAvant: `Le ou les antécédents de $${fx1}$ (séparer les nombres avec un point-virgule) :` })
+        texte += ajouteChampTexteMathLive(this, indexInteractif + 1, 'largeur01 inline', { texteAvant: `<br>Le ou les antécédents de $${fx2}$ (séparer les nombres avec un point-virgule) :` })
         setReponse(this, indexInteractif, x1, { formatInteractif: 'calcul' })
         setReponse(this, indexInteractif + 1, x2, { formatInteractif: 'calcul' })
         incrementInteractif = 2
@@ -93,7 +93,7 @@ export default function AntecedentGraphique () {
           }
           a = randint(-3, 3, 0)
           texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx0}$ par cette fonction $f$.<br><br>`
-          texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur5 inline', { texteAvant: `Le ou les antécédents de ${fx0} (séparer les nombres avec un point-virgule) :` })
+          texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur01 inline', { texteAvant: `Le ou les antécédents de ${fx0} (séparer les nombres avec un point-virgule) :` })
           setReponse(this, indexInteractif, x0, { formatInteractif: 'calcul' })
           incrementInteractif = 1
           texteCorr = `$${fx0}$ a un unique antécédent $${x0}$, on note $f(${x0})=${fx0}$.<br>`
@@ -113,7 +113,7 @@ export default function AntecedentGraphique () {
           fx2 = c
           f = x => a * x ** 2 + b * x + c
           texte += `Déterminer par lecture graphique le (ou les) antécédent(s) de $${fx1}$ par cette fonction $f$.<br><br>`
-          texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur5 inline', { texteAvant: `Le ou les antécédents de ${fx1} (séparer les nombres avec un point-virgule) :` })
+          texte += ajouteChampTexteMathLive(this, indexInteractif, 'largeur01 inline', { texteAvant: `Le ou les antécédents de ${fx1} (séparer les nombres avec un point-virgule) :` })
           setReponse(this, indexInteractif, [`${x1};${x3}`, `${x3};${x1}`], { formatInteractif: 'texte' })
           incrementInteractif = 1
           texteCorr = `$${fx1}$ a deux antécédents $${x1}$ et $${x3}$, on note $f(${x1})=f(${x3})=${fx1}$.<br>`

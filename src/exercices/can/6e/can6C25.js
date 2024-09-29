@@ -26,7 +26,7 @@ export default function RecherchePrix () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     const listeviennoiserie = [

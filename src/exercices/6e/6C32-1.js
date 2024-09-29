@@ -99,25 +99,25 @@ export default class ExerciceProblemesComplexes extends Exercice {
           if (this.interactif) {
             texte += '<br>' + numAlpha(0) + `Combien de calories fournit une côtelette d'agneau de $${quaAgneau}$ g ?`
             handleAnswers(this, indiceInteractif, { reponse: { value: (calAgneau * quaAgneau).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(1) + `Combien de calories fournit $${quaEpinards}$ g d'épinards ?`
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (calEpinards * quaEpinards).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(2) + `Combien de calories fournit $${quaFro}$ g de fromage blanc ?`
             handleAnswers(this, indiceInteractif + 2, { reponse: { value: (calFro * quaFro).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(3) + `Combien de calories fournit une pomme de $${quaPom}$ g ?`
             handleAnswers(this, indiceInteractif + 3, { reponse: { value: (calPom * quaPom).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' calories' })
 
             texte += '<br>' + numAlpha(4)
           }
           texte += `${prenomFP} respecte-t-${personnage.pronom} son régime ?`
           handleAnswers(this, indiceInteractif + 4, { reponse: { value: (calAgneau * quaAgneau + calEpinards * quaEpinards + calFro * quaFro + calPom * quaPom < 700) ? 'Oui' : 'Non', compare: fonctionComparaison, options: { texteSansCasse: true } } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur01 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           indiceInteractif += 5
 
@@ -134,11 +134,11 @@ export default class ExerciceProblemesComplexes extends Exercice {
                                   et $${quaFro2}$ autres pesant chacun $${texNombre(masseFro2)}$ kg dans une voiture pouvant transporter $550$ kg.<br>
                                   Le véhicule est-il en surcharge ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (total > 550) ? 'Oui' : 'Non', compare: fonctionComparaison, options: { texteSansCasse: true } } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.alphanumeric, { texteApres: ' (oui ou non)' })
 
           texte += '<br>Si oui, de combien ? Si non, combien reste-t-il ?'
           handleAnswers(this, indiceInteractif + 1, { reponse: { value: (total > 550 ? (total - 550).toFixed(2) : (550 - total).toFixed()), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' kg' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' kg' })
 
           texteCorr += `Première sorte de fromage : $${quaFro1}\\times ${texNombre(masseFro1)}${sp()}\\text{kg} =   ${texNombre(quaFro1 * masseFro1)}${sp()}\\text{kg}$. <br>
                         Deuxième sorte de fromage : $${quaFro2}\\times ${texNombre(masseFro2)}${sp()}\\text{kg} =   ${texNombre(quaFro2 * masseFro2)}${sp()}\\text{kg}$. <br>
@@ -165,11 +165,11 @@ export default class ExerciceProblemesComplexes extends Exercice {
           } else {
             texte += `<br>${numAlpha(0)} Effectuer ce programme avec $${n1}$.`
             handleAnswers(this, indiceInteractif, { reponse: { value: (n1 * k1 * k2).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase)
 
             texte += `<br>${numAlpha(1)} Effectuer ce programme avec $${n2}$.`
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (n2 * k1 * k2).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase)
           }
           texteCorr += `${numAlpha(0)} Si le nombre est $${n1}$ :<br>
                         • $${n1} \\times ${texNombre(k1)} = ${texNombre(n1 * k1)}$ ;<br>
@@ -199,13 +199,13 @@ export default class ExerciceProblemesComplexes extends Exercice {
                     Le prix d'une place pour une séance est de $${texPrix(prix)}$ €.<br>
                   ${numAlpha(0)} Si toutes les places sont occupées, quelle est la somme d'argent récoltée ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (fauteuils * range * prix).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texte += `<br>
                   ${numAlpha(1)} Pour une autre séance, $${n1}$ rangées sont pleines, le reste des
                   rangées étant vides. Quelle est la recette pour cette séance ?`
           handleAnswers(this, indiceInteractif + 1, { reponse: { value: (fauteuils * n1 * prix).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `${numAlpha(0)} $${range} \\times ${fauteuils} =${fauteuils * range}$<br>
                         Il y a $${fauteuils * range}$ places dans la salle.<br>
@@ -231,27 +231,27 @@ export default class ExerciceProblemesComplexes extends Exercice {
                    Pour projeter un film, plusieurs pellicules étaient nécessaires et le projectionniste avait pour rôle de les changer.<br>
                    ${numAlpha(0)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la longueur totale en mètres du film ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (nombreP * 600).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' m' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' m' })
 
           texte += `<br> ${numAlpha(1)} Si le film a $${nombreP}$ pellicules de $600$ m, quelle est la durée totale du film ?`
           handleAnswers(this, indiceInteractif + 1, { reponse: { value: (nombreP * 20).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
 
           texte += `<br>${numAlpha(2)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, quelle est la longueur totale, en mètres, du film ?`
           handleAnswers(this, indiceInteractif + 2, { reponse: { value: ((60 + min) * 30).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur25', { texteApres: ' m' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 2, 'inline largeur01', { texteApres: ' m' })
 
           texte += `<br>${numAlpha(3)} Si le film dure $1${sp()}\\text{h}${sp()}${min}$, combien faut-il de pellicules entières de $600$ m ?`
           handleAnswers(this, indiceInteractif + 3, { reponse: { value: Math.floor(((60 + min) * 30) / 600).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' pellicules entières de $600$ m' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 3, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' pellicules entières de $600$ m' })
 
           texte += `<br>${numAlpha(4)} Si la pellicule mesure $${longueur}$ m, quelle est la durée de la pellicule ?`
           handleAnswers(this, indiceInteractif + 4, { reponse: { value: (Math.floor(longueur / 30)).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 4, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' minutes' })
 
           texte += `<br>${numAlpha(5)} Si la pellicule mesure $${longueur}$ m, combien d'images y a-t-il sur la pellicule ?`
           handleAnswers(this, indiceInteractif + 5, { reponse: { value: (Math.floor(longueur / 30) * 60 * 24).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' images' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif + 5, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' images' })
 
           texteCorr += `${numAlpha(0)} $${nombreP}${sp()}\\text{ pellicules} \\times 600${sp()}\\text{m} = ${texNombre(nombreP * 600)}${sp()}\\text{m}$<br>
                         La longueur totale du film est de $${texNombre(nombreP * 600)}$ mètres.<br>
@@ -288,7 +288,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                     et ${nbBo} boissons à $${texNombre(prixBo, 2)}$ € chacune.<br>
                     ${prenomAcheteur} a un billet de 50 €, combien va lui rendre le caissier ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (50 - (nbBo * prixBo + nbSch * prixSch)).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbSch} \\times ${texNombre(prixSch, 2)} =${texNombre(nbSch * prixSch, 2)}$<br>
                         Le prix des sandwichs est de $${texPrix(nbSch * prixSch)}$ €.<br>
@@ -314,7 +314,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                     Le commerçant revend les oranges $${texPrix(prixOrangesKg)}$ € le kilogramme.<br>
                     Quel est son bénéfice s'il réussit à tout vendre ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (50 - (nbCagettes * kgOranges * prixOrangesKg - nbCagettes * prixOranges)).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbCagettes} \\times ${texNombre(kgOranges)} =${texNombre(nbCagettes * kgOranges)}$<br>
                         Il y a $${texNombre(nbCagettes * kgOranges)}$ kg d'oranges.<br>
@@ -341,11 +341,11 @@ export default class ExerciceProblemesComplexes extends Exercice {
           } else {
             texte += 'Combien a-t-elle de billets de $5$ € ?'
             handleAnswers(this, indiceInteractif, { reponse: { value: (nbCinq).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 5 €' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 5 €' })
 
             texte += '<br>Combien a-t-elle de billets de $10$ € ?'
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (nbDix).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 10 €' })
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase, { texteApres: ' billets de 10 €' })
           }
           texteCorr += `Après plusieurs essais, on trouve qu'elle a $${nbDix}$ billets de 10 € et $${nbCinq}$ billets de 5 €.`
           texteCorr += `<br><br>Vérification :<br>
@@ -370,7 +370,7 @@ export default class ExerciceProblemesComplexes extends Exercice {
                     et $${nbBarquettesMy}$ barquettes de $${texNombre(gBarquettesMy)}$ g de myrtilles des bois à $${texPrix(prixMy)}$ € le kg.<br>
                     Combien d'argent lui rapporte cette vente ?`
           handleAnswers(this, indiceInteractif, { reponse: { value: (prixFinal).toFixed(2), compare: fonctionComparaison } })
-          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25  ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
+          texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01  ' + KeyboardType.clavierDeBase, { texteApres: ' €' })
 
           texteCorr += `$${nbBarquettesFr} \\times ${texNombre(gBarquettesFr)}${sp()}\\text{g} = ${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g}$ de fraises.<br>
                         $${texNombre(nbBarquettesFr * gBarquettesFr)}${sp()}\\text{g} \\div 1${sp()}000 = ${texNombre(nbBarquettesFr * gBarquettesFr * 0.001, 4)} $ kg de fraises.<br>
@@ -401,11 +401,11 @@ export default class ExerciceProblemesComplexes extends Exercice {
           } else {
             texte += 'Quel est le plus petit de ces deux nombres ?'
             handleAnswers(this, indiceInteractif, { reponse: { value: (min(nbP, nbD)).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur25 ' + KeyboardType.clavierDeBase)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif, 'inline largeur01 ' + KeyboardType.clavierDeBase)
 
             texte += 'Quel est le plus grand de ces deux nombres ?'
             handleAnswers(this, indiceInteractif + 1, { reponse: { value: (max(nbP, nbD)).toFixed(2), compare: fonctionComparaison } })
-            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur25 ' + KeyboardType.clavierDeBase)
+            texte += ajouteChampTexteMathLive(this, indiceInteractif + 1, 'inline largeur01 ' + KeyboardType.clavierDeBase)
           }
 
           texteCorr += `Par essais-erreurs, on trouve ${nbP} et ${nbD}.<br>

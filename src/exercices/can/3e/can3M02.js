@@ -25,7 +25,7 @@ export default function CalculVolumePyramide () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: `cm${texteExposant(3)}` }
   this.nouvelleVersion = function () {
     const triplet = shuffle([3, randint(2, 8) * 2, randint(1, 2) * 5])

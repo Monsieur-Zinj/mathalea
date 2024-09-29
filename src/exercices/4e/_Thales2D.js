@@ -223,9 +223,9 @@ export default function Thales2D () {
         texte += '<br><br><em>Il faut saisir une unité.</em>'
         texte += `<br><br>$${nomM + nomN} = $`
         setReponse(this, i * 2, new Grandeur(Math.abs(k) * ab, 'cm'), { formatInteractif: 'unites' }) // 2 réponses par question donc 2i et 2i + 1 ainsi elles restent ordonnées
-        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur25')
+        texte += ajouteChampTexteMathLive(this, i * 2, 'unites[longueurs] inline largeur01')
         texte += `<br>$${nomC + nomB} = $`
-        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur25')
+        texte += ajouteChampTexteMathLive(this, i * 2 + 1, 'unites[longueurs] inline largeur01')
         setReponse(this, i * 2 + 1, new Grandeur(bc, 'cm'), { formatInteractif: 'unites' })
       }
 

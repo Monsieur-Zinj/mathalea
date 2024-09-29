@@ -27,7 +27,7 @@ export default function VecteursColineaires () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const p = choice([-2, 2, 3, 4, -4, -3])
     const ux = randint(1, 5)

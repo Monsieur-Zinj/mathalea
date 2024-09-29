@@ -149,7 +149,7 @@ export default function ProduitDeDecimauxAPartirProduitConnu () {
           reponse = enonces[2].reponse
           break
       }
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur25')
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01')
       setReponse(this, i, reponse)
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte

@@ -86,7 +86,7 @@ export default function EncadrerUnDecimal () {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au centième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore') + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -97,7 +97,7 @@ export default function EncadrerUnDecimal () {
           reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + (ci + 1) * 0.01)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore')
           } else if (context.isAmc) {
             texte += ' b'
           } else {
@@ -113,7 +113,7 @@ export default function EncadrerUnDecimal () {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ au dixième.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore') + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -124,7 +124,7 @@ export default function EncadrerUnDecimal () {
           reponseMax = m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser((di + 1) * 0.1)
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore')
           } else if (context.isAmc) {
             texte += ' b'
           } else {
@@ -140,7 +140,7 @@ export default function EncadrerUnDecimal () {
           if (!context.isAmc) setReponse(this, indexQ, reponseMin)
           texte = `Encadrer $${texNombre(m * 1000 + c * 100 + d * 10 + u * 1 + calculANePlusJamaisUtiliser(di * 0.1 + ci * 0.01 + mi * 0.001))}$ à l'unité.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore') + '$'
+            texte += ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore') + '$'
           } else if (context.isAmc) {
             texte += 'Ainsi  :' + sp(15) + 'a '
           } else {
@@ -151,7 +151,7 @@ export default function EncadrerUnDecimal () {
           reponseMax = m * 1000 + c * 100 + d * 10 + (u + 1) * 1
           if (!context.isAmc) setReponse(this, indexQ, reponseMax)
           if (this.interactif) {
-            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur25 inline nospacebefore')
+            texte += '$' + ajouteChampTexteMathLive(this, indexQ, 'largeur01 inline nospacebefore')
           } else if (context.isAmc) {
             texte += ' b'
           } else {

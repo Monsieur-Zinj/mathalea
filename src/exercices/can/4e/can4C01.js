@@ -24,7 +24,7 @@ export default function PrioriteOperatoireEtRelatifs () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     let a = randint(-12, 12, 0)
     const b = randint(-4, 4, [-1, 0, 1])

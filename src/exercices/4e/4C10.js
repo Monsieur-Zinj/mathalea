@@ -72,11 +72,11 @@ export default function ProduitsEtQuotientRelatifs () {
       switch (listeTypesDeQuestion[i]) {
         case 'multiplication':
           if (listeTypesDeNombre[i] < 3) {
-            texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
+            texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(a.mul(b), 1) + '$'
             setReponse(this, i, listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b))
           } else {
-            texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
+            texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}`
             texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
             setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
           }
@@ -85,12 +85,12 @@ export default function ProduitsEtQuotientRelatifs () {
         case 'division':
           if (listeTypesDeNombre[i] < 3) {
             c = a.mul(b)
-            texte = `$\\dfrac{${texNombre(c, 1)}}{${texNombre(a, 1)}} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
+            texte = `$\\dfrac{${texNombre(c, 1)}}{${texNombre(a, 1)}} = $${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(b, 1) + '$'
             setReponse(this, i, b)
           } else {
             c = a.produitFraction(b)
-            texte = `$\\dfrac{${c.texFraction}}{${a.texFraction}} = $${ajouteChampTexteMathLive(this, i, 'largeur25 inline')}`
+            texte = `$\\dfrac{${c.texFraction}}{${a.texFraction}} = $${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}`
             texteCorr = texte.split('=')[0]
             b = c.produitFraction(a.inverse())
             texteCorr += ` = ${c.texProduitFraction(a.inverse(), true)}$`

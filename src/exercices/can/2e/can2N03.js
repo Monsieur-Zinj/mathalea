@@ -23,7 +23,7 @@ export default function IntersectionIntervalles () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1
-  this.formatChampTexte = 'largeur15 inline lycee'
+  this.formatChampTexte = 'largeur01 inline lycee'
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     const cours = 'L’intersection de deux intervalles $I$ et $J$ est l’ensemble qui contient les nombres appartenant à $I$ et à $J$.<br>'

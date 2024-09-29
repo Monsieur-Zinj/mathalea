@@ -25,7 +25,7 @@ export default function CalculDureeMinutes () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' minutes' }
   this.nouvelleVersion = function () {
     const a = randint(13, 15)

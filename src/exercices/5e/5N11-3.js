@@ -70,7 +70,7 @@ export default function FractionVersPourcentage () {
         handleAnswers(this, i, { champ1: { value: den }, champ2: { value: num }, champ3: { value: String(percenti) }, champ4: { value: String(percenti) } }, { formatInteractif: 'fillInTheBlank', digits: 3, decimals: 0 })
       } else {
         this.interactifType = 'mathLive'
-        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
+        texte = `$\\dfrac{${percenti}}{100}= $${context.isHtml && this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline clavierDeBaseAvecFraction', { texteApres: ' %' }) : '$\\ldots\\ldots\\%$'}`
         texteCorr = `$\\dfrac{${texNombre(percenti, 0)}}{100}=${texNombre(percenti, 0)}~\\%$`
         setReponse(this, i, percenti, { formatInteractif: 'calcul', digits: 3, decimals: 0 })
       }

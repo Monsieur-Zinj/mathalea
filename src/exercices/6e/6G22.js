@@ -261,7 +261,7 @@ export default function NommerUnAngle () {
         texte += this.sup > 1 ? `${jj === 0 ? '' : '<br>'}${numAlpha(jj)}` : ''
         texte += texteAMC
         if (this.interactif && this.interactifType === 'mathLive') {
-          texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur25 ' + KeyboardType.angles)
+          texte += ajouteChampTexteMathLive(this, i * this.sup + jj, 'inline largeur01 ' + KeyboardType.angles)
         }
         setReponse(this, i * this.sup + jj, resultat, { formatInteractif: 'texte' })
         objetsCorrection.push(codageAngle(pt1, pt2, ang, tailleAngle, marquageAngle[jj], couleurAngle, 2, 1, couleurRemplissageAngle[0], 1, false, true), segmentsCorrection)

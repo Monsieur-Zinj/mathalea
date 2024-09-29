@@ -23,7 +23,7 @@ export default function Proportion () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     let a, b, c, d
     switch (choice(['simple'])) {

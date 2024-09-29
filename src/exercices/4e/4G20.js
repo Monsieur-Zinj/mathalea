@@ -212,7 +212,7 @@ export default class Pythagore2D extends Exercice {
           redaction = RedactionPythagore(A.nom, C.nom, B.nom, 2, reponse, longueurAB, longueurBC)
         }
         texteCorr = redaction[0]
-        texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur25 inline nospacebefore unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
+        texte += this.interactif ? (`$${nomCote} ${redaction[1]}$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore unites[longueurs]', { texteApres: '<em class="ml-2">(Une unité de longueur est attendue.)</em>' })) : ''
         if (this.interactif) {
           setReponse(this, i, new Grandeur(reponse, 'cm'), {
             formatInteractif: 'unites',

@@ -28,7 +28,7 @@ export default function CalculPuissanceSimple () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
@@ -42,7 +42,7 @@ export default function CalculPuissanceSimple () {
       c = [['e double', 'a moitié'], ['e triple', 'e tiers'], ['e quintuple', 'e cinquième'], ['e septuple', 'e septième']]
       switch (choice(['a', 'b', 'c', 'd'])) { //
         case 'a':
-          texte = `Donner l${c[index][0]} de  $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `Donner l${c[index][0]} de  $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           setReponse(this, i, [`${a}^{${b + 1}}`], { formatInteractif: 'texte' })
           texteCorr = `L${c[index][0]} de $${a}^{${b}}$ se calcule  par
        : <br>
@@ -57,7 +57,7 @@ export default function CalculPuissanceSimple () {
           this.canEnonce = texte
           break
         case 'b':
-          texte = `Donner l${c[index][1]} de $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          texte = `Donner l${c[index][1]} de $${a}^{${b}}$. ` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           setReponse(this, i, [`${a}^{${b - 1}}`], { formatInteractif: 'texte' })
           texteCorr = `L${c[index][1]} de $${a}^{${b}}$ se calcule  par
       : <br>
@@ -75,7 +75,7 @@ export default function CalculPuissanceSimple () {
         case 'c' :
           texte = `Calculer $${a ** 2}\\times ${a}^{${b}}$ `
           if (!context.isAmc) {
-            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           }
 
           setReponse(this, i, [`${a}^{${b + 2}}`], { formatInteractif: 'texte' })
@@ -92,7 +92,7 @@ export default function CalculPuissanceSimple () {
         case 'd' :
           texte = `Calculer $${a}^{${b}}\\div ${a ** 2}$ `
           if (!context.isAmc) {
-            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+            texte += `sous la forme d'une puissance de $${a}$.` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           }
 
           setReponse(this, i, [`${a}^{${b - 2}}`], { formatInteractif: 'texte' })

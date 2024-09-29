@@ -45,7 +45,7 @@ export default function DiviserPar101001000 () {
                 a / b
             )}$`
       setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

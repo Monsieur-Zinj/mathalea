@@ -25,7 +25,7 @@ export default function ProportionnaliteExpressionAlgebrique () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(-3, 3, 0)
     const b = randint(-5, 5, 0)

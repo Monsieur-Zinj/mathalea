@@ -185,14 +185,14 @@ export default function ImageGraphique () {
         }
       } else if (this.interactif) {
         if (this.sup === 1) {
-          texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur25 inline nospacebefore')
-          texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur25 inline nospacebefore')
+          texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore')
+          texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
           setReponse(this, 2 * i, fx1)
           setReponse(this, 2 * i + 1, fx2)
         } else {
-          texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 3 * i, 'largeur25 inline nospacebefore')
-          texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur25 inline nospacebefore')
-          texte += `<br><br>$f(${x3})=$` + ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur25 inline nospacebefore')
+          texte += `$f(${x1})=$` + ajouteChampTexteMathLive(this, 3 * i, 'largeur01 inline nospacebefore')
+          texte += `<br><br>$f(${x2})=$` + ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur01 inline nospacebefore')
+          texte += `<br><br>$f(${x3})=$` + ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur01 inline nospacebefore')
           setReponse(this, 3 * i, fx1)
           setReponse(this, 3 * i + 1, fx2)
           setReponse(this, 3 * i + 2, fx3)

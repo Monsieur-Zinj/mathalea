@@ -26,7 +26,7 @@ export default function PoucentageE () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur25 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' €' }
   this.nouvelleVersion = function () {
     let a, b, n

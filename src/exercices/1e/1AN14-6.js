@@ -206,7 +206,7 @@ export default function DeriveeQuotient () {
       }
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif && !this.sup2) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${nameF}'(x)=$` })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: `$${nameF}'(x)=$` })
       }
       if (this.liste_valeurs.indexOf(expression) === -1) {
         this.liste_valeurs.push(expression)

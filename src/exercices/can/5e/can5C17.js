@@ -26,7 +26,7 @@ export default function EntierPlusFractionVersDecimal () {
   this.nouvelleVersion = function () {
     let a, b, c, maFraction, maFraction2
     let resultat
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     this.formatInteractif = 'calcul'
     switch (choice([1, 2, 3, 4])) {
       case 1:// fraction addition avec un entier

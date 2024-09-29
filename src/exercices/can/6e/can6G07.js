@@ -125,7 +125,7 @@ export default function CompleterParSymetrieCan () {
       // On prépare la figure...
       texte += mathalea2d({ xmin: -0.5, ymin: -0.5, xmax: 6.5, ymax: 6.5, scale: 0.7 }, ...objetsEnonce)
       if (this.interactif && context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       texteCorr += mathalea2d({
         xmin: -0.5,

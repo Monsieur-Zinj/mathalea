@@ -30,7 +30,7 @@ export const refs = {
 export default function LectureGraphiqueParaboleB () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -60,7 +60,7 @@ export default function LectureGraphiqueParaboleB () {
         `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '>', { formatInteractif: 'texte' })
           }
@@ -114,7 +114,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '<', { formatInteractif: 'texte' })
           }
@@ -167,7 +167,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
 
             setReponse(this, i, '<', { formatInteractif: 'texte' })
           }
@@ -222,7 +222,7 @@ export default function LectureGraphiqueParaboleB () {
       `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '>', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -273,7 +273,7 @@ export default function LectureGraphiqueParaboleB () {
     `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
@@ -321,7 +321,7 @@ export default function LectureGraphiqueParaboleB () {
     `
           } else {
             texte += 'Donner le signe de $b$ (compléter avec $>$, $<$ ou $=$) :<br>'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline', { texteAvant: '$b$' }) + '$0$'
+            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: '$b$' }) + '$0$'
             setReponse(this, i, '=', { formatInteractif: 'texte' })
           }
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$

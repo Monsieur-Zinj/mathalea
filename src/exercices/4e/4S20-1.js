@@ -66,7 +66,7 @@ export default class nomExercice extends Exercice {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexte(this, i, 'inline largeur10' + KeyboardType.alphanumeric)
+        texte += ajouteChampTexte(this, i, 'inline largeur01' + KeyboardType.alphanumeric)
         handleAnswers(this, i, { reponse: { value: rep, compare: fonctionComparaison, options: { texteSansCasse: true } } })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

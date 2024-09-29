@@ -205,9 +205,9 @@ function unePieceDeuxUrnes (exercice, NoQuestion, avecArbreDansCorrection, avecA
   const proba1 = fraction(nbBouleC, card)
   const proba2 = fraction(n1[choix2] + n2[choix2], card1 + card2)
   const urne = pileOuFace === 'Pile' ? 'première' : 'deuxième'
-  texte += `${numAlpha(q)} La pièce vient de tomber sur «${pileOuFace}». Donner la probabilité d'obtenir une boule ${boules[choix1]}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur15 inline') + '<br>'
+  texte += `${numAlpha(q)} La pièce vient de tomber sur «${pileOuFace}». Donner la probabilité d'obtenir une boule ${boules[choix1]}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur01 inline') + '<br>'
   q++
-  texte += `${numAlpha(q)} On recommence l'expérience au début. Donner la probabilité d'obtenir une boule ${boules[choix2]}.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur15 inline') + '<br>'
+  texte += `${numAlpha(q)} On recommence l'expérience au début. Donner la probabilité d'obtenir une boule ${boules[choix2]}.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur01 inline') + '<br>'
   q++
   const ligneEnt = ['\\text{Pièce\\textbackslash Boules}']
   const colonneEnt = ['\\text{Pile}', '\\text{Face}']
@@ -351,9 +351,9 @@ function urneDeuxTiragesAvecRemise (exercice, NoQuestion, avecArbreDansCorrectio
   const proba4 = proba3.multiplieEntier(2)
   let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
   texte += 'On tire successivement et avec remise deux boules.<br>'
-  texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur10 inline') + '<br>'
-  texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
-  texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur10 inline') + '<br>'
+  texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur01 inline') + '<br>'
+  texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur01 inline') + '<br>'
+  texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur01 inline') + '<br>'
   let texteCorr = `L'issue «${b1Color}-${b1Color}» peut être obtenue de ${contenu[0]} façon${contenu[0] > 1 ? 's' : ''} et l'issue «${b1Color}-${b2Color}» peut être obtenue de ${contenu[1]} façon${contenu[1] > 1 ? 's' : ''}.<br>`
   texteCorr += 'Voici un tableau à double entrée qui représente toutes les issues de cette expérience.<br><br>'
   texteCorr += tableau + '<br><br>'
@@ -504,9 +504,9 @@ function urneDeuxTiragesSansRemise (exercice, NoQuestion, avecArbreDansCorrectio
   const proba4 = proba3.multiplieEntier(2)
   let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
   texte += 'On tire successivement et sans remise deux boules.<br>'
-  texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur10 inline') + '<br>'
-  texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur10 inline') + '<br>'
-  texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur10 inline') + '<br>'
+  texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.` + ajouteChampTexteMathLive(exercice, NoQuestion, 'largeur01 inline') + '<br>'
+  texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.` + ajouteChampTexteMathLive(exercice, NoQuestion + 1, 'largeur01 inline') + '<br>'
+  texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.` + ajouteChampTexteMathLive(exercice, NoQuestion + 2, 'largeur01 inline') + '<br>'
   let texteCorr = `L'issue «${b1Color}-${b1Color}» peut être obtenue de ${contenu[0]} façon${contenu[0] > 1 ? 's' : ''} et l'issue «${b1Color}-${b2Color}» peut être obtenue de ${contenu[1]} façon${contenu[1] > 1 ? 's' : ''}.<br>`
   texteCorr += 'On a représenté les issues de l\'expérience par le tableau ci-dessous :<br><br>'
   texteCorr += tableau + '<br><br>'

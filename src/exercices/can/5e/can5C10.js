@@ -20,7 +20,7 @@ export default function DecomposerFacteursPremierSimple () {
   this.sup2 = false
   this.sup = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.consigne = `Décomposer en produit de facteurs premiers :<br>
   (facteurs dans l’ordre croissant)`
 }

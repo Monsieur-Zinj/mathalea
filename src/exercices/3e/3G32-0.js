@@ -190,7 +190,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `<br>${numAlpha(j)}Exprimer $${lB}${lC}$ en fonction de $${lA}${lB}$ et de $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lC}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lC}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                                     `${AB}\\times tan(${alfaInteractif})`,
                                     `${BA}\\times tan(${alfaInteractif})`,
@@ -222,7 +222,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer $${lB}${lS}$ en fonction de $${lA}${lB}$ et de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lS}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lB}${lS}=$` })
               setReponse(this, i + ii, [
                                     `${AB}\\times tan(${baitaInteractif})`,
                                     `${BA}\\times tan(${baitaInteractif})`,
@@ -254,7 +254,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lS}$ en fonction de $${lA}${lB}$, de $${alfa}$ et de $${baita}$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lS}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lS}=$` })
             setReponse(this, i + ii, [ // La liste n'est pas exhaustive et ne remplace, hélas, pas du calcul formel.
                                 `${AB}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
                                 `${BA}\\times(tan(${baitaInteractif})-tan(${alfaInteractif}))`,
@@ -301,7 +301,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC = `${numAlpha(j)}Calculer la largeur de la rivière au mètre près sachant que $${alfa}=${alpha}^\\circ$ et $${baita}=${beta}^\\circ$.`
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]', { texteAvant: `$${sp(25)}$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]', { texteAvant: `$${sp(25)}$` })
             setReponse(this, i + ii, new Grandeur(taille, 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -405,7 +405,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           reponse = Math.round(2 * Math.PI * 6400 * Math.cos(alpha * Math.PI / 180))
           texteCorr += `Calculons maintenant la longueur $L$ du $${alpha}$e parallèle : $L\\approx 2\\times \\pi\\times ${texNombre(arrondi(6400 * Math.cos(alpha * Math.PI / 180)))}${sp()}km\\approx ${texNombre(reponse)}${sp()}km$.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(reponse, 'km'), { formatInteractif: 'unites' })
           } else if (context.isAmc) {
             propositionsAMC[iiAMC] = {
@@ -485,7 +485,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = texte
             texte = enonceInit + texte
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$^\\circ$' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore', { texteApres: '$^\\circ$' })
               setReponse(this, i + ii, arrondi(beta))
               ii++
             } else if (context.isAmc) {
@@ -525,7 +525,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}En déduire la mesure de l'angle $\\widehat{${lR}${lC}${lS}}$, arrondie au centième près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore', { texteApres: '$^\\circ$' })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore', { texteApres: '$^\\circ$' })
               setReponse(this, i + ii, arrondi(alpha - beta))
               ii++
             } else if (context.isAmc) {
@@ -552,7 +552,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Calculer alors la longueur $${lR}${lS}$, arrondie au cm près.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur10 inline nospacebefore unites[longueurs]')
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
               setReponse(this, i + ii, new Grandeur(arrondi(taille - hauteur), 'm'), { formatInteractif: 'unites' })
               ii++
             } else if (context.isAmc) {
@@ -595,7 +595,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC += `Calculer la hauteur, en mètres, de cet${objet[index][2]} ${objet[index][0]}, arrondie au mètre près.`
           texte += `Calculer la hauteur de cet${objet[index][2]} ${objet[index][0]}, arrondie au mètre près.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -697,7 +697,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC += `<br>${numAlpha(j)}Exprimer $h$ en fonction de $${lS}${lC}$ et $${baita}$ puis en fonction de $${lB}${lC}$ et $${alfa}$.`
             texte += enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
               AB = lS + lC
               BA = lC + lS
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -711,7 +711,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                                     `tan(${baitaInteractif})${BA}`],
               { formatInteractif: 'texte' })
               ii++
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
               AB = lB + lC
               BA = lC + lB
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
@@ -744,7 +744,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}En déduire $${lS}${lC}$ en fonction de $${lB}${lS}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lS}${lC}=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lS}${lC}=$` })
               AB = lS + lB
               BA = lB + lS
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
@@ -781,7 +781,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer $${lC}${lA}$ en fonction de $${lB}${lS}$, $${alfa}$ et $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lA}=$` })
+              texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lA}=$` })
               setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                                     `\\frac{${AB}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
                                     `\\frac{${BA}\\times tan(${alfaInteractif})\\times tan(${baitaInteractif})}{tan(${baitaInteractif})-tan(${alfaInteractif})}`,
@@ -819,7 +819,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC += 'Quelle est la hauteur, en mètres, de la falaise ?'
           texte += 'Quelle est la hauteur de la falaise ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -863,7 +863,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC += 'À quelle distance, en mètres et arrondie au mètre près, du pied de la falaise se trouve l\'observateur lors du deuxième relevé ?'
           texte += 'À quelle distance du pied de la falaise se trouve l\'observateur lors du deuxième relevé ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             context.isAmc ? setReponse(this, i + ii, arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0)) : setReponse(this, i + ii, new Grandeur(arrondi(taille / Math.tan((alpha + 5) * Math.PI / 180), 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -960,7 +960,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j)}Exprimer la mesure de l'angle $\\widehat{${lC}${lA}${lS}}$ en fonction de $${baita}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{CAS}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{CAS}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                     `90-${baitaInteractif}`],
               { formatInteractif: 'texte' })
@@ -983,7 +983,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
             enonceAMC = `${numAlpha(j + 1)}Exprimer la mesure de l'angle $\\widehat{${lB}${lA}${lS}}$ en fonction de $${alfa}$.`
             texte += '<br>' + enonceAMC
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$` })
+              texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}\\widehat{${lB}${lA}${lS}}=$` })
               setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                     `90-${alfaInteractif}`],
               { formatInteractif: 'texte' })
@@ -1030,7 +1030,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}CA=$` })
             setReponse(this, i + ii, [ // Attention, l'emplacement des espaces est primordial
                   `\\frac{CH}{sin(${baitaInteractif}-${alfaInteractif})}`,
                   `\\frac{HC}{sin(${baitaInteractif}-${alfaInteractif})}`],
@@ -1059,7 +1059,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           }
           texte += '<br>' + enonceAMC
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lH}=$` })
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}${lC}${lH}=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                   `${lB}${lC}\\times sin(${alfaInteractif})`,
                   `sin(${alfaInteractif})\\times ${lB}${lC}`,
@@ -1091,7 +1091,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += '<br>' + enonceAMC
           enonceAMC += this.sup ? '<br>' : ''
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhaustivité hélas
                   `${lA}${lC}\\times sin(${baitaInteractif})`,
                   `sin(${baitaInteractif})\\times ${lA}${lC}`,
@@ -1099,7 +1099,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   `sin(${baitaInteractif})\\times ${lC}${lA}`],
             { formatInteractif: 'texte' })
             ii++
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                   `\\frac{${lC}${lH}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
                   `\\frac{${lH}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
@@ -1107,7 +1107,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
                   `\\frac{sin(${baitaInteractif}\\times ${lH}${lC} sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`],
             { formatInteractif: 'texte' })
             ii++
-            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore grecTrigo', { texteAvant: `$${sp(20)}h=$` })
             setReponse(this, i + ii, [ // Aucune exhasutivité hélas
                   `\\frac{${lB}${lC}\\times sin(${alfaInteractif})\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
                   `\\frac{sin(${alfaInteractif})\\times ${lB}${lC}\\times sin(${baitaInteractif})}{${baitaInteractif}-${alfaInteractif}}`,
@@ -1136,7 +1136,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           enonceAMC += '(exprimer en mètres et arrondir au mètre près)'
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(arrondi(taille, 0), 'm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {
@@ -1242,7 +1242,7 @@ export default class ProblemesTrigoLongueur extends Exercice {
           texte += `<br>Calculer la longueur $${A.nom + B.nom}$ et donner une valeur approchée au millimètre près.`
           enonceAMC = texte + '<br>'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur25 inline nospacebefore unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i + ii, 'largeur01 inline nospacebefore unites[longueurs]')
             setReponse(this, i + ii, new Grandeur(arrondi(longueur(A, B), 1), 'cm'), { formatInteractif: 'unites' })
             ii++
           } else if (context.isAmc) {

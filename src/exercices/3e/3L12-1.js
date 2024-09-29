@@ -92,7 +92,7 @@ export default function DevelopperIdentitesRemarquables3 () {
       }
       if (!context.isAmc) {
         setReponse(this, i, reponse)
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')) : ''
       } else {
         this.autoCorrection[i] = {
           enonce: '',

@@ -30,7 +30,7 @@ export const refs = {
 export default function LectureGraphiqueParabolebEtc () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -78,7 +78,7 @@ export default function LectureGraphiqueParabolebEtc () {
       }, r, o, traceA, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur10 inline nospacebefore', { texteAvant: '$b=$' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$b=$' })
 
         setReponse(this, i, -2 * a * alpha)
       }

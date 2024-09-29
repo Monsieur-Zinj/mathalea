@@ -23,7 +23,7 @@ export default function IdentitesCalculs2e () {
   this.nbQuestions = 1
   this.nbQuestionsModifiable = false
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.can = true
   this.canVersion = 'v2'
   this.consigne = 'Effectuer le calcul suivant sans calculatrice.<br>Utiliser la double distributivité ou les identités remarquables.'

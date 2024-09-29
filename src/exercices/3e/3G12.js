@@ -246,7 +246,7 @@ export default function PavageEtRotation2D () {
     }
     const consigneAMC = texte
     for (let i = 0; i < this.nbQuestions; i++) {
-      texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
+      texteAMC = `Quelle est l'image de la figure $${couples[i][0]}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur01 inline') + '<br>'
       texte += texteAMC
       texteCorr += `L'image de la figure $${couples[i][0]}$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
 

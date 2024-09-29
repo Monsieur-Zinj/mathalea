@@ -266,7 +266,7 @@ export default function PavageEtReflexion2d () {
     const couleurs = ['green', 'red', 'blue']
     for (let i = 0; i < this.nbQuestions; i++) {
       setReponse(this, i, couples[i][1])
-      texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` + ajouteChampTexteMathLive(this, i, 'largeur25 inline') + '<br>'
+      texte += numAlpha(i) + `Quelle est l'image de la figure $${couples[i][0]}$ dans la symétrie d'axe $(d)$ ?` + ajouteChampTexteMathLive(this, i, 'largeur01 inline') + '<br>'
       texteCorr += numAlpha(i) + `L'image de ${texteEnCouleur('la figure', couleurs[i])} $${miseEnEvidence(couples[i][0], couleurs[i])}$ dans la symétrie d'axe $(d)$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3

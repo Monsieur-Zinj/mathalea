@@ -31,7 +31,7 @@ export default function LireHeure () {
   this.nbQuestions = 1
   this.tailleDiaporama = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur15 inline ' + KeyboardType.clavierHms
+  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierHms
   this.nouvelleVersion = function () {
     const horloge = []
     const O = point(0, 0)

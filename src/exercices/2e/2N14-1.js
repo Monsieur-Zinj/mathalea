@@ -159,7 +159,7 @@ export default function EnsembleDeNombres () {
       if (context.isAmc) {
         this.autoCorrection[i].propositions = [{ texte: this.listeCorrections[i], statut: '1' }]
       }
-      texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur25 ' + KeyboardType.clavierEnsemblePredefini) : '$\\dots$'
+      texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierEnsemblePredefini) : '$\\dots$'
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

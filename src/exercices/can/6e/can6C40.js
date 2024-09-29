@@ -26,7 +26,7 @@ export default function CalculMoitieDecimal () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = choice([new Decimal(randint(1, 10) * 2 + 1).div(2), new Decimal(randint(0, 10) * 2 + 1).div(10)])
     this.reponse = new Decimal(a).div(2)

@@ -30,7 +30,7 @@ export default class DecimalVersFraction extends Exercice {
 
   nouvelleVersion () {
     let a, d, maFraction
-    this.formatChampTexte = 'largeur15 inline'
+    this.formatChampTexte = 'largeur01 inline'
     this.formatInteractif = 'fractionEgale'
     a = randint(1, 39, [10, 20, 30])
     switch (choice([1, 2, 3])) {

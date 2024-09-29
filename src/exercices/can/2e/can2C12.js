@@ -28,7 +28,7 @@ export default function TauxGlobal () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.optionsChampTexte = { texteApres: ' $\\%$' }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 

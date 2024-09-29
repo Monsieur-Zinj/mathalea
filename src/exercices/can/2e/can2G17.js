@@ -24,7 +24,7 @@ export default function VecteurDirEqCart () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur10 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.listeAvecNumerotation = false
   this.nouvelleVersion = function () {
     const a = randint(-9, 9, 0)

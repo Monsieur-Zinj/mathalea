@@ -119,7 +119,7 @@ export default function CalculProbaFormuleProbaTotale () {
 
           if (this.interactif) {
             texte += '<br>$P(B)=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           
@@ -204,7 +204,7 @@ export default function CalculProbaFormuleProbaTotale () {
 
           if (this.interactif) {
             texte += '<br> $P(\\overline{B})=$ '
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           } else {
             texte += `<br>
           

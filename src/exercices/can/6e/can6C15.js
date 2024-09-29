@@ -25,7 +25,7 @@ export default function FractionCommeFacteurManquant () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.formatInteractif = 'fractionEgale'
   this.consigne = ''
 

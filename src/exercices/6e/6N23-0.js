@@ -92,7 +92,7 @@ export default function ÉcrireNombresDecimal () {
       }
       if (formatEcriture[i]) {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : ${this.interactif ? ajouteChampTexte(this, i, 'largeur10 inline') : '\\dotfill'}`
+          texte = `Écris le nombre $${texNombre(nombre)}$ en lettres ${type === 2 ? 'en utilisant le mot virgule' : 'sans utiliser le mot virgule'} : ${this.interactif ? ajouteChampTexte(this, i, 'largeur01 inline') : '\\dotfill'}`
         } else texte = `$${texNombre(nombre)}$`
         if (context.vue !== 'diap') {
           texteCorr = `$${texNombre(nombre)}$ : ${nombreEnLettres(nombre, type)}.`
@@ -102,7 +102,7 @@ export default function ÉcrireNombresDecimal () {
         handleAnswers(this, i, { reponse: { value: nombreEnLettres(200.3, 1), compare: fonctionComparaison, options: { texteSansCasse: true } } })
       } else {
         if (context.vue !== 'diap') {
-          texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur10 inline') : '\\dotfill'}`
+          texte = `Écris le nombre ${nombreEnLettres(nombre, type)} en chiffres :  ${this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline') : '\\dotfill'}`
         } else {
           texte = ` ${nombreEnLettres(nombre, type)}`
         }

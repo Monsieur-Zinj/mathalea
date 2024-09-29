@@ -573,7 +573,7 @@ export default function SujetCAN2022cinquieme () {
           setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), { formatInteractif: 'unites' })
           if (this.interactif) {
             texte += ' Recopie la réponse correcte (nombre et unité à recopier).'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur15 unites[Longueur]')
+            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueur]')
           }
           nbChamps = 1
           break

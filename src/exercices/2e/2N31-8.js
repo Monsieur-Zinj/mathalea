@@ -146,7 +146,7 @@ nano : milliardième $\\times10^{-9}$<br>
           break
       }
       texte = this.interactif
-        ? `$${texNombre(a)}\\times10^{${n}}~${uniteOrdre[0]} = ${texNombre(a)}\\times $` + ajouteChampTexteMathLive(this, i, 'largeur5 inline nospacebefore', { texteApres: ` $${uniteOrdre[1]}$` })
+        ? `$${texNombre(a)}\\times10^{${n}}~${uniteOrdre[0]} = ${texNombre(a)}\\times $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteApres: ` $${uniteOrdre[1]}$` })
         : `$${texNombre(a)}\\times10^{${n}}~${uniteOrdre[0]} = ${texNombre(a)}\\times 10^{${miseEnEvidence('\\ldots', 'black')}}~${uniteOrdre[1]}$`
       setReponse(this, i, ['10^' + exposantReponse, '10^{' + exposantReponse + '}'])
       if (this.correctionDetaillee) {

@@ -29,7 +29,7 @@ export default function CoordonneesPointIntersectionAxeOrdonneesDroite () {
     const n = randint(-5, 5, 0)
     const c = n * b
 
-    this.formatChampTexte = 'largeur12 inline'
+    this.formatChampTexte = 'largeur01 inline'
 
     this.formatInteractif = 'texte'
     this.reponse = `0;${-c / b}`

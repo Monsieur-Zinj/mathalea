@@ -23,7 +23,7 @@ export default function ProduitEntiers5e () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur15 inline'
+  this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const b = randint(5, 9)
     const a = randint(12, 19)

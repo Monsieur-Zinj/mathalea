@@ -318,9 +318,9 @@ export default function TableauDeValeurs () {
         } else setReponse(this, i * 3 + 2, reponse[2], { formatInteractif: 'calcul' })
         */
       } else if (this.interactif) {
-        texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur25 inline')
-        texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur25 inline')
-        texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur25 inline')
+        texte += `<br><br>$f(${listeDeX[i][0]}) = $` + ajouteChampTexteMathLive(this, i * 3, 'largeur01 inline')
+        texte += `<br><br>$f(${listeDeX[i][1]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur01 inline')
+        texte += `<br><br>$f(${listeDeX[i][2]}) = $` + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur01 inline')
 
         if (reponse[0].type === 'FractionEtendue') {
           if (reponse[0].den === 1) setReponse(this, i * 3, reponse[0].num, { formatInteractif: 'calcul' })

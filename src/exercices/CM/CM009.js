@@ -51,7 +51,7 @@ export default function Moitie () {
           texte = `$\\text{La moitié de }${a * 2}$`
           texteCorr = `$\\text{La moitié de }${a * 2} \\text{ est } ${a}$`
           setReponse(this, i, a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
         case 2: // Impair inférieur à 20
           a = randint(2, 9)
@@ -59,7 +59,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${a * 2 + 1
                     } \\text{ est } ${texNombre(a + 5 / 10)}$`
           setReponse(this, i, calculANePlusJamaisUtiliser(a + 5 / 10))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
         case 3: // Table de 200
           a = randint(2, 9)
@@ -68,7 +68,7 @@ export default function Moitie () {
                         a * 2 * 100
                     )} \\text{ est } ${texNombre(a * 100)}$`
           setReponse(this, i, a * 100)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
         case 4: // a00 avec a impair
           a = randint(2, 9)
@@ -77,7 +77,7 @@ export default function Moitie () {
                         (a * 2 + 1) * 100
                     )} \\text{ est } ${texNombre(a * 100 + 50)}$`
           setReponse(this, i, a * 100 + 50)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
         case 5: // a,b avec a et b pairs
           a = randint(2, 9)
@@ -89,7 +89,7 @@ export default function Moitie () {
                         a * 2 + (b * 2) / 100
                     )} \\text{ est } ${texNombre(a + b / 100)}$`
           setReponse(this, i, calculANePlusJamaisUtiliser(a + b / 100))
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
         case 6: // 1xx avec xx un nombre pair
           a = randint(2, 9)
@@ -97,7 +97,7 @@ export default function Moitie () {
           texteCorr = `$\\text{La moitié de }${100 + a * 2} \\text{ est } ${50 + a
                     }$`
           setReponse(this, i, 50 + a)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur15 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
           break
       }
 

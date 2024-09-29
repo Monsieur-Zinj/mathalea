@@ -37,7 +37,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' .... kg'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' kg' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ g  $=\\dots$ kg`
@@ -53,7 +53,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' ..... g'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' g' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ kg $= \\dots$ g`
@@ -71,7 +71,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' ..... cm'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' cm' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ m $=$ $\\dots$ cm`
@@ -86,7 +86,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += '..... m'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' m' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ cm $= \\dots$ m`
@@ -105,7 +105,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' .... mL'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' mL' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ cL $= \\dots$ mL`
@@ -120,7 +120,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' .... cL'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: '  cL' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ mL $= \\dots$ cL`
@@ -139,7 +139,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' .... km'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' km' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ m $= \\dots$ km`
@@ -155,7 +155,7 @@ export default function ConversionEnTousSens () {
           if (!this.interactif) {
             this.question += ' .... m'
           }
-          this.formatChampTexte = 'largeur15 inline'
+          this.formatChampTexte = 'largeur01 inline'
           this.optionsChampTexte = { texteApres: ' m' }
           this.canEnonce = 'Compléter.'
           this.canReponseACompleter = `$${texNombre(a)}$ km $= \\dots$ m`

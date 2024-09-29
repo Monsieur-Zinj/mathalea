@@ -247,7 +247,7 @@ export default function DeriveeProduit () {
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur75', { texteAvant: `$${namef}'(x)=$` })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: `$${namef}'(x)=$` })
       }
 
       if (this.liste_valeurs.indexOf(expression) === -1) {

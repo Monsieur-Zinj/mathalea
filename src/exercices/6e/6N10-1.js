@@ -128,9 +128,9 @@ export default function ExerciceNumerationEntier () {
       // setReponse(this, i, texNombre(reponse), { formatInteractif: 'texte' })
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
       if (this.sup2) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline ' + KeyboardType.numbersSpace, { espace: true })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.numbersSpace, { espace: true })
       } else {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur25 inline ' + KeyboardType.numbersSpace, { espace: true, texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.numbersSpace, { espace: true, texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
       }
       texte += ajouteFeedback(this, i)
 

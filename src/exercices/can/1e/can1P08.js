@@ -68,7 +68,7 @@ export default function ProbaLoiVA () {
           texte += `${tableau}<br>`
           texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           }
 
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
@@ -108,7 +108,7 @@ export default function ProbaLoiVA () {
           texte += `${tableau}<br>`
           texte += `Quelle est la valeur de $a$ ?${sp(5)}`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur25 lycee')
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee')
           }
           texteCorr = ` La somme des probabilités est égale à $1$.<br>
           Ainsi, $a=1-${f1.texFraction}-${f2.texFraction}=\\dfrac{${fraction[1] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[0] * fraction[3]}}{${fraction[1] * fraction[3]}}-\\dfrac{${fraction[2] * fraction[1]}}{${fraction[1] * fraction[3]}}=${f3.texFraction}${f3.texSimplificationAvecEtapes()}$.

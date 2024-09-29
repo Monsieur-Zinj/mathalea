@@ -159,7 +159,7 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
       }
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
-        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur75 inline nospacebefore')) : ''
+        texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')) : ''
         texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
