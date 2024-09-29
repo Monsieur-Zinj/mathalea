@@ -534,7 +534,7 @@ export default function ModelisationProblemes () {
 
     // On ne met pas les schéma en mode diaporama
     if (presenceSchemas) {
-      this.introduction = `XXXLes schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
+      this.introduction = `Les schémas à associer à chacun des énoncés sont : ${context.isHtml ? '<br>' : '\\\\\n'}`
       this.introduction += deuxColonnes(
         deuxColonnes(
           listeSchemas[0].join(context.isHtml ? '<br>' : '\\\\\n'), listeSchemas[1].join(context.isHtml ? '<br>' : '\\\\\n')
