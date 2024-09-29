@@ -1,7 +1,8 @@
+import Decimal from 'decimal.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { calculANePlusJamaisUtiliser, randint } from '../../../modules/outils.js'
-import Exercice from '../../deprecatedExercice.js'
+import { randint } from '../../../modules/outils.js'
+import Exercice from '../../Exercice'
 export const titre = 'Déterminer le chiffre des ...'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -19,24 +20,31 @@ export const refs = {
   'fr-fr': ['can6N05'],
   'fr-ch': []
 }
-export default function ChiffreDes () {
-  Exercice.call(this)
-  this.typeExercice = 'simple'
-  this.nbQuestions = 1
-  this.formatChampTexte = 'largeur15 inline'
-  this.consigne = ''
-  this.tailleDiaporama = 2
-  this.nouvelleVersion = function () {
+export default class ChiffreDes extends Exercice {
+  constructor () {
+    super()
+    this.typeExercice = 'simple'
+    this.nbQuestions = 1
+    this.formatChampTexte = 'largeur15 inline'
+    this.consigne = ''
+    this.tailleDiaporama = 2
+  }
+
+  nouvelleVersion () {
     const a = randint(1, 3)
     const b = randint(1, 9, a)
     const c = randint(1, 9, [a, b])
     const d = randint(1, 9, [a, b, c])
     const e = randint(1, 9, [a, b, c, d])
     const f = randint(1, 9, [a, b, c, d, e])
-    const n = calculANePlusJamaisUtiliser(a * 100 + b * 10 + c + d * 0.1 + e * 0.01 + f * 0.001)
-    const m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes'])
+    const chiffres = new Decimal(a * 100000 + b * 10000 + c * 1000 + d * 100 + e * 10 + f)
+    const n = chiffres.div(1000)
+    const m = choice(['centaines', 'dizaines', 'dixièmes', 'centièmes', 'millièmes', 'unités'])
     this.question = `Dans $${texNombre(n)}$ quel est le chiffre des ${m} ? `
     switch (m) {
+      case 'unités':
+        this.reponse = c
+        break
       case 'centaines':
         this.reponse = a
         break
@@ -55,7 +63,7 @@ export default function ChiffreDes () {
     }
     this.correction = `Le chiffre des ${m} est $${this.reponse}$.<br><br>$\\begin{array}{|c|c|c|c|c|c|c|}\n`
     this.correction += '\\hline\n'
-    this.correction += 'Centaine &  Dizaine & Unité&  \\Large{\\textbf{,}}& Dixième & Centième & Millième \\\\ \n'
+    this.correction += '\\text{Centaine} &  \\text{Dizaine} & \\text{Unité} &  \\Large{\\textbf{,}}& \\text{Dixième} & \\text{Centième} & \\text{Millième} \\\\ \n'
     this.correction += '\\hline\n'
     this.correction += `${a}&${b}&${c} & \\Large{\\textbf{,}}& ${d}&${e}& ${f}\\\\ \n`
     this.correction += '\\hline\n'
