@@ -59,10 +59,10 @@ export default class PerimetreRectangleCM2 extends Exercice {
     verticale2.styleExtremites = '<->'
     const largeur01 = latexParCoordonnees(`\\text{${String(hauteur) + ' cm'}}`, grandeBase + 0.9, hauteur / 2, 'black', 0, 0, 'white', 8)
     const longueur1 = latexParCoordonnees(`\\text{${String(grandeBase) + ' cm'}}`, grandeBase / 2, -0.5, 'black', 0, 0, 'white', 8)
-    const largeur01 = latexParCoordonnees(`\\text{${String(hauteur) + ' cm'}}`, -1, hauteur / 2, 'black', 0, 0, 'white', 8)
+    const largeur02 = latexParCoordonnees(`\\text{${String(hauteur) + ' cm'}}`, -1, hauteur / 2, 'black', 0, 0, 'white', 8)
     const longueur2 = latexParCoordonnees(`\\text{${String(grandeBase) + ' cm'}}`, grandeBase / 2, hauteur + 0.7, 'black', 0, 0, 'white', 8)
     const objets = [rectangle, angle1, angle2, angle3, angle4, verticale1, horizontale1,
-      verticale2, horizontale2, largeur01, longueur1, largeur01, longueur2]
+      verticale2, horizontale2, largeur01, longueur1, largeur02, longueur2]
 
     this.question = mathalea2d(Object.assign({ scale: grandeBase > 5 ? 0.75 : 1, style: 'display: block', pixelsParCm: grandeBase > 5 ? 20 : 25 }, fixeBordures(objets)), objets)
     this.question += 'Le périmètre de ce rectangle est égal à ' + (this.interactif ? '' : '$\\ldots$ cm.')

@@ -5,17 +5,17 @@ import { context } from '../../modules/context.js'
  * @author Rémi Angot
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {number} [largeur01=50] Largeur de la première colonne
+ * @param {number} [largeur1=50] Largeur de la première colonne
  * @return {string}
  */
-export function deuxColonnes (cont1, cont2, largeur01 = 50) {
+export function deuxColonnes (cont1, cont2, largeur1 = 50) {
   if (context.isHtml) {
     return `
     <div>
-    <div class="question" style="float:left;max-width: ${largeur01}%;margin-right: 30px">
+    <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 30px">
     ${cont1}
    </div>
-   <div style="float:left; max-width: ${90 - largeur01}%">
+   <div style="float:left; max-width: ${90 - largeur1}%">
     ${cont2}
    </div>
    <div style="clear:both"></div>
@@ -38,21 +38,21 @@ export function deuxColonnes (cont1, cont2, largeur01 = 50) {
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
  * @param {string} cont3 - Contenu de la deuxième colonne
- * @param {number} [largeur01=33] Largeur de la première colonne
- * @param {number} [largeur01=33] Largeur de la première colonne
+ * @param {number} [largeur1=33] Largeur de la première colonne
+ * @param {number} [largeur2=33] Largeur de la première colonne
  * @return {string}
  */
-export function troisColonnes (cont1, cont2, cont3, largeur01 = 33, largeur01 = 33) {
+export function troisColonnes (cont1, cont2, cont3, largeur1 = 33, largeur2 = 33) {
   if (context.isHtml) {
     return `
     <div>
-      <div class="question" style="float:left;max-width: ${largeur01}%;margin-right: 10px;">
+      <div class="question" style="float:left;max-width: ${largeur1}%;margin-right: 10px;">
         ${cont1}
       </div>
-      <div style="float:left; max-width: ${largeur01}%;margin-right: 10px;">
+      <div style="float:left; max-width: ${largeur2}%;margin-right: 10px;">
         ${cont2}
       </div>
-      <div style="float:left; max-width: ${100 - largeur01 - largeur01}%;margin-right: 10px;">
+      <div style="float:left; max-width: ${100 - largeur1 - largeur2}%;margin-right: 10px;">
         ${cont3}
       </div>
       <div style="clear:both"></div>
@@ -76,22 +76,22 @@ export function troisColonnes (cont1, cont2, cont3, largeur01 = 33, largeur01 = 
  * @author Mickael Guironnet
  * @param {string} cont1 - Contenu de la première colonne
  * @param {string} cont2 - Contenu de la deuxième colonne
- * @param {{eleId: string, largeur01: number, widthmincol1: number, widthmincol2: number}} options
+ * @param {{eleId: string, largeur1: number, widthmincol1: number, widthmincol2: number}} options
  *          eleId : identifiant ID pour retrouver la colonne
- *          largeur01 : largeur de la première colonne en latex en pourcentage
+ *          largeur1 : largeur de la première colonne en latex en pourcentage
  *          widthmincol1 : largeur de la première minimum en html en px
  *          widthmincol2 : largeur de la deuxième minimum en html en px
- *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur01:50, widthmincol1: 400px, widthmincol2: 200px})
+ *  ex : deuxColonnesResp (enonce, correction, {eleId : '1_1', largeur1:50, widthmincol1: 400px, widthmincol2: 200px})
  * @return {string}
  */
 export function deuxColonnesResp (cont1, cont2, options) {
   if (options === undefined) {
-    options = { largeur01: 50 }
+    options = { largeur1: 50 }
   } else if (typeof options === 'number') {
-    options = { largeur01: options }
+    options = { largeur1: options }
   }
-  if (options.largeur01 === undefined) {
-    options.largeur01 = 50
+  if (options.largeur1 === undefined) {
+    options.largeur1 = 50
   }
   if (options.stylecol1 === undefined) {
     options.stylecol1 = ''
@@ -130,10 +130,10 @@ export function deuxColonnesResp (cont1, cont2, options) {
     </div>
 `
   } else {
-    return `\\begin{minipage}{${options.largeur01 / 100}\\linewidth}
+    return `\\begin{minipage}{${options.largeur1 / 100}\\linewidth}
     ${cont1.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
-    \\begin{minipage}{${(100 - options.largeur01) / 100}\\linewidth}
+    \\begin{minipage}{${(100 - options.largeur1) / 100}\\linewidth}
     ${cont2.replaceAll('<br>', '\\\\\n')}
     \\end{minipage}
     `
