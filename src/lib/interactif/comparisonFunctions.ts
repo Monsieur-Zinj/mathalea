@@ -1326,7 +1326,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
 
-  console.log(cleanInput, goodAnswer, goodAnswer.length)
+  // console.log(cleanInput, goodAnswer, goodAnswer.length)
   if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
   if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
   const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
@@ -1383,6 +1383,7 @@ function intervalsCompare (input: string, goodAnswer: string) {
   const borneAndOpReponse = localGoodAnswer.match(extractBornesAndOp)
   const crochetsSaisie = localInput.match(extractCrochets)
   const crochetsReponse = localGoodAnswer.match(extractCrochets)
+  // console.log(localInput, localGoodAnswer, borneAndOpSaisie, borneAndOpReponse)
   if (
     borneAndOpSaisie != null &&
     borneAndOpReponse != null &&
@@ -1394,8 +1395,9 @@ function intervalsCompare (input: string, goodAnswer: string) {
     }
     // On teste les bornes et les opérateurs
     let i: number
+    isOk1 = true
     for (i = 0; i < borneAndOpSaisie.length; i++) {
-      isOk1 = fonctionComparaison(
+      isOk1 &&= fonctionComparaison(
         borneAndOpSaisie[i],
         borneAndOpReponse[i]
       ).isOk
