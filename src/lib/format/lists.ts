@@ -119,7 +119,7 @@ export function createList (
   openingTagLine = lineBreak + shift + openingTag
   const closingTagLine = shift + closingTag + lineBreak
 
-  if (!context.isHtml && !isOrdered && label.length !== 0) {
+  if (!context.isHtml && label.length !== 0) {
     openingTagLine += `[label=${label}]`
   }
 
