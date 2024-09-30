@@ -3,7 +3,7 @@ import { point, TracePoint, Point } from '../../lib/2d/points'
 import { colorToLatexOrHTML, fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import { grille } from '../../lib/2d/reperes'
 import { contraindreValeur, egal, randint } from '../../modules/outils'
-import { choice, shuffle } from '../../lib/outils/arrayOutils'
+import { shuffle } from '../../lib/outils/arrayOutils'
 import { labelPoint } from '../../lib/2d/textes'
 import { rotation } from '../../lib/2d/transformations'
 import { cercleCentrePoint } from '../../lib/2d/cercle'
@@ -15,6 +15,7 @@ import type PointApigeom from 'apigeom/src/elements/points/Point'
 import { codageMilieu } from '../../lib/2d/codages'
 import { demiDroite } from '../../lib/2d/segmentsVecteurs'
 import type SuperFigure from 'apigeom'
+import { rotationCoord } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Construire des symétriques de points par rapport à un point'
 export const dateDePublication = '27/09/2024'
@@ -234,7 +235,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
 
     // on crée les bons symétriques :
     for (let k = 0; k < this.nbPoints; k++) {
-      const { x, y } = (this.antecedents[i][k] as PointApigeom).rotate(this.centres[i] as PointApigeom, 180)
+      const { x, y } = rotationCoord(this.antecedents[i][k] as PointApigeom, this.centres[i] as PointApigeom, 180)
       const elts = Array.from(this.figuresApiGeom[i].elements.values())
       const points = elts
         .filter(e => e.type !== 'pointer' &&
