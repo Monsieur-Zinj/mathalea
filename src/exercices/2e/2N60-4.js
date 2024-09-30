@@ -165,8 +165,7 @@ export default function ExerciceInequation1 () {
           reponse = `[${new FractionEtendue(c - b, a).texFraction};+\\infty[`
           texteCorr += `<br> $${reponse}$L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(c - b, a)}\\,;\\,+\\infty \\right[ `)}$.`
         }
-      }
-      if (listeTypeDeQuestions[i] === 'x+b≤c') {
+      } else if (listeTypeDeQuestions[i] === 'x+b≤c') {
         a = 1
         if (!this.sup && c < b) {
           b = randint(-9, 9, [0]) // b peut être négatif, ça sera une inéquation du type x-b=c
@@ -189,7 +188,7 @@ export default function ExerciceInequation1 () {
           reponse = `]-\\infty;${c - b}[`
         } else if ((symboleInegalite === '≤' && a >= 0) || (symboleInegalite === '≥' && a < 0)) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] -\\infty\\,;\\,${c - b} \\right] `)}$.`
-          reponse = `]-\\infty;${c - b}[`
+          reponse = `]-\\infty;${c - b}]`
         } else if ((symboleInegalite === '>' && a >= 0) || (symboleInegalite === '<' && a < 0)) {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left] ${c - b}\\,;\\,+\\infty \\right[`)}$.`
           reponse = `]${c - b};+\\infty[`
@@ -197,8 +196,7 @@ export default function ExerciceInequation1 () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[${c - b}\\,;\\,+\\infty \\right[`)}$.`
           reponse = `[${c - b};+\\infty[`
         }
-      }
-      if (listeTypeDeQuestions[i] === 'ax≤b') {
+      } else if (listeTypeDeQuestions[i] === 'ax≤b') {
         texte = `$${a}x${texSymbole(symboleInegalite)}${b}$`
         texteCorr = texte + '<br>'
         if (this.correctionDetaillee) {
@@ -233,8 +231,7 @@ export default function ExerciceInequation1 () {
           texteCorr += `<br> L'ensemble de solutions de l'inéquation est $S =  ${miseEnEvidence(`\\left[ ${texFractionReduite(b, a)}\\,;\\,+\\infty \\right[`)}$.`
           reponse = `[${new FractionEtendue(b, a).texFraction};+\\infty[`
         }
-      }
-      if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') {
+      } else if (listeTypeDeQuestions[i] === 'ax+b≤cx+d') {
         if (c === a) {
           c = randint(1, 13, [a])
         } // sinon on arrive à une division par 0
