@@ -121,7 +121,7 @@
     const newZoom = Number((plusMinus === '+' ? oldZoom + 0.1 : oldZoom - 0.1).toFixed(1))
     $globalOptions.z = newZoom.toString()
     const main = document.querySelector('main')
-    mathaleaRenderDiv(main)
+    tick().then(() => mathaleaRenderDiv(main))
     mathaleaUpdateUrlFromExercicesParams()
   }
 </script>
