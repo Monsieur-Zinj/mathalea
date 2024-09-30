@@ -32,7 +32,7 @@
   let order: number[]
   $: {
     const questionsNb = slideshow.selectedQuestionsNumber || slideshow.slides.length
-    order = $globalOptions.order || [...Array(questionsNb).keys()]
+    order = $globalOptions.order === undefined || $globalOptions.order.length === 0 ? [...Array(questionsNb).keys()] : $globalOptions.order
   }
 
   let series: Serie[] = []
