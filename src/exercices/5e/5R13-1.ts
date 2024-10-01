@@ -19,7 +19,6 @@ export const refs = {
 /**
  * Ranger des nombres relatifs
  * @author Rémi Angot
- * Référence 5R13-1
 */
 export default class RelatifsOrdre extends Exercice {
   constructor () {
@@ -56,7 +55,7 @@ export default class RelatifsOrdre extends Exercice {
         texte += '<br><br>' + remplisLesBlancs(this,
           i,
         `%{champ1}\\quad${symbole}\\quad%{champ2}\\quad${symbole}\\quad%{champ3}\\quad${symbole}\\quad%{champ4}\\quad${symbole}\\quad%{champ5}\\quad${symbole}\\quad%{champ6}`,
-        ` ${KeyboardType.clavierNumbers}`,
+        ` ${KeyboardType.clavierDeBase}`,
         '\\ldots\\ldots'
         )
         handleAnswers(this, i,
