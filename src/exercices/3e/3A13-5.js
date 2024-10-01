@@ -28,7 +28,7 @@ export const refs = {
   'fr-fr': ['3A13-5'],
   'fr-ch': ['9NO4-25']
 }
-export default function DivisionEuclienneEtAjout () {
+export default function DivisionEuclidienneEtAjout () {
   Exercice.call(this)
   this.spacing = 1
   this.nbQuestions = 5
