@@ -115,7 +115,7 @@ export default function VocabulaireNotationsFonctions2 () {
               } else {
                 texteCorr = `L'égalité  $${nomF}(${x})=${y}$ se traduit par : <br>
             $\\bullet$ L'image de $${x}$ par la fonction $${nomF}$ est $${y}$.<br>
-            $\\bullet$ $${x}$ a pour image $${y}$ par la fonction $${nomF}$.}
+            $\\bullet$ $${x}$ a pour image $${y}$ par la fonction $${nomF}$.
             `
               }
               this.autoCorrection[i] = { options: { ordered: false, vertical: true } }
