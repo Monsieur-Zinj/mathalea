@@ -2,12 +2,12 @@ import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { texFractionFromString } from '../../lib/outils/deprecatedFractions.js'
 import { nombreDeChiffresDansLaPartieDecimale, nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
-import { texNombre } from '../../lib/outils/texNombre'
+import { stringNombre, texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -182,7 +182,7 @@ export default function MultiplierDecimauxPar101001000 () {
           texteCorr = `$${texNombre(b)} \\times ${miseEnEvidence(
                         texNombre(a)
                     )}  = ${texNombre(a * b)}$`
-          reponse = b
+          reponse = a
           break
         case 7: // case 3 avec un trou sur l'entier
           a = choice([randint(11, 99), randint(100, 999), randint(2, 9)])
@@ -271,7 +271,7 @@ export default function MultiplierDecimauxPar101001000 () {
           break
       }
       if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
-      setReponse(this, i, reponse)
+      handleAnswers(this,i, {reponse:{value: stringNombre(reponse, 5)}})
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]
