@@ -87,7 +87,7 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
     this.nbQuestions = 3
     this.spacing = 1.5
     this.spacingCorr = 1.5
-    this.besoinFormulaireTexte = ['Type de question (nombres séparés par des tirets', '1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange']
+    this.besoinFormulaireTexte = ['Type de question', 'Nombres séparés par des tirets\n1 : Encadrer entre deux entiers consécutifs\n2 : Encadrer entre deux multiples de 10\n3 : Encadrer entre deux multiples de 100\n4 : Encadrer entre deux multiples de 10, forcément consécutifs\n5 : Encadrer entre deux multiples de 100, forcément consécutifs\n6 : Mélange']
     this.besoinFormulaire2Texte = ['Difficulté', 'Nombres séparés par des tirets\n1 : 4 chiffres\n2 : 5 chiffres\n3 : 6 chiffres\n4 : 7 chiffres\n5 : 8 chiffres\n6 : 9 chiffres\n7 : Mélange']
     this.besoinFormulaire3Numerique = ['Énoncé', 2, '1 : Multiple\n2 : Dizaine, centaine']
   }
@@ -115,7 +115,7 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
           break
         case 3 :
         case 5 :
-          precision = 2
+          precision = 3
           break
       }
       const pDix = 10 ** (precision - 1)
