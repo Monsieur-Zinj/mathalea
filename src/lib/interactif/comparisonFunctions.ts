@@ -31,6 +31,7 @@ export type OptionsComparaisonType = {
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
+  suiteDeNombres ?:boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -510,6 +511,7 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
+    suiteDeNombres,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -536,6 +538,7 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
+    suiteDeNombres: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -570,6 +573,7 @@ export function fonctionComparaison (
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
+  if (suiteDeNombres) return ensembleNombres(input, goodAnswer, { avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
@@ -1318,19 +1322,24 @@ export function setsCompare (input: string, goodAnswer: string): ResultType {
  * @author Eric Elter
  */
 export function ensembleNombres (input: string, goodAnswer: string, {
-  kUplet = false
+  kUplet = false, avecAccolades = true
 }
 = {}): ResultType {
   const clean = generateCleaner(['virgules', 'fractions', 'parentheses'])
   const cleanInput = clean(input)
   if (goodAnswer === '\\emptyset' && cleanInput === goodAnswer) return { isOk: true }
   if (goodAnswer === '\\emptyset' && cleanInput.includes('\\emptyset')) return { isOk: false, feedback: 'Résultat incorrect car $\\emptyset doit être écrit seul.' }
-
-  // console.log(cleanInput, goodAnswer, goodAnswer.length)
-  if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
-  if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
-  const splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
-  const splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+  let splitInput
+  let splitGoodAnswer
+  if (avecAccolades) {
+    if (cleanInput[1] !== '{') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit commencer par une accolade.' }
+    if (cleanInput[cleanInput.length - 1] !== '}') return { isOk: false, feedback: 'Résultat incorrect car cet ensemble doit se terminer par une accolade.' }
+    splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+    splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
+  } else {
+    splitInput = cleanInput.split(';')
+    splitGoodAnswer = clean(goodAnswer).split(';')
+  }
 
   // Pour vérifier la présence de doublons
   if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient des valeurs redondantes.' }
