@@ -166,6 +166,10 @@ export default function NotationScientifique () {
       }
       cpt++
     }
+    if (this.can) {
+      this.listeQuestions[0] = `${this.consigne.substring(0, this.consigne.length - 1)} : ${this.listeQuestions[0]}`
+      this.consigne = ''
+    }
     listeQuestionsToContenu(this)
   }
   this.besoinFormulaireNumerique = ['Type de questions', 2, '1 : Traduire en notation scientifique\n2 : Traduire en notation décimale']
