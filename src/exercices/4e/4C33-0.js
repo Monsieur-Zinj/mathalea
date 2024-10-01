@@ -3,9 +3,10 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -175,7 +176,7 @@ export default function NotationPuissance () {
           }
           texte = this.sup === 3 ? `Simplifier ${enonce} en utilisant la notation puissance` : enonce
           texteCorr = correction
-          setReponse(this, i, puissances, { formatInteractif: 'ignorerCasse' })
+          handleAnswers(this, i, { reponse: { value: puissances, compare: fonctionComparaison, options: { puissance: true } } })
           break
         }
       }
