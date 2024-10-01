@@ -44,18 +44,18 @@ export default function EcritureDecimalePuissance () {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)
       this.consigne = "Donner l'écriture sous la forme d'un nombre entier."
       this.consigne = this.nbQuestions === 1
-        ? "Donner l'écriture du nombre suivant sous la forme d'un nombre entier."
-        : "Donner l'écriture des nombres suivants sous la forme d'un nombre entier."
+        ? "Donner l'écriture du nombre suivant sous la forme d'un nombre entier, sans exposant et sans $\\times$."
+        : "Donner l'écriture des nombres suivants sous la forme d'un nombre entier, sans exposant et sans $\\times$."
     } else if (this.sup === 2) {
       listeTypeDeQuestions = combinaisonListes(['-'], this.nbQuestions)
       this.consigne = this.nbQuestions === 1
-        ? "Donner l'écriture du nombre suivant sous la forme d'une fraction."
-        : "Donner l'écriture des nombres suivants sous la forme d'une fraction."
+        ? "Donner l'écriture du nombre suivant sous la forme d'une fraction, sans exposant et sans $\\times$."
+        : "Donner l'écriture des nombres suivants sous la forme d'une fraction, sans exposant et sans $\\times$."
     } else {
       listeTypeDeQuestions = combinaisonListes(['+', '-'], this.nbQuestions)
       this.consigne = this.nbQuestions === 1
-        ? "Donner l'écriture du nombre suivant sous la forme d'un nombre entier ou d'une fraction."
-        : "Donner l'écriture des nombres suivants sous la forme d'un nombre entier ou d'une fraction."
+        ? "Donner l'écriture du nombre suivant sous la forme d'un nombre entier ou d'une fraction, sans exposant et sans $\\times$."
+        : "Donner l'écriture des nombres suivants sous la forme d'un nombre entier ou d'une fraction, sans exposant et sans $\\times$."
     }
     for (let i = 0, texte, texteCorr, a, n, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) {

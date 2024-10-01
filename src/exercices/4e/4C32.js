@@ -9,6 +9,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Associer un nombre décimal à sa notation scientifique'
 export const interactifReady = true
@@ -104,7 +105,7 @@ export default function NotationScientifique () {
       }
       texte = texteAMC + `$${sp()}=$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + (this.sup === 2 ? KeyboardType.clavierDeBase : KeyboardType.clavierFullOperations))
       } else {
         texte += `$${sp()}\\dots$`
       }
