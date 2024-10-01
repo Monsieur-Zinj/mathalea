@@ -232,6 +232,7 @@ const shortcutsByKeyboards = {
     '%': { mode: 'math', value: '\\%' },
     '²': { mode: 'math', value: '^2' },
     '³': { mode: 'math', value: '^3' },
+    '**': { mode: 'math', value: '^{#1}' },
     pi: { mode: 'math', value: '\\pi' },
     ang: { mode: 'math', value: '\\widehat{#@}' },
     rac: { mode: 'math', value: '\\sqrt{#@}' },
