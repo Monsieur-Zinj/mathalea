@@ -17,10 +17,12 @@ export const refs = {
   'fr-ch': []
 }
 class NotSci extends NotationScientifique {
+  can: boolean
   constructor () {
     super()
     this.nbQuestions = 1
     this.sup2 = 3
+    this.can = true
   }
 }
 export default NotSci
