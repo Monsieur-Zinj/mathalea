@@ -7,7 +7,6 @@ export const interactifType = ['qcm', 'mathLive']
 export const dateDeModifImportante = '30/04/2023'
 /**
  * @author Rémi Angot
- * référence 6M23
  *
 */
 export const uuid = '6225c'
