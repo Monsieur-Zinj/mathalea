@@ -11,6 +11,7 @@ import Exercice from '../deprecatedExercice.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs avec des puissances'
 export const interactifReady = true
@@ -355,7 +356,7 @@ export default function PuissancesDunRelatif1 () {
 
       if (this.interactif && !context.isAmc) {
         handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ' + KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {

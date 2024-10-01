@@ -9,6 +9,7 @@ import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embelliss
 import { context } from '../../modules/context.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { texNombre } from '../../../src/lib/outils/texNombre'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Associer puissances de 10 et préfixes'
 export const interactifReady = true
@@ -56,7 +57,7 @@ export default class PuissancesEtPrefixe extends Exercice {
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
         texte = this.interactif
-          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'texte')
+          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations)
           : `${prefixe}`
         handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: fonctionComparaison } })
         texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`

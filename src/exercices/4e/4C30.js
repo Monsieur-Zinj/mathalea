@@ -8,6 +8,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer des calculs avec des puissances de 10 uniquement'
 export const interactifReady = true
@@ -428,7 +429,7 @@ export default function PuissancesDeDix () {
       }
       if (this.interactif && !context.isAmc) {
         setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `${sp(2)}$=$${sp(2)}` })
+        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}$=$${sp(2)}` })
       }
       if (context.isAmc) {
         // setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })

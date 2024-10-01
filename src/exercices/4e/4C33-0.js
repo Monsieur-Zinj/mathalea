@@ -5,6 +5,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Utiliser la notation puissance'
 export const interactifReady = true
@@ -117,6 +118,10 @@ export default function NotationPuissance () {
       exposant < 0 ? exp = `{${exposant}}` : exp = `${exposant}` // distinction importante pour comparer les chaînes de caractères en interactif
       puissances.push(`${listeSignes[i] + pl + mantisse + pr}^${exp}`) // réponse de base
       exposant % 2 === 0 ? puissances.push(`${listeSignes[i] + apl + -mantisse + apr}^${exp}`) : puissances.push(`${signeContraire + apl + -mantisse + apr}^${exp}`) // si l'exposant est pair, on peut changer le signe de la mantisse sans changer le signe devant et s'il est impair, on peut changer les deux signes
+      if (exposant < 0) {
+        puissances.push(`\\frac{1}{${listeSignes[i] + pl + mantisse + pr}^${-exposant}}`)
+        exposant % 2 === 0 ? puissances.push(`\\frac{1}{${listeSignes[i] + apl + -mantisse + apr}^${-exposant}}`) : puissances.push(`\\frac{1}{${signeContraire + apl + -mantisse + apr}^${-exposant}}`) // si l'exposant est pair, on peut changer le signe de la mantisse sans changer le signe devant et s'il est impair, on peut changer les deux signes
+      }
       produit = `${pl + mantisse + pr}`
       produitSansParenthesesInitiales = `${mantisse}`
       produitAlt = produit
@@ -175,7 +180,7 @@ export default function NotationPuissance () {
         }
       }
 
-      texte += this.interactif ? ' = ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') : ''
+      texte += this.interactif ? (this.sup === 3 ? ' : ' : ' = ') + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations) : ''
       if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {
