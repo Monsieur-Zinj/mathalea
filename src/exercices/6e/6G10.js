@@ -15,7 +15,6 @@ export const amcType = 'AMCOpen'
 /**
  * Utiliser les notations des segments, droites et demi-droites
  * @author Rémi Angot
- * Référence 6G10
  */
 export const uuid = '8f5d3'
 export const ref = '6G10'
@@ -25,7 +24,6 @@ export const refs = {
 }
 export default function NotationSegmentDroiteDemiDroite () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 3
   this.nbCols = 3
   this.nbColsCorr = 2
@@ -45,30 +43,34 @@ export default function NotationSegmentDroiteDemiDroite () {
       const B = point(2, 2.2, p[1], 'above')
       const C = point(4.2, -0.6, p[2], 'above right')
       const creerDroiteDemiSegment = (A, B, type) => {
-        let trait, notation
+        let trait, notation, typeLigne
         switch (type) {
           case 1:
             trait = droite(A, B)
             notation = `$(${A.nom}${B.nom})$`
+            typeLigne = 'la droite'
             break
           case 2:
             trait = demiDroite(A, B)
             notation = `$[${A.nom}${B.nom})$`
+            typeLigne = 'la demi-droite'
             break
           case 3:
             trait = demiDroite(B, A)
             notation = `$[${B.nom}${A.nom})$`
+            typeLigne = 'la demi-droite'
             break
           case 4:
             trait = segment(A, B)
             notation = `$[${A.nom}${B.nom}]$`
+            typeLigne = 'le segment'
             break
         }
-        return [trait, notation]
+        return [trait, notation, typeLigne]
       }
-      const [dAB, dABCorr] = creerDroiteDemiSegment(A, B, listeDesTypesDeQuestions[3 * i])
-      const [dAC, dACCorr] = creerDroiteDemiSegment(A, C, listeDesTypesDeQuestions[3 * i + 1])
-      const [dBC, dBCCorr] = creerDroiteDemiSegment(B, C, listeDesTypesDeQuestions[3 * i + 2])
+      const [dAB, dABCorr, typeLigneAB] = creerDroiteDemiSegment(A, B, listeDesTypesDeQuestions[3 * i])
+      const [dAC, dACCorr, typeLigneAC] = creerDroiteDemiSegment(A, C, listeDesTypesDeQuestions[3 * i + 1])
+      const [dBC, dBCCorr, typeLigneBC] = creerDroiteDemiSegment(B, C, listeDesTypesDeQuestions[3 * i + 2])
       context.pixelsParCm = 20
       const labels = labelPoint(A, B, C)
 
@@ -82,7 +84,7 @@ export default function NotationSegmentDroiteDemiDroite () {
       )
       enonceAMC = figure + texte
       texte += figure
-      texteCorr = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer ${dABCorr}, ${dBCCorr}, ${dACCorr}.`
+      texteCorr = `Placer 3 points $${p[0]}$, $${p[1]}$ et $${p[2]}$ non alignés puis tracer ${typeLigneAB} ${dABCorr}, ${typeLigneBC} ${dBCCorr} et ${typeLigneAC} ${dACCorr}.`
       if (context.isAmc) {
         this.autoCorrection[i] =
           {
@@ -109,5 +111,4 @@ export default function NotationSegmentDroiteDemiDroite () {
     }
     listeQuestionsToContenu(this)
   }
-  // this.besoinFormulaireNumerique = ['Niveau de difficulté',3];
 }
