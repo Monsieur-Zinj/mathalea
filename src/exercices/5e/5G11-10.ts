@@ -188,8 +188,8 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
       const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
       if (context.isHtml && this.interactif) {
-        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
-        this.figuresApiGeom[i].scale = 0.5
+        this.figuresApiGeom[i] = new Figure(Object.assign(options, { xMin: -10, yMin: -10, width: 600, height: 600 }))
+        this.figuresApiGeom[i].scale = 1
         this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
         this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
         this.antecedents[i] = []
@@ -249,7 +249,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           matchPoint.colorLabel = 'green'
           resultat.push('OK')
         } else {
-          matchPoint.color = 'green'
+          matchPoint.color = 'red'
           matchPoint.thickness = 2
           matchPoint.colorLabel = 'green'
           feedback += `Il y a  bien un point nommé $${(this.antecedents[i][k] as PointApigeom).label}'$ mais ce n'est pas le symétrique de $${(this.antecedents[i][k] as PointApigeom).label}$ !<br>`
