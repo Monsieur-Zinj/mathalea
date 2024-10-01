@@ -34,7 +34,7 @@ export const refs = {
  * Placer des parenthèses mais pas inutilement dans une expression pour qu'elle vérifie une égalité
  */
 
-type Materiel = { expSP: string; expAP: string; test: string }
+type Materiel = { expSP: string; expAP: string; test: (a:number,b:number,c:number,d:number)=>boolean}
 
 type ListeVariableExo = 'a'| 'b'| 'c'| 'd'
 type VariablesExo =Partial<Record<ListeVariableExo, string|number|boolean|Fraction|object>>
@@ -49,87 +49,87 @@ const dicoDesExpressions: {
   quatreSignesRelatifs: Materiel[]
 } = {
   troisSignesToutPositif: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: 'a+b*c != (a+b)*c' },
+    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a,b,c)=>a*b+c !== a*(b+c) },
+    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a,b,c)=>a+b*c !== (a+b)*c },
     {
       expSP: '_a*_b_-c_',
       expAP: '_a*(b_-c)',
-      test: 'a*b-c != a*(b-c) and b>c'
+      test: (a,b,c)=>a*b-c !== a*(b-c) && b>c
     },
     {
       expSP: '_a-_b_*c_',
       expAP: '(a-_b)*c_',
-      test: 'a-b*c != (a-b)*c and a>b*c'
+      test: (a,b,c)=>a-b*c !==(a-b)*c && a>b*c
     }
   ],
   troisSignesRelatifs: [
-    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: 'a*b+c != a*(b+c)' },
-    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: 'a+b*c != (a+b)*c' },
-    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: 'a*b-c != a*(b-c)' },
-    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: 'a-b*c != (a-b)*c' }
+    { expSP: '_a*_b_+c_', expAP: '_a*(b_+c)', test: (a,b,c)=>a*b+c !== a*(b+c) },
+    { expSP: '_a+_b_*c_', expAP: '(a+_b)*c_', test: (a,b,c)=>a+b*c !== (a+b)*c },
+    { expSP: '_a*_b_-c_', expAP: '_a*(b_-c)', test: (a,b,c)=>a*b-c !== a*(b-c) },
+    { expSP: '_a-_b_*c_', expAP: '(a-_b)*c_', test: (a,b,c)=>a-b*c !== (a-b)*c }
   ],
   quatreSignesToutPositif: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)'
+      test: (a,b,c,d)=>(a+b)*(c+d)!==a+b*c+d && (a+b)*(c+d)!==(a+b)*c+d && (a+b)*(c+d)!==a+b*(c+d)
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: 'a+b*(c+d)!=a+b*c+d and a+b*(c+d)!=(a+b)*(c+d) and a+b*(c+d)!=(a+b)*c+d'
+      test: (a,b,c,d)=>a+b*(c+d)!==a+b*c+d && a+b*(c+d)!==(a+b)*(c+d) && a+b*(c+d)!=(a+b)*c+d
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: '(a+b)*c+d!=a+b*c+d and (a+b)*c+d!=(a+b)*(c+d) and (a+b)*c+d!=a+b*(c+d)'
+      test: (a,b,c,d)=>(a+b)*c+d!==a+b*c+d && (a+b)*c+d!==(a+b)*(c+d) && (a+b)*c+d!==a+b*(c+d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d) and a>b*c'
+      test: (a,b,c,d)=>(a-b)*(c+d)!==a-b*c+d && (a-b)*(c+d)!==(a-b)*c+d && (a-b)*(c+d)!==a-b*(c+d) && a>b*c
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d and a>b*(c+d)'
+      test: (a,b,c,d)=>a-b*(c+d)!==a-b*c+d && a-b*(c+d)!==(a-b)*(c+d) && a-b*(c+d)!==(a-b)*c+d && a>b*(c+d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d) and a>b*c'
+      test: (a,b,c,d)=>(a-b)*c+d!==a-b*c+d && (a-b)*c+d!==(a-b)*(c+d) && (a-b)*c+d!==a-b*(c+d) && a>b*c
     }
   ],
   quatreSignesRelatifs: [
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*(c_+d)',
-      test: '(a+b)*(c+d)!=a+b*c+d and (a+b)*(c+d)!=(a+b)*c+d and (a+b)*(c+d)!=a+b*(c+d)'
+      test: (a,b,c,d)=>(a+b)*(c+d)!==a+b*c+d && (a+b)*(c+d)!==(a+b)*c+d && (a+b)*(c+d)!==a+b*(c+d)
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '_a+_b_*(c_+d)',
-      test: 'a+b*(c+d)!=a+b*c+d and a+b*(c+d)!=(a+b)*(c+d) and a+b*(c+d)!=(a+b)*c+d'
+      test: (a,b,c,d)=>a+b*(c+d)!==a+b*c+d && a+b*(c+d)!==(a+b)*(c+d) && a+b*(c+d)!==(a+b)*c+d
     },
     {
       expSP: '_a+_b_*_c_+d_',
       expAP: '(a+_b)*_c_+d_',
-      test: '(a+b)*c+d!=a+b*c+d and (a+b)*c+d!=(a+b)*(c+d) and (a+b)*c+d!=a+b*(c+d)'
+      test: (a,b,c,d)=>(a+b)*c+d!==a+b*c+d && (a+b)*c+d!==(a+b)*(c+d) && (a+b)*c+d!==a+b*(c+d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*(c_+d)',
-      test: '(a-b)*(c+d)!=a-b*c+d and (a-b)*(c+d)!=(a-b)*c+d and (a-b)*(c+d)!=a-b*(c+d)'
+      test: (a,b,c,d)=>(a-b)*(c+d)!==a-b*c+d && (a-b)*(c+d)!==(a-b)*c+d && (a-b)*(c+d)!==a-b*(c+d)
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '_a-_b_*(c_+d)',
-      test: 'a-b*(c+d)!=a-b*c+d and a-b*(c+d)!=(a-b)*(c+d) and a-b*(c+d)!=(a-b)*c+d'
+      test: (a,b,c,d)=>a-b*(c+d)!==a-b*c+d && a-b*(c+d)!==(a-b)*(c+d) && a-b*(c+d)!==(a-b)*c+d
     },
     {
       expSP: '_a-_b_*_c_+d_',
       expAP: '(a-_b)*_c_+d_',
-      test: '(a-b)*c+d!=a-b*c+d and (a-b)*c+d!=(a-b)*(c+d) and (a-b)*c+d!=a-b*(c+d)'
+      test: (a,b,c,d)=>(a-b)*c+d!==a-b*c+d && (a-b)*c+d!==(a-b)*(c+d) && (a-b)*c+d!==a-b*(c+d)
     }
   ]
 }
@@ -199,7 +199,7 @@ class MettreDesParentheses extends Exercice {
           c: (this.sup2 ? choice([-1, 1]) : 1) * randint(1, 10),
           d: randint(1, 10)
         }
-      } while (!materiel.test)
+      } while (!materiel.test(assignations.a,assignations.b,assignations.c,assignations.d))
 
       const a = Number(assignations.a)
       const b = Number(assignations.b)
