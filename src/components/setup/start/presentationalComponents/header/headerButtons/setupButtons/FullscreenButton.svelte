@@ -82,6 +82,10 @@
   }
 
   const requestFullScreen = async (element: HTMLElement & FullscreenRequestEnabled) => {
+    if (!(element instanceof HTMLElement) || !isFullscreenRequestEnabled(element)) {
+      handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
+      return
+    }
     const method = element.requestFullscreen || element.mozRequestFullScreen || element.webkitRequestFullscreen || element.msRequestFullscreen
     if (method) {
       await method.call(element)
@@ -91,13 +95,15 @@
   }
 
   const exitFullScreen = async () => {
-    if (isFullscreenExitEnabled(document)) {
-      const method = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen
-      if (method) {
-        await method.call(document)
-      } else {
-        throw new Error('Sortie du plein écran non disponible')
-      }
+    if (!isFullscreenExitEnabled(document)) {
+      handleFullScreenError(new Error("Le plein écran n'est plus disponible"))
+      return
+    }
+    const method = document.exitFullscreen || document.mozCancelFullScreen || document.webkitExitFullscreen || document.msExitFullscreen
+    if (method) {
+      await method.call(document)
+    } else {
+      throw new Error('Sortie du plein écran non disponible')
     }
   }
 
