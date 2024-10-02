@@ -321,7 +321,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
               break
             case 'evolution':
               if (taux > 0) {
-                texte = `En ${nb} ans, la population d'une ville est passé de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants.<br>
+                texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants.<br>
                  Calculer le taux d'évolution de la population de cette ville en pourcentage.`
                 texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`
@@ -329,7 +329,7 @@ export default class EvolutionsEnPourcentage extends Exercice {
                 texteCorr += '<br>Méthode 2 : On arrive aussi au même résultat en passant par le coefficient multiplicateur égal à $\\dfrac{V_f}{V_i}$ :'
                 texteCorr += `<br><br>$\\dfrac{${texNombre(arrive, 2)}}{${texNombre(depart, 0)}} = ${texNombre(coeff, 2)} =  1 + ${texNombre(tauxDec, 2)} = 1 + \\dfrac{${taux}}{100}$.`
               } else {
-                texte = `En ${nb} ans, la population d'une ville est passé de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants. <br>
+                texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart, 0)}$ à $${texNombre(arrive, 2)}$ habitants. <br>
                 Calculer le taux d'évolution de la population de cette ville en pourcentage.`
                 texteCorr = 'On utilise la formule du cours qui exprime le taux d\'évolution $t$ en fonction de la valeur initiale $V_i$ et la valeur finale $V_f$: $t=\\dfrac{V_f-V_i}{V_i}$.'
                 texteCorr += `<br><br>Ici : $t=\\dfrac{${texNombre(arrive, 2)}-${texNombre(depart, 0)}}{${texPrix(depart)}}=${texNombre(tauxDec, 2)}=\\dfrac{${taux}}{100}$.`

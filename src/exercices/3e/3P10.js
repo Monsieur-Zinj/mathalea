@@ -280,11 +280,11 @@ export default function EvolutionsEnPourcentage () {
               break
             case 'evolution':
               if (taux > 0) {
-                texte = `En ${nb} ans, la population d'une ville est passé de $${texNombre(depart)}$ habitants à $${texNombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
+                texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart)}$ habitants à $${texNombre(arrive)}$. Exprimer cette augmentation en pourcentage.`
                 texteCorr = `$${texNombre(arrive)}\\div ${texNombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%+${taux}~\\%$`
                 texteCorr += `<br>La population a été multipliée par $${coeff}$ elle a donc augmenté de $${miseEnEvidence(abs(taux))}~\\%$.`
               } else {
-                texte = `En ${nb} ans, la population d'une ville est passé de $${texNombre(depart)}$ habitants à $${texNombre(arrive)}$. Exprimer cette diminution en pourcentage.`
+                texte = `En ${nb} ans, la population d'une ville est passée de $${texNombre(depart)}$ habitants à $${texNombre(arrive)}$. Exprimer cette diminution en pourcentage.`
                 texteCorr = `$${texNombre(arrive)}\\div ${texNombre(depart)} = ${coeff} =  ${100 + taux}~\\% = 100~\\%${taux}~\\%$`
                 texteCorr += `<br>La population a été multipliée par $${coeff}$ elle a donc diminué de $${miseEnEvidence(abs(taux))}~\\%$.`
               }
