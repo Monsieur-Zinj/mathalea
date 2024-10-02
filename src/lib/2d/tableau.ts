@@ -280,8 +280,8 @@ export function tableauColonneLigne (tabEntetesColonnes: (string | number)[],
   tabLignes: (string | number)[],
   arraystretch = 1,
   latex = true,
-  exo = randint(0, 9999999),
-  question = randint(0, 9999999),
+  exo = 0,
+  question = 0,
   isInteractif = false,
   style: {[key: string]: string} = {}): string {
   // on définit le nombre de colonnes
