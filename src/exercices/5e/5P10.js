@@ -134,7 +134,7 @@ export default function TableauxEtProportionnalite () {
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
             [n1 * coeff], [n2 * coeff, n3 * coeff],
-            0,
+            1,
             true,
             this.numeroExercice,
             i,
@@ -151,7 +151,7 @@ export default function TableauxEtProportionnalite () {
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
             [texNombre((u1 + ci1 / 10) * coeff, 1)], [texNombre((u2 + ci2 / 10) * coeff, 1), texNombre((u3 + ci3 / 10) * coeff, 1)],
-            0,
+            1,
             true,
             this.numeroExercice,
             i,
@@ -167,7 +167,7 @@ export default function TableauxEtProportionnalite () {
         { // case 2 --> division ligne1 vers ligne2
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 * coeff + '\\phantom{000}', '\\phantom{000}' + n2 * coeff + '\\phantom{000}', '\\phantom{000}' + n3 * coeff + '\\phantom{000}'],
-            [n1], [n2, n3], 0,
+            [n1], [n2, n3], 1,
             true,
             this.numeroExercice,
             i,
@@ -184,7 +184,7 @@ export default function TableauxEtProportionnalite () {
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
             [n1 + coeff], [n2 + coeff, n3 + coeff],
-            0,
+            1,
             true,
             this.numeroExercice,
             i,
@@ -200,7 +200,7 @@ export default function TableauxEtProportionnalite () {
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + texNombre(u1 + ci1 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u2 + ci2 / 10, 1) + '\\phantom{000}', '\\phantom{000}' + texNombre(u3 + ci3 / 10, 1) + '\\phantom{000}'],
             [texNombre((u1 + ci1 / 10) + coeff, 1)], [texNombre((u2 + ci2 / 10) + coeff, 1), texNombre((u3 + ci3 / 10) + coeff, 1)],
-            0,
+            1,
             true,
             this.numeroExercice,
             i,
@@ -217,7 +217,7 @@ export default function TableauxEtProportionnalite () {
           tableau: tableauColonneLigne(
             ['\\phantom{000}' + n1 + '\\phantom{000}', '\\phantom{000}' + n2 + '\\phantom{000}', '\\phantom{000}' + n3 + '\\phantom{000}'],
             [n1 - coeffSoust], [n2 - coeffSoust, n3 - coeffSoust],
-            0,
+            1,
             true,
             this.numeroExercice,
             i,
