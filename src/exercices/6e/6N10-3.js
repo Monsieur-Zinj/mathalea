@@ -5,7 +5,7 @@ import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { pow } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
@@ -323,7 +323,6 @@ export default function ChiffreNombreDe () {
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
         texte += ajouteChampTexteMathLive(this, i, `largeur01 inline ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
-        texte += ajouteFeedback(this, i)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

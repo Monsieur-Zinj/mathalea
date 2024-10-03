@@ -11,7 +11,7 @@ import Exercice from '../Exercice'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import Grandeur from '../../modules/Grandeur'
 import { RedactionPythagore } from './_pythagore.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
@@ -283,7 +283,6 @@ export default class Pythagore2D extends Exercice {
 
         handleAnswers(this, i, { reponse: { value: expr, compare: pythagoreCompare } }, { formatInteractif: 'calcul' })
         texte += ajouteChampTexteMathLive(this, i, 'inline clavierDeBase alphanumeric')
-        texte += ajouteFeedback(this, i)
       }
       if (this.questionJamaisPosee(i, B1.x, B.y, C1.x, C1.y)) {
         // Si la question n'a jamais été posée, on en créé une autre

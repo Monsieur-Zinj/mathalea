@@ -1,21 +1,18 @@
 import Exercice from '../Exercice'
-import {
-  ajouteChampTexteMathLive,
-  ajouteFeedback,
-} from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 import {
   gestionnaireFormulaireTexte,
   listeQuestionsToContenu,
-  randint,
+  randint
 } from '../../modules/outils.js'
 import {
   ecritureParentheseSiNegatif,
   reduireAxPlusB,
   reduirePolynomeDegre3,
-  rienSi1,
+  rienSi1
 } from '../../lib/outils/ecritures.js'
 import FractionEtendue from '../../modules/FractionEtendue.js'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -29,7 +26,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
   'fr-fr': ['TF1-0'],
-  'fr-ch': [],
+  'fr-ch': []
 }
 
 /**
@@ -39,7 +36,7 @@ export const refs = {
  */
 export default class DomaineDefFnLog extends Exercice {
   version: string
-  constructor() {
+  constructor () {
     super()
     this.version = 'ln'
     this.nbQuestions = 5
@@ -48,20 +45,20 @@ export default class DomaineDefFnLog extends Exercice {
     this.sup2 = true
     this.besoinFormulaireTexte = [
       'Type de fonction dans le logarithme',
-      'Nombres séparés par des tirets\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynome de degré 2\n4 : Mélange',
+      'Nombres séparés par des tirets\n1 : Fonction affine\n2 : Fonction homographique\n3 : Polynome de degré 2\n4 : Mélange'
     ]
     this.besoinFormulaire2CaseACocher = ['Type de logarithme', true]
     this.comment = 'Domaines de définition de fonctions logarithmes'
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     const listeTypeDeQuestion = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,
       min: 1,
       max: 3,
       melange: 4,
-      defaut: 4,
+      defaut: 4
     })
     if (this.sup2) this.version = 'ln'
     else this.version = 'log'
@@ -69,7 +66,7 @@ export default class DomaineDefFnLog extends Exercice {
     const pluriel = this.nbQuestions > 1 ? 's' : ''
     this.consigne = `Donner le domaine de définition de${this.nbQuestions > 1 ? 's ' : 'la '}fonction${pluriel} suivante${pluriel}.`
 
-    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50; ) {
+    for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte = `$\\mathcal{f}_${i}(x)=`
       let correction = ''
       let a: number
@@ -136,7 +133,7 @@ export default class DomaineDefFnLog extends Exercice {
               `$${frac2.texFractionSimplifiee}$`,
               20,
               '$+\\infty$',
-              30,
+              30
             ]
             const ligneAxPlusB =
               -b / a < -d / c
@@ -154,7 +151,7 @@ export default class DomaineDefFnLog extends Exercice {
                     '',
                     20,
                     `${a < 0 ? '-' : '+'}`,
-                    20,
+                    20
                   ]
                 : [
                     'Line',
@@ -170,7 +167,7 @@ export default class DomaineDefFnLog extends Exercice {
                     'z',
                     20,
                     `${a < 0 ? '-' : '+'}`,
-                    20,
+                    20
                   ]
             const ligneCxPlusD =
               -b / a > -d / c
@@ -188,7 +185,7 @@ export default class DomaineDefFnLog extends Exercice {
                     '',
                     20,
                     `${c < 0 ? '-' : '+'}`,
-                    20,
+                    20
                   ]
                 : [
                     'Line',
@@ -204,7 +201,7 @@ export default class DomaineDefFnLog extends Exercice {
                     'z',
                     20,
                     `${c < 0 ? '-' : '+'}`,
-                    20,
+                    20
                   ]
             const signes = ['Line', 30, '', 0]
             for (let index = 4; index < 13; index += 2) {
@@ -227,10 +224,10 @@ export default class DomaineDefFnLog extends Exercice {
                   ['$x$', 2, 30],
                   [`$${reduireAxPlusB(a, b)}$`, 2, 50],
                   [`$${reduireAxPlusB(c, d)}$`, 2, 50],
-                  [`$${fonction}$`, 2, 50],
+                  [`$${fonction}$`, 2, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                ligne1,
+                ligne1
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [ligneAxPlusB, ligneCxPlusD, signes],
@@ -238,7 +235,7 @@ export default class DomaineDefFnLog extends Exercice {
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 8, // taille de la première colonne en cm
-              hauteurLignes: [12, 15],
+              hauteurLignes: [12, 15]
             })
             if (signes[8] === '+') {
               // -/+/-
@@ -297,7 +294,7 @@ export default class DomaineDefFnLog extends Exercice {
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30],
-                      [`$${fonction}$`, 2, 50],
+                      [`$${fonction}$`, 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                     [
@@ -308,8 +305,8 @@ export default class DomaineDefFnLog extends Exercice {
                       `$${frac2.texFractionSimplifiee}$`,
                       20,
                       '$+\\infty$',
-                      30,
-                    ],
+                      30
+                    ]
                   ],
                   // tabLines ci-dessous contient les autres lignes du tableau.
                   tabLines: [
@@ -327,14 +324,14 @@ export default class DomaineDefFnLog extends Exercice {
                       'z',
                       20,
                       '+',
-                      20,
-                    ],
+                      20
+                    ]
                   ],
                   colorBackground: '',
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 8, // taille de la première colonne en cm
-                  hauteurLignes: [12, 15],
+                  hauteurLignes: [12, 15]
                 })
                 correction += `le coefficient de $x^2$ étant positif, $${fonction}\\leq 0$ pour $x\\in \\left[${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right]$.<br>`
                 answer = `\\left]-\\infty;${frac1.texFractionSimplifiee}\\right[\\cup\\left]${frac2.texFractionSimplifiee};+\\infty\\right[`
@@ -345,7 +342,7 @@ export default class DomaineDefFnLog extends Exercice {
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30],
-                      [`$${fonction}$`, 2, 50],
+                      [`$${fonction}$`, 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                     [
@@ -356,8 +353,8 @@ export default class DomaineDefFnLog extends Exercice {
                       `$${frac2.texFractionSimplifiee}$`,
                       20,
                       '$+\\infty$',
-                      30,
-                    ],
+                      30
+                    ]
                   ],
                   // tabLines ci-dessous contient les autres lignes du tableau.
                   tabLines: [
@@ -375,14 +372,14 @@ export default class DomaineDefFnLog extends Exercice {
                       'z',
                       20,
                       '-',
-                      20,
-                    ],
+                      20
+                    ]
                   ],
                   colorBackground: '',
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 8, // taille de la première colonne en cm
-                  hauteurLignes: [12, 15],
+                  hauteurLignes: [12, 15]
                 })
                 correction += `le coefficient de $x^2$ étant négatif, $${fonction}\\gt 0$ pour $x\\in \\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[$.<br>`
                 answer = `\\left]${frac1.texFractionSimplifiee};${frac2.texFractionSimplifiee}\\right[`
@@ -396,7 +393,7 @@ export default class DomaineDefFnLog extends Exercice {
                     [
                       // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                       ['$x$', 2, 30],
-                      [`$${fonction}$`, 2, 50],
+                      [`$${fonction}$`, 2, 50]
                     ],
                     // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
                     [
@@ -405,8 +402,8 @@ export default class DomaineDefFnLog extends Exercice {
                       `$${frac1.texFractionSimplifiee}$`,
                       20,
                       '$+\\infty$',
-                      30,
-                    ],
+                      30
+                    ]
                   ],
                   // tabLines ci-dessous contient les autres lignes du tableau.
                   tabLines: [
@@ -420,14 +417,14 @@ export default class DomaineDefFnLog extends Exercice {
                       'z',
                       20,
                       `${a > 0 ? '+' : '-'}`,
-                      20,
-                    ],
+                      20
+                    ]
                   ],
                   colorBackground: '',
                   espcl: 3.5, // taille en cm entre deux antécédents
                   deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
                   lgt: 8, // taille de la première colonne en cm
-                  hauteurLignes: [12, 15],
+                  hauteurLignes: [12, 15]
                 })
               correction += `Le discriminant est null, donc $${fonction}$ s'annule en $${frac1.texFractionSimplifiee}$ et est du signe de son coefficient de dégré $2$, soit ${a > 0 ? 'positif' : 'négatif'}.<br>`
               answer =
@@ -453,10 +450,10 @@ export default class DomaineDefFnLog extends Exercice {
                 [
                   // Première colonne du tableau avec le format [chaine d'entête, hauteur de ligne, nombre de pixels de largeur estimée du texte pour le centrage]
                   ['$x$', 2, 30],
-                  [`$${fonction}$`, 2, 50],
+                  [`$${fonction}$`, 2, 50]
                 ],
                 // Première ligne du tableau avec chaque antécédent suivi de son nombre de pixels de largeur estimée du texte pour le centrage
-                ['$-\\infty$', 30, '$+\\infty$', 30],
+                ['$-\\infty$', 30, '$+\\infty$', 30]
               ],
               // tabLines ci-dessous contient les autres lignes du tableau.
               tabLines: [['Line', 30, '', 0, `${a > 0 ? '+' : '-'}`, 20]],
@@ -464,7 +461,7 @@ export default class DomaineDefFnLog extends Exercice {
               espcl: 3.5, // taille en cm entre deux antécédents
               deltacl: 0.8, // distance entre la bordure et les premiers et derniers antécédents
               lgt: 8, // taille de la première colonne en cm
-              hauteurLignes: [12, 15],
+              hauteurLignes: [12, 15]
             })
             answer = a > 0 ? '\\R' : '\\emptyset'
           }
@@ -480,14 +477,14 @@ export default class DomaineDefFnLog extends Exercice {
             ajouteChampTexteMathLive(
               this,
               i,
-              `${KeyboardType.clavierEnsemble}`,
-            ) + ajouteFeedback(this, i)
+              `${KeyboardType.clavierEnsemble}`
+            )
           handleAnswers(this, i, {
             reponse: {
               value: answer,
               compare: fonctionComparaison,
-              options: { intervalle: true },
-            },
+              options: { intervalle: true }
+            }
           })
         }
         this.listeQuestions.push(texte)

@@ -3,7 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
@@ -102,7 +102,6 @@ export default function SimplifierFractions () {
       texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
       handleAnswers(this, i, { reponse: { value: f.simplifie().toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
-      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         if (this.sup3 === 1) {

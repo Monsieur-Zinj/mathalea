@@ -5,7 +5,7 @@ import { reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const interactifReady = true
@@ -215,7 +215,6 @@ export default function Equationspresqueproduitnulle () {
       texteCorr += `$S=\\left\\{${valeursSolution}\\right\\}$`
       if (this.interactif) {
         texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01')
-        texte += ajouteFeedback(this, i)
       }
       handleAnswers(this, i, {
         reponse: {

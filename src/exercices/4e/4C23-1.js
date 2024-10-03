@@ -14,7 +14,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
@@ -277,7 +277,6 @@ export default function ExerciceAdditionnerFractionProduit () {
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
         handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
-        texte += ajouteFeedback(this, i)
 
         if (this.sup4) {
           texte = `$${lettreDepuisChiffre(i + 1)} = $ ${texte}`

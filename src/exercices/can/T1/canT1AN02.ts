@@ -2,7 +2,7 @@ import Exercice from '../../Exercice.js'
 import { choice } from '../../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
 import { texNombre } from '../../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements.js'
@@ -154,7 +154,7 @@ export default class CalculsLog extends Exercice {
       if (this.questionJamaisPosee(i, n, listeTypeQuestions[i])) {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.logPuissance, { texteAvant: '=' }) + ajouteFeedback(this, i)
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.logPuissance, { texteAvant: '=' })
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)

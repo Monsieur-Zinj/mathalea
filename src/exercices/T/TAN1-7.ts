@@ -4,7 +4,7 @@ import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
 
 export const titre = 'Résolution d\'équations du type $x^a = b$'
@@ -169,7 +169,6 @@ export default class EquationsLog extends Exercice {
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
         texte += '<br>'
         texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
-        texte += ajouteFeedback(this, i)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

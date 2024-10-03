@@ -1,7 +1,7 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import {
@@ -319,7 +319,6 @@ export default function SimplifierEcritureLitterale () {
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
-        texte += ajouteFeedback(this, i)
       }
       if (!this.sup2) {
         handleAnswers(this, i, { reponse: { value: reponse }, compare: fonctionComparaison })

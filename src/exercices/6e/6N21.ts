@@ -9,7 +9,6 @@ import { arrondi } from '../../lib/outils/nombres'
 import GraduatedLine from 'apigeom/src/elements/grid/GraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import { fraction } from '../../modules/fractions'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const dateDePublication = '29/06/2021'
 export const dateDeModifImportante = '03/05/2024'
@@ -122,8 +121,6 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           texteCorr += '\\;\n' + latexCorr
           break
       }
-
-      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         this.autoCorrection[i] = {

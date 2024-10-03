@@ -3,7 +3,7 @@ import { ecritureAlgebrique, ecritureNombreRelatif, ecritureNombreRelatifc, ecri
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
@@ -126,7 +126,6 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        texte += ajouteFeedback(this, i)
         handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison } })
       }
       if (this.questionJamaisPosee(i, a, b)) {

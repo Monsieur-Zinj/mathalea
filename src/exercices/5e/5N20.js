@@ -5,7 +5,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -242,7 +242,6 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
       }
       if (this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
-      texte += ajouteFeedback(this, i)
 
       texteCorr = texteCorr.replaceAll('$$', ' ')
       if (context.isAmc) {

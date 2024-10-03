@@ -9,7 +9,6 @@ import type Figure from 'apigeom/src/Figure.js'
 import { apigeomGraduatedLine } from '../../lib/apigeom/apigeomGraduatedLine.js'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues.js'
 import figureApigeom from '../../lib/figureApigeom.js'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const titre = 'Placer un point d\'abscisse décimale'
 export const dateDeModifImportante = '03/05/2024'
@@ -149,7 +148,7 @@ class PlacerPointsSurAxe extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice}Q${i}`, figure }) + ajouteFeedback(this, i)
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice}Q${i}`, figure })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:

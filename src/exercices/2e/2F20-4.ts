@@ -16,7 +16,7 @@ import { lettreMinusculeDepuisChiffre } from '../../lib/outils/outilString'
 import { reduirePolynomeDegre3 } from '../../lib/outils/ecritures'
 import { latex2d } from '../../lib/2d/textes'
 import { segment } from '../../lib/2d/segmentsVecteurs'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { point } from '../../lib/2d/points'
@@ -502,11 +502,11 @@ class resolutionEquationInequationGraphique extends Exercice {
     }
     // M.draw()
     if (this.sup3) {
-      M.label = 'M'
-      M.createSegmentToAxeX()
-      M.createSegmentToAxeY()
-      const textX = this.figure.create('DynamicX', { point: M })
-      const textY = this.figure.create('DynamicY', { point: M })
+      M!.label = 'M'
+      M!.createSegmentToAxeX()
+      M!.createSegmentToAxeY()
+      const textX = this.figure.create('DynamicX', { point: M! })
+      const textY = this.figure.create('DynamicY', { point: M! })
       textX.dynamicText.maximumFractionDigits = 1
       textY.dynamicText.maximumFractionDigits = 1
     }
@@ -578,7 +578,6 @@ class resolutionEquationInequationGraphique extends Exercice {
             options: { ensembleDeNombres: true }
           }
         }) // on s'en fiche du formatInteractif, c'est la fonction compare qui fait ce qu'il faut
-        enonce += ajouteFeedback(this, indexQuestion)
         indexQuestion++
       }
     }

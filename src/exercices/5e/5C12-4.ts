@@ -5,7 +5,6 @@ import {
   type AnswerType
 } from '../../lib/interactif/gestionInteractif'
 import {
-  ajouteFeedback,
   remplisLesBlancs
 } from '../../lib/interactif/questionMathLive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -231,7 +230,6 @@ class MettreDesParentheses extends Exercice {
       }
       content += `~=~${resultat}`
       texte += remplisLesBlancs(this, i, content)
-      texte += ajouteFeedback(this, i)
       // on élimine test des assignations, car on n'en a pas besoin pour la suite, le nouvel objet contenant les opérandes s'appelle valeurs
       const valeurs = {
         a: assignations.a,

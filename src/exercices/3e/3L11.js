@@ -8,7 +8,7 @@ import {
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenuSansNumero, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { expressionDeveloppeeEtNonReduiteCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -164,7 +164,6 @@ export default function ExerciceDevelopper () {
       texteCorr += ` $${lettreDepuisChiffre(i + 1)}=${reponseRed}$`
       if (!context.isAmc) {
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')) : ''
-        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',

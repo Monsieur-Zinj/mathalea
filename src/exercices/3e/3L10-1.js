@@ -3,7 +3,7 @@ import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { ecritureAlgebrique, reduireAxPlusB } from '../../lib/outils/ecritures'
@@ -160,7 +160,6 @@ export default function ParenthesesPrecedesDeMoinsOuPlus () {
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         texte += this.interactif ? (`<br>$${lettreDepuisChiffre(i + 1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')) : ''
-        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',

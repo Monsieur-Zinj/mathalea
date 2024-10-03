@@ -4,7 +4,7 @@ import { sommeDesChiffres } from '../../lib/outils/nombres'
 import { numAlpha, sp } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
@@ -444,7 +444,6 @@ export default function TrouverChiffre () {
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { suiteDeNombres: true } } })
 
       texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierEnsemble)) : ''
-      texte += ajouteFeedback(this, i)
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

@@ -5,7 +5,7 @@ import { lettreIndiceeDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context.js'
@@ -121,7 +121,6 @@ export default function ReduireUneExpressionLitterale () {
       texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${sp()} = $` })
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
-      texte += ajouteFeedback(this, i)
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

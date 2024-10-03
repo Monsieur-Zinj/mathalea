@@ -11,7 +11,7 @@ import Exercice from '../deprecatedExercice.js'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { randint, listeQuestionsToContenu } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 const cleaner = generateCleaner(['parentheses', 'espaces'])
@@ -321,7 +321,7 @@ export default function SymetrieAxialeConservation1 () {
               }
             }
           }
-          texteAMC += ajouteChampTexteMathLive(this, i * this.sup3 + ii, 'inline largeur01 angles') + ajouteFeedback(this, i * this.sup3 + ii)
+          texteAMC += ajouteChampTexteMathLive(this, i * this.sup3 + ii, 'inline largeur01 angles')
           handleAnswers(this, i * this.sup3 + ii, { reponse: { value: reponse }, callback })
         }
         if (context.isAmc) {

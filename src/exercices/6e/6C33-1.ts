@@ -9,7 +9,7 @@ import { ComputeEngine } from '@cortex-js/compute-engine'
 import { combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { miseEnCouleur, miseEnEvidence } from '../../lib/outils/embellissements'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js' // fonctions de mise en place des éléments interactifs
 import engine, { exprCompare } from '../../lib/interactif/comparisonFunctions'
 import { lister } from '../../lib/outils/ecritures'
 export const interactifReady = true
@@ -233,7 +233,7 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
 Voici ses calculs :<br>
 ${calculs}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}${ajouteFeedback(this, i)}`
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}`
       const expressionReduite = engine.parse(redaction, { canonical: true }).latex
       handleAnswers(this, i, { reponse: { value: [expressionReduite, redaction], compare: exprCompare, options: { noUselessParen } } })
       if (!this.correctionDetaillee) texteCorr = ''

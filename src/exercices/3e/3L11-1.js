@@ -2,7 +2,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
 import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
@@ -131,7 +131,6 @@ export default function DoubleDistributivite () {
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
-        texte += ajouteFeedback(this, i)
       } else {
         this.autoCorrection[i] = {
           enonce: '',

@@ -3,7 +3,7 @@ import { gestionnaireFormulaireTexte } from '../../modules/outils'
 import { obtenirListeFractionsIrreductibles } from '../../modules/fractions'
 import { choice, shuffle } from '../../lib/outils/arrayOutils'
 import FractionEtendue from '../../modules/FractionEtendue'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -218,7 +218,6 @@ export default class FractionEtPriorites extends Exercice {
           break
       }
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
-      texte += ajouteFeedback(this, i)
 
       // La dernière étape de réduction est commune on la fait maintenant si besoin
       if (!reponse.estIrreductible) {
