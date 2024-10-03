@@ -4,7 +4,7 @@ import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import FractionEtendue from '../../../modules/FractionEtendue.ts'
 import { pgcd } from '../../../lib/outils/primalite'
-import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { calculCompare, fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Simplifier des fractions ou des racines carrées'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -54,7 +54,8 @@ export default function SimplifieFractionOuRacinesCarrees () {
           resultat = a * a * b
           this.question = `Calculer $(${a}\\sqrt{${b}})^2$.`
           this.correction = `$(${a}\\sqrt{${b}})^2=${a}^2\\times (\\sqrt{${b}})^2=${a * a}\\times ${b}=${a * a * b}$.`
-          this.reponse = resultat
+          this.reponse = texNombre(resultat)
+          this.compare = calculCompare
           this.formatInteractif = 'calcul'
         }
         if (n === 'b') {
@@ -63,7 +64,8 @@ export default function SimplifieFractionOuRacinesCarrees () {
           resultat = a
           this.question = `Calculer $\\sqrt{${texNombre(a ** 2)}}$.`
           this.correction = `$${texNombre(a ** 2)}$ est le carré du nombre positif $${texNombre(a)}$ donc $\\sqrt{${texNombre(a ** 2)}}=${texNombre(a)}$.`
-          this.reponse = resultat
+          this.reponse = texNombre(resultat)
+          this.compare = calculCompare
           this.formatInteractif = 'calcul'
         }
         break
@@ -73,17 +75,11 @@ export default function SimplifieFractionOuRacinesCarrees () {
         b = randint(2, 10, a)
         resultat = (a - b) * (a - b)
 
-        if (a - b < 0) {
-          this.question = `Calculer $(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2$.`
-          this.correction = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=(${a - b})^2=${(a - b) * (a - b)}$.`
-          this.reponse = resultat
-          this.formatInteractif = 'calcul'
-        } else {
-          this.question = `Calculer $(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2$.`
-          this.correction = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=${a - b}^2=${(a - b) * (a - b)}$.`
-          this.reponse = resultat
-          this.formatInteractif = 'calcul'
-        }
+        this.question = `Calculer $(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2$.`
+        this.correction = `$(\\sqrt{${a * a}}-\\sqrt{${b * b}})^2=(${a}-${b})^2=${a - b}^2=${(a - b) * (a - b)}$.`
+        this.reponse = texNombre(resultat)
+        this.compare = calculCompare
+        this.formatInteractif = 'calcul'
         break
     }
     this.canEnonce = this.question// 'Compléter'

@@ -37,7 +37,7 @@ function piqueNique () {
     contexte: `Un groupe de ${a} amis décide de faire un pique-nique.<br>`,
     question: `Ils achètent ${nbSandwichs} sandwichs, ${nbBoissons} boissons et ${nbFruits} fruits.<br><br>Combien de ${produit} chaque ami aura-t-il en moyenne ?<br>`,
     reponses: [nbProduit, mr1, mr2, mr3, mr4],
-    reponseRedigee: `En moyenne chaque ami aura ${nbProduit} ${produit}, car $${a}\\times ${nbProduit}=${a * nbProduit}$`
+    reponseRedigee: `En moyenne chaque ami aura ${nbProduit} ${produit}, car $${a}\\times ${nbProduit}=${a * nbProduit}$<br>`
   }
 }
 
@@ -51,7 +51,7 @@ function carrelage () {
     contexte: `Une salle de classe mesure ${L} mètres de long et ${l} mètres de large.<br>Les élèves veulent poser du carrelage au sol.<br>`,
     question: 'Si un carreau mesure 1 mètre carré, combien de carreaux leur faudra-t-il pour couvrir toute la surface ?<br>',
     reponses: [s, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Il faudra ${s} carreaux, car la surface de la salle est de $${l}\\times ${L}=${s}m^2$.`
+    reponseRedigee: `Il faudra ${s} carreaux, car la surface de la salle est de $${l}\\times ${L}=${s}m^2$.<br>`
   }
 }
 
@@ -65,7 +65,7 @@ function bibliotheque () {
     contexte: `Une bibliothèque a ${nbLivres} livres. Chaque étagère peut contenir ${nbLivresParEtagere} livres.<br>`,
     question: 'Combien d\'étagères sont nécessaires pour ranger tous les livres ?<br>',
     reponses: [nbEtageres, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Il faudra ${nbEtageres} étagères, car $${nbEtageres}\\times ${nbLivresParEtagere}=${nbLivres}$.`
+    reponseRedigee: `Il faudra ${nbEtageres} étagères, car $${nbEtageres}\\times ${nbLivresParEtagere}=${nbLivres}$.<br>`
   }
 }
 function camion () {
@@ -78,7 +78,7 @@ function camion () {
     contexte: `Un camion transporte des caisses de fruits.<br>Chaque caisse pèse environ ${masseParCaisse} kg.<br>Le camion peut transporter un maximum de ${chargeMaxi} kg.<br>`,
     question: 'Combien de caisses de fruits le camion peut-il transporter au maximum ?<br>',
     reponses: [nbCaisses, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Le camion pourra transporter environ ${nbCaisses} caisses, car  $${nbCaisses}\\times ${masseParCaisse}=${nbCaisses * masseParCaisse}$ et $${nbCaisses * masseParCaisse}<${chargeMaxi}$.`
+    reponseRedigee: `Le camion pourra transporter environ ${nbCaisses} caisses, car  $${nbCaisses}\\times ${masseParCaisse}=${nbCaisses * masseParCaisse}$ et $${nbCaisses * masseParCaisse}<${chargeMaxi}$.<br>`
   }
 }
 
@@ -92,7 +92,7 @@ function agriculteur () {
     contexte: `Un agriculteur plante des arbres en rangées.<br>Il plante ${nbRangees} rangées d’arbres avec ${nbArbresParRangee} arbres par rangée.<br>`,
     question: 'Combien d\'arbres a-t-il plantés au total ?<br>',
     reponses: [nbArbres, mr1, mr2, mr3, mr4],
-    reponseRedigee: `L'agriculteur a planté ${nbArbres} arbres, car  $${nbRangees}\\times ${nbArbresParRangee}=${nbArbres}$.`
+    reponseRedigee: `L'agriculteur a planté ${nbArbres} arbres, car  $${nbRangees}\\times ${nbArbresParRangee}=${nbArbres}$.<br>`
   }
 }
 function fleurs () {
@@ -107,7 +107,7 @@ function fleurs () {
     contexte: `Un jardinier doit planter des fleurs dans un jardin rectangulaire de ${longueur} mètres de long et ${largeur} mètres de large.<br>Chaque mètre carré doit contenir ${fleursParM2} fleurs.<br>`,
     question: 'Combien de fleurs le jardinier doit-il planer au total ?<br>',
     reponses: [nbFleurs, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Le jardinier a planté ${nbFleurs} fleurs, car  la surface du jardin est de $${longueur}\\times ${largeur}=${aire}m^2$ et $${aire}\\times ${fleursParM2}=${nbFleurs}$.`
+    reponseRedigee: `Le jardinier a planté ${nbFleurs} fleurs, car  la surface du jardin est de $${longueur}\\times ${largeur}=${aire}m^2$ et $${aire}\\times ${fleursParM2}=${nbFleurs}$.<br>`
   }
 }
 
@@ -123,7 +123,7 @@ function magasin () {
     contexte: `Un magasin vend des packs de bouteilles d'eau.<br>Chaque pack contient ${nbBouteillesParPack} bouteilles de ${stringNombre(masseParBouteille, 2)}L.<br>Un client achète ${nbPacks} packs.<br>`,
     question: 'Quel volume de liquide le client a-til acheté ?<br>',
     reponses: [masseTotale, mr1, mr2, mr3, mr4].map(el => el + 'L'),
-    reponseRedigee: `Le client a acheté ${masseTotale} litres de liquide, car il a acheté $${nbPacks}\\times ${nbBouteillesParPack}=${nbBouteilles}$ bouteilles et $${nbBouteilles}\\times ${texNombre(masseParBouteille, 2)}=${masseTotale}$.`
+    reponseRedigee: `Le client a acheté ${masseTotale} litres de liquide, car il a acheté $${nbPacks}\\times ${nbBouteillesParPack}=${nbBouteilles}$ bouteilles et $${nbBouteilles}\\times ${texNombre(masseParBouteille, 2)}=${masseTotale}$.<br>`
   }
 }
 
@@ -137,7 +137,7 @@ function livre () {
     contexte: `Un élève lit ${nbPagesParJour} pages de son livre chaque jour. Le livre contient ${nbPagesTotal} pages.<br>`,
     question: 'Combien de jours lui faudra-t-il pour lire tout le livre ?<br>',
     reponses: [nbJours, mr1, mr2, mr3, mr4],
-    reponseRedigee: `L'élève aura fini de lire son livre au bout de ${nbJours} jours, car $${nbJours}\\times ${nbPagesParJour}=${nbPagesTotal}$.`
+    reponseRedigee: `L'élève aura fini de lire son livre au bout de ${nbJours} jours, car $${nbJours}\\times ${nbPagesParJour}=${nbPagesTotal}$.<br>`
   }
 }
 
@@ -151,7 +151,7 @@ function boulangerie () {
     contexte: `Une boulangerie vend des lots de ${nbCroissantParLot}.<br> Un client achète ${nbLots} lots.<br>`,
     question: 'Combien ce client a-t-il acheté des croissants ?<br>',
     reponses: [nbCroissants, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Le client a acheté ${nbCroissants}$, car $${nbLots}\\times ${nbCroissantParLot}=${nbCroissants}$.`
+    reponseRedigee: `Le client a acheté $${nbCroissants}$, car $${nbLots}\\times ${nbCroissantParLot}=${nbCroissants}$.<br>`
   }
 }
 
@@ -167,7 +167,7 @@ function bus () {
     contexte: `Un collège organise une sortie scolaire pour ${nbEleves} élèves.<br>Les élèves doivent être répartis dans des bus de ${nbPlaces} places.<br>`,
     question: `Combien de bus faudra-t-il sachant qu'il y a ${nbAccompagnateurs} accompagnateurs adultes ?`,
     reponses: [nbBus, mr1, mr2, mr3, mr4],
-    reponseRedigee: `Il faudra ${nbBus} pour transporter les ${nbEleves} élèves et les ${nbAccompagnateurs} accompagnateurs, soit ${nbEleves + nbAccompagnateurs} passagers, car cela fait ${nbBus}\\times ${nbPlaces} = ${nbPlacesDispo}$ places disponibles et $${nbEleves + nbAccompagnateurs} \\leq ${nbPlacesDispo}$.<br>`
+    reponseRedigee: `Il faudra ${nbBus} pour transporter les ${nbEleves} élèves et les ${nbAccompagnateurs} accompagnateurs, soit ${nbEleves + nbAccompagnateurs} passagers, car cela fait $${nbBus}\\times ${nbPlaces} = ${nbPlacesDispo}$ places disponibles et $${nbEleves + nbAccompagnateurs} \\leq ${nbPlacesDispo}$.<br>`
   }
 }
 const listePb = [piqueNique, carrelage, bibliotheque, camion, agriculteur, fleurs, magasin, livre, boulangerie, bus]
