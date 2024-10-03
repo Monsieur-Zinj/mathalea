@@ -6,7 +6,9 @@ import { context } from '../../modules/context.js'
 import { contraindreValeur, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true
@@ -98,7 +100,7 @@ export default function ListeDesDiviseurs5e () {
         case 1:
           texte = ''
           if (this.interactif) {
-            texte += `À l'aide du tableau, écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>dans l'ordre croissant séparés par un point-virgule.</b>`
+            texte += `À l'aide du tableau, écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>séparés par un point-virgule.</b>`
           } else {
             texte += `Compléter le tableau suivant et faire la liste de tous les diviseurs de ${texNombre(M)}.`
           }
@@ -171,7 +173,7 @@ export default function ListeDesDiviseurs5e () {
         case 2: // liste des diviseurs
           texte = ''
           if (this.interactif) {
-            texte += `Écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>dans l'ordre croissant séparés par un point-virgule.</b>`
+            texte += `Écrire la liste de tous les diviseurs de $${texNombre(M)}$ <b>séparés par un point-virgule.</b>`
           } else {
             texte += `Écrire la liste de tous les diviseurs de ${texNombre(M)}.`
           }
@@ -199,14 +201,15 @@ export default function ListeDesDiviseurs5e () {
           texteCorr += '.'
           break
       }
-      setReponse(this, i, listeDesDiviseurs(M).join(';'), { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
+
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + '\n',
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
