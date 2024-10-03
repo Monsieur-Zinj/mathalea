@@ -13,6 +13,7 @@ const buildDataKeyboardString = (style = '') => {
  * @param {Exercice} exercice
  * @param {number} question
  * @param {string} style
+ * @deprecated si vous l'utilisez après ajouteChampTexteMathlive, ajouteChampTexte ou remplisLesBlancs, vous n'avez pas besoin de l'utiliser, il est ajouté automatiquement.
  */
 export function ajouteFeedback (exercice, question, style = 'style="display: block"') {
   if (!context.isHtml) return ''
@@ -43,7 +44,7 @@ export function ajouteChampTexte (exercice, i, style, {
     } else if (blocCenter) {
       html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
     } else html = `<label>${texteAvant}</label><input data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></input>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    // html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+    html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
     return html
   }
   return ''
@@ -72,7 +73,7 @@ export function ajouteChampTexteMathLive (exercice, i, style = '', {
     } else if (blocCenter) {
       html = `<div style='display: flex;justify-content: center; margin:5px;'><label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div>`
     } else html = `<label>${texteAvant}</label><math-field data-keyboard="${dataKeyboard}" ${espace ? 'data-space="true"' : ''} virtual-keyboard-mode=manual class="${style}" id="champTexteEx${exercice.numeroExercice}Q${i}"></math-field>${texteApres ? `<span>${texteApres}</span>` : ''} <span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span>`
-    // html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
+    html += `<div id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
     return html
   }
   return ''
@@ -108,9 +109,7 @@ export function remplisLesBlancs (exercice, question, content, classes = '', bla
     } else {
       classe = 'fillInTheBlanks'
     }
-    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span>`
-    // on enlève ce divFeedback automatique, c'est l'exercice qui doit l'ajouter.
-    // <div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
+    return `<math-field data-keyboard="${dataKeyboard}" virtual-keyboard-mode=manual readonly class="${classe}" id="champTexteEx${exercice.numeroExercice}Q${question}">${mfeValue}</math-field><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
   }
   return `$${mfeValue}$`
 }

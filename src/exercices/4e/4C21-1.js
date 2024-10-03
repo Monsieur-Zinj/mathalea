@@ -6,7 +6,7 @@ import { pgcd } from '../../lib/outils/primalite'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, ppcm, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { context } from '../../modules/context'
@@ -170,7 +170,6 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       reponse = fraction(num, den).simplifie()
       texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
-      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         texte = 'Calculer et donner le résultat sous forme irréductible\\\\\n' + texte

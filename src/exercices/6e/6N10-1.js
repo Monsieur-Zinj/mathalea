@@ -3,7 +3,7 @@ import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -132,7 +132,6 @@ export default function ExerciceNumerationEntier () {
       } else {
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.numbersSpace, { espace: true, texteApres: `$\\text{ ${rangs[rangRef]}.}$` })
       }
-      texte += ajouteFeedback(this, i)
 
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(0, 2)

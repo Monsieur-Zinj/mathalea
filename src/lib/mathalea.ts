@@ -9,7 +9,7 @@ import type TypeExercice from '../exercices/Exercice'
 import seedrandom from 'seedrandom'
 import { exercicesParams, freezeUrl, globalOptions, presModeId, previousView, updateGlobalOptionsInURL } from './stores/generalStore.js'
 import { get } from 'svelte/store'
-import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive.js'
 import uuidToUrl from '../json/uuidsToUrlFR.json'
 import referentielStaticFR from '../json/referentielStaticFR.json'
 import referentielStaticCH from '../json/referentielStaticCH.json'
@@ -651,7 +651,7 @@ export function mathaleaHandleExerciceSimple (exercice: TypeExercice, isInteract
       if (exercice.formatInteractif !== 'fillInTheBlank') {
         if (exercice.formatInteractif !== 'qcm') {
           exercice.listeQuestions.push(
-            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {}) + ajouteFeedback(exercice, i)
+            exercice.question + ajouteChampTexteMathLive(exercice, i, exercice.formatChampTexte || '', exercice.optionsChampTexte || {})
           )
         } else {
           exercice.listeQuestions.push(exercice.question || '')

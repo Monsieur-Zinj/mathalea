@@ -2,7 +2,7 @@ import { choice } from '../../lib/outils/arrayOutils'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { format } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
@@ -112,7 +112,6 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
             if (!this.sup2) {
               handleAnswers(this, i, { reponse: { value: n, compare: fonctionComparaison, options: { fractionDecimale: true } } })
             }
-            texte += ajouteFeedback(this, i)
           } else {
             texte = `$${texNombre(n, precision, this.sup3)} = ${texFraction('\\ldots\\ldots\\ldots\\ldots', texNombre(b))} $`
           }

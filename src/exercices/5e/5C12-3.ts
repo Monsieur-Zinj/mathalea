@@ -4,7 +4,7 @@ import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { context } from '../../modules/context.js'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 import type { MathfieldElement } from 'mathlive'
@@ -160,7 +160,6 @@ class DistributiviteNumerique extends Exercice {
           const code = sp(2) + remplisLesBlancs(this, i, ` = ${texNombre(k, 0)} \\times (%{champ1} ${listeTypeDeQuestions[i] % 2 === 1 ? '+' : '-'} %{champ2}) = ${texNombre(k, 0)} \\times %{champ3} = %{champ4}`, 'ml-2')
           texte += code
         }
-        texte += ajouteFeedback(this, i)
       }
 
       if (this.questionJamaisPosee(i, texte)) {

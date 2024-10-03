@@ -4,7 +4,7 @@ import { nombreEnLettres } from '../../modules/nombreEnLettres.js'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive, ajouteFeedback, ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
@@ -249,8 +249,6 @@ export default function EcrirePetitsNombresEntiers () {
         if (context.vue !== 'diap') texteCorr = `${nombreEnLettres(NombreAEcrire)} : $${texNombre(NombreAEcrire)}$`
         else texteCorr = `$${texNombre(NombreAEcrire)}$`
       }
-
-      texte += ajouteFeedback(this, i)
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

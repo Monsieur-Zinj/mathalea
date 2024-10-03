@@ -10,7 +10,7 @@ import RectangleFractionDiagram from 'apigeom/src/elements/diagrams/RectangleFra
 import minus from 'apigeom/src/assets/svg/minus.svg'
 import plus from 'apigeom/src/assets/svg/plus.svg'
 import erase from 'apigeom/src/assets/svg/erase.svg'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
@@ -123,7 +123,6 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
 
       if (this.interactif) {
         texte = remplisLesBlancs(this, i, `${frac.texFraction} =~\\placeholder[n]{} + \\dfrac{\\placeholder[num]{}}{\\placeholder[den]{}} =~\\placeholder[ecritureDecimale]{}`, KeyboardType.clavierNumbers)
-        texte += ajouteFeedback(this, i)
       }
       if (this.questionJamaisPosee(i, num, den)) {
         // Si la question n'a jamais été posée, on en crée une autre

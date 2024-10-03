@@ -1,6 +1,6 @@
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
@@ -80,7 +80,7 @@ export default class ExpressionsLogX extends Exercice {
       if (this.questionJamaisPosee(i, a, b, c, expA, expB, expC)) {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore' + KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' }) + ajouteFeedback(this, i)
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore' + KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)

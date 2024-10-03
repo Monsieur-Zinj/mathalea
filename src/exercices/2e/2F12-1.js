@@ -6,7 +6,7 @@ import { ecritureAlgebrique } from '../../lib/outils/ecritures'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import {
@@ -702,7 +702,6 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
       }
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
       texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
-      texte += ajouteFeedback(this, i)
       texteCorr = correction
       if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {

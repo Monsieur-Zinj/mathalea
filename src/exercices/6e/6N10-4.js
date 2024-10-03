@@ -5,7 +5,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const titre = 'Écrire correctement les grands nombres entiers'
 
@@ -81,8 +81,6 @@ export default function ÉcrireNombresEntiersFormates () {
       } else {
         handleAnswers(this, i, { reponse: { value: texNombre(nombre, 0), compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
       }
-
-      texte += ajouteFeedback(this, i)
 
       if (this.questionJamaisPosee(i, nombre)) {
         // Si la question n'a jamais été posée, on en crée une autre

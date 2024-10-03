@@ -11,7 +11,6 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Alea2iep from '../../modules/Alea2iep.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.ts'
-import { ajouteFeedback } from '../../lib/interactif/questionMathLive'
 
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -176,7 +175,6 @@ export default class constructionElementaire extends Exercice {
       )
 
       correction += anim.htmlBouton(this.numeroExercice, i)
-      enonce += ajouteFeedback(this, i)
 
       if (context.isAmc) {
       /** ********************** AMC Hybride *****************************/

@@ -11,7 +11,7 @@ import { sp } from '../../lib/outils/outilString.js'
 import { prenom } from '../../lib/outils/Personne'
 import { texPrix } from '../../lib/format/style'
 import { stringNombre, texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { resoudre } from '../../modules/outilsMathjs.ts'
 import Exercice from '../Exercice'
@@ -391,7 +391,6 @@ export default class ProblemesEnEquation extends Exercice {
       }
 
       texte = enonce + figure + ajouteChampTexteMathLive(this, i, 'largeur01 inline' + uniteOptions[0], { texteApres: sp(2) + uniteOptions[2] })
-      texte += ajouteFeedback(this, i)
       texteCorr = intro
       texteCorr += `$${resolution.equation}$`
       texteCorr += '<br>Résolvons l\'équation :<br>'

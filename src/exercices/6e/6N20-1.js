@@ -7,7 +7,7 @@ import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import { fraction } from '../../modules/fractions.js'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { getDynamicFractionDiagram } from './6N20-2'
 import figureApigeom from '../../lib/figureApigeom'
@@ -85,7 +85,6 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
       k = this.lycee ? choice(rangeMinMax(-5, 5)) : choice(rangeMinMax(0, aleaMax))
       n = k * d + randint(1, d - 1)
       texte = remplisLesBlancs(this, i, `%{champ1} < \\dfrac{${n}}{${d}} < %{champ2}`, 'college6eme', '\\ldots')
-      texte += ajouteFeedback(this, i)
       texteCorr = `$${k} < \\dfrac{${n}}{${d}} < ${k + 1}$`
       texteCorr += ` $\\qquad$ car $\\quad ${k}=\\dfrac{${k * d}}{${d}}\\quad$ et $\\quad${k + 1}=\\dfrac{${(k + 1) * d}}{${d}}$ `
       texteCorr += '<br><br>'

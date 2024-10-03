@@ -4,7 +4,7 @@ import { texNombre, stringNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { max } from 'mathjs'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -315,7 +315,6 @@ export default function SommeFractionsDecimales () {
         }
       }
 
-      texte += ajouteFeedback(this, i)
       if (this.questionJamaisPosee(i, texte)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

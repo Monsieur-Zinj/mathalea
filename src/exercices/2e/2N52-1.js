@@ -4,7 +4,7 @@ import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from 
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import engine from '../../lib/interactif/comparisonFunctions'
 import { sp } from '../../lib/outils/outilString'
@@ -202,7 +202,6 @@ export default function EquationsProduitsNuls2 () {
           break
       }
       texte += sp(4) + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
-      texte += ajouteFeedback(this, i)
       handleAnswers(this, i, { reponse, callback: verifReponse }, { formatInteractif: 'calcul' })
       if (this.questionJamaisPosee(i, a, b, c, d, ...fractions)) {
         // Si la question n'a jamais été posée, on en créé une autre

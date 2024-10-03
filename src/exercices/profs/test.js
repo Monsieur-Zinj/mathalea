@@ -3,7 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ensembleNombres, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ComputeEngine } from '@cortex-js/compute-engine'
@@ -215,7 +215,6 @@ export default function desTestsPourInteractivité () {
       texteCorr = ''
       // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
       texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
-      texte += ajouteFeedback(this, i)
       // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })

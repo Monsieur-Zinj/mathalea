@@ -2,7 +2,7 @@ import { ecritureAlgebrique, ecritureAlgebriqueSauf1, ecritureParentheseSiNegati
 import { listeQuestionsToContenu, randint } from '../../modules/outils'
 import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import engine from '../../lib/interactif/comparisonFunctions'
 import type { MathfieldElement } from 'mathlive'
 import { choice } from '../../lib/outils/arrayOutils'
@@ -227,7 +227,6 @@ class EqCartDroite extends Exercice {
       }
 
       texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: 'Équation cartésienne de la droite $(d)$ :' })
-      texte += ajouteFeedback(this, i)
       handleAnswers(this, i, { reponse: { value: reponse }, callback })
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)

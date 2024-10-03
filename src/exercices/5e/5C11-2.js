@@ -4,7 +4,7 @@ import { prenom } from '../../lib/outils/Personne'
 import { listeQuestionsToContenu } from '../../modules/outils.js'
 import TrouverSolutionMathador from './_TrouverSolutionMathador.js'
 import Exercice from '../deprecatedExercice.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { checkLeCompteEstBon, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString'
@@ -62,7 +62,6 @@ export default function ÉcrireUneExpressionMathador () {
       } else this.interactifType = 'custom'
 
       texte += 'Écrire la succession d\'opérations en une seule expression.' + (this.interactif ? ajouteChampTexteMathLive(this, i, 'inLine largeur01 nospacebefore', { texteAvant: sp(10) + '$E=$' }) : '')
-      texte += this.sup ? ajouteFeedback(this, i) : ''
       texteCorr = ''
       if (this.sup) {
         texteCorr += `${quidam} a proposé les calculs suivants :<br>`

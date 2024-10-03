@@ -7,7 +7,7 @@ import {
 } from '../../modules/outils.js'
 import choisirExpressionNumerique from '../5e/_choisirExpressionNumerique.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Traduire des phrases en calculs et réciproquement'
 export const dateDeModifImportante = '30/06/2024' // Ajout de l'interactivité par Jean-Claude Lhote
@@ -160,7 +160,7 @@ export default function VocabulaireEtOperations () {
           expf = 'l' + expf.substring(1)
           texte += `${expf}.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + ajouteFeedback(this, i)
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
             handleAnswers(this, i, { reponse: { value: resultat } }, { formatInteractif: 'mathlive' })
           }
           expf = 'L' + expf.substring(1)

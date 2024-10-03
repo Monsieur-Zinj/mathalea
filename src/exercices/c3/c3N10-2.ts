@@ -1,12 +1,11 @@
 import Exercice from '../Exercice'
 import { glossaire } from './c3N10-1'
 import { randint } from '../../modules/outils'
-import { ajouteFeedback, remplisLesBlancs } from '../../lib/interactif/questionMathLive'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { texNombre } from '../../lib/outils/texNombre'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { choice, combinaisonListes, shuffle } from '../../lib/outils/arrayOutils'
 import { numerationCompare } from '../../lib/interactif/comparisonFunctions'
-import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const uuid = 'e116b'
 export const ref = 'c3N10-2'
 export const refs = {
@@ -96,8 +95,7 @@ class Decomp1 extends Exercice {
       handleAnswers(this, i, objetReponses)
       decompo = decompo.substring(0, decompo.length - 1)
       const classe = 'numeration'
-      let texte = remplisLesBlancs(this, i, texNombre(Number(nombreStr), 0) + '=' + decompo, classe, '\\ldots')
-      texte += ajouteFeedback(this, i, KeyboardType.numeration)
+      const texte = remplisLesBlancs(this, i, texNombre(Number(nombreStr), 0) + '=' + decompo, classe, '\\ldots')
       const morceaux = items.map((el) => `${String(el.chiffre)}\\text{ ${el.classe} }`)
       const decompStr = morceaux.join('+')
       const texteCorr = `$${texNombre(Number(nombreStr), 0)}=${decompStr}$`
