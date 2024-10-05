@@ -10,4 +10,7 @@
     "typescript.preferences.importModuleSpecifierEnding": "minimal",
     "javascript.preferences.importModuleSpecifierEnding": "minimal",
     "vitest.disableWorkspaceWarning": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
 }
