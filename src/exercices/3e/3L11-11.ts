@@ -7,8 +7,12 @@ import Exercice from '../Exercice'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Additionner et soustraire des monômes'
 export const dateDePublication = '19/08/2024'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * Réduire une expression littérale
@@ -21,7 +25,7 @@ export const refs = {
   'fr-ch': ['11FA1-7']
 }
 
-export default class nomExercice extends Exercice {
+export default class NomExercice extends Exercice {
   constructor () {
     super()
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes.' : 'Réduire l\'expression suivante.'
@@ -48,7 +52,6 @@ export default class nomExercice extends Exercice {
     const typesDeQuestionsDisponibles = [1]
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let texte, texteCorr: string
       const degMin = this.sup2 - 1
@@ -57,6 +60,9 @@ export default class nomExercice extends Exercice {
       const variablesSelect = getRandomSubarray(variables, this.sup4)
       const typeCoeffListe = ['entier', 'fractionnaire']
       let typeofCoeff = []
+      let rep: PolynomePlusieursVariables = PolynomePlusieursVariables.createRandomPolynome(1, 1, 1, 'entier', ['x'])
+      texte = ''
+      texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 1:{
           if (this.sup === 1) {
@@ -66,8 +72,7 @@ export default class nomExercice extends Exercice {
           } else {
             typeofCoeff = typeCoeffListe
           }
-          texte = ''
-          texteCorr = ''
+
           const q = MonomePlusieursVariables.createRandomMonome(randint(degMin, degMax), choice(typeofCoeff), variablesSelect)
           let r : MonomePlusieursVariables
           const randomInt = randint(0, 3)
@@ -107,18 +112,20 @@ export default class nomExercice extends Exercice {
             }
           }
           const t = new PolynomePlusieursVariables(monomesListe)
-          const rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$`
+          rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
+          texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` + ajouteChampTexteMathLive(this, i, 'largeur01', { texteAvant: '$=$' })
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(rep.toString())}$`
         }
-          if (this.questionJamaisPosee(i, texte)) {
-            this.listeQuestions.push(texte)
-            this.listeCorrections.push(texteCorr)
-            i++
-          }
-          cpt++
       }
-      listeQuestionsToContenu(this)
+      const solution = texteCorr.split('=')[1]
+      if (this.questionJamaisPosee(i, solution)) {
+        handleAnswers(this, i, { reponse: { value: rep.toString() } })
+        this.listeQuestions.push(texte)
+        this.listeCorrections.push(texteCorr)
+        i++
+      }
+      cpt++
     }
+    listeQuestionsToContenu(this)
   }
 }
