@@ -130,8 +130,8 @@ export default class nomExercice extends Exercice {
         let subPasEns : (number | string)[]
         subPasEns = []
         if (randint(0, 1) === 1) {
-          subPasEns = subEns
-          subEns.push(el2 as (number | string))
+          subPasEns = [...subEns]
+          subPasEns.push(el2 as (number | string))
         } else {
         // define a subPasEns which is not contained in ensemble1
           do {
