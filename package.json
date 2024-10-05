@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
-    "start": "pnpm makeJson && vite",
+    "start": "npm run makeJson && vite",
     "build": "pnpm makeJson && pnpm prebuild-unit-tests&& pnpm prebuild-e2e-tests && vite build",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
     "getNewUuid": "pnpm makeJson",
