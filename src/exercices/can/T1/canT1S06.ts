@@ -1,4 +1,5 @@
 import { choice } from '../../../lib/outils/arrayOutils'
+import { rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
@@ -81,9 +82,9 @@ class UnSurVn extends Exercice {
         const a = randint(-9, 9, 0)
         const b = randint(2, 9)
         const vn = `n^${b}`
-        const un = `${a}n`
+        const un = `${rienSi1(a)}n`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${a}n^{(1-${b})}=${a}\\times\\dfrac{1}{n^${b - 1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b - 1}}=0$.<br>`
+        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${rienSi1(a)}n^{(1-${b})}=${a === 1 ? '' : `${a}\\times`}\\dfrac{1}{n^${b - 1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b - 1}}=0$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
         this.reponse = '0'
