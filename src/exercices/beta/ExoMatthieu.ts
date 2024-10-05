@@ -4,6 +4,7 @@ import { choice, combinaisonListes, combinaisonListesSansChangerOrdre } from '..
 
 export const titre = 'Utiliser les nombres relatifs pour calculer un score.'
 export const dateDePublication = '05/10/2024'
+// export const dateDeModificationImportante = '29/12/2034'
 
 /**
  * Description didactique de l'exercice
