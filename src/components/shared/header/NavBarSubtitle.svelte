@@ -21,7 +21,7 @@
   />
   ```
  -->
-<div class="flex flex-row items-center align-middle font-logo9 tracking-tighter
+<div class="flex flex-row items-center align-middle font-logo9 tracking-tighter ml-4
   pt-6 md:pt-0
   text-lg md:text-3xl xl:text-5xl"
 >
