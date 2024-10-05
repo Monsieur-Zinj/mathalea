@@ -94,12 +94,11 @@ export default class nomExercice extends Exercice {
           Quel est son score ? `
       texte += ajouteChampTexteMathLive(this, 5 * i + 4, 'inline largeur01 college6eme')
       handleAnswers(this, 5 * i + 4, { reponse: { value: String(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]) } })
-      texteCorr += `<br> e) ${candidats[2]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses.<br>
-        donc ${candidats[2]} a répondu correctement à ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3} questions.<br>
+      texteCorr += `<br> e) ${candidats[2]} a ${nombreQuestions * 0.7} réponses fausses et n'a pas répondu à ${nombreQuestions * 0.3} questions.<br>
          Son score est donc : <br>
-         $\\text{Score}_\\text{ ${candidats[2]}} = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]}$`
+         $\\text{Score}_\\text{ ${candidats[2]}} = ${nombreQuestions * 0.7} \\times  ${ecritureParentheseSiNegatif(-nombresPoints[1])} + ${nombreQuestions * 0.3} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]}$`
 
       if (this.questionJamaisPosee(i, nombreQuestions, nombresPoints.join(''))) {
         this.listeQuestions.push(texte)
