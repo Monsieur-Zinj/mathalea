@@ -44,7 +44,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
     this.spacingCorr = 1.5// Interligne des réponses
 
     function solutionsScoreNul (nombQuestions, nombPoints) {
-      let solutions: number[]
+      const solutions = [[]]
       for (let n = 0; n < nombQuestions; n++) {
         for (let m = 0; m < (nombQuestions - n); m++) {
           if ((n * nombPoints[0] - m * nombPoints[1] - (20 - n - m) * nombPoints[2]) === 0) {
@@ -60,7 +60,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nombreQuestions = choice([10, 20, 30])
       const nombresPoints = choice([[5, 3, 2], [7, 5, 3], [11, 7, 5]])
-      const candidats = combinaisonListes(['Margaux', 'Celestin', 'Maxime', 'Georges', 'Clémentine', 'Éléonore', 'François', 'Martine'], 3)
+      const candidats = combinaisonListes(['Margaux', 'Célestin', 'Maxime', 'Georges', 'Clémentine', 'Éléonore', 'François', 'Martine'], 3)
       // const scoreNul = 'oui'
 
       let texte = `Dans un jeu télévisé, les candidats doivent répondre à ${nombreQuestions} questions.<br>
