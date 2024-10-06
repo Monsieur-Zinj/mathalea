@@ -91,8 +91,9 @@ const greekCaps: CompleteKeysList = {
 }
 
 const compareCaps: CompleteKeysList = {
-  inline: ['LESS', 'GREAT', '='],
-  block: ['LESS', 'GREAT', '=']
+  inline: ['LESS', 'GREAT', '=', 'LESSEQ', 'GREATEQ'],
+  block: ['LESS', 'GREAT', '=', 'LESSEQ', 'GREATEQ']
+
 }
 
 const degreCaps: CompleteKeysList = {

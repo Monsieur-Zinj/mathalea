@@ -6,8 +6,14 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Associer un intervalle de  $\\mathbb{R}$ à une inéquation et son schéma sur une droite graduée'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * 2N11-1, ex 2N24
@@ -30,10 +36,10 @@ export default function IntervallesDeR () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typesDeQuestions
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+      typeDeQuestion = listeTypeDeQuestions[i]
 
       s = segment(0, 0, 12, 0)
       s.styleExtremites = '->'
@@ -41,8 +47,7 @@ export default function IntervallesDeR () {
       X2 = point(12, 0)
 
       int = intervalle(X1, X2, 'black', 0)
-
-      switch (typesDeQuestions) {
+      switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1:
@@ -347,7 +352,19 @@ export default function IntervallesDeR () {
           texteCorr += `$x \\leqslant ${a}$`
           break
       }
-      if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) { // Si la question n'a jamais été posée, on en créé une autre
+      if (this.questionJamaisPosee(i, a, b, typeDeQuestion)) { // Si la question n'a jamais été posée, on en créé une autre
+        if (this.interactif) {
+          let reponse
+          if (typeDeQuestion < 9) {
+            reponse = texteCorr.split('I=')[1] // On prend la réponse après 'I='
+            reponse = reponse.substring(0, reponse.length - 1)// et on vire le $ de la fin.
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { intervalle: true } } })
+          } else {
+            reponse = texteCorr.match(/\$(.*)\$/g)[0] // On prend ce qui est entre les $ $.
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+          }
+          texte += ajouteChampTexteMathLive(this, i, `largeur01 ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
