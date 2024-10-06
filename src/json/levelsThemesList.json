@@ -170,6 +170,12 @@
   "canT1AN": {
     "titre": "Analyse"
   },
+  "canT1S": {
+    "titre": "Suites"
+  },
+  "canT1E": {
+    "titre": "Espace"
+  },
   "canExa": {
     "titre": "Sujets (annales/créations)"
   },
