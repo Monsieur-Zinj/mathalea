@@ -3,12 +3,18 @@ import { point } from '../../lib/2d/points.js'
 import { segment } from '../../lib/2d/segmentsVecteurs.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import Exercice from '../deprecatedExercice.js'
-import { mathalea2d } from '../../modules/2dGeneralites.js'
+import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Utiliser et comprendre les symboles $\\cup $ et $\\cap $ avec les intervalles de $\\mathbb{R}$'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /**
  * @author Stéphane Guyon
@@ -28,15 +34,15 @@ export default function UnionEtIntersectionIntervallesDeR () {
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
-    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typesDeQuestions
+    const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const X1 = point(0, 0)
     const X2 = point(12, 0)
     for (let i = 0, a, b, c, d, s, e, f, test, A, B, C, D, c1, c2, c3, c4, int, int1, int2, texte = '', texteCorr = '', cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      typesDeQuestions = listeTypeDeQuestions[i]
+      typeDeQuestion = listeTypeDeQuestions[i]
       test = randint(1, 6)
       // variables qui alternent les ouvertures de crochets
-      switch (typesDeQuestions) {
+      switch (typeDeQuestion) {
         // Cas par cas, on définit le type de nombres que l'on souhaite
         // Combien de chiffres ? Quelles valeurs ?
         case 1: // Intersection de deux intervalles fermés disjoints
@@ -564,18 +570,21 @@ export default function UnionEtIntersectionIntervallesDeR () {
           if (test === 1) {
             A = point(0, 0)
             D = point(10, 0, d)
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 2) {
             A = point(0, 0)
             D = point(10, 0, d)
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 3) {
             A = point(0, 0)
             D = point(10, 0, d)
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
@@ -585,18 +594,21 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
+            c4 = vide2d()
           } else if (test === 5) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
+            c4 = vide2d()
           } else {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
+            c4 = vide2d()
           }
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', 0)
@@ -655,21 +667,21 @@ export default function UnionEtIntersectionIntervallesDeR () {
           if (test === 1) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 2) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetD(C, 'blue')
             c4 = crochetG(D, 'blue')
           } else if (test === 3) {
             A = point(0, 0)
             D = point(10, 0, d)
-            // c1 = crochetG(A, 'red')
+            c1 = vide2d()
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
             c4 = crochetG(D, 'blue')
@@ -679,21 +691,21 @@ export default function UnionEtIntersectionIntervallesDeR () {
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetG(C, 'blue')
-            // c4 = crochetD(D, 'blue')
+            c4 = vide2d()
           } else if (test === 5) {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetD(A, 'red')
             c2 = crochetD(B, 'red')
             c3 = crochetD(C, 'blue')
-            // c4 = crochetD(D, 'blue')
+            c4 = vide2d()
           } else {
             A = point(0, 0, a)
             D = point(15, 0)
             c1 = crochetG(A, 'red')
             c2 = crochetG(B, 'red')
             c3 = crochetG(C, 'blue')
-            // c4 = crochetD(D, 'blue')
+            c4 = vide2d()
           }
           int = intervalle(X1, X2, 'black', 0)
           int1 = intervalle(A, B, 'red', 0)
@@ -797,14 +809,18 @@ export default function UnionEtIntersectionIntervallesDeR () {
       aRemplacer = aRemplacer.replace('$', '')
       texteCorr = texteCorr.split('=')[0] + '=$'
       texteCorr += `$${miseEnEvidence(aRemplacer)}$.`
-
+      const listeObjets = [int, int1, int2, c1, c2, c3, c4].filter(el => el !== undefined)
       texteCorr += mathalea2d({
         xmin: -2,
         ymin: -2,
         xmax: 15,
         ymax: 2
-      }, int, int1, int2, c1, c2, c3, c4)
-      if (this.listeQuestions.indexOf(texte) === -1) { // Si la question n'a jamais été posée, on en créé une autre
+      }, listeObjets)
+      if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
+        if (this.interactif) {
+          texte += ajouteChampTexteMathLive(this, i, `largeur01 ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`)
+          handleAnswers(this, i, { reponse: { value: aRemplacer, compare: fonctionComparaison, options: { intervalle: true } } })
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
