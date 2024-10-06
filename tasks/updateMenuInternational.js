@@ -51,6 +51,7 @@ async function readInfos(
         if (
           file.match(/\.jsx?|\.ts$/) &&
           !file.startsWith('_') &&
+          !file.endsWith('.test.ts') &&
           file !== 'deprecatedExercice.js' &&
           file !== 'MetaExerciceCan.ts' &&
           file !== 'Exercice.ts' &&

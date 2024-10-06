@@ -39,12 +39,12 @@
   },
   "homepage": "https://github.com/mathalea/mathalea",
   "scripts": {
-    "start": "pnpm makeJson && vite",
-    "build": "pnpm makeJson && pnpm prebuild-unit-tests&& pnpm prebuild-e2e-tests && vite build",
+    "start": "npm run makeJson && vite",
+    "build": "npm run makeJson && npm run prebuild-unit-tests&& npm run prebuild-e2e-tests && vite build",
     "makeJson": "node tasks/dictionnaireToReferentiel.js && node tasks/updateMenuInternational",
-    "getNewUuid": "pnpm makeJson",
-    "updateMenu": "pnpm makeJson",
-    "updateMenuCH": "pnpm makeJson",
+    "getNewUuid": "npm run makeJson",
+    "updateMenu": "npm run makeJson",
+    "updateMenuCH": "npm run makeJson",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "transpile": "tsc > journal.log",
@@ -64,8 +64,8 @@
     "test:e2e:consistency": "vitest --config tests/e2e/vitest.config.consistency.js --run",
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
     "prepare": "husky",
-    "prebuild-unit-tests": "pnpm test:unit && pnpm test:src",
-    "prebuild-e2e-tests": "AUTOTEST=true pnpm test:e2e:views && AUTOTEST=true pnpm test:e2e:interactivity && AUTOTEST=true pnpm test:e2e:consistency"
+    "prebuild-unit-tests": "npm run test:unit && npm run test:src",
+    "prebuild-e2e-tests": "AUTOTEST=true npm run test:e2e:views && AUTOTEST=true npm run test:e2e:interactivity && AUTOTEST=true npm run test:e2e:consistency"
   },
   "dependencies": {
     "@bugsnag/js": "^7.25.0",

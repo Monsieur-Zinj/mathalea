@@ -65,7 +65,7 @@
     {/if}
     <!-- Barre de boutons si non-smartphone  -->
     <div
-      class="hidden md:flex {isExerciseDisplayed
+      class="flex {isExerciseDisplayed
         ? 'xl:h-[50px] md:h-[100px]'
         : 'h-0'}"
     >
@@ -80,15 +80,17 @@
           {isSidenavOpened}
           {toggleSidenav}
         />
-        <HeaderButtons
-          bind:reorderModalDisplayed
-          {zoomUpdate}
-          {setAllInteractive}
-          {newDataForAll}
-          {trash}
-          {setFullScreen}
-          {handleExport}
-        />
+        <div class="hidden md:flex">
+          <HeaderButtons
+            bind:reorderModalDisplayed
+            {zoomUpdate}
+            {setAllInteractive}
+            {newDataForAll}
+            {trash}
+            {setFullScreen}
+            {handleExport}
+          />
+        </div>
       </div>
     </div>
   {/if}

@@ -45,7 +45,6 @@ class CoordonneesParallelogramme extends Exercice {
     this.question = `Dans un repère $(O\\;;\\;\\vec{i}\\;;\\;\\vec{j})$, on considère les points $${nomA}(${ax}\\;;\\;${ay})$, `
     this.question += `$${nomB}(${bx}\\;;\\;${by})$ et $${nomC}(${cx}\\;;\\;${cy})$.<br>`
     this.question += `Déterminer les coordonnées du point $${nomD}$ tel que $${nomA}${nomB}${nomC}${nomD}$ soit un parallélogramme.`
-    this.question += `<br>$(${dx}\\;;\\;${dy})$`
     if (this.interactif) {
       this.question += `<br><br>$${nomD}$ a pour coordonnées : `
     }

@@ -34,6 +34,8 @@ export default class DecompositionNombreDecimal extends Exercice {
     this.nbColsCorr = 1
     this.sup = 7
     this.besoinFormulaireNumerique = ['Choix de questions', 7, "1 : 'Chiffre des'\n2 : 'Nombre de'\n3 : Partie entière ou partie décimale\n4 : 'Chiffre des' ou 'nombre de'\n5 : 'Chiffre des' ou partie entière ou partie décimale\n6 : 'Nombre de' ou partie entière ou partie décimale\n7 : Mélange"]
+    this.besoinFormulaire2CaseACocher = ['Avec nombre entier ?']
+    this.sup2 = false
   }
 
   nouvelleVersion () {
@@ -87,6 +89,18 @@ export default class DecompositionNombreDecimal extends Exercice {
         c = randint(0, 9, [m])
         d = randint(0, 9, [m, c])
         u = randint(0, 9, [m, c, d])
+        if (this.sup2){
+          di = 0
+          ci = 0
+          mi = 0
+          n =
+          m.toString() +
+          '~' +
+          c.toString() +
+          d.toString() +
+          u.toString()
+        }
+        else{
         di = randint(0, 9, [m, c, d, u])
         ci = randint(0, 9, [m, c, d, u, di])
         mi = randint(1, 9, [m, c, d, u, di, ci])
@@ -100,6 +114,7 @@ export default class DecompositionNombreDecimal extends Exercice {
                     di.toString() +
                     ci.toString() +
                     mi
+        }
       }
       switch (listeTypeDeQuestions[i]) {
         case 1:
