@@ -9,12 +9,13 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { fraction } from '../../modules/fractions.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { texNombre } from '../../lib/outils/texNombre'
 
-export const titre = 'Effectuer somme, différence ou produit de fractions'
+export const titre = 'Effectuer somme, différence, produit ou quotient de fractions'
 export const interactifType = 'mathLive'
 export const interactifReady = true
 export const dateDePublication = '15/09/2021'
-export const dateDeModifImportante = '07/05/2024'
+export const dateDeModifImportante = '06/10/2024'
 
 /**
  * Effectuer somme, différence ou produit de fractions
@@ -48,12 +49,20 @@ export default function SommeOuProduitFractions () {
     this.listeCorrections = [] // Liste de questions corrigées
 
     let typeQuestionsDisponibles = []
-    const typeQuestionsPossibles = [['type1', 'type2'], ['type3', 'type4'], ['type5', 'type6'], ['type7', 'type8']]
+    const typeQuestionsPossibles = [
+      ['sommeMult', 'sommeAvecEntier'],
+      ['diffMult', 'diffAvecEntier'],
+      ['prod', 'prodAvecEntier'],
+      ['sommePuisProd', 'prodPuisSomme'],
+      ['sommeMult', 'sommeAvecEntier', 'diffMult', 'diffAvecEntier', 'prod', 'prodAvecEntier', 'sommePuisProd', 'prodPuisSomme'],
+      ['div', 'entierPuisDiv'],
+      ['sommeMult', 'sommeAvecEntier', 'diffMult', 'diffAvecEntier', 'prod', 'prodAvecEntier', 'sommePuisProd', 'prodPuisSomme', 'div', 'entierPuisDiv']
+
+    ]
 
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
-      max: 4,
+      max: 7,
       defaut: 5,
-      melange: 5,
       nbQuestions: this.nbQuestions,
       shuffle: true,
       saisie: this.sup,
@@ -61,12 +70,13 @@ export default function SommeOuProduitFractions () {
     })
 
     for (let ee = 0; ee < QuestionsDisponibles.length; ee++) {
-      typeQuestionsDisponibles.push(typeQuestionsPossibles[QuestionsDisponibles[ee] - 1][randint(0, 1)])
+      const typesQuestions = typeQuestionsPossibles[QuestionsDisponibles[ee] - 1]
+      typeQuestionsDisponibles.push(typesQuestions[randint(0, typesQuestions.length - 1)])
     }
     typeQuestionsDisponibles = shuffle(typeQuestionsDisponibles)
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
-    for (let i = 0, num1, num2, den1, den2, den3, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
+    for (let i = 0, num1, num2, den1, kden1, den2, k, k2, alea, texte, texteCorr, num, den, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       // les numérateurs
       num1 = randint(1, 7)
       num2 = randint(3, 9)
@@ -74,191 +84,210 @@ export default function SommeOuProduitFractions () {
       den1 = randint(2, 9, [num2, num1])
       k = randint(1, 4)
       k2 = randint(2, 5)
-      den2 = k * den1
-      den3 = randint(2, 9, [num2, num1])
+      kden1 = k * den1
+      den2 = randint(2, 9, [num2, num1])
       alea = choice([1, 2])
       texte = ''
       texteCorr = ''
-
+      const lettre = lettreDepuisChiffre(i + 1)
       switch (listeTypeQuestions[i]) { // Suivant le type de question, le contenu sera différent
-        case 'type1': // Somme de fractions de dénominateurs égaux ou multiples
-
+        case 'sommeMult': // Somme de fractions de dénominateurs égaux ou multiples
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}+${texFractionFromString(num2, den2)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}+${texFractionFromString(num2, den2)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)}+${texFractionFromString(num2, kden1)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}+${texFractionFromString(num2, kden1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFractionFromString(num2, den2)}$<br>`
+                texteCorr += `$${lettre} = ${texFractionFromString(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}+${texFractionFromString(num2, kden1)}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 * k, den2)}+${texFractionFromString(num2, den2)}$<br>`
+              texteCorr += `$${lettre} = ${texFractionFromString(num1 * k, kden1)}+${texFractionFromString(num2, kden1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * k + num2, den2)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * k + num2, kden1)}$ `
             num = num1 * k + num2
-            den = den2
+            den = kden1
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}+${texFractionFromString(num2, den1)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}+${texFractionFromString(num2, den1)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, kden1)}+${texFractionFromString(num2, den1)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}+${texFractionFromString(num2, den1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}+${texFractionFromString(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
+                texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}+${texFractionFromString(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}+${texFractionFromString(num2 * k, den2)}$<br>`
+              texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}+${texFractionFromString(num2 * k, kden1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 + num2 * k, den2)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 + num2 * k, kden1)}$ `
             num = num1 + num2 * k
-            den = den2
+            den = kden1
           }
 
           break
 
-        case 'type2': // Somme d'une fraction et d'un entier'
+        case 'sommeAvecEntier': // Somme d'une fraction et d'un entier'
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFractionFromString(num1, den1)} $ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} + ${texFractionFromString(num1, den1)} $<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(k * den1, den1)} + ${texFractionFromString(num1, den1)}$<br>`
+            texte += `$${lettre} = ${k} + ${texFractionFromString(num1, den1)} $ `
+            texteCorr += `$${lettre} = ${k} + ${texFractionFromString(num1, den1)} $<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(k * den1, den1)} + ${texFractionFromString(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 + k * den1, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 + k * den1, den1)}$`
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} + ${k} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}+${k}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}+${texFractionFromString(k * den1, den1)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)} + ${k} $`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}+${k}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}+${texFractionFromString(k * den1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 + k * den1, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 + k * den1, den1)}$`
           }
           num = num1 + k * den1
           den = den1
           break
 
-        case 'type3': // Différence de fractions de dénominateurs égaux ou multiples
+        case 'diffMult': // Différence de fractions de dénominateurs égaux ou multiples
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}-${texFractionFromString(num2, den2)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}-${texFractionFromString(num2, den2)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)}-${texFractionFromString(num2, kden1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}-${texFractionFromString(num2, kden1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFractionFromString(num2, den2)}$<br>`
+                texteCorr += `$${lettre} = ${texFractionFromString(num1 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))} - ${texFractionFromString(num2, kden1)}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 * k, den1 * k)}-${texFractionFromString(num2, den2)}$<br>`
+              texteCorr += `$${lettre} = ${texFractionFromString(num1 * k, den1 * k)}-${texFractionFromString(num2, kden1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * k - num2, den2)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * k - num2, kden1)}$ `
             num = num1 * k - num2
-            den = den2
+            den = kden1
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}-${texFractionFromString(num2, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}-${texFractionFromString(num2, den1)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, kden1)}-${texFractionFromString(num2, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}-${texFractionFromString(num2, den1)}$<br>`
             if (k > 1) {
               if (this.correctionDetaillee) {
-                texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}-${texFractionFromString(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
+                texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}-${texFractionFromString(num2 + miseEnEvidence('\\times' + k), den1 + miseEnEvidence('\\times' + k))}$<br>`
               }
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den2)}-${texFractionFromString(num2 * k, den2)}$<br>`
+              texteCorr += `$${lettre} = ${texFractionFromString(num1, kden1)}-${texFractionFromString(num2 * k, kden1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 - num2 * k, den2)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 - num2 * k, kden1)}$`
             num = num1 - num2 * k
-            den = den2
+            den = kden1
           }
 
           break
 
-        case 'type4': // Différence d'une fraction et d'un entier
+        case 'diffAvecEntier': // Différence d'une fraction et d'un entier
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFractionFromString(num1, den1)} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k} - ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(k * den1, den1)} - ${texFractionFromString(num1, den1)}$<br>`
+            texte += `$${lettre} = ${k} - ${texFractionFromString(num1, den1)} $`
+            texteCorr += `$${lettre} = ${k} - ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(k * den1, den1)} - ${texFractionFromString(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(k * den1 - num1, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(k * den1 - num1, den1)}$`
             num = k * den1 - num1
             den = den1
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}-${k}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}-${k}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)}-${k}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}-${k}$<br>`
             if (k > 1) {
-              texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)}-${texFractionFromString(k * den1, den1)}$<br>`
+              texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)}-${texFractionFromString(k * den1, den1)}$<br>`
             }
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 - k * den1, den1)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 - k * den1, den1)}$ `
             num = num1 - k * den1
             den = den1
           }
 
           break
 
-        case 'type5': // Produit de fractions
-          texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(num2, den3)}$`
-          texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(num2, den3)}$<br>`
-          texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * num2, den1 * den3)}$`
+        case 'prod': // Produit de fractions
+          texte += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(num2, den2)}$`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(num2, den2)}$<br>`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1 * num2, den1 * den2)}$`
           num = num1 * num2
-          den = den1 * den3
+          den = den1 * den2
           break
 
-        case 'type6': // Produit d'une fraction par un entier
+        case 'prodAvecEntier': // Produit d'une fraction par un entier
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} \\times ${k2}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} \\times ${k2}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(k2, '1')}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${k2}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${k2}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(k2, '1')}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * k2, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * k2, den1)}$`
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFractionFromString(num1, den1)} $`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${k2} \\times ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(k2, '1')} \\times  ${texFractionFromString(num1, den1)}$<br>`
+            texte += `$${lettre} = ${k2} \\times ${texFractionFromString(num1, den1)} $`
+            texteCorr += `$${lettre} = ${k2} \\times ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(k2, '1')} \\times  ${texFractionFromString(num1, den1)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * k2, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * k2, den1)}$`
           }
           num = num1 * k2
           den = den1
 
           break
 
-        case 'type7': // Avec priorité opératoire : a +/- bc
+        case 'sommePuisProd': // Avec priorité opératoire : a +/- bc
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)}$ `
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2 * k2, den1 * den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 * den3, den1 * den3)} + ${texFractionFromString(num2 * k2, den1 * den3)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)}$ `
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} + ${texFractionFromString(num2 * k2, den1 * den2)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2, den1 * den2)} + ${texFractionFromString(num2 * k2, den1 * den2)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * den3 + num2 * k2, den1 * den3)}$`
-            num = num1 * den3 + num2 * k2
-            den = den1 * den3
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2 + num2 * k2, den1 * den2)}$`
+            num = num1 * den2 + num2 * k2
+            den = den1 * den2
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2 * k2, den1 * den3)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num1 * den3, den1 * den3)} - ${texFractionFromString(num2 * k2, den1 * den3)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} - ${texFractionFromString(num2 * k2, den1 * den2)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2, den1 * den2)} - ${texFractionFromString(num2 * k2, den1 * den2)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num1 * den3 - num2 * k2, den1 * den3)}$`
-            num = num1 * den3 - num2 * k2
-            den = den1 * den3
+            texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2 - num2 * k2, den1 * den2)}$`
+            num = num1 * den2 - num2 * k2
+            den = den1 * den2
           }
 
           break
 
-        case 'type8': // Avec priorité opératoire : ab +/- c
+        case 'prodPuisSomme': // Avec priorité opératoire : ab +/- c
           if (alea === 1) {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)} + ${texFractionFromString(num1, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)} + ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2 * k2, den1 * den3)} + ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2 * k2, den1 * den3)} + ${texFractionFromString(num1 * den3, den1 * den3)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)} + ${texFractionFromString(num1, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)} + ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2, den1 * den2)} + ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2, den1 * den2)} + ${texFractionFromString(num1 * den2, den1 * den2)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num2 * k2 + num1 * den3, den1 * den3)}$`
-            num = num2 * k2 + num1 * den3
-            den = den1 * den3
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2 + num1 * den2, den1 * den2)}$`
+            num = num2 * k2 + num1 * den2
+            den = den1 * den2
           } else {
-            texte += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)} - ${texFractionFromString(num1, den1)}$`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den3)} - ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2 * k2, den1 * den3)} - ${texFractionFromString(num1, den1)}$<br>`
-            texteCorr += `$${lettreDepuisChiffre(i + 1)} = ${texFractionFromString(num2 * k2, den1 * den3)} - ${texFractionFromString(num1 * den3, den1 * den3)}$<br>`
+            texte += `$${lettre} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)} - ${texFractionFromString(num1, den1)}$`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2, den1)} \\times ${texFractionFromString(k2, den2)} - ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2, den1 * den2)} - ${texFractionFromString(num1, den1)}$<br>`
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2, den1 * den2)} - ${texFractionFromString(num1 * den2, den1 * den2)}$<br>`
 
-            texteCorr += `$${lettreDepuisChiffre(i + 1) + '=' + texFractionFromString(num2 * k2 - num1 * den3, den1 * den3)}$`
-            num = num2 * k2 - num1 * den3
-            den = den1 * den3
+            texteCorr += `$${lettre} = ${texFractionFromString(num2 * k2 - num1 * den2, den1 * den2)}$`
+            num = num2 * k2 - num1 * den2
+            den = den1 * den2
           }
+          break
+
+        case 'div': // Quotient de deux fractions
+          texte += `$${lettre} = ${texFractionFromString(num1, den1)} \\div  ${texFractionFromString(num2, den2)} $ `
+          texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} \\div  ${texFractionFromString(num2, den2)} $<br>`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1, den1)} \\times ${texFractionFromString(den2, num2)}$<br>`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2, den1 * num2)}$`
+
+          num = num1 * den2
+          den = den1 * num2
+          break
+
+        case 'entierPuisDiv': // Quotient d'un entier par une fraction
+          texte += `$${lettre} = ${texNombre(num1)} \\div  ${texFractionFromString(num2, den2)} $ `
+          texteCorr += `$${lettre} = ${texNombre(num1)} \\div  ${texFractionFromString(num2, den2)} $<br>`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1, 1)} \\times ${texFractionFromString(den2, num2)}$<br>`
+          texteCorr += `$${lettre} = ${texFractionFromString(num1 * den2, num2)}$`
+
+          num = num1 * den2
+          den = num2
           break
       }
       if (pgcd(num, den) !== 1) {
-        texteCorr += `<br>$${lettreDepuisChiffre(i + 1)}  ${simplificationDeFractionAvecEtapes(num, den)}$`
+        texteCorr += `<br>$${lettre}  ${simplificationDeFractionAvecEtapes(num, den)}$`
       }
       texte += '<br>'
       texteCorr += '\n'
@@ -279,6 +308,6 @@ export default function SommeOuProduitFractions () {
   }
   this.besoinFormulaireTexte = [
     'Type de questions',
-    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange'
+    'Nombres séparés par des tirets\n1 : Somme\n2 : Différence\n3 : Produit\n4 : Avec priorités opératoires\n5 : Mélange\n6 : Quotient\n7 : Mélange avec quotient'
   ]
 }

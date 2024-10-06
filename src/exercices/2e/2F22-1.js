@@ -136,8 +136,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       }
       y2 = choice(reponseQ3)
 
-      const solutions0 = theSpline.solve(y0, 0)
-      const solutions1 = theSpline.solve(y1, 0)
+      const solutions0 = theSpline.solve(y0, 2)
+      const solutions1 = theSpline.solve(y1, 2)
       const reponse1 = solutions1.length === 0 ? '\\emptyset' : `${solutions1.join(';')}`
       const horizontale1 = droiteParPointEtPente(point(0, y1), 0, '', 'green')
       const horizontale2 = droiteParPointEtPente(point(0, y2), 0, '', 'green')
@@ -153,8 +153,8 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       for (let j = 0; j < nombreAntecedentCherches0; j++) {
         objetsCorrection1.push(lectureAntecedent(solutions0[j], y0, 1, 1, 'red', '', ''))
       }
-
-      for (const antecedentY2 of theSpline.solve(y2, 0)) {
+      const listeAntecedents = theSpline.solve(y2, 0)
+      for (const antecedentY2 of listeAntecedents) {
         objetsCorrection2.push(lectureAntecedent(antecedentY2, y2, 1, 1, 'red', '', ''))
       }
 
