@@ -291,10 +291,11 @@ export class Spline {
   /**
    * retourne les solutions de f(x) = y sur son domaine de définition
    * @param {number} y
-   * @param {number} precision le nombre de chiffres attendus après la virgule en cas de valeur non entière
+   * @param {number} precision préciser la tolérance dans la recherche de solutions : une précision de 2 signifie que y-0.01<f(x)<y+0.01
+   * mettre 0 comme précision signifie potentiellement y-0.5<f(x)<y+0.5 !
    * @returns {number[]}
    */
-  solve (y, precision = 1) {
+  solve (y, precision = 2) {
     // On a eu des soucis plus loin dans polynome.add(-y) donc on s'assure que y est bien un number.
     const yArg = y
     y = Number(y)
