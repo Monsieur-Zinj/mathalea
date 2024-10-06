@@ -7,6 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Déterminer un taux d\'évolution global'
 export const interactifReady = true
@@ -126,7 +127,7 @@ export default function EvolutionsSuccesives () {
           if (CM < 1) {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${texNombre(taux.abs(), 2)}~\\%$.`
+          texteCorr += `<br><br><br>Le prix de l'article a subi une ${nom} globale de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$.`
           setReponse(this, i, taux)
           break
         case 2 :
@@ -193,7 +194,7 @@ export default function EvolutionsSuccesives () {
           if (CM < 1) {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2021$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'habitants de cette ville a ${nom} de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$ entre $2021$ et $2022$.`
           setReponse(this, i, taux)
           break
         case 3 :
@@ -259,7 +260,7 @@ export default function EvolutionsSuccesives () {
           if (CM < 1) {
             texteCorr += `Le taux d'évolution global est égal à : $T=CM-1=${texNombre(CM, 4)}-1=-${texNombre(Math.abs(p), 4)}=-${texNombre(t, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${texNombre(taux.abs(), 2)}~\\%$ entre $2020$ et $2022$.`
+          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom} de $${miseEnEvidence(texNombre(taux.abs(), 2))}~\\%$ entre $2020$ et $2022$.`
           setReponse(this, i, taux)
           break
 
@@ -333,7 +334,7 @@ export default function EvolutionsSuccesives () {
           if (CM2 < 1) {
             texteCorr += `<br>Or $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1= - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le prix de l'article a subi une ${nom2}  $${texNombre(t2)}~\\%$  lors de la deuxième évolution.`
+          texteCorr += `<br><br>Le prix de l'article a subi une ${nom2}  $${miseEnEvidence(texNombre(t2))}~\\%$  lors de la deuxième évolution.`
           setReponse(this, i, t2)
           break
 
@@ -346,7 +347,7 @@ export default function EvolutionsSuccesives () {
           }
           if (taux2 > 0) {
             verbe2 = 'Augmenter'
-            nom2 = 'hausse'
+            nom2 = 'augmenté'
           }
           if (taux1 < 0) {
             verbe1 = 'Diminuer'
@@ -377,7 +378,7 @@ export default function EvolutionsSuccesives () {
             nom3 = 'baissé'
             verbe3 = 'Diminuer'
           }
-          texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom3} de $t~\\%$ en $2022$.<br>
+          texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $t~\\%$ en $2022$.<br>
           Globalement, sur ces deux années, la population de cette ville a ${nom3} de $${texNombre(t, 2)} \\,\\%$.<br>
           Quelle est la valeur de $t$ ?`
           texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
@@ -407,7 +408,7 @@ export default function EvolutionsSuccesives () {
           if (CM2 < 1) {
             texteCorr += `<br>Or  $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)} $ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${texNombre(t2)}\\,\\%$.`
+          texteCorr += `<br><br>En $2022$, le nombre d'habitants de cette ville a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$.`
           setReponse(this, i, t2)
           break
 
@@ -482,7 +483,7 @@ export default function EvolutionsSuccesives () {
           if (CM2 < 1) {
             texteCorr += `<br> $T_2=CM_2 -1= ${texNombre(CM2, 2)} -1=  - ${texNombre(Math.abs(p2), 2)}$ ce qui correspond à une baisse de $${texNombre(t2, 2)}~\\%$.`
           }
-          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom2} de $${texNombre(t2)}\\,\\%$ en $2022$.`
+          texteCorr += `<br><br>Le nombre d'adhérents de cette association a ${nom2} de $${miseEnEvidence(texNombre(t2, 2))}\\,\\%$ en $2022$.`
 
           setReponse(this, i, t2)
           break
