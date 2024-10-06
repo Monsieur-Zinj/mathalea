@@ -27,7 +27,7 @@ export default class MilieuSegment extends Exercice {
   constructor () {
     super()
     this.consigne = ''
-    this.nbQuestions = 2
+    this.nbQuestions = 1
   }
 
   nouvelleVersion () {
@@ -48,10 +48,11 @@ export default class MilieuSegment extends Exercice {
       const zV = (zB + zA) / 2
       texte = `Dans un repère orthonormé $\\big(0,\\vec \\imath,\\vec \\jmath, \\vec k\\big)$, on donne les points $${pointA}$ et $${pointB}$ de coordonnées respectives :`
       texte += `<br>$${pointA}(${xA}~;~${yA}~;~${zA})$ et  $${pointB}(${xB}~;~${yB}~;~${zB})$.<br>`
-      texte += `Déterminer les coordonnées du point $I$ milieu du segment $[${pointA}${pointB}]$.<br>`
+      texte += `Déterminer les coordonnées du point $I$ milieu du segment $[${pointA}${pointB}]$`
 
-      if (this.interactif) texte += remplisLesBlancs(this, i, 'I(%{champ1};%{champ2};%{champ3})')
-      else texte += '.'
+      if (this.interactif) {
+        texte += ': ' + remplisLesBlancs(this, i, 'I(%{champ1};%{champ2};%{champ3}).')
+      } else texte += '.'
       handleAnswers(this, i, { champ1: { value: texNombre(xV, 1) }, champ2: { value: texNombre(yV, 1) }, champ3: { value: texNombre(zV, 1) } })
       texteCorr = 'On calcule la demi-somme des coordonnées des deux points :<br>'
       texteCorr += 'On obtient :  '

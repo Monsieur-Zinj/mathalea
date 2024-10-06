@@ -26,7 +26,7 @@ export default class CoordonneesVecteur extends Exercice {
   constructor () {
     super()
     this.consigne = ''
-    this.nbQuestions = 2
+    this.nbQuestions = 1
   }
 
   nouvelleVersion () {
@@ -48,8 +48,11 @@ export default class CoordonneesVecteur extends Exercice {
       texte = `Dans un repère orthonormé $(0,\\vec \\imath,\\vec \\jmath, \\vec k)$, on donne les points $${pointA}$ et $${pointB}$ de coordonnées respectives :`
       texte += `<br>$${pointA}(${xA}~;~${yA};~${zA})$ et  $${pointB}(${xB}~;~${yB}~;~${zB})$.<br>`
       texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${pointA}${pointB}}$`
-      if (this.interactif) texte += remplisLesBlancs(this, i, '\\begin{pmatrix}%{champ1}\\\\%{champ2}\\\\%{champ3}\\end{pmatrix}.')
-      else texte += '.'
+      if (this.interactif) {
+        texte += ': ' + remplisLesBlancs(this, i, '\\begin{pmatrix}%{champ1}\\\\%{champ2}\\\\%{champ3}\\end{pmatrix}.')
+      } else {
+        texte += '.'
+      }
       handleAnswers(this, i, { champ1: { value: texNombre(xV, 1) }, champ2: { value: texNombre(yV, 1) }, champ3: { value: texNombre(zV, 1) } })
       texteCorr = 'On calcule la différence des coordonnées des deux points :<br>'
       texteCorr += 'On obtient :  '
