@@ -42,7 +42,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
     // this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
     this.spacing = 1.5 // Interligne des questions
     this.spacingCorr = 1.5// Interligne des réponses
-    /*
+
     function solutionsScoreNul (nombQuestions, nombPoints) {
       let solutions: number[]
       for (let n = 0; n < nombQuestions; n++) {
@@ -56,7 +56,6 @@ export default class resoudreProblemeRelatifs extends Exercice {
       }
       return solutions
     }
-*/
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const nombreQuestions = choice([10, 20, 30])
@@ -135,7 +134,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
         } else {
           texteCorr += '<br> Il est possible d\'avoir un score nul dans ce jeu : '
         }
-        **/
+        */
       }
 
       if (this.questionJamaisPosee(i, nombreQuestions, nombresPoints.join(''))) {
