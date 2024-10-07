@@ -2,16 +2,16 @@ import { courbe } from '../../../lib/2d/courbes.js'
 import { repere } from '../../../lib/2d/reperes.js'
 import { texteParPosition } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
-
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 
 export const titre = 'Lire graphiquement le signe de $a$ et de $\\Delta$'
+export const dateDeModificationImportante = '07/10/2024'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
@@ -21,7 +21,7 @@ export const dateDePublication = '08/06/2022' // La date de publication initiale
 /**
  *
  * @author Gilles Mora
- * Référence can1L04
+ * Référence can1F03
  */
 export const uuid = 'a8936'
 export const ref = 'can1F03'
@@ -32,7 +32,6 @@ export const refs = {
 export default function LectureGraphiqueParabole () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline nospacebefore'
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -57,12 +56,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '>' },
+            champ2: { value: '<' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
             xMin: -5,
@@ -88,8 +90,8 @@ export default function LectureGraphiqueParabole () {
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
-      De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta<0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a${miseEnEvidence('>')}0$. <br>
+      De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta${miseEnEvidence('<')}0$.`
           break
 
         case 2:// cas parabole a>0 et delta>0
@@ -103,12 +105,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '>' },
+            champ2: { value: '>' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere({
@@ -135,8 +140,8 @@ export default function LectureGraphiqueParabole () {
             scale: 0.8,
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
-          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
-    De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines et par suite $\\Delta>0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a${miseEnEvidence('>')}0$. <br>
+    De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines et par suite $\\Delta${miseEnEvidence('>')}0$.`
           break
 
         case 3:// cas parabole a>0 et delta=0
@@ -150,12 +155,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '>', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '>' },
+            champ2: { value: '=' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
           r = repere({
             xMin: -5,
@@ -182,8 +190,8 @@ export default function LectureGraphiqueParabole () {
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a>0$. <br>
- De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le haut, on en déduit que $a${miseEnEvidence('>')}0$. <br>
+ De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta${miseEnEvidence('=')}0$.`
           break
 
         case 4:// cas parabole a<0 et delta=0
@@ -197,12 +205,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '=', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '<' },
+            champ2: { value: '=' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere({
@@ -230,8 +241,8 @@ export default function LectureGraphiqueParabole () {
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta=0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a${miseEnEvidence('<')}0$. <br>
+ De plus, elle  coupe  l'axe des abscisses en un point, donc $f$ a une seule racine et par suite $\\Delta${miseEnEvidence('=')}0$.`
           break
 
         case 5:// cas parabole a<0 et delta>0
@@ -245,12 +256,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '>', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '<' },
+            champ2: { value: '>' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere({
@@ -278,8 +292,8 @@ export default function LectureGraphiqueParabole () {
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines  et par suite $\\Delta>0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a${miseEnEvidence('<')}0$. <br>
+ De plus, elle  coupe  l'axe des abscisses en deux points, donc $f$ a deux racines  et par suite $\\Delta${miseEnEvidence('>')}0$.`
           break
 
         case 6:// cas parabole a<0 et delta<0
@@ -293,12 +307,15 @@ export default function LectureGraphiqueParabole () {
             texte += `${texteNI}`
           } else {
             texte += `${texteI}`
-            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierCompare, { texteAvant: '$a$' }) + '$0$'
-            texte += ` ${sp(2)} et ${sp(4)} `
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierCompare, { texteAvant: '$\\Delta$' }) + '$0$<br><br>'
-            setReponse(this, 2 * i, '<', { formatInteractif: 'texte' })
-            setReponse(this, 2 * i + 1, '<', { formatInteractif: 'texte' })
+            texte += remplisLesBlancs(this, i, 'a \\quad%{champ1} \\quad0 \\text{ et  } \\Delta \\quad%{champ2}\\quad 0', KeyboardType.clavierCompare)
           }
+          handleAnswers(this, i, {
+            bareme: (listePoints) => [Math.min(listePoints[0], listePoints[1]), 1],
+            champ1: { value: '<' },
+            champ2: { value: '<' }
+          },
+          { formatInteractif: 'mathlive' }
+          )
           // $${delta}$ et $${a}(x-${alpha})^2+${beta}$
 
           r = repere({
@@ -326,8 +343,8 @@ export default function LectureGraphiqueParabole () {
             style: 'margin: auto'
           }, r, o, courbe(F, { repere: r, color: 'blue', epaisseur: 2 }))
 
-          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a<0$. <br>
- De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta<0$.`
+          texteCorr = `La parabole a "les bras" tournés vers le bas, on en déduit que $a${miseEnEvidence('<')}0$. <br>
+ De plus, elle ne coupe pas l'axe des abscisses, donc $f$ n'a pas de racines et par suite $\\Delta${miseEnEvidence('<')}0$.`
           break
       }
 
