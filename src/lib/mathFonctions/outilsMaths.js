@@ -280,21 +280,21 @@ export function developpe (expr, options) {
     const terme2 = interior.op2
     const carre1 = terme1.isAlgebraic
       ? terme1.latex.startsWith('-')
-        ? `\\lparen ${terme1.latex}\\rparen ^2`
+        ? `\\left( ${terme1.latex}\\right) ^2`
         : `${terme1.latex}^2`
-      : `\\lparen ${terme1.latex}\\rparen ^2`
+      : `\\left( ${terme1.latex}\\right) ^2`
     const carre2 = terme2.isAlgebraic
       ? terme2.latex.startsWith('-')
-        ? `\\lparen ${terme2.latex}\\rparen ^2`
+        ? `\\left( ${terme2.latex}\\right) ^2`
         : `${terme2.latex}^2`
-      : `\\lparen ${terme2.latex}\\rparen ^2`
+      : `\\left( ${terme2.latex}\\right) ^2`
     const dbleProd = `2\\times ${terme1.isAlgebraic
         ? terme1.latex.startsWith('-')
-            ? `\\lparen ${terme1.latex}\\rparen `
+            ? `\\left( ${terme1.latex}\\right) `
             : `${terme1.latex}`
-        : `\\lparen ${terme1.latex}\\rparen `}\\times ${terme2.isAlgebraic
+        : `\\left( ${terme1.latex}\\right) `}\\times ${terme2.isAlgebraic
         ? terme2.latex.startsWith('-')
-            ? `\\lparen ${terme2.latex}\\rparen `
+            ? `\\left( ${terme2.latex}\\right) `
             : `${terme2.latex}`
         : `${terme2.latex}`}`
     if (level === 2) {
@@ -315,17 +315,17 @@ export function developpe (expr, options) {
     const terme4 = facteur2.op2
     const somme2 = facteur2.head === 'Add'
     const t1 = terme1.latex.startsWith('-')
-      ? `\\lparen ${terme1.latex}\\rparen `
+      ? `\\left( ${terme1.latex}\\right) `
       : terme1.latex
     const t2 = terme2.latex.startsWith('-')
-      ? `\\lparen ${terme2.latex}\\rparen `
+      ? `\\left( ${terme2.latex}\\right) `
       : terme2.latex
 
     const t3 = terme3.latex.startsWith('-')
-      ? `\\lparen ${terme3.latex}\\rparen `
+      ? `\\left( ${terme3.latex}\\right) `
       : terme3.latex
     const t4 = terme4.latex.startsWith('-')
-      ? `\\lparen ${terme4.latex}\\rparen `
+      ? `\\left( ${terme4.latex}\\right) `
       : terme4.latex
     if (level === 2) {
       return `${miseEnForme(t1, couleurs[colorOffset], isColored)}\\times ${miseEnForme(t3, couleurs[colorOffset + 2], isColored)}
@@ -338,9 +338,9 @@ export function developpe (expr, options) {
       const prod3 = engine.box(['Multiply', terme2, terme3]).evaluate().simplify().latex
       const prod4 = engine.box(['Multiply', terme2, terme4]).evaluate().simplify().latex
       if (level === 1) {
-        const p2 = prod2.startsWith('-') ? `\\lparen ${prod2})` : prod2
-        const p3 = prod3.startsWith('-') ? `\\lparen ${prod3})` : prod3
-        const p4 = prod4.startsWith('-') ? `\\lparen ${prod4})` : prod4
+        const p2 = prod2.startsWith('-') ? `\\left( ${prod2})` : prod2
+        const p3 = prod3.startsWith('-') ? `\\left( ${prod3})` : prod3
+        const p4 = prod4.startsWith('-') ? `\\left( ${prod4})` : prod4
         return `${miseEnForme(prod1, couleurs[colorOffset], isColored)}
         ${somme2 ? '+' : '-'}${miseEnForme(p2, couleurs[colorOffset + 1], isColored)}
         ${somme1 ? '+' : '-'}${miseEnForme(p3, couleurs[colorOffset + 1], isColored)}

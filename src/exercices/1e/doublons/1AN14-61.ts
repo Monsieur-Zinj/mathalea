@@ -49,9 +49,9 @@ class DerivationGRondF extends Exercice {
       const typeQuestion = Number(listeTypeDeQuestion[i])
       switch (typeQuestion) {
         case 1:
-          fPrimeDetaillee = n === 2 ? `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times\\lparen ${u} \\rparen` : `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times \\lparen${u}\\rparen^${n - 1}`
-          fPrime = n === 2 ? `${String(n * a)}\\times\\lparen${u}\\rparen` : `${String(n * a)}\\times \\lparen ${u} \\rparen^${n - 1}`
-          laFonctionFEnLatex = `\\lparen ${u}\\rparen^${n}`
+          fPrimeDetaillee = n === 2 ? `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times\\left( ${u} \\right)` : `${String(n)}\\times ${ecritureParentheseSiNegatif(a)}\\times \\left(${u}\\right)^${n - 1}`
+          fPrime = n === 2 ? `${String(n * a)}\\times\\left(${u}\\right)` : `${String(n * a)}\\times \\left( ${u} \\right)^${n - 1}`
+          laFonctionFEnLatex = `\\left( ${u}\\right)^${n}`
           df = '\\R'
           formeGenerale = 'u^n'
           formeGeneraleDerivee = '(u^{n})^\\prime=nu^\\prime u^{n-1}'
@@ -60,7 +60,7 @@ class DerivationGRondF extends Exercice {
         case 2:
           fPrimeDetaillee = `\\dfrac{${String(a)}}{${u}}`
           fPrime = `\\dfrac{${String(a)}}{${u}}`
-          laFonctionFEnLatex = `\\ln\\lparen ${u}\\rparen`
+          laFonctionFEnLatex = `\\ln\\left( ${u}\\right)`
           df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
           formeGenerale = 'ln(u)'
           formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'

@@ -57,7 +57,7 @@ class DerivationLnU extends Exercice {
         valeurInterdite = new FractionEtendue(-b, a).simplifie().texFSD
         fPrimeDetaillee = `\\dfrac{${String(a)}}{${u}}`
         fPrime = `\\dfrac{${String(a)}}{${u}}`
-        laFonctionFEnLatex = `\\ln\\lparen ${u}\\rparen`
+        laFonctionFEnLatex = `\\ln\\left( ${u}\\right)`
         df = a < 0 ? `\\left]-\\infty;${valeurInterdite}\\right[` : `\\left]${valeurInterdite};+\\infty\\right[`
         formeGenerale = 'ln(u)'
         formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
@@ -73,7 +73,7 @@ class DerivationLnU extends Exercice {
         uPrime = reduireAxPlusB(2 * a, b)
         fPrimeDetaillee = `\\dfrac{${uPrime}}{${u}}`
         fPrime = `\\dfrac{${uPrime}}{${u}}`
-        laFonctionFEnLatex = `\\ln\\lparen ${u}\\rparen`
+        laFonctionFEnLatex = `\\ln\\left( ${u}\\right)`
         df = a > 0 ? `\\left]-\\infty;${poly.texX1}\\right[\\cup \\left]${poly.texX2};+\\infty\\right[` : `\\left]${poly.texX1};${poly.texX2}\\right[`
         formeGenerale = 'ln(u)'
         formeGeneraleDerivee = '(ln(u))^\\prime=\\dfrac{u^\\prime}{u}'

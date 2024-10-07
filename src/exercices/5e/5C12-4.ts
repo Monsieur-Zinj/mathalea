@@ -279,8 +279,8 @@ class MettreDesParentheses extends Exercice {
         const saisies = prompts.map((pr) =>
           mfe
             .getPromptValue(pr)
-            .replace('\\lparen', '(')
-            .replace('\\rparen', ')')
+            .replace('\\left(', '(')
+            .replace('\\right)', ')')
         )
         let laSaisie = ''
         for (let k = 0, index = 0; k < materiel.expSP.length; k++) {
