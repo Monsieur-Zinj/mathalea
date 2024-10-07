@@ -218,7 +218,8 @@
     initExercices()
   }
 
-  let scormTab = false;
+
+  let tab = 'gift'
 
 </script>
 
@@ -252,9 +253,9 @@
             id="tabs-gift-btn"
             href="#tabs-gift"
             class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
-            {scormTab
-              ? ' hover:bg-opacity-10'
-              : ' hover:bg-opacity-0'}"
+            {tab === 'gift'
+              ? ' hover:bg-opacity-0'
+              : ' hover:bg-opacity-10'}"
             data-te-toggle="pill"
             data-te-target="#tabs-gift"
             role="tab"
@@ -262,7 +263,7 @@
             aria-selected="true"
             data-te-nav-active=""
             on:click={() => {
-             scormTab = false
+             tab = 'gift'
             }}
           >
             Export Gift (Quiz)
@@ -273,7 +274,7 @@
             id="tabs-scorm-btn"
             href="#tabs-scorm"
             class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
-            {scormTab
+            {tab === 'scorm'
               ? ' hover:bg-opacity-0'
               : ' hover:bg-opacity-10'}"
             data-te-toggle="pill"
@@ -282,10 +283,30 @@
             aria-controls="tabs-scorm"
             aria-selected="false"
             on:click={() => {
-              scormTab = true
+              tab = 'scorm'
             }}
           >
             Export SCORM
+          </a>
+        </li>
+        <li role="presentation" class="flex-grow basis-0 text-center">
+          <a
+            id="tabs-bookmarklet-btn"
+            href="#tabs-bookmarklet"
+            class="relative block font-extrabold px-7 pb-3.5 pt-4 text-base uppercase leading-tight text-coopmaths-action bg-coopmaths-canvas-darkest dark:bg-coopmathsdark-canvas-darkest hover:isolate hover:bg-coopmaths-action focus:isolate data-[te-nav-active]:bg-coopmaths-canvas data-[te-nav-active]:text-coopmaths-struct dark:text-coopmathsdark-action dark:hover:bg-coopmathsdark-action dark:hover:bg-opacity-20 dark:data-[te-nav-active]:bg-coopmathsdark-canvas dark:data-[te-nav-active]:text-coopmathsdark-struct
+            {tab === 'bookmarklet'
+              ? ' hover:bg-opacity-0'
+              : ' hover:bg-opacity-10'}"
+            data-te-toggle="pill"
+            data-te-target="#tabs-bookmarklet"
+            role="tab"
+            aria-controls="tabs-bookmarklet"
+            aria-selected="false"
+            on:click={() => {
+              tab = 'bookmarklet'
+            }}
+          >
+            Marque-page magique
           </a>
         </li>
       </ul>
@@ -398,6 +419,44 @@
               <pre class="my-10 shadow-md bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark text-coopmaths-corpus dark:text-coopmathsdark-corpus p-4 w-full overflow-auto">{contentScorm}</pre>
           </section>
           <!-- FIN SCORM -->
+        </div>
+        </div>
+        <div
+          class="hidden opacity-100 transition-opacity duration-150 ease-linear data-[te-tab-active]:block"
+          id="tabs-bookmarklet"
+          role="tabpanel"
+          aria-labelledby="tabs-bookmarklet"
+        >
+        <div
+            class="flex px-6 py-2 font-light text-lg text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+          >
+          <!-- DEBUT BOOKMARKLET -->
+          <section class="px-4 py-0 md:py-10 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas w-full">        
+            <p class="text-coopmaths-corpus dark:text-coopmathsdark-corpus text-lg md:text-xl">
+             Le marque-page magique permet de créer des activités MathALÉA (au format scorm) en un clic.<br />
+             <center><img src="./assets/images/moodle-bookmarklet-demo.gif" alt="Vidéo de démonstration du marque-page magique" style="height:400px;margin:10px;"/></center>
+            </p>
+            <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Installation du marque-page magique</h1>
+            Glissez déposez le lien ci-dessous dans votre barre de favoris / marque page :<br />
+            <!-- svelte-ignore a11y-invalid-attribute -->
+            <a href="javascript:var MathAleaBookmarkletScript = document.createElement('script');MathAleaBookmarkletScript.type='text/javascript';MathAleaBookmarkletScript.src='https://coopmaths.fr/alea/assets/externalJs/moodle-bookmarklet.js';document.body.appendChild(MathAleaBookmarkletScript);void(0);" style="color:blue;text-decoration:underline;">Activité MathALÉA</a>
+
+            <center><img src="./assets/images/moodle-bookmarklet-installation.gif" alt="Vidéo d'installation du marque-page magique" style="margin:10px;border: 1px solid black;filter:drop-shadow(2px 4px 6px black);transform: scale(0.9) rotate(-5deg) translate(20px, 20px);"/></center><br />
+
+            <h1 class="mt-12 mb-4 text-center md:text-left text-coopmaths-struct dark:text-coopmathsdark-struct text-2xl md:text-4xl font-bold">Utilisation</h1>
+
+            Pour utilisez le marque-page magique :
+            <ul style="list-style-type: square;margin-left:30px;">
+              <li>Ouvrez la page d'un cours en mode édition.</li>
+              <li>Appuyez sur le bouton permettant d'ajouter une activité à une section.</li>
+              <li>Lorsque le sélecteur d'activité s'affiche, appuyez sur le marque-page magique.</li>
+              <li>La fenêtre vous propose alors de choisir une ou plusieurs activités MathALÉA à ajouter à votre cours.</li>
+              <li>Une fois les activités choisies, appuyez sur le bouton "Ajouter" pour les insérer dans votre cours.</li>
+            </ul>
+            <strong>Important : en raison d'un bug moodle, le calcul du score sera incorrect dans le cas où plusieurs exercices ont été choisis. Il faut donc pour l'instant se limiter à un exercice par activité MathALÉA.</strong><br />
+            L'activité obtenue est une activité au format SCORM, le marque-page ne fait que simplifier la création de l'activité. Reportez-vous à la <a href="https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Utilisation-de-Mathalea-avec-Moodle/Export-Scorm" style="text-decoration:underline;">documentation de l'export Scorm</a> pour plus d'information.
+          </section>
+          <!-- FIN BOOKMARKLET -->
         </div>
         </div>
       </div>
