@@ -1,4 +1,4 @@
-import 'https://unpkg.com/mathlive?module';
+import 'https://unpkg.com/mathlive?module'
 window.mathVirtualKeyboard.targetOrigin = '*'
 if (typeof window.iMathAlea === 'undefined') {
   // Normalement ce script ne devrait être chargé qu'une unique fois car appelé en module
@@ -28,7 +28,7 @@ if (typeof window.iMathAlea === 'undefined') {
         const iframe = window.iMathAlea[parseInt(event.data.iframe)].iframe
         const question = window.iMathAlea[parseInt(event.data.iframe)].question
         if ((event.data.action === 'mathalea:init' || event.data.action === 'mathalea:resize') && typeof event.data.hauteurExercice !== 'undefined') {
-          let hauteur = event.data.hauteurExercice
+          const hauteur = event.data.hauteurExercice
           // hauteur += 50
           iframe.setAttribute('height', hauteur.toString())
         }
@@ -61,7 +61,7 @@ if (typeof window.iMathAlea === 'undefined') {
   })
 
   const style = document.createElement('style')
-  style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer { display: none !important; }'
+  style.innerHTML = '.mathalea-question-type .form-inline, .mathalea-question-type .im-controls, .mathalea-question-type .rightanswer, .mathalea-question-type .ablock { display: none !important; }'
   document.head.appendChild(style)
 
   // Create a class for the element
