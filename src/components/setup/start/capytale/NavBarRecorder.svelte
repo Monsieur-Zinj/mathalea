@@ -11,6 +11,8 @@
   export let showSettingsDialog: () => void
   export let importExercises: (urlFeuilleEleve: string) => void
   export let isExercisesListEmpty: boolean
+  export let isCapytale: boolean
+  export let handleRecorder: () => void
 
   let urlFeuilleEleve: string = ''
 
@@ -94,6 +96,14 @@
         slot="export-buttons"
         class="flex flex-row justify-center items-center space-x-4"
       >
+        {#if !isCapytale}
+          <ButtonTextAction
+            class="text-sm py-1 px-2 rounded-md h-7"
+            text="Valider"
+            disabled={isExercisesListEmpty}
+            on:click={handleRecorder}
+          />
+        {/if}
         <ButtonIconTooltip
           icon="bx-cog text-3xl"
           tooltip="Régler l'affichage du mode élève"
