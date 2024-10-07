@@ -8,6 +8,7 @@ import { arrondi } from './nombres'
 import { lettreDepuisChiffre } from './outilString.js'
 import { stringNombre, texNombre } from './texNombre'
 import { fraction } from '../../modules/fractions.js'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 
 /**
  * écrit le nombre, mais pas un nombre s'il est égal à 1
@@ -142,17 +143,17 @@ export function ecritureAlgebriqueSauf1 (a: FractionEtendue | number | Decimal) 
  * Idem ecritureAlgebrique mais retourne le nombre en couleur (vert si positif, rouge si négatif et noir si nul).
  * @param {number} a
  */
-export function ecritureAlgebriquec (a: number | string) {
+export function ecritureAlgebriquec (a: number | string, color?:string) {
   if (typeof a === 'string') {
     window.notify('ecritureAlgebriquec() n\'accepte pas les string.', { argument: a })
     a = Number(a)
   }
   let result = ''
   if (a > 0) {
-    result = miseEnEvidence('+' + texNombre(a, 7), 'blue')
+    result = miseEnEvidence('+' + texNombre(a, 7), color ?? 'blue')
   } else if (a < 0) {
-    result = miseEnEvidence(texNombre(a, 7))
-  } else result = miseEnEvidence(texNombre(a, 7), 'black')
+    result = miseEnEvidence(texNombre(a, 7), color ?? orangeMathalea)
+  } else result = miseEnEvidence(texNombre(a, 7), color ?? 'black')
   return result
 }
 
