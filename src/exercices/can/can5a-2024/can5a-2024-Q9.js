@@ -58,7 +58,7 @@ export default class NomExercice extends Exercice {
           this.optionsChampTexte = { texteApres: 'dm' }
         } else { this.question += `${context.isHtml ? '$\\ldots$ dm' : ''}` }
         this.correction = ` Comme $1$ m $=10$ dm,  pour passer des "m" au "dm", on multiplie par $10$.<br>
-            Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 100, 0))}$ dm.`
+            Comme $${texNombre(a, 1)}\\times 10 =${texNombre(a * 10, 0)}$, alors $${texNombre(a, 2)}$ m$=${miseEnEvidence(texNombre(a * 10, 0))}$ dm.`
         this.canReponseACompleter = ` $${texNombre(a, 0)}$ m $= \\ldots$ dm`
       }
     }
