@@ -14,6 +14,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 
 export const titre = 'Effectuer un enchaînement d\'additions et de soustractions de nombres relatifs'
 export const interactifReady = true
@@ -38,20 +39,13 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
   Exercice.call(this)
   this.sup = max
   this.sup2 = false // écriture simplifiée
-  this.titre = titre
-  this.consigne = 'Calculer, en détaillant les calculs.'
-  // this.spacing = 2
-  // this.spacingCorr = 1
   this.nbCols = 2
   this.nbColsCorr = 2
   this.nbQuestions = 6 // Pour que les colonnes soient équilibrées !
-  this.interactifReady = interactifReady
-  this.interactifType = interactifType
-  this.amcType = amcType
-  this.amcReady = amcReady
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
+    this.consigne = this.interactif ? 'Calculer.' : 'Calculer, en détaillant les calculs.'
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -124,11 +118,11 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         sommesSignees = sommeDesTermesParSigne([relatifs[0], relatifs[1], relatifs[2], relatifs[3], relatifs[4]])
         if (sommesSignees[0] !== 0 && sommesSignees[1] !== 0) {
           texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureNombreRelatifc(sommesSignees[0])}+${ecritureNombreRelatifc(sommesSignees[1])} $`
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e)} $<br>`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}= ${ecritureAlgebriquec(a + s1 * b + s2 * c + s3 * d + s4 * e, orangeMathalea)} $<br>`
         } else if (sommesSignees[0] !== 0) {
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0])}$`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[0], orangeMathalea)}$`
         } else {
-          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1])}$<br>`
+          texteCorr += `<br>$ ${lettreDepuisChiffre(i + 1)}=${ecritureAlgebriquec(sommesSignees[1], orangeMathalea)}$<br>`
         }
       }
 
