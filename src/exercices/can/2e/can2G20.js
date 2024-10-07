@@ -117,7 +117,7 @@ export default function EquationDroite () {
         }
         this.canEnonce = this.question
         this.canReponseACompleter = ''
-        this.reponse = [`y={${maFraction.texFractionSimplifiee}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`]
+        this.reponse = [`y=${maFraction.texFractionSimplifiee}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`]
         break
 
       case 2:
@@ -216,7 +216,11 @@ export default function EquationDroite () {
         }
         this.canEnonce = this.question
         this.canReponseACompleter = ''
-        if (yA !== 0) { this.reponse = [`y={${maFraction.texFractionSimplifiee}x + ${2 * yA}`, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x + ${2 * yA}`] } else { this.reponse = [`y={${maFraction.texFractionSimplifiee}x `, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x`] }
+        if (yA !== 0) {
+          this.reponse = [`y=${maFraction.texFractionSimplifiee}x + ${2 * yA}`, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x + ${2 * yA}`]
+        } else {
+          this.reponse = [`y=${maFraction.texFractionSimplifiee}x `, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x`]
+        }
         break
     }
   }
