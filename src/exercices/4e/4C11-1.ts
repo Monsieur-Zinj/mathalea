@@ -29,17 +29,16 @@ export default class resoudreProblemeRelatifs extends Exercice {
     super()
 
     this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
   }
 
   nouvelleVersion () {
     this.consigne = ''
-    // const typeQuestionsDisponibles = ['type1', 'type2', 'type3']
-    // const listeTypeQuestions = combinaisonListesSansChangerOrdre(typeQuestionsDisponibles, this.nbQuestions)
     this.nbCols = 1 // Uniquement pour la sortie LaTeX
     this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
     // this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
-    this.spacing = 1.5 // Interligne des questions
-    this.spacingCorr = 1.5// Interligne des réponses
+    this.spacing = 2 // Interligne des questions
+    this.spacingCorr = 2// Interligne des réponses
     function solutionsScoreNul (nombQuestions:number, nombPoints:number[]) {
       const solutions: number[][] = [[]]
       for (let n = 0; n < nombQuestions; n++) {
@@ -102,9 +101,9 @@ export default class resoudreProblemeRelatifs extends Exercice {
       texteCorr += '<br>' + numAlpha(3) + ` ${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses.<br>
         donc ${candidats[1]} a répondu correctement à ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3} questions.<br>
          Son score est donc : <br>
-         $\\text{Score}_\\text{ ${candidats[1]}} = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]}$`
+         Score de ` + candidats[1] + ` $ = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score d ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score d ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]}$`
 
       texte += '<br>' + numAlpha(4) + `${candidats[2]} a trouvé ${nombreQuestions * 0.7} mauvaises réponses, 
       et ${candidats[2]} n'a pas répondu aux autres questions.<br>
@@ -113,9 +112,9 @@ export default class resoudreProblemeRelatifs extends Exercice {
       handleAnswers(this, 8 * i + 4, { reponse: { value: String(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]) } })
       texteCorr += '<br>' + numAlpha(4) + `${candidats[2]} a ${nombreQuestions * 0.7} réponses fausses et n'a pas répondu à ${nombreQuestions * 0.3} questions.<br>
          Son score est donc : <br>
-         $\\text{Score}_\\text{ ${candidats[2]}} = ${nombreQuestions * 0.7} \\times  ${ecritureParentheseSiNegatif(-nombresPoints[1])} + ${nombreQuestions * 0.3} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score}_\\text{ ${candidats[2]}}} = ${-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]}$`
+         Score de ` + candidats[2] + ` $ = ${nombreQuestions * 0.7} \\times  ${ecritureParentheseSiNegatif(-nombresPoints[1])} + ${nombreQuestions * 0.3} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score d ${candidats[2]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score d ${candidats[2]}}} = ${-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]}$`
 
       if (this.interactif) {
         // Question sans version interactive : il s'agit d'encourager la recherche d'une solution par essai/erreur, et le format interactif ne parait pas le plus adapté.
@@ -127,10 +126,13 @@ export default class resoudreProblemeRelatifs extends Exercice {
         longueurSolutions = Solutions.length - 1
         if (longueurSolutions === 0) {
           texteCorr += '<br>' + numAlpha(5) + 'Il n\'est pas possible d\'avoir un score nul dans ce jeu'
+        } else if (longueurSolutions === 1) {
+          texteCorr += '<br>' + numAlpha(5) + 'Il est possible d\'avoir un score nul d\'une seule façon dans ce jeu : <br>'
+          texteCorr += 'Solution unique : Nombre de bonnes réponses = ' + Solutions[1][0] + ' ; Nombre de mauvaises réponses = ' + Solutions[1][1] + ' ; Nombre d\'absence de réponses = ' + Solutions[1][2]
         } else {
-          texteCorr += '<br>' + numAlpha(5) + 'Il est possible d\'avoir un score nul de ' + longueurSolutions + ' façon(s) différente(s) dans ce jeu : '
+          texteCorr += '<br>' + numAlpha(5) + 'Il est possible d\'avoir un score nul de ' + longueurSolutions + ' façons différentes dans ce jeu : '
           for (let i = 1; i < longueurSolutions + 1; i++) {
-            texteCorr += '<br> Nombre de bonnes réponses : ' + Solutions[i][0] + ' / Nombre de mauvaises réponses : ' + Solutions[i][1] + ' / Nombre d\'absence de réponses : ' + Solutions[i][2]
+            texteCorr += '<br> Solution n°' + i + ' : Nombre de bonnes réponses = ' + Solutions[i][0] + ' ; Nombre de mauvaises réponses = ' + Solutions[i][1] + ' ; Nombre d\'absence de réponses = ' + Solutions[i][2]
           }
         }
       }
