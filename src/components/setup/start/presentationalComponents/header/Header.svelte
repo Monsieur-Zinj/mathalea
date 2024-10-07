@@ -5,7 +5,7 @@
   import SideMenuWrapper from './SideMenuWrapper.svelte'
   import type { VueType } from '../../../../../lib/types'
   import type { Language } from '../../../../../lib/types/languages'
-  import NavBarCapytale from '../../capytale/NavBarCapytale.svelte'
+  import NavBarRecorder from '../../capytale/NavBarRecorder.svelte'
 
   export let isExerciseDisplayed: boolean
   export let isNavBarVisible: boolean
@@ -15,9 +15,11 @@
   export let trash: () => void
   export let setFullScreen: (isFullScreen: boolean) => void
   export let handleExport: (vue: VueType) => void
+  export let handleRecorder: () => void
   export let locale: Language
   export let handleLanguage: (lang: string) => void
   export let isCapytale: boolean
+  export let isRecorder: boolean
   export let buildUrlAndOpenItInNewTab: (type: 'usual' | 'eleve') => void
   export let showSettingsDialog: () => void
   export let importExercises: (urlFeuilleEleve: string) => void
@@ -33,12 +35,12 @@
   md:sticky md:top-0 md:z-50
   bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
 >
-  {#if isCapytale}
+  {#if isRecorder}
     <div
       id="headerCapytale"
       class="bg-coopmaths-canvas dark:bg-coopmathsdark-canvas print-hidden"
     >
-      <NavBarCapytale
+      <NavBarRecorder
         {zoomUpdate}
         {newDataForAll}
         {trash}
@@ -46,6 +48,8 @@
         {showSettingsDialog}
         {importExercises}
         {isExercisesListEmpty}
+        {isCapytale}
+        {handleRecorder}
       />
     </div>
   {:else}
@@ -76,7 +80,7 @@
         id="barre-boutons"
       >
         <SideMenuWrapper
-          {isCapytale}
+          {isRecorder}
           {isSidenavOpened}
           {toggleSidenav}
         />

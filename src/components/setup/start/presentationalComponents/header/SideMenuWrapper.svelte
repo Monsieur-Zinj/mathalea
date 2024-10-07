@@ -1,6 +1,6 @@
 <script lang="ts">
   export let isSidenavOpened: boolean
-  export let isCapytale: boolean
+  export let isRecorder: boolean
   export let toggleSidenav: (test: boolean) => void
 </script>
 
@@ -8,7 +8,7 @@
   class="flex justify-center items-center absolute z-50 left-0
      h-8 md:h-10
      w-8 md:w-10
-    {isCapytale
+    {isRecorder
       ? `${isSidenavOpened ? 'translate-x-[400px]' : ' translate-x-0'} top-0 rounded-r-md transition-transform ease-in-out`
       : 'bottom-0 rounded-t-md'}
     bg-coopmaths-canvas-dark dark:bg-coopmathsdark-canvas-dark"

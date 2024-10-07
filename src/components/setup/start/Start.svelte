@@ -39,6 +39,7 @@
   import { get } from 'svelte/store'
   import { mathaleaUpdateExercicesParamsFromUrl, mathaleaUpdateUrlFromExercicesParams } from '../../../lib/mathalea'
   import handleCapytale from '../../../lib/handleCapytale'
+  import {sendActivityParams} from '../../../lib/handleRecorder'
   import { canOptions } from '../../../lib/stores/canStore'
   import { buildEsParams } from '../../../lib/components/urls'
   import ModalCapytalSettings from './presentationalComponents/modalCapytalSettings/ModalCapytalSettings.svelte'
@@ -271,12 +272,13 @@
   }
 
   function importExercises (urlFeuilleEleve: string) {
+    const tempRecorder = $globalOptions.recorder
     let url = urlFeuilleEleve.replace('&v=confeleve', '')
-    url = url.replace('&v=eleve', '&recorder=capytale')
+    url = url.replace('&v=eleve', '&recorder=' + $globalOptions.recorder)
     if (url.includes('v=can')) {
       $canOptions.isChoosen = true
     }
-    url = url.replace('&v=can', '&recorder=capytale')
+    url = url.replace('&v=can', '&recorder=' + $globalOptions.recorder)
     url = url.replace(/es=\d/g, 'es=1') // Force la vue 1 page par exercice
     if (url.includes('coopmaths.fr/alea')) {
       const options = mathaleaUpdateExercicesParamsFromUrl(url)
@@ -286,7 +288,7 @@
         alert('URL non valide !')
       }
       // On maintient Capytale car l'import d'une url non valide créé un objet globalOptions vide
-      $globalOptions.recorder = 'capytale'
+      $globalOptions.recorder = tempRecorder
     }
   }
 
@@ -342,9 +344,11 @@
       {trash}
       {setFullScreen}
       {handleExport}
+      handleRecorder={sendActivityParams}
       locale={localeValue}
       {handleLanguage}
       isCapytale={$globalOptions.recorder === 'capytale'}
+      isRecorder={!!$globalOptions.recorder}
       {buildUrlAndOpenItInNewTab}
       {showSettingsDialog}
       {importExercises}
@@ -360,9 +364,9 @@
       <div
         class="relative flex w-full h-full bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
       >
-        {#if $globalOptions.recorder === 'capytale'}
+        {#if $globalOptions.recorder}
           <SideMenuWrapper
-            isCapytale={true}
+            isCapytale={$globalOptions.recorder === 'capytale'}
             {isSidenavOpened}
             {toggleSidenav}
           />
@@ -388,7 +392,7 @@
         <main
           id="exercisesPart"
           class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-hidden overflow-y-auto
-            {$globalOptions.recorder === 'capytale' ? '!pl-[425px]' : '!pl-[400px]'}
+            {$globalOptions.recorder ? '!pl-[425px]' : '!pl-[400px]'}
             bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >
           {#if $exercicesParams.length !== 0}
