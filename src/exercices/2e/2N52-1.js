@@ -1,12 +1,12 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { texteEnCouleur } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleur } from '../../lib/outils/embellissements'
 import { ecritureAlgebrique, ecritureParentheseSiNegatif, reduireAxPlusB } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine from '../../lib/interactif/comparisonFunctions'
+import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
@@ -138,13 +138,13 @@ export default function EquationsProduitsNuls2 () {
           texteCorr += `$\\iff x=${f1.texFraction}$ ou $ x=${f2.texFraction}$<br>On en déduit :  `
           if (-b / a > -d / c) {
             texteCorr += `$S=\\left\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}}` }
+            reponse = `\\{${f2.texFractionSimplifiee};${f1.texFractionSimplifiee}\\}`
           } else if (-b / a < -d / c) {
             texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}}` }
+            reponse = `\\{${f1.texFractionSimplifiee};${f2.texFractionSimplifiee}\\}`
           } else {
             texteCorr += `$S=\\left\\{${f1.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f1.texFractionSimplifiee}}` }
+            reponse = `\\{${f1.texFractionSimplifiee}\\}`
           }
           break
         case 2:
@@ -164,13 +164,13 @@ export default function EquationsProduitsNuls2 () {
                      On en déduit :  `
           if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}}` }
+            reponse = `\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\}`
           } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}}` }
+            reponse = `\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\}`
           } else {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFractionSimplifiee}}` }
+            reponse = `\\{${f3.texFractionSimplifiee}\\}`
           }
 
           break
@@ -191,18 +191,33 @@ export default function EquationsProduitsNuls2 () {
                          On en déduit :  `
           if (f3.differenceFraction(f4).s > 0) {
             texteCorr += `$S=\\left\\{${f4.texFractionSimplifiee};${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f4.texFraction};${f3.texFraction}}` }
+            reponse = `\\{${f4.texFraction};${f3.texFraction}\\}`
           } else if (f3.differenceFraction(f4).s < 0) {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}}` }
+            reponse = `\\{${f3.texFractionSimplifiee};${f4.texFractionSimplifiee}\\}`
           } else {
             texteCorr += `$S=\\left\\{${f3.texFractionSimplifiee}\\right\\}$`
-            reponse = { value: `{${f3.texFractionSimplifiee}}` }
+            reponse = `\\{${f3.texFractionSimplifiee}\\}`
           }
           break
       }
       texte += sp(4) + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
-      handleAnswers(this, i, { reponse, callback: verifReponse }, { formatInteractif: 'calcul' })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
+
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$.`
+
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, a, b, c, d, ...fractions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
