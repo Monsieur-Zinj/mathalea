@@ -5,7 +5,10 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Donner l\'écriture décimale d\'un nombre à partir de différents textes'
 export const amcReady = true
@@ -42,25 +45,6 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
-
-    /*
-        let typesDeQuestionsDisponibles = []
-        if (!this.sup) { // Si aucune liste n'est saisie
-          typesDeQuestionsDisponibles = range1(5)
-        } else {
-          if (typeof (this.sup) === 'number') { // Je n'ai jamais réussi à rentrer dans ce test.
-            this.sup = Math.max(Math.min(parseInt(this.sup), 6), 1)
-            typesDeQuestionsDisponibles[0] = this.sup
-          } else {
-            typesDeQuestionsDisponibles = this.sup.split('-')// Sinon on créé un tableau à partir des valeurs séparées par des -
-            for (let i = 0; i < typesDeQuestionsDisponibles.length; i++) { // on a un tableau avec des strings : ['1', '1', '2']
-              typesDeQuestionsDisponibles[i] = contraindreValeur(1, 6, parseInt(typesDeQuestionsDisponibles[i]), 6)
-            }
-          }
-        }
-        if (compteOccurences(typesDeQuestionsDisponibles, 6) > 0) typesDeQuestionsDisponibles = range1(5) // Teste si l'utilisateur a choisi tout
-        const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-        */
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 5,
@@ -135,16 +119,32 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
           }
           break
       }
-      const choixDigit = randint(0, 1)
-      setReponse(this, i, reponseAMC, {
-        digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
-        decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
-        signe: false
-      })
-      if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (context.isAmc) {
+        const choixDigit = randint(0, 1)
+        setReponse(this, i, reponseAMC, {
+          digits: nombreDeChiffresDe(reponseAMC) + randint(choixDigit, choixDigit + 1),
+          decimals: nombreDeChiffresDansLaPartieDecimale(reponseAMC) + choixDigit,
+          signe: false
+        })
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '').replace('<br>', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+
+      // Fin de cette uniformisation
+
+      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.clavierNumbers)
+      handleAnswers(this, i, { reponse: { value: reponseAMC, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
+
+      if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         if (!context.isHtml && i === 0) {
