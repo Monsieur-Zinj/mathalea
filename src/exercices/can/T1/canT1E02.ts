@@ -45,7 +45,7 @@ export default class CoordonneesVecteur extends Exercice {
       const xV = xB - xA
       const yV = yB - yA
       const zV = zB - zA
-      texte = `Dans un repère orthonormé $(0,\\vec \\imath,\\vec \\jmath, \\vec k)$, on donne les points $${pointA}$ et $${pointB}$ de coordonnées respectives :`
+      texte = `Dans un repère orthonormé $\\big(0,\\vec \\imath,\\vec \\jmath, \\vec k\\big)$, on donne les points $${pointA}$ et $${pointB}$ de coordonnées respectives :`
       texte += `<br>$${pointA}(${xA}~;~${yA};~${zA})$ et  $${pointB}(${xB}~;~${yB}~;~${zB})$.<br>`
       texte += `Déterminer les coordonnées du vecteur $\\overrightarrow{${pointA}${pointB}}$`
       if (this.interactif) {
