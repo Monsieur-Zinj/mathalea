@@ -1,17 +1,22 @@
 import { grille, seyes } from '../../lib/2d/reperes.js'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import Exercice from '../deprecatedExercice.js'
+import { choice, combinaisonListes } from '../../lib/outils/arrayOutils.js'
+import Exercice from '../Exercice.js'
 import { mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
+import Figure from 'apigeom'
+import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
+import figureApigeom from '../../lib/figureApigeom.js'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true
 export const amcType = 'AMCHybride'
-
+export const interactifReady = true
+export const interactifType = 'custom'
+export const dateDeModifImportante = '7/10/2024'
 /**
  * Tracer un segment de longueur une fraction de l'unité.
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote (Rémi Angot pour l'interactivité)
  * 6N32
  */
 
@@ -21,18 +26,24 @@ export const refs = {
   'fr-fr': ['6N32'],
   'fr-ch': ['9NO10-12']
 }
-export default function FractionsDunite () {
-  Exercice.call(this)
-  this.nbQuestions = 5
-  this.consigne = 'Colorier en bleu un segment de longueur ...'
-  context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
-  context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
-  this.sup = 1
-  this.sup2 = 1
-  this.nbCols = 1
-  this.nbColsCorr = 1
+export default class FractionsDunite extends Exercice {
+  goodAnswers: number[] = []
+  diagrams: LineFractionDiagram[] = []
+  figuresApigeom: Figure[] = []
+  idsApigeom: string[] = []
+  constructor () {
+    super()
+    this.nbQuestions = 5
+    this.consigne = 'Colorier en bleu un segment de longueur ...'
+    context.isHtml ? (this.spacingCorr = 3.5) : (this.spacingCorr = 2)
+    context.isHtml ? (this.spacing = 2) : (this.spacing = 2)
+    this.sup = 1
+    this.sup2 = 1
+    this.besoinFormulaireNumerique = ['Type  de questions', 4, '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions supérieures à 1']
+    this.besoinFormulaire2Numerique = ['Type de cahier', 2, '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)']
+  }
 
-  this.nouvelleVersion = function () {
+  nouvelleVersion () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
@@ -41,10 +52,14 @@ export default function FractionsDunite () {
     if (this.sup < 5) { typesDeQuestionsDisponibles = [parseInt(this.sup)] } else { typesDeQuestionsDisponibles = [1, 2, 3, 4] }
     listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (
-      let i = 0, den, num, frac, texte, texteCorr, cpt = 0;
+      let i = 0, cpt = 0;
       i < this.nbQuestions && cpt < 50;
 
     ) {
+      let den = 1
+      let num = 1
+      let texte = ''
+      let texteCorr = ''
       switch (listeTypeDeQuestions[i]) {
         case 1:
           den = choice([4, 5, 6, 10])
@@ -69,8 +84,13 @@ export default function FractionsDunite () {
       if (den % 3 === 0) unit = 12
       else if (den % 5 === 0) unit = 10
       else unit = 8
-      frac = fraction(num, den)
-      texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux (ou ${unit} cm) pour une unité.`
+      const frac = fraction(num, den)
+      this.goodAnswers[i] = Math.round(num / den * unit)
+      if (this.interactif) {
+        texte = `$${frac.texFraction}$ unité.`
+      } else {
+        texte = `$${frac.texFraction}$ unité en prenant ${unit} carreaux (ou ${unit} cm) pour une unité.`
+      }
       if (this.sup2 < 3) g = grille(0, 0, 26, 2, 'gray', 0.7)
       else g = vide2d()
       if (parseInt(this.sup2) === 2) {
@@ -81,6 +101,16 @@ export default function FractionsDunite () {
         carreaux = vide2d()
       }
 
+      if (this.interactif) {
+        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 40, width: 600 })
+        this.figuresApigeom[i] = figure
+        figure.setToolbar({ position: 'top', tools: ['FILL'] })
+        figure.options.color = 'blue'
+        this.diagrams[i] = new LineFractionDiagram(figure, { denominator: unit, max: 3, width: 6 })
+        this.idsApigeom[i] = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
+        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', question: i, idApigeom: this.idsApigeom[i] })
+      }
+
       texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
       if (context.isAmc) {
         this.autoCorrection[i] = {
@@ -89,6 +119,7 @@ export default function FractionsDunite () {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
+              // @ts-expect-error Problème typage
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -103,8 +134,7 @@ export default function FractionsDunite () {
           ]
         }
       }
-      if (this.listeQuestions.indexOf(texte) === -1) {
-        // Si la question n'a jamais été posée, on en crée une autre
+      if (this.questionJamaisPosee(i, num, den)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
@@ -113,6 +143,23 @@ export default function FractionsDunite () {
     }
     listeQuestionsToContenu(this)
   }
-  this.besoinFormulaireNumerique = ['Type  de questions', 4, '1 : Fraction inférieure à 1\n2 : Demis, tiers et quarts\n3 : Quarts, cinquièmes, sixièmes et dixièmes\n4 : Toutes les fractions précédentes entre 1 et 2']
-  this.besoinFormulaire2Numerique = ['Type de cahier', 2, '1 : Cahier à petits carreaux\n2 : Cahier à gros carreaux (Seyes)']
+
+  correctionInteractive = (i: number) => {
+    const figure = this.figuresApigeom[i]
+    figure.isDynamic = false
+    figure.divButtons.style.display = 'none'
+    figure.divUserMessage.style.display = 'none'
+    const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
+    const result = (this.diagrams[i].numerator === this.goodAnswers[i] && this.diagrams[i].numerator === this.diagrams[i].indiceLastInColor)
+    if (divFeedback != null) {
+      if (result) {
+        divFeedback.innerHTML = '😎'
+      } else {
+        const p = document.createElement('p')
+        p.innerText = '☹️'
+        divFeedback.insertBefore(p, divFeedback.firstChild)
+      }
+    }
+    return result ? 'OK' : 'KO'
+  }
 }
