@@ -6,7 +6,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction, obtenirListeFractionsIrreductiblesFaciles } from '../../modules/fractions.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
-import engine, { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { sp } from '../../lib/outils/outilString'
 export const titre = 'Résoudre les équations produit-nul'
 export const interactifReady = true
@@ -25,11 +25,6 @@ export const refs = {
 }
 export default function EquationsProduitsNuls2 () {
   Exercice.call(this)
-  this.titre = titre
-  this.nbCols = 1
-  this.nbColsCorr = 1
-  this.spacing = 1
-  this.spacingCorr = 1
   this.nbQuestions = 3
   this.sup = 1
   this.spacingCorr = 3
@@ -37,6 +32,7 @@ export default function EquationsProduitsNuls2 () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = true
 
+  /* Fonction de vérification devenue inutile
   function verifReponse (exo, question, variable) {
     const saisieElt = document.querySelector(`#champTexteEx${exo.numeroExercice}Q${question}`)
     const objetReponse = Object.fromEntries(variable)
@@ -96,6 +92,7 @@ export default function EquationsProduitsNuls2 () {
     saisieElt.readOnly = true
     return { resultat: isOk ? 'OK' : 'KO', feedback, score: { nbBonnesReponses: isOk ? 1 : 0, nbReponses: 1 } }
   }
+*/
 
   this.nouvelleVersion = function () {
     this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
@@ -103,7 +100,7 @@ export default function EquationsProduitsNuls2 () {
     this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup < 4) {
-      typesDeQuestionsDisponibles = [parseInt(this.sup)]
+      typesDeQuestionsDisponibles = [this.sup]
     } else {
       typesDeQuestionsDisponibles = [1, 2, 3]
     }
