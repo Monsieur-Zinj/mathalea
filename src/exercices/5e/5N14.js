@@ -43,7 +43,7 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
     // On crée une liste de FractionEtendues irréductibles.
     const listeFractions = obtenirListeFractionsIrreductibles()
-    for (let i = 0, positifOuNegatif, texte, texteCorr, signe, signe2; i < this.nbQuestions;) {
+    for (let i = 0, cpt = 0, positifOuNegatif, texte, texteCorr, signe, signe2; i < this.nbQuestions && cpt < 50;) {
       this.autoCorrection[i] = {}
       if (this.sup2 === true) positifOuNegatif = listeSignes[i]
       else positifOuNegatif = 1
@@ -114,6 +114,8 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
           this.canReponseACompleter = `$${autreFraction.texFSD} \\ldots${fraction.texFSD}$`
         }
       }
+      cpt++
+      if (listeFractions.length === 0) cpt = 50
     }
     listeQuestionsToContenu(this) // Espacement de 2 em entre chaque questions.
   }
