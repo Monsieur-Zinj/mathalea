@@ -167,7 +167,7 @@ export function verifQuestionMathLive (exercice, i, writeResult = true) {
       exercice.answers[`Ex${exercice.numeroExercice}Q${i}`] = champTexte.value
     }
     const saisie = champTexte.value
-    if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse', score: { nbBonnesReponses: 0, nbReponses: 1 } }
+    if (saisie == null || saisie === '') return { isOk: false, feedback: 'Vous devez saisir une réponse.', score: { nbBonnesReponses: 0, nbReponses: 1 } }
     let isOk = false
     let ii = 0
     let reponse; let feedback = ''

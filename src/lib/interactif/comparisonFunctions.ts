@@ -32,6 +32,7 @@ export type OptionsComparaisonType = {
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
   suiteDeNombres ?:boolean
+  suiteRangeeDeNombres?:boolean
   HMS?: boolean
   intervalle?: boolean
   estDansIntervalle?: boolean
@@ -512,6 +513,7 @@ export function fonctionComparaison (
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
     suiteDeNombres,
+    suiteRangeeDeNombres,
     HMS,
     intervalle,
     estDansIntervalle,
@@ -539,6 +541,7 @@ export function fonctionComparaison (
     ensembleDeNombres: false,
     kUplet: false,
     suiteDeNombres: false,
+    suiteRangeeDeNombres: false,
     HMS: false,
     intervalle: false,
     estDansIntervalle: false,
@@ -573,7 +576,7 @@ export function fonctionComparaison (
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
   if (nombreAvecEspace) return numberWithSpaceCompare(input, goodAnswer)
   if (ensembleDeNombres || kUplet) return ensembleNombres(input, goodAnswer, { kUplet }) // ensembleDeNombres est non trié alors que kUplet nécessite le tri
-  if (suiteDeNombres) return ensembleNombres(input, goodAnswer, { avecAccolades: false })
+  if (suiteDeNombres || suiteRangeeDeNombres) return ensembleNombres(input, goodAnswer, { kUplet: suiteRangeeDeNombres, avecAccolades: false })
   if (fractionSimplifiee || fractionReduite || fractionIrreductible || fractionDecimale || fractionEgale) return comparaisonFraction(input, goodAnswer, { fractionReduite, fractionIrreductible, fractionDecimale, fractionEgale }) // feedback OK
   // Ici, c'est la comparaison par défaut qui fonctionne dans la très grande majorité des cas
   return expressionDeveloppeeEtReduiteCompare(input, goodAnswer, {
@@ -1351,24 +1354,28 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   if (splitInput.length < splitGoodAnswer.length) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble ne contient pas assez de nombres.' }
   }
-
+  /* Cette fonction trie mais parfois on attend en fait la saisie comme l'ordre des réponses (comme 6G26 mais pas forcément dans l'ordre croissant)
   function sortMathExpressions (arr: string[]): string[] { // Nécessaire pour trier les racines carrées en LaTeX, par exemple.
     return arr.sort((a, b) => {
-      const aValue = engine.parse(a).value
-      const bValue = engine.parse(b).value
+      const aValue = engine.parse(a).value as number
+      const bValue = engine.parse(b).value as number
       return aValue - bValue
     })
   }
   const splitInputBis = [...splitInput]
   const inputSorted = sortMathExpressions(splitInputBis)
   const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
+  */
+  const inputSorted = splitInput
+  const goodAnswerSorted = splitGoodAnswer
+
   const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
 
   if (hasDifferentValues) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
-    return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés par ordre croissant.' }
+    return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }
   }
   return { isOk: true }
 }
