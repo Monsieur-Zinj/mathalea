@@ -71,8 +71,8 @@ const probabiliteCaps: CompleteKeysList = {
 }
 
 const ensembleCaps: CompleteKeysList = {
-  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC'],
-  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC']
+  inline: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC', 'SQRT', 'POW', 'POW10'],
+  block: ['ADD', 'SUB', 'INFTY', 'BRACES', '[', ']', 'IN', 'SEMICOLON', 'FRAC', 'SQRT', 'POW', 'POW10']
 }
 
 const ensembleDefiniCaps: CompleteKeysList = {
