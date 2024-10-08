@@ -16,7 +16,8 @@ import { contraindreValeur, listeQuestionsToContenu } from '../../modules/outils
 import { context } from '../../modules/context.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { mod } from 'mathjs'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Trouver une série de transformations'
 export const interactifReady = true
@@ -307,8 +308,8 @@ export default function SerieDeTransformations () {
       objetsCorrection = []
       texte = this.interactif
         ? this.sup === 1
-          ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
-          : 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des virgules.<br><br>'
+          ? 'Compléter la liste des figures successives obtenues avec une suite de symétries axiales.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br><br>'
+          : 'Compléter la liste des figures successives obtenues avec cette suite de transformations.<br>La liste commence par 0, finit par 28 et les numéros sont à séparer par des points-virgules.<br><br>'
         : 'On passe de la figure $0$ à la figure $28$ en passant par des cases adjacentes, en suivant les transformations listées dans l\'ordre précis des phrases ci-dessous qu\'il faut compléter.<br><br>'
       texteCorr = ''
 
@@ -407,7 +408,7 @@ export default function SerieDeTransformations () {
         texte += '\n' + centrage(mathalea2d(paramsEnonce, objetsEnonce))
         texteCorr += '\n' + centrage(mathalea2d(paramsCorrection, objetsCorrection))
       }
-      texteCorr += this.interactif ? 'La réponse était donc : ' + texteEnCouleurEtGras(chemin.toString()) + '.' : ''
+      texteCorr += this.interactif ? 'La réponse était donc : ' + texteEnCouleurEtGras(chemin.toString().replaceAll(',', ';')) + '.' : ''
       if (context.isAmc) {
         this.autoCorrection = [
           {
@@ -423,7 +424,7 @@ export default function SerieDeTransformations () {
           }
         ]
       } else {
-        setReponse(this, i, chemin.toString(), { formatInteractif: 'texte' })
+        handleAnswers(this, i, { reponse: { value: chemin.toString().replaceAll(',', ';'), compare: fonctionComparaison, options: { suiteRangeeDeNombres: true } } })
       }
       texte += context.isHtml ? '<br>' : '\n\\newpage'
       texteCorr += context.isHtml ? '<br>' : '\n\\newpage'
