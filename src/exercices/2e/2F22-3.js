@@ -7,7 +7,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
@@ -182,7 +182,7 @@ export default class BetaModeleSpline extends Exercice {
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
         texteEnonce += '<br>Répondre par "Oui" ou "Non" '
-        texteEnonce += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texteEnonce += ajouteChampTexte(this, i)
       }
       let texteCorrection
       texteCorrection = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`

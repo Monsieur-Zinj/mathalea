@@ -14,7 +14,7 @@ import { creerNomDePolygone } from '../../lib/outils/outilString.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte, ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { texteGras } from '../../lib/format/style'
 import { mediatrice } from '../../lib/2d/droites.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
@@ -118,7 +118,7 @@ export default function Distance () {
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il au cercle de centre $${A.nom}$ passant par $${B.nom}$ ?`
           if (this.interactif) {
-            texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+            texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexte(this, i)
           }
           texteCorr = `Le point $${C.nom}$ appartient au cercle de centre $${A.nom}$ passant par $${B.nom}$ si et seulement si $${A.nom}${B.nom}=${A.nom}${C.nom}$.`
           texteCorr += `<br>${texteGras('Conseil :')} Faites un croquis pour visualiser la situation.<br>`
@@ -165,7 +165,7 @@ export default function Distance () {
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il au cercle de centre $${A.nom}$ passant par $${B.nom}$ ?`
           if (this.interactif) {
-            texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+            texte += '<br>Répondre par "oui" ou "non". ' + ajouteChampTexte(this, i)
           }
           texteCorr = `Le point $${C.nom}$ appartient au cercle de centre $${A.nom}$ passant par $${B.nom}$ si et seulement si $${A.nom}${B.nom}=${A.nom}${C.nom}$.`
           texteCorr += `<br>${texteGras('Conseil :')} Faites un croquis pour visualiser la situation.<br>`
@@ -226,7 +226,7 @@ export default function Distance () {
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $${A.nom}${B.nom}$ ?`
           if (this.interactif) {
-            texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+            texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexte(this, i)
           }
           colonne1 = mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 6.5, pixelsParCm: 25, scale: 0.6 },
             segment(M1, M2, 'blue'), tracePoint(M1, 'blue'), tracePoint(M2, 'blue'), tracePoint(M3, 'blue'),
@@ -302,7 +302,7 @@ export default function Distance () {
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$.`
           texte += `<br>Le point $${C.nom}\\left(${xC}\\,;\\,${yC}\\right)$ appartient-il à la médiatrice du segment  $[${A.nom}${B.nom}]$ ?`
           if (this.interactif) {
-            texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+            texte += '<br>Répondre par "oui" ou "non".' + ajouteChampTexte(this, i)
           }
           colonne1 = mathalea2d({ xmin: -1, ymin: -1, xmax: 6, ymax: 6.5, pixelsParCm: 25, scale: 0.6 },
             segment(M1, M2, 'blue'), tracePoint(M1, 'blue'), tracePoint(M2, 'blue'), tracePoint(M3, 'blue'),
