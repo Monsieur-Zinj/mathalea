@@ -232,7 +232,7 @@ export default function EcrireUneExpressionNumerique () {
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }
-        // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen
+        // on doit donner la traduction en français de l'expression (liste déroulante pour l'interactif et AMCOpen)
         if (this.version === 2) {
           if (context.isAmc) { // AMCOpen pour 5C11, 5C11-1, 5L10-1, 5L10-3
             this.autoCorrection[i] =
@@ -269,7 +269,7 @@ export default function EcrireUneExpressionNumerique () {
             }
           } else {
             texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Calcul : ' })
-            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+            handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
           }
         }
 
