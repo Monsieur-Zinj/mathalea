@@ -684,7 +684,7 @@ class FractionEtendue {
     if (!(f2 instanceof FractionEtendue)) {
       f2 = new FractionEtendue(f2, 1)
     }
-    return this.num * f2.den < f2.num * this.den
+    return this.differenceFraction(f2).valeurDecimale < 0
   }
 
   /**
@@ -972,9 +972,10 @@ class FractionEtendue {
    * @return {string}
  */
   texSimplificationAvecEtapes (factorisation: boolean|'none' = false, couleurFinale: string = ''):string {
+    if (this.isEqual(0)) return ''
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
-      return `=${this.texFSD}`
+      return `=${miseEnEvidence(this.texFSD, couleurFinale)}`
     } else {
       if (factorisation) {
         const signe = this.sign === -1 ? '-' : ''

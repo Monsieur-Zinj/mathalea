@@ -40,6 +40,7 @@ import { Trace } from './Spline.js'
  * @method  {(number)=>number[]} solve(y) retourne les antécédents de y
  * @method {number=>number} image(x) retourne l'image de x par la fonction
  * @author Jean-Claude Lhote
+ * @deprecated Remplacé par la classe Spline de Spline.js
  */
 class SplineCatmullRom {
   /**
@@ -239,6 +240,7 @@ class SplineCatmullRom {
  * @param {number[]} tabY liste des valeurs de y au niveau des noeuds (sa longueur détermine le nombre d'intervalles
  * @param {number} x0 l'abscisse du début de l'intervalle de définition
  * @param {number} step le pas entre chaque valeur de x pour les différents noeuds successifs
+ * @deprecated préférer la classe Spline de Spline.js beaucoup mieux faite (J'ai beaucoup appris de mes erreurs) J-C Lhote
  */
 export function splineCatmullRom ({ tabY = [], x0 = -5, step = 1 } = {}) {
   return new SplineCatmullRom({ tabY, x0, step })
