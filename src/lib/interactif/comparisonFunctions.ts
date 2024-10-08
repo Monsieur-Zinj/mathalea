@@ -995,10 +995,9 @@ function comparaisonExpressions (expr1: string, expr2: string): ResultType { // 
  * @return ResultType
  */
 function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
-  const cleaner = generateCleaner(['parentheses', 'mathrm'])
+  const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
   const localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
-
   // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
   // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'
   // mais elle ne le serait plus pour comparer [AB] et [ab] ce qui serait dommage.
