@@ -146,6 +146,9 @@ export default class FractionsDunite extends Exercice {
 
   correctionInteractive = (i: number) => {
     const figure = this.figuresApigeom[i]
+    if (this.answers == null) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[`#apigeomEx${this.numeroExercice}F${i}`] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
