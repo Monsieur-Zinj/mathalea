@@ -14,7 +14,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import Decimal from 'decimal.js'
 import { context } from '../../modules/context.js'
 import { contraindreValeur, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
 export const interactifReady = true
@@ -188,7 +188,11 @@ export default function ReciproqueThales () {
           texte += `$${s1 + s2}=${s12}$ cm, $${s1 + s3}=${s13}$ cm, $${s1 + s4}=${s14}$ cm et $${s1 + s5}=${s15}$ cm.<br>`
           texteCorr = ''
         }
-        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ? ${ajouteChampTexteMathLive(this, i, 'largeur01 inline')}<br>`
+        texte += `Les droites $(${s2 + s3})$ et $(${s4 + s5})$ sont-elles parallèles ?<br>`
+        if (this.interactif) {
+          texte += '<div class="italic">Répondre « oui » ou « non ».</div>'
+          texte += ajouteChampTexte(this, i)
+        }
 
         texteCorr += `D'une part, on a : $\\dfrac{${s1 + s2}}{${s1 + s4}}=\\dfrac{${s12}}{${s14}}=\\dfrac{${s12}\\times${miseEnEvidence(
                     s15
