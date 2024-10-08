@@ -58,70 +58,70 @@ export default class resoudreProblemeRelatifs extends Exercice {
       const candidats = combinaisonListes(['Margaux', 'Célestin', 'Maxime', 'Georges', 'Clémentine', 'Éléonore', 'François', 'Martine'], 3)
       // const scoreNul = 'oui'
 
-      let texte = `Dans un jeu télévisé, les candidats doivent répondre à ${nombreQuestions} questions.<br>
-      Pour chaque bonne réponse, ils marquent ${nombresPoints[0]} points.<br>
-      Pour chaque mauvaise réponse, ils perdent ${nombresPoints[1]} points.<br>
-      Enfin pour une absence de réponse, ils perdent ${nombresPoints[2]} points.<br><br>`
+      let texte = `Dans un jeu télévisé, les candidats doivent répondre à ${nombreQuestions} questions.
+      Pour chaque bonne réponse, ils marquent ${nombresPoints[0]} points.
+      Pour chaque mauvaise réponse, ils perdent ${nombresPoints[1]} points.
+      Enfin pour une absence de réponse, ils perdent ${nombresPoints[2]} points.<br>`
 
       let texteCorr = ''
       texte += numAlpha(0) + 'Quel est le score maximal à ce jeu ? '
       texte += ajouteChampTexteMathLive(this, 8 * i, 'inline largeur01 college6eme')
       handleAnswers(this, 8 * i, { reponse: { value: String(nombreQuestions * nombresPoints[0]) } })
       texteCorr = '<br>' + numAlpha(0) + `On obtient le score maximal en répondant 
-          correctement aux ${nombreQuestions} questions <br> et en marquant ${nombresPoints[0]} points
+          correctement aux ${nombreQuestions} questions et en marquant ${nombresPoints[0]} points
           à chaque fois. <br>
           Donc : <br>
-          Score maximale $ = ${nombreQuestions} \\times ${nombresPoints[0]}$<br>
-          $\\phantom{\\text{Score maximal }} = ${nombreQuestions * nombresPoints[0]}$`
+          Score maximal $ = ${nombreQuestions} \\times ${nombresPoints[0]}$<br>
+          $\\phantom{\\text{Score maxima}} = ${nombreQuestions * nombresPoints[0]}$`
       texte += '<br>' + numAlpha(1) + 'Quel est le score minimal à ce jeu ? '
       texte += ajouteChampTexteMathLive(this, 8 * i + 1, 'inline largeur01 college6eme')
       handleAnswers(this, 8 * i + 1, { reponse: { value: String(-nombreQuestions * nombresPoints[1]) } })
       texteCorr += '<br>' + numAlpha(1) + `On obtient le score minimal en répondant 
-          faux aux ${nombreQuestions} questions <br> et en marquant ${ecritureParentheseSiNegatif(-nombresPoints[1])} points
+          faux aux ${nombreQuestions} questions et en marquant ${ecritureParentheseSiNegatif(-nombresPoints[1])} points
           à chaque fois. <br>
           Donc : <br>
           Score minimal $ = ${nombreQuestions} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])}$<br>
           $\\phantom{\\text{Score minima}} = ${-nombreQuestions * nombresPoints[1]}$`
-      texte += '<br>' + numAlpha(2) + `${candidats[0]} a répondu à toutes les questions, dont ${nombreQuestions * 0.6} correctement.<br>
+      texte += '<br>' + numAlpha(2) + `${candidats[0]} a répondu à toutes les questions, dont ${nombreQuestions * 0.6} correctement.
            Quel est son score ? `
       texte += ajouteChampTexteMathLive(this, 8 * i + 2, 'inline largeur01 college6eme')
       handleAnswers(this, 8 * i + 2, { reponse: { value: String(nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]) } })
       texteCorr += '<br>' + numAlpha(2) + `${candidats[0]} a répondu à ${nombreQuestions} questions en tout,
-          dont ${nombreQuestions * 0.6} correctement, <br> donc ${candidats[0]} a répondu faux à 
-          ${nombreQuestions} - ${nombreQuestions * 0.6} = ${nombreQuestions * 0.4} questions.<br>
+          dont ${nombreQuestions * 0.6} correctement, donc ${candidats[0]} a répondu faux à ${nombreQuestions * 0.4} questions car 
+          ${nombreQuestions} - ${nombreQuestions * 0.6} = ${nombreQuestions * 0.4}.<br>
           Son score est donc : <br>
           Score de ` + candidats[0] + ` $= ${nombreQuestions * 0.6} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.4} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])}$<br>
           $\\phantom{\\text{Score d ${candidats[0]}} }= ${nombreQuestions * 0.6 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.4 * nombresPoints[1])}$<br>
           $\\phantom{\\text{Score d ${candidats[0]}} }= ${nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]}$`
       texte += '<br>' + numAlpha(3) + `${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2}
-      de ses réponses sont fausses.<br>
+      de ses réponses sont fausses.
           Quel est son score ? `
       texte += ajouteChampTexteMathLive(this, 8 * i + 3, 'inline largeur01 college6eme')
       handleAnswers(this, 8 * i + 3, { reponse: { value: String(nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]) } })
-      texteCorr += '<br>' + numAlpha(3) + ` ${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses.<br>
-        donc ${candidats[1]} a répondu correctement à ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3} questions.<br>
+      texteCorr += '<br>' + numAlpha(3) + ` ${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses, 
+        donc ${candidats[1]} a répondu correctement à ${nombreQuestions * 0.3} questions car ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3}.<br>
          Son score est donc : <br>
          Score de ` + candidats[1] + ` $ = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
          $\\phantom{\\text{Score d ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>
          $\\phantom{\\text{Score d ${candidats[1]}}} = ${nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]}$`
 
       texte += '<br>' + numAlpha(4) + `${candidats[2]} a trouvé ${nombreQuestions * 0.7} mauvaises réponses, 
-      et ${candidats[2]} n'a pas répondu aux autres questions.<br>
-          Quel est son score ? `
+      et ${candidats[2]} n'a pas répondu aux autres questions.
+      Quel est son score ? `
       texte += ajouteChampTexteMathLive(this, 8 * i + 4, 'inline largeur01 college6eme')
       handleAnswers(this, 8 * i + 4, { reponse: { value: String(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]) } })
       texteCorr += '<br>' + numAlpha(4) + `${candidats[2]} a ${nombreQuestions * 0.7} réponses fausses et n'a pas répondu à ${nombreQuestions * 0.3} questions.<br>
          Son score est donc : <br>
          Score de ` + candidats[2] + ` $ = ${nombreQuestions * 0.7} \\times  ${ecritureParentheseSiNegatif(-nombresPoints[1])} + ${nombreQuestions * 0.3} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score d ${candidats[2]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
-         $\\phantom{\\text{Score d ${candidats[2]}}} = ${-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]}$`
+         $\\phantom{\\text{Score de${candidats[2]}}} = ${ecritureParentheseSiNegatif(-nombreQuestions * 0.7 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.3 * nombresPoints[2])}$<br>
+         $\\phantom{\\text{Score de${candidats[2]}}} = ${-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]}$`
 
       if (this.interactif) {
         // Question sans version interactive : il s'agit d'encourager la recherche d'une solution par essai/erreur, et le format interactif ne parait pas le plus adapté.
         // De plus techniquement, ce n'est suffisamment simple pour moi.
         // Remi m'a suggéré de tenter quelque chose avec "Remplis les blancs" mais je préfère faire une MR en l'état : c'est utilisable.
       } else {
-        texte += '<br>' + numAlpha(5) + 'Est-il possible d\'obtenir une score nul à ce jeu ? Si oui, comment ?<br>'
+        texte += '<br>' + numAlpha(5) + 'Est-il possible d\'obtenir un score nul à ce jeu ? Si oui, comment ?<br>'
         Solutions = solutionsScoreNul(nombreQuestions, nombresPoints)
         longueurSolutions = Solutions.length - 1
         if (longueurSolutions === 0) {
