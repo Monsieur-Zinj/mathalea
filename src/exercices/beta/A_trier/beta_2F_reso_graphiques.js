@@ -62,14 +62,14 @@ export default class nomExercice extends Exercice {
       const ymax = max(...tabY, 1)
       let texte = `Résoudre $f(x)=${tabY[1]}$` // Le LateX entre deux symboles $, les variables dans des ${ }
       const r = repere({ xMin: x0, xMax: x0 + 10, yMin: ymin, yMax: ymax, xUnite: 2, yUnite: 2 })
-
+      // splineCatmullRom est depreciée : préferer la classe Spline (Spline.ts)
       const f = splineCatmullRom({ tabY, x0, step: 2 }) // le tableau des ordonnées successives = tabY, x0 = -5, step = 1.
       const F = x => f.image(x) // On crée une fonction de x f.image(x) est une fonction polynomiale par morceaux utilisée dans courbeSpline()
       // const c = courbeSpline(f, { repere: r, step: 0.1 }) // Une première façon de tracer la courbe.
       const c = courbe(F, { repere: r, step: 0.1, color: 'red', epaisseur: 5 }) // F peut ainsi être utilisée dans courbe.
-
+      // Spline possède sa méthode trace() qui est beaucoup mieux faite et utilise des courbes de Bézier en svg et Latex.
       texte += mathalea2d({ xmin: -15, xmax: 15, ymin: -15, ymax: 15 }, r, c)
-
+      // La fonction solve() de Spline est aussi beaucoup plus performante (basée sur l'algoritme de Brent à convergence rapide).
       const antecedents = f.solve(y)
       let texteCorr = `Correction ${i + 1} de type 1 : `
       if (antecedents.length > 0) {
@@ -81,7 +81,7 @@ export default class nomExercice extends Exercice {
       texte += texteCorr // sert à voir la correction sans avoir à cliquer (à virer)
       // Si la question n'a jamais été posée, on l'enregistre
       // Ne pas mettre texte (il peut être différent avec les mêmes données à cause des listeners de l'interactif qui sont labelisés de façon unique par question)
-      if (this.questionJamaisPosee(i, ...tabY, listeTypeQuestions[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, ...tabY, listeTypeQuestions[i])) { // <- laisser le i et ajouter toutes les variables qui rendent les questions différentes
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
