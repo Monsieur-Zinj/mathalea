@@ -11,7 +11,7 @@ export const amcReady = true
 export const amcType = 'AMCOpen'
 export const interactifReady = true
 export const interactifType = 'mathLive'
-export const titre = 'Déterminer le plus petit ensemble de nombres dans lequel un nombre appartient'
+export const titre = 'Déterminer le plus petit ensemble de nombres auquel un nombre appartient'
 export const dateDeModifImportante = '13/08/2024'
 
 // Modification la 1/11/23 par Rémi Angot
@@ -29,7 +29,7 @@ export const refs = {
 }
 export default function EnsembleDeNombres () {
   Exercice.call(this)
-  this.consigne = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, déterminer le plus petit ensemble de nombres dans lequel le nombre proposé appartient.'
+  this.consigne = 'Parmi $\\mathbb{R}$, $\\mathbb{Q}$, $\\mathbb{D}$, $\\mathbb{Z}$ et $\\mathbb{N}$, déterminer le plus petit ensemble de nombres auquel le nombre proposé appartient.'
   this.nbQuestions = 5
   this.nbCols = 2
   this.nbColsCorr = 2
