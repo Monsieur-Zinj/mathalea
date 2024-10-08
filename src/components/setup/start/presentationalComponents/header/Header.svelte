@@ -84,17 +84,15 @@
           {isSidenavOpened}
           {toggleSidenav}
         />
-        <div class="hidden md:flex">
-          <HeaderButtons
-            bind:reorderModalDisplayed
-            {zoomUpdate}
-            {setAllInteractive}
-            {newDataForAll}
-            {trash}
-            {setFullScreen}
-            {handleExport}
-          />
-        </div>
+        <HeaderButtons
+          bind:reorderModalDisplayed
+          {zoomUpdate}
+          {setAllInteractive}
+          {newDataForAll}
+          {trash}
+          {setFullScreen}
+          {handleExport}
+        />
       </div>
     </div>
   {/if}

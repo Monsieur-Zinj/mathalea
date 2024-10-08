@@ -14,7 +14,7 @@
 
 </script>
 
-<ButtonsDeck class="md:pl-10">
+<ButtonsDeck class="md:pl-10 hidden md:flex">
   <div
     slot="setup-buttons"
     class="flex flex-row justify-start items-center space-x-4"
