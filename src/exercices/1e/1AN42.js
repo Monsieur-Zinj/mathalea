@@ -20,9 +20,9 @@ export const dateDePublication = '20/04/2022' // La date de publication initiale
  * Référence
  */
 export const uuid = 'b9e6a'
-export const ref = '1G12'
+export const ref = '1AN42'
 export const refs = {
-  'fr-fr': ['1G12'],
+  'fr-fr': ['1AN42'],
   'fr-ch': []
 }
 export default function MesurePrincipale () {
