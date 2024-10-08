@@ -24,7 +24,7 @@ export const refs = {
  * Référence
 */
 export default class SimplifierExponentielles extends Exercice {
-  can: Boolean
+  can: boolean
   constructor () {
     super()
     this.can = false

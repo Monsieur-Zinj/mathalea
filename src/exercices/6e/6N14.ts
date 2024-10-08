@@ -44,9 +44,6 @@ export default class RepresenterUneFraction extends Exercice {
   }
 
   nouvelleVersion (numeroExercice: number) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let sc
     const ppc = 20
     if (context.isHtml) {

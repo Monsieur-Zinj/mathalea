@@ -45,9 +45,6 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
       this.sup = 3
       this.sup2 = true
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let grandNombres
     let listeFacteurs1, listeFacteurs2
     if (this.sup3) {

@@ -45,9 +45,6 @@ export default class BetaListeDeroulante extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     //
     const choices = fonctionsAuChoix.map((el) => Object.assign({}, { latex: el.latex, value: el.name }))
     const choix = choice(fonctionsAuChoix)

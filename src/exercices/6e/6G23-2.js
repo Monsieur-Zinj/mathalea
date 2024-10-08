@@ -31,9 +31,6 @@ export default function TracerTriangle2Angles () {
   this.sup = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeDeNomsDePolygones
     for (
       let i = 0, texte, texteCorr, cpt = 0;

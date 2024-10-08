@@ -38,9 +38,6 @@ export default function CalculProbaFormuleProbaTotale () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, cpt = 0, reponse1, reponse2, pA, pBsachantA, pBbarresachantAbarre, pBbarresachantA, pAbarre, pBsachantAbarre, omega, texte, texteCorr, objets; i < this.nbQuestions && cpt < 50;) {
       objets = []
       // On choisit les probas de l'arbre

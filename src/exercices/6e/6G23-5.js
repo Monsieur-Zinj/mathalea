@@ -43,9 +43,6 @@ export default function CalculerUnAngle () {
   this.sup = 15
   this.nouvelleVersion = function () {
     this.consigne = (this.nbQuestions === 1 ? 'L\' angle attendu est un angle saillant' : 'Les angles attendus sont des angles saillants') + ' (dont la mesure est comprise entre $0^\\circ$ et $180^\\circ$).'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const QuestionsDisponibles = gestionnaireFormulaireTexte({
       max: 14,
       defaut: 15,

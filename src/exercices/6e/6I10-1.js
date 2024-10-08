@@ -42,9 +42,6 @@ export default function ColorierDeplacement () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const lstObjet = [] // liste de tous les objets Mathalea2d
     let direction = 0 // Orientation du lutin en degrés
     function scratchblocksTikz (codeSvg, codeTikz) {

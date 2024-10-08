@@ -40,9 +40,6 @@ export default function FractionDuneQuantite () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     let listeTypeDeQuestions = []
     const choixdenh = combinaisonListes([3, 4, 5, 10, 12, 20, 30], this.nbQuestions)

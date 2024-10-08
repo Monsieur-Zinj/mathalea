@@ -36,9 +36,6 @@ export default function AjouterDesFractionsDunite () {
   this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let sc, objets
     const ppc = 20
     if (context.isHtml) {

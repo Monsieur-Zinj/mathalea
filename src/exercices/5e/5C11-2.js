@@ -36,9 +36,6 @@ export default function ÉcrireUneExpressionMathador () {
   this.sup2 = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let expression, calculsSuccessifs, solutionMathador, quidam
     this.tirage = []
     this.cible = []

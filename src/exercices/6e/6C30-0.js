@@ -34,7 +34,7 @@ export default function MultiplierDecimaux () {
   this.spacing = 2
   this.spacingCorr = 1 // Important sinon le calcul posé ne fonctionne pas avec opmul et spacing
   this.nbQuestions = 4
-    this.sup = 3
+  this.sup = 3
   this.sup2 = 3
   this.sup3 = 1
   this.sup4 = 2
@@ -48,9 +48,6 @@ export default function MultiplierDecimaux () {
     '1 : Une décimale\n2 : Deux décimales\n3 : Trois décimales']
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let reponse
     const nbChiffresa = parseInt(this.sup)
     const nbChiffresb = parseInt(this.sup2)

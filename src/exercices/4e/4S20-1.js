@@ -28,9 +28,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.nbQuestionsModifiable = false
     this.spacing = 1.5
     this.spacingCorr = 1.5

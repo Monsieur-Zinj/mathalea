@@ -58,9 +58,6 @@ export default class ParalleleEtPerpendiculaires extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions
     )
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let Xmin; let Xmax; let Ymin; let Ymax; const ppc = 20; let sc
     let anim
 

@@ -50,9 +50,6 @@ export default function SymetrieAxialeConservation1 () {
   this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = ['Segment', 'Droite', '1/2droite', 'Triangle', 'Angle']
     const points = []; const traces = []; const nom = []; let alternance
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // Boucle principale où i+1 correspond au numéro de la question
       for (let ii = 0; ii < 25; ii++) nom.push(lettreDepuisChiffre(ii + 1))
       const noms = shuffle(nom)

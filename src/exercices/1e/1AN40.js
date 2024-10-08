@@ -53,9 +53,6 @@ export default class CosEtsin extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const mesAnglesAleatoiresBis = [[0]]
     let typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,

@@ -34,9 +34,6 @@ export default function EgalitesEntreFractions () {
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeFractions = [
       [1, 2],
       [1, 3],

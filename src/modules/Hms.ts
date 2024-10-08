@@ -6,7 +6,7 @@
  * @example const time = Hms.fromString('5min')
  * @example const time = Hms.fromString('14000s')
  * time.normalize().toString() // 3 h 53 min 20 s
- * 
+ *
  */
 class Hms {
   hour: number

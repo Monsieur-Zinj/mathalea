@@ -56,9 +56,6 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
   this.sup4 = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestions, reponse
     this.consigne = this.sup3 ? 'effectuer les opérations suivantes' : 'Poser et effectuer les calculs suivants.'
     const colore = this.sup4 ? 'Colore' : ''

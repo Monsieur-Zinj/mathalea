@@ -38,9 +38,6 @@ export default function ParallelogrammeAPartirDUneFigure () {
   this.nbQuestions = 4
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.consigne = this.nbQuestions === 1
       ? 'Pour la figure suivante, tracée '
       : 'Pour chacune des figures suivantes, tracées '

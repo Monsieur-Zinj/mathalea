@@ -39,9 +39,6 @@ export default class DecompositionNombreDecimal extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     switch (parseInt(this.sup)) {
       case 1:
@@ -89,7 +86,7 @@ export default class DecompositionNombreDecimal extends Exercice {
         c = randint(0, 9, [m])
         d = randint(0, 9, [m, c])
         u = randint(0, 9, [m, c, d])
-        if (this.sup2){
+        if (this.sup2) {
           di = 0
           ci = 0
           mi = 0
@@ -99,12 +96,11 @@ export default class DecompositionNombreDecimal extends Exercice {
           c.toString() +
           d.toString() +
           u.toString()
-        }
-        else{
-        di = randint(0, 9, [m, c, d, u])
-        ci = randint(0, 9, [m, c, d, u, di])
-        mi = randint(1, 9, [m, c, d, u, di, ci])
-        n =
+        } else {
+          di = randint(0, 9, [m, c, d, u])
+          ci = randint(0, 9, [m, c, d, u, di])
+          mi = randint(1, 9, [m, c, d, u, di, ci])
+          n =
                     m.toString() +
                     '~' +
                     c.toString() +

@@ -46,9 +46,6 @@ export default function ProportionnaliteParLineariteBis () {
 
   this.nouvelleVersion = function () {
     const tabHash = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const sousChoix = combinaisonListes(rangeMinMax(0, 4), this.nbQuestions)
     const prenomliste = prenom(6)
     const situations = [

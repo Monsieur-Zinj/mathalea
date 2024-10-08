@@ -44,9 +44,6 @@ export default function CalculsDeDureesOuHoraires () {
   this.spacingCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typeDeContexte = combinaisonListes(
       [1, 2, 3, 4, 5],
       this.nbQuestions

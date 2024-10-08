@@ -1,10 +1,6 @@
-/* eslint-disable no-case-declarations */
-/* eslint-disable eqeqeq */
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 import { tableauSignesFonction } from '../../lib/mathFonctions/etudeFonction'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -22,22 +18,25 @@ export const refs = {
   'fr-fr': ['1AL12-20'],
   'fr-ch': []
 }
-export default function VariationDUneSuiteDefinieExplicitement (this: any) {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
-  this.nbQuestions = 3
-  this.sup = 4
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Affine',
-      '2 : Second degré',
-      '3 : Homographique',
-      '4 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
+export default class VariationDUneSuiteDefinieExplicitement extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
+    this.nbQuestions = 3
+    this.sup = 4
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Affine',
+        '2 : Second degré',
+        '3 : Homographique',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -57,7 +56,7 @@ export default function VariationDUneSuiteDefinieExplicitement (this: any) {
 
     for (let i = 0, texte:string, texteCorr:string, cpt = 0, alea1:number, alea2:number; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) { // listeTypeDeQuestions[i]
-        case 1: // fonction affine avec Entiers Relatifs (m*x+p)
+        case 1: { // fonction affine avec Entiers Relatifs (m*x+p)
           const m = randint(1, 99) * choice([-1, 1])
           const p = randint(1, 99) * choice([-1, 1])
           alea1 = m
@@ -69,7 +68,7 @@ export default function VariationDUneSuiteDefinieExplicitement (this: any) {
           texteCorr = 'Deux manières d\'étudier le sens de variation de $(u_n)$ sont possibles.'
           texteCorr += '<br><br>'
           texteCorr += 'Méthode 1  : en étudiant le signe de $u_{n+1} - u_n$ :'
-          texteCorr += `<br>Pour tout $n\\in\\mathbb{N}$ :`
+          texteCorr += '<br>Pour tout $n\\in\\mathbb{N}$ :'
           texteCorr += `<br>$u_{n+1} - u_n = ${rienSi1(m)}(n+1) ${ecritureAlgebrique(p)}-(${rienSi1(m)}n ${ecritureAlgebrique(p)})$`
           texteCorr += `<br>$\\phantom{u_{n+1} - u_n} = ${rienSi1(m)}n ${ecritureAlgebrique(m)} ${ecritureAlgebrique(p)} ${ecritureAlgebrique(-m)}n ${ecritureAlgebrique(-p)}$`
           texteCorr += `<br>$\\phantom{u_{n+1} - u_n} = ${m}$ `
@@ -89,14 +88,14 @@ export default function VariationDUneSuiteDefinieExplicitement (this: any) {
           } else {
             texteCorr += `Or $a=${m}<0$, la fonction $f$ est donc décroissante sur $[0;+\\infty[$. <br> On en déduit que la suite $(u_n)$ est décroissante sur $\\mathbb{N}$.`
           }
-          break
+          break }
 
-        case 2: // fonction polynome de degré 2 (a*x²+b*x+c)
+        case 2: { // fonction polynome de degré 2 (a*x²+b*x+c)
           const a = randint(1, 9) * choice([-1, 1])
           const b = randint(0, 50) * choice([-1, 1])
           const c = randint(0, 50) * choice([-1, 1])
           const alpha = -b / (2 * a)
-          const rang_p = Math.ceil(alpha)
+          const rangP = Math.ceil(alpha)
           alea1 = a
           alea2 = b
 
@@ -109,134 +108,137 @@ export default function VariationDUneSuiteDefinieExplicitement (this: any) {
           texteCorr += '<br>'
           texteCorr += 'Or $f$ est une fonction polynomiale du second degré.'
           texteCorr += '<br>'
-          texteCorr += `Pour étudier ses variations, nous calculons $\\alpha = \\dfrac{${'-b'}}{${'2a'}}$ qui correspond à l'abscisse du sommet de la parabole : $\\alpha = ${new FractionEtendue(-b , 2 * a).texFractionSimplifiee}$.`
+          texteCorr += `Pour étudier ses variations, nous calculons $\\alpha = \\dfrac{${'-b'}}{${'2a'}}$ qui correspond à l'abscisse du sommet de la parabole : $\\alpha = ${new FractionEtendue(-b, 2 * a).texFractionSimplifiee}$.`
           texteCorr += '<br>'
           if (a >= 0) {
-            texteCorr += `De plus $a = ${a}>0$, la fonction $f$ est donc décroissante sur $]-\\infty;${new FractionEtendue(-b , 2 * a).texFractionSimplifiee}[$ et croissante sur $]${new FractionEtendue(-b , 2 * a).texFractionSimplifiee};+\\infty[$.`
+            texteCorr += `De plus $a = ${a}>0$, la fonction $f$ est donc décroissante sur $]-\\infty;${new FractionEtendue(-b, 2 * a).texFractionSimplifiee}[$ et croissante sur $]${new FractionEtendue(-b, 2 * a).texFractionSimplifiee};+\\infty[$.`
             texteCorr += '<br>'
-            if (rang_p >= 0) {
-              texteCorr += `On en déduit que la suite $(u_n)$ est croissante pour tout entier $n \\geqslant ${rang_p}$.`
+            if (rangP >= 0) {
+              texteCorr += `On en déduit que la suite $(u_n)$ est croissante pour tout entier $n \\geqslant ${rangP}$.`
             } else {
               texteCorr += 'On en déduit que la suite $(u_n)$ est croissante sur $\\mathbb{N}$.'
             }
           } else {
-            texteCorr += `De plus $${a}<0$, la fonction $f$ est donc croissante sur $]-\\infty;${new FractionEtendue(-b , 2 * a).texFractionSimplifiee}[$ et décroissante sur $]${new FractionEtendue(-b , 2 * a).texFractionSimplifiee};+\\infty[$.`
+            texteCorr += `De plus $${a}<0$, la fonction $f$ est donc croissante sur $]-\\infty;${new FractionEtendue(-b, 2 * a).texFractionSimplifiee}[$ et décroissante sur $]${new FractionEtendue(-b, 2 * a).texFractionSimplifiee};+\\infty[$.`
             texteCorr += '<br>'
-            if (rang_p >= 0) {
-              texteCorr += `On en déduit que la suite $(u_n)$ est décroissante pour tout entier $n \\geqslant${rang_p}$.`
+            if (rangP >= 0) {
+              texteCorr += `On en déduit que la suite $(u_n)$ est décroissante pour tout entier $n \\geqslant${rangP}$.`
             } else {
               texteCorr += 'On en déduit que la suite $(u_n)$ est décroissante sur $\\mathbb{N}$.'
             }
           }
-          break
+          break }
 
-          case 3: // fonction homographique (num_a*x+num_b)/(denom_c*x+denom_d)
+        // case 3:{ // fonction homographique (num_a*x+num_b)/(denom_c*x+denom_d)
+        default: {
+          let numA: number, numB: number, denomC: number, denomD: number
           do {
-            var num_a = randint(1, 9)
-            var num_b = randint(1, 9) * choice([-1, 1])
-            var denom_c = randint(1, 9)
-            var denom_d = randint(1, 9) * choice([-1, 1])
-          } while (num_a + num_b === 0)
-          alea1 = num_a
-          alea2 = num_b
-          const numerateur = (num_a + num_b) * denom_d - num_b * (denom_c + denom_d)
-          const maFonction = (x: number) => (num_a * denom_d - num_b * denom_c) / ((denom_c * x + denom_d + denom_c) * (denom_c * x + denom_d))
+            numA = randint(1, 9)
+            numB = randint(1, 9) * choice([-1, 1])
+            denomC = randint(1, 9)
+            denomD = randint(1, 9) * choice([-1, 1])
+          } while (numA + numB === 0)
+          alea1 = numA
+          alea2 = numB
+          const numerateur = (numA + numB) * denomD - numB * (denomC + denomD)
+          const maFonction = (x: number) => (numA * denomD - numB * denomC) / ((denomC * x + denomD + denomC) * (denomC * x + denomD))
           const monTableau = tableauSignesFonction(
             maFonction,
-            -denom_d / denom_c - 2,
-            -denom_d / denom_c + 1,
+            -denomD / denomC - 2,
+            -denomD / denomC + 1,
             {
-              substituts: [{ antVal: -denom_d / denom_c - 2, antTex: '-\\infty', imgVal: -100, imgTex: '-\\infty' },  
-                { antVal: -denom_d / denom_c + 1, antTex: '+\\infty', imgVal: 100, imgTex: '+\\infty' }
-            ],
+              substituts: [{ antVal: -denomD / denomC - 2, antTex: '-\\infty', imgVal: -100, imgTex: '-\\infty' },
+                { antVal: -denomD / denomC + 1, antTex: '+\\infty', imgVal: 100, imgTex: '+\\infty' }
+              ],
               step: 0.001,
               tolerance: 0.005,
               nomVariable: 'n',
+              // @ts-expect-error nomFonction
               nomFonction: '$u_{n+1}-u_n$'
-            } 
+            }
           )
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}}$.`
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_n = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$.`
           texte += '<br><br>'
           texte += 'Etudier le sens de variation de la suite $(u_n)$'
-          if (num_a * denom_d == num_b * denom_c) {
-            texteCorr = `On remarque que $u_n = \\dfrac{${num_a}}{${denom_c}} \\times \\dfrac{n ${ecritureAlgebrique(fraction(num_b, num_a))}}{n ${ecritureAlgebrique(fraction(denom_d, denom_c))}}$`
+          if (numA * denomD === numB * denomC) {
+            texteCorr = `On remarque que $u_n = \\dfrac{${numA}}{${denomC}} \\times \\dfrac{n ${ecritureAlgebrique(fraction(numB, numA))}}{n ${ecritureAlgebrique(fraction(denomD, denomC))}}$`
             texteCorr += '<br>'
-            texteCorr += `$u_n = ${new FractionEtendue(num_a, denom_c).texFractionSimplifiee} \\times \\dfrac{n ${ecritureAlgebrique(fraction(num_b, num_a).simplifie())}}{n ${ecritureAlgebrique(fraction(denom_d, denom_c).simplifie())}}$`
+            texteCorr += `$u_n = ${new FractionEtendue(numA, denomC).texFractionSimplifiee} \\times \\dfrac{n ${ecritureAlgebrique(fraction(numB, numA).simplifie())}}{n ${ecritureAlgebrique(fraction(denomD, denomC).simplifie())}}$`
             texteCorr += '<br><br>'
-            texteCorr += `Alors $u_n = ${new FractionEtendue(num_a, denom_c).texFractionSimplifiee}$`
+            texteCorr += `Alors $u_n = ${new FractionEtendue(numA, denomC).texFractionSimplifiee}$`
             texteCorr += '<br>'
-            texteCorr += `La suite $u_n$ est constante sur $\\mathbb{N}$`
+            texteCorr += 'La suite $u_n$ est constante sur $\\mathbb{N}$'
           } else {
             texteCorr = 'On calcule la différence entre deux termes consécutifs :'
             texteCorr += '<br>'
-            texteCorr += `$u_{n+1} - u_n = \\dfrac{${rienSi1(num_a)}(n+1) ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}(n+1) ${ecritureAlgebrique(denom_d)}} - \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}}$`
+            texteCorr += `$u_{n+1} - u_n = \\dfrac{${rienSi1(numA)}(n+1) ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}(n+1) ${ecritureAlgebrique(denomD)}} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
             texteCorr += '<br><br>'
-            texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_a)} ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_c)} ${ecritureAlgebrique(denom_d)}} - \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}}$`
+            texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numA)} ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomC)} ${ecritureAlgebrique(denomD)}} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
             texteCorr += '<br><br>'
-            if (denom_c + denom_d == 0) {
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b + num_a)}}{${rienSi1(denom_c)}n} - \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}}$`
+            if (denomC + denomD === 0) {
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB + numA)}}{${rienSi1(denomC)}n} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
               texteCorr += '<br><br>'
-              if (denom_c >= 0) {
-                texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b + num_a)})(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})-(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)})${rienSi1(denom_c)}n}{${rienSi1(denom_c)}n (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              if (denomC >= 0) {
+                texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA)}n ${ecritureAlgebrique(numB + numA)})(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})-(${rienSi1(numA)}n ${ecritureAlgebrique(numB)})${rienSi1(denomC)}n}{${rienSi1(denomC)}n (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
                 texteCorr += '<br><br>'
               } else {
-                texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b + num_a)})(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})-(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)})(${rienSi1(denom_c)}n)}{${rienSi1(denom_c)}n (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+                texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA)}n ${ecritureAlgebrique(numB + numA)})(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})-(${rienSi1(numA)}n ${ecritureAlgebrique(numB)})(${rienSi1(denomC)}n)}{${rienSi1(denomC)}n (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
                 texteCorr += '<br><br>'
               }
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_a * denom_d)}n ${ecritureAlgebrique((num_a + num_b) * denom_c)}n ${ecritureAlgebrique((num_a + num_b) * denom_d)}) - (${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_b * denom_c)}n)}{${rienSi1(denom_c)}n (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numA * denomD)}n ${ecritureAlgebrique((numA + numB) * denomC)}n ${ecritureAlgebrique((numA + numB) * denomD)}) - (${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numB * denomC)}n)}{${rienSi1(denomC)}n (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique((num_a * denom_d) + (num_a + num_b) * denom_c)}n ${ecritureAlgebrique((num_a + num_b) * denom_d)}) - (${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_b * denom_c)}n)}{${rienSi1(denom_c)}n (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA * denomC)}n² ${ecritureAlgebrique((numA * denomD) + (numA + numB) * denomC)}n ${ecritureAlgebrique((numA + numB) * denomD)}) - (${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numB * denomC)}n)}{${rienSi1(denomC)}n (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((num_a + num_b) * denom_d)}}{${rienSi1(denom_c)}n (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((numA + numB) * denomD)}}{${rienSi1(denomC)}n (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
             } else {
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b + num_a)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}} - \\dfrac{${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)}}{${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB + numA)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}} - \\dfrac{${rienSi1(numA)}n ${ecritureAlgebrique(numB)}}{${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b + num_a)})(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})-(${rienSi1(num_a)}n ${ecritureAlgebrique(num_b)})(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)})}{(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}) (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA)}n ${ecritureAlgebrique(numB + numA)})(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})-(${rienSi1(numA)}n ${ecritureAlgebrique(numB)})(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)})}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_a * denom_d)}n ${ecritureAlgebrique((num_a + num_b) * denom_c)}n ${ecritureAlgebrique((num_a + num_b) * denom_d)}) - (${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_a * (denom_c + denom_d))}n ${ecritureAlgebrique(num_b * denom_c)}n ${ecritureAlgebrique(num_b * (denom_c + denom_d))})}{(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}) (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numA * denomD)}n ${ecritureAlgebrique((numA + numB) * denomC)}n ${ecritureAlgebrique((numA + numB) * denomD)}) - (${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numA * (denomC + denomD))}n ${ecritureAlgebrique(numB * denomC)}n ${ecritureAlgebrique(numB * (denomC + denomD))})}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique((num_a * denom_d) + (num_a + num_b) * denom_c)}n ${ecritureAlgebrique((num_a + num_b) * denom_d)}) - (${rienSi1(num_a * denom_c)}n² ${ecritureAlgebrique(num_a * (denom_c + denom_d) + num_b * denom_c)}n ${ecritureAlgebrique(num_b * (denom_c + denom_d))})}{(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}) (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{(${rienSi1(numA * denomC)}n² ${ecritureAlgebrique((numA * denomD) + (numA + numB) * denomC)}n ${ecritureAlgebrique((numA + numB) * denomD)}) - (${rienSi1(numA * denomC)}n² ${ecritureAlgebrique(numA * (denomC + denomD) + numB * denomC)}n ${ecritureAlgebrique(numB * (denomC + denomD))})}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((num_a + num_b) * denom_d)} ${ecritureAlgebrique(-num_b * (denom_c + denom_d))}}{(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}) (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((numA + numB) * denomD)} ${ecritureAlgebrique(-numB * (denomC + denomD))}}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
-              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((num_a + num_b) * denom_d - num_b * (denom_c + denom_d))}}{(${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}) (${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)})}$`
+              texteCorr += `$\\phantom{u_{n+1} - u_n} = \\dfrac{${((numA + numB) * denomD - numB * (denomC + denomD))}}{(${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}) (${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)})}$`
               texteCorr += '<br><br>'
             }
             texteCorr += 'Nous allons maintenant étudier le signe de $u_{n+1} - u_n$ :'
             texteCorr += '<br><br>'
-            if (denom_c >= 0) {
-              texteCorr += `$${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}>0$ si et seulement si $n > ${new FractionEtendue(-(denom_d + denom_c), denom_c).texFractionSimplifiee}$`
+            if (denomC >= 0) {
+              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ si et seulement si $n > ${new FractionEtendue(-(denomD + denomC), denomC).texFractionSimplifiee}$`
             } else {
-              texteCorr += `$${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d + denom_c)}>0$ si et seulement si $n < ${new FractionEtendue(-(denom_d + denom_c), denom_c).texFractionSimplifiee}$`
+              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD + denomC)}>0$ si et seulement si $n < ${new FractionEtendue(-(denomD + denomC), denomC).texFractionSimplifiee}$`
             }
             texteCorr += '<br>'
-            if (denom_c >= 0) {
-              texteCorr += `$${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}>0$ si et seulement si $n > ${new FractionEtendue(-denom_d , denom_c).texFractionSimplifiee}$`
+            if (denomC >= 0) {
+              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$ si et seulement si $n > ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$`
             } else {
-              texteCorr += `$${rienSi1(denom_c)}n ${ecritureAlgebrique(denom_d)}>0$ si et seulement si $n < ${new FractionEtendue(-denom_d , denom_c).texFractionSimplifiee}$`
+              texteCorr += `$${rienSi1(denomC)}n ${ecritureAlgebrique(denomD)}>0$ si et seulement si $n < ${new FractionEtendue(-denomD, denomC).texFractionSimplifiee}$`
             }
             texteCorr += '<br>'
             if (numerateur >= 0) {
-              texteCorr += `De plus : $${(num_a + num_b) * denom_d - num_b * (denom_c + denom_d)}>0$`
+              texteCorr += `De plus : $${(numA + numB) * denomD - numB * (denomC + denomD)}>0$`
             } else {
-              texteCorr += `De plus : $${(num_a + num_b) * denom_d - num_b * (denom_c + denom_d)}<0$`
+              texteCorr += `De plus : $${(numA + numB) * denomD - numB * (denomC + denomD)}<0$`
             }
             texteCorr += '<br>'
             texteCorr += 'On peut alors en déduire le tableau de signe suivant :'
             texteCorr += '<br>' + monTableau
             texteCorr += '<br>'
-            if (-denom_d / denom_c >= 0) {
+            if (-denomD / denomC >= 0) {
               if (numerateur >= 0) {
-                texteCorr += `On peut alors en déduire que $u_{n+1}-u_n > 0$ pour tout $n \\geqslant ${texNombre(Math.ceil(-denom_d / denom_c))}$.`
+                texteCorr += `On peut alors en déduire que $u_{n+1}-u_n > 0$ pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$.`
                 texteCorr += '<br>'
                 texteCorr += '<br>'
-                texteCorr += `La suite $(u_n)$ est donc croissante à partir du rang $${texNombre(Math.ceil(-denom_d / denom_c))}$.`
+                texteCorr += `La suite $(u_n)$ est donc croissante à partir du rang $${texNombre(Math.ceil(-denomD / denomC))}$.`
               } else {
-                texteCorr += `On peut alors en déduire que $u_{n+1}-u_n < 0$ pour tout $n \\geqslant ${texNombre(Math.ceil(-denom_d / denom_c))}$.`
+                texteCorr += `On peut alors en déduire que $u_{n+1}-u_n < 0$ pour tout $n \\geqslant ${texNombre(Math.ceil(-denomD / denomC))}$.`
                 texteCorr += '<br>'
                 texteCorr += '<br>'
-                texteCorr += `La suite $(u_n)$ est donc décroissante à partir du rang $${texNombre(Math.ceil(-denom_d / denom_c))}$.`
+                texteCorr += `La suite $(u_n)$ est donc décroissante à partir du rang $${texNombre(Math.ceil(-denomD / denomC))}$.`
               }
             } else {
               if (numerateur >= 0) {
@@ -250,7 +252,7 @@ export default function VariationDUneSuiteDefinieExplicitement (this: any) {
               }
             }
           }
-          break
+          break }
       }
 
       if (this.questionJamaisPosee(i, alea1, alea2)) { // Si la question n'a jamais été posée, on en créé une autre

@@ -58,9 +58,6 @@ export default function LireAbscisseDecimaleTroisFormes () {
   // this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let d1
       let extremite

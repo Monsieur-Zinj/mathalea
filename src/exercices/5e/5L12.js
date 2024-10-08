@@ -44,9 +44,6 @@ export default function ReduireUneExpressionLitterale () {
   this.sup2 = false // avec des nombres décimaux
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.consigne = this.nbQuestions === 1 ? 'Réduire l\'expression suivante.' : 'Réduire les expressions suivantes.'
 
     const typesDeQuestionsDisponibles = range1(7)

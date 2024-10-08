@@ -40,9 +40,6 @@ export default function CalculerUnPourcentage () {
   this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = [1, 2, 3]
     const listeChoix = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeMoyens = ['en bus', 'en deux-roues', 'à  pied', 'en voiture']
     const listeSports = ['le foot', 'la natation', 'le basket', 'le ping-pong', 'le volley', 'la gym']
     const listeHobbies = ['la couture', 'le cinéma', 'la musique', 'le sport', 'le codage', 'le jardinage', 'la cuisine']

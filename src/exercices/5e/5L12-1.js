@@ -33,9 +33,6 @@ export default function ReduireDinstinctionSommeProduit () {
   let typesDeQuestionsDisponibles
   this.sup = 3
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     typesDeQuestionsDisponibles = this.sup === 3 ? [choice([0, 2]), choice([1, 3])] : this.sup === 2 ? [choice([1, 3])] : [choice([0, 2])]
 
     const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)

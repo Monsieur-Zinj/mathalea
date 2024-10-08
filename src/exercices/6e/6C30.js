@@ -42,7 +42,7 @@ export default function MultiplierDecimaux () {
   this.nbQuestions = 4
   this.sup = false
   this.sup2 = 3
-    this.besoinFormulaire2Numerique = [
+  this.besoinFormulaire2Numerique = [
     'Type de cahier',
     3,
     ' 1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche'
@@ -50,9 +50,6 @@ export default function MultiplierDecimaux () {
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

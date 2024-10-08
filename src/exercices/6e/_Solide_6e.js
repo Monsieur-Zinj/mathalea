@@ -27,9 +27,6 @@ export default function Solide6e () {
   this.sup3 = 5
   this.titre = ''
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = this.sup === 3 ? [1, 2] : [this.sup]
 
     const listeTypeDeQuestions = combinaisonListes(

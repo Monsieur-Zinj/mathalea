@@ -36,9 +36,6 @@ export default function CompleterParSymetrie5e () {
   this.sup2 = 1
   this.nouvelleVersion = function () {
     if (this.interactif) this.consigne = 'Placer les points en cliquant, puis vérifier la réponse.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const couples = []
     const pointsCliquables = [[]]
     let pointsPossibles

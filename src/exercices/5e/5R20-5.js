@@ -26,9 +26,6 @@ export default function ExerciceTableauAdditionsRelatifs () {
   this.nbQuestionsModifiable = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeSignes1 = combinaisonListes([-1, 1], 4)
     let a1 = randint(2, 9)
     let a2 = randint(2, 9, a1)

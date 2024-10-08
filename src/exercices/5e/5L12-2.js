@@ -55,9 +55,6 @@ export default function ReduireUneExpressionLitterale () {
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Réduire et simplifier l\'expression suivante' : 'Réduire et simplifier les expressions suivantes'
     this.consigne += ', si c\'est possible.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup3,
       max: 9,

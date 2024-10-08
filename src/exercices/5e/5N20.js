@@ -64,9 +64,6 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
         this.consigne += this.interactif ? ' au brouillon et indiquer seulement le résultat final.' : '.'
       }
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeTypeDeQuestions
     if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(['+'], this.nbQuestions)

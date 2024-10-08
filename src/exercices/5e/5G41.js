@@ -53,9 +53,6 @@ export default function ConstructionsParallelogrammesParticuliers () {
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     const tailleGrille = 0.2 + this.sup2 * 0.2
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let texte = ''; let texteCorr = ''
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))

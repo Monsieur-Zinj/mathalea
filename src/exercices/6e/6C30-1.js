@@ -7,7 +7,7 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 
 export const amcReady = true
 export const amcType = 'AMCNum'
@@ -49,9 +49,6 @@ export default function MultiplierDecimauxPar101001000 () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     let typesDeQuestions
     if (this.sup === 1 && !this.sup2) typesDeQuestionsDisponibles = [1, 2]
@@ -271,7 +268,7 @@ export default function MultiplierDecimauxPar101001000 () {
           break
       }
       if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
-      handleAnswers(this,i, {reponse:{value: stringNombre(reponse, 5)}})
+      handleAnswers(this, i, { reponse: { value: stringNombre(reponse, 5) } })
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

@@ -39,12 +39,9 @@ export default function Questions2023 () {
   this.nbQuestionsModifiable = false
   this.spacing = context.isHtml ? 2 : 1
   this.spacingCorr = context.isHtml ? 2 : 1
-    this.sup = '1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28'
+  this.sup = '1-2-3-4-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20-21-22-23-24-25-26-27-28'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     /*
     let QuestionsDisponibles = []
     if (!this.sup) { // Si aucune liste n'est saisie

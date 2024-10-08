@@ -33,9 +33,6 @@ export default function PlacerProbabilites () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.sup = true
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const lstEvenenementA = [] // liste des évènements disponibles : p === 0 ou p === 1
     const lstEvenenementB = [] // liste des évènements disponibles : p < 0.5
     const lstEvenenementC = [] // liste des évènements disponibles : p = 0.5

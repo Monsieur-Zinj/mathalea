@@ -39,9 +39,6 @@ export default function CalculProbaTableau () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, cpt = 0, reponse, tableau, pAbarreinterBbarre, pA, pB, pAinterB, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
       pA = (new Decimal(randint(27, 40))).div(100)

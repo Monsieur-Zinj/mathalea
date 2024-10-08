@@ -34,9 +34,6 @@ export default function NommerEtCoderDesPolygones () {
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 ? 'Nommer la figure' : 'Nommer les figures'
     this.consigne += " en fonction de l'énoncé puis ajouter le codage."
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let Xmin, Xmax, Ymin, Ymax, sc, g, carreaux
     const ppc = 40
     if (context.isHtml) {

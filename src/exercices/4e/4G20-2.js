@@ -39,9 +39,6 @@ export default function RacineCareeDeCarresParfaits () {
   this.sup2 = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeRacines = []
     let listeQuestions = []
     this.sup = parseInt(this.sup)

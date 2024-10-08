@@ -1,7 +1,7 @@
 import { droite } from '../../lib/2d/droites.js'
 import { pointSurDroite } from '../../lib/2d/points.js'
 import { repere } from '../../lib/2d/reperes.js'
-import { latex2d, texteParPosition } from '../../lib/2d/textes.js'
+import { texteParPosition } from '../../lib/2d/textes.js'
 import { choice, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { troisColonnes } from '../../lib/format/miseEnPage.js'
 import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures.js'

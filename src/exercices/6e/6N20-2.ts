@@ -58,9 +58,6 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeDenominateurs = gestionnaireFormulaireTexte({
       saisie: this.sup as string,
       min: 2,

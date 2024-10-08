@@ -51,9 +51,6 @@ export default class constructionElementaire extends Exercice {
   }
 
   nouvelleVersion (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, colonne1, colonne2, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const objetsEnonce = []
       const objetsCorrection = []

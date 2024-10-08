@@ -36,9 +36,6 @@ export default function ExerciceTablesAdditions (max = 20) {
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 2, defaut: 1, melange: 3, shuffle: true, listeOfCase: ['somme', 'terme'], nbQuestions: this.nbQuestions })
     for (
       let i = 0, a, b, texte, texteCorr, cpt = 0;

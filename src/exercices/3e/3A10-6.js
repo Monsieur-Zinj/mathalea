@@ -44,9 +44,6 @@ export default function TrouverChiffre () {
   this.nouvelleVersion = function () {
     const symboleChiffreCache = symboleChiffreCacheTab[this.sup3 - 1]
     this.consigne = this.interactif ? 'Dans le champ de réponses, indiquer toutes les réponses possibles, séparées par des points-virgules. Si aucun chiffre n\'est possible, saisir le symbole $\\emptyset$.' : ''
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     // CHOIX DU NOMBRE DE CHIFFRES COMPOSANT LE NOMBRE
     const nombreDeChiffres = gestionnaireFormulaireTexte({
       saisie: this.sup,

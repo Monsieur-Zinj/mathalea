@@ -145,9 +145,9 @@ class ConstructionTriangle extends Exercice {
       labels: [labelA, labelB, labelC]
     }).isValid
     if (resultat.every((r) => r === 'OK')) {
-	  resultat.push('OK')
+      resultat.push('OK')
     } else {
-	  resultat.push('KO')
+      resultat.push('KO')
     }
     if (isPolygoneDrawn) {
       resultat.push('OK')

@@ -36,9 +36,6 @@ export default function TrianglesEgaux () {
   this.spacing = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const zoom = context.vue === 'diap' ? 0.5 : 1
 
     let typeQuestionsDisponibles = ['rotation', 'similitude', 'rotation2', 'similitude2', 'rotation3', 'similitude3']

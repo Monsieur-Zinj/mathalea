@@ -41,9 +41,6 @@ export default function ExploiterRepresentationGraphique () {
   this.sup = 4
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     // Vitesses initiales donnant une hauteur entière et une portée entière
     // Vitesses initiales donnant une hauteur entière et une durée de vol entière.
     const vitessesInitiales = [28.27, 35.2, 49.6, 63.55, 70.85, 77.45, 84.85, 91.65]

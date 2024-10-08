@@ -44,9 +44,6 @@ export default function TableauDeValeurs () {
 
   this.nouvelleVersion = function () {
     this.spacing = this.interactif ? 2 : 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = ['ax+b', 'ax']

@@ -38,9 +38,6 @@ export default function FractionVersPourcentage () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.introduction = this.interactif ? 'La première fraction est facultative : elle sera corrigée, mais ne sera pas prise en compte dans le barème.' : ''
 
     const typeDeDenominateurs = [10, 20, 50, 1000, 2, 4, 5, 200]

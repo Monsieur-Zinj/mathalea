@@ -40,9 +40,6 @@ export default function CalculProbaArbre2e () {
 
   this.nouvelleVersion = function () {
     const rationnel = this.sup
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, cpt = 0, pA, pB, pAC, pBC, omega, texte, texteCorr, objets, pC; i < this.nbQuestions && cpt < 50;) {
       objets = []
       // On choisit les probas de l'arbre

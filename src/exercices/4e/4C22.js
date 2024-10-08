@@ -47,9 +47,6 @@ export default function ExerciceMultiplierFractions () {
   this.sup2 = true // méthode de simplification par défaut = factorisation
   this.sup4 = 1 // multiplications par défaut
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestionsDisponibles
     const listeFractions = obtenirListeFractionsIrreductibles()
     const fractionIrreductibleDemandee = this.sup3

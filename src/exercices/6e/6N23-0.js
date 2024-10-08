@@ -48,9 +48,6 @@ export default function ÉcrireNombresDecimal () {
       formatEcriture = combinaisonListes([false], this.nbQuestions)
       this.sup2 = 1
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typesDeQuestionsDemandees = this.sup2 + 1 // <1 000, <1 000 000)
     let typesDeQuestionsDisponibles
     if (this.sup3 === 1) {

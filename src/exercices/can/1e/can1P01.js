@@ -40,9 +40,6 @@ export default function ProbabilitesNotation () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, cpt = 0, p1, p2, p3, p4, p5, p6, texte, texteCorr, choix; i < this.nbQuestions && cpt < 50;) {
       // switch (choice([1, 2, 3])) { //, 2, 3
       switch (choice([1, 2, 3])) { //, 2, 3

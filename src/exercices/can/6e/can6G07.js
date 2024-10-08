@@ -41,9 +41,6 @@ export default function CompleterParSymetrieCan () {
   this.sup2 = 1
   this.nouvelleVersion = function () {
     this.sup = randint(1, 2)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const couples = []
     let pointsPossibles
     const pointsChoisis = []

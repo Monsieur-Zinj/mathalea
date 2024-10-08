@@ -40,9 +40,6 @@ export default function MesurerUnAngleAvecRapporteur () {
   this.sup3 = 4
   this.sup4 = false
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let figureExo
 
     for (let i = 0, texteAMC, posA, sudOuest, nordOuest, sudEst, nordEst, texte, texteCorr; i < this.nbQuestions; i++) {

@@ -31,9 +31,6 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
   this.nbColsCorr = 1
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.sup = parseInt(this.sup)
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {

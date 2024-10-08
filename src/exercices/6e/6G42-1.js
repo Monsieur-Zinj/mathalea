@@ -114,9 +114,6 @@ export default function LireFacePaveDroit () {
       choixFace.splice(typesDeQuestionsIndisponibles[i], 1)
     }
     choixFace = combinaisonListes(choixFace, choixFace.length)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let indiceQuestion
 
     for (let i = 0, texte, texteCorr, objetsEnonce, A, B, D, E, solideDessine, nomSolide, enonceAMC, enonceFigure,

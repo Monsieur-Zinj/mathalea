@@ -32,9 +32,6 @@ export default function ProbabilitesSimples () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0; i < this.nbQuestions; i++) {
       let texte
 

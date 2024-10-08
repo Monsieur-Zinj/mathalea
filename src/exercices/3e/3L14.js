@@ -42,9 +42,6 @@ export default function ResoudreUneEquationProduitNul () {
 
   this.nouvelleVersion = function () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeTypeDeQuestions = []
     switch (contraindreValeur(1, 8, this.sup, 1)) {
       case 1:

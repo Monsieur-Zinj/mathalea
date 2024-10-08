@@ -46,9 +46,6 @@ export default class ExerciceFractionsDecomposer extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     if (this.sup4) {
       const figure = getDynamicFractionDiagram()
       this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })

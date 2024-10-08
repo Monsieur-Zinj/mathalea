@@ -5,7 +5,7 @@ import Exercice from '../../deprecatedExercice.js'
 import {
   calculANePlusJamaisUtiliser,
   listeQuestionsToContenu,
-  randint,
+  randint
 } from '../../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../../lib/interactif/gestionInteractif'
@@ -21,7 +21,7 @@ export const amcType = 'AMCNum'
  * @author Jean-Claude Lhote
  * Référence
  */
-export default function CourseAuxNombresCM() {
+export default function CourseAuxNombresCM () {
   Exercice.call(this)
   if (this.interactif) {
     this.consigne =
@@ -44,7 +44,7 @@ export default function CourseAuxNombresCM() {
       // Si aucune question n'est sélectionnée
       questions = combinaisonListesSansChangerOrdre(
         range1(10),
-        this.nbQuestions,
+        this.nbQuestions
       )
     } else {
       if (typeof this.sup === 'number') {
@@ -61,7 +61,7 @@ export default function CourseAuxNombresCM() {
     }
     const listeIndex = combinaisonListesSansChangerOrdre(
       questions,
-      this.nbQuestions,
+      this.nbQuestions
     )
     const typeQuestionsDisponibles = [
       // les dix premières sont communes à betaCaNCM1
@@ -94,7 +94,7 @@ export default function CourseAuxNombresCM() {
       'q27', // Multiplication entier par décimal\n
       'q28', // Moitié de décimal\n
       'q29', // Soustraction grands entiers\n
-      'q30', // Quotient d'entiers
+      'q30' // Quotient d'entiers
     ]
     for (
       let i = 0, texte, texteCorr, cpt = 0;
@@ -158,18 +158,18 @@ export default function CourseAuxNombresCM() {
         case 'q8': // Somme décimaux
           a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
           b = calculANePlusJamaisUtiliser(
-            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100,
+            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100
           )
           texte = `$${texNombre(a)}+${texNombre(b)}$`
           texteCorr = `$${texNombre(a)}+${texNombre(b)}=${texNombre(a + b)}$`
           setReponse(this, i, calculANePlusJamaisUtiliser(a + b), {
-            formatInteractif: 'calcul',
+            formatInteractif: 'calcul'
           })
           break
         case 'q9': // Différence décimaux
           a = calculANePlusJamaisUtiliser(randint(1, 5) + randint(1, 5) / 10)
           b = calculANePlusJamaisUtiliser(
-            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100,
+            randint(1, 4) + randint(1, 4) / 10 + randint(1, 9) / 100
           )
           texte = `$${texNombre(a + b)}-${texNombre(a)}$`
           texteCorr = `$${texNombre(a + b)}-${texNombre(a)}=${texNombre(b)}$`
@@ -225,6 +225,6 @@ export default function CourseAuxNombresCM() {
   27 : Multiplication entier par décimal\n
   28 : Moitié de décimal\n
   29 : Soustraction grands entiers\n
-  30 : Quotient d'entiers`,
+  30 : Quotient d'entiers`
   ]
 }

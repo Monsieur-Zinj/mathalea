@@ -44,9 +44,6 @@ export default function ExerciceNumerationEntier () {
   this.nouvelleVersion = function () {
     this.sup3 = Number(this.sup3)
     this.sup4 = Number(this.sup4)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeTypeDeQuestions = []
     if (this.sup2) { // Vers les unités
       this.consigne = 'Écrire en chiffres '

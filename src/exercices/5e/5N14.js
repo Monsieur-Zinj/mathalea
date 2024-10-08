@@ -37,9 +37,6 @@ export default function ExerciceComparerDeuxFractions (max = 11) {
   this.sup2 = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeSignes = combinaisonListes([-1, 1], this.nbQuestions)
     // On crée une liste de FractionEtendues irréductibles.
     const listeFractions = obtenirListeFractionsIrreductibles()

@@ -22,9 +22,6 @@ export default function ConnaitreFormulesDePerimetreEtAires () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeTypeDeQuestions = combinaisonListes(
       [
         'pi',

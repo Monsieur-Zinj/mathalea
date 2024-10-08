@@ -46,9 +46,6 @@ export default function ExerciceEquation1 () {
   this.nbQuestions = 6
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.consigne = this.nbQuestions === 1
       ? 'Résoudre l\'équation suivante.'
       : 'Résoudre les équations suivantes.'

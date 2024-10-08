@@ -46,9 +46,6 @@ export default function NommerUnAngle () {
   this.sup2 = 1
   this.sup3 = false
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.interactifType = this.sup2 === 2 ? 'mathLive' : 'qcm'
     let propositionsDuQcm = []
     for (let i = 0, texteAMC, troisBonnesReponses, listePt1, listePt3, resultatOK1, resultatOK2, resultat3, resultatPasOK1, resultatPasOK2, choixAngle, pt1, pt2, pt3, tailleAngle, aleaChoixCouleurRemplissage, couleurRemplissageAngle, couleurAngle, segmentsCorrection, resultat; i < this.nbQuestions; i++) {

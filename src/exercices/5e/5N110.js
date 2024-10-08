@@ -38,9 +38,6 @@ export default function VariationEnPourcentages () {
 
   this.nouvelleVersion = function () {
     let reponse
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, prix, taux, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       prix = choice([new Decimal(randint(2, 9)),
         new Decimal(randint(1, 9)).mul(10),

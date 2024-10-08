@@ -36,9 +36,6 @@ export default function Reductionaxbx () {
     this.consigne = this.nbQuestions !== 1
       ? 'Réduire les expressions suivantes.'
       : 'Réduire l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const variables = ['x', 'y', 'z', 'a', 'b', 'c']
 
     const typesDeQuestionsDisponibles = ['ax+bx', 'ax+bx', 'ax+bx', 'ax+bx', 'ax+x']

@@ -53,9 +53,6 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
 
   nouvelleVersion () {
     this.correctionDetailleeDisponible = !this.lycee
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeDenominateurs = gestionnaireFormulaireTexte({
       saisie: this.sup2,
       min: 2,

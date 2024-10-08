@@ -93,9 +93,6 @@ export default class EncadrerUnEntierParDeuxEntiersConsecutifs extends Exercice 
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const nbChiffres = gestionnaireFormulaireTexte({ saisie: this.sup2, min: 1, max: 7, defaut: 3, nbQuestions: this.nbQuestions, melange: 7 })
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, defaut: 1, nbQuestions: this.nbQuestions, melange: 6 })
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

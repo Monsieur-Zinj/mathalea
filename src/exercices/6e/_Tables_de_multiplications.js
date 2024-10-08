@@ -37,9 +37,6 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
   this.besoinFormulaire3CaseACocher = ['Le facteur de gauche est celui de la table', true]
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const tables = gestionnaireFormulaireTexte({
       min: 1,
       max: 11,

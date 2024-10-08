@@ -36,9 +36,6 @@ export default function EcritureDecimalePuissanceDe10 () {
   this.sup = 3 // exposants positifs et négatifs par défaut
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.consigne = this.nbQuestions === 1
       ? "Donner l'écriture décimale du nombre suivant."
       : "Donner l'écriture décimale des nombres suivants."

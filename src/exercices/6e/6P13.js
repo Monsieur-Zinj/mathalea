@@ -142,9 +142,6 @@ export default function AugmenterEtReduireDunPourcentage () {
   ]
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.introduction = (this.sup2 && this.interactif && context.isHtml)
       ? lampeMessage({
         titre: 'Calculatrice autorisée.',

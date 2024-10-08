@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { ecritureAlgebrique, ecritureAlgebriqueSauf1, rienSi1 } from '../../lib/outils/ecritures'
-import Exercice from '../deprecatedExercice'
+import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures'
+import Exercice from '../Exercice'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { texNombre } from '../../lib/outils/texNombre'
@@ -19,22 +17,25 @@ export const refs = {
   'fr-fr': ['1AL12-21'],
   'fr-ch': []
 }
-export default function VariationDUneSuiteDefinieParRecurrence (this: any) {
-  Exercice.call(this)
-  this.titre = titre
-  // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
-  this.nbQuestions = 3
-  this.sup = 4
-  this.besoinFormulaireTexte = [
-    'Type de questions', [
-      'Nombres séparés par des tirets',
-      '1 : Arithmétique',
-      '2 : u_n+a*n',
-      '3 : u_n+a*n+b',
-      '4 : Mélange'
-    ].join('\n')
-  ]
-  this.nouvelleVersion = function () {
+export default class VariationDUneSuiteDefinieParRecurrence extends Exercice {
+  constructor () {
+    super()
+    this.titre = titre
+    // this.consigne = 'Une suite étant donnée, étudier son sens de variation.'
+    this.nbQuestions = 3
+    this.sup = 4
+    this.besoinFormulaireTexte = [
+      'Type de questions', [
+        'Nombres séparés par des tirets',
+        '1 : Arithmétique',
+        '2 : u_n+a*n',
+        '3 : u_n+a*n+b',
+        '4 : Mélange'
+      ].join('\n')
+    ]
+  }
+
+  nouvelleVersion () {
     this.autoCorrection = []
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
@@ -52,15 +53,15 @@ export default function VariationDUneSuiteDefinieParRecurrence (this: any) {
 
     // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    for (let i = 0, texte:string, texteCorr:string, cpt = 0, alea1:number, alea2:number ; i < this.nbQuestions && cpt < 50;) {
+    for (let i = 0, texte:string, texteCorr:string, cpt = 0, alea1:number, alea2:number; i < this.nbQuestions && cpt < 50;) {
       switch (listeTypeDeQuestions[i]) { // listeTypeDeQuestions[i]
-        case 1: // Suite arithmétique (u_{n+1}=u_n+a avec u_0=premier_terme)
+        case 1: { // Suite arithmétique (u_{n+1}=u_n+a avec u_0=premier_terme)
           const a = randint(1, 99) * choice([-1, 1])
-          const premier_terme = randint(1, 39) * choice([-1, 1])
+          const premierTerme = randint(1, 39) * choice([-1, 1])
           alea1 = a
-          alea2 = premier_terme
-          
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_0=${(premier_terme)}$ et $u_{n+1} = u_n ${ecritureAlgebrique(a)}$. `
+          alea2 = premierTerme
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_0=${(premierTerme)}$ et $u_{n+1} = u_n ${ecritureAlgebrique(a)}$. `
           texte += '<br><br>'
           texte += 'Etudier le sens de variation de la suite $(u_n)$'
           texteCorr = `On étudie le signe de la différence entre deux termes consécutifs :  <br> Soit $n\\in\\mathbb{N}$, on a $u_{n+1} - u_n = ${(a)}$`
@@ -70,17 +71,17 @@ export default function VariationDUneSuiteDefinieParRecurrence (this: any) {
           } else {
             texteCorr += `$${a}<0$, on en déduit que $u_{n+1} - u_n <0$, soit $u_{n+1} < u_n$. <br> La suite $(u_n)$ est donc décroissante sur $\\mathbb{N}$.`
           }
-          break
+          break }
 
-        case 2: // Suite définie par u_{n+1}=u_n+b*n avec u_0=u_0
+        case 2: { // Suite définie par u_{n+1}=u_n+b*n avec u_0=u_0
           const b = randint(2, 50) * choice([-1, 1])
-          const u_0 = randint(1, 39) * choice([-1, 1])
+          const u0 = randint(1, 39) * choice([-1, 1])
           alea1 = b
-          alea2 = u_0
-          
-          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_0=${(u_0)}$ et $u_{n+1} = u_n ${ecritureAlgebrique(b)}n$.`
+          alea2 = u0
+
+          texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_0=${(u0)}$ et $u_{n+1} = u_n ${ecritureAlgebrique(b)}n$.`
           texte += '<br><br>'
-          texte += `Etudier le sens de variation de la suite $(u_n)$`
+          texte += 'Etudier le sens de variation de la suite $(u_n)$'
           texteCorr = `On étudie le signe de la différence entre deux termes consécutifs :  $ u_{n+1} - u_n = ${b}n$`
           texteCorr += '<br>'
           if (b >= 0) {
@@ -92,18 +93,18 @@ export default function VariationDUneSuiteDefinieParRecurrence (this: any) {
             texteCorr += '<br>'
             texteCorr += '$u_{n+1} - u_n \\leqslant 0$, soit $u_{n+1} \\leqslant u_n$. <br> La suite $(u_n)$ est donc décroissante sur $\\mathbb{N}$.'
           }
-          break
+          break }
 
-        case 3: // Suite définie par u_{n+1}=u_n+c*n+d avec u_0=u
+        default: { // Case 3 // Suite définie par u_{n+1}=u_n+c*n+d avec u_0=u
           const c = randint(1, 50) * choice([-1, 1])
           const d = randint(1, 50) * choice([-1, 1])
           const u = randint(1, 39) * choice([-1, 1])
           alea1 = d
           alea2 = u
-          
+
           texte = `Soit $(u_n)$ une suite définie pour tout entier $n\\in\\mathbb{N}$ par $u_0=${(u)}$ et $u_{n+1} = u_n ${ecritureAlgebrique(c)}n ${ecritureAlgebrique(d)}$.`
           texte += '<br><br>'
-          texte += `Etudier le sens de variation de la suite $(u_n)$`
+          texte += 'Etudier le sens de variation de la suite $(u_n)$'
           texteCorr = `On étudie le signe de la différence entre deux termes consécutifs :  $u_{n+1} - u_n = ${rienSi1(c)}n ${ecritureAlgebrique(d)}$`
           texteCorr += '<br>'
           if (c >= 0) {
@@ -111,25 +112,25 @@ export default function VariationDUneSuiteDefinieParRecurrence (this: any) {
             texteCorr += '<br>'
             texteCorr += `On en déduit que pour tout $n>${new FractionEtendue(-d, c).texFractionSimplifiee}$ : $u_{n+1} - u_n > 0$, soit $u_{n+1} > u_n$. `
             texteCorr += '<br>'
-            if (-d / c > 0){
+            if (-d / c > 0) {
               texteCorr += `La suite $(u_n)$ est donc croissante à partir du rang $${texNombre(Math.ceil(-d / c))}$.`
             } else {
-              texteCorr += `La suite $(u_n)$ est donc croissante sur $\\mathbb{N}$.`
+              texteCorr += 'La suite $(u_n)$ est donc croissante sur $\\mathbb{N}$.'
             }
           } else {
             texteCorr += `$${rienSi1(c)}n ${ecritureAlgebrique(d)}<0 \\iff ${rienSi1(c)}n<${-d} \\iff n>${new FractionEtendue(-d, c).texFractionSimplifiee}$.`
             texteCorr += '<br>'
             texteCorr += `On en déduit que pour tout $n>${new FractionEtendue(-d, c).texFractionSimplifiee}$ : $u_{n+1} - u_n < 0$, soit $u_{n+1} < u_n$. `
             texteCorr += '<br>'
-            if (-d / c > 0){
+            if (-d / c > 0) {
               texteCorr += `La suite $(u_n)$ est donc décroissante à partir du rang $${texNombre(Math.ceil(-d / c))}$.`
             } else {
-              texteCorr += `La suite $(u_n)$ est donc décroissante sur $\\mathbb{N}$.`
+              texteCorr += 'La suite $(u_n)$ est donc décroissante sur $\\mathbb{N}$.'
             }
           }
-          break
+          break }
       }
-      
+
       if (this.questionJamaisPosee(i, alea1, alea2)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
         this.listeCorrections.push(texteCorr) // On fait pareil pour la correction

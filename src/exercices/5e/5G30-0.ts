@@ -14,22 +14,23 @@ export const titre = 'Angles et vocabulaire'
 export const uuid = 'ed9f4'
 export const refs = {
   'fr-fr': ['5G30-0'],
-  'fr-ch': [],
+  'fr-ch': []
 }
 /**
  * Utiliser le vocabulaire complémentaires et suplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles
  * @author Jean-Claude Lhote
  */
 export default class AnglesEtVocabulaire extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 5
     this.besoinFormulaireTexte = [
       'Type de questions (nombre séparés par des tirets)',
-      '1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange',
+      '1 : Qcm vocabulaire\n2 : Calculer le complémentaire\n3 : Calculer le supplémentaire\n4 : Mélange'
     ]
   }
-  nouvelleVersion() {
+
+  nouvelleVersion () {
     this.reinit()
     const listeTypesDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
@@ -37,9 +38,9 @@ export default class AnglesEtVocabulaire extends Exercice {
       max: 3,
       defaut: 4,
       melange: 4,
-      nbQuestions: this.nbQuestions,
+      nbQuestions: this.nbQuestions
     })
-    for (let i = 0, index = 0; i < this.nbQuestions; ) {
+    for (let i = 0; i < this.nbQuestions;) {
       let a = randint(1, 89)
       let b: number
       let texte: string
@@ -67,20 +68,20 @@ export default class AnglesEtVocabulaire extends Exercice {
               propositions: [
                 {
                   texte: 'complémentaires',
-                  statut: goodAnswer === 'complémentaires',
+                  statut: goodAnswer === 'complémentaires'
                 },
                 {
                   texte: 'suplémentaires',
-                  statut: goodAnswer === 'suplémentaires',
+                  statut: goodAnswer === 'suplémentaires'
                 },
                 {
                   texte: "ni l'un, ni l'autre",
-                  statut: goodAnswer === 'aucun',
-                },
+                  statut: goodAnswer === 'aucun'
+                }
               ],
               options: {
-                ordered: true,
-              },
+                ordered: true
+              }
             }
             const monQcm = propositionsQcm(this, i)
             texte += monQcm.texte
@@ -105,15 +106,16 @@ export default class AnglesEtVocabulaire extends Exercice {
           break
       }
       if (this.questionJamaisPosee(i, a, b, listeTypesDeQuestions[i])) {
-        if (listeTypesDeQuestions[i] !== 1)
+        if (listeTypesDeQuestions[i] !== 1) {
           texte += ajouteChampTexteMathLive(
             this,
             i,
-            `inline ${KeyboardType.nombresEtDegre}`,
+            `inline ${KeyboardType.nombresEtDegre}`
           )
+        }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        if (listeTypesDeQuestions[i] !== 1)
+        if (listeTypesDeQuestions[i] !== 1) {
           handleAnswers(
             this,
             i,
@@ -121,11 +123,12 @@ export default class AnglesEtVocabulaire extends Exercice {
               reponse: {
                 value: goodAnswer,
                 compare: fonctionComparaison,
-                options: { unite: true },
-              },
+                options: { unite: true }
+              }
             },
-            { formatInteractif: 'mathlive' },
+            { formatInteractif: 'mathlive' }
           )
+        }
         i++
       }
     }

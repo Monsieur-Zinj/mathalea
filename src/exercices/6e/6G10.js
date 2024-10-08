@@ -30,9 +30,6 @@ export default function NotationSegmentDroiteDemiDroite () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions === 1 || context.vue === 'diap' || context.isAmc ? "Compléter le programme de construction qui a permis d'obtenir cette figure." : "Compléter les programmes de construction qui ont permis d'obtenir ces figures."
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeDesTypesDeQuestions = combinaisonListes([1, 1, 2, 3, 4, 4], this.nbQuestions * 3)
     let listeDeNomsDePolygones
     for (let i = 0, texte, texteCorr, figure, enonceAMC, cpt = 0; i < this.nbQuestions && cpt < 50;) {

@@ -31,9 +31,6 @@ export default class BetaEtudeFonction extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     //
     /* const poly = new Polynome({ deg: this.sup, rand: true })
     const fonction = poly.fonction

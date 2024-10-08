@@ -34,9 +34,6 @@ export default class FonctionsProbabilite1 extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeIndexDisponibles = [0, 1, 2, 3, 4, 5, 6]
     const listeIndex = combinaisonListes(listeIndexDisponibles, this.nbQuestions)
     const listeDeLieuxChoses = [['le frigo', 'yaourt', 'yaourts'], ['le frigo', 'dessert lacté', 'desserts lactés'], ['une urne', 'boule', 'boules'], ['une urne', 'jeton', 'jetons'], ['un paquet de bonbons', 'nounours', 'nounours'], ['un tiroir de la commode', 't-shirt', 't-shirts'], ['un tas de jetons de poker', 'jeton', 'jetons']]

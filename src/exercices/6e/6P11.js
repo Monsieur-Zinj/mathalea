@@ -868,9 +868,6 @@ export default function ProportionnaliteParLinearite () {
       this.consigne = this.nbQuestions === 1 ? 'Répondre à la question posée en justifiant.' : 'Répondre aux questions posées en justifiant.'
     }
     let indiceQuestion = 0
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     /*
         let listeIndexSituationsDisponible = []
 

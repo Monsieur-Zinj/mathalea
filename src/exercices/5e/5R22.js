@@ -46,9 +46,6 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
 
   this.nouvelleVersion = function () {
     this.consigne = this.interactif ? 'Calculer.' : 'Calculer, en détaillant les calculs.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let relatifs
     let sommesSignees
     for (let i = 0, a, b, c, d, e, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles

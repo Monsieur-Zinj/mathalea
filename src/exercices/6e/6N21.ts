@@ -43,9 +43,6 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.figures = []
     this.goodAnswers = []
     let typeDeQuestions

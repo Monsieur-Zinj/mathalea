@@ -40,9 +40,6 @@ export default function ConstruireMediatrices6e () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let ee = 0, cpt = 0; ee < this.nbQuestions && cpt < 50;) {
       let result = [0, 0]
       let texteCorr = ''

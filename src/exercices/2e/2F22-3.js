@@ -111,9 +111,6 @@ export default class BetaModeleSpline extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typeDeQuestions = gestionnaireFormulaireTexte({
       saisie: '1', // @fixme à modifier dés qu'on aura une recherche fiable des zéros.
       min: 1,

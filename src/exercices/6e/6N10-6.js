@@ -45,9 +45,6 @@ export default function SommeFractionsDecimales () {
   this.sup2 = 3
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     // this.sup2 = contraindreValeur(1, 3, this.sup2, 3)

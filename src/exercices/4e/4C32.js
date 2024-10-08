@@ -42,9 +42,6 @@ export default function NotationScientifique () {
     if (this.sup === 1) this.consigne = this.nbQuestions === 1 ? 'Donner la notation scientifique du nombre suivant.' : 'Donner la notation scientifique des nombres suivants.'
     else this.consigne = this.nbQuestions === 1 ? 'Donner l\'écriture décimale du nombre suivant.' : 'Donner l\'écriture décimale des nombres suivants.'
     let typesDeQuestionsDisponibles
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     if (this.sup2 === 1) typesDeQuestionsDisponibles = [0, 0, 0, 1, 1]
     else if (this.sup2 === 2) typesDeQuestionsDisponibles = [0, 1, 1, 2, 2]
     else typesDeQuestionsDisponibles = [2, 2, 3, 3, 3]

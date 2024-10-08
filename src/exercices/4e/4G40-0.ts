@@ -103,7 +103,7 @@ export default class VocabulaireTriangleRectangle extends Exercice {
         default:
           texte += listeTypeDeQuestions[i] === 1
             ? `Le côté $[${nom[1]}${nom[2]}]$ est`
-            : `L\'hypoténuse du triangle ${nom} est`
+            : `L'hypoténuse du triangle ${nom} est`
           goodAnswer = listeTypeDeQuestions[i] === 1
             ? 'L\'hypoténuse du triangle'
             : `[${nom[1]}${nom[2]}]`

@@ -7,11 +7,10 @@ import {
 } from '../../lib/outils/ecritures'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { texNombre } from '../../lib/outils/texNombre'
 export const titre = 'Taux de variation des fonctions de référence'
 
-export const dateDePublication = '16/12/2021' 
-export const dateDeModifImportante = '24/10/2021' 
+export const dateDePublication = '16/12/2021'
+export const dateDeModifImportante = '24/10/2021'
 
 /*
  * Calculer un taux de variation
@@ -23,7 +22,6 @@ export const refs = {
   'fr-fr': ['1AN10-1'],
   'fr-ch': []
 }
-
 
 export default function Tauxvariation () {
   Exercice.call(this)

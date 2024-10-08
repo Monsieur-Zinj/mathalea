@@ -48,9 +48,6 @@ export default function ExerciceDifferentesEcrituresNombresDecimaux () {
   this.sup = '1-2-3' // Type de question
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let typesDeQuestions
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       max: 7,

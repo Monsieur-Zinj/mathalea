@@ -43,9 +43,6 @@ export default function ExerciceAdditionsRelatifsATrou (max = 20) {
   this.nouvelleVersion = function (numeroExercice) {
     this.sup = parseInt(this.sup)
     this.numeroExercice = numeroExercice
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, a, b, k, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) { // On limite le nombre d'essais pour chercher des valeurs nouvelles
       a = randint(1, this.sup)
       b = randint(1, this.sup)

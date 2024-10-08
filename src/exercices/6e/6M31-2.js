@@ -51,9 +51,6 @@ export default function UnitesDeVolumesEtDeCapacite () {
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup4 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup4 === 2 ? 'mathLive' : 'qcm'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeTypeDeQuestions
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(

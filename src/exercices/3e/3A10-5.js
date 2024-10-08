@@ -74,9 +74,6 @@ export default function RecourirDecompositionFacteursPremiers () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     this.sup2 = contraindreValeur(1, 3, parseInt(this.sup2), 3)
     this.consigne = 'Décomposer en produit de facteurs premiers '
     this.consigne += (this.nbQuestions === 1 || context.isAmc) ? 'le nombre suivant.' : 'les nombres suivants.'

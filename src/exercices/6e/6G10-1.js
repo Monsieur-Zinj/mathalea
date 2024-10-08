@@ -35,9 +35,6 @@ export default function DescriptionSegmentDroiteDemiDroite () {
 
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif || context.isAmc) ? 'Cocher les propositions correspondant à la figure.' : 'Décrire précisément, avec des mots, la figure et donner sa notation mathématique.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typesDeQuestionsDisponibles = [1, 4, choice([2, 3])]
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let listeDeNomsDePolygones

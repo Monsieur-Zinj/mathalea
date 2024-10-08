@@ -37,9 +37,6 @@ export default function CriteresDeDivisibilite () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     let listeExercicesDisponibles
     if (this.sup === 1) {
       listeExercicesDisponibles = [2, 5, 10]

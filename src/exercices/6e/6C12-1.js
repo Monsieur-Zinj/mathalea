@@ -53,9 +53,6 @@ export default function QuestionsMasses () {
   this.interactifType = 'mathLive'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const QuestionsDisponibles = gestionnaireFormulaireTexte({
         max: 8,

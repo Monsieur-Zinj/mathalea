@@ -6,7 +6,6 @@ import { ecritureAlgebrique, rienSi1 } from '../../lib/outils/ecritures.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { texFractionReduite } from '../../lib/outils/deprecatedFractions.js'
 import { createList } from '../../lib/format/lists.js'
-import { context } from '../../modules/context.js'
 export const titre = 'Résoudre une équation en choisissant la forme la plus appropriée'
 
 export const dateDePublication = '22/09/2024'
@@ -25,7 +24,7 @@ export const refs = {
 }
 
 export default class ResolutionEquationDifferentesFormes extends Exercice {
-  constructor() {
+  constructor () {
     super()
     this.nbQuestions = 4
     this.nbQuestionsModifiable = false
@@ -33,7 +32,7 @@ export default class ResolutionEquationDifferentesFormes extends Exercice {
     this.sup = true
   }
 
-  nouvelleVersion() {
+  nouvelleVersion () {
     if (this.sup) {
       let a: number
       let b: number

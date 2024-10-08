@@ -59,9 +59,6 @@ export default function ProblemesDePlusEtDeMoins () {
   }
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     if (this.interactif && context.isHtml) {
       this.consigne = this.nbQuestions > 1 ? 'Résoudre les problèmes suivants au brouillon et écrire les réponses dans les cases, ne pas préciser "€" ni "euros" ...' : 'Résoudre le problème suivant au brouillon et écrire la réponse dans la case, ne pas préciser "€" ni "euros" ...'
       this.introduction = lampeMessage({

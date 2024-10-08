@@ -96,9 +96,6 @@ export default class CalculsHomothetie extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const typeQuestionsDisponibles = ['rapport', 'image', 'antécédent', 'image2etapes', 'antecendent2etapes', 'aireImage', 'aireAntécédent', 'aireRapport', 'rapport2', 'encadrerk', 'encadrerk2']
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 11, melange: 12, defaut: 12, nbQuestions: this.nbQuestions, listeOfCase: typeQuestionsDisponibles })
     // const listeTypeQuestions = typeQuestionsDisponibles

@@ -21,9 +21,6 @@ export default class ExerciceApiGeom extends Exercice {
   }
 
   nouvelleVersion (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const figure = new Figure()
     // const A = figure.create('Point', { x: 0, y: 0, label: 'A' })
     // const B = figure.create('Point', { x: 4, y: -1, label: 'B' })

@@ -36,9 +36,6 @@ export default function CalculProbaTableauEff () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     for (let i = 0, cpt = 0, reponse, tableau, choix, F, V, T, FinterV, texte, texteCorr; i < this.nbQuestions && cpt < 50;) {
       // On choisit les probas de l'arbre
       F = randint(27, 80)

@@ -38,9 +38,6 @@ export default function ProbaLoiVA () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
-    this.autoCorrection = []
     const listeFractions = [[1, 5, 1, 3], [1, 5, 2, 3], [1, 5, 1, 4], [1, 5, 3, 4], [1, 5, 1, 2], [2, 5, 1, 2], [1, 6, 1, 2],
       [1, 3, 1, 2], [1, 3, 1, 5], [1, 10, 1, 5], [3, 10, 1, 5], [3, 10, 1, 6], [7, 10, 1, 5], [1, 9, 1, 2], [2, 9, 1, 5], [3, 7, 1, 5],
       [2, 9, 1, 4], [1, 4, 1, 6], [1, 4, 1, 3], [1, 8, 1, 2], [3, 8, 1, 4], [5, 8, 1, 5], [3, 7, 1, 4]]
