@@ -8,6 +8,7 @@ import { context } from '../../../modules/context.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Lire l\'heure'
 export const dateDePublication = '4/11/2021'
 export const interactifReady = true
@@ -15,10 +16,8 @@ export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 
-/*!
+/**
  * @author Jean-Claude Lhote
- * Créé le 4/11/2021
- * Référence canc3D01
  */
 export const uuid = '2ce11'
 export const ref = 'canc3D01'
@@ -62,7 +61,7 @@ export default function LireHeure () {
 
     mathalea2d({ xmin: -3, ymin: -3, xmax: 3, ymax: 3, scale: 0.7, zoom: this.tailleDiaporama, style: 'margin: auto' }, horloge)
     this.reponse = { reponse: { value: `${h}h ${m}`, compare: fonctionComparaison, options: { HMS: true } } }
-    this.correction = `$${h}$ h $${m}$`
+    this.correction = `$${miseEnEvidence(h)}$ ${texteEnCouleurEtGras('h')} $${miseEnEvidence(m === 0 ? '' : m === 5 ? '0' + m : m)}$`
     if (context.isAmc) {
       this.autoCorrection = [
         {
