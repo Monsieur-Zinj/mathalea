@@ -48,19 +48,19 @@ export default class CalculMentalPythagore extends Exercice {
       switch (listeTypeQuestions[i]) {
         case 'coteAngleDroit':
           if (choice([true, false])) {
-            texte = `On considère le triangle ${sommetA}${sommetB}${sommetC} rectangle en ${sommetA} tel que $${sommetA}${sommetB} = ${AB}$ cm et $${sommetB}${sommetC} = ${BC}$ cm.<br>`
+            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetB} = ${AB}$ cm et $${sommetB}${sommetC} = ${BC}$ cm.<br>`
             texte += `Calculer ${sommetA}${sommetC}.`
             reponse0 = `\\sqrt{${BC ** 2 - AB ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AB ** 2))
-            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, reponse, AB, BC)[0]
+            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetC}`, `${sommetB}`, 2, AB, reponse, BC)[0]
             texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetC} = `, texteApres: ('(Racine carrée)') })
             texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore ' + KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetC} $\\approx$ `, texteApres: ('(Partie entière)') })
           } else {
-            texte = `On considère le triangle ${sommetA}${sommetB}${sommetC} rectangle en ${sommetA} tel que $${sommetA}${sommetC} = ${AC}$ cm et $${sommetB}${sommetC} = ${BC}$ cm.<br>`
+            texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetC} = ${AC}$ cm et $${sommetB}${sommetC} = ${BC}$ cm.<br>`
             texte += `Calculer ${sommetA}${sommetB}.`
             reponse0 = `\\sqrt{${BC ** 2 - AC ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AC ** 2))
-            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, reponse, AC, BC)[0]
+            texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, AC, reponse, BC)[0]
             texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetB} = `, texteApres: ('(Racine carrée)') })
             texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore ' + KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetB} $\\approx$ `, texteApres: ('(Partie entière)') })
           }
@@ -68,7 +68,7 @@ export default class CalculMentalPythagore extends Exercice {
 
         // case 'hypotenuse':
         default:
-          texte = `On considère le triangle ${sommetA}${sommetB}${sommetC} rectangle en ${sommetA} tel que $${sommetA}B = ${AB}$ cm et $${sommetA}C = ${AC}$ cm.<br>`
+          texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}B = ${AB}$ cm et $${sommetA}C = ${AC}$ cm.<br>`
           texte += `Calculer ${sommetB}${sommetC}.`
           reponse0 = `\\sqrt{${AB ** 2 + AC ** 2}}`
           reponse = Math.floor(Math.sqrt(AB ** 2 + AC ** 2))
