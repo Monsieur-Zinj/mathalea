@@ -32,8 +32,6 @@ export default function RacinesPoly () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte, texteCorr
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(-9, 9, 0)

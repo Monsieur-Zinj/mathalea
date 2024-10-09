@@ -31,8 +31,6 @@ export default function ExprimerEnFonctionDesAutres () {
   this.nbQuestions = 1
   this.sup = 1
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]

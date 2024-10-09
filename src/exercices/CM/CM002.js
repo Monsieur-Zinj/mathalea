@@ -35,8 +35,6 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
 
   this.nouvelleVersion = function () {
     this.sup2 = parseInt(this.sup2)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const tables = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,
       saisie: this.sup,

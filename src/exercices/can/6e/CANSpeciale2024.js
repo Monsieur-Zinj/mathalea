@@ -42,8 +42,6 @@ export default function CourseAuxNombresSpeciale2024 () {
   this.sup = 'x'
   this.nbQuestions = 30
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     //  const questions = []
 
     /*

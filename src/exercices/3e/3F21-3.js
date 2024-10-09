@@ -46,8 +46,6 @@ export default function PenteEtOrdonneeOrigineDroite () {
   this.sup3 = 3
   this.sup4 = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let questionInteractif = 0
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const signeNum = (this.sup2 === 3 ? choice([-1, 1]) : (this.sup2 === 2 ? -1 : 1))

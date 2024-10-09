@@ -24,8 +24,6 @@ export default function LeCompteEstBonV4 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let solutionMathador = []
     let tirage, min, max, texteCorr
     let minmax = []

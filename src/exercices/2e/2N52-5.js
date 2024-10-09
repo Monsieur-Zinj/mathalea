@@ -30,8 +30,6 @@ export default function ResoudreEquationsQuotient () {
   this.sup = 3
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2]

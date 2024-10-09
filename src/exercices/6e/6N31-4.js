@@ -35,8 +35,6 @@ export default function IntercalerDecimalEntre2Decimaux () {
   this.nbColsCorr = 2 // Nombre de colonnes dans la correction pour la sortie LaTeX
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeTypeDeQuestionsDisponibles = ['a,b1', 'a,b2', 'a,9', 'a,bc', 'a,b9', 'a,99', 'a,b0c', 'a,1', 'a,01', 'a']

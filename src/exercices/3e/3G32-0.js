@@ -69,8 +69,6 @@ export default class ProblemesTrigoLongueur extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones
     const objet = [['arbre', 'un', '', 'situé'], ['immeuble', 'un', '', 'situé'], ['éolienne', 'une', 'te', 'située'], ['colline', 'une', 'te', 'située']]
     let distance

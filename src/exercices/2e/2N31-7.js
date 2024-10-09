@@ -36,8 +36,6 @@ export default function CalculsAvecPuissancesDeDixBis () {
       this.consigne = this.nbQuestions === 1 ? 'Trouver l\'exposant manquant dans l\'égalité suivante.' : 'Trouver l\'exposant manquant dans les égalités suivantes.'
     }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, texte, texteCorr, mantisse1, exp1, decalage, mantisse, exp, scientifiquestring, cpt = 0;
       i < this.nbQuestions && cpt < 50;) {
       switch (this.sup - 1) {

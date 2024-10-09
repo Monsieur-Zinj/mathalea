@@ -41,8 +41,6 @@ export default function ExerciceConversions (niveau = 1) {
   this.correction_avec_des_fractions = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const prefixeMulti = [
       ['da', 10],
       ['h', 100],

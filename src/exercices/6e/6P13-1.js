@@ -30,8 +30,6 @@ export default function CompleterUneFacture () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     for (let i = 0, article1, q1, p1, article2, q2, p2, article3, q3, p3, r, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

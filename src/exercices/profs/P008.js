@@ -37,8 +37,6 @@ export default function OperationsPosees () {
   this.sup3 = 0
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const nombres = [1234.5, 789.2]
     const operandes = String(this.sup2).split('-')
     nombres[0] = parseFloat(operandes[0])

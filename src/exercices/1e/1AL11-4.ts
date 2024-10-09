@@ -50,8 +50,6 @@ export default class TermesSASG extends Exercice {
 
   nouvelleVersion () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

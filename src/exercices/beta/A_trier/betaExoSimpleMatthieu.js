@@ -19,8 +19,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.tailleDiaporama = 3 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const a = randint(1, 10)
     const b = randint(20, 50)
     const question1 = `Combien fait ${a} + ${b} ?<br>`

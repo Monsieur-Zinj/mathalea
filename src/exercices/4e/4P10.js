@@ -41,8 +41,6 @@ export default function ProblemesGrandeursComposees () {
   this.sup = ''
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     // let listeIndex_disponibles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14];
     // let listeIndex=combinaisonListes(listeIndex_disponibles,this.nbQuestions);
     const liste7 = combinaisonListes([0, 1, 2], this.nbQuestions)

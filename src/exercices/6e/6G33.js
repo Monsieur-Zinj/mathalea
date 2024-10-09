@@ -42,8 +42,6 @@ export default function ReconnaitreQuadrilatereParticulier () {
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = this.interactif ? 'Pour chaque question, cocher la bonne réponse.' : ''
 
     const listeDeQuad = shuffle(['losange', 'rectangle', 'carre'])

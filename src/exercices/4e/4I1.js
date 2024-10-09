@@ -44,8 +44,6 @@ export default function TracerAvecScratch () {
       typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const fenetreMathalea2D = { xmin: -10, ymin: -15, xmax: 60, ymax: 2, pixelsParCm: 10, scale: 0.2 }
     const pixelsParCm = fenetreMathalea2D.pixelsParCm * 5 / 100
     //    var unitesLutinParCm = 100;

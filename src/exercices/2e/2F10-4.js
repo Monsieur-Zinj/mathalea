@@ -39,8 +39,6 @@ export default function Determinerfonctionaffine () {
   Dans le troisième cas, les nombres $a$ et $b$ sont quelconques.`
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // on donne f(a)=b et f(c)=d cas entier

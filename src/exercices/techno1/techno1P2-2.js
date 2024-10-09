@@ -30,8 +30,6 @@ export default class nomExercice extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['Basket', 'STMG'] // On créé 3 types de questions

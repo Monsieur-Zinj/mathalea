@@ -38,8 +38,6 @@ export default function TablesAdditionsSoustractions () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions = []
     if (this.sup2 === 1) {
       listeTypeDeQuestions = combinaisonListes(

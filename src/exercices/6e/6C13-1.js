@@ -53,8 +53,6 @@ export default function VocabulaireSur4Operations () {
       saisie: this.sup
     })
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeVoc = ['des termes', 'des facteurs', 'le diviseur', 'le dividende', 'le reste', 'la somme', 'la différence', 'le produit', 'le quotient']
     for (let i = 0, texte, a, b, reste, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const reponse = {

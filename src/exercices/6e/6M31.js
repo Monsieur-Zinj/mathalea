@@ -58,8 +58,6 @@ export default function ExerciceConversionsVolumes () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     Decimal.set({ toExpNeg: -20, toExpPos: 20 }) // pour éviter la conversion en notation scientifique on va jusqu'à 20 décimales (-7 est la valeur par défaut)
     const prefixeMulti = [
       [' da', '\\times1000', 1000],

@@ -56,8 +56,6 @@ export default function PremierOuPasCriterePar7Par11 () {
     if (this.interactif) {
       this.consigne = 'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     this.contenu = '' // Liste de questions

@@ -71,8 +71,6 @@ export default function ExercicesAnglesAIC () {
   this.sup = 0 // Type d'exercice
   this.nouvelleVersion = function (numeroExercice, dDebug = false) {
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 0 ? 1 : formulaire.length - 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
     for (let i = 0, exercice, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question

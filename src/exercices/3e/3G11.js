@@ -40,8 +40,6 @@ export default function ConstruireHomothetiePoint3e () {
   this.typeExercice = 'IEP'
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let plusieursCiblesPourUnPoint = true
     const listeRapports = [-2, -1.5, -0.5, 0.5, 1.5, 2]
     const choixCodage = ['OO', '|||', '//']

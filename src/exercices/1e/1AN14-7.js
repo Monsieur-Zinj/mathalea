@@ -35,8 +35,6 @@ export default function DeriveeComposee () {
   // On modifie les règles de simplifications par défaut de math.js pour éviter 10x+10 = 10(x+1) et -4x=(-4x)
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés

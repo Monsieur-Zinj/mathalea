@@ -59,8 +59,6 @@ export default function RepresenterUnSolide4e () {
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
     if (this.classe === 6) { // sixième : cube et pavé droit

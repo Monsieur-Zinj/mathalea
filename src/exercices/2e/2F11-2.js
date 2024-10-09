@@ -37,8 +37,6 @@ export default function ComparerAvecFonctionRef () {
   this.spacing = 1.5 // Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1']

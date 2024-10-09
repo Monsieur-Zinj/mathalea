@@ -259,8 +259,6 @@ export function ExoRose () {
 
   this.indexInconnue = []
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.valeurMax = contraindreValeur(10, 30, this.sup, 10)
     this.nombreDeValeurs = contraindreValeur(3, 9, this.sup2, 5)
     switch (this.sup3) {

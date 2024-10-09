@@ -39,8 +39,6 @@ export default class TranslationEtCoordonnes extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typeQuestionsDisponibles: ('coorImage' | 'coorPre' |'melange')[]
     if (this.sup === 1) {
       typeQuestionsDisponibles = ['coorImage']

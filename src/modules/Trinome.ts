@@ -197,6 +197,7 @@ class Trinome {
   /** Calcul détaillée de la première racine avec résultat exact si l'option est true et valeur approchée sinon */
   texCalculRacine1 (exact = false) {
     if (this.discriminant.s === -1) return ''
+    if (this.discriminant.valeurDecimale === 0) return this.texCalculRacineDouble
     let result = 'x_1 = '
     if (this.a.valeurDecimale > 0) {
       const discriminantRacineCarree = this.discriminant.racineCarree() as FractionEtendue
@@ -501,6 +502,12 @@ class Trinome {
    */
   get texFormeFactorisee () {
     if (typeof this.x1 === 'boolean' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
+    if (this.discriminant.valeurDecimale === 0) {
+      if (this.a.valeurDecimale === 1) return `(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else if (this.a.valeurDecimale === -1) return `-(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else if (this.a.den === 1) return `${this.a.num}(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+      else return `${this.a.texFractionSimplifiee}(x${this.x1.oppose().simplifie().texFractionSignee})^2`
+    }
     if (this.x1 instanceof FractionEtendue) {
       if (this.x1.valeurDecimale === 0) {
         if (this.a.valeurDecimale === 1) return `x(x${this.x2.oppose().simplifie().texFractionSignee})`

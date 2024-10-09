@@ -39,8 +39,6 @@ export default function Parallélogramme () {
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)

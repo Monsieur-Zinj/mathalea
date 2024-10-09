@@ -39,8 +39,6 @@ export default function TableDoubleDistributivite () {
   this.nouvelleVersion = function () {
     this.answers = {}
     this.consigne = this.nbQuestions > 1 ? 'Dans chaque cas, compléter les tables de multiplication, écrire le développement obtenu et le réduire.' : 'Compléter la table de multiplication, écrire le développement obtenu et le réduire.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1, 2]

@@ -64,8 +64,6 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
       this.consigne = ''
     }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4'] // On crée 4 types de questions

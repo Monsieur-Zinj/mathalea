@@ -37,8 +37,6 @@ export default function MettreAuMemeDenominateurLit () {
   Les expressions de niveau 2 sont plus complexes. Elles nécessitent par exemple un développement du numérateur et peuvent avoir deux valeurs interdites.`
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1, 2, 3]

@@ -37,8 +37,6 @@ export default function ExtremumsTableau () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte, texteCorr, ligne1
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const x1 = randint(-20, 10)

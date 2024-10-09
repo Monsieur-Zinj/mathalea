@@ -42,8 +42,6 @@ export default function ExerciceOperationsRelatifs () {
   this.nbQuestions = 10
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeSignes = combinaisonListes(['-+', '+-', '--', '-+', '+-', '--', '++'], this.nbQuestions)
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       nbQuestions: this.nbQuestions,

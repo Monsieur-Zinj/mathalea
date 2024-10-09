@@ -25,8 +25,6 @@ export default function EquationAvecUnLogarithme () {
   this.video = '' // Id YouTube ou url
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1.5)
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = ['lnu=lnv', '2lnu=lnv', 'lnu+lnv=lnw']
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     const Txtsimplifier = '<br>L\'équation étant du type $\\ln(a)=\\ln(b)$, nous pouvons enlever les logarithmes des 2 côtés de l\'égalité :'

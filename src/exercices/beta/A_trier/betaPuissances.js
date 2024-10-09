@@ -27,8 +27,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = ['type1']// , 'type2', 'type3']; // On créé 3 types de questions

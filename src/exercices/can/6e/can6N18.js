@@ -32,8 +32,6 @@ export default function EncadrerDizaine () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let question1, correction1, N
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) { // 1,1,2,3,4,5,6,7,8

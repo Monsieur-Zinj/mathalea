@@ -44,8 +44,6 @@ export default function Thales2D () {
   this.correctionDetaillee = false
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
     this.autoCorrection = []
     if (this.level === 4) {

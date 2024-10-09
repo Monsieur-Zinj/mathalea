@@ -18,8 +18,6 @@ export default function Priorites () {
   this.spacingCorr = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte; let texteCorr; let a; let b; let c; let d; let i; let e
     let m; let n; let f; let l; let g; let k; let p; let prevchoice; let choice; let cpt = 0 //
     texte = ''

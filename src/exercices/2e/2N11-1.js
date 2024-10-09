@@ -34,8 +34,6 @@ export default function IntervallesDeR () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, s, X1, X2, A, B, c1, c2, int, int1, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

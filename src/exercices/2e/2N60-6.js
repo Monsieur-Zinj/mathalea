@@ -43,8 +43,6 @@ export default function PositionRelative () {
   this.besoinFormulaire2Texte = ['Choix des questions', '1 : Avec questions intermédiaires\n2 : Sans question intermédiaire']
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

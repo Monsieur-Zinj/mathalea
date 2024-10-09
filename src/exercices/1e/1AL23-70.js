@@ -44,8 +44,6 @@ export default function TrouverEquationParabole () {
     this.consigne = "Trouver l'expression de "
     this.consigne += this.nbQuestions > 1 ? 'chacune des fonctions suivantes.' : 'la fonction suivante.'
     const pixelsParCm = 20
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1, 2, 2, 3, 3]

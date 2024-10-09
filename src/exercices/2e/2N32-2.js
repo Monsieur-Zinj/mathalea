@@ -27,8 +27,6 @@ export default function Proprietesracinecarree () {
   this.sup = 1 //
   this.nouvelleVersion = function () {
     this.consigne = this.interactif ? `Indiquer l'écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}` : `Donner, si possible, une écriture simplifiée ${this.nbQuestions === 1 ? 'du calcul suivant.' : 'des calculs suivants.'}`
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7]; let typesDeQuestions//,
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, d, e, monQcm, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

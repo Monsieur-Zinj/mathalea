@@ -68,8 +68,6 @@ export default function CalculPythagoreEspace () {
       melange: 10,
       nbQuestions: this.nbQuestions
     }) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeUnites = [
       'km',
       'hm',

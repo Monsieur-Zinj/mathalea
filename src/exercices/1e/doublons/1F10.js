@@ -38,8 +38,6 @@ export default function CalculsDeDerives () {
     this.consigne = 'Donner ' + quoi
 
     this.sup = Number(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     let listeTypeDeQuestionsDisponibles

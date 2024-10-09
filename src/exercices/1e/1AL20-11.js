@@ -39,8 +39,6 @@ export default function CalculDiscriminant () {
     this.spacingCorr = 2
   }
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypesEquations = combinaisonListes(['0solution', '1solution', '2solutions'], this.nbQuestions)
     for (let i = 0, texte, texteCorr, a, b, c, x1, y1, k, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let aNbPointsIntersection

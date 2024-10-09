@@ -47,8 +47,6 @@ export default function ExerciceInequation1 () {
 
   this.nouvelleVersion = function () {
     this.consigne = 'Résoudre ' + (this.nbQuestions !== 1 ? 'les inéquations suivantes' : 'l\'inéquation suivante') + '.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
 
     switch (this.sup2.toString()) {

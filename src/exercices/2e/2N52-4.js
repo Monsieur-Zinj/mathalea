@@ -42,8 +42,6 @@ export default function Equationspresqueproduitnulle () {
     if (this.interactif) {
       this.consigne += "<br>On donnera la réponse sous forme d'un ensemble de solution."
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
     let valeursSolution
 

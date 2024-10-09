@@ -40,8 +40,6 @@ export default function DivisionsEuclidiennesEgalite () {
     this.consigne += this.nbQuestions === 1 ? 'à la question suivante' : 'aux questions suivantes'
     this.consigne += ' sans poser la division.'
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (parseInt(this.sup) === 1) {
       typesDeQuestionsDisponibles = [1, 2, 2]

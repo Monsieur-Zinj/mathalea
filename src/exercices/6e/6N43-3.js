@@ -68,8 +68,6 @@ export default function ExerciceVraiFauxDivisibleMultipleDiviseur () {
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
     this.sup2 = parseInt(this.sup2)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typeDeQuestionsDisponibles = ['Ndiviseur', 'divisibleParN', 'multipleDeN', 'NdiviseurF', 'divisibleParNF', 'multipleDeNF', 'NdiviseurEnvers', 'divisibleParNEnvers', 'multipleDeNEnvers']

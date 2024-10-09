@@ -166,8 +166,6 @@ export default class ConstruireParSymetrie extends Exercice {
       typesDeQuestionsDisponibles,
       this.nbQuestions
     )
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, sc
     if (this.sup2 === 2) sc = 0.8
     else sc = 0.5

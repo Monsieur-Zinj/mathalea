@@ -20,8 +20,6 @@ export default function UtiliserLeCodagePourDecrire () {
   this.nbColsCorr = 1
   this.sup = randint(1, 3)
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let nom; let paramsEnonce; let paramsCorrection; let objetsEnonce; let objetsCorrection
     let A, B, C, D, E, F, s1, s2, s3, s4, s5, s6, s7, s8, medAC, medBC, dBD, dBC, dAC, dAF
 

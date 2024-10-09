@@ -46,8 +46,6 @@ export default function ProblemesMultiplicatifsFractions () {
       nbQuestions: this.nbQuestions
     })
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const denomsAmis = [
       [40, 20, 4, 10, 5, 8],
       [60, 30, 3, 20, 4, 15, 5, 12, 6, 10],

@@ -32,8 +32,6 @@ export default function ExerciceQuotientsRelatifs () {
   this.nbQuestions = 6
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = combinaisonListes(['-+', '+-', '--', '++'], this.nbQuestions)
     let typesDeNombres = combinaisonListes(['tables', 'horstables'], this.nbQuestions)
     if (this.sup) {

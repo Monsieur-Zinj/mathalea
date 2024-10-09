@@ -36,8 +36,6 @@ export default function AdditionSoustractionBaseN () {
   this.sup2 = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeOperations = []
     let listeBases = []
     if (this.sup === 1) {

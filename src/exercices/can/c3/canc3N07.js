@@ -34,8 +34,6 @@ export default function DecompositionNombre () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierDeBase
     let texte, texteCorr, c, d, u, n, um
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

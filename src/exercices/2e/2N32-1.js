@@ -36,8 +36,6 @@ export default function ExistenceDUneRacineCarree () {
       this.consigne = `Le nombre proposé existe-t-il ? <br>
     Répondre par Oui (saisir O) ou Non (saisir N).`
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typesDeQuestions//,
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     let a; let b; let c; let d; let e; let f; let g; let h; let j; let k = 0

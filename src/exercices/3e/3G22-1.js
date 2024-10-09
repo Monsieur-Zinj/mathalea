@@ -41,8 +41,6 @@ export default function Agrandissement () {
   9 : Mélange`]
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

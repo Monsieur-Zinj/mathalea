@@ -38,8 +38,6 @@ export default function ExerciceConversionsLongueurs (niveau = 1) {
     this.consigne = context.isDiaporama ? 'Convertir' : 'Compléter : '
     const reponses = []
     const typeDeGrandeur = gestionnaireFormulaireTexte({ saisie: this.sup4, min: 1, max: 2, defaut: 1, melange: 3, nbQuestions: this.nbQuestions })
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const prefixeMulti = [
       ['da', 10],
       ['h', 100],

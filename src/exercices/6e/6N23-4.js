@@ -42,8 +42,6 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
   this.sup = 6
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

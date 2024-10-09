@@ -35,8 +35,6 @@ export default function TablesMultiplicationsDivisions (
   this.tailleDiaporama = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     if (!this.sup) {
       // Si aucune table n'est saisie
       this.sup = '2-3-4-5-6-7-8-9'

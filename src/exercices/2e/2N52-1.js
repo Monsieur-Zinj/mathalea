@@ -96,8 +96,6 @@ export default function EquationsProduitsNuls2 () {
 
   this.nouvelleVersion = function () {
     this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup < 4) {
       typesDeQuestionsDisponibles = [this.sup]

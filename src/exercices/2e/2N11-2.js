@@ -32,8 +32,6 @@ export default function UnionEtIntersectionIntervallesDeR () {
   this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]; let typeDeQuestion
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     const X1 = point(0, 0)

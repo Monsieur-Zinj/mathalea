@@ -28,8 +28,6 @@ export default function DoubleDistributiviteAvecRacineCarree () {
   this.nbColsCorr = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'

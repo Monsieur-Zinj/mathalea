@@ -32,8 +32,6 @@ export default function ConversionHeuresDecimalesMinutes () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let a, b, d, texte, texteCorr
     for (let i = 0, index = 0, nbChamps, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2])) { //, 'b'

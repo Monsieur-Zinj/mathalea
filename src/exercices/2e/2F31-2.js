@@ -37,8 +37,6 @@ export default function EncadrerAvecFctRef () {
   this.tailleDiaporama = 2 // Pour les exercices chronométrés. 50 par défaut pour les exercices avec du texte
   this.video = '' // Id YouTube ou url
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 4,

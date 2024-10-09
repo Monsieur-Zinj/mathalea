@@ -49,8 +49,6 @@ export default function RepresenterUnSolide () {
       this.nbQuestions
     ) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let Xmin, Xmax, Ymin, Ymax, ppc, sc
 
     // sixième : cube et pavé droit

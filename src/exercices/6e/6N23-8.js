@@ -40,8 +40,6 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
   this.sup3 = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({

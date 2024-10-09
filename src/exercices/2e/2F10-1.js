@@ -33,8 +33,6 @@ export default function Reconnaitrefonctionaffine () {
   this.nbQuestions = 5
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let bonneReponse
 
     const listeTypeDeQuestions = combinaisonListes([1, 2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions)

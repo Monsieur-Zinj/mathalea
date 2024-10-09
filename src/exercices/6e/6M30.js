@@ -76,8 +76,6 @@ export default function CalculDeVolumes () {
     })
 
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeUnites = [
       [sp(1) + '\\text{m}', sp(1) + '\\text{m}^3', 'm^3'],
       [sp(1) + '\\text{dm}', sp(1) + '\\text{dm}^3', 'dm^3'],

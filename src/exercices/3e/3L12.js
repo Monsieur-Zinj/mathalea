@@ -41,8 +41,6 @@ export default function FactoriserIdentitesRemarquables3 () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const Fractions = [
       [1, 2],
       [1, 3],

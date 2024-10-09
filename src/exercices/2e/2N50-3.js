@@ -32,8 +32,6 @@ export default function ModeliserEquations () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4']

@@ -20,8 +20,6 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let question1, question2
 
     question1 = 'texte de la question 1.'

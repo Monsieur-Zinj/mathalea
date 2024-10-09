@@ -30,8 +30,6 @@ export default function LeCompteEstBonV3 () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let solutionMathador = []
     let tirage, solution, expression
     let minSolution = parseInt(this.sup)

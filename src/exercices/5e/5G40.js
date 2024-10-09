@@ -46,8 +46,6 @@ export default function ConstructionsParallelogrammes () {
   this.typeExercice = 'IEP'
   this.nouvelleVersion = function (numeroExercice) {
     const tailleGrille = 0.2 + this.sup2 * 0.2
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Tous les types de questions sont posés mais l'ordre diffère à chaque "cycle"
     // const typeQuestionsDisponibles = [1, 2, 3, 4]
     //    if (this.sup < 5) typeQuestionsDisponibles = [parseInt(this.sup)]

@@ -178,8 +178,6 @@ export default function desTestsPourInteractivité () {
     // console.info(customCanonicalEE(engine.parse('3x^2-3-3x', { canonical: false })).ops[0].head)
     // .isSame(customCanonicalEE(engine.parse('5\\times4c+1', { canonical: false }))))
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
       b = randint(2, 12)

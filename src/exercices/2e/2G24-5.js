@@ -34,8 +34,6 @@ export default function Calculercoordonneesegalitevecteurs () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       max: 3,

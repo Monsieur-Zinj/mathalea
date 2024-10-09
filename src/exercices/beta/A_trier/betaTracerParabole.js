@@ -30,8 +30,6 @@ export default function TrouverEquationDeParabole () {
   this.correctionDetailleeDisponible = true
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     if (this.sup < 4) typesDeQuestionsDisponibles = [parseInt(this.sup)]
     else typesDeQuestionsDisponibles = [1]

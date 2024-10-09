@@ -40,8 +40,6 @@ export default function ReductionSiPossible () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Réduire les expressions suivantes, si cela est possible.' : 'Réduire l\'expression suivante, si cela est possible.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const exclus = []

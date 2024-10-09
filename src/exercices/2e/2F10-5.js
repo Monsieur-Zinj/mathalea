@@ -40,8 +40,6 @@ export default function Signefonctionaffine () {
   this.correctionDetaillee = false
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeFractions = [
       [10, 9],
       [2, 3],

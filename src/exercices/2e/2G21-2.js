@@ -30,8 +30,6 @@ export default function SommeDeVecteurs () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.longueur = 10
     this.largeur = 10
     /**

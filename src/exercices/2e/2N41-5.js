@@ -41,8 +41,6 @@ export default function DevelopperIdentitesRemarquables4 () {
   this.nbQuestions = 4
   this.sup = 5
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeFractions = [
       [1, 2],
       [1, 3],

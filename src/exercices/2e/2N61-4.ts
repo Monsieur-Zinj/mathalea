@@ -53,8 +53,6 @@ export default class ExerciceInequationQuotient extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif: string | string[] = '' // Pour récupérer l'intervalle solution à saisir
     let correctionInteractifInterieur = '' // Pour récupérer l'intervalle solution à saisir dans certains cas

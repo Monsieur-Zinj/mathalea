@@ -47,8 +47,6 @@ export default function can6eAll () {
       return
     }
     this.lastCallback = this.listeArguments[0]
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     this.autoCorrection = []

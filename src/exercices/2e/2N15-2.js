@@ -33,8 +33,6 @@ export default function ValeurAbsolueEtEquation () {
   context.isHtml ? this.correctionDetaillee = true : this.correctionDetaillee = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 2, 2, 2, 2]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, a, b, c, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

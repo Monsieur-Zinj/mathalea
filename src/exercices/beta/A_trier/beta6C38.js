@@ -31,8 +31,6 @@ export default function AugmenterEtReduireDunPourcentage () {
 
   this.nouvelleVersion = function () {
     const n = parseInt(this.sup) - 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.introduction = lampeMessage({
       titre: 'Calculatrice autorisée.',
       texte: 'Écrire les réponses dans les cases sans arrondir, ne pas préciser "€" ni "euros" ...',

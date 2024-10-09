@@ -44,8 +44,6 @@ export default function EvolutionsSuccesives () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // Cette ligne doit être ajoutée afin de vider les précédentes valeurs pour AMC
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {

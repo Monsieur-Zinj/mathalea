@@ -71,8 +71,6 @@ export default function ExercicesThales () {
   this.sup3 = 1
   this.nouvelleVersion = function (numeroExercice, dDebug = true) {
     if (this.sup === 'all') this.nbQuestions = nbCase
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
     for (let i = 0, exercice = { texte: 'Pas de texte', texteCorr: 'Pas de correction' }, cpt = 0; i < this.nbQuestions && cpt < 100;) { // Boucle principale où i+1 correspond au numéro de la question

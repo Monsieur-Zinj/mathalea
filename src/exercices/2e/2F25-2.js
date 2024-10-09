@@ -39,8 +39,6 @@ export default function EtudierPariteFonction () {
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     let bonneReponse
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6]//

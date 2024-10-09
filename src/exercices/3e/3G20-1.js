@@ -34,8 +34,6 @@ export default function ProblemesThales () {
   this.sup = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte = ''
     let texteCorr = ''
     const typesDeQuestions = (this.sup === 1 || this.sup === 2) ? this.sup : choice([1, 2])

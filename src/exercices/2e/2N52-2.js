@@ -30,8 +30,6 @@ export default function FactoriserIdentitesRemarquables2 () {
   this.nouvelleVersion = function () {
     this.consigne = 'Résoudre dans $\\mathbb R$ ' + (this.nbQuestions !== 1 ? 'les équations suivantes' : 'l\'équation suivante') + '.'
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1] // x²-a²=0

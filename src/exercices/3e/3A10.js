@@ -46,8 +46,6 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
       // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
     }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 

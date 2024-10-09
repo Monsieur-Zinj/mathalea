@@ -57,8 +57,6 @@ export default function MultiplicationsBaseN () {
   this.spacingCorr = context.isHtml ? 2 : 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const base = (this.sup === undefined || this.sup < 3 || this.sup > 9) ? randint(3, 5) : this.sup
     if ([3, 4, 5].includes(base)) {
       this.listeQuestions[0] = `Écrire la table de Pythagore en base ${base}.`

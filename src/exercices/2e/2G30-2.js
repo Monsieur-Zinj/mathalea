@@ -33,8 +33,6 @@ export default function EquationReduiteDeDroites () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     if (this.sup === 1) this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(AB)$ avec les points $A$ et $B$ de coordonnées suivantes.'
     else this.consigne = 'Soit $\\big(O ; \\vec \\imath,\\vec \\jmath\\big)$ un repère orthogonal.<br>Déterminer une équation réduite de ' + (this.nbQuestions !== 1 ? 'chaque' : 'la') + ' droite $(d)$  passant par le point $A$  et ayant le vecteur $\\vec {u}$ comme vecteur directeur. $A$ et $\\vec {u}$ ont les coordonnées suivantes.'
 

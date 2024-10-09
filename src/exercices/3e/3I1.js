@@ -31,8 +31,6 @@ export default function InstructionConditionnelle () {
   context.isHtml ? this.spacingCorr = 1 : this.spacingCorr = 1
   // let typesDeQuestionsDisponibles;
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     function scratchblocksTikz (codeSvg, codeTikz) {
       if (context.isHtml) {
         return codeSvg

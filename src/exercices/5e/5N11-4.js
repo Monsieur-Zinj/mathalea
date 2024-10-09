@@ -37,8 +37,6 @@ export default function ValeurApprocheeDePourcentages () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const denominateurDisponibles = [100, 200, 300, 1000]

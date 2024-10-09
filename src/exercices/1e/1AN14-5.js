@@ -51,8 +51,6 @@ export default function DeriveeProduit () {
   // reglesDeSimplifications.push('-(n1/n2) -> -n1/n2')
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
 
     // Types d'énoncés

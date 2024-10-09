@@ -31,8 +31,6 @@ export default function TesterSiUnNombreEstSolutionDUneEquation () {
   }
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     if (this.exo === '4L14-1') {
       typesDeQuestionsDisponibles = [choice([1, 2]), 3, choice([4, 5]), 8]

@@ -86,8 +86,6 @@ export default function ProprietesParallelesPerpendiculaires () {
       this.nbQuestions
     )
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const droiteColor = (context.isHtml ? ['red', 'blue', 'green', 'black', 'magenta', '#f15929'] : ['black', 'black', 'black', 'black', 'black', 'black'])
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {

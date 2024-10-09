@@ -76,8 +76,6 @@ export default function FonctionNotionVocabulaire () {
   this.nouvelleVersion = function (numeroExercice) {
     let typesDeQuestions
     let j, idDuDivDiag, idDuDivCorr
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     let typesDeQuestionsDisponibles

@@ -32,8 +32,6 @@ export default function FactoriserIdentitesremarquables2 () {
   this.sup = '1'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       nbQuestions: this.nbQuestions,

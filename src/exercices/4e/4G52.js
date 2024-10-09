@@ -41,8 +41,6 @@ export default function ReperagePaveDroit () {
   this.sup2 = 1
 
   this.nouvelleVersion = function () { // c'est ici que les données sont relatives
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.introduction = '' // consigne avant les question y mettre le dessin + texte
 
     const hauteur = 12

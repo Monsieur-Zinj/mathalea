@@ -42,8 +42,6 @@ export default function Exercice_fractions_simplifier (max = 11) {
     this.interactifType = this.sup3 ? 'qcm' : 'mathLive'
     this.amcType = this.sup3 ? (!this.sup2 ? 'qcmMult' : 'qcmMono') : (!this.sup2 ? 'AMCOpen' : 'AMCNum')
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = this.sup3
       ? ''
       : this.sup2 ? 'Simplifier les fractions suivantes au maximum.' : 'Simplifier les fractions suivantes.'

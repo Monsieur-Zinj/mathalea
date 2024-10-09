@@ -79,8 +79,6 @@ export default function ImagePtParTranslation () {
   this.sup = '1'
   this.classe = 2
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

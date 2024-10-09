@@ -55,8 +55,6 @@ export default function ExercicePerimetresEtAires () {
   this.exo = 'NoDisk'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let resultat1
     let resultat2
     const tripletsPythagoriciens = [

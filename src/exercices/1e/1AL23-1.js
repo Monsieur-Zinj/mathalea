@@ -34,8 +34,6 @@ export default function Formacanonique () {
   this.spacingCorr = 3
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
       // this.consigne += '<br> '

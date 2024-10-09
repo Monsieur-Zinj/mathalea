@@ -40,8 +40,6 @@ export default function PointSurCourbe () {
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles
     switch (this.sup) {
       case 1:

@@ -38,8 +38,6 @@ export default function CalculsLoiNormale () {
   this.spacing = 1
   this.spacingCorr = 1.5
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.liste_valeurs = [] // Les questions sont différentes du fait du nom de la fonction, donc on stocke les valeurs
     let listeTypeDeQuestionsDisponibles
     if (this.sup === 1) {

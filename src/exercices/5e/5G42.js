@@ -33,8 +33,6 @@ export default function DemonstrationsParallelogrammes () {
   this.nbColsCorr = 1 // Uniquement pour la sortie LaTeX
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = ['type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type7'] // On créé 3 types de questions

@@ -36,8 +36,6 @@ export default function ResoudreEquationDegre2 () {
 
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.consigne = 'Résoudre dans $\\mathbb{R}$ les équations suivantes.'
     if (this.interactif) {
       this.consigne += '<br>S\'il y a plusieurs solutions, les donner séparées d\'un point-virgule. <br>S\'il n\'y a pas de solution, écrire Non.'

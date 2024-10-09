@@ -46,8 +46,6 @@ export default function ExerciceInformationsProblemes () {
 
   this.nouvelleVersion = function () {
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     // Ebauche de la consigne en fonction des possibilités
     const chaqueCe = ['chaque', 'ce']
     this.consigne = 'Résoudre '

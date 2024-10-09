@@ -36,8 +36,6 @@ export default function ResoudreEquationDegre2 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions
     if (this.sup === 1) {
       listeTypeDeQuestions = combinaisonListes(['solutionsEntieres', 'solutionsEntieres', 'solutionDouble', 'pasDeSolution'], this.nbQuestions)

@@ -32,8 +32,6 @@ export default function CoefficientEvolution () {
 
   // this.nouvelleVersion = function (numeroExercice) {
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     this.sup = contraindreValeur(1, 3, this.sup, 1)
     if (this.sup === 1) {

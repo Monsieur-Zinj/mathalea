@@ -40,8 +40,6 @@ export default function CourseAuxNombres5e () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     let a, b, c, d, resultat, propositions

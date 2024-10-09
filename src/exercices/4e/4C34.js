@@ -89,8 +89,6 @@ export default function PrioritesEtRelatifsEtPuissances () {
   this.nouvelleVersion = function () {
     if (this.sup) this.amcType = 'AMCNum'
     let reponse
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeQuestionsDisponibles = range1(7)

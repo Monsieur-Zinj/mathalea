@@ -109,8 +109,6 @@ export default function OrdreDeGrandeurOperationsDecimaux () {
   this.nouvelleVersion = function () {
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 5, melange: 6, defaut: 6, nbQuestions: this.sup2 })
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     // let listeTypeDeQuestions  = combinaisonListes(typesDeQuestionsDisponibles,this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"

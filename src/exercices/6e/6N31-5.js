@@ -37,8 +37,6 @@ export default function EncadrerUnDecimal () {
   context.isHtml ? this.spacingCorr = 1.2 : this.spacingCorr = 1.5
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     /*

@@ -45,8 +45,6 @@ export default function ListeDesDiviseurs5e () {
 
   this.nouvelleVersion = function () {
     let typesDeQuestions
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     this.autoCorrection = []

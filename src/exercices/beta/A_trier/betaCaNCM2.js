@@ -36,8 +36,6 @@ export default function CourseAuxNombresCM () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, resultat
     let questions = []
     if (!this.sup) {

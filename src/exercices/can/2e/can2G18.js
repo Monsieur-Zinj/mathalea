@@ -39,8 +39,6 @@ export default function LectureGraphiqueVecteurRepere () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte, texteCorr, xa, ya, k1, k2, o, r1, A, B, vAB, xmin, xmax, ymin, ymax, nomvAB, AB
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       xa = randint(-2, 2)

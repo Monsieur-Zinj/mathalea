@@ -36,8 +36,6 @@ export default function ReconnaitreFonctionAffine () {
   this.tailleDiaporama = 2
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let a, b, c, texte, texteCorr
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       switch (choice([1, 2, 3])) { //, 2, 3

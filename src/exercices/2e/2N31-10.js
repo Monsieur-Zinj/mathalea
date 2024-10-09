@@ -40,8 +40,6 @@ export default function PuissancesDUnRelatif2 () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]

@@ -40,8 +40,6 @@ export default function AntecedentGraphique () {
   // this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     let a, b, c, x1, x2, x3, fx1, fx2, fx3, texte, texteCorr, f

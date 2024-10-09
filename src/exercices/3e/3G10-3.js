@@ -37,8 +37,6 @@ export default function ConstruireRotationPoint3e () {
   this.nouvelleVersion = function () {
     let nontrouve, assezloin, cible
     const angle = randint(-8, 8, 0) * 10
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let result = [0, 0]; let texteCorr = ''; const nbpoints = parseInt(this.sup)
     const celluleAlea = function (rang) {
       const lettre = lettreDepuisChiffre(randint(1, rang))

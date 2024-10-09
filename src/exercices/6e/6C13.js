@@ -45,8 +45,6 @@ export default function VocabulaireEtOperations () {
     let expf, expn, expc, resultats
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, max: 3, defaut: 4, melange: 4, nbQuestions: this.nbQuestions })
     const sousCas = gestionnaireFormulaireTexte({ saisie: this.sup3, min: 1, max: 4, defaut: 5, melange: 5, nbQuestions: this.nbQuestions }).map(el => Number(el) - 1)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     if (this.sup2) decimal = 10 ** randint(1, 2)
     else decimal = 1
 

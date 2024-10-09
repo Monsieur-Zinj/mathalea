@@ -26,8 +26,6 @@ export default class BetaRepere extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let xMin, xMax, yMin, yMax
     do {
       [xMin, xMax, yMin, yMax] = this.sup.split(';').map(el => Number(el))

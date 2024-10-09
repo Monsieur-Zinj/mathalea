@@ -29,8 +29,6 @@ export default function SommeDeVecteurs () {
   this.nbColsCorr = 2
   this.sup = 3 //
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let choix = 1
     let u, v, A, B, C, xU, yU, xV, yV, p, U, V, M, N, UU, VV, posLabelA
     for (let i = 0, texte, texteCorr, anim, cpt = 0; i < this.nbQuestions && cpt < 50;) {

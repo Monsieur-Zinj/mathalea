@@ -41,8 +41,6 @@ export default function ComparerPuissance10 () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = []
     typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]
 

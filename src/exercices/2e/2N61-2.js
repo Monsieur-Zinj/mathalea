@@ -52,8 +52,6 @@ export default function ExerciceInequationProduit () {
   this.nbColsCorr = 1 // Fixe le nombre de colonnes pour les réponses de la sortie LateX
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeTypeDeQuestions // Stockera la liste des types de questions
     let correctionInteractif // Pour récupérer l'intervalle solution à saisir
     const separateur = ';'

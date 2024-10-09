@@ -34,8 +34,6 @@ export default function VariationsCourbe () {
   this.spacing = 1// Interligne des questions
   this.spacingCorr = 1 // Interligne des réponses
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['typeE1', 'typeE2', 'typeE3', 'typeE4', 'typeE5', 'typeE6']// 'typeE1', 'typeE2',

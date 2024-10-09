@@ -61,8 +61,6 @@ class AgrandirReduireFigure extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeQuestions = gestionnaireFormulaireTexte({
       max: 6,
       defaut: 7,

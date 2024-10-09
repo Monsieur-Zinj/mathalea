@@ -44,8 +44,6 @@ export default function TableauCriteresDeDivisibilite () {
       this.consigne =
         'Mettre une croix dans la case qui convient (ou les cases qui conviennent).'
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const listeDesNombresPossibles = [

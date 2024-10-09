@@ -33,8 +33,6 @@ export default function ResoudreEquationDegre2 () {
   // this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     // let listeTypeDeQuestions
     // if (this.sup === 1) {
     const listeTypeDeQuestions = combinaisonListes(['supérieur ou égal', 'supérieur ou égal', 'strictement supérieur', 'strictement supérieur', 'strictement supérieur', 'inférieur ou égal', 'inférieur ou égal', 'strictement inférieur', 'strictement inférieur', 'pasDeSolution1', 'pasDeSolution2', 'pasDeSolution3', 'pasDeSolution4'], this.nbQuestions)

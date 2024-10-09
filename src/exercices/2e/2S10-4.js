@@ -43,8 +43,6 @@ export default function TableauProportion () {
   this.nbQuestionsModifiable = false
   this.nouvelleVersion = function () {
     this.answers = {}
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typesDeQuestionsDisponibles = [1]

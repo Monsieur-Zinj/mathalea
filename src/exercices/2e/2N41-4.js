@@ -42,8 +42,6 @@ export default function DevelopperIdentitesRemarquables3 () {
   }
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeFractions = [
       [1, 2],
       [1, 3],

@@ -16,8 +16,6 @@ export default function BetaRotation3d () {
   this.nbQuestions = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const objets = []
     const O = point3d(0, 0, 0)
     const C = point3d(0, -2, 0)

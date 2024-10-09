@@ -42,8 +42,6 @@ export default function Distance () {
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
     this.sup = Number(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     if (this.sup === 1) {
       typesDeQuestionsDisponibles = [1]

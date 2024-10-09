@@ -34,8 +34,6 @@ export default function CalculerUneExpressionNumerique () {
   this.nouvelleVersion = function () {
     this.autoCorrection = []
     let reponse
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       min: 2,
       max: 5,

@@ -86,8 +86,6 @@ export default function EquationsProgression () {
   this.nouvelleVersion = function (numeroExercice, debug = true) {
     const ddbug = debug
     this.nbQuestions = this.NbQuestions > 0 ? this.nbQuestions : this.sup !== 'all' ? 1 : formulaire.length - 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = [] // À placer même si l'exercice n'a pas vocation à être corrigé
     let nquestion = 0
     for (let i = 0, exercice = { texte: '', texteCorr: '' }, cpt = 0; i < this.nbQuestions && cpt < 200;) { // Boucle principale où i+1 correspond au numéro de la question

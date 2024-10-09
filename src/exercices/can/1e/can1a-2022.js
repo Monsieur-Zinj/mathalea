@@ -62,8 +62,6 @@ export default function SujetCAN2022Premiere () {
   this.nbColsCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.listeCanEnonces = []
     this.listeCanReponsesACompleter = []
     const nbQ1 = min(round(this.nbQuestions * 10 / 30), 10) // Choisir d'un nb de questions de niveau 1 parmi les 8 possibles.

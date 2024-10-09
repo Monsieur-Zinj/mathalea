@@ -60,8 +60,6 @@ export default function DivisionsEuclidiennes () {
       this.consigne += "puis donner l'égalité fondamentale correspondante."
     }
     this.autoCorrection = []
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typesDeQuestionsDisponibles, typesDeQuestions
     if (this.sup === 1) typesDeQuestionsDisponibles = [1, 1, 1, 1]
     else if (this.sup === 2) typesDeQuestionsDisponibles = [1, 2, 2, 3]

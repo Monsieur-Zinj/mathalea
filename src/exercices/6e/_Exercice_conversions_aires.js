@@ -47,8 +47,6 @@ export default function ExerciceConversionsAires () {
   this.nouvelleVersion = function () {
     this.consigne = (this.interactif && this.sup3 === 1) ? 'Cocher la bonne réponse.' : 'Compléter.'
     this.interactifType = this.sup3 === 2 ? 'mathLive' : 'qcm'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     Decimal.set({ toExpNeg: -15 })
 
     let prefixeMulti = [

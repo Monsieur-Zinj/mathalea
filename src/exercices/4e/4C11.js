@@ -68,8 +68,6 @@ export default function PrioritesEtRelatifs () {
 
   this.nouvelleVersion = function () {
     this.sup = parseInt(this.sup)
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeQuestionsDisponibles
     if (this.sup === 1) {
       listeQuestionsDisponibles = range1(11)

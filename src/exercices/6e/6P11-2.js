@@ -53,8 +53,6 @@ export default class ProportionnaliteParLineariteTableau extends Exercice {
     if (context.isHtml && this.interactif && this.sup3) {
       this.consigne += '<br><br><div style="font-style: italic; margin-bottom: 2em;">Si ce n\'est pas une situation de proportionnalité, écrire : N.</div>'
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     let typeDeQuestionsDisponibles

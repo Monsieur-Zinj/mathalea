@@ -30,8 +30,6 @@ export default function IdentitesRemarquablesEtRacineCarree () {
   this.sup = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5]; let typesDeQuestions
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions)
     this.consigne = this.nbQuestions === 1 ? 'Effectuer le calcul suivant.' : 'Effectuer les calculs suivants.'

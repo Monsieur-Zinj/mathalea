@@ -67,8 +67,6 @@ export default function PuissancesEncadrement () {
           break
       }
     }
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     for (

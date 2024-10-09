@@ -36,8 +36,6 @@ export default function LectureGraphiqueParabole () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let texte, texteCorr, a, alpha, beta, r, F, o, texteIntro, texteNI, texteI
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

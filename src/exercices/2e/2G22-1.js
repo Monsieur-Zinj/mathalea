@@ -55,8 +55,6 @@ export default class RepresenterUnVecteur extends Exercice {
   }
 
   nouvelleVersion () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.longueur = 10
     this.largeur = 10
     /**

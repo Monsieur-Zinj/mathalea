@@ -35,8 +35,6 @@ export default function Calculercoordonneesdifferencevecteurs () {
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let typeDeQuestionsDisponibles
     if (this.sup === 1) {
       typeDeQuestionsDisponibles = ['t1'] // On donne 2 vecteurs à coordonnées entières

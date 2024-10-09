@@ -80,8 +80,6 @@ export default function PasserDeLaBase12Ou16ALaBase10 () {
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = ['vers_base_10', 'vers_base_n_3_chiffres']
     if (this.nbQuestions === 3) {
       typesDeQuestionsDisponibles.push(choice(['vers_base_n_4_chiffres', 'plus_grand_4_chiffres', 'plus_petit_4_chiffres', 'plus_petit_3_chiffres']))

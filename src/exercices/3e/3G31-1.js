@@ -47,8 +47,6 @@ export default function CalculDAngleFigureComplexe () {
   this.correctionDetaillee = context.isHtml
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     for (let i = 0; i < this.nbQuestions; i++) {
       const typesDeQuestion = choice(['BA-AD-BAC', 'BA-AD-ACB'])
       let texte, texteCorr

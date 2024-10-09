@@ -43,8 +43,6 @@ export default function CompleterScriptMultiple () {
     })
 
     this.consigne = 'Compléter les briques manquantes.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     /*
     let briquesATrouver = []
     if (!this.sup) { // Si aucune liste n'est saisie

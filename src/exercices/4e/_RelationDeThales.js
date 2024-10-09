@@ -27,8 +27,6 @@ export default function RelationDeThales () {
   this.sup = 1 // Triangles imbriqués / configuration papillon / les 2
 
   this.nouvelleVersion = function (numeroExercice) {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     let listeDeNomsDePolygones = []
     this.autoCorrection = []
     if (this.level === 4) {

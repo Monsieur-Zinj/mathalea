@@ -47,8 +47,6 @@ export default function LecturesGraphiques () {
   this.video = '' // Id YouTube ou url
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     const typeFonctionsDisponibles = ['minimum', 'maximum', 'image', 'plusPetitAntécédent', 'plusGrandAntécédent', 'nombreAntécédents'] // On créé 3 types de questions

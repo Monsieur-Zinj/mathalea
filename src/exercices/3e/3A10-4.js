@@ -47,8 +47,6 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
     } else { // sortie LaTeX
     }
 
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
 

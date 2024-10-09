@@ -118,8 +118,6 @@ export default function EqResolvantesThales () {
   this.niveau = '5e'
 
   this.nouvelleVersion = function () {
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     this.consigne = this.nbQuestions > 1 ? 'Les égalités suivantes sont-elles vraies ? Justifier.' : 'L\'égalité suivante est-elle vraie ? Justifier.'

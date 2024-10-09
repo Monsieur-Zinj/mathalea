@@ -43,8 +43,6 @@ export default function FractionsCalculsSimples () {
 
   this.nouvelleVersion = function () {
     if (this.correctionDetaillee) this.nbColsCorr = 1
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     this.autoCorrection = []
 
     if (this.sup) {

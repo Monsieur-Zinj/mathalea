@@ -41,8 +41,6 @@ export default function FactoriserUneExpression3e () {
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
-    this.listeQuestions = [] // Liste de questions
-    this.listeCorrections = [] // Liste de questions corrigées
     const typesDeQuestionsDisponibles = []
     if (this.sup % 2 === 1) {
       if (this.sup2 % 2 === 1) {
