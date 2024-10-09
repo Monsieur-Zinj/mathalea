@@ -1,4 +1,4 @@
-import MesurePrincipal from '../../1e/1G12.js'
+import MesurePrincipal from '../../1e/1AN42.js'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const titre = 'Simplifier les sinus et cosinus des angles associés'
