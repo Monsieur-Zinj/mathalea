@@ -72,13 +72,13 @@ export default function OrganiserDonneesDepuisTexte () {
     for (let i = 0; i < nbAmis; i++) {
       for (let j = 0; j < nbFruits; j++) {
         if (this.sup) {
-          if (randint(0, 8) > 0) {
+          if (randint(this.sup4 ? 1 : 0, 8) > 0) {
             L.push(randint(0, 100) / 10)
           } else {
             L.push(0)
           }
         } else {
-          L.push(randint(0, 10))
+          L.push(randint(this.sup4 ? 1 : 0, 10))
         }
       }
       lstTabVal.push(L)
@@ -280,4 +280,5 @@ export default function OrganiserDonneesDepuisTexte () {
   this.besoinFormulaire2Numerique = ['Nombre de fruits différents', 4]
   this.besoinFormulaire3Numerique = ['Nombres d\'amis', 4]
   this.besoinFormulaireCaseACocher = ['Pour utiliser des nombres décimaux et des masses', false]
+  this.besoinFormulaire4CaseACocher = ['Avec au moins un fruit de chaque', false]
 }
