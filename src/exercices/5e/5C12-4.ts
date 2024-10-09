@@ -281,6 +281,9 @@ class MettreDesParentheses extends Exercice {
             .getPromptValue(pr)
             .replace('\\left(', '(')
             .replace('\\right)', ')')
+            .replace('\\lparen', '(')
+            .replace('\\rparen', ')')
+
         )
         let laSaisie = ''
         for (let k = 0, index = 0; k < materiel.expSP.length; k++) {
