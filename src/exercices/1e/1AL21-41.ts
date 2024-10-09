@@ -118,7 +118,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         if (feedback && question) {
           const button = document.createElement('button')
           button.classList.add('flex-inline', 'px-6', 'py-2.5', 'ml-6', 'bg-coopmaths-action', 'dark:bg-coopmathsdark-action', 'text-coopmaths-canvas', 'dark:text-coopmathsdark-canvas', 'font-medium', 'text-xs', 'leading-tight', 'uppercase', 'rounded', 'shadow-md', 'transform', 'hover:bg-coopmaths-action-lightest', 'dark:hover:bg-coopmathsdark-action-lightest', 'hover:shadow-lg', 'focus:bg-coopmaths-action-lightest', 'dark:focus:bg-coopmathsdark-action-lightest', 'focus:shadow-lg', 'focus:outline-none', 'focus:ring-0', 'active:bg-coopmaths-action-lightest', 'dark:active:bg-coopmathsdark-action-lightest', 'active:shadow-lg', 'transition', 'duration-150', 'ease-in-out')
-          button.textContent = 'Pas factorisable ?'
+          button.textContent = 'Pas factorisable'
           question.insertBefore(button, feedback.nextSibling)
           button.addEventListener('click', () => {
             const mathfield = document.getElementById(`champTexteEx${this.numeroExercice}Q${i}`) as MathfieldElement
