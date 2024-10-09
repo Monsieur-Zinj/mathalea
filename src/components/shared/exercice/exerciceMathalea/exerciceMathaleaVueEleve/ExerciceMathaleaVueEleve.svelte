@@ -12,7 +12,7 @@
   import Question from './presentationalComponents/Question.svelte'
   import ExerciceVueEleveButtons from './presentationalComponents/ExerciceVueEleveButtons.svelte'
   import { isLocalStorageAvailable } from '../../../../../lib/stores/storage'
-  import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types';
+  import type { InterfaceParams, InterfaceResultExercice } from 'src/lib/types'
   export let exercise: TypeExercice
   export let exerciseIndex: number
   export let indiceLastExercice: number
@@ -43,10 +43,9 @@
     headerExerciceProps = headerExerciceProps
   }
 
-  
   function countMathField () {
-    let numbOfAnswerFields : number = 0 
-    exercise.autoCorrection.forEach( val => {
+    let numbOfAnswerFields : number = 0
+    exercise.autoCorrection.forEach(val => {
       if (val.reponse?.param?.formatInteractif === 'mathlive' || val.reponse?.param?.formatInteractif === 'qcm') {
         numbOfAnswerFields++
       }
@@ -58,14 +57,14 @@
 
   async function forceUpdate () {
     if (exercise == null) return
-    exercise.numeroExercice = exerciseIndex    
+    exercise.numeroExercice = exerciseIndex
     await adjustMathalea2dFiguresWidth()
   }
 
-  function updateAnswers() {
+  function updateAnswers () {
     if ($globalOptions.done === '1' && $globalOptions.recorder !== 'capytale') {
-      const q1 = document.querySelector<HTMLElement>('#exercice'+ exercise.numeroExercice +'Q0')
-      if (q1?.innerText === 'chargement...') return //en attente du chargement de l'exercice
+      const q1 = document.querySelector<HTMLElement>('#exercice' + exercise.numeroExercice + 'Q0')
+      if (q1?.innerText === 'chargement...') return // en attente du chargement de l'exercice
       const fields = document.querySelectorAll('math-field')
       fields.forEach((field) => {
         field.setAttribute('disabled', 'true')
@@ -74,7 +73,7 @@
       // Pour Moodle, les réponses sont dans l'URL
       const answers = url.searchParams.get('answers')
       const objAnswers = answers ? JSON.parse(answers) : undefined
-      if (JSON.stringify($globalOptions.answers) === JSON.stringify(objAnswers)){
+      if (JSON.stringify($globalOptions.answers) === JSON.stringify(objAnswers)) {
         $globalOptions.answers = objAnswers
       }
       mathaleaUpdateUrlFromExercicesParams($exercicesParams)
@@ -112,7 +111,7 @@
     updateDisplay()
     if (isInteractif && !isCorrectionVisible) {
       numberOfAnswerFields = countMathField()
-    } 
+    }
     if ($globalOptions.setInteractive === '1') {
       setAllInteractif()
     } else if ($globalOptions.setInteractive === '0') {
@@ -142,7 +141,7 @@
         } catch (e) {
           console.error(e)
         }
-      }      
+      }
     }
     // affectation du zoom pour les figures scratch
     const scratchDivs = divExercice.getElementsByClassName('scratchblocks')
@@ -184,7 +183,7 @@
     updateDisplay()
   }
 
-  let debug = false
+  const debug = false
   function log (str: string) {
     if (debug) {
       console.info(str)
@@ -409,7 +408,7 @@
       {columnsCountUpdate}
       />
       <article class=" {$isMenuNeededForExercises ? 'text-2xl' : 'text-base'} relative w-full" style="font-size: {($globalOptions.z || 1).toString()}rem;  line-height: calc({$globalOptions.z || 1});">
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col w-full mt-2 lg:mt-0 mb-2">
           {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
             <div>
               <p class="mt-2 mb-2 ml-2 lg:mx-6 text-coopmaths-corpus dark:text-coopmathsdark-corpus">

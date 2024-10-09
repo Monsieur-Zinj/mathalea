@@ -91,7 +91,7 @@
     !exercise.besoinFormulaire3Texte &&
     !exercise.besoinFormulaire4CaseACocher &&
     !exercise.besoinFormulaire4Numerique &&
-    !exercise.besoinFormulaire4Texte&&
+    !exercise.besoinFormulaire4Texte &&
     !exercise.besoinFormulaire5CaseACocher &&
     !exercise.besoinFormulaire5Numerique &&
     !exercise.besoinFormulaire5Texte
@@ -649,27 +649,29 @@
             $globalOptions.z || 1
           ).toString()}rem; line-height: calc({$globalOptions.z || 1});"
         >
-          {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
-            <div>
-              <p
-                class=" mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.consigne}
-              </p>
-            </div>
-          {/if}
-          {#if exercise.introduction}
-            <div>
-              <p
-                class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
-              >
-                <!-- eslint-disable-next-line svelte/no-at-html-tags -->
-                {@html exercise.introduction}
-              </p>
-            </div>
-          {/if}
-          <div style="columns: {columnsCount.toString()}" class="mb-5">
+          <div class="mt-6 mb-4">
+            {#if typeof exercise.consigne !== 'undefined' && exercise.consigne.length !== 0}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.consigne}
+                </p>
+              </div>
+            {/if}
+            {#if exercise.introduction}
+              <div>
+                <p
+                  class="mt-2 mb-2 ml-2 lg:mx-5 text-coopmaths-corpus dark:text-coopmathsdark-corpus"
+                >
+                  <!-- eslint-disable-next-line svelte/no-at-html-tags -->
+                  {@html exercise.introduction}
+                </p>
+              </div>
+            {/if}
+          </div>
+          <div style="columns: {columnsCount.toString()}" class="mt-4 lg:mt-6 mb-5">
             <ul
               class="{exercise.listeQuestions.length === 1 ||
               !exercise.listeAvecNumerotation
@@ -692,8 +694,8 @@
                   {#if isCorrectionVisible}
                   <!-- EE : remplacement de ce class pour celui du dessous class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 lg:mt-2 mb-6 py-2 pl-4"  -->
                   <div
-                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4"
-                      id="correction${exerciseIndex}Q${i}"
+                      class="relative border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus py-2 pl-4 mt-6 md:mt-4"
+                      id="correction-exo{exerciseIndex}-Q{i}"
                     >
                       <div
                         class={exercise.consigneCorrection.length !== 0

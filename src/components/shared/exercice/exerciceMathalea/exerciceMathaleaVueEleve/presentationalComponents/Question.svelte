@@ -9,15 +9,15 @@
 
 </script>
 
-<div style="break-inside:avoid" id="consigne{exerciseIndex}-{questionIndex}" class="container max-w-full text-justify grid grid-cols-1 auto-cols-min gap-4 mb-2 lg:mb-4">
+<div style="break-inside:avoid" id="consigne{exerciseIndex}-{questionIndex}" class="container max-w-full text-justify grid grid-cols-1 auto-cols-min gap-4 mb-3 lg:mb-4">
   <li id="exercice{exerciseIndex}Q{questionIndex}" style="line-height: {exercise.spacing || 1}">
     <!-- eslint-disable-next-line svelte/no-at-html-tags -->
     {@html mathaleaFormatExercice(exercise.listeQuestions[questionIndex])}
   </li>
   {#if isCorrectionVisible}
     <div
-      class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus my-2 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
-      id="correction${exerciseIndex}Q${questionIndex}"
+      class="relative self-start border-l-coopmaths-struct dark:border-l-coopmathsdark-struct border-l-[3px] text-coopmaths-corpus dark:text-coopmathsdark-corpus mt-6 mb-4 lg:mb-0 ml-0 lg:ml-0 py-2 pl-4 lg:pl-6"
+      id="correction-exo{exerciseIndex}Q{questionIndex}"
     >
       <div
         class={exercise.consigneCorrection.length !== 0 ? 'container max-w-full text-justify bg-coopmaths-canvas dark:bg-coopmathsdark-canvas-dark px-4 py-2 mr-2 ml-6 mb-2 font-light relative w-2/3' : 'hidden'}
