@@ -7,8 +7,9 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import Exercice from '../Exercice'
-import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer le tableau de signes d\'une fonction graphiquement'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -103,8 +104,6 @@ function aleatoiriseCourbe (choix) {
 export default class BetaModeleSpline extends Exercice {
   constructor () {
     super()
-    this.titre = titre
-    // this.sup = 1
     this.nbQuestions = 1 // Nombre de questions par défaut
     this.correctionDetailleeDisponible = true // booléen qui indique si une correction détaillée est disponible.
     this.correctionDetaillee = false
@@ -165,11 +164,8 @@ export default class BetaModeleSpline extends Exercice {
       const tableauB = tableauSignesFonction(fonctionD, xMin, xMax, { step: 1, tolerance: 0.1 })
 
       const tableauChoisi = [tableau, tableauB][choixInteractif]
-      if (choixInteractif === 0) {
-        setReponse(this, i, ['Oui', 'OUI', 'oui'])
-      } else {
-        setReponse(this, i, ['Non', 'NON', 'non'])
-      }
+      handleAnswers(this, i, { reponse: { value: choixInteractif === 0 ? ['oui'] : ['non'], compare: fonctionComparaison, options: { texteSansCasse: true } } })
+
       const figure = mathalea2d(Object.assign({ pixelsParCm: 30, scale: 0.6, style: 'margin: auto' }, { xmin: xMin - 1, ymin: yMin - 1, xmax: xMax + 1, ymax: yMax + 1 }), objetsEnonce, o)
 
       texteEnonce = 'Dresser le tableau de signes de la fonction $f$ représentée ci-dessous.<br>' + figure
@@ -178,8 +174,8 @@ export default class BetaModeleSpline extends Exercice {
         texteEnonce += figure
         texteEnonce += '<br>Le tableau de signes de la fonction $f$ est : <br>'
         texteEnonce += tableauChoisi
-        texteEnonce += '<br>Répondre par "Oui" ou "Non" '
-        texteEnonce += ajouteChampTexte(this, i)
+        texteEnonce += '<br>Répondre par Oui ou Non. '
+        texteEnonce += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
       }
       let texteCorrection
       texteCorrection = `L'ensemble de définition de $f$ est $[${maSpline.x[0]}\\,;\\,${maSpline.x[maSpline.n - 1]}]$.<br>`
@@ -193,9 +189,9 @@ export default class BetaModeleSpline extends Exercice {
 
       if (this.interactif) {
         if (choixInteractif === 0) {
-          texteCorrection += `<br>Le tableau de signe correspond, il fallait donc répondre "${texteEnCouleurEtGras('Oui')}"`
+          texteCorrection += `<br>Le tableau de signe correspond, il fallait donc répondre ${texteEnCouleurEtGras('Oui')}.`
         } else {
-          texteCorrection += `<br>Le tableau de signe ne correspond pas, il fallait donc répondre "${texteEnCouleurEtGras('Non')}"`
+          texteCorrection += `<br>Le tableau de signe ne correspond pas, il fallait donc répondre ${texteEnCouleurEtGras('Non')}.`
         }
       }
 
@@ -204,6 +200,7 @@ export default class BetaModeleSpline extends Exercice {
       this.canEnonce = texteEnonce// 'Compléter'
       this.canReponseACompleter = ''
     }
+
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
 }
