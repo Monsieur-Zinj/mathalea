@@ -5,10 +5,11 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Operation from '../../modules/operations.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { sp } from '../../lib/outils/outilString.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const amcReady = true
 export const amcType = 'AMCOpen'
@@ -138,10 +139,16 @@ export default function DivisionsEuclidiennes () {
         }) + (this.classe !== 6
           ? `$${miseEnEvidence(`${texNombre(a)}=${b}\\times${texNombre(q)}+${r}`)}$`
           : `$${miseEnEvidence(`${texNombre(a)}=(${b}\\times${texNombre(q)})+${r}`)}$`)
-        setReponse(this, i, [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
+        handleAnswers(this, i, {
+          reponse: {
+            value: [`${a}=${b}\\times ${q}+${r}`, `${a}=${q}\\times ${b}+${r}`,
         `${b}\\times ${q}+${r}=${a}`, `${q}\\times ${b}+${r}=${a}`,
         `${a}=(${b}\\times ${q})+${r}`, `${a}=(${q}\\times ${b})+${r}`,
-        `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`])
+        `(${b}\\times ${q})+${r}=${a}`, `(${q}\\times ${b})+${r}=${a}`],
+            compare: fonctionComparaison,
+            options: { operationSeulementEtNonCalcul: true }
+          }
+        })
       }
       texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore ' + KeyboardType.clavierDeBaseAvecEgal, { texteAvant: sp(10) + ' Égalité fondamentale :' })
       // Pour AMC question AmcOpen
