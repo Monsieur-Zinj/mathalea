@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'vitest'
-import Trinome from '../../src/modules/Trinome'
-import FractionEtendue from '../../src/modules/FractionEtendue'
+import Trinome from './Trinome'
+import FractionEtendue from './FractionEtendue'
 
 const p1 = new Trinome(1, 2, 1)
 

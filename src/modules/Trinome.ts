@@ -240,7 +240,7 @@ class Trinome {
           ? `=\\dfrac{${this.a.s === -1 ? this.b.differenceFraction(discriminantRacineCarree).texFractionSimplifiee : this.b.oppose().sommeFraction(discriminantRacineCarree).texFractionSimplifiee}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
           : `=\\dfrac{${this.a.s === -1 ? this.b.texFractionSimplifiee : this.b.oppose().texFractionSimplifiee}${this.a.s === -1 ? '-' : '+'}${this.discriminant.estParfaite ? discriminantRacineCarree.texFractionSimplifiee : `\\sqrt{${this.discriminant.texFractionSimplifiee}}`}}{${this.a.s === -1 ? this.a.multiplieEntier(2).oppose().texFractionSimplifiee : this.a.multiplieEntier(2).texFractionSimplifiee}}`
       }
-      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFractionSimplifiee}`
+      if (this.x1 instanceof FractionEtendue) result += `=${this.x1.texFraction}`
       else if (!exact) {
         result += `\\approx${this.x1.toString().replace('.', '{,}')}`
       } else {
@@ -400,10 +400,12 @@ class Trinome {
       }
       return this.b.oppose().sommeFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    let result: number
     if (this.a.valeurDecimale > 0) {
-      return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    return new FractionEtendue(result, 1)
   }
 
   /** Deuxième racine du trinome */
@@ -418,10 +420,12 @@ class Trinome {
       }
       return this.b.oppose().differenceFraction(racineDeDelta).produitFraction(unSurDeuxA).simplifie()
     }
+    let result: number
     if (this.a.valeurDecimale > 0) {
-      return Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+      result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
-    return Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
+    return new FractionEtendue(result, 1)
   }
 
   /**
