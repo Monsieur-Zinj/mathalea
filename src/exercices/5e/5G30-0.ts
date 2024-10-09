@@ -17,7 +17,7 @@ export const refs = {
   'fr-ch': []
 }
 /**
- * Utiliser le vocabulaire complémentaires et suplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles
+ * Utiliser le vocabulaire complémentaires et supplémentaires pour qualifier des paires d'angles ou calculer des mesures d'angles
  * @author Jean-Claude Lhote
  */
 export default class AnglesEtVocabulaire extends Exercice {
@@ -59,9 +59,9 @@ export default class AnglesEtVocabulaire extends Exercice {
                 b = 90 - a
                 goodAnswer = 'complémentaires'
                 break
-              default: // suplémentaires
+              default: // supplémentaires
                 b = 180 - a
-                goodAnswer = 'suplémentaires'
+                goodAnswer = 'supplémentaires'
             }
             texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$ et l'angle $\\widehat{yOz}$ mesure $${b}^\\circ$ que sont-ils l'un pour l'autre ?`
             this.autoCorrection[i] = {
@@ -71,8 +71,8 @@ export default class AnglesEtVocabulaire extends Exercice {
                   statut: goodAnswer === 'complémentaires'
                 },
                 {
-                  texte: 'suplémentaires',
-                  statut: goodAnswer === 'suplémentaires'
+                  texte: 'supplémentaires',
+                  statut: goodAnswer === 'supplémentaires'
                 },
                 {
                   texte: "ni l'un, ni l'autre",
@@ -100,8 +100,8 @@ export default class AnglesEtVocabulaire extends Exercice {
         default:
           a = 2 * a + choice([0, 1]) // Ainsi, on peut avoir a>90
           b = 180 - a
-          texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$. Combien mesure l'angle $\\widehat{yOz}$ s'ils sont suplémentaires l'un de l'autre ?`
-          texteCorr = `Deux angles suplémentaires sont deux angles dont la somme vaut $180^\\circ$. Alors $\\widehat{yOz}=180^\\circ-${a}^\\circ=${180 - a}^\\circ$`
+          texte = `L'angle $\\widehat{xOy}$ mesure $${a}^\\circ$. Combien mesure l'angle $\\widehat{yOz}$ s'ils sont supplémentaires l'un de l'autre ?`
+          texteCorr = `Deux angles supplémentaires sont deux angles dont la somme vaut $180^\\circ$. Alors $\\widehat{yOz}=180^\\circ-${a}^\\circ=${180 - a}^\\circ$`
           goodAnswer = `${180 - a}^\\circ`
           break
       }
