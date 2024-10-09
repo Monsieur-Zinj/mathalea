@@ -18,7 +18,7 @@ import {
   vecteur3d
 } from '../../modules/3d.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
@@ -377,7 +377,7 @@ export default class ReconnaitreDesSolides extends Exercice {
           this.question += propositionsQcm(this, j).texte
         } else {
           setReponse(this, j, this.reponse, { formatInteractif: 'ignorerCasse' })
-          this.question += '<br>' + ajouteChampTexteMathLive(this, j, 'alphanumeric')
+          this.question += '<br>' + ajouteChampTexte(this, j)
         }
         this.listeQuestions.push(this.question)
         this.listeCorrections.push(this.correction)
