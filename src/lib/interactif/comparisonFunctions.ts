@@ -1364,13 +1364,21 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   const splitInputBis = [...splitInput]
   const inputSorted = sortMathExpressions(splitInputBis)
   const goodAnswerSorted = sortMathExpressions(splitGoodAnswer)
-  */
+  const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
+*/
   const inputSorted = splitInput
   const goodAnswerSorted = splitGoodAnswer
 
-  const hasDifferentValues = !(inputSorted.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))
+  const AllExist = inputSorted.every(value => {
+    for (let index = 0; index < goodAnswerSorted.length; index++) {
+      if (engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))) {
+        return true // L'élément est trouvé
+      }
+    }
+    return false // L'élément n'est pas trouvé
+  })
 
-  if (hasDifferentValues) {
+  if (!AllExist) {
     return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
