@@ -32,10 +32,7 @@ export const refs = {
 }
 export default function Calculercoordonneesvecteurs () {
   Exercice.call(this)
-  this.titre = titre
   this.nbQuestions = 2
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.sup = 1
   this.correctionDetaillee = false
   this.correctionDetailleeDisponible = true
@@ -77,7 +74,7 @@ export default function Calculercoordonneesvecteurs () {
           texteCorr += `On applique ici aux données de l'énoncé : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${xB}-${ecritureParentheseSiNegatif(xA)}\\\\${yB}-${ecritureParentheseSiNegatif(yA)}\\end{pmatrix}$.<br>`
           texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
-      } else if (this.sup === 2) {
+      } else {
         const listeFractions1 = [[1, 2], [3, 2], [5, 2], [1, 3], [2, 3], [4, 3], [5, 3], [1, 4], [3, 4], [5, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6]]
         const frac1 = choice(listeFractions1)
         xA = new FractionEtendue(frac1[0], frac1[1])
