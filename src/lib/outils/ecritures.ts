@@ -71,7 +71,7 @@ export function ecritureNombreRelatif (a: number) {
  * Idem ecritureNombreRelatif avec le code couleur : vert si positif, rouge si négatif, noir si nul
  * @param {number} a
  */
-export function ecritureNombreRelatifc (a: string | number, { color = null } = {}) {
+export function ecritureNombreRelatifc (a: string | number, { color = null } : { color?: string | null } = {}) {
   if (typeof a === 'string') {
     window.notify('ecritureNombreRelatifc() n\'accepte pas les string.', { argument: a })
     a = Number(a)

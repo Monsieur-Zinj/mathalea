@@ -11,6 +11,8 @@ import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js
 import Decimal from 'decimal.js'
 import { arrondi } from '../../lib/outils/nombres'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const amcReady = true
 export const amcType = 'qcmMono'
@@ -85,13 +87,13 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
       }
       if (this.sup2 === 1) {
         texte = '$ ' + ecritureNombreRelatif(a) + ' + ' + ecritureNombreRelatif(b) + ' =$'
-        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
+        texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b, { color: orangeMathalea }) + ' $'
       } else if (this.sup2 === 2) {
         texte = `$ ${texNombre(a)} + ${ecritureParentheseSiNegatif(b)} =$`
-        texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)} = ${a + b} $`
+        texteCorr = `$ ${a} + ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a + b))} $`
       } else {
         texte = `$ ${texNombre(a)}${ecritureAlgebrique(b)} =$`
-        texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
+        texteCorr = `$ ${a}${ecritureAlgebrique(b)} = ${miseEnEvidence(texNombre(a + b))} $`
       }
       this.autoCorrection[i] = {}
       this.autoCorrection[i].options = {}
@@ -126,7 +128,7 @@ export default class ExerciceAdditionsRelatifs extends Exercice {
         }
       } else {
         texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
-        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: (arrondi(a + b)).toString(), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
       }
       if (this.questionJamaisPosee(i, a, b)) {
         this.listeQuestions.push(texte)
