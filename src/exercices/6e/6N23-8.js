@@ -104,7 +104,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
 
           if (this.interactif) {
             texte = this.sup2
-              ? remplisLesBlancs(this, i, `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{$${texNombre(b)}}`, 'fillInTheBlanks')
+              ? remplisLesBlancs(this, i, `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{${texNombre(b)}}`, 'fillInTheBlanks')
               : ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${texNombre(n, precision, this.sup3)} = $` })
 
             if (!this.sup2) {
