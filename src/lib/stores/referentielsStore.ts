@@ -34,6 +34,7 @@ const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 let examens = getAllEndings(examsReferentiel)
 examens = [...triAnnales(examens, 'desc')]
 const orderedExamsReferentiel = buildReferentiel(examens)
+// console.log('EE : 0000000000000000000', referentielAlea)
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
 const referentielOutils: JSONReferentielObject = { ...referentielProfs }
 const referentielHtml: JSONReferentielObject = { ...referentielRessources }
@@ -46,14 +47,25 @@ for (const item of newExercises) {
   newExercisesReferentiel[item.pathToResource[item.pathToResource.length - 1]] =
   { ...item.resource }
 }
+
+// on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
+// EE : Puisqu'on a déjà le référentiel, je ne comprends pas à quoi cela sert
+// d'autant que cela change les ordres alphabétiques pour les terminales.
+// Bon, j'ai compris mais comme les exos de terminales n'ont pas une entête cohérente alphabétiquement, on n'a pas le choix
+// que d'enlever ces lignes.
+
 const baseAndNewsReferentiel: JSONReferentielObject = {
   Nouveautés: { ...newExercisesReferentiel },
   ...baseReferentiel
 }
-// on trie les exercice aléatoires par ID ('4-C10' < '4-C10-1' <'4-C10-10')
 let exercices = getAllEndings(baseAndNewsReferentiel)
 exercices = [...sortArrayOfResourcesBasedOnProp(exercices, 'id')]
+
 const aleaReferentiel = buildReferentiel(exercices)
+
+// const aleaReferentiel = baseReferentiel
+// console.log('222222222222222222222')
+// console.log(aleaReferentiel.CAN.Terminale)
 const exercicesGeometrieDynamique = getAllEndings(baseGeometrieDynamiqueReferentiel)
 const geometrieDynamiqueReferentiel = buildReferentiel(exercicesGeometrieDynamique)
 // référentiel original
@@ -102,7 +114,6 @@ for (const ref of allReferentielsInMenus) {
   }
 }
 export const originalReferentiels = [...activatedReferentielsInMenu]
-
 /**
  * Constitutions des référentiels suisses
  */

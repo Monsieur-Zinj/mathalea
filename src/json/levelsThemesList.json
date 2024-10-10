@@ -164,7 +164,7 @@
   "can1S": {
     "titre": "Suites"
   },
-  "canExC": {
+  "canTExC": {
     "titre": "Nombres complexes"
   },
   "canT1AN": {
@@ -943,7 +943,7 @@
   "TC1": {
     "titre": "Calculs"
   },
-  "ExC1": {
+  "TExC1": {
     "titre": "Calculs avec nombres complexes",
     "sousThemes": {}
   },

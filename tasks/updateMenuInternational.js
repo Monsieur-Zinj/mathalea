@@ -23,13 +23,13 @@ import { readFileSync } from 'fs'
 import fs from 'fs/promises'
 import path from 'path'
 
-async function readInfos(
+async function readInfos (
   dirPath,
   uuidMap,
   exercicesNonInteractifs,
   refToUuid,
   exercicesShuffled,
-  codePays,
+  codePays
 ) {
   const files = await fs.readdir(dirPath)
   await Promise.all(
@@ -44,7 +44,7 @@ async function readInfos(
           exercicesNonInteractifs,
           refToUuid,
           exercicesShuffled,
-          codePays,
+          codePays
         )
       } else if (stat.isFile()) {
         // Check if it's a .js or .ts file, and exclude certain files
@@ -62,7 +62,7 @@ async function readInfos(
           if (data.includes('console.log(')) {
             console.error(
               '\x1b[34m%s\x1b[0m',
-              `console.log trouvé dans ${filePath}`,
+              `console.log trouvé dans ${filePath}`
             )
           }
           const matchUuid = data.match(/export const uuid = '(.*)'/)
@@ -72,18 +72,19 @@ async function readInfos(
             if (uuidMap.has(matchUuid[1])) {
               console.error(
                 '\x1b[31m%s\x1b[0m',
-                `${codePays}: uuid ${matchUuid[1]} en doublon  dans ${filePath} et ${uuidMap.get(matchUuid[1])}`,
+                `${codePays}: uuid ${matchUuid[1]} en doublon  dans ${filePath} et ${uuidMap.get(matchUuid[1])}`
               )
             }
             uuidMap.set(matchUuid[1], filePath.replace('src/exercices/', ''))
             infos.uuid = matchUuid[1]
           } else {
             // Pas d'erreur pour les fichiers beta
-            if (!filePath.includes('/beta/'))
+            if (!filePath.includes('/beta/')) {
               console.error(
                 '\x1b[31m%s\x1b[0m',
-                `${codePays}: uuid non trouvé dans ${filePath}`,
+                `${codePays}: uuid non trouvé dans ${filePath}`
               )
+            }
           }
           // const matchRefFR = data.match(/export const ref = '(.*)'/)
           // if (matchRefFR) {
@@ -99,8 +100,8 @@ async function readInfos(
           // Extract refs if present
           const matchRef = data.match(
             new RegExp(
-              `export const refs = {[^]*'${codePays}': \\[([^\\]]*)\\]`,
-            ),
+              `export const refs = {[^]*'${codePays}': \\[([^\\]]*)\\]`
+            )
           )
           if (matchRef) {
             const refsArray = matchRef[1]
@@ -110,7 +111,7 @@ async function readInfos(
             if (refsArray.length === 0) {
               console.error(
                 '\x1b[31m%s\x1b[0m',
-                `${codePays}: Empty refs array in ${filePath}`,
+                `${codePays}: Empty refs array in ${filePath}`
               )
             } else {
               refsArray.forEach((ref) => {
@@ -135,37 +136,37 @@ async function readInfos(
                 } else {
                   console.error(
                     '\x1b[31m%s\x1b[0m',
-                    `${codePays}: titre non trouvé dans ${filePath}`,
+                    `${codePays}: titre non trouvé dans ${filePath}`
                   )
                 }
                 const matchDate = data.match(
-                  /export const dateDePublication = '([^']*)'/,
+                  /export const dateDePublication = '([^']*)'/
                 )
                 if (matchDate) {
                   infos.datePublication = matchDate[1]
                 }
                 const matchDateModif = data.match(
-                  /export const dateDeModifImportante = '([^']*)'/,
+                  /export const dateDeModifImportante = '([^']*)'/
                 )
                 if (matchDateModif) {
                   infos.dateModification = matchDateModif[1]
                 }
                 infos.features = {}
                 const matchInteractif = data.match(
-                  /export const interactifReady = (.*)/,
+                  /export const interactifReady = (.*)/
                 )
                 const matchInteractifType = data.match(
-                  /export const interactifType = (.*)/,
+                  /export const interactifType = (.*)/
                 )
                 if (matchInteractif && matchInteractif[1] === 'true') {
                   infos.features.interactif = {
                     isActive: true,
-                    type: matchInteractifType[1] || '',
+                    type: matchInteractifType[1] || ''
                   }
                 } else {
                   infos.features.interactif = {
                     isActive: false,
-                    type: '',
+                    type: ''
                   }
                   exercicesNonInteractifs.push(filePath)
                 }
@@ -173,12 +174,12 @@ async function readInfos(
                 if (matchAmcType) {
                   infos.features.amc = {
                     isActive: true,
-                    type: matchAmcType[1] || '',
+                    type: matchAmcType[1] || ''
                   }
                 } else {
                   infos.features.amc = {
                     isActive: false,
-                    type: '',
+                    type: ''
                   }
                 }
                 infos.typeExercice = 'alea'
@@ -197,20 +198,20 @@ async function readInfos(
             ) {
               console.error(
                 '\x1b[31m%s\x1b[0m',
-                `${codePays}: ref non trouvé dans ${filePath}`,
+                `${codePays}: ref non trouvé dans ${filePath}`
               )
             }
           }
         }
       }
-    }),
+    })
   )
 }
 /**
  * Crée une Uuid de 5 caractères hexadécimaux (1M de possibilités)
  * @returns {string}
  */
-function createUuid() {
+function createUuid () {
   let dt = new Date().getTime()
   const uuid = 'xxxxx'.replace(/[xy]/g, (c) => {
     const r = ((dt + Math.random() * 16) % 16) | 0
@@ -221,7 +222,7 @@ function createUuid() {
 }
 
 // ToDo : automatiser la lecture de exercicesInteractifs
-function handleExerciceSvelte(uuidToUrl) {
+function handleExerciceSvelte (uuidToUrl) {
   uuidToUrl.spline = 'OutilSpline.svelte'
   uuidToUrl.clavier = 'ClavierTest.svelte'
   return uuidToUrl
@@ -233,9 +234,9 @@ const createFiles = (
   exercicesShuffled,
   exercicesNonInteractifs,
   refToUuid,
-  codePays,
+  codePays
 ) => {
-  function findThemes(obj, path) {
+  function findThemes (obj, path) {
     for (const key in obj) {
       const subObj = obj[key]
       const subPath = path.concat(key)
@@ -263,20 +264,20 @@ const createFiles = (
     }, {})
   fs.writeFile(
     'src/json/exercices' + codePays + '.json',
-    JSON.stringify(exercices, null, 2),
+    JSON.stringify(exercices, null, 2)
   )
   fs.writeFile(
     'src/json/exercicesNonInteractifs' + codePays + '.json',
-    JSON.stringify(exercicesNonInteractifs.sort(), null, 2),
+    JSON.stringify(exercicesNonInteractifs.sort(), null, 2)
   )
   uuidToUrl = handleExerciceSvelte(uuidToUrl)
   fs.writeFile(
     'src/json/uuidsToUrl' + codePays + '.json',
-    JSON.stringify(uuidToUrl, null, 2),
+    JSON.stringify(uuidToUrl, null, 2)
   )
   fs.writeFile(
     'src/json/refToUuid' + codePays + '.json',
-    JSON.stringify(refToUuid, null, 2),
+    JSON.stringify(refToUuid, null, 2)
   )
   for (const themePath of themesPath) {
     const theme = themePath.split('.').pop()
@@ -300,13 +301,13 @@ const createFiles = (
   if (codePays === 'FR') {
     fs.writeFile(
       'src/json/referentielGeometrieDynamique.json',
-      JSON.stringify(referentiel['Géométrie dynamique'], null, 2),
+      JSON.stringify(referentiel['Géométrie dynamique'], null, 2)
     )
     delete referentiel['Géométrie dynamique']
   }
   fs.writeFile(
     'src/json/referentiel2022' + codePays + '.json',
-    JSON.stringify(referentiel, null, 2).replaceAll('"c3"', '"CM1/CM2"'),
+    JSON.stringify(referentiel, null, 2).replaceAll('"c3"', '"CM1/CM2"')
   )
 }
 
@@ -336,7 +337,7 @@ readInfos(
   exercicesNonInteractifsCH,
   refToUuidCH,
   exercicesShuffledCH,
-  'fr-ch',
+  'fr-ch'
 )
   .then(() => {
     createFiles(
@@ -345,7 +346,7 @@ readInfos(
       exercicesShuffledCH,
       exercicesNonInteractifsCH,
       refToUuidCH,
-      'CH',
+      'CH'
     )
   })
   .then(() => {
@@ -366,7 +367,7 @@ readInfos(
   exercicesNonInteractifsFR,
   refToUuidFR,
   exercicesShuffledFR,
-  'fr-fr',
+  'fr-fr'
 )
   .then(() => {
     createFiles(
@@ -375,12 +376,12 @@ readInfos(
       exercicesShuffledFR,
       exercicesNonInteractifsFR,
       refToUuidFR,
-      'FR',
+      'FR'
     )
   })
   .then(() => {
     console.log(
-      'FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour',
+      'FR: uuidsToUrl, referentiel et referentielGeometrieDynamique ont été mis à jour'
     )
   })
   .catch((err) => {
@@ -394,6 +395,6 @@ while (uuidMapFR.has(uuid)) {
 }
 console.log('Le nouvel uuid généré est :', uuid)
 console.log(
-  'Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :',
+  'Vous pouvez maintenant ajouter la ligne suivante au nouvel exercice :'
 )
 console.log(`export const uuid = '${uuid}'`)
