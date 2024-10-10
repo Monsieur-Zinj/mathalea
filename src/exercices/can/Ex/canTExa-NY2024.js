@@ -6,7 +6,7 @@ export const interactifType = 'mathLive'
 export const uuid = '60653'
 export const ref = 'canExa-NY2024'
 export const refs = {
-  'fr-fr': ['canExa-NY2024'],
+  'fr-fr': ['canTExa-NY2024'],
   'fr-ch': []
 }
 export const dateDePublication = '01/01/2024'
