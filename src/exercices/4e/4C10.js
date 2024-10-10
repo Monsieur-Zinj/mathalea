@@ -7,8 +7,10 @@ import Decimal from 'decimal.js'
 import FractionEtendue from '../../modules/FractionEtendue.ts'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Calculer des produits et des quotients de nombres relatifs'
 export const interactifReady = true
@@ -75,11 +77,12 @@ export default function ProduitsEtQuotientRelatifs () {
           if (listeTypesDeNombre[i] < 3) {
             texte = `$${texNombre(a, 1)}\\times ${ecritureParentheseSiNegatif(b)} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
             texteCorr = texte.split('=')[0] + ' = ' + texNombre(a.mul(b), 1) + '$'
-            setReponse(this, i, listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b))
+            handleAnswers(this, i, { reponse: { value: listeTypesDeNombre[i] < 3 ? a.mul(b) : a.produitFraction(b), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
           } else {
-            texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)}`
+            texte = `$${a.texFSD}\\times ${b.texFSP} = $${ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)}`
             texteCorr = texte.split('=')[0] + ' = ' + a.texProduitFraction(b, true) + '$'
-            setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
+            // setReponse(this, i, a.produitFraction(b), { formatInteractif: 'fractionEgale' })
+            handleAnswers(this, i, { reponse: { value: a.produitFraction(b).texFraction, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
           }
           break
 
@@ -99,6 +102,18 @@ export default function ProduitsEtQuotientRelatifs () {
           }
           break
       }
+      // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
+      const textCorrSplit = texteCorr.split('=')
+      let aRemplacer = textCorrSplit[textCorrSplit.length - 1]
+      aRemplacer = aRemplacer.replace('$', '')
+
+      texteCorr = ''
+      for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
+        texteCorr += textCorrSplit[ee] + '='
+      }
+      texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
+      // Fin de cette uniformisation
+
       if (this.questionJamaisPosee(i, a, b, listeTypesDeQuestion[i])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

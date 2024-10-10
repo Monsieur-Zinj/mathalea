@@ -10,10 +10,13 @@ import Exercice from '../Exercice'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif.js'
+import { handleAnswers, setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const titre = 'Soustraction de deux nombres relatifs'
 export const interactifReady = true
@@ -88,12 +91,12 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
           texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
         }
         if (b > 0) {
-          texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${texNombre(a - b)} $`
+          texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a - b))} $`
         } else {
           if (this.correctionDetaillee) {
-            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${texNombre(a - b)}$`
+            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${a} ${ecritureAlgebrique(-b)} = ${miseEnEvidence(texNombre(a - b))}$`
           } else {
-            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${texNombre(a - b)}$`
+            texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${miseEnEvidence(texNombre(a - b))}$`
           }
         }
       } else {
@@ -102,19 +105,22 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
           texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
         }
         if (this.correctionDetaillee) {
-          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b, { color: orangeMathalea }) + ' $'
         } else {
-          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'
+          texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a - b, { color: orangeMathalea }) + ' $'
         }
       }
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
-        setReponse(this, i, [arrondi(a - b), `(${ecritureAlgebrique(a - b)})`], {
-          signe: true,
-          digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
-          decimals: 0
-        })
+        if (context.isAmc) {
+          setReponse(this, i, [arrondi(a - b), `(${ecritureAlgebrique(a - b)})`], {
+            signe: true,
+            digits: Math.max(2, nombreDeChiffresDansLaPartieEntiere(arrondi(a - b))),
+            decimals: 0
+          })
+        } else handleAnswers(this, i, { reponse: { value: (arrondi(a - b)).toString(), compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
+
         i++
       }
       cpt++

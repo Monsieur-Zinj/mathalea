@@ -826,8 +826,16 @@ function expressionDeveloppeeEtReduiteCompare (
       ? 'numérique'
       : 'littérale'
 
-  // La ligne du dessous est inutile mais il faut la laisser pour bien indiquer qu'elle est inutile
-  // if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
+  if (saisieParsed.isEqual(reponseParsed) && !(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
+  // La saisie est égale à la réponse mais il faut vérifier que cela correspond l'option prévue
+    if (calculSeulementEtNonOperation) { // L'un peut être décimal et l'autre peut être fractionnaire ou les deux fractionnaires : Ex. 4C10
+      if ((saisieParsed.isNumber && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2) ||
+      (reponseParsed.isNumber && saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2) ||
+      (saisieParsed.head === 'Divide' && saisieParsed.ops?.length === 2 && reponseParsed.head === 'Divide' && reponseParsed.ops?.length === 2)) {
+        return { isOk: true, feedback: '' }
+      }
+    }
+  }
   if (!(saisieParsed.isSame(reponseParsed))) { // On va essayer de traiter ici tous les feedbacks de façon exhaustive
     if (calculSeulementEtNonOperation || nombreDecimalSeulement) { // On veut un résultat numérique et pas un enchaînement de calculs
       const saisieCalculeeParsed = customCanonical(
@@ -840,6 +848,7 @@ function expressionDeveloppeeEtReduiteCompare (
           calculSeulementEtNonOperation: false
         }
       )
+
       if (saisieCalculeeParsed.isSame(reponseParsed)) feedback = 'Résultat incorrect car une valeur numérique est attendue.' // Sous-entendu : Et pas une opération
       else feedback = 'Résultat incorrect.'
     } else if (operationSeulementEtNonCalcul) { // On veut un enchaînement de calculs et pas un résultat numérique

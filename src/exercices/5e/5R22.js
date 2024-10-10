@@ -13,9 +13,10 @@ import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 
 export const titre = 'Effectuer un enchaînement d\'additions et de soustractions de nombres relatifs'
 export const interactifReady = true
@@ -128,7 +129,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         if (!this.sup2) {
-          setReponse(this, i, a + s1 * b + s2 * c + s3 * d + s4 * e, { signe: true })
+          handleAnswers(this, i, { reponse: { value: a + s1 * b + s2 * c + s3 * d + s4 * e, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',
@@ -167,7 +168,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
             }
           }
         } else {
-          setReponse(this, i, a + b + c + d + e, { signe: true })
+          handleAnswers(this, i, { reponse: { value: a + b + c + d + e, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
           if (context.isAmc) {
             this.autoCorrection[i] = {
               enonce: '',
