@@ -975,7 +975,7 @@ class FractionEtendue {
     if (this.isEqual(0)) return ''
     if (this.estIrreductible && this.num > 0 && this.den > 0) return '' // irreductible et positifs
     else if (this.estIrreductible && this.num * this.den < 0) { // irréductible mais négatifs
-      return `=${miseEnEvidence(this.texFSD, couleurFinale)}`
+      return couleurFinale === '' ? `=${this.texFSD}` : `=${miseEnEvidence(this.texFSD, couleurFinale)}`
     } else {
       if (factorisation) {
         const signe = this.sign === -1 ? '-' : ''
