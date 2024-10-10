@@ -26,7 +26,6 @@ export const titre = 'Poser additions, soustractions et multiplications de nombr
  * * abc*de tables de 5 à 9
  * @author Rémi Angot
  * Support des opérations posées en html par Jean-Claude Lhote.
- * Référence 6C10
  */
 export const uuid = 'cfa6a'
 export const ref = '6C10'
@@ -36,7 +35,6 @@ export const refs = {
 }
 export default function AdditionsSoustractionsMultiplicationsPosees () {
   Exercice.call(this)
-  this.consigne = 'Poser et effectuer les calculs suivants.'
   this.spacing = 2
   context.isHtml ? (this.spacingCorr = 2) : (this.spacingCorr = 1) // Important sinon les opérations posées ne sont pas jolies
   this.nbQuestions = 5
@@ -57,7 +55,9 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
 
   this.nouvelleVersion = function () {
     let typesDeQuestions, reponse
-    this.consigne = this.sup3 ? 'effectuer les opérations suivantes' : 'Poser et effectuer les calculs suivants.'
+    this.consigne = this.nbQuestions > 1
+      ? this.sup3 ? 'Effectuer les opérations suivantes.' : 'Poser et effectuer les calculs suivants.'
+      : this.sup3 ? 'Effectuer l\'opération suivante.' : 'Poser et effectuer le calcul suivant.'
     const colore = this.sup4 ? 'Colore' : ''
 
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
