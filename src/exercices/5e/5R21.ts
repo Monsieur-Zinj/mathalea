@@ -13,6 +13,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif.js'
 import Decimal from 'decimal.js'
 import { texNombre } from '../../lib/outils/texNombre'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Soustraction de deux nombres relatifs'
 export const interactifReady = true
@@ -84,7 +85,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
       if (this.sup2) {
         texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} =$`
         if (this.interactif && !context.isAmc) {
-          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, '', { texteAvant: '' })
+          texte = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
         }
         if (b > 0) {
           texteCorr = `$ ${a} - ${ecritureParentheseSiNegatif(b)} = ${texNombre(a - b)} $`
@@ -98,7 +99,7 @@ export default class ExerciceSoustractionsRelatifs extends Exercice {
       } else {
         texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' =$'
         if (this.interactif && !context.isAmc) {
-          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, '', { texteAvant: '' })
+          texte = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = $' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: '' })
         }
         if (this.correctionDetaillee) {
           texteCorr = '$ ' + ecritureNombreRelatif(a) + ' - ' + ecritureNombreRelatif(b) + ' = ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(-1 * b) + ' = ' + ecritureNombreRelatifc(a - b) + ' $'

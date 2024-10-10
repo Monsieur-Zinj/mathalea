@@ -3,6 +3,7 @@ import Exercice from '../deprecatedExercice.js'
 import { calculANePlusJamaisUtiliser, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Quotient de deux entiers relatifs'
 export const interactifReady = true
@@ -60,7 +61,7 @@ export default function ExerciceQuotientsRelatifs () {
       texte = `$\\dfrac{${a}}{${b}}$`
       texteCorr = `$\\dfrac{${a}}{${b}}=${calculANePlusJamaisUtiliser(a / b)}$`
       setReponse(this, i, calculANePlusJamaisUtiliser(a / b))
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
       if (this.questionJamaisPosee(i, a, b)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

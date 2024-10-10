@@ -14,6 +14,7 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Additions de 5 nombres relatifs'
 export const interactifReady = true
@@ -141,7 +142,7 @@ export default class ExerciceAdditionsDe5Relatifs extends Exercice {
 
       if (this.interactif && !context.isAmc) {
         // Supprime le dernier caractère de texte et le remplace par = $
-        texte += `<br> $${lettreDepuisChiffre(i + 1)} = $ ` + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore')
+        texte += `<br> $${lettreDepuisChiffre(i + 1)} = $ ` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

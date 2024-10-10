@@ -13,6 +13,7 @@ import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
 import { sp } from '../../lib/outils/outilString'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Opérations avec deux entiers relatifs'
 export const interactifReady = true
@@ -133,7 +134,7 @@ export default function ExerciceOperationsRelatifs () {
           })
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase, { texteAvant: sp() + '$=$' })
 
       if (this.sup) {
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

@@ -4,6 +4,7 @@ import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Multiplication de deux entiers relatifs'
 export const interactifReady = true
@@ -54,7 +55,7 @@ export default function ExerciceMultiplicationsRelatifs (max = 10) {
         texteCorr = '$ ' + ecritureNombreRelatifc(a) + ' \\times  ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a * b) + ' $'
       }
       setReponse(this, i, a * b)
-      texte += ajouteChampTexteMathLive(this, i)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
 
       if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

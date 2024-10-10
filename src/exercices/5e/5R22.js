@@ -15,6 +15,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Effectuer un enchaînement d\'additions et de soustractions de nombres relatifs'
 export const interactifReady = true
@@ -77,7 +78,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       if (this.sup2) {
         texte = `$ ${lettreDepuisChiffre(i + 1)} = ${a}${ecritureAlgebrique(b)}${ecritureAlgebrique(c)}${ecritureAlgebrique(d)}${ecritureAlgebrique(e)}$`
         if (this.interactif && context.isHtml) {
-          texte += `$${sp(1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+          texte += `$${sp(1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`
@@ -99,7 +100,7 @@ export default function ExerciceAdditionsSoustractionRelatifsV2 (max = 20) {
       } else {
         texte = `$ ${lettreDepuisChiffre(i + 1)} =  ${ecritureNombreRelatif(a)}${signe(s1)}${ecritureNombreRelatif(b)}${signe(s2)}${ecritureNombreRelatif(c)}${signe(s3)}${ecritureNombreRelatif(d)}${signe(s4)}${ecritureNombreRelatif(e)}$`
         if (this.interactif && context.isHtml) {
-          texte += `$${sp(1)} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+          texte += `$${sp(1)} = $` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBase)
         }
         if (!context.isHtml && !context.isAmc) {
           texte += `<br>$ ${lettreDepuisChiffre(i + 1)} =$`

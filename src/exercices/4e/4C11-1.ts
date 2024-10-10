@@ -11,6 +11,7 @@ import { numAlpha } from '../../lib/outils/outilString.js'
 */
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js' // fonction qui va préparer l'analyse de la saisie
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre un problème avec les relatifs'
 export const dateDePublication = '05/10/2024' // fonctions de mise en place des éléments interactifs
@@ -65,7 +66,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
 
       let texteCorr = ''
       texte += numAlpha(0) + 'Quel est le score maximal à ce jeu ? '
-      texte += ajouteChampTexteMathLive(this, 8 * i, 'inline largeur01 college6eme')
+      texte += ajouteChampTexteMathLive(this, 8 * i, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i, { reponse: { value: String(nombreQuestions * nombresPoints[0]) } })
       texteCorr = '<br>' + numAlpha(0) + `On obtient le score maximal en répondant 
           correctement aux ${nombreQuestions} questions et en marquant ${nombresPoints[0]} points
@@ -74,7 +75,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
           Score maximal $ = ${nombreQuestions} \\times ${nombresPoints[0]}$<br>
           $\\phantom{\\text{Score maxima}} = ${nombreQuestions * nombresPoints[0]}$`
       texte += '<br>' + numAlpha(1) + 'Quel est le score minimal à ce jeu ? '
-      texte += ajouteChampTexteMathLive(this, 8 * i + 1, 'inline largeur01 college6eme')
+      texte += ajouteChampTexteMathLive(this, 8 * i + 1, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i + 1, { reponse: { value: String(-nombreQuestions * nombresPoints[1]) } })
       texteCorr += '<br>' + numAlpha(1) + `On obtient le score minimal en répondant 
           faux aux ${nombreQuestions} questions et en marquant ${ecritureParentheseSiNegatif(-nombresPoints[1])} points
@@ -84,7 +85,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
           $\\phantom{\\text{Score minima}} = ${-nombreQuestions * nombresPoints[1]}$`
       texte += '<br>' + numAlpha(2) + `${candidats[0]} a répondu à toutes les questions, dont ${nombreQuestions * 0.6} correctement.
            Quel est son score ? `
-      texte += ajouteChampTexteMathLive(this, 8 * i + 2, 'inline largeur01 college6eme')
+      texte += ajouteChampTexteMathLive(this, 8 * i + 2, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i + 2, { reponse: { value: String(nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]) } })
       texteCorr += '<br>' + numAlpha(2) + `${candidats[0]} a répondu à ${nombreQuestions} questions en tout,
           dont ${nombreQuestions * 0.6} correctement, donc ${candidats[0]} a répondu faux à ${nombreQuestions * 0.4} questions car 
@@ -96,7 +97,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       texte += '<br>' + numAlpha(3) + `${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2}
       de ses réponses sont fausses.
           Quel est son score ? `
-      texte += ajouteChampTexteMathLive(this, 8 * i + 3, 'inline largeur01 college6eme')
+      texte += ajouteChampTexteMathLive(this, 8 * i + 3, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i + 3, { reponse: { value: String(nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]) } })
       texteCorr += '<br>' + numAlpha(3) + ` ${candidats[1]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses, 
         donc ${candidats[1]} a répondu correctement à ${nombreQuestions * 0.3} questions car ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3}.<br>
@@ -108,7 +109,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       texte += '<br>' + numAlpha(4) + `${candidats[2]} a trouvé ${nombreQuestions * 0.7} mauvaises réponses, 
       et ${candidats[2]} n'a pas répondu aux autres questions.
       Quel est son score ? `
-      texte += ajouteChampTexteMathLive(this, 8 * i + 4, 'inline largeur01 college6eme')
+      texte += ajouteChampTexteMathLive(this, 8 * i + 4, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i + 4, { reponse: { value: String(-nombreQuestions * 0.7 * nombresPoints[1] - nombreQuestions * 0.3 * nombresPoints[2]) } })
       texteCorr += '<br>' + numAlpha(4) + `${candidats[2]} a ${nombreQuestions * 0.7} réponses fausses et n'a pas répondu à ${nombreQuestions * 0.3} questions.<br>
          Son score est donc : <br>
