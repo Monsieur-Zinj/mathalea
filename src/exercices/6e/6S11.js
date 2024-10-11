@@ -118,7 +118,7 @@ export default function OrganiserDonneesDepuisTexte () {
     texte += '<br>'
     texte += `${numAlpha(0)} Remplir le tableau suivant. <br>`
     const tabEntetesColonnes = ['Amis\\textbackslash fruits'].concat(lstFruitExo.map(el => premiereLettreEnMajuscule(el))).concat(['TOTAL']).map(el => `\\text{${el}}`)
-    const tabEntetesLignes = lstPrenomExo.concat(['TOTAL']).map(el => `\\text{${el}}`)
+    const tabEntetesLignes = lstPrenomExo.concat(['TOTAL']).map(el=>`\\text{${el}}`)
     const tabLines = new Array((nbAmis + 1) * (nbFruits + 1)).fill('')
 
     // CORRECTION (je la mets là, parce qu'on a besoin de nmax ef fmax pour les qcm)
