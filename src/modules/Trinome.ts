@@ -69,7 +69,7 @@ export default class Trinome {
   }
 
   /** Renvoie ce trinome multiplié par un scalaire */
-  mul (k: number) {
+  mul (k: number | FractionEtendue) {
     return new Trinome(this.a.produitFraction(k), this.b.produitFraction(k), this.c.produitFraction(k))
   }
 
@@ -501,7 +501,7 @@ export default class Trinome {
    * @type {string}
    */
   get texFormeFactorisee () {
-    if (typeof this.x1 === 'boolean' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
+    if (typeof this.x1 === 'boolean' || typeof this.x1 === 'number' || typeof this.x2 === 'number' || typeof this.x2 === 'boolean' || typeof this.a === 'boolean') throw Error
     if (this.discriminant.valeurDecimale === 0) {
       if (this.a.valeurDecimale === 1) return `(x${this.x1.oppose().simplifie().texFractionSignee})^2`
       else if (this.a.valeurDecimale === -1) return `-(x${this.x1.oppose().simplifie().texFractionSignee})^2`
