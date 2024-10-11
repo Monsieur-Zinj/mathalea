@@ -180,26 +180,26 @@ export default function LectureDiagrammeBaton () {
       this.autoCorrection[0] = {
         type: 'qcmMono',
         propositions: propa,
-        options: { ordered: false }
+        options: { ordered: false, vertical: nbAnimaux > 5 }
       }
       this.autoCorrection[1] = {
         type: 'qcmMono',
         propositions: propb,
-        options: { ordered: false }
+        options: { ordered: false, vertical: nbAnimaux > 5 }
       }
       this.autoCorrection[2] = {
         type: 'qcmMono',
         propositions: propc,
-        options: { ordered: false }
+        options: { ordered: false, vertical: true }
       }
     }
     if (!context.isAmc) {
       const qcm0 = propositionsQcm(this, 0)
       const qcm1 = propositionsQcm(this, 1)
       const qcm2 = propositionsQcm(this, 2)
-      this.listeQuestions[0] += qcm0.texte
-      this.listeQuestions[1] += qcm1.texte
-      this.listeQuestions[2] += qcm2.texte
+      this.listeQuestions[0] += `<br>${qcm0.texte}`
+      this.listeQuestions[1] += `<br>${qcm1.texte}`
+      this.listeQuestions[2] += `<br>${qcm2.texte}`
     }
   }
   this.besoinFormulaireNumerique = ['Nombre d\'espèces différentes', 3, '1 : 4 espèces\n2 : 5 espèces\n3 : 6 espèces']
