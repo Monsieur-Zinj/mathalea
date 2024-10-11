@@ -12,7 +12,7 @@ type numberOrFraction = number | FractionEtendue
  *  - this.texX1, this.texCalculRacine1 sont relatifs à la plus petite des deux racines, this.texX2 et this.texCalculRacine2 à la plus grande.
  * @author Rémi Angot
  */
-class Trinome {
+export default class Trinome {
   a: FractionEtendue
   b: FractionEtendue
   c: FractionEtendue
@@ -406,7 +406,7 @@ class Trinome {
       result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
     result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
-    return new FractionEtendue(result, 1)
+    return result
   }
 
   /** Deuxième racine du trinome */
@@ -426,7 +426,7 @@ class Trinome {
       result = Math.round((-this.b.valeurDecimale + Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
     }
     result = Math.round((-this.b.valeurDecimale - Math.sqrt(this.discriminant.valeurDecimale)) / (2 * this.a.valeurDecimale) * (10 ** this.precision)) / (10 ** this.precision)
-    return new FractionEtendue(result, 1)
+    return result
   }
 
   /**
@@ -555,5 +555,3 @@ class Trinome {
     return result
   }
 }
-
-export default Trinome
