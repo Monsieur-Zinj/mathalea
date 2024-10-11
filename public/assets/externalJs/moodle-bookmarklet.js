@@ -136,7 +136,7 @@
         const formData = new FormData()
         formData.append('repo_upload_file', file, message.data.exercices.length === 1 ? message.data.exercices[0].titre : 'Activité MathALÉA')
         formData.append('sesskey', window.M.cfg.sesskey)
-        formData.append('course', new URL(document.querySelector('#page-navbar a').getAttribute('href')).searchParams.get('id') || new URL(location.href).searchParams.get('id'))
+        formData.append('course', new URL(document.querySelector('#page-navbar a')?.getAttribute('href')||location.href).searchParams.get('id'))
         formData.append('section', SECTION)
         formData.append('module', 'scorm')
         formData.append('type', 'Files')
