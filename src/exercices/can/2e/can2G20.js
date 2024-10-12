@@ -14,6 +14,7 @@ export const titre = 'Déterminer une équation de droite (graphique)'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '15/11/2022'
+export const dateDeModifImportante = '12/10/2024'
 /**
  * Modèle d'exercice très simple pour la course aux nombres
  * @author Gilles Mora
@@ -93,9 +94,9 @@ export default function EquationDroite () {
           grilleSecondaireXMin: xmin,
           grilleSecondaireXMax: xmax
         })
-        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
+        objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
-
+        this.reponse = [`y=${maFraction.texFraction}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`, `y=\\frac{${yA - yB}}{${xA - xB}}x + ${yA}`]
         this.question = 'Donner l\'équation réduite de la droite.<br>'
         this.question += `${objet}`
         if (yB === yA) {
@@ -106,18 +107,19 @@ export default function EquationDroite () {
           this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
     $m=\\dfrac{${miseEnEvidence(yB - yA, 'blue')}}{${miseEnEvidence(xB - xA, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.
 <br>`
-          if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${ecritureAlgebrique(yA)}`)}$.` }
-          if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${ecritureAlgebrique(yA)}`)}$.` }
-          if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(yA)}`)}$.` }
+          if ((yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
+          if ((yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=-x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
+          if ((yB - yA) / xB !== -1 && (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${yA === 0 ? '' : `${ecritureAlgebrique(yA)}`}`)}$.` }
           this.correction += `<br>
 
           ${objetC}<br>
 
           `
         }
+
         this.canEnonce = this.question
         this.canReponseACompleter = ''
-        this.reponse = [`y=${maFraction.texFractionSimplifiee}x + ${yA}`, `y=\\frac{${yB - yA}}{${xB - xA}}x + ${yA}`]
+
         break
 
       case 2:
@@ -178,7 +180,7 @@ export default function EquationDroite () {
           yLabelEcart: 0.5,
           grilleYDistance: 0.5
         })
-        objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
+        objet = mathalea2d({ xmin, xmax, ymin: ymin - 0.25, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
         objetC2 = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, lABx2, sBAx, sAxA, lBBx2)
         this.question = 'Donner l\'équation réduite de la droite.<br>'
@@ -204,9 +206,9 @@ export default function EquationDroite () {
             this.correction = `Le coefficient directeur $m$ de la droite $(AB)$ est donné par : <br>
       $m=\\dfrac{${miseEnEvidence(2 * yA - 2 * yB, 'blue')}}{${miseEnEvidence(xA - xB, 'red')}}${maFraction.texSimplificationAvecEtapes()}$.
   <br>`
-            if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB === 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=x${ecritureAlgebrique(2 * yA)}`)}$.` }
             if (2 * (yB - yA) / xB === -1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=-x${ecritureAlgebrique(2 * yA)}$.` }
-            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $y=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}$.` }
+            if (2 * (yB - yA) / xB !== -1 && 2 * (yB - yA) / xB !== 1) { this.correction += `Son ordonnée à l'origine est $${2 * yA}$, ainsi l'équation réduite de la droite est $${miseEnEvidence(`y=${maFraction.texFractionSimplifiee}x${ecritureAlgebrique(2 * yA)}`)}$.` }
             this.correction += `<br>
 
             ${objetC2}<br>
@@ -214,6 +216,7 @@ export default function EquationDroite () {
             `
           }
         }
+
         this.canEnonce = this.question
         this.canReponseACompleter = ''
         if (yA !== 0) {
@@ -221,7 +224,9 @@ export default function EquationDroite () {
         } else {
           this.reponse = [`y=${maFraction.texFractionSimplifiee}x `, `y=\\frac{${2 * yB - 2 * yA}}{${xB - xA}}x`]
         }
+
         break
     }
+    if (this.interactif) { this.question += 'Donner l\'écriture la plus simple possible. ' }
   }
 }
