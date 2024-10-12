@@ -1,6 +1,5 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { warnMessage } from '../../lib/format/message.js'
-import { modalPdf } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { decompositionFacteursPremiersArray, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -30,13 +29,8 @@ export default function FractionsIrreductibles () {
   this.nbColsCorr = 1
   this.sup = true
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A12.pdf', 'Aide mémoire sur les fonctions (Sébastien Lozano)', 'Aide mémoire')
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-    }
 
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées

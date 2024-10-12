@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { modalUrl } from '../../lib/outils/modales.js'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { sp } from '../../lib/outils/outilString.js'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -38,10 +37,7 @@ export default function MultiplierEntierPar101001000 () {
   this.sup = 2
   this.sup2 = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modalUrl(numeroExercice, 'https://mathix.org/glisse-nombre/index.html',
-      'Glisse-nombre'
-    )
+  this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, choice([5, 6]), 7, 8, 9]
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,

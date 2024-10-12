@@ -1,7 +1,6 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
-import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -45,14 +44,8 @@ export default function PremierOuPasCriterePar7Par11 () {
   this.sup = true
   const prems = cribleEratostheneN(529) // constante contenant tous les nombres premiers jusqu'à 529...
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
-    } else { // sortie LaTeX
-    }
     if (this.interactif) {
       this.consigne = 'Les nombres suivants sont-ils premiers ? Penser aux critères de divisibilité.'
     }

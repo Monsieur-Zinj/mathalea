@@ -1,6 +1,5 @@
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { infoMessage, lampeMessage } from '../../lib/format/message.js'
-import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace, texNombre } from '../../lib/outils/texNombre'
@@ -116,9 +115,6 @@ Ces machines sont appelées $\\textit{fonctions}$, on a l'habitude de leur donne
     })
 
     if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheFonctions-3F1-act.pdf', 'Aide mémoire sur les fonctions (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsFonctions', 'https://coopmaths.fr/videos/Fonctions.mp4', 'Petit conte mathématique', 'Intro Vidéo')
-      this.introduction += machineMathsVideo('videos/machineMathsIntro.mp4')
     } else { // sortie LaTeX
       this.introduction += tikzMachineMaths('maths', '---', 'Proc\\acute{e}d\\acute{e}', 'de\\,calcul', 'ant\\acute{e}c\\acute{e}dent', '\\textit{x}', 'image', '\\textit{y}')
     }

@@ -6,7 +6,6 @@ import { texteParPosition } from '../../lib/2d/textes.ts'
 import { combinaisonListesSansChangerOrdre } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { lampeMessage } from '../../lib/format/message.js'
-import { modalYoutube } from '../../lib/outils/modales.js'
 import { texteGras } from '../../lib/format/style'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
@@ -103,16 +102,7 @@ export default function ConjectureDeSyracuse () {
   //  this.sup3 = false; // A décommenter : valeur par défaut d'un troisième paramètre
 
   // c'est ici que commence le code de l'exercice cette fonction crée une copie de l'exercice
-  this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modalYoutube(
-      numeroExercice,
-      'https://youtu.be/aRe4ARtQiJY',
-      'Conjecture de Syracuse',
-      'En vidéo sur Maths-et-tiques'
-    )
-    // la variable numeroExercice peut être récupérée pour permettre de différentier deux copies d'un même exo
-    // Par exemple, pour être certain de ne pas avoir les mêmes noms de points en appelant 2 fois cet exo dans la même page
-
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // tableau contenant la liste des questions
     this.listeCorrections = []
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5] // tableau à compléter par valeurs possibles des types de questions

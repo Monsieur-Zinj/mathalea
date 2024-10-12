@@ -1,5 +1,4 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { modalPdf } from '../../lib/outils/modales.js'
 import { simpExp } from '../../lib/outils/puissance'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -39,7 +38,7 @@ export default function PuissancesDUnRelatif2 () {
   this.nbQuestions = 8
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.autoCorrection = []
 
     const typesDeQuestionsDisponibles = [1, 2, 3, 4, 5, 6, 7, 8]
@@ -47,13 +46,6 @@ export default function PuissancesDUnRelatif2 () {
     const listeTypeDeQuestions = combinaisonListes(
       typesDeQuestionsDisponibles,
       this.nbQuestions
-    )
-
-    this.boutonAide = modalPdf(
-      numeroExercice,
-      'assets/pdf/FichePuissances-4N21.pdf',
-      'Aide mémoire sur les puissances (Sébastien Lozano)',
-      'Aide mémoire'
     )
 
     for (

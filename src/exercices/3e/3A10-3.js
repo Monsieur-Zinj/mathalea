@@ -1,6 +1,5 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
-import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN, obtenirListeFacteursPremiers, premiersEntreBornes } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -22,7 +21,6 @@ export const titre = 'Décomposer un entier en produit de facteurs premiers'
  * type 2 : un produit de deux premiers entre 30 et 100, multiplicité 1 ... suffisamment de possibilités?
  * type 3 : un grand nombre premier au delà de 1000 et inférieur à 2 000
  * @author Sébastien Lozano (Rajout par EE du this.sup2 et de l'AMC)
- * Référence 3A10-3
  */
 export const uuid = '32f33'
 export const ref = '3A10-3'
@@ -45,14 +43,8 @@ export default function DecompositionFacteursPremiers () {
   this.besoinFormulaire2Texte = ['Choix des décompositions', 'Nombres séparés par des tirets\n1 : 3 à 5 petits facteurs premiers max\n2 : 2 facteurs premiers entre 30 et 100\n3 : Un seul grand nombre premier\n4 : Mélange']
   this.sup = true
   this.sup2 = 4
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
-    } else { // sortie LaTeX
-    }
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
     /* From Sebastien Lozano

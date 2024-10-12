@@ -1,7 +1,6 @@
 import { combinaisonListesSansChangerOrdre, shuffle } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { warnMessage } from '../../lib/format/message.js'
-import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { cribleEratostheneN } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -42,14 +41,8 @@ export default function PremierOuPas5e () {
   this.nbColsCorr = 1
   this.sup = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-5A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
-    } else { // sortie LaTeX
-    }
 
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
