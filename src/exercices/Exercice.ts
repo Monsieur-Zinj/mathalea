@@ -5,6 +5,7 @@ import { exportedApplyNewSeed, exportedNouvelleVersionWrapper, exportedQuestionJ
 import type { AutoCorrection } from '../lib/interactif/gestionInteractif'
 import type { OptionsComparaisonType } from '../lib/interactif/comparisonFunctions'
 import type DragAndDrop from '../lib/interactif/DragAndDrop'
+import type Figure from 'apigeom/src/Figure'
 
 /**
  *
@@ -51,7 +52,7 @@ export default class Exercice {
   contenu?: string
   contenuCorrection?: string
   autoCorrection: AutoCorrection[]
-  figures?: Array<{id: string, solution: boolean}>[]
+  figures?: Figure[]
   amcType?: string
   tableauSolutionsDuQcm?: object[]
   spacing: number

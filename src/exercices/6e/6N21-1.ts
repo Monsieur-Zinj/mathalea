@@ -31,7 +31,6 @@ export const refs = {
 type goodAnswer = { label: string, x: number }[]
 
 class PlacerPointsAbscissesFractionnairesBis extends Exercice {
-  figures!: Figure[]
   goodAnswers!: goodAnswer[]
   constructor () {
     super()
