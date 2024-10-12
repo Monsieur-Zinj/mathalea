@@ -5,6 +5,7 @@ import { texNombre } from '../../../lib/outils/texNombre'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint, calculANePlusJamaisUtiliser } from '../../../modules/outils.js'
 import { propositionsQcm } from '../../../lib/interactif/qcm.js'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../../lib/outils/embellissements'
 export const titre = 'Donner la nature d’une suite (formule explicite)'
 export const interactifReady = true
 export const interactifType = 'qcm'
@@ -67,14 +68,12 @@ export default function NatureSuiteEx () {
           if (this.interactif) texte += props.texte
           else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =${a}n${ecritureAlgebrique(b)} $.<br>
-
           Quelle est la nature de cette suite ?<br>
-          
           Donner sa raison et son premier terme.`
           }
 
           texteCorr = `L'expression est de la forme $${s}_n=${s}_0+nr$ avec $${s}_0=${b}$ et $r=${a}$.<br>
-        On en déduit que $(${s}_n)$ est une suite arithmétique de raison $${a}$ et de premier terme $${s}_0=${a}$.`
+        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(a)}$ et de premier terme $${s}_0=${a}$.`
 
           break
         case 2 :// suite arithmétique avec fraction
@@ -106,27 +105,23 @@ export default function NatureSuiteEx () {
           if (this.interactif) texte += props.texte
           else {
             texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}$.<br>
-          
             Quelle est la nature de cette suite ?<br>
-            
             Donner sa raison et son premier terme.`
           }
           if (b < 0) {
             texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n${texFractionReduite(b, d)}$.<br> `
           } else { texteCorr = `$${s}_{n} =\\dfrac{${a}n${ecritureAlgebrique(b)}}{${d}}=${texFractionReduite(a, d)}n+${texFractionReduite(b, d)}$.<br> ` }
-
           texteCorr += `Cette dernière expression est de la forme $${s}_n=${s}_0+nr$ avec $${s}_0=${texFractionReduite(b, d)}$ et $r=${texFractionReduite(a, d)}$.<br>
-        On en déduit que $(${s}_n)$ est une suite arithmétique de raison $${texFractionReduite(a, d)}$ et de premier terme $${s}_0=${texFractionReduite(b, d)}$.`
+        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite arithmétique de raison')} $${miseEnEvidence(`${texFractionReduite(a, d)}`)}$ et de premier terme $${s}_0=${texFractionReduite(b, d)}$.`
 
           break
         case 3 :// suite geométrique simple
           a = randint(-10, 10, [-1, 0])
           // u = randint(1, 10) * choice([-1, 1])
           b = randint(-10, 10, [-1, 0, 1, a])
-          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =`
-          if (a === 1) { texte += `${ecritureParentheseSiNegatif(b)}^n$` } else { texte += `${a}\\times${ecritureParentheseSiNegatif(b)}^n$` }
-
-          texte += `<br>Alors, $(${s}_n)$ est une suite ...`
+          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
+          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
+<br>Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -146,12 +141,10 @@ export default function NatureSuiteEx () {
             ]
           }
           props = propositionsQcm(this, i)
-          if (this.interactif) texte += props.texte
-          else {
-            texte += ` <br>
-            
-            Quelle est la nature de cette suite ?<br>
-            
+          if (this.interactif) { texte += props.texte } else {
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =
+          ${a === 1 ? `${ecritureParentheseSiNegatif(b)}^n$` : `${a}\\times${ecritureParentheseSiNegatif(b)}^n$`}
+<br>       Quelle est la nature de cette suite ?<br> 
             Donner sa raison et son premier terme.`
           }
           if (a === 1) {
@@ -162,7 +155,7 @@ export default function NatureSuiteEx () {
          `
           }
           texteCorr += `  <br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $${b}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
+        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(b)}$ et de premier terme $${s}_0=${a}\\times ${ecritureParentheseSiNegatif(b)}^0=${a}$.`
 
           break
 
@@ -170,9 +163,8 @@ export default function NatureSuiteEx () {
           a = randint(-10, 10, [-1, 0])
           // u = randint(1, 10) * choice([-1, 1])
           b = randint(2, 10, a)
-          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.`
-
-          texte += `<br>Alors, $(${s}_n)$ est une suite ...`
+          texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.
+         <br>Alors, $(${s}_n)$ est une suite ...`
           this.autoCorrection[i] = {
             enonce: texte,
             options: { horizontal: true },
@@ -194,17 +186,13 @@ export default function NatureSuiteEx () {
           props = propositionsQcm(this, i)
           if (this.interactif) texte += props.texte
           else {
-            texte += ` <br>
-            
-            Quelle est la nature de cette suite ?<br>
-            
+            texte = `Soit $(${s}_n)$ une suite définie  pour tout  $n\\in\\mathbb{N}$ par $${s}_{n} =\\dfrac{${a}}{${b}^n}$.<br>
+            Quelle est la nature de cette suite ?<br> 
             Donner sa raison et son premier terme.`
           }
-
           texteCorr = `$${s}_{n+1} =\\dfrac{${a}}{${b}^{n+1}}=\\dfrac{1}{${b}}\\times \\underbrace{\\dfrac{${a}}{${b}^n}}_{${s}_{n}}=\\dfrac{1}{${b}}\\times ${s}_n$`
           texteCorr += `  <br>
-        On en déduit que $(${s}_n)$ est une suite géométrique de raison $\\dfrac{1}{${b}}$ et de premier terme $${s}_{0} =\\dfrac{${a}}{${b}^0}=${a}$.`
-
+        On en déduit que $(${s}_n)$ est une ${texteEnCouleurEtGras('suite géométrique de raison')} $${miseEnEvidence(`\\dfrac{1}{${b}}`)}$ et de premier terme $${s}_{0} =\\dfrac{${a}}{${b}^0}=${a}$.`
           break
       }
 
