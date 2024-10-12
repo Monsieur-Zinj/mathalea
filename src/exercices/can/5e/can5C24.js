@@ -60,7 +60,7 @@ export default function FractionVersDecimal () {
 
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question// 'Compléter'
-  this.canReponseACompleter = ''
 }

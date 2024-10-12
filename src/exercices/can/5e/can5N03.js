@@ -71,7 +71,7 @@ export default function PlusGrandMultiple () {
         }
         break
     }
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question// 'Compléter'
-  this.canReponseACompleter = ''
 }
