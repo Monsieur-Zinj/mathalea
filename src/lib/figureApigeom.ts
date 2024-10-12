@@ -1,7 +1,6 @@
 import type Exercice from '../exercices/Exercice'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
-import { ajouteFeedback } from './interactif/questionMathLive'
 
 /**
  * Insère une figure apigeom dans la sortie HTML de l'exercice
@@ -51,5 +50,5 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     }
   })
 
-  return `<div class="m-6" id="${idApigeom}"></div>` + ajouteFeedback(exercice, question)
+  return `<div class="m-6" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
 }
