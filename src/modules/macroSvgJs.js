@@ -1,13 +1,12 @@
 /* eslint-disable camelcase */
 import katex from 'katex'
 import { SVG } from '@svgdotjs/svg.js'
-import { context } from './context.js'
+// import { context } from './context.js'
 import { arrondi } from '../lib/outils/nombres'
 
 /**
  * Renvoie deux engrenages en HTML
  * @author Sébastien Lozano
- */
 
 export function svgEngrenages () {
   class SvgEngrenage extends HTMLElement {
@@ -108,7 +107,7 @@ export function svgEngrenages () {
     }
   }
 }
-
+*/
 /**
  * Crée un diagramme pour une fonction arithmétique à deux étapes produit puis somme
  * @param {string} id_du_div id du div contenant le SVG

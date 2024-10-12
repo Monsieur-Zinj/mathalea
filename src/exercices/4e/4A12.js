@@ -1,6 +1,5 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
-import { warnMessage } from '../../lib/format/message.js'
 import { nombreDeChiffresDe } from '../../lib/outils/nombres'
 import { personne } from '../../lib/outils/Personne'
 import { listeNombresPremiersStrictJusqua } from '../../lib/outils/primalite'
@@ -8,7 +7,6 @@ import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { svgEngrenages } from '../../modules/macroSvgJs.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -44,7 +42,7 @@ export default function ProblemesEvenementsRecurrents () {
   this.correctionDetailleeDisponible = true
   this.interactif = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -263,10 +261,12 @@ export default function ProblemesEvenementsRecurrents () {
         default:
           break
       }
+      /*
       let txtIntro = ''
       if (context.isHtml && saveurs[i] === 'engrenages') {
         // eslint-disable-next-line no-var
         var pourcentage = '100%'
+
         const idUnique = `${numeroExercice}_${Date.now()}`
         const idDivIntro = `divIntro${idUnique}`
         txtIntro += warnMessage('Attention, les roues ci-dessous ne comportent pas le nombre de dents de l\'énoncé!', 'nombres', 'Coup de pouce')
@@ -276,6 +276,7 @@ export default function ProblemesEvenementsRecurrents () {
         txtIntro = ''
       }
       this.introduction = txtIntro
+      */
       switch (this.sup) {
         case 1:
           decompositionCommun = texteEnCouleurEtGras(nombreAvecEspace(Commun), 'blue')
