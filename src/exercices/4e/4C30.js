@@ -1,5 +1,4 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
-import { modalPdf } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre, sp } from '../../lib/outils/outilString.js'
 import { eclatePuissance, simpExp } from '../../lib/outils/puissance'
 import Exercice from '../deprecatedExercice.js'
@@ -44,16 +43,10 @@ export default function PuissancesDeDix () {
   this.besoinFormulaire2Texte = ['Type de calculs', 'Nombres séparés par des tirets\n1 : Produit de puissances\n2 : Quotient de puissances\n3 : Puissance de puissances\n4 : Mélange'] // le paramètre sera numérique de valeur max 2 (le 2 en vert)
   this.besoinFormulaire3CaseACocher = ['Avec des puissances négatives']
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.sup3 = Boolean(this.sup3)
     this.correctionDetailleeDisponible = this.sup !== 2
     let typesDeQuestions
-    this.boutonAide = modalPdf(
-      numeroExercice,
-      'assets/pdf/FichePuissances-4N21.pdf',
-      'Aide mémoire sur les puissances (Sébastien Lozano)',
-      'Aide mémoire'
-    )
 
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

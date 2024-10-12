@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { modalPdf } from '../../lib/outils/modales.js'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import { eclatePuissance, simpNotPuissance } from '../../lib/outils/puissance'
 import { texteGras } from '../../lib/format/style'
@@ -90,15 +89,7 @@ export default function PuissancesDunRelatif1 () {
     return sortie
   }
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modalPdf(
-      numeroExercice,
-      'assets/pdf/FichePuissances-4N21.pdf',
-      'Aide mémoire sur les puissances (Sébastien Lozano)',
-      'Aide mémoire'
-    )
-
-    // const typesDeQuestionsDisponibles = this.sup < 5 ? [this.sup] : [1, 2, 3, 4]
+  this.nouvelleVersion = function () {
     const typesDeQuestionsDisponibles = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,

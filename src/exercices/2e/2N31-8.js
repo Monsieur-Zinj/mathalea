@@ -1,5 +1,4 @@
 import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
-import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { context } from '../../modules/context.js'
@@ -24,7 +23,7 @@ export const refs = {
   'fr-fr': ['2N31-8'],
   'fr-ch': []
 }
-export default function ConversionsPuissancesDe10 (numeroExercice) {
+export default function ConversionsPuissancesDe10 () {
   Exercice.call(this)
   this.consigne = 'Compléter :'
   this.nbQuestions = 5
@@ -34,16 +33,6 @@ export default function ConversionsPuissancesDe10 (numeroExercice) {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = !context.isHtml
 
-  this.boutonAide = modalTexteCourt(numeroExercice,
-    `téra : mille-milliards $\\times10^{12}$<br>
-giga : milliard $\\times10^9$<br>
-méga : million $\\times10^6$<br>
-kilo : mille $\\times10^3$<br>
-milli : millième $\\times10^{-3}$<br>
-micro : millionième $\\times10^{-6}$<br>
-nano : milliardième $\\times10^{-9}$<br>
-`, 'Signification des préfixes'
-  )
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées

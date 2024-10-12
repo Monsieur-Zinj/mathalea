@@ -1,5 +1,4 @@
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { modalPdf, modalVideo } from '../../lib/outils/modales.js'
 import { numAlpha } from '../../lib/outils/outilString.js'
 import { cribleEratostheneN, listeDesDiviseurs } from '../../lib/outils/primalite'
 import { texNombre } from '../../lib/outils/texNombre'
@@ -38,27 +37,10 @@ export default function ListerDiviseursParDecompositionFacteursPremiers () {
   this.nbCols = 1
   this.nbColsCorr = 1
 
-  this.nouvelleVersion = function (numeroExercice) {
-    // let typesDeQuestions
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A11.pdf', 'Aide mémoire sur les nombres premiers (Sébastien Lozano)', 'Aide mémoire')
-      this.boutonAide += modalVideo('conteMathsNombresPremiers', 'https://coopmaths.fr/videos/LesNombresPremiers.mp4', 'Petit conte mathématique - Les Nombres Premiers', 'Intro Vidéo')
-    } else { // sortie LaTeX
-    }
-
+  this.nouvelleVersion = function () {
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
-
-    // const typesDeQuestionsDisponibles = [1]
-    // let typesDeQuestionsDisponibles = [1];
-    // const listeTypeDeQuestions = combinaisonListesSansChangerOrdre(typesDeQuestionsDisponibles, this.nbQuestions)
-
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      // typesDeQuestions = listeTypeDeQuestions[i]
-
-      // switch (typesDeQuestions) {
-      // case 1: // lister/compter les diviseurs d'un entier à partir de sa décomposition en facteurs premiers
       texte = 'Lister/compter les diviseurs d\'un entier à partir de sa décomposition en facteurs premiers'
       // let premiers_dispos = premiersEntreBornes(2,11);
       // on fixe le nombre de facteurs premier à 3

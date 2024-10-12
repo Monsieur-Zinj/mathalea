@@ -1,4 +1,3 @@
-import { modalTexteCourt } from '../../lib/outils/modales.js'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
@@ -29,11 +28,7 @@ export default function Ajouter9 () {
   this.nbColsCorr = 2
   this.tailleDiaporama = 3
 
-  this.nouvelleVersion = function (numeroExercice) {
-    this.boutonAide = modalTexteCourt(
-      numeroExercice,
-      'Ajouter 9 revient à ajouter 10 et à soustraire 1.'
-    )
+  this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions
     this.listeCorrections = [] // Liste de questions corrigées
 

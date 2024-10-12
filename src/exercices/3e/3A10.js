@@ -1,6 +1,5 @@
 import { combinaisonListesSansChangerOrdre, shuffle, shuffle2tableaux } from '../../lib/outils/arrayOutils'
 import { texteEnCouleur } from '../../lib/outils/embellissements'
-import { modalPdf } from '../../lib/outils/modales.js'
 import { listeDesDiviseurs } from '../../lib/outils/primalite'
 import { nombreAvecEspace } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
@@ -35,16 +34,10 @@ export default function DivisionEuclidienneMultiplesDiviseursCriteres () {
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
 
-  this.nouvelleVersion = function (numeroExercice) {
+  this.nouvelleVersion = function () {
     this.sup3 = contraindreValeur(2, 16, this.sup3, 10)
     let nbChiffresMax = contraindreValeur(1, 5, this.sup, 2)
     const nbDiviseursMax = contraindreValeur(2, this.sup3, this.sup2, 6)
-
-    if (context.isHtml) { // les boutons d'aide uniquement pour la version html
-      // this.boutonAide = '';
-      this.boutonAide = modalPdf(numeroExercice, 'assets/pdf/FicheArithmetique-3A10.pdf', 'Aide-mémoire sur la division euclidienne (Sébastien Lozano)', 'Aide-mémoire')
-      // this.boutonAide += modalVideo('conteMathsNombresPremiers','https://coopmaths.fr/videos/LesNombresPremiers.mp4','Petit conte mathématique','Intro Vidéo');
-    }
 
     this.contenu = '' // Liste de questions
     this.contenuCorrection = '' // Liste de questions corrigées
