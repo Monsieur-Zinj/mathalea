@@ -8,6 +8,7 @@ import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { context } from '../../modules/context.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Jouer avec la compréhension des multiples d\'un nombre'
 
@@ -90,7 +91,7 @@ export default function DivisionEuclidienneEtAjout () {
 
       if (this.interactif) {
         setReponse(this, i, reponse)
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01')
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers)
       }
       if (context.isAmc) {
         this.autoCorrection[i] = this.sup

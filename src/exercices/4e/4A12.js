@@ -9,6 +9,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -364,12 +365,12 @@ export default function ProblemesEvenementsRecurrents () {
       if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
         if (typeDeQuestion > 1) {
           if (saveurs[i] === 'engrenages') {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' tours' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' tours' })
           } else {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' fois' })
+            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' fois' })
           }
         } else {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25', { texteApres: ' ' + unite })
+          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' ' + unite })
         }
       }
       if (context.isAmc) {

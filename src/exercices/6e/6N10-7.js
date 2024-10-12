@@ -100,10 +100,10 @@ export default function RecomposerEntierC3 () {
       ['unité', 'unités'],
       ['dizaine', 'dizaines'],
       ['centaine', 'centaines'],
-      ['mille', 'mille'],
+      ['unité de mille', 'unités de mille'],
       ['dizaine de mille', 'dizaines de mille'],
       ['centaine de mille', 'centaines de mille'],
-      ['million', 'millions'],
+      ['unité de million', 'unités de millions'],
       ['dizaine de millions', 'dizaines de millions']
     ]
     for (
