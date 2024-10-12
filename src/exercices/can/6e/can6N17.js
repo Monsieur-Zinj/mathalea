@@ -1,15 +1,17 @@
 import { droiteGraduee } from '../../../lib/2d/reperes.js'
-import { texteParPosition } from '../../../lib/2d/textes.ts'
+import { latex2d } from '../../../lib/2d/textes.ts'
 import { choice } from '../../../lib/outils/arrayOutils'
-import { stringNombre, texNombre } from '../../../lib/outils/texNombre'
+import { texNombre } from '../../../lib/outils/texNombre'
 import Decimal from 'decimal.js'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
 import { mathalea2d } from '../../../modules/2dGeneralites.js'
-export const titre = 'Lire une abscisse sur une droite graduée avec des décimaux*'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
+export const titre = 'Lire une abscisse sur une droite graduée avec des décimaux'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const dateDePublication = '29/08/2022'
+export const dateDeModifImportante = '12/10/2024'
 /*!
  * @author Gilles Mora
  *
@@ -46,17 +48,17 @@ export default function AbscisseDroiteDecimaux () {
         Max: 2.1,
         thickSecDist: 0.2,
         axeStyle: '->',
-        pointTaille: 4,
+        pointTaille: 3,
         pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
+        labelListe: [[0, `${texNombre(abs0, 2)}`], [1, `${texNombre(abs1, 2)}`], [2, `${texNombre(abs2, 2)}`]],
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 10, ymax: 1.5, pixelsParCm: 35, scale: 0.75 }, texteParPosition('A', 4 * x1, 0.8, 'milieu', 'blue', 2), d)
-      this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles.<br>
-     Une graduation correspond donc à $0,002$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $5$ intervalles. Une graduation correspond donc à $0,002$. <br>
+      Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 4))}$.`
     }
 
     if (choix1 === 'b') { // graduation de 0,025 en 0,025
@@ -74,17 +76,17 @@ export default function AbscisseDroiteDecimaux () {
         Max: 2.1,
         thickSecDist: 0.25,
         axeStyle: '->',
-        pointTaille: 4,
+        pointTaille: 3,
         pointStyle: 'x',
         labelsPrincipaux: false,
         thickSec: true,
-        labelListe: [[0, `${stringNombre(abs0)}`], [1, `${stringNombre(abs1)}`], [2, `${stringNombre(abs2)}`]],
+        labelListe: [[0, `${texNombre(abs0, 2)}`], [1, `${texNombre(abs1, 2)}`], [2, `${texNombre(abs2, 2)}`]],
         pointListe: [[x1, '']]
       })
       this.reponse = new Decimal(x1).div(100).add(abs0)
-      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1.5, xmax: 10, ymax: 1.5, pixelsParCm: 35, scale: 0.75 }, texteParPosition('A', 4 * x1, 0.8, 'milieu', 'blue', 2), d)
-      this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles.<br>
-     Une graduation correspond donc à $0,0025$. Ainsi, l'abscisse du point $A$ est $${texNombre(this.reponse, 4)}$.`
+      this.question = 'Déterminer l\'abscisse du point $A$. <br>' + mathalea2d({ xmin: -0.5, ymin: -1, xmax: 10, ymax: 1, pixelsParCm: 35, scale: 0.75 }, latex2d('A', 4 * x1, 0.5, { color: 'blue', letterSize: '' }), d)
+      this.correction = `Entre $${texNombre(abs0)}$ et $${texNombre(abs1)}$, il y a $4$ intervalles. Une graduation correspond donc à $${texNombre(0.0025)}$. <br>
+      Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(this.reponse, 4))}$.`
     }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
