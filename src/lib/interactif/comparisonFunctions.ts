@@ -1,8 +1,7 @@
+/* eslint-disable no-undef */
 import {
   ComputeEngine,
-  type BoxedExpression,
-  type Parser,
-  type LatexDictionaryEntry
+  type BoxedExpression
 } from '@cortex-js/compute-engine'
 import { abs } from '../../lib/outils/nombres'
 // import FractionEtendue from '../../modules/FractionEtendue'
@@ -10,7 +9,6 @@ import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
 // import { texFractionFromString } from '../outils/deprecatedFractions'
 import type { Expression } from 'mathlive'
-import type { ParserOptions } from 'svelte/types/compiler/interfaces'
 import { areSameArray } from '../outils/arrayOutils'
 
 const engine = new ComputeEngine()
@@ -1010,11 +1008,12 @@ function texteAvecCasseCompare (input: string, goodAnswer: string): ResultType {
   const cleaner = generateCleaner(['parentheses', 'mathrm', 'fractions'])
   const localInput = cleaner(input)
   const localGoodAnswer = cleaner(goodAnswer)
+  const isOk = localGoodAnswer === localInput
   // Cette commande ci-dessous est mauvaise. Je la laisse pour expliquer pourquoi elle est mauvaise.
   // Autant, elle serait utile pour comparer 'aucun' et 'Aucun'
   // mais elle ne le serait plus pour comparer [AB] et [ab] ce qui serait dommage.
   // return { isOk: input.toLowerCase() === goodAnswer.toLowerCase() }
-  return { isOk: localGoodAnswer === localInput }
+  return { isOk }
 }
 
 /**
@@ -1892,7 +1891,7 @@ export function egaliteCompare (input: string, goodAnswer: string): ResultType {
   const { isOk: isOk2 } = fonctionComparaison(m1, goodAnswerMb1)
   const { isOk: isOk3 } = fonctionComparaison(m2, goodAnswerMb2)
   const { isOk: isOk4 } = fonctionComparaison(m1, goodAnswerMb2)
-  return { isOk: (isOk1 || isOk2) && (isOk3 || isOk4) }
+  return { isOk: (isOk1 && isOk4) || (isOk3 && isOk2) }
 }
 
 /**
