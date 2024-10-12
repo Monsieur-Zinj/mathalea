@@ -54,17 +54,17 @@ export default function CoeffDirDroite () {
         sBBx.pointilles = 5
         sABx.epaisseur = 2
         sABx.pointilles = 5
-        lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1.5)
+        lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
-        lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1.5)
-        lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1.5)
-        lBBx = texteParPosition(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1.5)
+        lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1)
+        lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1)
+        lBBx = texteParPosition(`${yB - yA}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1)
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
         d = droite(A, B, '', 'blue')
         d.epaisseur = 2
-        traceA.taille = 3
+        traceA.taille = 2
         traceA.epaisseur = 2
-        traceB.taille = 3
+        traceB.taille = 2
         traceB.epaisseur = 2
         xmin = -5
         ymin = -1
@@ -97,7 +97,7 @@ export default function CoeffDirDroite () {
         objet = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o)
         objetC = mathalea2d({ xmin, xmax, ymin, ymax: ymax + 0.25, pixelsParCm: 30, scale: 0.75, style: 'margin: auto' }, d, r1, traceA, lA, lB, traceB, o, sABx, sBBx, lABx, lBBx)
 
-        this.question = 'Donner le coefficient directeur $m$ de la droite.<br><br>'
+        this.question = 'Donner le coefficient directeur $m$ de la droite.<br>'
         this.question += `${objet}<br>`
         this.optionsChampTexte = { texteAvant: '$m =$' }
         if (yB === yA) {
@@ -128,14 +128,14 @@ export default function CoeffDirDroite () {
         lA = texteParPosition('A', xA, yA + 0.5, 'milieu', 'black', 1.5)
         traceA = tracePoint(A, 'black') // Variable qui trace les points avec une croix
         lB = texteParPosition('B', xB, yB + 0.5, 'milieu', 'black', 1.5)
-        if (yA > yB) { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1.5) } else { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, 'milieu', 'red', 1.5) }
-        lBBx = texteParPosition(`${2 * (yB - yA)}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1.5)
+        if (yA > yB) { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y + 0.3, 'milieu', 'red', 1) } else { lABx = texteParPosition(`${xB - xA}`, milieu(A, Bx).x, A.y - 0.3, 'milieu', 'red', 1) }
+        lBBx = texteParPosition(`${2 * (yB - yA)}`, B.x + 0.5, milieu(B, Bx).y, 'milieu', 'blue', 1)
         traceB = tracePoint(B, 'black') // Variable qui trace les points avec une croix
         d = droite(A, B, '', 'blue')
         d.epaisseur = 2
-        traceA.taille = 3
+        traceA.taille = 2
         traceA.epaisseur = 2
-        traceB.taille = 3
+        traceB.taille = 2
         traceB.epaisseur = 2
         xmin = -5
         ymin = -3
@@ -155,8 +155,8 @@ export default function CoeffDirDroite () {
           yLabelMin: 2 * ymin + 1,
           axeXStyle: '->',
           axeYStyle: '->',
-          yLabelDistance: 1,
-          yLabelEcart: 0.5,
+          yLabelDistance: 2,
+          yLabelEcart: 0.4,
           grilleXDistance: 1,
           grilleYDistance: 0.5
         })
