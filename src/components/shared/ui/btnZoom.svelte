@@ -9,7 +9,7 @@
   const urlParams = new URLSearchParams(window.location.search)
   const z = urlParams.get('z')
   let zoom: number = (z ? Number.parseFloat(z) : 1)
-  // if (z) { parseInt(z) } else { zoom = 1 }
+
   function zoomMinus () {
     // zoom -= 0.1
     zoom = Number.parseFloat((zoom - 0.1).toFixed(1))
@@ -40,8 +40,8 @@
     // Event pour apiGeom
     const zoomEvent = new CustomEvent('zoomChanged', {
       detail: { zoom: $globalOptions.z }
-    });
-    document.dispatchEvent(zoomEvent);
+    })
+    document.dispatchEvent(zoomEvent)
   }
 </script>
 

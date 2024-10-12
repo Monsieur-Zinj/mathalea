@@ -13,6 +13,7 @@ export function exportedReinit (this: Exercice) {
   this.listeCanReponsesACompleter = []
   this.listeArguments = []
   this.autoCorrection = []
+  this.figures = []
   if (this.dragAndDrops && this.dragAndDrops.length > 0) {
     for (const leDragAndDrop of this.dragAndDrops) {
       for (const [element, type, listener] of leDragAndDrop.listeners) {
