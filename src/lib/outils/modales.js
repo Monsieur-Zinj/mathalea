@@ -4,10 +4,9 @@ import { context } from '../../modules/context.js'
  * Fonction créant le bouton d'aide utilisée par les différentes fonctions modal_ type de contenu
  * @param numeroExercice
  * @param contenu code HTML
- * @param icone
  * @author Rémi Angot
  */
-export function creerModal (numeroExercice, contenu, labelBouton, icone) {
+export function creerModal (numeroExercice, contenu, labelBouton) {
   if (context.isHtml) {
     let HTML = ''
     HTML = `${labelBouton}<div id="aide-${numeroExercice}" class="group">
