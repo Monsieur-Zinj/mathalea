@@ -6,6 +6,7 @@ import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '.
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Résoudre des problèmes avec recherche de diviseurs communs'
 export const interactifReady = true
@@ -65,7 +66,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texte += 'et la composition du bouquet.<br><br>'
             texteA = numAlpha(0) + `Nombre maximal de bouquets :${sp(20)}`
             texte += texteA
-            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
@@ -75,14 +76,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
             texteB = numAlpha(1) + `Nombre d'iris dans chaque bouquet :${sp(8)}`
             texte += texteB
-            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
             texteCorr += 'Le nombre d\'iris dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texteC = numAlpha(2) + ' Nombre de roses dans chaque bouquet :'
             texte += texteC
-            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01') + '<br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br>'
             texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
             texteCorr += 'Le nombre de roses dans chaque bouquet est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
@@ -119,7 +120,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texte += 'et la composition de chaque groupe.<br><br>'
             texteA = numAlpha(0) + `Nombre maximal de groupes :${sp(26)}`
             texte += texteA
-            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)}- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
@@ -129,14 +130,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
             texteB = numAlpha(1) + 'Nombre de garçons dans chaque groupe :'
             texte += texteB
-            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
             texteCorr += 'Le nombre de garçons dans chaque groupe est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texteC = numAlpha(2) + ` Nombre de filles dans chaque groupe :${sp(6)}`
             texte += texteC
-            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01') + '<br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br>'
             texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
             texteCorr += 'Le nombre de filles dans chaque groupe est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
@@ -173,7 +174,7 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
             texte += 'et la composition de chaque corbeille.<br><br>'
             texteA = numAlpha(0) + 'Nombre maximal de corbeilles :' + `${sp(30)}`
             texte += texteA
-            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr = numAlpha(0)
             texteCorr += `- Les diviseurs de ${var1 * objet} sont : ${listeDesDiviseurs(var1 * objet).join(', ')}.<br>`
             texteCorr += `${sp(2)};- Les diviseurs de ${var2 * objet} sont : ${listeDesDiviseurs(var2 * objet).join(', ')}.<br>`
@@ -183,14 +184,14 @@ export default function NomQuelconqueDeLaFonctionQuiCreeExercice () {
 
             texteB = numAlpha(1) + 'Nombre de croissants dans chaque corbeille :'
             texte += texteB
-            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01') + '<br><br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br><br>'
             texteCorr += numAlpha(1) + ` $${var1 * objet} \\div ${objet} = ${var1}$<br>`
             texteCorr += 'Le nombre de croissants dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var1}`) + '.<br><br>'
             setReponse(this, 3 * i + 1, var1)
 
             texteC = numAlpha(2) + ` Nombre de brioches dans chaque corbeille :${sp(2)}`
             texte += texteC
-            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01') + '<br>'
+            texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 ' + KeyboardType.clavierNumbers) + '<br>'
             texteCorr += numAlpha(2) + ` $${var2 * objet} \\div ${objet} = ${var2}$<br>`
             texteCorr += 'Le nombre de brioches dans chaque corbeille est :' + texteEnCouleurEtGras(` ${var2}`) + '.<br><br>'
             setReponse(this, 3 * i + 2, var2)
