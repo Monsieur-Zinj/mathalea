@@ -41,7 +41,7 @@ export default function AdditionRelatifBisCAN () {
 
     this.correction = `$ ${a}${ecritureAlgebrique(b)} = ${a + b} $`
     this.reponse = a + b
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question// 'Compléter'
-  this.canReponseACompleter = ''
 }

@@ -40,7 +40,7 @@ export default function AdditionRelatifCAN () {
 
     this.correction = '$ ' + ecritureNombreRelatifc(a) + ' + ' + ecritureNombreRelatifc(b) + ' = ' + ecritureNombreRelatifc(a + b) + ' $'
     this.reponse = a + b
+    this.canEnonce = this.question// 'Compléter'
+    this.canReponseACompleter = ''
   }
-  this.canEnonce = this.question// 'Compléter'
-  this.canReponseACompleter = ''
 }

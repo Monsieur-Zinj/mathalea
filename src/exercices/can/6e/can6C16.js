@@ -27,7 +27,7 @@ export default function DoubleEtMoitie () {
   this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
     const a = randint(1, 25) * 2 // variables aléatoires
-    this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?<br>`
+    this.question = `Le double d'un nombre vaut $${2 * a}$, combien vaut sa moitié ?`
     this.correction = `Sa moitié vaut : $${texNombre(a / 2)}$.
      `
     this.correction += texteEnCouleur(`
