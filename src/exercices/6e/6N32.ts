@@ -6,8 +6,8 @@ import { context } from '../../modules/context.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
-import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 import figureApigeom from '../../lib/figureApigeom.js'
+import type LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -102,7 +102,7 @@ export default class FractionsDunite extends Exercice {
         this.figuresApigeom[i] = figure
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
-        this.diagrams[i] = new LineFractionDiagram(figure, { denominator: unit, max: 3, width: 6 })
+        this.diagrams[i] = figure.create('LineFractionDiagram', { denominator: unit, max: 3, width: 6 })
         texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', i })
         figure.divButtons.style.display = 'none'
         figure.divUserMessage.style.display = 'none'
