@@ -299,7 +299,6 @@ export default class RepresenterUnVecteur extends Exercice {
           (e) => e.type === 'VectorByPoints' && e.color === 'green'
         ).length
 
-        console.log(nbVecteurs)
         isValid &&= nbVecteurs === 1
 
         if (isValid) {
