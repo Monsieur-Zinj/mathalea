@@ -65,7 +65,8 @@
     "screenshot": "vitest --config tests/e2e/vitest.config.screenshot.js --run",
     "prepare": "husky",
     "prebuild-unit-tests": "npm run test:unit && npm run test:src",
-    "prebuild-e2e-tests": "AUTOTEST=true npm run test:e2e:views && AUTOTEST=true npm run test:e2e:interactivity && AUTOTEST=true npm run test:e2e:consistency"
+    "prebuild-e2e-tests": "AUTOTEST=true npm run test:e2e:views && AUTOTEST=true npm run test:e2e:interactivity && AUTOTEST=true npm run test:e2e:consistency",
+    "postinstall": "pnpm update apigeom"
   },
   "dependencies": {
     "@bugsnag/js": "^7.25.0",
