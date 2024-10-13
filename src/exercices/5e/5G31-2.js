@@ -8,6 +8,7 @@ import { tableauColonneLigne } from '../../lib/2d/tableau'
 
 export const titre = 'Déterminer un angle dans un triangle et sa nature'
 export const dateDePublication = '11/01/2023'
+export const dateDeModificationImportante = '13/10/2024'
 
 /**
 * Déterminer la valeur d'un angle dans un triangle et sa nature.
@@ -106,14 +107,11 @@ export default class anglesTrianglesTableau extends Exercice {
       const triangle = new Triangle()
       switch (type) {
         case 'quelconque':
-          triangle.a1 = randint(10, 40, [90])
-          triangle.a2 = randint(20, 100, [triangle.a1, 90, 90 - triangle.a1])
-          triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
-          while (triangle.a3 === -1) {
+          do {
             triangle.a1 = randint(10, 40, [90])
             triangle.a2 = randint(20, 100, [triangle.a1, 90, 90 - triangle.a1])
             triangle.a3 = this.troisiemeAngle(triangle.a1, triangle.a2)
-          }
+          } while (triangle.a3 === -1 || triangle.a3 === triangle.a1 || triangle.a3 === triangle.a2)
           sortie.natureTriangleCorr = `Le triangle ${triangle.getNom()} ne présente aucune particularité donc c'est un triangle ${type}.`
           break
         case 'rectangle':
@@ -228,8 +226,6 @@ export default class anglesTrianglesTableau extends Exercice {
         }
           break
       }
-
-      texte += '<br>'
 
       if (this.questionJamaisPosee(i, texte)) {
         this.listeQuestions.push(texte)
