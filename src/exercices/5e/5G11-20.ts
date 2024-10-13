@@ -122,7 +122,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           break
         case 'droite':
           this.nbPoints[i] = 2
-          enonce += enonce += `de la droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
+          enonce += `de la droite $(${this.labels[i][0]}${this.labels[i][1]})$.`
 
           this.figuresApiGeom[i].create('Line', { point1: this.antecedents[i][0], point2: this.antecedents[i][1], isVisible: true })
 
