@@ -103,7 +103,6 @@ export default class constructionElementaire extends Exercice {
       anim.crayonMontrer(F)
       anim.pointCreer(F, { couleur: 'red' })
       if (this.interactif) {
-        this.idApigeom = `apiGeomEx${this.numeroExercice}Q${i}`
         const figure = new Figure({ xMin: -0.9, yMin: -8.9, width: 408, height: 468 })
         figure.options.labelAutomaticBeginsWith = E.nom
         figure.options.thickness = 2
@@ -128,7 +127,7 @@ export default class constructionElementaire extends Exercice {
         this.Fnom = F.nom
 
         figure.setToolbar({ tools: ['POINT', 'LINE', 'SEGMENT', 'RAY', 'POINT_INTERSECTION', 'POINT_ON', 'NAME_POINT', 'MOVE_LABEL', 'DRAG', 'REMOVE', 'SHAKE', 'SET_OPTIONS'] })
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure })
+        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure })
         enonce += emplacementPourFigure
       } else {
         let g, sc, carreaux
@@ -261,7 +260,7 @@ export default class constructionElementaire extends Exercice {
 
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[this.idApigeom] = figure.json
+    this.answers[figure.id] = figure.json
 
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) // Ne pas changer le nom du FeedBack, il est écrit en dur, ailleurs.
     const resultat = []

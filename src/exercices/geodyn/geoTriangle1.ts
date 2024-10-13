@@ -29,7 +29,6 @@ class ConstructionTriangle extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   triangle!: Triangle
-  idApigeom!: string
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -41,7 +40,6 @@ class ConstructionTriangle extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({
       xMin: -7,
       yMin: -7,
@@ -87,8 +85,9 @@ class ConstructionTriangle extends Exercice {
     this.figure.options.labelAutomaticBeginsWith = labelA
     const emplacementPourFigure = figureApigeom({
       exercice: this,
-      idApigeom: this.idApigeom,
-      figure: this.figure
+      i: 0,
+      figure: this.figure,
+      defaultAction: 'POINT'
     })
     let texteCorr = `$${labelA}${labelB}=${c}$ donc $${labelB}$ est sur le cercle de centre $${labelA}$ et de rayon $${c}$.`
     texteCorr += `<br>$${labelB}${labelC}=${a}$ donc $${labelC}$ est sur le cercle de centre $${labelB}$ et de rayon $${a}$.`
@@ -97,7 +96,8 @@ class ConstructionTriangle extends Exercice {
     const emplacementPourFigureCorrection = figureApigeom({
       animation: true,
       exercice: this,
-      idApigeom: `apigeomEx${this.numeroExercice}Correction`,
+      i: 0,
+      idAddendum: 'Correction',
       figure: figureCorrection
     })
     this.question = enonce + emplacementPourFigure
@@ -105,9 +105,9 @@ class ConstructionTriangle extends Exercice {
   }
 
   correctionInteractive = () => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     const resultat = []
     // 1 point par distance correcte + 2 points si tout est correct (on ne vérifie pas que le triangle est tracé)
     const divFeedback = document.querySelector(

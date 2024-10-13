@@ -69,10 +69,10 @@ export default class ExerciceApiGeom extends Exercice {
 
     figure.create('Grid')
 
-    this.listeQuestions[0] = `<div id="apiGeomEx${numeroExercice}F0"></div>`
+    this.listeQuestions[0] = `<div id="apigeomEx${numeroExercice}F0"></div>`
     this.listeCorrections[0] = ''
     document.addEventListener('exercicesAffiches', () => {
-      const container = document.querySelector(`#apiGeomEx${numeroExercice}F0`)
+      const container = document.querySelector(`#apigeomEx${numeroExercice}F0`)
       if (container === null) return
       container.innerHTML = ''
       figure.setContainer(container)

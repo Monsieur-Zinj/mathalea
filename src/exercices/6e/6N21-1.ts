@@ -178,7 +178,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
       const { figure, latex } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: 1 / (coef * den) })
       figure.options.labelAutomaticBeginsWith = label1
       figure.options.pointDescriptionWithCoordinates = false
-      this.figures[i] = figure
+      if (this != null && this.figures != null) this.figures[i] = figure
       const { figure: figureCorr, latex: latexCorr } = apigeomGraduatedLine({ xMin: origine, xMax: origine + 4, scale, stepBis: arrondi(1 / (coef * den), 6), points: this.goodAnswers[i] })
       figureCorr.create('Point', { label: label1, x: arrondi(num1 / den1, 4), color: orangeMathalea, colorLabel: orangeMathalea, shape: 'x', labelDxInPixels: 0 })
       figureCorr.create('Point', { label: label2, x: arrondi(num2 / den2, 4), color: orangeMathalea, colorLabel: orangeMathalea, labelDxInPixels: 0 })
@@ -186,7 +186,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice + ref}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this, i, idAddendum: ref, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -206,6 +206,7 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -236,7 +237,10 @@ class PlacerPointsAbscissesFractionnairesBis extends Exercice {
     if (i === undefined) return ['KO']
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[`ex${this.numeroExercice + ref}Q${i}`] = this.figures[i].json
+    if (this == null) return ['KO']
+    if (this.figures == null) return ['KO']
+    if (this.figures[i] == null) return ['KO']
+    this.answers[this.figures[i].id] = this.figures[i].json
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
     figure.isDynamic = false

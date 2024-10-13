@@ -130,6 +130,7 @@ class PlacerPointsSurAxe extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
+          // @ts-expect-error typage de AMC
           propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
         }
       }
@@ -148,7 +149,7 @@ class PlacerPointsSurAxe extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice}Q${i}`, figure })
+          texte += '<br>' + figureApigeom({ exercice: this, i, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -171,6 +172,10 @@ class PlacerPointsSurAxe extends Exercice {
     if (i === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
+    // Sauvegarde de la réponse pour Capytale
+    if (this.answers === undefined) this.answers = {}
+    this.answers[figure.id] = figure.json
+
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

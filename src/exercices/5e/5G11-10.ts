@@ -60,7 +60,6 @@ function checkDistance (points: {x: number, y:number}[]) {
  * @author Jean-Claude Lhote
  */
 class ConstrctionsSymetrieCentralePoints extends Exercice {
-  idApigeom!: string[]
   antecedents!: object[][]
   labels!: string[][]
   centres!: Point[]|PointApigeom[]
@@ -70,7 +69,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
   constructor () {
     super()
     this.exoCustomResultat = true
-    this.nbQuestions = 2
+    this.nbQuestions = 1
     this.spacingCorr = 1
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
@@ -82,7 +81,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.sup2 = 3
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
@@ -90,7 +89,6 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
     this.figuresApiGeom = []
-    this.idApigeom = []
     this.nbPoints = contraindreValeur(1, 5, this.sup2, 3) // on veut entre 1 et 5 points à construire
     this.antecedents = []
     this.labels = []
@@ -215,8 +213,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
           }
         }
         this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
+        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i], defaultAction: 'NAME_POINT' })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d(Object.assign({ scale: 0.5, pixelsParCm: 20 }, fixeBordures([...objets, ...objetsCorrection])), objets))
@@ -228,7 +225,7 @@ class ConstrctionsSymetrieCentralePoints extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const resultat = []
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''

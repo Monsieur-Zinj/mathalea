@@ -3,10 +3,27 @@ import type Figure from 'apigeom'
 import { context } from '../modules/context'
 
 /**
- * Insère une figure apigeom dans la sortie HTML de l'exercice
- * defaultAction permet de sélectionner le bouton activé par défaut
+ * - Insère une figure apigeom dans la sortie HTML de l'exercice
+ *
+ * - defaultAction permet de sélectionner le bouton activé par défaut (bouton qui doit être présent dans la toolbar de la figure)
+ *
+ * - L'id est générée automatiquement avec le numéro de l'exercice et de la question
+ *
+ * - Si une même question a plusieurs figures, il faut ajouter un idAddendum (par exemple 'Correction' pour la figure de correction)
  */
-export default function figureApigeom ({ exercice, idApigeom, figure, animation = false, question = 0, defaultAction }: { exercice: Exercice, idApigeom: string, figure: Figure, animation?: boolean, question?: number, defaultAction ?: string }): string {
+export default function figureApigeom ({ exercice, figure, animation = false, i, defaultAction, idAddendum = '' }:
+  {
+    exercice: Exercice,
+    figure: Figure,
+    animation?: boolean,
+    i: number,
+    /** identifiant supplémentaire pour identifier l'
+     * si c'est la figure de la correction ou une 2e figure dans la question
+    */
+    idAddendum?: string,
+    /** Action en cours au lancement de l'exercice qui doit obligatoirement être un bouton de la toolbar */
+    defaultAction?: string
+ }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
   figure.isDynamic = !!exercice.interactif
@@ -18,8 +35,11 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
   if (!exercice.interactif) {
     figure.divUserMessage.style.display = 'none'
   }
+  const idApigeom = `apigeomEx${exercice.numeroExercice}F${i}${idAddendum}`
+  figure.id = idApigeom
 
   // Pour revoir la copie de l'élève dans Capytale
+  // Attention, la clé de answers[] doit contenir apigeom, c'est pourquoi l'id est généré par cette fonction
   document.addEventListener(idApigeom, (event: Event) => {
     const customEvent = event as CustomEvent
     const json = customEvent.detail
@@ -50,5 +70,5 @@ export default function figureApigeom ({ exercice, idApigeom, figure, animation 
     }
   })
 
-  return `<div class="m-6" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${question}"></span><div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${question}"></div>`
+  return `<div class="m-6" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
 }

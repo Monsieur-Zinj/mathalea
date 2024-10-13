@@ -29,8 +29,6 @@ export const refs = {
 }
 export default class RepresenterUneFraction extends Exercice {
   figures: Figure[] = []
-  diagrammes: CircleFractionDiagram[] = []
-  idApigeom: string[] = []
   numerators: number[] = []
   constructor () {
     super()
@@ -40,10 +38,9 @@ export default class RepresenterUneFraction extends Exercice {
     this.nbColsCorr = 2
     this.sup = 3
     this.besoinFormulaireNumerique = ['Type de fractions', 6, '1 : Inférieures à 1\n2 : Supérieures à 1\n3 : Peu importe']
-    this.diagrammes = []
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     let sc
     const ppc = 20
     if (context.isHtml) {
@@ -78,19 +75,18 @@ export default class RepresenterUneFraction extends Exercice {
       }
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
+      this.numerators[i] = num
+      const figure = new Figure({ xMin: -1.6, yMin: -1.6, width: 600, height: 95 })
+      this.figures[i] = figure
+      figure.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1.5 })
       if (this.interactif) {
-        this.numerators[i] = num
-        const figure = new Figure({ xMin: -2, yMin: -1.6, width: 600, height: 95 })
-        this.figures[i] = figure
         figure.options.color = 'blue'
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
-        if (figure.ui) figure.ui.send('FILL')
-        this.diagrammes[i] = figure.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1.5 })
-        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        texte += figureApigeom({ exercice: this, question: i, idApigeom: this.idApigeom[i], figure })
+        texte += figureApigeom({ exercice: this, i, figure, defaultAction: 'FILL' })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
+        figure.divUserMessage.style.display = 'none'
       } else {
-        texte += mathalea2d(params, fraction(den * 3, den).representation(0, 0, 2, 0, 'gateau', 'white'))
+        texte += figure.getStaticHtml()
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       if (this.interactif) {
@@ -135,20 +131,25 @@ export default class RepresenterUneFraction extends Exercice {
   }
 
   correctionInteractive = (i: number) => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figures[i].json
+    this.answers[this.figures[i].id] = this.figures[i].json
     let result = 'KO'
     const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
-    if (this.diagrammes[i].numerator === this.numerators[i]) {
+    const diagramme = this.figures[i].elements.get('element0') as CircleFractionDiagram
+    if (diagramme.type !== 'CircleFractionDiagram') throw new Error('On attendait un diagramme circulaire de fractions')
+    if (diagramme.numerator === this.numerators[i]) {
       if (divCheck) divCheck.innerHTML = '😎'
       result = 'OK'
     } else {
       if (divCheck) divCheck.innerHTML = '☹️'
       const p = document.createElement('p')
-      p.innerText = `Tu as colorié $\\dfrac{${this.diagrammes[i].numerator}}{${this.diagrammes[i].denominator}}$.`
-      if (divFeedback) divFeedback.appendChild(p)
+      p.innerText = `Tu as colorié $\\dfrac{${diagramme.numerator}}{${diagramme.denominator}}$.`
+      if (divFeedback) {
+        divFeedback.innerHTML = ''
+        divFeedback.appendChild(p)
+      }
       result = 'KO'
     }
     this.figures[i].isDynamic = false

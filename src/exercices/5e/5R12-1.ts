@@ -30,7 +30,6 @@ class ReperagePointDuPlan extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
   points: Coords[] = []
-  idApigeom!: string
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -43,12 +42,11 @@ class ReperagePointDuPlan extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apiGeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     this.figure.create('Grid')
     this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
-    this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
+    // this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
     this.figure.options.pointDescriptionWithCoordinates = false
 
     let x1 = randint(-6, -1)
@@ -79,7 +77,7 @@ class ReperagePointDuPlan extends Exercice {
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
     // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
     this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure, defaultAction: 'POINT' })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure, defaultAction: 'POINT' })
     // MGU : gère le zoom des figures apigeom statiques comme les figures mathalea2d
     figureCorr.divFigure.classList.add('svgContainer')
     figureCorr.divFigure.querySelector('svg')?.classList.add('mathalea2d')
@@ -126,9 +124,9 @@ class ReperagePointDuPlan extends Exercice {
   }
 
   correctionInteractive = () => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     const resultat = [] // Tableau de 'OK' ou de'KO' pour le calcul du score
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q0`)
     for (const coord of this.points) {

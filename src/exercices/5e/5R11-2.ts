@@ -37,12 +37,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
   figuresApiGeom: Figure[] = []
   constructor () {
     super()
-    this.nbQuestions = 5
-    this.nbQuestionsModifiable = true
-    this.nbCols = 1
-    this.nbColsCorr = 1
-    this.spacing = 1
-    this.spacingCorr = 1
+    this.nbQuestions = 2
     this.sup = 1
     this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Nombre relatif à une décimale\n2 : Nombre relatif à deux décimales\n3 : Nombre relatif à trois décimales\n4 : Mélange']
   }
@@ -102,6 +97,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,
+          // @ts-expect-error typage de AMC
           propositions: [{ texte: texteCorr, statut: 0, feedback: '' }]
         }
       }
@@ -126,7 +122,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `apigeomEx${this.numeroExercice}Q${i}`, figure, defaultAction: 'POINT' })
+          texte += '<br>' + figureApigeom({ exercice: this, i, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -141,6 +137,7 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: this.consigne + '<br>' + texte + '<br>',
+          // @ts-expect-error typage de AMC
           propositions: [{ statut: 3, sanscadre: true }]
         }
       }
@@ -156,6 +153,9 @@ class PlacerPointsSurAxeRelatifs extends Exercice {
     if (i === undefined) return ['KO']
     const result: ('OK'|'KO')[] = []
     const figure = this.figuresApiGeom[i]
+    if (this.answers === undefined) this.answers = {}
+    // Sauvegarde de la réponse pour Capytale
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

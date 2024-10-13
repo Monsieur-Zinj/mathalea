@@ -69,7 +69,6 @@ function checkDistance (points: {x: number, y:number}[]) {
  */
 class ConstrctionsSymetriquesPoints extends Exercice {
   figuresApiGeom!: Figure[]
-  idApigeom!: string[]
   nbPoints!: number
   antecedents!: object[][]
   labels!: string[][]
@@ -78,8 +77,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   constructor () {
     super()
     this.exoCustomResultat = true
-    this.nbQuestions = 2
-    this.spacingCorr = 1
+    this.nbQuestions = 1
     this.besoinFormulaireNumerique = ['Choix de l\'axe', 5, 'Axe horizontal\nAxe vertical\nAxe oblique /\nAxe oblique \\\nMélange']
     this.besoinFormulaire2Numerique = [
       'Type d\'aide',
@@ -93,7 +91,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.nbPoints = 3
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     const marks: string[] = ['//', '///', 'x', 'O', '|||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
@@ -102,7 +100,6 @@ class ConstrctionsSymetriquesPoints extends Exercice {
     this.autoCorrection = []
     let choixDeLaxe: number[] = []
     this.figuresApiGeom = []
-    this.idApigeom = []
     if (this.sup === 5) {
       choixDeLaxe = combinaisonListes([1, 2, 3, 4], this.nbQuestions)
     } else {
@@ -290,8 +287,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
           }
         }
         this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-        this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-        const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
+        const emplacementPourFigure = figureApigeom({ exercice: this, i, figure: this.figuresApiGeom[i] })
         this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
       } else {
         this.listeQuestions.push(enonce + '<br><br>' + mathalea2d({ xmin: -10, xmax: 10, ymin: -10, ymax: 10, scale: 0.5, pixelsParCm: 15 }, objets))
@@ -303,7 +299,7 @@ class ConstrctionsSymetriquesPoints extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const resultat = []
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     let feedback = ''

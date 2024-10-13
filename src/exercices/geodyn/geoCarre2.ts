@@ -24,7 +24,6 @@ export const uuid = '01607'
 class ConstructionCarre2 extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
   cote!: number
   constructor () {
     super()
@@ -37,27 +36,26 @@ class ConstructionCarre2 extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticBeginsWith = 'A'
     this.cote = randint(3, 10)
 
     const enonce = `Tracer un carré $ABCD$ de côté ${this.cote}.`
     this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'POLYGON', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
     let texteCorr = 'Un carré est un quadrilatère qui a 4 angles droits et quatre côtés de même longueur.'
     texteCorr += '<br>On peut tracer un carré de différentes façons.'
     texteCorr += '<br>Dans cette animation, on va tracer un quadrilatère avec 3 angles droits et deux côtés consécutifs de même longueur mais on n\'aurait pu aussi ne faire qu\'un angle droit et tracer des côtés opposés parallèles.'
     const figureCorrection = createAnimationConstructionCarre(this.cote)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i: 0, idAddendum: 'Correction', figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
   correctionInteractive = () => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     const resultat = []
     let feedback = ''
     // 1 point par angle droit + 1 point si tout est correct (on ne vérifie pas que le triangle est tracé)

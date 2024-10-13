@@ -139,7 +139,6 @@ export function chercheIntervalles (fonc: Polynome, soluces: number[], inferieur
 class resolutionEquationInequationGraphique extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
 
   constructor () {
     super()
@@ -158,7 +157,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.besoinFormulaire3CaseACocher = ['Avec point mobile', false]
   }
 
-  nouvelleVersion (numeroExercice: number): void {
+  nouvelleVersion (): void {
     // on va chercher une spline aléatoire
     this.listeQuestions = []
     this.listeCorrections = ['']
@@ -456,7 +455,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figure.options.automaticUserMessage = false
     if (this.sup3) this.figure.userMessage = 'Cliquer sur le point $M$ pour le déplacer.'
     this.figure.create('Grid')
-    this.figure.options.limitNumberOfElement.set('Point', this.sup3 ? 1 : 0)
+    // this.figure.options.limitNumberOfElement.set('Point', this.sup3 ? 1 : 0)
 
     // on s'occupe de la fonction 1 et du point mobile dessus on trace tout ça.
     // Maintenant, la fonction1 n'est jamais une spline !
@@ -538,7 +537,6 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figure.create('Segment', { point1: p1A, point2: p1B, color: 'blue', thickness: 2 })
     this.figure.create('Segment', { point1: p2A, point2: p2B, color: 'red', thickness: 2 })
 
-    this.idApigeom = `apigeomEx${numeroExercice}F0`
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
     let enonce = `On considère les fonctions $${f1}$ et $${f2}$ définies sur $\\R$ et dont on a représenté ci-dessous une partie de leurs courbes respectives.<br><br>`
     // let diff
@@ -603,7 +601,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
     if (this.figure.ui) this.figure.ui.send('DRAG')
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
     this.figure.isDynamic = true
     this.figure.divButtons.style.display = 'flex'
     if (context.isHtml) {

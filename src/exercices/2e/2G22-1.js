@@ -20,7 +20,7 @@ import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Représenter un vecteur dans un repère, à partir de ses coordonnées'
 export const interactifReady = true
@@ -101,7 +101,6 @@ export default class RepresenterUnVecteur extends Exercice {
         cpt = 0;
       i < this.nbQuestions && cpt < 50;
     ) {
-      this.idApigeom = `apigeomEx${this.numeroExercice}${i}EE`
       this.figure[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
         yMin: -this.largeur - 0.25,
@@ -159,8 +158,6 @@ export default class RepresenterUnVecteur extends Exercice {
         // position: 'top'
       })
       this.figure[i].options.thickness = 3
-      this.figure[i].options.color = 'blue'
-      this.figure[i].buttons.get('VECTOR')?.click()
 
       xA.push(randint(2, 8) * choice([-1, 1]))
       yA.push(randint(2, 8) * choice([-1, 1]))
@@ -227,6 +224,7 @@ export default class RepresenterUnVecteur extends Exercice {
           isFree: false,
           isSelectable: false
         })
+        this.figure[i].options.color = 'green'
         texteCorr = "On sait qu'un vecteur mesure un déplacement."
         texteCorr += `<br> À partir du point $${nomPoint1}$,  on trace donc le déplacement correspondant à $${ux}$ unités horizontalement puis $${uy}$ unités verticalement pour arriver au point $${nomPoint2}$, extrémité du vecteur $\\vec{u}$.`
       } else {
@@ -246,12 +244,12 @@ export default class RepresenterUnVecteur extends Exercice {
       }
       texteCorr +=
           `<br> Voir les déplacements dans le repère ci-dessous et le tracé en orange du vecteur-solution $${miseEnEvidence('\\vec{u}')}$.<br>`
-      texte += this.interactif ? '<br>Pour vous aider, vous pouvez créer autant de vecteurs que vous souhaitez mais pour valider votre réponse, il faut que le vecteur-solution soit en vert et que seul ce vecteur-solution doit être en vert.' : ''
+      texte += this.interactif ? `<br>Pour vous aider, vous pouvez créer autant de vecteurs que vous souhaitez mais pour valider votre réponse, ${texteEnCouleurEtGras('il faut que le vecteur-solution soit en vert')} et que seul ce vecteur-solution doit être en vert.` : ''
       texte += figureApigeom({
         exercice: this,
-        idApigeom: this.idApigeom,
         figure: this.figure[i],
-        question: i
+        i,
+        defaultAction: 'VECTOR'
       })
 
       texteCorr += mathalea2d(
@@ -280,9 +278,9 @@ export default class RepresenterUnVecteur extends Exercice {
       ) // On trace le graphique
 
       this.correctionInteractive = (i) => {
-        this.answers = {}
+        if (this.answers == null) this.answers = {}
         // Sauvegarde de la réponse pour Capytale
-        this.answers[this.idApigeom] = this.figure[i].json
+        this.answers[this.figure[i].id] = this.figure[i].json
         const divFeedback = document.querySelector(
           `#feedbackEx${this.numeroExercice}Q${i}`
         )
@@ -300,6 +298,8 @@ export default class RepresenterUnVecteur extends Exercice {
         const nbVecteurs = [...this.figure[i].elements.values()].filter(
           (e) => e.type === 'VectorByPoints' && e.color === 'green'
         ).length
+
+        console.log(nbVecteurs)
         isValid &&= nbVecteurs === 1
 
         if (isValid) {
@@ -319,7 +319,7 @@ export default class RepresenterUnVecteur extends Exercice {
 
         let message
         if (nbVecteurs === 0) {
-          message = "Aucun vecteur n'est tracé."
+          message = "Aucun vecteur vert n'est tracé."
         } else if (nbVecteurs > 1) {
           message = 'Trop de vecteurs sont tracés.'
         } else {

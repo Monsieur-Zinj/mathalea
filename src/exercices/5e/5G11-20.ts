@@ -52,7 +52,6 @@ function checkDistance (points: {x: number, y:number}[]) {
  * @author Jean-Claude Lhote
  */
 class ConstructionsSymetrieCentraleFigures extends Exercice {
-  idApigeom!: string[]
   antecedents!: PointApigeom[][]
   labels!: string[][]
   centres!: PointApigeom[]
@@ -75,7 +74,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.sup2 = '6'
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     const marks: string[] = ['//', 'o', '||']
     const colors: string[] = context.isHtml ? ['red', 'green', 'purple', 'blue', 'gray'] : ['gray', 'gray', 'gray', 'gray', 'gray']
     this.answers = {}
@@ -83,7 +82,6 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
     this.figuresApiGeom = []
-    this.idApigeom = []
     this.antecedents = []
     this.labels = []
     this.centres = []
@@ -175,8 +173,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
         }
       }
       this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
-      this.idApigeom[i] = `apiGeomEx${numeroExercice}F${i}`
-      const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom[i], figure: this.figuresApiGeom[i], question: i })
+      const emplacementPourFigure = figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, defaultAction: 'NAME_POINT' })
       if (context.isHtml) {
         if (this.interactif) {
           this.listeQuestions.push(enonce + '<br><br>' + emplacementPourFigure)
@@ -255,7 +252,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   correctionInteractive = (i: number) => {
     if (this.answers === undefined) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom[i]] = this.figuresApiGeom[i].json
+    this.answers[this.figuresApiGeom[i].id] = this.figuresApiGeom[i].json
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`) as HTMLDivElement
     const typefigure = this.typesDeQuestions[i]
     const cords1 = rotationCoord(this.antecedents[i][0], this.centres[i], 180)

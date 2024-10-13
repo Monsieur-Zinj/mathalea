@@ -48,7 +48,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
   nouvelleVersion () {
     if (this.sup4) {
       const figure = getDynamicFractionDiagram()
-      this.introduction = figureApigeom({ exercice: this, idApigeom: `apiGeomEx${this.numeroExercice}`, figure })
+      this.introduction = figureApigeom({ exercice: this, i: 0, figure })
       figure.isDynamic = true
       figure.divButtons.style.display = 'grid'
       if (figure.ui) figure.ui.send('FILL')
@@ -170,10 +170,12 @@ export default class ExerciceFractionsDecomposer extends Exercice {
           enonceAvant: false, // EE : ce champ est facultatif et permet (si false) de supprimer l'énoncé ci-dessus avant la numérotation de chaque question.
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           melange: false, // EE : ce champ est facultatif et permet (si false) de ne pas provoquer le mélange des questions.
+          // @ts-expect-error typage de AMC
           options: { multicols: true, barreseparation: true, numerotationEnonce: true }, // facultatif. Par défaut, multicols est à false. Ce paramètre provoque un multicolonnage (sur 2 colonnes par défaut) : pratique quand on met plusieurs AMCNum. !!! Attention, cela ne fonctionne pas, nativement, pour AMCOpen. !!!
           // barreseparation (par défaut à false) permet de mettre une barre de séparation entre les deux colonnes.
           propositions: [
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {
@@ -195,6 +197,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
               ]
             },
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCNum', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [ // une ou plusieurs (Qcms) 'propositions'
                 {

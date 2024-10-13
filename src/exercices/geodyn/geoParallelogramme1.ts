@@ -23,7 +23,6 @@ export const uuid = '4d4a8'
 class ConstructionParallelogramme extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
   constructor () {
     super()
     this.typeExercice = 'simple'
@@ -35,7 +34,6 @@ class ConstructionParallelogramme extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.figure.options.labelAutomaticBeginsWith = 'A'
     const A = this.figure.create('Point', { x: 8, y: 11, label: 'A' })
@@ -46,18 +44,18 @@ class ConstructionParallelogramme extends Exercice {
 
     const enonce = 'Placer le point $D$ tel que $ABCD$ soit un parallélogramme.'
     this.figure.setToolbar({ tools: ['POINT', 'POINT_ON', 'POINT_INTERSECTION', 'SEGMENT', 'LINE_PERPENDICULAR', 'LINE_PARALLEL', 'CIRCLE_CENTER_POINT', 'CIRCLE_RADIUS', 'NAME_POINT', 'DRAG', 'HIDE', 'REMOVE', 'UNDO', 'REDO', 'SHAKE'], position: 'top' })
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
     const texteCorr = 'Un parallélogramme est un quadrilatère non croisé qui a ses côtés opposés parallèles deux à deux.'
     const figureCorrection = createAnimationConstructionRectangle()
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i: 0, idAddendum: 'Correction', figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = texteCorr + emplacementPourFigureCorrection
   }
 
   correctionInteractive = () => {
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     const resultat = []
     let feedback = ''
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement

@@ -73,7 +73,6 @@ export default function SommeDeVecteurs () {
           choixV = 'pas0rigine'
           break
       }
-      this.idApigeom = `apigeomEx${this.numeroExercice}${i}EE`
       this.figure[i] = new Figure({
         xMin: -this.longueur - 0.25, // On enlève 0.25 unités
         yMin: -this.largeur - 0.25,
@@ -221,9 +220,8 @@ export default function SommeDeVecteurs () {
       texte = `Construire le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$.<br>`
       texte += figureApigeom({
         exercice: this,
-        idApigeom: this.idApigeom,
         figure: this.figure[i],
-        question: i
+        i
       })
 
       figureCorrection.options.animationStepInterval = 250
@@ -292,32 +290,37 @@ export default function SommeDeVecteurs () {
 
       figureCorrection.saveState()
 
-      const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}${i}Correction`, figure: figureCorrection })
+      const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idAddendum: 'Correction', figure: figureCorrection })
       texteCorr = emplacementPourFigureCorrection
       texteCorr += `Le point $${nomExtremite[i]}$ tel que $\\overrightarrow{${nomOrigine}${nomExtremite[i]}} = \\vec{u} + \\vec{v}$ a pour coordonnées ${texteEnCouleurEtGras('(' + pointExtremite[i].x + ' ; ' + pointExtremite[i].y + ')')}.<br>`
 
       this.correctionInteractive = (i) => {
-        this.answers = {}
+        if (this.answers == null) this.answers = {}
         // Sauvegarde de la réponse pour Capytale
-        this.answers[this.idApigeom] = this.figure[i].json
+        this.answers[this.figure[i].json] = this.figure[i].json
         const divFeedback = document.querySelector(
           `#feedbackEx${this.numeroExercice}Q${i}`
         )
+        const divCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${i}`)
+
         this.figure[i].isDynamic = false
         this.figure[i].divButtons.style.display = 'none'
         this.figure[i].divUserMessage.style.display = 'none'
         const nbPoints = [...this.figure[i].elements.values()].filter(
           (e) => e.type === 'Point' && e.isVisible && !e.isChild
         ).length
-        const isValid = nbPoints > 1
+        const onePointWasAdded = nbPoints > 3
 
-        if (!isValid) {
-          divFeedback.innerHTML = 'Aucun point n\'a été créé.'
+        if (!onePointWasAdded) {
+          if (divFeedback) {
+            divFeedback.innerHTML = 'Aucun point n\'a été créé.'
+          }
           return 'KO'
         }
 
         const resultatCheck = this.figure[i].checkCoords({ label: nomExtremite[i], x: pointExtremite[i].x, y: pointExtremite[i].y })
         divFeedback.innerHTML = resultatCheck.message
+        if (divCheck) divCheck.innerHTML = resultatCheck.isValid ? '😎' : '☹️'
         return resultatCheck.isValid ? 'OK' : 'KO'
       }
 

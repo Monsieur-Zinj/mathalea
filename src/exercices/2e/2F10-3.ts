@@ -14,6 +14,7 @@ import { min, max } from 'mathjs'
 import { fraction } from '../../modules/fractions'
 import { context } from '../../modules/context'
 import { abs } from '../../lib/outils/nombres'
+import { Coords } from 'apigeom/src/elements/calculus/Coords'
 
 export const titre = 'Représentation graphique d\'une fonction affine'
 export const dateDeModifImportante = '06/04/2024'
@@ -43,7 +44,7 @@ export default class Representerfonctionaffine extends Exercice {
     this.besoinFormulaire2Numerique = ['Choix de la correction', 2, '1 : Avec coefficient directeur et ordonnée à l\'origine\n2 :Avec deux points']
   }
 
-  nouvelleVersion (numeroExercice: number) {
+  nouvelleVersion () {
     this.figures = []
     this.coefficients = []
     this.listeQuestions = []
@@ -235,8 +236,7 @@ export default class Representerfonctionaffine extends Exercice {
         figure.snapGrid = true
         figure.dx = 0.5
         figure.dy = 0.5
-        const idApigeom = `apigeomEx${numeroExercice}F${i}`
-        texte += figureApigeom({ exercice: this, idApigeom, figure, question: i })
+        texte += figureApigeom({ exercice: this, i, figure })
         if (figure.ui) figure.ui.send('LINE')
       }
 
@@ -254,17 +254,18 @@ export default class Representerfonctionaffine extends Exercice {
   correctionInteractive = (i?: number) => {
     if (i === undefined) return 'KO'
     let result: 'OK'|'KO' = 'KO'
+    if (this.figures?.[i] == null) throw new Error('La figure n\'a pas été créée')
     const figure = this.figures[i]
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[`#apigeomEx${this.numeroExercice}F${i}`] = figure.json
+    this.answers[figure.id] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const lines = [...figure.elements.values()].filter(e => e.type.includes('Line'))
     const [a, b] = this.coefficients[i]
-    const point1 = { x: 0, y: b }
-    const point2 = { x: 1, y: a + b }
+    const point1 = new Coords(0, b)
+    const point2 = new Coords(1, a + b)
     const { isValid } = figure.checkLine({ point1, point2 })
     const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${i}`)
     if (divFeedback != null) {

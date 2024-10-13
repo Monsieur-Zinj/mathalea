@@ -30,7 +30,6 @@ export default class FractionsDunite extends Exercice {
   goodAnswers: number[] = []
   diagrams: LineFractionDiagram[] = []
   figuresApigeom: Figure[] = []
-  idsApigeom: string[] = []
   constructor () {
     super()
     this.nbQuestions = 5
@@ -104,8 +103,9 @@ export default class FractionsDunite extends Exercice {
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
         this.diagrams[i] = new LineFractionDiagram(figure, { denominator: unit, max: 3, width: 6 })
-        this.idsApigeom[i] = `apigeomEx${this.numeroExercice}EE${new Date().getTime()}`
-        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', question: i, idApigeom: this.idsApigeom[i] })
+        texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', i })
+        figure.divButtons.style.display = 'none'
+        figure.divUserMessage.style.display = 'none'
       }
 
       texteCorr = mathalea2d({ xmin: 0, ymin: 0, xmax: 26, ymax: 2, pixelsParCm: 20, scale: sc }, frac.representation(1, 1, unit, 0, 'segment', 'blue', 0, 1), g, carreaux)
@@ -145,7 +145,7 @@ export default class FractionsDunite extends Exercice {
     const figure = this.figuresApigeom[i]
     if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[`#apigeomEx${this.numeroExercice}F${i}`] = figure.json
+    this.answers[figure.id] = figure.json
     figure.isDynamic = false
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'

@@ -92,7 +92,6 @@ class Trait {
 class ConstructionSegmentRayLine extends Exercice {
   // On déclare des propriétés supplémentaires pour cet exercice afin de pouvoir les réutiliser dans la correction
   figure!: Figure
-  idApigeom!: string
   nameA!: string
   nameB!: string
   nameC!: string
@@ -108,7 +107,6 @@ class ConstructionSegmentRayLine extends Exercice {
   }
 
   nouvelleVersion (): void {
-    this.idApigeom = `apigeomEx${this.numeroExercice}F0`
     this.figure = new Figure({ xMin: 0, yMin: 0, width: 800, height: 500, border: true })
     this.traits = []
 
@@ -129,20 +127,21 @@ class ConstructionSegmentRayLine extends Exercice {
       enonce = `Tracer ${this.traits[0].notation}, ${this.traits[1].notation} et ${this.traits[2].notation}.`
     }
     this.figure.setToolbar({ tools: ['POINT', 'NAME_POINT', 'SEGMENT', 'LINE', 'RAY', 'DRAG', 'REMOVE', 'UNDO', 'REDO'], position: 'top', nbCols: 9 })
-    const emplacementPourFigure = figureApigeom({ exercice: this, idApigeom: this.idApigeom, figure: this.figure })
+    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure, defaultAction: 'POINT' })
     const figureCorrection = createAnimation(this.traits)
-    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, idApigeom: `apigeomEx${this.numeroExercice}Correction`, figure: figureCorrection })
+    const emplacementPourFigureCorrection = figureApigeom({ animation: true, exercice: this, i: 0, idAddendum: 'Correction', figure: figureCorrection })
     this.question = enonce + emplacementPourFigure
     this.correction = emplacementPourFigureCorrection
   }
 
   correctionInteractive = () => {
     const resultat: ('OK'|'KO')[] = []
-    this.answers = {}
+    if (this.answers == null) this.answers = {}
     // Sauvegarde de la réponse pour Capytale
-    this.answers[this.idApigeom] = this.figure.json
+    this.answers[this.figure.id] = this.figure.json
     let feedback = ''
-    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`) as HTMLDivElement
+    const divFeedback = document.querySelector(`#feedbackEx${this.numeroExercice}Q${0}`)
+    const resultatCheck = document.querySelector(`#resultatCheckEx${this.numeroExercice}Q${0}`)
     for (const trait of this.traits) {
       const { isValid, result } = trait.checkExist(this.figure)
       if (isValid) {
@@ -153,7 +152,12 @@ class ConstructionSegmentRayLine extends Exercice {
         feedback += trait.wrongFeedback + '<br><br>'
       }
     }
-    if (divFeedback) divFeedback.innerHTML = feedback
+    if (divFeedback) {
+      divFeedback.innerHTML = feedback || 'Bravo !'
+    }
+    if (resultatCheck) {
+      resultatCheck.innerHTML = resultat.every(r => r === 'OK') ? '😎' : '☹️'
+    }
     this.figure.isDynamic = false
     this.figure.divButtons.style.display = 'none'
     this.figure.divUserMessage.style.display = 'none'

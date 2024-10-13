@@ -105,7 +105,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
 
       switch (true) {
         case context.isHtml && this.interactif:
-          texte += '<br>' + figureApigeom({ exercice: this as Exercice, idApigeom: `Ex${this.numeroExercice + ref}Q${i}`, figure, defaultAction: 'POINT' })
+          texte += '<br>' + figureApigeom({ exercice: this as Exercice, i, idAddendum: ref, figure, defaultAction: 'POINT' })
           texteCorr += figureCorr.getStaticHtml()
           break
         case context.isHtml:
@@ -125,6 +125,7 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
           enonceAvantUneFois: false, // EE : ce champ est facultatif et permet (si true) d'afficher l'énoncé ci-dessus une seule fois avant la numérotation de la première question de l'exercice. Ne fonctionne correctement que si l'option melange est à false.
           propositions: [
             {
+              // @ts-expect-error typage de AMC
               type: 'AMCOpen', // on donne le type de la première question-réponse qcmMono, qcmMult, AMCNum, AMCOpen
               propositions: [
                 {
@@ -155,7 +156,9 @@ class PlacerPointsAbscissesFractionnaires extends Exercice {
     if (i === undefined) return ['KO']
     // Sauvegarde de la réponse pour Capytale
     if (this.answers == null) this.answers = {}
-    this.answers[`ex${this.numeroExercice + ref}Q${i}`] = this.figures[i].json
+    if (this == null) return ['KO']
+    if (this.figures == null) return ['KO']
+    this.answers[this.figures[i].id] = this.figures[i].json
     const result: ('OK'|'KO')[] = []
     const figure = this.figures[i]
     figure.isDynamic = false
