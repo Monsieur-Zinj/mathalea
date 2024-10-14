@@ -147,7 +147,7 @@ class Latex {
           }
           contentCorr += '\n\\end{EXO}\n'
           content += `\n% @see : ${getUrlFromExercice(exercice)}`
-          content += `\n\\begin{EXO}{${format(exercice.consigne)}}{${String(exercice.id).replace('.js', '')}}\n`
+          content += `\n\\begin{EXO}{}{${String(exercice.id).replace('.js', '')}}\n${format(exercice.consigne)}\n`
           content += writeIntroduction(exercice.introduction)
           content += writeInCols(writeQuestions(exercice.listeQuestions, exercice.spacing, Boolean(exercice.listeAvecNumerotation), Number(exercice.nbCols)), Number(exercice.nbCols))
           content += '\n\\end{EXO}\n'
