@@ -598,11 +598,16 @@ class resolutionEquationInequationGraphique extends Exercice {
       texteCorr += `Pour trouver l'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] , on regarde les portions où la courbe $${miseEnEvidence('\\mathscr{C}_' + f1, 'blue')}$ est située ${inferieur ? 'en dessous' : 'au-dessus'} de la  courbe $${miseEnEvidence('\\mathscr{C}_' + f2, 'red')}$.<br>`
       texteCorr += `On lit les intervalles correspondants sur l'axe des abscisses : $${soluces2}$`
     }
-    this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
-    if (this.figure.ui) this.figure.ui.send('DRAG')
+    if (this.sup3) {
+      this.figure.setToolbar({ tools: ['DRAG'], position: 'top' })
+      if (this.figure.ui) this.figure.ui.send('DRAG')
+      this.figure.isDynamic = true
+    } else {
+      this.figure.setToolbar({ tools: ['ZOOM_IN', 'ZOOM_OUT'], position: 'top' })
+    }
     // Il est impératif de choisir les boutons avant d'utiliser figureApigeom
     const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure })
-    this.figure.isDynamic = true
+
     this.figure.divButtons.style.display = 'flex'
     if (context.isHtml) {
       this.listeQuestions = [enonce + emplacementPourFigure]
