@@ -12,11 +12,11 @@ import {
 import Exercice from '../deprecatedExercice.js'
 
 import Decimal from 'decimal.js'
-import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
-import { calculCompare } from '../../lib/interactif/comparisonFunctions'
+import { calculCompare, fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Recomposer un décimal ou un entier'
@@ -173,13 +173,10 @@ export default function RecomposerEntierC3 () {
         ])
       } */
       const trouveLeNombre = (nombre, nombreDeChiffresDec) => {
-        formule = ': %{champ1}+' // Le '+' c'est parce qu'il y en a dans toutes les autres formules et que le dernier caractère est supprimé
+        formule = ':~~%{champ1}+' // Le '+' c'est parce qu'il y en a dans toutes les autres formules et que le dernier caractère est supprimé
         listeReponses.push([
-          'champ1',
-          {
-            value: nombre.div(10 ** nombreDeChiffresDec).toString(),
-            compare: calculCompare
-          }
+          'reponse',
+          texNombre(nombre.div(10 ** nombreDeChiffresDec))
         ])
       }
       const morcelleNombre = (
@@ -459,13 +456,13 @@ export default function RecomposerEntierC3 () {
           texteCorr = '$'
           for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
             }
           }
           ee = this.morceaux[i].length - 1
-          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
-          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp()}`
           texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
           break
@@ -497,13 +494,13 @@ export default function RecomposerEntierC3 () {
           }
           for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
             }
           }
           ee = this.morceaux[i].length - 1
-          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
-          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp()}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp()}`
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
           texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           break
@@ -535,13 +532,13 @@ export default function RecomposerEntierC3 () {
           }
           for (let k = 0; k < this.morceaux[i].length - 1; k++) {
             if (this.morceaux[i][k] !== '0') {
-              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
-              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp(2)}+${sp(2)}`
+              texte += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
+              texteCorr += `${this.morceaux[i][k]}$ ${glossaire[this.exposantMorceaux[i][k] + 3][Number(this.morceaux[i][k]) > 1 ? 1 : 0]}$${sp()}+${sp()}`
             }
           }
           ee = this.morceaux[i].length - 1
-          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
-          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp(2)}`
+          texte += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp()}`
+          texteCorr += `${this.morceaux[i][ee]}$ ${glossaire[this.exposantMorceaux[i][ee] + 3][Number(this.morceaux[i][ee]) > 1 ? 1 : 0]}${sp()}`
           trouveLeNombre(nombre, nombreDeChiffresDec[i])
           texteCorr += `$=${miseEnEvidence(texNombre(nombre.div(10 ** nombreDeChiffresDec[i]), nombreDeChiffresDec[i]))} `
           break
@@ -599,31 +596,35 @@ export default function RecomposerEntierC3 () {
           blanc = '\\ldots\\ldots\\ldots'
           break
       }
-
-      texte += remplisLesBlancs(
-        this,
-        i,
-        formule.substring(0, formule.length - 1),
-        'inline largeur01 nospacebefore ' + KeyboardType.numbersSpace,
-        blanc
-      )
-      // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
-      handleAnswers(
-        this,
-        i,
-        Object.assign(
-          {
-            bareme: (listePoints) => [
-              Math.floor(somme(listePoints) / listePoints.length),
-              1
-            ]
-          },
-          Object.fromEntries(listeReponses)
-        ),
-        { formatInteractif: 'fillInTheBlank' }
-      )
+      if (listeTypeDeQuestions[i] < 12 && listeTypeDeQuestions[i] > 8) {
+        texte += ajouteChampTexteMathLive(this, i, `largeur01 nospacebefore ${KeyboardType.numbersSpace}`, { texteAvant: ' $=$ ' })
+        handleAnswers(this, i, { reponse: { value: listeReponses[0][1], compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
+      } else {
+        texte += remplisLesBlancs(
+          this,
+          i,
+          formule.substring(0, formule.length - 1),
+          'inline largeur01 nospacebefore ' + KeyboardType.numbersSpace,
+          blanc
+        )
+        // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]
+        handleAnswers(
+          this,
+          i,
+          Object.assign(
+            {
+              bareme: (listePoints) => [
+                Math.floor(somme(listePoints) / listePoints.length),
+                1
+              ]
+            },
+            Object.fromEntries(listeReponses)
+          ),
+          { formatInteractif: 'fillInTheBlank' }
+        )
+      }
       //   }
-      texte = `${texte.substring(0, texte.length - 1)}$`
+      //  texte = `${texte.substring(0, texte.length - 1)}$`
       texteCorr = `${texteCorr.substring(0, texteCorr.length - 1)}$`
 
       texte += this.interactif ? '<br>' : ''
