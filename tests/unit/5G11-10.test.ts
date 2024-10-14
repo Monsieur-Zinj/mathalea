@@ -10,7 +10,7 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   })
 
   test('should initialize with default values', () => {
-    expect(exercice.nbQuestions).toBe(2)
+    expect(exercice.nbQuestions).toBe(1)
     expect(exercice.spacingCorr).toBe(1)
     expect(exercice.besoinFormulaireNumerique).toEqual([
       "Type d'aide",
@@ -23,23 +23,23 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   })
 
   test('nouvelleVersion should generate correct questions and corrections', () => {
-    exercice.nouvelleVersion(1)
+    exercice.nouvelleVersion()
 
-    expect(exercice.listeQuestions.length).toBe(2)
-    expect(exercice.listeCorrections.length).toBe(2)
+    expect(exercice.listeQuestions.length).toBe(1)
+    expect(exercice.listeCorrections.length).toBe(1)
 
-    exercice.listeQuestions.forEach((question, index) => {
+    exercice.listeQuestions.forEach((question) => {
       expect(question).toContain('Placer')
       expect(question).toContain('symétrique')
     })
   })
 
   test('nouvelleVersion should generate different questions for different exercises', () => {
-    exercice.nouvelleVersion(1)
+    exercice.nouvelleVersion()
     const questions1 = [...exercice.listeQuestions]
     const corrections1 = [...exercice.listeCorrections]
 
-    exercice.nouvelleVersion(2)
+    exercice.nouvelleVersion()
     const questions2 = [...exercice.listeQuestions]
     const corrections2 = [...exercice.listeCorrections]
 
@@ -48,7 +48,7 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   })
 
   test('nouvelleVersion should generate valid points and labels', () => {
-    exercice.nouvelleVersion(1)
+    exercice.nouvelleVersion()
 
     exercice.listeQuestions.forEach((question) => {
       const regex = /\$[A-Z]'\$/g
@@ -59,7 +59,7 @@ describe('ConstrctionsSymetrieCentralePoints', () => {
   })
 
   test('nouvelleVersion should generate valid centers', () => {
-    exercice.nouvelleVersion(1)
+    exercice.nouvelleVersion()
 
     exercice.centres.forEach(center => {
       expect(center).toBeInstanceOf(Point)
