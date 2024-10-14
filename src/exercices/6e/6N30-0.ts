@@ -16,7 +16,7 @@ import Exercice from '../Exercice'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { numberWithSpaceCompare } from '../../lib/interactif/comparisonFunctions'
 import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
-import { miseEnEvidence } from '../../lib/outils/embellissements'
+import { miseEnEvidence, texteGras } from '../../lib/outils/embellissements'
 export const titre = 'Repérer des nombres décimaux sur une droite graduée'
 export const uuid = '50614'
 export const refs = {
@@ -49,6 +49,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
   }
 
   nouvelleVersion () {
+    if (this.interactif) { this.consigne = texteGras(' Penser à mettre les espaces nécessaires.') }
     // Listes de pas [pasPrincipal, Subdivision] selon degré de difficulté
     const nbDecimales = this.version === 'entiers' ? 0 : 3
     const listesPas: Array<[number, number][]> = this.version === 'entiers'
@@ -206,7 +207,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
       guide.styleExtremites = '->'
       guide.color = colorToLatexOrHTML(orangeMathalea)
       guide.epaisseur = 2
-      guide.pointilles = 2
+      guide.pointilles = '2'
       const pointATrouver = point(xPoint, 0, lettreDepuisChiffre(i + 1))
       const trace = tracePoint(pointATrouver)
       const label = labelPoint(pointATrouver)
@@ -220,7 +221,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
         label
       ]
       // fin fabrication droite graduée
-      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `inline nospacebefore ${KeyboardType.numbersSpace}`, { texteAvant: ' (ne pas oublier les espaces si nécessaire) :' })}.<br>`
+      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `inline nospacebefore ${KeyboardType.numbersSpace}`)}.<br>`
       texte += mathalea2d(
         Object.assign(
           { pixelsParCm: 30, scale: 1 },
