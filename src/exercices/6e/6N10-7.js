@@ -597,7 +597,7 @@ export default function RecomposerEntierC3 () {
           break
       }
       if (listeTypeDeQuestions[i] < 12 && listeTypeDeQuestions[i] > 8) {
-        texte += ajouteChampTexteMathLive(this, i, `largeur01 nospacebefore ${KeyboardType.numbersSpace}`, { texteAvant: ' $=$ ' })
+        texte += ajouteChampTexteMathLive(this, i, `largeur01 nospacebefore ${KeyboardType.numbersSpace}`, { espace: true, texteAvant: ' $=$ ' })
         handleAnswers(this, i, { reponse: { value: listeReponses[0][1], compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
       } else {
         texte += remplisLesBlancs(
