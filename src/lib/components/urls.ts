@@ -16,6 +16,30 @@ export class MathAleaURL extends URL {
   }
 
   /**
+   * Utilise le store exercicesParams pour fabriquer l'URL (utile pour les recorders qui freezent l'url)
+   */
+  static fromExercisesParams (): MathAleaURL {
+    const url = new URL(window.location.protocol + '//' + window.location.host + window.location.pathname)
+    const params = get(exercicesParams)
+    for (const ex of params) {
+      url.searchParams.append('uuid', ex.uuid)
+      if (ex.id != null) url.searchParams.append('id', ex.id)
+      if (ex.nbQuestions !== undefined) url.searchParams.append('n', ex.nbQuestions.toString())
+      if (ex.duration != null) url.searchParams.append('d', ex.duration.toString())
+      if (ex.sup != null) url.searchParams.append('s', ex.sup)
+      if (ex.sup2 != null) url.searchParams.append('s2', ex.sup2)
+      if (ex.sup3 != null) url.searchParams.append('s3', ex.sup3)
+      if (ex.sup4 != null) url.searchParams.append('s4', ex.sup4)
+      if (ex.sup5 != null) url.searchParams.append('s5', ex.sup5)
+      if (ex.alea != null) url.searchParams.append('alea', ex.alea)
+      if (ex.interactif === '1') url.searchParams.append('i', '1')
+      if (ex.cd != null) url.searchParams.append('cd', ex.cd)
+      if (ex.cols != null) url.searchParams.append('cols', ex.cols.toString())
+    }
+    return new MathAleaURL(url.toString())
+  }
+
+  /**
    * Retire de l'URL le paramètre fourni et retourne l'URL modifiée
    * @param paramToBeRemoved paramètre à supprimer dans l'URL (seulement les propriétés de InterfaceGlobalOptions sont permises )
    * @returns l'URL
@@ -76,9 +100,11 @@ export function buildMathAleaURL (options: {
   view: VueType,
   mode?: InterfaceGlobalOptions['presMode'],
   isEncrypted?: boolean, isShort?: boolean,
-  removeSeed?: boolean}
+  removeSeed?: boolean
+  /** S'il y a un recorder l'url est cachée et doit être construite à partir du store exercicesParams */
+  recorder?: 'Moodle'}
 ): URL {
-  const url = new MathAleaURL()
+  const url = options.recorder ? MathAleaURL.fromExercisesParams() : new MathAleaURL()
   if (options.removeSeed) {
     url.removeSeed()
   }

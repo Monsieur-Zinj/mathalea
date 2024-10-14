@@ -1,6 +1,7 @@
 import { exercicesParams, globalOptions } from './stores/generalStore'
 import { get } from 'svelte/store'
 import { mathaleaGetExercicesFromParams } from './mathalea'
+import { buildMathAleaURL } from './components/urls'
 
 export async function sendActivityParams () {
   const exercices = []
@@ -34,11 +35,18 @@ export async function sendActivityParams () {
     i++
   }
   const options = get(globalOptions)
+  const url = buildMathAleaURL({
+    view: 'eleve',
+    mode: 'un_exo_par_page',
+    removeSeed: true,
+    recorder: 'Moodle'
+  }).toString()
+  console.info(url)
   window.parent.postMessage(
     {
       exercices,
       action: 'mathalea:activityParams',
-      url: window.location.href,
+      url,
       globalOptions: options
     },
     '*'
