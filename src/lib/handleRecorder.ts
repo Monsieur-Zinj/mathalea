@@ -1,4 +1,4 @@
-import { exercicesParams } from './stores/generalStore'
+import { exercicesParams, globalOptions } from './stores/generalStore'
 import { get } from 'svelte/store'
 import { mathaleaGetExercicesFromParams } from './mathalea'
 
@@ -33,10 +33,13 @@ export async function sendActivityParams () {
     })
     i++
   }
+  const options = get(globalOptions)
   window.parent.postMessage(
     {
       exercices,
-      action: 'mathalea:activityParams'
+      action: 'mathalea:activityParams',
+      url: window.location.href,
+      globalOptions: options
     },
     '*'
   )

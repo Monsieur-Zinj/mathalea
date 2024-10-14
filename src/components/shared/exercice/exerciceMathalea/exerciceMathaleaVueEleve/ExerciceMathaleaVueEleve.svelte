@@ -237,6 +237,7 @@
       if ($globalOptions.recorder === 'moodle') {
         const url = new URL(window.location.href)
         const iframe = url.searchParams.get('iframe')
+        console.info({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe })
         window.parent.postMessage({ resultsByExercice: $resultsByExercice, action: 'mathalea:score', iframe }, '*')
       } else if ($globalOptions.recorder === 'capytale') {
         if (buttonScore.dataset.capytaleLoadAnswers === '1') {
