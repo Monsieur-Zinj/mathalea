@@ -22,7 +22,6 @@ export const dateDeModifImportante = '09/09/2022'
  *
  * 2 fois sur 5 il y a chevauchement entre les classes
  * @author Rémi Angot (complété par Eric Elter pour mettre des niveaux de difficulté)
- * 6N10-1
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '7efdf'
@@ -34,8 +33,6 @@ export const refs = {
 export default function ExerciceNumerationEntier () {
   Exercice.call(this)
   this.nbQuestions = 5
-  this.nbCols = 1
-  this.nbColsCorr = 1
   this.sup = false
   this.sup2 = true
   this.sup3 = 3
@@ -106,19 +103,17 @@ export default function ExerciceNumerationEntier () {
         rangB = rangA + 1
       }
       if (this.sup2) {
-        texte = `$\\text{${b}  ${rangs[rangB]} et ${a} ${rangs[rangA]}}$`
-        texteCorr = `$${b} \\text{ ${rangs[rangB]} et }${a} \\text{ ${rangs[rangA]
-                } : } ${texNombre(b * Math.pow(10, rangB))} + ${texNombre(a * (Math.pow(10, rangA)))} =${texNombre(
+        texte = `$${b}$  ${rangs[rangB]} et $${a}$ ${rangs[rangA]}`
+        texteCorr = `$${b}$  ${rangs[rangB]} et $${a}$ ${rangs[rangA]} $ = ${texNombre(b * Math.pow(10, rangB))} + ${texNombre(a * (Math.pow(10, rangA)))} =${texNombre(
                     b * Math.pow(10, rangB) + a * Math.pow(10, rangA)
                 )}$`
       } else {
-        texte = `$\\text{${b}  ${rangs[rangB]} et ${a} ${rangs[rangA]} correspondent à }$`
-        texte += !this.interactif ? `$\\text{\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots ${rangs[rangRef]}.}$` : ''
-        texteCorr = `$${b} \\text{ ${rangs[rangB]} et }${a} \\text{ ${rangs[rangA]
-                } correspondent à`
-        texteCorr += ` ${texNombre(b * Math.pow(10, rangB - rangRef))} ${rangs[rangRef]} + ${texNombre(a * (Math.pow(10, rangA - rangRef)))} ${rangs[rangRef]} =${texNombre(
+        texte = `$${b}$  ${rangs[rangB]} et $${a}$ ${rangs[rangA]} correspondent à `
+        texte += !this.interactif ? `$\\text{\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots\\ldots}$ ${rangs[rangRef]}.` : ''
+        texteCorr = `$${b}$  ${rangs[rangB]} et $${a}$ ${rangs[rangA]} correspondent à `
+        texteCorr += ` $${texNombre(b * Math.pow(10, rangB - rangRef))}$ ${rangs[rangRef]} + $${texNombre(a * (Math.pow(10, rangA - rangRef)))}$ ${rangs[rangRef]} $=${texNombre(
                     b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef)
-                )} ${rangs[rangRef]}}$`
+                )}$ ${rangs[rangRef]}`
       }
       const reponse = texNombre(this.sup2 ? b * Math.pow(10, rangB) + a * Math.pow(10, rangA) : b * Math.pow(10, rangB - rangRef) + a * Math.pow(10, rangA - rangRef))
 
