@@ -15,6 +15,7 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import Decimal from 'decimal.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Lire une abscisse décimale grâce à des zooms successifs'
 
@@ -577,17 +578,17 @@ export default function LireUneAbscisseAvecZoom () {
       texte += ' et sous forme d\'une seule fraction décimale.<br>'
       texte += mathalea2d(fenetre, objets)
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse1, compare: fonctionComparaison } })
-        handleAnswers(this, i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
-        handleAnswers(this, i + 2, { reponse: { value: reponse1, compare: fonctionComparaison, options: { fractionDecimale: true } } })
+        handleAnswers(this, 3 * i, { reponse: { value: reponse1, compare: fonctionComparaison } })
+        handleAnswers(this, 3 * i + 1, { reponse: { value: `${reponse2A}+${reponse2B.toLatex()}`, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
+        handleAnswers(this, 3 * i + 2, { reponse: { value: reponse1, compare: fonctionComparaison, options: { fractionDecimale: true } } })
 
-        texte += ajouteChampTexteMathLive(this, i * 3, 'largeur01 inline nospacebefore', {
+        texte += ajouteChampTexteMathLive(this, i * 3, `largeur01 inline nospacebefore ${KeyboardType.numbersSpace}`, {
           texteAvant: `Abscisse de $${noms[1]}$ en écriture décimale : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur01 inline nospacebefore', {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 1, `largeur01 inline nospacebefore ${KeyboardType.numbersSpace}`, {
           texteAvant: `Abscisse de $${noms[1]}$ comme somme d'un nombre entier et d'une fraction décimale inférieure à 1 : `
         })
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur01 inline nospacebefore', {
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i * 3 + 2, `largeur01 inline nospacebefore ${KeyboardType.numbersSpace}`, {
           texteAvant: `Abscisse de $${noms[1]}$ sous forme d'une fraction décimale : `
         })
       } else if (context.isAmc) {
