@@ -9,6 +9,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 
 export const titre = 'Écrire la liste de tous les diviseurs d\'un entier'
 export const interactifReady = true
@@ -162,11 +163,6 @@ export default function ListeDesDiviseurs5e () {
           }
           texteCorr += '<br>'
           texteCorr += `${M} a donc ${nbDiviseursM} diviseurs qui sont : `
-          texteCorr += '1'
-          for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
-            texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
-          }
-          texteCorr += '.'
           break
         case 2: // liste des diviseurs
           texte = ''
@@ -192,13 +188,14 @@ export default function ListeDesDiviseurs5e () {
           }
           texteCorr += `Chacun des facteurs de la liste ci-dessus est un diviseur de ${M}.<br>`
           texteCorr += `La liste des diviseurs de ${M} est donc `
-          texteCorr += '1'
-          for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
-            texteCorr += ' ; ' + listeDesDiviseurs(M)[w]
-          }
-          texteCorr += '.'
           break
       }
+      texteCorr += texteEnCouleurEtGras('1')
+      for (let w = 1; w < listeDesDiviseurs(M).length; w++) {
+        texteCorr += texteEnCouleurEtGras(' ; ') + texteEnCouleurEtGras(listeDesDiviseurs(M)[w])
+      }
+      texteCorr += '.'
+
       handleAnswers(this, i, { reponse: { value: listeDesDiviseurs(M).join(';'), compare: fonctionComparaison, options: { suiteDeNombres: true } } })
 
       if (context.isAmc) {
