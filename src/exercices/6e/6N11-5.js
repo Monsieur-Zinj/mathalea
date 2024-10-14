@@ -7,7 +7,7 @@ import { propositionsQcm } from '../../lib/interactif/qcm'
 export const titre = 'Comparer deux nombres entiers'
 
 export const dateDePublication = '07/08/2022'
-export const dateDeModificationImportante = '28/08/2024'
+export const dateDeModificationImportante = '14/10/2024'
 export const interactifReady = true
 export const interactifType = 'qcm'
 
@@ -16,7 +16,6 @@ export const interactifType = 'qcm'
  * Dans le cas où les nombres ont le même nombre de chiffres, ils ont entre 1 et (max - 1) chiffres identiques
  * @author Guillaume Valmont
  * Mise en interactif par Jean-Claude Lhote
- * Référence 6N11-5
  */
 export const uuid = 'a7aa7'
 export const ref = '6N11-5'
@@ -27,7 +26,6 @@ export const refs = {
 export default class ComparerDeuxNombresEntiers extends Exercice {
   constructor () {
     super()
-    this.titre = titre
     this.consigne = 'Comparer :'
     this.nbQuestions = 5
 
@@ -48,6 +46,7 @@ export default class ComparerDeuxNombresEntiers extends Exercice {
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
+    this.consigne = this.interactif ? 'Choisir la bonne comparaison.' : 'Comparer :'
 
     let typeDeQuestionsDisponibles
     switch (this.sup) {
