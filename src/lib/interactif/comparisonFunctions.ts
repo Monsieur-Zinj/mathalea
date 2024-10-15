@@ -1904,10 +1904,13 @@ export function numberWithSpaceCompare (
   input: string,
   goodAnswer: string
 ): ResultType {
-  const inputCleanFirst = input.replaceAll(/(\s{2,})(?=\d{3})/g, ' ').trim() // EE : l'élève peut avoir un saisi un espace avant ou après le nombre et avoir saisi des doubles espaces sans qu'on lui en tienne rigueur tant qu'ils séparent bien les classes, évidemment.
+  let inputCleanFirst = input.replaceAll(/(\s{2,})(?=\d{3})/g, ' ').trim() // EE : l'élève peut avoir un saisi un espace avant ou après le nombre et avoir saisi des doubles espaces sans qu'on lui en tienne rigueur tant qu'ils séparent bien les classes, évidemment.
+  inputCleanFirst = inputCleanFirst.replaceAll(/\\,/g, ' ') // EE : Permet à input que les espaces ressemblent uniquement à ' ' et non à '\,'.
   const clean = generateCleaner(['espaces'])
   const inputClean = clean(input)
   const goodAnswerClean = clean(goodAnswer)
+  goodAnswer = goodAnswer.replaceAll(/\\,/g, ' ') // EE : Permet à goodAnswer que les espaces ressemblent uniquement à ' ' et non à '\,'.
+  console.log(inputCleanFirst, goodAnswer, inputClean, goodAnswerClean)
   let feedback = ''
   if (inputCleanFirst !== goodAnswer && inputClean === goodAnswerClean) {
     feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'

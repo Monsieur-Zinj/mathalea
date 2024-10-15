@@ -2,7 +2,7 @@ import { droiteGraduee } from '../../lib/2d/reperes.js'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { nombreDeChiffresDansLaPartieEntiere } from '../../lib/outils/nombres'
 import { lettreIndiceeDepuisChiffre } from '../../lib/outils/outilString.js'
-import { stringNombre, texNombre } from '../../lib/outils/texNombre'
+import { texNombre } from '../../lib/outils/texNombre'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import {
@@ -172,21 +172,21 @@ export default function LireAbscisseEntiere2d () {
       if (this.interactif && context.isHtml) {
         handleAnswers(this, 3 * i, {
           reponse: {
-            value: stringNombre(reponse1, 0),
+            value: texNombre(reponse1, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 1, {
           reponse: {
-            value: stringNombre(reponse2, 0),
+            value: texNombre(reponse2, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
         })
         handleAnswers(this, 3 * i + 2, {
           reponse: {
-            value: stringNombre(reponse3, 0),
+            value: texNombre(reponse3, 0),
             compare: fonctionComparaison,
             options: { nombreAvecEspace: true }
           }
