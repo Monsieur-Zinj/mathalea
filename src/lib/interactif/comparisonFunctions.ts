@@ -1936,8 +1936,8 @@ export function exprCompare (
   const answerClean = clean(goodAnswer) ?? ''
   let feedback = ''
   let isOk = true
-  const nbParenInput = inputClean.match(/([()])/g)?.length
-  const nbParenAnswer = answerClean.match(/([()])/g)?.length
+  const nbParenInput = inputClean.match(/([[()\]])/g)?.length
+  const nbParenAnswer = answerClean.match(/([[()\]])/g)?.length
   const numbersInput = inputClean
     .match(/\d+/g)
     ?.sort((a, b) => Number(a) - Number(b))
