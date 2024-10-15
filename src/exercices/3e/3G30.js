@@ -15,7 +15,7 @@ import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { context } from '../../modules/context.js'
 import Grandeur from '../../modules/Grandeur'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import Exercice from '../deprecatedExercice.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 
@@ -47,6 +47,7 @@ export default function CalculDeLongueur () {
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = false
+  this.sup2 = '7'
   this.correctionDetailleeDisponible = true
   this.correctionDetaillee = false
   this.interactif = false
@@ -65,8 +66,9 @@ export default function CalculDeLongueur () {
     this.listeCorrections = []
     let reponse
     let listeDeNomsDePolygones
-    let typeQuestionsDisponibles = ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente']
-    if (this.level === 4) typeQuestionsDisponibles = ['cosinus', 'invCosinus']
+    const typeQuestionsDisponibles = (this.level === 4)
+      ? gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 2, melange: 3, defaut: 3, listeOfCase: ['cosinus', 'invCosinus'] })
+      : gestionnaireFormulaireTexte({ saisie: this.sup2, nbQuestions: this.nbQuestions, min: 1, max: 6, melange: 7, defaut: 7, listeOfCase: ['cosinus', 'sinus', 'tangente', 'invCosinus', 'invSinus', 'invTangente'] })
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0; i < this.nbQuestions; i++) {
@@ -449,4 +451,5 @@ export default function CalculDeLongueur () {
   }
 
   this.besoinFormulaireCaseACocher = ['Figure à main levée', false]
+  this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjaçant (cosinus)\n2 : Côté opposé (sinus)\n3 : Côté opposé (tangente)\n4 : Hypoténuse (cosinus)\n5 : Hypoténuse (sinus)\n 6 : Côté adjaçant (tangente)\n7 : Mélange']
 }
