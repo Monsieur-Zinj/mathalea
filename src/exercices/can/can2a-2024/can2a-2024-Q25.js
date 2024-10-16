@@ -30,24 +30,27 @@ export default class NomExercice extends Exercice {
       this.reponse = 'x^2-8x+16'
       this.question = ' Développer $(x-4)^2$.<br>' // (x+a)²
       this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=x$ et $b=4$.<br>
-      $\\begin{aligned}(x-4)^2&=x^2-2 \\times x \\times 4+4^2\\\\
+      $\\begin{aligned}
+      (x-4)^2&=x^2-2 \\times x \\times 4+4^2\\\\
       &=${miseEnEvidence(this.reponse)}\\end{aligned}$`
     } else {
-      const inconnue = choice(['x', 'y'])
       const a = randint(1, 9)
       switch (choice([1, 2])) {
         case 1 :
-          this.reponse = `${inconnue}^2+${2 * a}${inconnue}+${a * a}`
-          this.question = ` Développer $(${inconnue}+${a})^2$.` // (x+a)²
-          this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $\\begin{aligned}(${inconnue}+${a})^2&=${inconnue}^2+2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
-      &=${miseEnEvidence(this.reponse)}\\end{aligned}$`
+          this.reponse = `x^2+${2 * a}x+${a * a}`
+          this.question = ` Développer $(x+${a})^2$.` // (x+a)²
+          this.correction = `On utilise l'égalité remarquable $(a+b)^2=a^2+2ab+b^2$ avec $a=x$ et $b=${a}$.<br>
+      $\\begin{aligned}
+      (x+${a})^2&=x^2+2 \\times ${a} \\times x+${a}^2\\\\
+      &=${miseEnEvidence(this.reponse)}
+      \\end{aligned}$`
           break
         case 2 :
-          this.reponse = `${inconnue}^2-${2 * a}${inconnue}+${a * a}`
-          this.question = ` Développer $(${inconnue}-${a})^2$.` // (x-a)²
-          this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=${inconnue}$ et $b=${a}$.<br>
-      $\\begin{aligned}(${inconnue}-${a})^2&=${inconnue}^2-2 \\times ${a} \\times ${inconnue}+${a}^2\\\\
+          this.reponse = `x^2-${2 * a}x+${a * a}`
+          this.question = ` Développer $(x-${a})^2$.` // (x-a)²
+          this.correction = `On utilise l'égalité remarquable $(a-b)^2=a^2-2ab+b^2$ avec $a=x$ et $b=${a}$.<br>
+      $\\begin{aligned}
+      (x-${a})^2&=x^2-2 \\times ${a} \\times x+${a}^2\\\\
       &=${miseEnEvidence(this.reponse)}
       \\end{aligned}$`
           break
