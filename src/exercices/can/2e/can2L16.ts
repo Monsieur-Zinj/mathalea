@@ -33,7 +33,8 @@ export default class EquationsRacCarree extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
-    this.formatInteractif = 'calcul'
+    this.compare = fonctionComparaison
+    this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   }
 
   nouvelleVersion () {
