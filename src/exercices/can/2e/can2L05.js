@@ -5,6 +5,8 @@ import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { fraction } from '../../../modules/fractions.js'
 import { randint } from '../../../modules/outils.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Résoudre une inéquation'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -27,8 +29,9 @@ export default function SolutionInequation () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 3
-  this.formatChampTexte = 'largeur01 inline lycee'
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+  this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   this.nouvelleVersion = function () {
     let a, b, maFraction, n
     switch (choice([1, 2, 3, 4, 5, 6, 7, 8])) { //
@@ -47,7 +50,7 @@ export default function SolutionInequation () {
             En divisant par $${a}$ dans chaque membre, on obtient :<br>
             $x>${maFraction.texFractionSimplifiee}$<br>
             Les solutions sont les nombres strictement supérieurs à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = [`$]${-n};+\\infty[$`]
+        this.reponse = `]${-n};+\\infty[`
         break
       case 2 :// cas a>0
         a = randint(2, 6)
@@ -64,7 +67,7 @@ export default function SolutionInequation () {
                     En divisant par $${a}$ dans chaque membre, on obtient :<br>
                     $x\\geqslant${maFraction.texFractionSimplifiee}$<br>
                     Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = [`$[${-n};+\\infty[$`]
+        this.reponse = `[${-n};+\\infty[`
         break
       case 3 :// cas a>0
         a = randint(2, 6)
@@ -81,7 +84,7 @@ export default function SolutionInequation () {
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x\\leqslant${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = [`$]-\\infty;${-n}]$`]
+        this.reponse = `]-\\infty;${-n}]`
         break
       case 4 :// cas a>0
         a = randint(2, 6)
@@ -98,7 +101,7 @@ export default function SolutionInequation () {
                       En divisant par $${a}$ dans chaque membre, on obtient :<br>
                       $x<${maFraction.texFractionSimplifiee}$<br>
                       Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$.   `
-        this.reponse = [`$]-\\infty;${-n}[$`]
+        this.reponse = `]-\\infty;${-n}[`
 
         break
 
@@ -119,7 +122,7 @@ export default function SolutionInequation () {
             $x$ ${texteEnCouleur(' $<$ ')}$${-n}$ ${sp(3)}
             ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
             Les solutions sont les nombres strictement inférieurs   à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = [`$]-\\infty;${-n}[$`]
+        this.reponse = `]-\\infty;${-n}[`
         break
       case 6:// cas a<0
         a = randint(-6, -2)
@@ -137,7 +140,7 @@ export default function SolutionInequation () {
           $x$ ${texteEnCouleur(' $\\leqslant$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  inférieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = [`$]-\\infty;${-n}]$`]
+        this.reponse = `]-\\infty;${-n}]`
         break
       case 7:// cas a<0
         a = randint(-6, -2)
@@ -155,7 +158,7 @@ export default function SolutionInequation () {
           $x$ ${texteEnCouleur(' $\\geqslant$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres  supérieurs ou égaux  à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = [`$[${-n};+\\infty[$`]
+        this.reponse = `[${-n};+\\infty[`
         break
       case 8:// cas a<0
         a = randint(-6, -2)
@@ -173,7 +176,7 @@ export default function SolutionInequation () {
           $x$ ${texteEnCouleur(' $>$ ')}$${maFraction.texFractionSimplifiee}$ ${sp(3)}
           ${texteEnCouleur('(quand on divise par un nombre strictement négatif, on change le sens de l’inégalité).')}<br>
           Les solutions sont les nombres strictement supérieurs   à $${maFraction.texFractionSimplifiee}$. `
-        this.reponse = [`$]${-n};+\\infty[$`]
+        this.reponse = `]${-n};+\\infty[`
         break
     }
     this.canEnonce = this.question// 'Compléter'

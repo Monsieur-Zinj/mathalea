@@ -2,6 +2,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils.js'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
 export const titre = 'Déterminer la réunion de deux intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,8 +25,9 @@ export default function ReunionIntervalles () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1
-  this.formatChampTexte = 'largeur01 inline lycee'
-  // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
+  this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   this.nouvelleVersion = function () {
     const cours = 'La réunion de deux intervalles $I$ et $J$ (notée $I\\cup J$) est l’ensemble qui contient les nombres appartenant à  au moins un des deux intervalles $I$ ou $J$.<br>'
     switch (choice([1, 2, 3, 4, 5, 6, 7])) { //, 2,3,4,5,6,7
@@ -42,6 +45,7 @@ export default function ReunionIntervalles () {
           this.reponse = `${crochet1}${a};${d}${crochet4}`
           this.question = `Donner une écriture simplifiée de
         ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$`} $= ${miseEnEvidence(`${crochet1}${a}\\,;\\,${d}${crochet4}`)}$.<br>
       `
         }
@@ -61,6 +65,7 @@ export default function ReunionIntervalles () {
           this.reponse = `${crochet1}${a};${b}${crochet2}`
           this.question = `Donner une écriture simplifiée de
         ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$`} $= ${miseEnEvidence(`${crochet1}${a}\\,;\\,${b}${crochet2}`)}$.<br>
         `
         }
@@ -79,6 +84,7 @@ export default function ReunionIntervalles () {
           this.reponse = `${crochet3}${c};+\\infty[`
           this.question = `Donner une écriture simplifiée de
             ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $=${miseEnEvidence(`${crochet3}${c}\\,;\\,+\\infty[`)}$.<br>
           `
         }
@@ -96,6 +102,7 @@ export default function ReunionIntervalles () {
           this.reponse = `${crochet1}${a};+\\infty[`
           this.question = `Donner une écriture simplifiée de
               ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $= ${miseEnEvidence(`${crochet1}${a}\\,;\\,+\\infty[`)}$.<br>`
         }
         break
@@ -110,6 +117,7 @@ export default function ReunionIntervalles () {
           this.reponse = `${crochet1}${a};+\\infty[`
           this.question = `Donner une écriture simplifiée de
                 ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi,  ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cup \\,${crochet3}${c}\\,;\\,+\\infty[$` : `$${crochet3}${c}\\,;\\,+\\infty[\\,\\cup \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $= ${miseEnEvidence(`${crochet1}${a}\\,;\\,+\\infty[`)}$.<br>
                `
         }
@@ -122,9 +130,10 @@ export default function ReunionIntervalles () {
           const crochet2 = choice([']', '['])
           const crochet3 = choice([']', '['])
           const choix = choice([true, false])
-          this.reponse = [']-\\infty;+\\infty[', '\\mathbb{R}']
+          this.reponse = ']-\\infty;+\\infty['
           this.question = `Donner une écriture simplifiée de
                   ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cup ${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\cup ]-\\infty \\,; \\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, 
                   ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cup ${crochet3}${c}\\,;\\,+\\infty[$` : `$${crochet3}${c}\\,;\\,+\\infty[\\cup ]-\\infty \\,; \\,${b}${crochet2}$`} $= ${miseEnEvidence(']-\\infty\\,;\\,+\\infty[=\\mathbb{R}')}$.<br>
                  `
@@ -143,6 +152,7 @@ export default function ReunionIntervalles () {
           this.reponse = `]-\\infty;${d}${crochet4}`
           this.question = `Donner une écriture simplifiée de
                     ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cup ${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\cup ]-\\infty \\,; \\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi,  ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cup ${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\cup ]-\\infty \\,; \\,${b}${crochet2}$`} $= ${miseEnEvidence(`]-\\infty\\,;\\,${d}${crochet4}`)}$.<br>
                      `
         }

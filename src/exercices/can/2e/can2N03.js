@@ -2,6 +2,8 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import Exercice from '../../deprecatedExercice.js'
 import { randint } from '../../../modules/outils.js'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
+import { KeyboardType } from '../../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../../lib/interactif/comparisonFunctions'
 export const titre = 'Déterminer l\'intersection de deux intervalles'
 export const interactifReady = true
 export const interactifType = 'mathLive'
@@ -23,7 +25,9 @@ export default function IntersectionIntervalles () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1
-  this.formatChampTexte = 'largeur01 inline lycee'
+  this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+  this.compare = fonctionComparaison
+  this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.nouvelleVersion = function () {
     const cours = 'L’intersection de deux intervalles $I$ et $J$ est l’ensemble qui contient les nombres appartenant à $I$ et à $J$.<br>'
@@ -42,6 +46,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `${crochet3}${c};${b}${crochet2}`
           this.question = `Donner une écriture simplifiée de
         ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$`} $= ${miseEnEvidence(`${crochet3}${c}\\,;\\,${b}${crochet2}`)}$.<br>
         Les nombres de l'intervalle $${crochet3}${c}\\,;\\,${b}${crochet2}$ appartiennent à l'intervalle $${crochet1} ${a}\\,;\\,${b}${crochet2}$ et à l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$.`
         }
@@ -62,6 +67,7 @@ export default function IntersectionIntervalles () {
           this.reponse = '\\emptyset'
           this.question = `Donner une écriture simplifiée de
           ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Comme $${c}>${b}$, l'intersection est vide (il n'y a pas de nombres à la fois dans $I$ et dans $J$).`
           this.correction += `<br> ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$`} $= ${miseEnEvidence('\\emptyset')}$.`
         }
@@ -81,6 +87,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `${crochet3}${c};${d}${crochet4}`
           this.question = `Donner une écriture simplifiée de
         ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,${b}${crochet2}\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,${b}${crochet2}$`} $= ${miseEnEvidence(`${crochet3}${c}\\,;\\,${d}${crochet4}`)}$.<br>
         Les nombres de l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$ appartiennent à l'intervalle $${crochet1} ${a}\\,;\\,${b}${crochet2}$ et à l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$.`
         }
@@ -98,6 +105,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `${crochet1}${a};${d}${crochet4}`
           this.question = `Donner une écriture simplifiée de
             ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $= ${miseEnEvidence(`${crochet1}${a}\\,;\\,${d}${crochet4}`)}$.<br>
             Les nombres de l'intervalle $${crochet1}${a}\\,;\\,${d}${crochet4}$ appartiennent à l'intervalle $${crochet1} ${a}\\,;\\,+\\infty[$ et à l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$.`
         }
@@ -115,6 +123,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `${crochet3}${c};${d}${crochet4}`
           this.question = `Donner une écriture simplifiée de
               ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$.` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,${d}${crochet4}$` : `$${crochet3}${c}\\,;\\,${d}${crochet4}\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $= ${miseEnEvidence(`${crochet3}${c}\\,;\\,${d}${crochet4}`)}$.<br>
               Les nombres de l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$ appartiennent à l'intervalle $${crochet1} ${a}\\,;\\,+\\infty[$ et à l'intervalle $${crochet3}${c}\\,;\\,${d}${crochet4}$.`
         }
@@ -129,7 +138,8 @@ export default function IntersectionIntervalles () {
           const choix = choice([true, false])
           this.reponse = `${crochet3}${c};+\\infty[`
           this.question = `Donner une écriture simplifiée de
-                ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi,  ${choix ? `$${crochet1} ${a}\\,;\\,+\\infty[\\,\\cap \\,${crochet3}${c}\\,;\\,+\\infty[$` : `$${crochet3}${c}\\,;\\,+\\infty[\\,\\cap \\,${crochet1} ${a}\\,;\\,+\\infty[$`} $= ${miseEnEvidence(`${crochet3}${c}\\,;\\,+\\infty[`)}$.<br>
                 Les nombres de l'intervalle $${crochet3}${c}\\,;\\,+\\infty[$ appartiennent à l'intervalle $${crochet1} ${a}\\,;\\,+\\infty[$ et à l'intervalle $${crochet3}${c}\\,;\\,+\\infty[$.`
         }
@@ -145,6 +155,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `${crochet3}${c};${b}${crochet2}`
           this.question = `Donner une écriture simplifiée de
                   ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cap ${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\cap ]-\\infty \\,; \\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi, 
                   ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cap ${crochet3}${c}\\,;\\,+\\infty[$` : `$${crochet3}${c}\\,;\\,+\\infty[\\cap ]-\\infty \\,; \\,${b}${crochet2}$`}  $= ${miseEnEvidence(`${crochet3}${c}\\,;\\,${b}${crochet2}`)}$.<br>
                   Les nombres de l'intervalle $${crochet3}${c}\\,;\\,${b}${crochet2}$ appartiennent à l'intervalle $]-\\infty \\,; \\,${b}${crochet2}$ et à l'intervalle $${crochet3}${c}\\,;\\,+\\infty[$.`
@@ -162,6 +173,7 @@ export default function IntersectionIntervalles () {
           this.reponse = '\\emptyset'
           this.question = `Donner une écriture simplifiée de
                     ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cap ${crochet3}${c}\\,;\\,+\\infty[$.` : `$${crochet3}${c}\\,;\\,+\\infty[\\cap ]-\\infty \\,; \\,${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Comme $${c}>${b}$, l'intersection est vide (il n'y a pas de nombres à la fois dans $I$ et dans $J$).`
           this.correction += `<br> ${choix ? `$]-\\infty \\,; \\,${b}${crochet2}\\cap ${crochet3}${c}\\,;\\,+\\infty[$` : `$${crochet3}${c}\\,;\\,+\\infty[\\cap ]-\\infty \\,; \\,${b}${crochet2}$`} $= ${miseEnEvidence('\\emptyset')}$.`
         }
@@ -177,6 +189,7 @@ export default function IntersectionIntervalles () {
           this.reponse = `]-\\infty;${b}${crochet2}`
           this.question = `Donner une écriture simplifiée de
                       ${choix ? `$]-\\infty\\,;\\, ${b}${crochet2}\\,\\cap \\,]-\\infty\\,;\\,${c}${crochet3}$.` : `$]-\\infty\\,;\\,${c}${crochet3}\\,\\cap \\,]-\\infty\\,;\\, ${b}${crochet2}$.`}`
+          if (this.interactif) { this.question += '<br>' }
           this.correction = `${cours}` + `Ainsi,  ${choix ? `$]-\\infty\\,;\\, ${b}${crochet2}\\,\\cap \\,]-\\infty\\,;\\,${c}${crochet3}$` : `$]-\\infty\\,;\\,${c}${crochet3}\\,\\cap \\,]-\\infty\\,;\\, ${b}${crochet2}$`} $= ${miseEnEvidence(`]-\\infty\\,;\\,${b}${crochet2}`)}$.<br>
                       Les nombres de l'intervalle $]-\\infty\\,;\\,${b}${crochet2}$ appartiennent à l'intervalle $]-\\infty\\,;\\, ${b}${crochet2}$ et à l'intervalle $]-\\infty\\,;\\,${c}${crochet3}$.`
         }
