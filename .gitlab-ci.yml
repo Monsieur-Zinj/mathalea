@@ -66,7 +66,9 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - npm install playwright@1.45.0 --with-deps chromium
+    - pnpm exec playwright install --with-deps chromium
+    - ls /root/.cache/ms-playwright/
+    - pnpm add playwright@1.44.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/dnb.git ./public/static/dnb
     - pnpm install
     - nohup pnpm start &
@@ -79,7 +81,9 @@ default:
     - pnpm config set store-dir .pnpm-store
     - pnpm -v
     - lualatex -v
-    - npm install playwright@1.45.0 --with-deps chromium
+    - pnpm exec playwright install --with-deps chromium
+    - ls /root/.cache/ms-playwright/
+    - pnpm add playwright@1.44.1 --save-dev
     - git clone https://forge.apps.education.fr/coopmaths/bac.git ./public/static/bac
     - pnpm install
     - nohup pnpm start &

@@ -227,9 +227,9 @@
 
 <svelte:head>
   <style>
-    svg.mathalea2d {
+    /*svg.mathalea2d {
       display: inline-flex;
-    }
+    }*/
   </style>
 </svelte:head>
 
