@@ -156,6 +156,9 @@
     for (const svgContainer of svgContainers) {
       svgContainer.classList.add('flex')
       svgContainer.classList.add('justify-center')
+      svgContainer.querySelectorAll<HTMLElement>('[id^="M2D"]').forEach((item, index) => {
+        item.style.display = 'inline-block'
+      })
     }
     mathaleaRenderDiv(exerciseContainerDiv, 1)
     const { height: questionHeight, width: questionWidth } = getSizes(questionDiv)
