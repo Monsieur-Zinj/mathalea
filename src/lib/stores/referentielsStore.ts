@@ -32,7 +32,7 @@ const activations: Record<ActivationName, boolean> = { ...referentielsActivation
 // on trie les examens dans l'ordre inverse des années/mois
 const examsReferentiel: JSONReferentielObject = { ...referentielExams }
 let examens = getAllEndings(examsReferentiel)
-examens = [...triAnnales(examens, 'desc')]
+examens = triAnnales(examens, 'ascStringdescNumber')
 const orderedExamsReferentiel = buildReferentiel(examens)
 // console.log('EE : 0000000000000000000', referentielAlea)
 const baseReferentiel: JSONReferentielObject = { ...referentielAlea }
