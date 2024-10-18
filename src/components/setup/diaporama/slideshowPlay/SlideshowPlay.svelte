@@ -156,7 +156,7 @@
     for (const svgContainer of svgContainers) {
       svgContainer.classList.add('flex')
       svgContainer.classList.add('justify-center')
-      svgContainer.querySelectorAll<HTMLElement>('[id^="M2D"]').forEach((item, index) => {
+      svgContainer.querySelectorAll<HTMLElement>('[id^="M2D"]').forEach((item) => {
         item.style.display = 'inline-block'
       })
     }
