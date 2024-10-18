@@ -225,14 +225,6 @@
   }
 </script>
 
-<svelte:head>
-  <style>
-    /*svg.mathalea2d {
-      display: inline-flex;
-    }*/
-  </style>
-</svelte:head>
-
 <div id="diaporama" class="h-screen {$darkMode.isActive ? 'dark' : ''}">
   {#if $globalOptions.v === 'overview' && slideshow.slides.length > 0}
     <SlideshowOverview
