@@ -96,7 +96,7 @@ export interface AutoCorrection {
   enonce?:string
   propositions?: {
     texte: string
-    statut?: number
+    statut?: number|boolean
     sanscadre?:boolean
   }[]
   reponse?: {
