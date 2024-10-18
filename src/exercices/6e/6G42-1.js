@@ -11,6 +11,7 @@ import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 
 export const titre = 'Nommer des faces dans un pavé droit'
 export const amcReady = true
@@ -33,8 +34,7 @@ export const refs = {
 }
 export default function LireFacePaveDroit () {
   Exercice.call(this)
-  this.titre = titre
-  this.nbQuestions = 4
+  this.nbQuestions = 1
   this.nbCols = 1
   this.nbColsCorr = 1
   this.sup = 3
@@ -45,7 +45,7 @@ export default function LireFacePaveDroit () {
   /**
      * Inverse une chaîne de caractères
      * @param {string} str Chaîne à inverser
-     * @author Eric Elter (enfin copié sur le net)
+     * @author Eric Elter
      * @example inverseChaine('laval') renvoie 'laval' /// Hihihihi...
      * @example inverseChaine('parfait') renvoie 'tiafrap'
      * @example inverseChaine('1234') renvoie '4321'
@@ -193,7 +193,7 @@ export default function LireFacePaveDroit () {
           texte += propositionsQcm(this, indiceQuestion).texte
         } else {
           setReponse(this, indiceQuestion, resultatsPossibles, { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, indiceQuestion, 'largeur01 inline') + '<br>'
+          texte += ajouteChampTexteMathLive(this, indiceQuestion, 'largeur01 inline ') + KeyboardType.alphanumeric + '<br>'
         }
         if (context.isAmc) {
           this.autoCorrection[i].propositions.push(
