@@ -86,7 +86,11 @@ export default class RepresenterUneFraction extends Exercice {
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
         figure.divUserMessage.style.display = 'none'
       } else {
-        texte += figure.getStaticHtml()
+        if (context.isHtml) {
+          texte += figure.getStaticHtml()
+        } else {
+          texte += figure.tikz()
+        }
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       if (this.interactif) {
