@@ -1,6 +1,6 @@
 import { milieu, point, tracePoint } from '../../lib/2d/points.js'
 import { cone as cone2d, sphere2d } from '../../lib/2d/projections3d.js'
-import { segment } from '../../lib/2d/segmentsVecteurs.js'
+import { Segment, segment } from '../../lib/2d/segmentsVecteurs.js'
 import { homothetie } from '../../lib/2d/transformations.js'
 import { choice } from '../../lib/outils/arrayOutils'
 import { premiereLettreEnMajuscule } from '../../lib/outils/outilString.js'
@@ -21,7 +21,7 @@ import { context } from '../../modules/context.js'
 import { ajouteChampTexte } from '../../lib/interactif/questionMathLive.js'
 import { propositionsQcm } from '../../lib/interactif/qcm.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { fixeBordures, mathalea2d, vide2d } from '../../modules/2dGeneralites.js'
+import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites.js'
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import Exercice from '../Exercice'
 
@@ -51,7 +51,6 @@ export default class ReconnaitreDesSolides extends Exercice {
     this.formatChampTexte = 'largeur01 inline'
     this.sup = '8' // Type de question
     this.sup2 = false // qcm
-    this.sup3 = false // axes
     this.besoinFormulaireTexte = [
       'Type de solides', [
         'Nombres séparés par des tirets',
@@ -66,14 +65,12 @@ export default class ReconnaitreDesSolides extends Exercice {
       ].join('\n')
     ]
     this.besoinFormulaire2CaseACocher = ['QCM']
-    this.besoinFormulaire3CaseACocher = ['Avec les axes']
   }
 
   nouvelleVersion () {
     const maxTentativesParQuestion = 50
     const solides = ['prisme', 'pyramide', 'cône', 'cylindre', 'pavé droit', 'cube', 'sphère']
     this.interactifType = this.sup2 ? 'qcm' : 'mathLive'
-    const isAxe = this.sup3
     this.listeQuestions = []
     this.listeCorrections = []
     this.autoCorrection = []
@@ -93,17 +90,14 @@ export default class ReconnaitreDesSolides extends Exercice {
       const objets = []
       let reponseQcm
 
-      // les 3 axes
-      const a1 = isAxe ? arete3d(point3d(0, 0, 0), point3d(1, 0, 0), 'green').c2d : vide2d() // il n'est pas prudent d'envoyer des  {} à mathalea2d()
-      const a2 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 1, 0), 'red').c2d : vide2d() // j'ai créé l'objet vide() exprès.
-      const a3 = isAxe ? arete3d(point3d(0, 0, 0), point3d(0, 0, 1), 'blue').c2d : vide2d() // l'objet vide() ne fait pas planter fixeBordures... {} oui.
-
       let axe = choix === 1 ? randint(1, 2) : (choix > 1 && choix <= 5) ? randint(1, 3) : 0
 
       // nombre de sommets de la base.
       const n = choix < 3 ? randint(3, 8) : (choix === 5 || choix === 6 ? 4 : 0)
 
       let prisme, pyra, cone, cylindre, pave, sphere
+      let texteCorrection = ''
+      let reponse = '' as string|string[]
       const solide = solides[choix - 1]
       switch (solide) {
         case 'prisme': // Prisme  ?
@@ -119,6 +113,7 @@ export default class ReconnaitreDesSolides extends Exercice {
               points3XZ.push(point3d(rayon * Math.cos(alpha * i), 5, rayon * Math.sin(alpha * i), true))
               points3YZ.push(point3d(-1, rayon * Math.cos(alpha * i), rayon * Math.sin(alpha * i)))
             }
+            let base, k3, p3
             if (axe === 2) {
               // base sur le plan YZ
               if (n === 4) {
@@ -129,15 +124,9 @@ export default class ReconnaitreDesSolides extends Exercice {
                 points3YZ.length = 0
                 points3YZ.push(...points3DRota)
               }
-              const base = polygone3d(points3YZ)
-              const k1 = vecteur3d(3, 0, 0)
-              const p1 = point3d(3, 0, 0)
-
-              if (solide === 'prisme') {
-                prisme = prisme3d(base, k1)
-              } else {
-                pyra = pyramide3d(base, p1)
-              }
+              base = polygone3d(points3YZ)
+              k3 = vecteur3d(3, 0, 0)
+              p3 = point3d(3, 0, 0)
             } else {
               // base sur le plan XY
               if (n === 4) {
@@ -148,24 +137,22 @@ export default class ReconnaitreDesSolides extends Exercice {
                 points3XY.length = 0
                 points3XY.push(...points3DRota)
               }
-              const base = polygone3d(points3XY)
-              const k3 = vecteur3d(0, 0, 3)
-              const p3 = point3d(0, 0, 3)
-              if (solide === 'prisme') {
-                prisme = prisme3d(base, k3)
-              } else {
-                pyra = pyramide3d(base, p3)
-              }
+              base = polygone3d(points3XY)
+              k3 = vecteur3d(0, 0, 3)
+              p3 = point3d(0, 0, 3)
+            }
+
+            if (solide === 'prisme') {
+              prisme = prisme3d(base, k3)
+              objets.push(...prisme.c2d)
+              texteCorrection = `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.`
+            } else {
+              pyra = pyramide3d(base, p3)
+              objets.push(...pyra.c2d)
+              texteCorrection = `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
             }
           }
-          if (solide === 'prisme') {
-            objets.push(...prisme.c2d)
-          } else {
-            objets.push(...pyra.c2d)
-          }
-
-          this.reponse = solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
-          this.correction = solide === 'prisme' ? `Prisme droit avec une base ayant $${prisme.base1.listePoints.length}$ sommets.` : `Pyramide avec une base ayant $${pyra.base.listePoints.length}$ sommets.`// et selon l'axe=$${axe}$`
+          reponse = solide === 'prisme' ? ['prisme', 'prisme droit'] : 'pyramide'
 
           break
         case 'cône': // cone  ?
@@ -193,12 +180,12 @@ export default class ReconnaitreDesSolides extends Exercice {
           } else {
             cone = cone2d({ centre: point(0, 0), Rx: randint(15, 30) / 10, hauteur: choice([3, 4, 5]) })
             const t = tracePoint(cone.centre)
-            const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5)
-            g.pointilles = 2
+            const g = homothetie(segment(cone.centre, cone.sommet), milieu(cone.centre, cone.sommet), 1.5) as Segment
+            g.pointilles = '2'
             objets.push(cone, g, t)
           }
-          this.reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
-          this.correction = 'Cône de révolution' // suivant l'axe=$${axe}$`
+          reponse = ['cône', 'cone', 'cône de révolution', 'cone de révolution']
+          texteCorrection = 'Cône de révolution' // suivant l'axe=$${axe}$`
           break
         }
         case 'cylindre': // cylindre
@@ -212,7 +199,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             const g = []
             for (let i = 0; i < c1.listePoints.length; i += 2) {
               const s = segment(c3.listePoints[i], c1.listePoints[i])
-              s.pointilles = 2
+              s.pointilles = '2'
               s.opacite = 0.3
               g.push(s)
             }
@@ -243,7 +230,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             }
             for (let i = 0; i < c2.listePoints.length; i += 2) {
               const s = segment(c4.listePoints[i], c2.listePoints[i])
-              s.pointilles = 2
+              s.pointilles = '2'
               s.opacite = 0.3
               g.push(s)
             }
@@ -255,8 +242,8 @@ export default class ReconnaitreDesSolides extends Exercice {
             cylindre = cylindre3d(point3d(0, 0, 0), point3d(0, 0, 3), vecteur3d(2, 0, 0), vecteur3d(2, 0, 0))
           }
           objets.push(...cylindre.c2d)
-          this.reponse = ['cylindre', 'cylindre de révolution']
-          this.correction = premiereLettreEnMajuscule(solide) + ' de révolution.'
+          reponse = ['cylindre', 'cylindre de révolution']
+          texteCorrection = premiereLettreEnMajuscule(solide) + ' de révolution.'
 
           break
         case 'pavé droit': // pavé droit
@@ -285,7 +272,7 @@ export default class ReconnaitreDesSolides extends Exercice {
             points3XZ.push(...points3DRota)
 
             const base = polygone3d(points3XZ)
-            const k2 = point3d(0, -6, 0)
+            const k2 = vecteur3d(0, -6, 0)
             pave = prisme3d(base, k2)
           } else if (axe === 2) {
             // base sur le plan YZ
@@ -312,29 +299,28 @@ export default class ReconnaitreDesSolides extends Exercice {
             points3XY.length = 0
             points3XY.push(...points3DRota)
             const base = polygone3d(points3XY)
-            const k3 = point3d(0, 0, 3)
+            const k3 = vecteur3d(0, 0, 3)
             pave = prisme3d(base, k3)
           }
           objets.push(...pave.c2d)
-          this.reponse = solide
+          reponse = solide
           reponseQcm = solide
-          this.correction = premiereLettreEnMajuscule(solide) + '.'
+          texteCorrection = premiereLettreEnMajuscule(solide) + '.'
 
           break
         }
         case 'sphère': // sphère
           sphere = sphere2d({ centre: point(0, 0), Rx: 2, color: 'black' })
           objets.push(sphere)
-          this.reponse = solide
-          this.correction = premiereLettreEnMajuscule(solide) + '.'
+          reponse = solide
+          texteCorrection = premiereLettreEnMajuscule(solide) + '.'
 
           break
       }
       if (this.questionJamaisPosee(j, choix, n, axe)) {
         reponseQcm = solide
-        if (this.sup2) this.reponse = solide // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
+        if (this.sup2) reponse = solide // on remplace les éventuelles réponses multiples par l'unique réponse du QCM
 
-        objets.push(a1, a2, a3)
         this.question = mathalea2d(Object.assign({}, fixeBordures(objets), {
           scale: 0.5,
           style: 'margin: auto'
@@ -376,11 +362,11 @@ export default class ReconnaitreDesSolides extends Exercice {
         if (this.sup2) {
           this.question += propositionsQcm(this, j).texte
         } else {
-          setReponse(this, j, this.reponse, { formatInteractif: 'ignorerCasse' })
+          setReponse(this, j, reponse, { formatInteractif: 'ignorerCasse' })
           this.question += '<br>' + ajouteChampTexte(this, j)
         }
         this.listeQuestions.push(this.question)
-        this.listeCorrections.push(this.correction)
+        this.listeCorrections.push(texteCorrection)
         j++
       }
     }
