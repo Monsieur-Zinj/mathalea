@@ -1,6 +1,6 @@
 import { checkFeedback, getQuestions, inputAnswer, runTest } from '../../helpers/run'
 import type { Page } from 'playwright'
-import { clean } from 'helpers/text'
+import { clean } from '../../helpers/text'
 import { KatexHandler } from '../../helpers/KatexHandler'
 import { fraction } from '../../../../src/modules/fractions'
 import prefs from '../../helpers/prefs.js'

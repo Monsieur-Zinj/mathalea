@@ -1228,72 +1228,82 @@ function powerCompare (input: string, goodAnswer: string): ResultType {
   const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
   // const expoS = Number(expoSaisi)
   const nombreAttendu = clean(goodAnswer).split('^')
-  const mantisseReponse = nombreAttendu[0].replace(/[()]/g, '')
-  const mantisseR = Number(mantisseReponse)
-  const expoReponse = nombreAttendu[1]
-    ? nombreAttendu[1].replace(/[{}]/g, '')
-    : '1'
-  const expoR = Number(expoReponse)
-  if (input.indexOf('^') !== -1) {
-    if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-      formatOK = true
-    }
-    // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
-    // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-    if (mantisseR < 0 && expoR % 2 === 1) {
-      if (
-        input === `${mantisseReponse}^{${expoReponse}}` ||
-        input === `${mantisseReponse}^${expoReponse}`
-      ) {
-        formatKO = true
-      }
-    }
-    // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (
-        input === `\\frac{1}{${mantisseR}^{${-expoR}}` ||
-        input === `\\frac{1}{${mantisseR}^${-expoR}}`
-      ) {
-        formatKO = true
+  if (nombreAttendu.length !== 2) {
+    console.error('Erreur dans la réponse attendue : un string avec ^ est attendu')
+    if (!Number.isNaN(goodAnswer)) {
+      const reponse = Number(goodAnswer)
+      if (Number(mantisseSaisie) ** Number(expoSaisi) === reponse) {
+        return { isOk: true }
       }
     }
   } else {
-    // Dans tous ces cas on est sûr que le format n'est pas bon
-    // Toutefois la valeur peut l'être donc on vérifie
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (nombreSaisi[0] === `\\frac{1}{${mantisseR ** -expoR}}`) {
-        formatKO = true
+    const mantisseReponse = nombreAttendu[0].replace(/[()]/g, '')
+    const mantisseR = Number(mantisseReponse)
+    const expoReponse = nombreAttendu[1]
+      ? nombreAttendu[1].replace(/[{}]/g, '')
+      : '1'
+    const expoR = Number(expoReponse)
+    if (input.indexOf('^') !== -1) {
+      if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
+        formatOK = true
       }
-      // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-      if (mantisseR < 0 && -expoR % 2 === 1) {
+      // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
+      // si la mantisse attendue est négative on nettoie la chaine des parenthèses
+      if (mantisseR < 0 && expoR % 2 === 1) {
         if (
-          nombreSaisi[0] === `-\\frac{1}{${(-mantisseR) ** -expoR}}` ||
-          nombreSaisi[0] === `\\frac{-1}{${(-mantisseR) ** -expoR}}` ||
-          nombreSaisi[0] === `\\frac{1}{-${(-mantisseR) ** -expoR}}`
+          input === `${mantisseReponse}^{${expoReponse}}` ||
+          input === `${mantisseReponse}^${expoReponse}`
         ) {
           formatKO = true
         }
       }
-    } else if (expoR > 0) {
-      if (nombreSaisi[0] === `${mantisseR ** expoR}`) {
-        if (expoR !== 1) formatKO = true
-        else formatOK = true // Au cas où l'exposant soit 1
+      // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
+      if (expoR < 0) {
+        // Si la mantisse est positive
+        if (
+          input === `\\frac{1}{${mantisseR}^{${-expoR}}` ||
+          input === `\\frac{1}{${mantisseR}^${-expoR}}`
+        ) {
+          formatKO = true
+        }
+      }
+    } else {
+      // Dans tous ces cas on est sûr que le format n'est pas bon
+      // Toutefois la valeur peut l'être donc on vérifie
+      if (expoR < 0) {
+        // Si la mantisse est positive
+        if (nombreSaisi[0] === `\\frac{1}{${mantisseR ** -expoR}}`) {
+          formatKO = true
+        }
+        // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
+        if (mantisseR < 0 && -expoR % 2 === 1) {
+          if (
+            nombreSaisi[0] === `-\\frac{1}{${(-mantisseR) ** -expoR}}` ||
+            nombreSaisi[0] === `\\frac{-1}{${(-mantisseR) ** -expoR}}` ||
+            nombreSaisi[0] === `\\frac{1}{-${(-mantisseR) ** -expoR}}`
+          ) {
+            formatKO = true
+          }
+        }
+      } else if (expoR > 0) {
+        if (nombreSaisi[0] === `${mantisseR ** expoR}`) {
+          if (expoR !== 1) formatKO = true
+          else formatOK = true // Au cas où l'exposant soit 1
+        }
+      }
+      if (expoR === 0) {
+        if (nombreSaisi[0] === '1') {
+          formatKO = true
+        }
       }
     }
-    if (expoR === 0) {
-      if (nombreSaisi[0] === '1') {
-        formatKO = true
-      }
+    if (formatOK) {
+      return { isOk: true }
     }
-  }
-  if (formatOK) {
-    return { isOk: true }
-  }
-  if (formatKO) return { isOk: false, feedback: 'essaieEncorePuissance' }
+    if (formatKO) return { isOk: false, feedback: 'essaieEncorePuissance' }
 
-  return { isOk: false }
+    return { isOk: false }
+  }
 }
 /* Remplacé par ensembleNombres
 /**
@@ -1442,9 +1452,10 @@ function intervalsCompare (input: string, goodAnswer: string) {
       }
     }
     // on teste maintenant les crochets
+    isOk2 = true
     for (i = 0; i < crochetsSaisie.length; i++) {
-      isOk2 = crochetsSaisie[i] === crochetsReponse[i]
-      if (!isOk2) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
+      isOk2 = crochetsSaisie[i] === crochetsReponse[i] && isOk2
+      if (crochetsSaisie[i] !== crochetsReponse[i]) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
     }
     return { isOk: isOk1 && isOk2, feedback }
   }
@@ -1633,12 +1644,11 @@ function intervalCompare (
     })
     return { isOk: false, feedback: 'Un problème avec goodAnswer !' }
   }
-  const borneInf = Number(bornes[1])
-  const borneSup = Number(bornes[2])
-  // Si on veut accepter une expressio :
-  // const inputNumber = Number(engine.parse(cleanStringBeforeParse(input)).N())
   const clean = generateCleaner(['virgules', 'fractions', 'espaces'])
-  const inputNumber = Number(clean(input))
+  const borneInf = Number(engine.parse(clean(bornes[1])).N())
+  const borneSup = Number(engine.parse(clean(bornes[2])).N())
+  const inputNumber = Number(engine.parse(clean(input)).N())
+  // @todo vérifier que l'élève a bien saisi un nombre
   if (Number.isNaN(inputNumber)) return { isOk: false }
   const okGauche = strictGauche
     ? inputNumber > borneInf
