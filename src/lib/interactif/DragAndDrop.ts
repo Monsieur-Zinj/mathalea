@@ -250,7 +250,6 @@ export function verifDragAndDrop (
         const id =
           etiquetteDedans?.id ?? `etiquetteEx${numeroExercice}Q${question}I0`
         const etiquetteId = id.split('I')[1]
-        // @fixme vérifier que l'enregistrement de cet objet permet de retrouver les bonnes données.
         exercice.answers = Object.assign(
           exercice.answers,
           Object.fromEntries([
