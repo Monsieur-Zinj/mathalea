@@ -88,7 +88,7 @@
   {#if isContentVisible}
     {#if exercice}
       {#each exercice.png as url}
-        <img src={url} style="width: calc(100% * {zoomFactor}" alt="énoncé" />
+        <img src={url} class="mb-6" style="width: calc(100% * {zoomFactor}" alt="énoncé" />
       {/each}
     {/if}
   {/if}
