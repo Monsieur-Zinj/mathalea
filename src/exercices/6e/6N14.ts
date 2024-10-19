@@ -86,11 +86,13 @@ export default class RepresenterUneFraction extends Exercice {
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
         figure.divUserMessage.style.display = 'none'
       } else {
-        if (context.isHtml) {
-          texte += figure.getStaticHtml()
-        } else {
-          texte += figure.tikz()
-        }
+        // if (context.isHtml) {
+        //   texte += figure.getStaticHtml()
+        // } else {
+        //   texte += figure.tikz()
+        // }
+        const f2 = fraction(den * 3, den)
+        texte += mathalea2d(params, f2.representation(0, 0, 2, 0, 'gateau', 'white'))
       }
       texteCorr = `Voici sur ces dessins, coloriés en bleu, la part correspondante à la fraction $${f.texFraction}$ :<br>`
       if (this.interactif) {
