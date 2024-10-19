@@ -62,8 +62,9 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
   constructor () {
     super()
     this.exoCustomResultat = true
-    this.nbQuestions = 2
-    this.spacingCorr = 1
+    this.nbQuestions = 6
+    this.spacing=0.1
+    this.spacingCorr = 0.1
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
       4,
@@ -104,10 +105,11 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       let enonce = `Construire par symétrie de centre $${labelCentre}$, l'image `
       // Les antécédents sont des points nommés
 
-      const options = { }
+      const options = {}
       if (this.sup === 1) Object.assign(options, { snapGrid: true, dx: 1, dy: 1 })
 
       this.figuresApiGeom[i] = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+      this.figuresApiGeom[i].options.latexHeight = 20
       this.figuresApiGeom[i].scale = 0.5
       this.figuresApiGeom[i].setToolbar({ tools: ['NAME_POINT', 'POINT_ON', 'POINT_INTERSECTION', 'CIRCLE_CENTER_POINT', 'RAY', 'LINE', 'SEGMENT', 'POLYGON', 'UNDO', 'REDO', 'REMOVE'], position: 'top' })
       this.centres[i] = this.figuresApiGeom[i].create('Point', { x: 0, y: 0, isVisible: true, isSelectable: true, label: labelCentre })
@@ -181,11 +183,11 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           this.listeQuestions.push(enonce + '<br><br>' + this.figuresApiGeom[i].getStaticHtml())
         }
       } else {
-        this.figuresApiGeom[i].scale = 0.5
         this.listeQuestions.push(enonce + '<br><br>' + this.figuresApiGeom[i].tikz())
       }
       // On crée la figure pour la correction
       const correctionFig = new SuperFigure(Object.assign(options, { xMin: -10, yMin: -10, width: 300, height: 300 }))
+      correctionFig.options.latexHeight = 20
       correctionFig.scale = 0.5
       const sym: PointApigeom[] = []
       const centreCorrection = correctionFig.create('Point', { x: 0, y: 0, isVisible: true, isSelectable: false, label: this.centres[i].label })
@@ -195,7 +197,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       }
       for (let k = 0; k < (this.typesDeQuestions[i] === 'triangle' ? 3 : 2); k++) {
         sym[k] = copyAntecedents[k].rotate(centreCorrection, 180, { label: this.antecedents[i][k].label + '\'' })
-        correctionFig.create('Segment', { point1: copyAntecedents[k], point2: sym[k], isDashed: true, color: 'grey' })
+        correctionFig.create('Segment', { point1: copyAntecedents[k], point2: sym[k], isDashed: true, color: 'gray' })
         correctionFig.create('MarkBetweenPoints', { point1: sym[k], point2: centreCorrection, text: marks[k], fontSize: '10px', color: colors[k] })
         correctionFig.create('MarkBetweenPoints', { point2: copyAntecedents[k], point1: centreCorrection, text: marks[k], fontSize: '10px', color: colors[k] })
       }
@@ -245,7 +247,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
           throw new Error('Type de question inconnu')
       }
 
-      this.listeCorrections.push(correctionFig.getStaticHtml())
+      this.listeCorrections.push(context.isHtml ? correctionFig.getStaticHtml() : correctionFig.tikz())
     }
   }
 
