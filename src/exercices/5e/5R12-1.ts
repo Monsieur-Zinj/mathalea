@@ -4,6 +4,7 @@ import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
+import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -44,7 +45,7 @@ class ReperagePointDuPlan extends Exercice {
   nouvelleVersion (): void {
     this.figure = new Figure({ snapGrid: true, xMin: -6.3, yMin: -6.3, width: 378, height: 378 })
     // De -6.3 à 6.3 donc width = 12.6 * 30 = 378
-    this.figure.create('Grid')
+    this.figure.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     this.figure.options.labelAutomaticBeginsWith = 'A' // Les points sont nommés par ordre alphabétique
     // this.figure.options.limitNumberOfElement.set('Point', 4) // On limite le nombre de points à 4
     this.figure.options.pointDescriptionWithCoordinates = false
@@ -69,6 +70,7 @@ class ReperagePointDuPlan extends Exercice {
       { label: 'D', x: x4, y: y4 }
     ]
     const figureCorr = new Figure({ snapGrid: true, xMin: -7, yMin: -7, width: 420, height: 420, isDynamic: false })
+    figureCorr.setToolbar({ tools: ['REMOVE'], position: 'top' })
     figureCorr.create('Grid', { xMin: -6, yMin: -6, xMax: 6, yMax: 6 })
     for (const coord of this.points) {
       figureCorr.create('Point', { x: coord.x, y: coord.y, color: 'green', thickness: 3, label: coord.label })
@@ -77,23 +79,13 @@ class ReperagePointDuPlan extends Exercice {
     enonce += `$A(${x1}\\;;\\;${y1})$ ; $B(${x2}\\;;\\;${y2})$ ; $C(${x3}\\;;\\;${y3})$ et $D(${x4}\\;;\\;${y4})$.`
     // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
     this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
-    const emplacementPourFigure = figureApigeom({ exercice: this, i: 0, figure: this.figure, defaultAction: 'POINT' })
-    // MGU : gère le zoom des figures apigeom statiques comme les figures mathalea2d
-    figureCorr.divFigure.classList.add('svgContainer')
-    figureCorr.divFigure.querySelector('svg')?.classList.add('mathalea2d')
-    for (const di of figureCorr.divFigure.querySelectorAll('div')) {
-      di.classList.add('divLatex')
-    }
-    const tempDiv = document.createElement('div')
-    tempDiv.innerHTML = figureCorr.getStaticHtml()
-    const child = (tempDiv.firstChild as HTMLElement)
-    child.style.removeProperty('height')
-    child.style.removeProperty('weight')
-    const texteCorr = child.outerHTML
-
     if (context.isHtml) {
-      this.question = enonce + emplacementPourFigure
-      this.correction = texteCorr
+      if (this.interactif){
+        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, animation: true, defaultAction: 'POINT' })
+      } else {
+        this.question = enonce + '<br>' +  figureApigeom({ exercice: this, i: 0, figure: this.figure, animation: false })
+      }
+      this.correction = figureApigeom({ exercice: this, i: 0, figure: figureCorr, animation: false, idAddendum: 'correction' })
     } else {
       this.question = enonce + `\n\n\\bigskip\n{\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
         -5/0/A,0/-5/B,5/0/C,0/5/D%
