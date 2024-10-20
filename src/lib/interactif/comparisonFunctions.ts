@@ -367,10 +367,55 @@ export function factorisationCompare (
     'fractions',
     'parentheses'
   ])
+  const flatten = (expr: BoxedExpression): BoxedExpression => {
+    if (expr.head === 'Multiply') {
+      return engine.box([
+        'Multiply',
+        ...expr.ops.map((op) => flatten(op))
+      ])
+    }
+    const base = ['Power', 'Square'].includes(expr.op1.head) ? flatten(expr.op1) : expr.op1
+    if (expr.head === 'Square') {
+      return engine.box(['Multiply', base, base], { canonical: true })
+    }
+    if (expr.head === 'Power' && expr.op2.head === 'Number') {
+      const expo = Number(expr.op2.value)
+      const exprs = []
+      for (let i = 0; i < expo; i++) {
+        exprs.push(base)
+      }
+      return engine.box(['Multiply', ...exprs], { canonical: true })
+    }
+    return expr
+  }
+
+  const allFactorsMatch = (ops1: readonly BoxedExpression[], ops2: readonly BoxedExpression[], signe: boolean): {isOk: boolean, feedback: string} => {
+    let signeCurrent = signe
+    for (const op of ops1) {
+      let match = false
+      for (const op2 of ops2) {
+        if (op2.isSame(op)) {
+          match = true
+          break
+        }
+        const newOp = engine.box(['Subtract', '0', op.json], { canonical: true })
+        if (op2.isSame(newOp)) {
+          signeCurrent = !signeCurrent
+          match = true
+          break
+        }
+      }
+      if (!match) return { isOk: false, feedback: `On pouvait mettre $${op.latex}$ en facteur` }
+    }
+    return { isOk: signeCurrent, feedback: signeCurrent ? '' : 'Il y a un problème de signe' }
+  }
+
+  let signe = true
   const aCleaned = clean(input)
   const bCleaned = clean(goodAnswer)
-  const saisieParsed = engine.parse(aCleaned, { canonical: true })
-  const reponseParsed = engine.parse(bCleaned, { canonical: true })
+  let saisieParsed = engine.parse(aCleaned, { canonical: true })
+  let reponseParsed = engine.parse(bCleaned, { canonical: true })
+
   if (saisieParsed == null || reponseParsed == null) {
     window.notify(
       'factorisationCompare a rencontré un problème en analysant la réponse ou la saisie ',
@@ -378,6 +423,24 @@ export function factorisationCompare (
     )
     return { isOk: false }
   }
+  let saisieHead = saisieParsed.head
+  let answerHead = reponseParsed.head
+  if (saisieHead === 'Negate' && answerHead === 'Negate') { // on gère le cas où la saisie et la réponse commence par le signe moins
+    saisieParsed = saisieParsed.op1
+    saisieHead = saisieParsed.head
+    reponseParsed = reponseParsed.op1
+    answerHead = reponseParsed.head
+  } else if (saisieHead === 'Negate') {
+    saisieParsed = saisieParsed.op1
+    saisieHead = saisieParsed.head
+    signe = false
+  } else if (answerHead === 'Negate') {
+    reponseParsed = reponseParsed.op1
+    answerHead = reponseParsed.head
+    signe = false
+  }
+
+  // isOk1 atteste que le développement de la saisie et de la reponse attendue sont égales
   const saisieDev = engine
     .box(['ExpandAll', saisieParsed])
     .evaluate()
@@ -387,26 +450,45 @@ export function factorisationCompare (
     .evaluate()
     .simplify().canonical
   const isOk1 = saisieDev.isEqual(reponseDev)
-  let isOk2: boolean
-  const head = String(saisieParsed.head)
-  if (head === 'Negate') {
-    if (saisieParsed.ops && Array.isArray(saisieParsed.ops)) {
-      const operationFinale = String(saisieParsed.ops[0].head)
-      isOk2 = ['Multiply', 'Square', 'Power', 'Divide'].includes(
-        operationFinale
-      )
-    } else {
-      isOk2 = false
-    }
-  } else {
-    // @fixme Est-ce qu'une division finale est bien représentative d'une expression factorisée (une division, c'est une multiplication par l'inverse, donc a le même statut que Multiply en théorie)
-    isOk2 =
-      ['Multiply', 'Square', 'Power', 'Divide'].includes(head) ||
-      (head.length === 1 && head.match(/^[a-z]/) != null)
-  }
-  return { isOk: isOk1 && isOk2 }
-}
 
+  if (!['Multiply', 'Power', 'Square'].includes(saisieHead)) {
+    return { isOk: false, feedback: 'L\'expression n\'est pas factorisée' }
+  }
+  const reponseFactors = flatten(reponseParsed).ops
+  const saisieFactors = flatten(saisieParsed).ops
+  if (reponseFactors == null) {
+    window.notify('factorisationCompare a rencontré un problème en analysant la réponse ', { reponse: goodAnswer })
+    return { isOk: false, feedback: 'Un problème a eu lieu lors de la comparaison' }
+  }
+  if (saisieFactors == null) return { isOk: false, feedback: 'L\'expression n\'a pas le format attendu' }
+  if (saisieFactors.length !== reponseFactors.length) {
+    if (isOk1) return { isOk: false, feedback: 'L\'expression est insuffisamment factorisée' }
+    return { isOk: false, feedback: 'Il manque des facteurs' }
+  }
+  /*
+  if (answerHead === 'Multiply') {
+    const saisieOps = saisieParsed.ops
+    const answerOps = reponseParsed.ops
+    if (saisieOps == null || answerOps == null) {
+      return { isOk: false, feedback: 'L\'expression n\'a pas le format attendu' } // Je ne sais pas ce qu'est une boxedExpression de type Multiply... sans ops, mais c'est surtout pour éviter l'erreur typescript saisieOps peut être null
+    }
+    if (saisieOps.length !== answerOps.length) {
+      // @fixme il faut pouvoir comparer 3(x+2)(x+2) avec 3(x+2)^2 qui n'ont à priori pas les mêmes ops...
+      if (isOk1) return { isOk: false, feedback: 'L\'expression est insuffisamment factorisée' } // ce feedback n'est pas le bon, c'est juste pour les tests
+      return { isOk: false, feedback: '' }
+    }
+    if (saisieHead === answerHead) {
+      return allFactorsMatch(answerOps, saisieOps, signe)
+    }
+  } else { // ici, on a une goodAnswer avec du Square ou du Power !
+    if (saisieHead === answerHead) { // à priori, au moins c'est la même opération
+      if (saisieParsed.ops != null && reponseParsed.ops != null) return allFactorsMatch(reponseParsed.ops.map(flatten), saisieParsed.ops.map(flatten), signe)
+    } else if (saisieHead === 'Multiply') {
+      if (reponseFactors == null) return { isOk: false, feedback: 'L\'expression n\'a pas le format attendu' }
+      if (saisieFactors == null) return { isOk: false, feedback: 'L\'expression n\'a pas le format attendu' }
+*/
+  return allFactorsMatch(reponseFactors, saisieFactors, signe)
+}
 /* Cette fonction ne sert plus.
 /**
  * comparaison d'expressions developpées'
