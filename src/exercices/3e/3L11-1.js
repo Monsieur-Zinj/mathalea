@@ -1,7 +1,7 @@
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { lettreDepuisChiffre } from '../../lib/outils/outilString.js'
 import Exercice from '../deprecatedExercice.js'
-import { egal, listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenuSansNumero, printlatex, randint } from '../../modules/outils.js'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { context } from '../../modules/context.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
@@ -64,34 +64,28 @@ export default function DoubleDistributivite () {
           d = randint(2, 12)
           texte = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (x+${b})(x+${d})=x^2+${b}x+${d}x+${b * d}=x^2+${b + d}x+${b * d}$`
-          reponse = reduirePolynomeDegre3(0, 1, b + d, b * d)
           reponse1 = 1
           reponse2 = b + d
           reponse3 = b * d
+
           break
         case 2: // (ax+b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})$`
           texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x+${b})(${c}x+${d})=${a * c}x^2+${a * d}x+${b * c}x+${b * d}=${a * c}x^2+${a * d + b * c}x+${b * d}$`
-          reponse = reduirePolynomeDegre3(0, a * c, a * d + b * c, b * d)
           reponse1 = a * c
           reponse2 = a * d + b * c
           reponse3 = b * d
           break
         case 3: // (ax-b)(cx+d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})$`
-          if (egal(a * d - b * c, 0)) {
+          if (a * d - b * c === 0) {
             texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2-${b * d}`)}$`
-            reponse = reduirePolynomeDegre3(0, a * c, 0, -b * d)
-            reponse1 = a * c
-            reponse2 = 0
-            reponse3 = -b * d
           } else {
             texteCorr = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x+${d})=${a * c}x^2+${d * a}x-${b * c}x-${b * d}=${printlatex(`${a * c}*x^2+(${d * a - b * c})*x-${b * d}`)}$`
-            reponse = reduirePolynomeDegre3(0, a * c, d * a - b * c, -b * d)
-            reponse1 = a * c
-            reponse2 = a * d - b * c
-            reponse3 = -b * d
           }
+          reponse1 = a * c
+          reponse2 = a * d - b * c
+          reponse3 = -b * d
           break
         case 4: // (ax-b)(cx-d)
           texte = `$${lettreDepuisChiffre(i + 1)} = (${a}x-${b})(${c}x-${d})$`
@@ -102,6 +96,7 @@ export default function DoubleDistributivite () {
           reponse3 = b * d
           break
       }
+      reponse = reduirePolynomeDegre3(0, reponse1, reponse2, reponse3)
       if (this.sup2) {
         this.spacingCorr = 1
         // On enlève la première égalité pour ne pas avoir A = A en première ligne
@@ -109,10 +104,10 @@ export default function DoubleDistributivite () {
         // On découpe
         const etapes = texteCorr.split('=')
         texteCorr = ''
-        etapes.forEach(function (etape) {
-          etape = etape.replace('$', '')
-          texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
-        })
+        for (const etape of etapes) {
+          const etapeModifiee = etape.replace('$', '')
+          texteCorr += etapeModifiee === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etapeModifiee}$ <br>`
+        }
       }
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras
       const textCorrSplit = texteCorr.split('=')
@@ -121,13 +116,13 @@ export default function DoubleDistributivite () {
 
       texteCorr = ''
       for (let ee = 0; ee < textCorrSplit.length - 1; ee++) {
-        texteCorr += textCorrSplit[ee] + '='
+        texteCorr += `${textCorrSplit[ee]}=`
       }
       texteCorr += `$ $${miseEnEvidence(aRemplacer)}$`
       // Fin de cette uniformisation
 
       if (!context.isAmc && this.interactif) {
-        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
+        handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
         texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {
@@ -139,7 +134,7 @@ export default function DoubleDistributivite () {
               type: 'AMCOpen',
               propositions: [{
                 texte: texteCorr,
-                enonce: texte + '<br>',
+                enonce: `${texte}<br>`,
                 statut: 4
               }]
             },
