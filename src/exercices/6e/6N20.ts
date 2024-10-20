@@ -19,7 +19,6 @@ export const dateDeModifImportante = '24/01/2024' // Brouillon interactif
 
 /**
  * @author Rémi Angot
- * 6N20
  * Relecture : Novembre 2021 par EE
  */
 export const uuid = '6c8a1'
@@ -36,11 +35,9 @@ export default class ExerciceFractionsDecomposer extends Exercice {
           "Écrire sous la forme de la somme d'un nombre entier et d'une fraction inférieure à 1."
     this.spacing = 2
     this.spacingCorr = 2
-    this.sup = false // Donner l'écriture décimale
-    this.sup2 = false
+    this.sup2 = true
     this.sup3 = '11'
     this.sup4 = true
-    this.besoinFormulaire2CaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
     this.besoinFormulaire3Texte = ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n4: quarts\n5: cinquièmes\n8: huitièmes\n10: dixièmes\n11: Mélange']
     this.besoinFormulaire4CaseACocher = ['Brouillon interactif']
   }

@@ -1,4 +1,4 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { modalTexteCourt } from '../../lib/outils/modales.js'
 import { rangeMinMax } from '../../lib/outils/nombres'
 import Exercice from '../Exercice'
@@ -41,10 +41,8 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     this.nbCols = 2
     this.nbColsCorr = 1
     this.correctionDetaillee =
-          this.sup = false
     this.sup2 = '11'
     this.sup3 = true
-    this.besoinFormulaireCaseACocher = ['Exercice à la carte (à paramétrer dans le formulaire suivant)', false]
     this.besoinFormulaire2Texte = this.lycee
       ? ['Dénominateurs à choisir', 'Nombres séparés par des tirets\nDe 2 à 9\n10: mélange']
       : ['Dénominateurs à choisir', 'Nombres séparés par des tirets\n2: demis\n3: tiers\n4: quarts\n5: cinquièmes\n10: dixièmes\n11: Mélange']
@@ -71,7 +69,7 @@ export default class EncadrerFractionEntre2Entiers extends Exercice {
     } else {
       this.introduction = ''
     }
-    this.liste_de_denominateurs = !this.sup ? this.lycee ? combinaisonListes([2, 3, 4, 5, 6, 7, 8, 9], this.nbQuestions) : combinaisonListes([2, 3, 4, 5, 10], this.nbQuestions) : listeDenominateurs
+    this.liste_de_denominateurs = listeDenominateurs
     const denominateursDifferents = new Set(this.liste_de_denominateurs)
     const nbDenominateursDifferents = denominateursDifferents.size
     const aleaMax = Math.ceil(this.nbQuestions / nbDenominateursDifferents) + 1
