@@ -1,6 +1,8 @@
 import type Exercice from '../exercices/Exercice'
 import type Figure from 'apigeom'
 import { context } from '../modules/context'
+import { globalOptions } from '../../src/lib/stores/generalStore'
+import { get } from 'svelte/store'
 
 /**
  * - Insère une figure apigeom dans la sortie HTML de l'exercice
@@ -26,8 +28,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
  }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
-  figure.isDynamic = !!exercice.interactif
-  figure.divButtons.style.display = (exercice.interactif || animation) ? 'grid' : 'none'
+  figure.isDynamic = !!exercice.interactif && animation
+  figure.divButtons.style.display = (figure.isDynamic) ? 'grid' : 'none'
   figure.divUserMessage.style.fontSize = '1em'
   figure.divUserMessage.style.pointerEvents = 'none'
   figure.divUserMessage.style.removeProperty('color')
@@ -46,16 +48,32 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     figure.loadJson(JSON.parse(json))
   })
 
-  document.addEventListener('zoomChanged', (event: Event) => {
+
+  let oldZoom = 1 
+  function updateZoom(event: Event) : void {
+    // console.log('ExZoom:' + idApigeom)
     const customEvent = event as CustomEvent
     const zoom = Number(customEvent.detail.zoom)
-    figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
-  })
+    if (oldZoom !== zoom) {
+      oldZoom = zoom
+      // console.log('zoom:' + idApigeom + ':' + zoom)
+      figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+    }
+  }
+  document.addEventListener('zoomChanged', updateZoom)
 
-  document.addEventListener('exercicesAffiches', () => {
-    if (!context.isHtml) return
+
+  function updateAffichage(): void {
+    // console.log('ExAff:' + idApigeom)
+    if (!context.isHtml) {
+      document.removeEventListener('exercicesAffiches', updateAffichage)
+      return
+    }
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
-    if (container == null) return
+    if (container == null) {
+      document.removeEventListener('exercicesAffiches', updateAffichage)
+      return
+    }
     container.innerHTML = ''
     figure.setContainer(container)
     if (animation) {
@@ -68,7 +86,14 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     if (defaultAction) {
       figure.buttons.get(defaultAction)?.click()
     }
-  })
+    const zoom = Number(get(globalOptions).z)
+    if (oldZoom !== zoom) {
+      oldZoom = zoom
+      // console.log('ExAff:' + idApigeom + ':' + zoom)
+      figure.zoom(zoom, { changeHeight: true, changeWidth: true, changeLeft: false, changeBottom: false })
+    }
+  }
+  document.addEventListener('exercicesAffiches', updateAffichage)
 
   return `<div class="m-6" id="${idApigeom}"></div><span id="resultatCheckEx${exercice.numeroExercice}Q${i}"></span><div class="ml-2 py-2 italic text-coopmaths-warn-darkest dark:text-coopmathsdark-warn-darkest" id="feedbackEx${exercice.numeroExercice}Q${i}"></div>`
 }
