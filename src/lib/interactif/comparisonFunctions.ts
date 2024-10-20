@@ -1534,10 +1534,15 @@ function intervalsCompare (input: string, goodAnswer: string) {
       }
     }
     // on teste maintenant les crochets
-    isOk2 = true
-    for (i = 0; i < crochetsSaisie.length; i++) {
-      isOk2 = crochetsSaisie[i] === crochetsReponse[i] && isOk2
-      if (crochetsSaisie[i] !== crochetsReponse[i]) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
+    isOk2 = crochetsSaisie.length === crochetsReponse.length
+    if (!isOk2) {
+      feedback += 'Il y a une erreur avec les crochets.'
+    }
+    if (isOk2) {
+      for (i = 0; i < crochetsSaisie.length; i++) {
+        isOk2 = crochetsSaisie[i] === crochetsReponse[i] && isOk2
+        if (crochetsSaisie[i] !== crochetsReponse[i]) { feedback += `Le crochet placé en position ${i + 1} est mal orienté.<br>` }
+      }
     }
     return { isOk: isOk1 && isOk2, feedback }
   }
