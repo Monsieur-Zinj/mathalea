@@ -32,7 +32,7 @@ export default function Formacanonique () {
   this.nbCols = 2
   this.nbColsCorr = 2
   this.spacingCorr = 3
-
+  this.besoinFormulaireCaseACocher = ['Le coefficient de $x^2$ est 1', false]
   this.nouvelleVersion = function () {
     this.consigne = 'Déterminer la forme canonique ' + (this.nbQuestions === 1 ? 'du polynôme' : 'de chacun des polynômes') + ' $P$, défini pour tout $x \\in \\mathbb{R}$ par : '
     if (this.interactif) {
@@ -43,13 +43,13 @@ export default function Formacanonique () {
       // k(x-x1)(x-x2)
       alpha = randint(-5, 5, [0])
       beta = randint(-5, 5, [0])
-      a = randint(-4, 4, [0])
+      a = this.sup ? 1 : randint(-4, 4, [0])
       b = -2 * a * alpha
       c = a * alpha * alpha + beta
       while (c === 0) {
         alpha = randint(-5, 5, [0])
         beta = randint(-5, 5, [0])
-        a = randint(-4, 4, [0])
+        a = this.sup ? 1 : randint(-4, 4, [0])
         b = -2 * a * alpha
         c = a * alpha * alpha + beta
       }
