@@ -48,9 +48,8 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     figure.loadJson(JSON.parse(json))
   })
 
-
-  let oldZoom = 1 
-  function updateZoom(event: Event) : void {
+  let oldZoom = 1
+  function updateZoom (event: Event) : void {
     // console.log('ExZoom:' + idApigeom)
     const customEvent = event as CustomEvent
     const zoom = Number(customEvent.detail.zoom)
@@ -62,8 +61,7 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   }
   document.addEventListener('zoomChanged', updateZoom)
 
-
-  function updateAffichage(): void {
+  function updateAffichage (): void {
     // console.log('ExAff:' + idApigeom)
     if (!context.isHtml) {
       document.removeEventListener('exercicesAffiches', updateAffichage)
