@@ -986,7 +986,7 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2.tex',
     urlcor: 'static/bac/2022/tex/bac_2022_05_sujet1_madagascar_2_cor.tex',
-    tags: ['Suites', 'Logarithme', 'Convexité']
+    tags: ['QCM', 'Suites', 'Logarithme', 'Convexité']
   },
   bac_2022_05_sujet1_madagascar_3: {
     annee: '2022',
