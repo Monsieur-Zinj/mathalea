@@ -54,26 +54,39 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
 
     const listeTypeQuestions = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 200;) {
-      const A = randint(1, 4)
-      const B = randint(1, 6)
-      const C = randint(1, 8)
-      const D = randint(1, 12)
-      const E = randint(1, 20)
+      const A = randint(1, 10)
+      const B = randint(1, 10, [A])
+      const C = randint(1, 14, [A, B])
+      const D = randint(1, 16, [A, B, C])
+      const E = randint(1, 20, [A, B, C, D])
       const nombres = shuffle([A, B, C, D, E])
       let nombresUtilises = nombres.slice(0, 3)
       const signes = avecDivision ? shuffle(['+', '-', '\\times', '\\div']) : combinaisonListes(['+', '-', '\\times'], 4)
-      let calcul1: string = `${nombres[0]} ${signes[0]} ${nombres[1]}`
-      let resultat1: string = computeEngine.parse(calcul1).simplify().latex
-      let calcul2: string = `${resultat1} ${signes[1]} ${nombres[2]}`
-      let resultat2: string = computeEngine.parse(calcul2).simplify().latex
-      let calcul3: string = `${resultat2} ${signes[2]} ${nombres[3]}`
-      let resultat3: string = computeEngine.parse(calcul3).simplify().latex
-      let calcul4: string = `${resultat3} ${signes[3]} ${nombres[4]}`
-      let nombreCible: string = computeEngine.parse(calcul2).simplify().latex
+      let calcul1: string
+      let calcul2: string
+      let calcul3: string
+      let calcul4: string
+      let resultat1: string
+      let resultat2: string
+      let resultat3: string
+      let nombreCible: string
+      let cpt = 0
+      do {
+        calcul1 = `${nombres[0]} ${signes[0]} ${nombres[1]}`
+        resultat1 = computeEngine.parse(calcul1).simplify().latex
+        calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
+        resultat2 = computeEngine.parse(calcul2).simplify().latex
+        calcul3 = `${resultat2} ${signes[2]} ${nombres[3]}`
+        resultat3 = computeEngine.parse(calcul3).simplify().latex
+        calcul4 = `${resultat3} ${signes[3]} ${nombres[4]}`
+        cpt++
+      } while (cpt < 100 && (nombresUtilises.includes(Number(resultat1)) || nombresUtilises.includes(Number(resultat2)) || nombresUtilises.includes(Number(resultat3)) || Number(resultat1) < 0 || Number(resultat2) < 0 || Number(resultat3) < 0 || Math.floor(Number(resultat1)) !== Number(resultat1) || Math.floor(Number(resultat2)) !== Number(resultat2) || Math.floor(Number(resultat3)) !== Number(resultat3)))
+
+      nombreCible = computeEngine.parse(calcul2).simplify().latex
       let redaction: string = rediger(calcul1, signes[1], nombres[2].toString())
       let texteCorr: string
       let derniereLigneCorrection: string
-      let calculs
+      let calculs: string
       switch (Number(nombreDeCalculs[i])) {
         case 2:
           switch (listeTypeQuestions[i]) {
@@ -88,7 +101,6 @@ export default class OrganierDesCalculsEnUneSeuleLigne extends Exercice {
               texteCorr = `$${miseEnCouleur(`${calcul1} = ${resultat1}`, 'red')}$<br>
 $${miseEnCouleur(`${nombres[0]} ${signes[1]}${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} = ${resultat2}`, 'green')}$<br><br>`
               break
-            case 'Enchaînement simple':
             default:
               calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
               resultat2 = computeEngine.parse(calcul2).simplify().latex
@@ -124,7 +136,6 @@ $${miseEnCouleur(`${calcul2} = ${resultat2}`, 'blue')}$<br>
 $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')} ${signes[2]} ${miseEnCouleur(`\\overset{${calcul2}}{${resultat2}}`, 'blue')} = ${resultat3}`, 'green')}$<br>
 $${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[2]} ${miseEnCouleur(`${miseEnCouleur(`(${calcul2})`, 'blue')} = ${nombreCible}`, 'green')}$<br><br>`
               break
-            case 'Enchaînement simple':
             default:
               calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
               resultat2 = computeEngine.parse(calcul2).simplify().latex
@@ -145,7 +156,6 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${miseEnCouleur(`(${calcul1})`, 're
           calculs = `$${calcul1}=${resultat1}$<br>$${calcul2}=${resultat2}$<br>$${calcul3}=${resultat3}$<br>`
           nombresUtilises = nombres.slice(0, 4)
           break
-        case 4:
         default:
           switch (listeTypeQuestions[i]) {
             case '1 -> 3':
@@ -204,7 +214,6 @@ $${miseEnCouleur(`(${miseEnCouleur(`(${calcul1})`, 'red')} ${signes[1]} ${nombre
 <br>
 `
               break
-            case 'Enchaînement simple':
             default:
               calcul2 = `${resultat1} ${signes[1]} ${nombres[2]}`
               resultat2 = computeEngine.parse(calcul2).simplify().latex
@@ -256,8 +265,8 @@ Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline larg
     }
     listeQuestionsToContenu(this)
     function rediger (expression1: string, signe: string, expression2: string): string {
-      if (isNaN(Number(expression2))) expression2 = `( ${expression2} )`
-      return `(${expression1}) ${signe} ${expression2}`
+      const expression2New = Number.isNaN(Number(expression2)) ? `( ${expression2} )` : expression2
+      return `(${expression1}) ${signe} ${expression2New}`
     }
   }
 }
