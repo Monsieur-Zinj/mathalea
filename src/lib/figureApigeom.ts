@@ -13,7 +13,7 @@ import { get } from 'svelte/store'
  *
  * - Si une même question a plusieurs figures, il faut ajouter un idAddendum (par exemple 'Correction' pour la figure de correction)
  */
-export default function figureApigeom ({ exercice, figure, animation = false, i, defaultAction, idAddendum = '' }:
+export default function figureApigeom ({ exercice, figure, animation = false, i, defaultAction, idAddendum = '', isDynamic }:
   {
     exercice: Exercice,
     figure: Figure,
@@ -25,10 +25,12 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
     idAddendum?: string,
     /** Action en cours au lancement de l'exercice qui doit obligatoirement être un bouton de la toolbar */
     defaultAction?: string
+    /** figure chargé en interactif et pourtant on souhaite qu'elle soit statique => isDynamic = false */
+    isDynamic?: boolean
  }): string {
   if (!context.isHtml) return ''
   // Styles par défaut
-  figure.isDynamic = !!exercice.interactif && animation
+  figure.isDynamic = isDynamic !== undefined ? isDynamic : !!exercice.interactif
   figure.divButtons.style.display = (figure.isDynamic) ? 'grid' : 'none'
   figure.divUserMessage.style.fontSize = '1em'
   figure.divUserMessage.style.pointerEvents = 'none'

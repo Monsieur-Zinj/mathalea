@@ -4,7 +4,6 @@ import figureApigeom from '../../lib/figureApigeom'
 import { randint } from '../../modules/outils.js'
 import type TextByPosition from 'apigeom/src/elements/text/TextByPosition.js'
 import { context } from '../../modules/context'
-import { wrapperApigeomToMathalea } from '../../lib/apigeom/apigeomZoom'
 
 export const titre = 'Placer des points dans un repère'
 export const dateDePublication = '27/10/2023'
@@ -80,12 +79,12 @@ class ReperagePointDuPlan extends Exercice {
     // this.figure.divButtons = this.figure.addButtons('POINT DRAG REMOVE')
     this.figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
     if (context.isHtml) {
-      if (this.interactif){
-        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, animation: true, defaultAction: 'POINT' })
+      if (this.interactif) {
+        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, isDynamic: true, defaultAction: 'POINT' })
       } else {
-        this.question = enonce + '<br>' +  figureApigeom({ exercice: this, i: 0, figure: this.figure, animation: false })
+        this.question = enonce + '<br>' + figureApigeom({ exercice: this, i: 0, figure: this.figure, isDynamic: false })
       }
-      this.correction = figureApigeom({ exercice: this, i: 0, figure: figureCorr, animation: false, idAddendum: 'correction' })
+      this.correction = figureApigeom({ exercice: this, i: 0, figure: figureCorr, isDynamic: false, idAddendum: 'correction' })
     } else {
       this.question = enonce + `\n\n\\bigskip\n{\\Reperage[Plan,AffichageGrad,Unitex=0.75,Unitey=0.75]{%
         -5/0/A,0/-5/B,5/0/C,0/5/D%
