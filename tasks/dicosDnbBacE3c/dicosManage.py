@@ -1,13 +1,9 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
 
-# @author : Sébastien LOZANO
 
 """Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :
 
-* le DNB,
-* le BAC
-* E3C
 """
 pass
 
@@ -101,32 +97,49 @@ def newEntry(file:str,dicoType:str)->list:
         else: # EE : Ici, on considère que c'est le cas général
             numeroInitial = filename.split('_')[4]
         if ((('sujet1' in filename) or ('sujet2' in filename))and('bac' in filename)): # EE : Ici, on considère que c'est le BAC ....
+            isQCM = filename.startswith('qcm') # EE : Est-ce que c'est un QCM (FlashBac) ?
+            if isQCM:
+                filename=filename[4:]  # EE : Enlève 'QCM_' (4 caractères)
             lieu = locationName(filename.split('_')[4])
             if (('groupe1' in filename) or ('groupe2' in filename)):
                 if ('groupe1' in filename) :
                     lieu = lieu + ' G1'
                 else :
                     lieu = lieu + ' G2'
-                numeroInitial = filename.split('_')[6]  
+                numeroInitial = filename.split('_')[6] 
+                questionQCM = filename.split('_')[7] 
             else :
                 numeroInitial = filename.split('_')[5] 
+                questionQCM = filename.split('_')[6] 
             if ('sujet1' in filename):
                 sujet='J1'
             else: 
                 sujet='J2'
+            annee=filename[4:8]
+            mois=monthName(filename[9:11])
+            if isQCM:
+                filename='QCM_'+filename  # EE : Rajoute 'QCM_' (4 caractères)
             
-            newLines = f'''  {filename}: {{
-                annee: '{filename[4:8]}',
-                lieu: '{lieu}',
-                mois: '{monthName(filename[9:11])}',
-                jour: '{sujet}',
-                numeroInitial: '{numeroInitial}',
-                png: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}.png',
-                pngCor: 'static/{dicoType}/{filename[4:8]}/tex/png/{filename}_cor.png',
-                typeExercice: '{dicoType}',
-                url: 'static/{dicoType}/{filename[4:8]}/tex/{filename}.tex',
-                urlcor: 'static/{dicoType}/{filename[4:8]}/tex/{filename}_cor.tex',
-                tags: ['']
+            newLines = f'''  {filename}: {{                
+                annee: '{annee}',                
+                lieu: '{lieu}',                
+                mois: '{mois}',                
+                jour: '{sujet}',                
+                numeroInitial: '{numeroInitial}','''
+
+# Ajouter une ligne conditionnelle
+            if isQCM:
+                newLines += f'''
+                    questionQCM: '{questionQCM}','''  # Assurez-vous que les guillemets sont corrects
+
+# Compléter la chaîne
+            newLines += f'''                
+                png: 'static/{dicoType}/{annee}/tex/png/{filename}.png',                
+                pngCor: 'static/{dicoType}/{annee}/tex/png/{filename}_cor.png',                
+                typeExercice: '{dicoType}',                
+                url: 'static/{dicoType}/{annee}/tex/{filename}.tex',                
+                urlcor: 'static/{dicoType}/{annee}/tex/{filename}_cor.tex',                
+                tags: ['']            
             }},\n'''
         elif ('crpe' in filename): # EE : Ici, on considère que c'est les CRPE
             newLines = f'''  {filename}: {{
@@ -239,16 +252,16 @@ def manageDico(dicoPath:str,dicoType:str):
     # On crée le dico s'il n'existe pas
     fichier = open(dicoPath, "a+")
     fichier.close()
-
+    
     # Si le dico est vide on ajoute les première lignes
     if (os.path.getsize(dicoPath) == 0):
         fichier = open(dicoPath, "w", encoding="utf8")
-        firstLine = "/* eslint-disable no-multiple-empty-lines */\n"
-        secondLine = "/* eslint-disable comma-dangle */\n"
+        #firstLine = "/* eslint-disable no-multiple-empty-lines */\n"
+        #secondLine = "/* eslint-disable comma-dangle */\n"
         thirdLine = f'export const dictionnaire{dicoType.upper()} = {{\n'
         lastLine = "}"    
-        fichier.writelines(firstLine)
-        fichier.writelines(secondLine)
+        #fichier.writelines(firstLine)
+        #fichier.writelines(secondLine)
         fichier.writelines(thirdLine)
         fichier.writelines(lastLine)
         fichier.close()
@@ -285,34 +298,34 @@ def main():
 
     # On choisit le type de dico à synchroniser/générer
     choiceDico = ''
-    while choiceDico not in ['1','2','3','4']:
+    while choiceDico not in ['1','2','3','4','5']:
         choiceDico = input("""Quel dictionnaire faut-il synchroniser/générer ?
         ---> 1 : DNB
         ---> 2 : BAC
         ---> 3 : E3C
-        ---> 4 : CRPE        
-Taper 1, 2, 3 ou 4 pour lancer le script --> """)
+        ---> 4 : CRPE
+        ---> 5 : FlashBAC      
+Taper 1, 2, 3, 4 ou 5 pour lancer le script --> """)
     # Une variable pour le chemin vers le dico à synchroniser/générer        
     dicoPath = ''
     # Une variable pour le type de dico à synchroniser/générer        
     dicoType = ''
 
     if (choiceDico == '1'):
-        # dicoPath = './src/js/modules/dictionnaireDNB.js'
         dicoPath = '../../src/json/dictionnaireDNB.js'
         dicoType = 'dnb'
     elif (choiceDico == '2'):
-        # dicoPath = './src/js/modules/dictionnaireBAC.js'
         dicoPath = '../../src/json/dictionnaireBAC.js'
         dicoType = 'bac'
     elif (choiceDico == '3'):
-        # dicoPath = './src/js/modules/dictionnaireE3C.js'
         dicoPath = '../../src/json/dictionnaireE3C.js'
         dicoType = 'e3c'
     elif (choiceDico == '4'):
-        # dicoPath = './src/js/modules/dictionnaireE3C.js'
         dicoPath = '../../src/json/dictionnaireCrpeCoop.js'
         dicoType = 'crpe'
+    elif (choiceDico == '5'):
+        dicoPath = '../../src/json/dictionnaireFlashBac.js'
+        dicoType = 'flashbac'
 
     manageDico(dicoPath,dicoType)
 
@@ -332,18 +345,3 @@ Taper 1, 2, 3 ou 4 pour lancer le script --> """)
 if __name__ == "__main__":
     main()
 
-    ################## Pour mettre d'équerre le dico DNB ################################
-    #####################################################################################
-    # currentRefsdicoDnbTest = currentRef('./src/js/modules/dictionnaireDNBTest.js')
-    # currentRefsdicoDnb = currentRef('./src/js/modules/dictionnaireDNB.js')
-    # diff = []
-    # for ref in currentRefsdicoDnb:
-    #     if ref not in currentRefsdicoDnbTest:
-    #         diff.append(ref)
-    # print(diff)
-    # diff = []
-    # for ref in currentRefsdicoDnbTest:
-    #     if ref not in currentRefsdicoDnb:
-    #         diff.append(ref)
-    # print(diff)
-    ######################################################################################
