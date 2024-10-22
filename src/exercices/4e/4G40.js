@@ -21,5 +21,5 @@ export default function CalculDeLongueur4e () {
   this.level = 4
   this.sup = 1
   this.sup2 = '3'
-  this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjaçant (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
+  this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
 }
