@@ -83,7 +83,7 @@ export default class RepresenterUneFraction extends Exercice {
       if (this.interactif) {
         figure.options.color = 'blue'
         figure.setToolbar({ tools: ['FILL'], position: 'top' })
-        texte += figureApigeom({ exercice: this, figure, animation: true, i, defaultAction: 'FILL' })
+        texte += figureApigeom({ exercice: this, figure, isDynamic: true, i, defaultAction: 'FILL' })
         figure.divButtons.style.display = 'none' // Doit apparaitre après figureApigeom
         figure.divUserMessage.style.display = 'none'
       } else {

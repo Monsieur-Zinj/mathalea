@@ -14,7 +14,6 @@ import checkRay from 'apigeom/src/check/checkRay'
 import checkLine from 'apigeom/src/check/checkLine'
 import checkCoords from 'apigeom/src/check/checkCoords'
 import checkCircle from 'apigeom/src/check/checkCircleRadius'
-import { isGeoDynamic } from '../../lib/types/referentiels'
 
 export const titre = 'Construire des symétriques de figures par rapport à un point'
 export const dateDePublication = '28/09/2024'
@@ -65,7 +64,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
     super()
     this.exoCustomResultat = true
     this.nbQuestions = 6
-    this.spacing= context.isHtml ? 1 : 0.1
+    this.spacing = context.isHtml ? 1 : 0.1
     this.spacingCorr = context.isHtml ? 1 : 0.1
     this.besoinFormulaireNumerique = [
       'Type d\'aide',
@@ -178,7 +177,7 @@ class ConstructionsSymetrieCentraleFigures extends Exercice {
       this.figuresApiGeom[i].options.limitNumberOfElement.set('Point', 1)
       if (context.isHtml) {
         if (this.interactif) {
-          this.listeQuestions.push(enonce + '<br>' + figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, animation : true, defaultAction: 'NAME_POINT' }))
+          this.listeQuestions.push(enonce + '<br>' + figureApigeom({ exercice: this, figure: this.figuresApiGeom[i], i, isDynamic: true, defaultAction: 'NAME_POINT' }))
         } else {
           this.listeQuestions.push(enonce + '<br>' + wrapperApigeomToMathalea(this.figuresApiGeom[i]))
         }
