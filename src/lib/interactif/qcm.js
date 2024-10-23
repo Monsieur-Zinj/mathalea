@@ -205,8 +205,7 @@ export function propositionsQcm (exercice, i) {
         class="disabled:cursor-default"  
         id="checkEx${exercice.numeroExercice}Q${i}R${rep}">
       <label id="labelEx${exercice.numeroExercice}Q${i}R${rep}" class="ml-2">${exercice.autoCorrection[i].propositions[rep].texte + espace}</label>
-      <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div>
-      </div>`
+      <div id="feedbackEx${exercice.numeroExercice}Q${i}R${rep}" ${vertical ? '' : 'class="inline"'}></div></div>`
       texteCorr += `<div class="${vertical ? '' : 'inline'}">
       <input type="checkbox" 
         disabled ${exercice.autoCorrection[i].propositions[rep].statut ? 'checked' : ''} 
