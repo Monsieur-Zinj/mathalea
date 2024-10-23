@@ -6,7 +6,7 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
-// pnpm get newUuid pour récupérer l'UUID
+// pnpm getNewUuid pour récupérer l'UUID
 
 /**
  * Modèle d'exercice très simple pour la course aux nombres
