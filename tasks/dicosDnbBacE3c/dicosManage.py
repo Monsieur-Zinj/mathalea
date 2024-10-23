@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
-# @author Sébastien Lozano, Éric Elter
 
+# @author Sébastien Lozano, Éric Elter
 
 """Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :
 
@@ -108,10 +108,12 @@ def newEntry(file:str,dicoType:str)->list:
                 else :
                     lieu = lieu + ' G2'
                 numeroInitial = filename.split('_')[6] 
-                questionQCM = filename.split('_')[7] 
+                if isQCM:
+                    questionQCM = filename.split('_')[7] 
             else :
                 numeroInitial = filename.split('_')[5] 
-                questionQCM = filename.split('_')[6] 
+                if isQCM:
+                    questionQCM = filename.split('_')[6] 
             if ('sujet1' in filename):
                 sujet='J1'
             else: 
