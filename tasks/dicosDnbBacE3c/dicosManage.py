@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 # -*- coding: utf8 -*-
+# @author Sébastien Lozano, Éric Elter
 
 
 """Permet de synchroniser/créer les différents dictionnaires utilisés par mathalea pour :
