@@ -66,12 +66,13 @@ export default function figureApigeom ({ exercice, figure, animation = false, i,
   function updateAffichage (): void {
     // console.log('ExAff:' + idApigeom)
     if (!context.isHtml) {
-      document.removeEventListener('exercicesAffiches', updateAffichage)
+      // document.removeEventListener('exercicesAffiches', updateAffichage)
       return
     }
     const container = document.querySelector(`#${idApigeom}`) as HTMLDivElement
+    // alert('container:' + figure.id + ':' + container)
     if (container == null) {
-      document.removeEventListener('exercicesAffiches', updateAffichage)
+      // document.removeEventListener('exercicesAffiches', updateAffichage)
       return
     }
     container.innerHTML = ''

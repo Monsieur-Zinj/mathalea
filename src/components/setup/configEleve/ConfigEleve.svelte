@@ -189,7 +189,7 @@
                 class="pl-4 pb-4 w-full flex flex-row justify-start items-center space-x-2"
               >
                 <div
-                  class="text-sm font-light text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-70 dark:text-opacity-70"
+                  class="text-sm font-light w-1/4 text-coopmaths-corpus dark:text-coopmathsdark-corpus text-opacity-70 dark:text-opacity-70"
                 >
                   Titre :
                 </div>
