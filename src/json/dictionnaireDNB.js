@@ -8562,7 +8562,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_4_cor.tex',
-    tags: ['']
+    tags: ['Probabilités']
   },
   dnb_2024_06_polynesie_5: {
     annee: '2024',
@@ -8574,7 +8574,7 @@ export const dictionnaireDNB = {
     typeExercice: 'dnb',
     url: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5.tex',
     urlcor: 'static/dnb/2024/tex/dnb_2024_06_polynesie_5_cor.tex',
-    tags: ['']
+    tags: ['Fonctions', 'Tableur', 'Équations', 'Algorithmique-programmation', 'Programme de calculs', 'Calcul littéral']
   },
   dnb_2024_07_antilles_1: {
     annee: '2024',
