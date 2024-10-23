@@ -51,7 +51,7 @@ export const refs = {
 export default function ExerciceDevelopper () {
   Exercice.call(this)
   this.sup = 3 // difficulté
-  this.sup2 = 1 // consigne
+  this.sup2 = 2 // consigne
   this.sup3 = 7 // forme de développement
   this.sup4 = false
   this.nbQuestions = 6
