@@ -15,9 +15,9 @@ export const dateDePublication = '28/12/2022'
  * Référence 1N14
 */
 export const uuid = '8ed19'
-export const ref = '1AL11-5'
+export const ref = '1AL11-6'
 export const refs = {
-  'fr-fr': ['1AL11-5'],
+  'fr-fr': ['1AL11-6'],
   'fr-ch': []
 }
 export default class SommeSuite extends Exercice {
