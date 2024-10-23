@@ -309,7 +309,7 @@ export default function SommeDeVecteurs () {
         const nbPoints = [...this.figure[i].elements.values()].filter(
           (e) => e.type === 'Point' && e.isVisible && !e.isChild
         ).length
-        const onePointWasAdded = nbPoints > 3
+        const onePointWasAdded = nbPoints >= 3
 
         if (!onePointWasAdded) {
           if (divFeedback) {
