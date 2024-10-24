@@ -42,3 +42,6 @@ src/json/referentielGeometrieDynamique.json
 
 screenshots/
 package-lock.json
+v8-compile-cache-0/x64/10.2.154.26-node.28/zSusrzSlocalzSlibzSnode_moduleszSpnpmzSbinzSpnpm.cjs.MAP
+v8-compile-cache-0/x64/10.2.154.26-node.28/zSusrzSlocalzSlibzSnode_moduleszSpnpmzSbinzSpnpm.cjs.BLOB
+.gitignore
