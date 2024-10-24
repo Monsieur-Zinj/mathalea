@@ -654,11 +654,13 @@ function comparaisonFraction (
       return { isOk: true }
     }
     if (fractionEgale) {
-      if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') && // saisie doit être une fraction (ou une division)
-        saisieNativeParsed.op1.isInteger && saisieNativeParsed.op2.isInteger) { // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
-        return { isOk: true }
-      }
-      if ((saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational')) {
+      if (saisieNativeParsed.head === 'Divide' || saisieNativeParsed.head === 'Rational') { // saisie doit être une fraction (ou une division)
+        // reponse doit avoir des numérateur/dénominateur multiples de ceux de saisie ou bien fractionReduite est true
+        const num = saisieNativeParsed.op1.evaluate().numericValue
+        const den = saisieNativeParsed.op2.evaluate().numericValue
+        if (Number.isInteger(num) && Number.isInteger(den)) {
+          return { isOk: true }
+        }
         return { isOk: false, feedback: 'Résultat incorrect car dénominateur et numérateur doivent être entiers.' }
       }
       return { isOk: false, feedback: 'Résultat incorrect car une fraction est attendue' }
