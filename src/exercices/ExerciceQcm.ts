@@ -20,6 +20,7 @@ class ExerciceQcm extends Exercice {
   enonceA?: string
   correctionA?: string
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
+  qcmAleatoire: boolean
   constructor () {
     super()
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
@@ -46,6 +47,7 @@ class ExerciceQcm extends Exercice {
 
     this.correction = 'La correction'
     this.bonneReponse = 0 // index de la bonne réponse dans l'array this.reponses
+    this.qcmAleatoire = false
 
     // ####################################################
     // #### à partir d'ici, il n'y a rien à modifier ! ####
@@ -58,45 +60,22 @@ class ExerciceQcm extends Exercice {
     if (this.options != null) {
       this.autoCorrection[0].options = this.options
     }
-    const originale = Boolean(this.sup)
+    const originale = this.qcmAleatoire ? Boolean(this.sup) : true
+    this.autoCorrection[0].propositions = []
     if (this.enonceA != null) {
-      this.autoCorrection[0].propositions = [
-        {
-          texte: originale ? this.reponses[0] : this.reponsesA![0],
-          statut: this.bonneReponse === 0
-        },
-        {
-          texte: originale ? this.reponses[1] : this.reponsesA![1],
-          statut: this.bonneReponse === 1
-        },
-        {
-          texte: originale ? this.reponses[2] : this.reponsesA![2],
-          statut: this.bonneReponse === 2
-        },
-        {
-          texte: originale ? this.reponses[3] : this.reponsesA![3],
-          statut: this.bonneReponse === 3
-        }
-      ]
+      for (let i = 0; i < this.reponses.length; i++) {
+        this.autoCorrection[0].propositions.push({
+          texte: originale ? this.reponses[i] : this.reponsesA![i],
+          statut: this.bonneReponse === i
+        })
+      }
     } else {
-      this.autoCorrection[0].propositions = [
-        {
-          texte: this.reponses[0],
-          statut: this.bonneReponse === 0
-        },
-        {
-          texte: this.reponses[1],
-          statut: this.bonneReponse === 1
-        },
-        {
-          texte: this.reponses[2],
-          statut: this.bonneReponse === 2
-        },
-        {
-          texte: this.reponses[3],
-          statut: this.bonneReponse === 3
-        }
-      ]
+      for (let i = 0; i < this.reponses.length; i++) {
+        this.autoCorrection[0].propositions.push({
+          texte: this.reponses[i],
+          statut: this.bonneReponse === i
+        })
+      }
     }
 
     const monQcm = propositionsQcm(this, 0)
