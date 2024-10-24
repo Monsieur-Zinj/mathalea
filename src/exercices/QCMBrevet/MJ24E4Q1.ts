@@ -1,6 +1,6 @@
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'MJ24E4Q1'
+export const uuid = '67e15'
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
@@ -10,7 +10,6 @@ export const titre = 'QCM calcul d\'image par une fonction (issu du brevet 2024 
 class MetropoleJuin24Exo4Q1 extends ExerciceQcm {
   constructor () {
     super()
-    this.reponses = []
     this.reponses = [
       '$-14$',
       '$-10$',

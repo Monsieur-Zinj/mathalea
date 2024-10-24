@@ -8,7 +8,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { string } from 'mathjs'
-
+import { createList } from '../../lib/format/lists'
 /**
  * Problème à résoudre en utilisant les nombres relatifs
  * La dernière question est ouverte (et difficile pour prouver que l'on a trouvé toutes les solutions)
@@ -68,6 +68,25 @@ export default class resoudreProblemeRelatifs extends Exercice {
       Enfin pour une absence de réponse, ils perdent ${nombresPoints[2]} points.<br>`
 
       let texteCorr = ''
+
+      /*
+      texte += createList({
+        items: [
+          'Quel est le score maximal à ce jeu ? ',
+          '  '
+
+        ],
+        style: 'fleches'
+
+      })
+
+      textecorr += createList({
+        items: [
+          ' '
+        ],
+        classOptions: 'style="backGroundColor: red";'
+      })
+      */
       texte += numAlpha(0) + 'Quel est le score maximal à ce jeu ? '
       texte += ajouteChampTexteMathLive(this, 8 * i, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i, { reponse: { value: String(nombreQuestions * nombresPoints[0]) } })
@@ -92,7 +111,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       handleAnswers(this, 8 * i + 2, { reponse: { value: String(nombreQuestions * 0.6 * nombresPoints[0] - nombreQuestions * 0.4 * nombresPoints[1]) } })
       texteCorr += '<br>' + numAlpha(2) + `${candidats[0][0]} a répondu à ${nombreQuestions} questions en tout,
           dont ${nombreQuestions * 0.6} correctement, donc ${candidats[0][0]} a répondu faux à ${nombreQuestions * 0.4} questions car 
-          ${nombreQuestions} - ${nombreQuestions * 0.6} = ${nombreQuestions * 0.4}.<br>
+          $ ${nombreQuestions} - ${nombreQuestions * 0.6} = ${nombreQuestions * 0.4}$.<br>
           Son score est donc : <br>
           Score de ` + candidats[0][0] + ` $= ${nombreQuestions * 0.6} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.4} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])}$<br>
           $\\phantom{\\text{Score d ${candidats[0][0]}} }= ${nombreQuestions * 0.6 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.4 * nombresPoints[1])}$<br>
@@ -103,7 +122,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       texte += ajouteChampTexteMathLive(this, 8 * i + 3, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i + 3, { reponse: { value: String(nombreQuestions * 0.3 * nombresPoints[0] - nombreQuestions * 0.2 * nombresPoints[1] - nombreQuestions * 0.5 * nombresPoints[2]) } })
       texteCorr += '<br>' + numAlpha(3) + ` ${candidats[1][0]} n'a répondu qu'à ${nombreQuestions * 0.5} questions et ${nombreQuestions * 0.2} sont fausses, 
-        donc ${candidats[1][0]} a répondu correctement à ${nombreQuestions * 0.3} questions car ${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3}.<br>
+        donc ${candidats[1][0]} a répondu correctement à ${nombreQuestions * 0.3} questions car $${nombreQuestions * 0.5} - ${nombreQuestions * 0.2} = ${nombreQuestions * 0.3}$.<br>
          Son score est donc : <br>
          Score de ` + candidats[1][0] + ` $ = ${nombreQuestions * 0.3} \\times  ${nombresPoints[0]} + ${nombreQuestions * 0.2} \\times ${ecritureParentheseSiNegatif(-nombresPoints[1])} +  ${nombreQuestions * 0.5} \\times ${ecritureParentheseSiNegatif(-nombresPoints[2])}$<br>
          $\\phantom{\\text{Score d ${candidats[1][0]}}} = ${nombreQuestions * 0.3 * nombresPoints[0]} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.2 * nombresPoints[1])} + ${ecritureParentheseSiNegatif(-nombreQuestions * 0.5 * nombresPoints[2])}$<br>

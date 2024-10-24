@@ -11,14 +11,11 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 // class à utiliser pour fabriquer des Qcms sans aléatoirisation (en cas d'aléatoirisation, on utilisera ExerciceQcmA à la place)
-class ExerciceQcm extends Exercice {
+export default class ExerciceQcm extends Exercice {
   enonce: string
   reponses: string[]
   bonneReponse: number
   correction: string
-  reponsesA?: string[]
-  enonceA?: string
-  correctionA?: string
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
   qcmAleatoire: boolean
   constructor () {
@@ -55,36 +52,27 @@ class ExerciceQcm extends Exercice {
   }
 
   nouvelleVersion () {
+    const originale = this.qcmAleatoire ? Boolean(this.sup) : true
+    this.renewData(originale)
     let texte = this.enonce
     this.autoCorrection[0] = {}
     if (this.options != null) {
       this.autoCorrection[0].options = this.options
     }
-    const originale = this.qcmAleatoire ? Boolean(this.sup) : true
+
     this.autoCorrection[0].propositions = []
-    if (this.enonceA != null) {
-      for (let i = 0; i < this.reponses.length; i++) {
-        if (this.qcmAleatoire && this.reponsesA != null) {
-          this.autoCorrection[0].propositions.push({
-            texte: originale ? this.reponses[i] : this.reponsesA[i],
-            statut: this.bonneReponse === i
-          })
-        }
-      }
-    } else {
-      for (let i = 0; i < this.reponses.length; i++) {
-        this.autoCorrection[0].propositions.push({
-          texte: this.reponses[i],
-          statut: this.bonneReponse === i
-        })
-      }
+    for (let i = 0; i < this.reponses.length; i++) {
+      this.autoCorrection[0].propositions.push({
+        texte: this.reponses[i],
+        statut: this.bonneReponse === i
+      })
     }
 
     const monQcm = propositionsQcm(this, 0)
     texte += monQcm.texte
 
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-    const texteCorr = `${monQcm.texteCorr}${originale ? this.correction : this.correctionA}`
+    const texteCorr = `${monQcm.texteCorr}${this.correction}`
 
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
@@ -94,6 +82,9 @@ class ExerciceQcm extends Exercice {
   qcmCamExport (): string {
     return qcmCamExport(this)
   }
-}
 
-export default ExerciceQcm
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  renewData (originale: boolean):void {
+    // On remet les données à zéro pour éviter les fuites de mémoire
+  }
+}

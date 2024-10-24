@@ -1,7 +1,7 @@
 import ExerciceQcm from './ExerciceQcm'
 
 // class à utiliser pour fabriquer des Qcm ayant une version aléatoire
-class ExerciceQcmA extends ExerciceQcm {
+export default class ExerciceQcmA extends ExerciceQcm {
   constructor () {
     super()
     this.besoinFormulaireCaseACocher = ['version originale', false]
@@ -9,4 +9,3 @@ class ExerciceQcmA extends ExerciceQcm {
     this.qcmAleatoire = true
   }
 }
-export default ExerciceQcmA
