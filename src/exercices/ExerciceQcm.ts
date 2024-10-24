@@ -64,10 +64,12 @@ class ExerciceQcm extends Exercice {
     this.autoCorrection[0].propositions = []
     if (this.enonceA != null) {
       for (let i = 0; i < this.reponses.length; i++) {
-        this.autoCorrection[0].propositions.push({
-          texte: originale ? this.reponses[i] : this.reponsesA![i],
-          statut: this.bonneReponse === i
-        })
+        if (this.qcmAleatoire && this.reponsesA != null) {
+          this.autoCorrection[0].propositions.push({
+            texte: originale ? this.reponses[i] : this.reponsesA[i],
+            statut: this.bonneReponse === i
+          })
+        }
       }
     } else {
       for (let i = 0; i < this.reponses.length; i++) {
@@ -82,7 +84,7 @@ class ExerciceQcm extends Exercice {
     texte += monQcm.texte
 
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-    const texteCorr = `${monQcm.texteCorr}${originale ? this.correction : this.correctionA!}`
+    const texteCorr = `${monQcm.texteCorr}${originale ? this.correction : this.correctionA}`
 
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr
