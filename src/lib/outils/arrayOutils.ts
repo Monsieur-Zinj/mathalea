@@ -36,7 +36,11 @@ export function areSameObject (o1: unknown, o2: unknown): boolean {
   // o1 objet non null
   if (o2 === null) return false
   if (Object.keys(o1).length !== Object.keys(o2).length) return false
-  return Object.entries(o1).every(([key, value]) => areSameValues((o2)[key], value))
+  // return Object.entries(o1).every(([key, value]) => areSameValues((o2)[key], value))
+  // EE 24/10/2024 : Tentative de typage de la dernière ligne en remmplacement de la précédente maintenant commentée
+  return Object.entries(o1).every(([key, value]) =>
+    areSameValues((o2 as Record<string, unknown>)[key], value)
+  )
 }
 /**
  * Retourne true si ar1 et ar2 sont deux tableaux de même longueur, avec les même valeurs dans le même ordre
