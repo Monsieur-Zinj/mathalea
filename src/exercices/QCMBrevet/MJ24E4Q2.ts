@@ -7,7 +7,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul de puissance (issu du brevet 202 Métropole)'
 
-class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -20,4 +20,3 @@ class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
     this.correction = '$(- 5)^3 = (- 5) \\times (- 5) \\times (- 5) = - 125$.'
   }
 }
-export default MetropoleJuin24Exo4Q2

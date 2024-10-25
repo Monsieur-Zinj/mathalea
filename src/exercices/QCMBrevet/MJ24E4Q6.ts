@@ -1,8 +1,6 @@
-import { t } from 'xstate'
 import { codageAngle, codageAngleDroit } from '../../lib/2d/angles'
-import { point, tracePoint } from '../../lib/2d/points'
+import { point } from '../../lib/2d/points'
 import { polygone } from '../../lib/2d/polygones'
-import { labelPoint } from '../../lib/2d/textes'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceQcm from '../ExerciceQcm'
 
@@ -13,7 +11,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM image par translation (issu du brevet 202 Métropole)'
 
-class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -35,4 +33,3 @@ class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
     this.correction = 'Si $C$ a pour image $A$ par $t_{\\overrightarrow{CA}}$, alors $J$ a pour image $E$.'
   }
 }
-export default MetropoleJuin24Exo4Q3

@@ -12,19 +12,6 @@ export const titre = 'QCM calcul avec des fractions (issu du brevet décembre 20
 export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
   constructor () {
     super()
-    /* this.enonce = '$\\dfrac{3}{5}-\\dfrac{2}{5} \\times \\dfrac{7}{4}$'
-    this.reponses = [
-      '$\\dfrac{-1}{10}$',
-      '$\\dfrac{2}{10}$',
-      '$\\dfrac{7}{20}$'
-    ]
-    this.bonneReponse = 0
-    this.correction = ` $\\begin{aligned}
-\\dfrac{3}{5}-\\dfrac{2}{5} \\times \\dfrac{7}{4} &= \\dfrac{3}{5}-\\dfrac{14}{20} \\\\
-                                                  &= \\dfrac{6}{10}-\\dfrac{7}{10} \\\\
-                                                  &= \\dfrac{-1}{10} \\\\
-                                                  \\end{aligned} $`
-                                                  */
     this.aleatoire()
   }
 

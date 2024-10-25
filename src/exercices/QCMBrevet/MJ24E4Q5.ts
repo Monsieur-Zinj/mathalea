@@ -7,7 +7,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul de médiane (issu du brevet 202 Métropole)'
 
-class MetropoleJuin24Exo4Q5 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q5 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -20,4 +20,3 @@ class MetropoleJuin24Exo4Q5 extends ExerciceQcm {
     this.correction = 'On a dans l\'ordre croissant : $1{,}46~\\leq~1{,}6~\\leq~1{,}65~\\leq~ {\\red{1{,}67}}~\\leq~1{,}7~\\leq~ 1{,}72~\\leq~1{,}75$.<br>Il y a autant de tailles inférieures à 1,67m que de tailles supérieures à 1,67m,donc 1,67m est la médiane.'
   }
 }
-export default MetropoleJuin24Exo4Q5

@@ -10,7 +10,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM image par translation (issu du brevet 202 Métropole)'
 
-class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -42,4 +42,3 @@ class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
     this.correction = 'Si $C$ a pour image $A$ par $t_{\\overrightarrow{CA}}$, alors $J$ a pour image $E$.'
   }
 }
-export default MetropoleJuin24Exo4Q3
