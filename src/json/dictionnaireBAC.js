@@ -964,7 +964,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_1: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '1',
@@ -977,7 +977,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_2: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '2',
@@ -990,7 +990,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_3: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '3',
@@ -1003,7 +1003,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet1_madagascar_4: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J1',
     numeroInitial: '4',
@@ -1276,7 +1276,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_1: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '1',
@@ -1289,7 +1289,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_2: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '2',
@@ -1302,7 +1302,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_3: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '3',
@@ -1315,7 +1315,7 @@ export const dictionnaireBAC = {
   },
   bac_2022_05_sujet2_madagascar_4: {
     annee: '2022',
-    lieu: 'madagascar',
+    lieu: 'Madagascar',
     mois: 'Mai',
     jour: 'J2',
     numeroInitial: '4',
@@ -3824,6 +3824,59 @@ export const dictionnaireBAC = {
     typeExercice: 'bac',
     url: 'static/bac/2024/tex/bac_2024_11_sujet2_asie_4.tex',
     urlcor: 'static/bac/2024/tex/bac_2024_11_sujet2_asie_4_cor.tex',
+    tags: ['']
+  },
+
+  bac_2024_06_sujet1_suede_1: {
+    annee: '2024',
+    lieu: 'suede',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '1',
+    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_1.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_1_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_1.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_1_cor.tex',
+    tags: ['']
+  },
+  bac_2024_06_sujet1_suede_2: {
+    annee: '2024',
+    lieu: 'suede',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '2',
+    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_2.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_2_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_2.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_2_cor.tex',
+    tags: ['']
+  },
+  bac_2024_06_sujet1_suede_3: {
+    annee: '2024',
+    lieu: 'suede',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '3',
+    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_3.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_3_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_3.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_3_cor.tex',
+    tags: ['']
+  },
+  bac_2024_06_sujet1_suede_4: {
+    annee: '2024',
+    lieu: 'suede',
+    mois: 'Juin',
+    jour: 'J1',
+    numeroInitial: '4',
+    png: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_4.png',
+    pngCor: 'static/bac/2024/tex/png/bac_2024_06_sujet1_suede_4_cor.png',
+    typeExercice: 'bac',
+    url: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_4.tex',
+    urlcor: 'static/bac/2024/tex/bac_2024_06_sujet1_suede_4_cor.tex',
     tags: ['']
   },
 
