@@ -937,11 +937,17 @@
   "PEG2": {
     "titre": "À la règle et au compas"
   },
-  "TAN1": {
+  "TSpeAN1": {
     "titre": "Analyse"
   },
-  "TC1": {
+  "TSpeC1": {
     "titre": "Calculs"
+  },
+  "TSpeS1": {
+    "titre": "Suites"
+  },
+  "TSpeF1": {
+    "titre": "Fonctions"
   },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",

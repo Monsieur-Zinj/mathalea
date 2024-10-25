@@ -195,12 +195,12 @@
     }
   },
   "Terminale": {
-    "T1": {
-      "TAN1": {},
-      "TC1": {},
-      "TF1": {},
-      "TS1": {},
-      "TCX1": {}
+    "TSpe": {
+      "TSpeAN1": {},
+      "TSpeC1": {},
+      "TSpeF1": {},
+      "TSpeS1": {},
+      "TSpeCX1": {}
     },
     "TEx": {
       "TExC1": {}

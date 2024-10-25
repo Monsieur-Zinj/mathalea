@@ -1,4 +1,4 @@
-import InequationsLog from './TAN1-0'
+import InequationsLog from './TSpeAN1-0'
 
 export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec ln'
 export const dateDePublication = '4/5/2024'
@@ -7,13 +7,13 @@ export const uuid = 'e7929'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-1'],
+  'fr-fr': ['TSpeAN1-1'],
   'fr-ch': []
 }
 
 /**
  * Description didactique de l'exercice
- * @autor clone de TAN1-0 de Claire Rousset réalisé par Jean-Claude Lhote
+ * @autor clone de TSpeAN1-0 de Claire Rousset réalisé par Jean-Claude Lhote
  * Référence
  */
 export default class InequationsLn extends InequationsLog {

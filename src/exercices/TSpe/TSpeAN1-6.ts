@@ -1,44 +1,43 @@
 import Exercice from '../Exercice'
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { choice } from '../../lib/outils/arrayOutils'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu } from '../../modules/outils.js'
 import { texNombre } from '../../lib/outils/texNombre'
-import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif.js'
 import { miseEnEvidence } from '../../lib/outils/embellissements.js'
 import { pgcd } from '../../lib/outils/primalite.js'
 import { fraction } from '../../modules/fractions.js'
-import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.js'
+import { remplisLesBlancs } from '../../lib/interactif/questionMathLive.js'
 
-export const titre = 'Résolution d\'inéquations du type $a^x \\leq b$ avec log'
-export const dateDePublication = '4/5/2024'
-export const dateDeModificationImportante = '18/07/2024'
-export const uuid = '00a7a'
+export const titre = 'Résolution d\'équations du type $a^x = b$ avec log'
+export const dateDePublication = '28/07/2024'
+export const dateDeModificationImportante = '28/07/2024'
+export const uuid = '00ec8'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-0'],
+  'fr-fr': ['TSpeAN1-6'],
   'fr-ch': []
 }
 
 /**
- * Description didactique de l'exercice
- * @autor Claire Rousset (un peu aidé par Jean-Claude Lhote)
- * Référence TAN1-0
+ * Description didactique de l'exercice : Résolution d'équations du type a^x = b
+ * @autor Claire Rousset
+ * Référence TSpeAN1-6
  */
-export default class InequationsLog extends Exercice {
+export default class EquationsLog extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 5
     if (this.nbQuestions === 1) {
-      this.consigne = 'Résoudre dans $\\R$ l\'inéquation suivante. La solution devra être écrite sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ l\'équation suivante.'
     } else {
-      this.consigne = 'Résoudre dans $\\R$ les inéquations suivantes. Les solutions devront être écrites sous la forme d\'un intervalle.'
+      this.consigne = 'Résoudre dans $\\R$ les équations suivantes.'
     }
     this.spacingCorr = 3
     this.sup = '4'
     this.besoinFormulaireTexte = ['Type de question (nombre séparés par des tirets', '1 : Borne rationnelle\n2 : Borne entière\n3 : Borne irrationnelle\n4 : Mélange']
-    this.comment = 'Exercice de résolution d\'inéquation avec le logarithme de base 10'
+    this.comment = 'Exercice de résolution d\'équations avec le logarithme de base 10'
     this.correctionDetailleeDisponible = true
   }
 
@@ -76,7 +75,6 @@ export default class InequationsLog extends Exercice {
 
   nouvelleVersion () {
     const logString = this.comment?.includes('10') ? '\\log' : '\\ln'
-    const typeQuestionsDisponibles = ['>=', '>', '<=', '<']
     const listeCouples = [[0.03125, 2], [0.0625, 2], [0.08, 5], [0.125, 2], [0.125, 64], [0.2, 0.008], [0.2, 5], [0.2, 12], [0.2, 25], [0.2, 125],
       [0.25, 2], [0.25, 4], [0.25, 5], [0.25, 15], [0.25, 32], [0.25, 64], [0.4, 0.16], [0.4, 8], [0.5, 0.25], [0.5, 1.25],
       [0.5, 2], [0.5, 4], [0.5, 8], [0.5, 32], [0.6, 12], [0.625, 1.25], [0.6, 4], [0.75, 3], [0.35, 0.1225], [0.2, 0.04],
@@ -89,7 +87,6 @@ export default class InequationsLog extends Exercice {
       [6, 32], [7, 343], [8, 2], [8, 4], [9, 81], [11, 121], [12, 5], [27, 2], [27, 3], [27, 9],
       [32, 2], [32, 6], [64, 4], [81, 3], [243, 81], [243, 3], [256, 4], [1024, 2], [2048, 2], [2187, 3]]
 
-    const listeTypeOperators = combinaisonListes(typeQuestionsDisponibles, this.nbQuestions)
     const listeTypeQuestions = gestionnaireFormulaireTexte({ saisie: this.sup, min: 1, max: 3, melange: 4, defaut: 4, nbQuestions: this.nbQuestions })
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {
@@ -144,68 +141,13 @@ export default class InequationsLog extends Exercice {
         resultat = `\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}` // dfrac pour avoir fraction de taille normale
       }
 
-      let answer = ''
-      let signe0: string
-      let signe1: string
-      let signe2: string
-
-      switch (listeTypeOperators[i]) {
-        case '>=':
-          signe0 = '\\geq'
-          if (Math.log(a) > 0) {
-            signe1 = '\\geq'
-            signe2 = '>'
-            answer = `[${resultat};+\\infty[`
-          } else {
-            signe1 = '\\leq'
-            signe2 = '<'
-            answer = `]-\\infty;${resultat}]`
-          }
-          break
-        case '>':
-          signe0 = '>'
-          if (Math.log(a) > 0) {
-            signe1 = '>'
-            signe2 = '>'
-            answer = `]${resultat};+\\infty[`
-          } else {
-            signe1 = '<'
-            signe2 = '<'
-            answer = `]-\\infty;${resultat}[`
-          }
-          break
-        case '<=':
-          signe0 = '\\leq'
-          if (Math.log(a) > 0) {
-            signe1 = '\\leq'
-            signe2 = '>'
-            answer = `]-\\infty;${resultat}]`
-          } else {
-            signe1 = '\\geq'
-            signe2 = '<'
-            answer = `[${resultat};+\\infty[`
-          }
-          break
-        case '<':
-        default:
-          signe0 = '<'
-          if (Math.log(a) > 0) {
-            signe1 = '<'
-            signe2 = '>'
-            answer = `]-\\infty;${resultat}[`
-          } else {
-            signe1 = '>'
-            signe2 = '<'
-            answer = `]${resultat};+\\infty[`
-          }
-          break
-      }
-      texte = `$${texNombre(a, 5)}^x ${signe0} ${stringB}$`
-      texteCorr = `On sait que pour tous réels $a$ et $b$ strictement positifs $a ${signe0} b$ si, et seulement si, $${logString}(a) ${signe0} ${logString}(b)$. D'où :`
-      texteCorr += `<br>$${texNombre(a, 5)}^x ${signe0} ${stringB}$`
-      texteCorr += `<br>$ \\iff ${logString}{(${stringA}^x)} ${signe0} ${logString}{(${stringB})}$`
-      texteCorr += `<br>$ \\iff x${logString}{(${stringA})} ${signe0} ${logString}{(${stringB})}$`
-      texteCorr += `<br>$ \\iff x ${signe1} \\dfrac{${logString}(${stringB})}{${logString}(${stringA})}$ car $${logString}(${stringA}) ${signe2}0$`
+      const answer = resultat
+      texte = `$${texNombre(a, 5)}^x = ${stringB}$`
+      texteCorr = `On sait que pour tous réels $a$ et $b$ strictement positifs $a = b$ si, et seulement si, $${logString}(a) = ${logString}(b)$. D'où :`
+      texteCorr += `<br>$${texNombre(a, 5)}^x = ${stringB}$`
+      texteCorr += `<br>$ \\iff ${logString}{(${stringA}^x)} = ${logString}{(${stringB})}$`
+      texteCorr += `<br>$ \\iff x${logString}{(${stringA})} = ${logString}{(${stringB})}$`
+      texteCorr += `<br>$ \\iff x = \\dfrac{${logString}(${stringB})}{${logString}(${stringA})}$`
       if (quotient !== null && base !== null) {
         texteCorr += this.correctionDetaillee
           ? typeof quotient === 'number'
@@ -215,11 +157,15 @@ export default class InequationsLog extends Exercice {
               : `<br>Or, $${logString}(${stringB})=${logString}(${texNombre(base, 5)}^{${quotient[0]}})=${quotient[0]}${logString}(${texNombre(base, 5)})$ et $${logString}(${stringA})=${logString}(${texNombre(base, 5)}^{${quotient[1]}})=${quotient[1]}${logString}(${texNombre(base, 5)})$ donc $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}=\\dfrac{${quotient[0]}${logString}(${texNombre(base, 5)})}{${quotient[1]}${logString}(${texNombre(base, 5)})}= ${resultat}$. `
           : `<br>Or, $\\dfrac{${logString}(${stringB})}{${logString}(${stringA})}= ${resultat}$.  `
       }
-      texteCorr += `<br>Ainsi, $S=${miseEnEvidence(answer)}$`
+      texteCorr += `<br>Ainsi, $S=\\{${miseEnEvidence(answer)}\\}$`
       if (this.interactif) {
-        handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { intervalle: true } } })
-        texte += '<br>$S= $'
-        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales)
+        handleAnswers(this, i,
+          {
+            champ1: { value: answer }
+          }
+        )
+        texte += '<br>'
+        texte += remplisLesBlancs(this, i, 'S=\\{%{champ1}\\}', KeyboardType.clavierFonctionsTerminales)
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

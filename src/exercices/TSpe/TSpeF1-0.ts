@@ -25,14 +25,14 @@ export const uuid = '450e7'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TF1-0'],
+  'fr-fr': ['TSpeF1-0'],
   'fr-ch': []
 }
 
 /**
  * Réduire une expression en fonction de ln/log de x
  * @autor  Jean-Claude Lhote
- * Référence TF1-0
+ * Référence TSpeF1-0
  */
 export default class DomaineDefFnLog extends Exercice {
   version: string
