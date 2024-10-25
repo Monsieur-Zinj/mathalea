@@ -8,4 +8,6 @@ export default class ExerciceQcmA extends ExerciceQcm {
     this.sup = false
     this.qcmAleatoire = true
   }
+
+  aleatoire: ()=>void = () => {}
 }

@@ -12,22 +12,20 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
- * Il utilise la classe ExerciceQcmA qui définit les contours de l'exo (avec une version aléatoire)
- * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
+ * Il utilise la classe ExerciceQcmA qui définit les contours de l'exo (avec une version aléatoire : voir la méthode aleatoire ci-dessous)
+ * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam hérité de ExerciceQcm.
  * Il est interactif et dispose d'un export AMC d'office
  */
 class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
   constructor () {
     super()
-    const originale = this.sup
-    this.renewData(originale)
-    // fin de la partie concernant la version aléatoire (à supprimer si pas d'aléatoire)
+    this.aleatoire()
   }
 
-  renewData (originale: boolean): void {
-    const a = originale ? -3 : randint(-5, 5, [1, 0, -1])
-    const b = originale ? 7 : premierAvec(Math.abs(a), [], false) * choice([-1, 1])
-    const c = originale ? 1 : randint(1, 3) * choice([-1, 1])
+  aleatoire = () => {
+    const a = this.sup ? -3 : randint(-5, 5, [1, 0, -1]) // En premier, ce sont les valeurs originales et en deuxième, les valeurs aléatoires
+    const b = this.sup ? 7 : premierAvec(Math.abs(a), [], false) * choice([-1, 1])
+    const c = this.sup ? 1 : randint(1, 3) * choice([-1, 1])
     const alpha = fraction(b, -a).simplifie()
     const K = alpha.oppose().ajouteEntier(c).simplifie().texFSD
     const fauxK = alpha.ajouteEntier(c).oppose().simplifie().texFSD

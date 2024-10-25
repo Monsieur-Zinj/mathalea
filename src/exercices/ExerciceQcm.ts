@@ -18,6 +18,7 @@ export default class ExerciceQcm extends Exercice {
   correction: string
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
   qcmAleatoire: boolean
+  aleatoire?: ()=>void
   constructor () {
     super()
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
@@ -52,8 +53,7 @@ export default class ExerciceQcm extends Exercice {
   }
 
   nouvelleVersion () {
-    const originale = this.qcmAleatoire ? Boolean(this.sup) : true
-    this.renewData(originale)
+    if (this.aleatoire != null) this.aleatoire()
     let texte = this.enonce
     this.autoCorrection[0] = {}
     if (this.options != null) {
@@ -81,10 +81,5 @@ export default class ExerciceQcm extends Exercice {
   // Pour permettre d'exporter tous les qcm pour en faire des séries de questions pour QcmCam. Ne pas y toucher
   qcmCamExport (): string {
     return qcmCamExport(this)
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  renewData (originale: boolean):void {
-    // On remet les données à zéro pour éviter les fuites de mémoire
   }
 }
