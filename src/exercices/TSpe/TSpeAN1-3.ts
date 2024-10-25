@@ -14,13 +14,13 @@ export const uuid = '3e6bf'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-3'],
+  'fr-fr': ['TSpeAN1-3'],
   'fr-ch': []
 }
 /**
  * Description didactique de l'exercice
  * @author Jean-Claude Lhote et modifié par Claire Rousset
- * Référence TAN1-3
+ * Référence TSpeAN1-3
 */
 export default class ExerciceCalculsProprietesLog extends Exercice {
   version: string

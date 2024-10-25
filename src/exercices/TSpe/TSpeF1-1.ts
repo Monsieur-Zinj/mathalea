@@ -14,7 +14,7 @@ export const interactifType = 'mathLive'
 
 export const uuid = '25135'
 export const refs = {
-  'fr-fr': ['TF1-1'],
+  'fr-fr': ['TSpeF1-1'],
   'fr-ch': []
 }
 
@@ -106,6 +106,7 @@ class DerivationLnU extends Exercice {
       if (this.questionJamaisPosee(i, laFonctionFEnLatex, fPrime)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
+        // @ts-expect-error problème de typage handleAnswers
         handleAnswers(this, i, { reponse: { value: fPrime, options: { variable: 'x', domaine }, compare: functionCompare } })
         i++
         cpt--

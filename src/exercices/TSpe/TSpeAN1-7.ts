@@ -14,14 +14,14 @@ export const uuid = '364dd'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-7'],
+  'fr-fr': ['TSpeAN1-7'],
   'fr-ch': []
 }
 
 /**
  * Description didactique de l'exercice : Résolution d'équations du type x^a = b
  * @autor Claire Rousset
- * Référence TAN1-7
+ * Référence TSpeAN1-7
  */
 export default class EquationsLog extends Exercice {
   constructor () {

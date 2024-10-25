@@ -14,7 +14,7 @@ export const uuid = '2c0b2'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['TAN1-5'],
+  'fr-fr': ['TSpeAN1-5'],
   'fr-ch': []
 }
 
@@ -22,7 +22,7 @@ const listeExposants = [1, 2, 3, -1, -2, -3]
 /**
  * Réduire une expression en fonction de ln/log de x
  * @autor  Jean-Claude Lhote
- * Référence TAN1-5
+ * Référence TSpeAN1-5
  */
 export default class ExpressionsLogX extends Exercice {
   version: string
