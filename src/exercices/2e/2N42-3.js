@@ -7,7 +7,7 @@ import Exercice from '../Exercice'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 
 import Trinome from '../../modules/Trinome'
-export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré'
+export const titre = 'Utiliser les différentes formes d\'un polynôme du second degré (3 formes)'
 export const interactifReady = false
 
 export const dateDePublication = '26/06/2023'
@@ -99,7 +99,7 @@ export default class EtudeTrinome extends Exercice {
       & = ${etapesDeveloppement2[2]}${this.correctionDetaillee === true ? `${sp(20)}${miseEnEvidence('\\textit{On réduit}')}` : ''}
       \\end{aligned}$`
       }
-      correction1 += `<br> On en déduit que $f(x)$ s'écrit sous forme développée : $f(x)=${p.texFormeFactorisee}$.`
+      correction1 += `<br> On en déduit que $f(x)$ s'écrit sous forme développée : $f(x)=${p.tex}$.`
       correction2 = 'On développe la forme canonique : <br>'
       if (a === 1) {
         correction2 += `$\\begin{aligned}
