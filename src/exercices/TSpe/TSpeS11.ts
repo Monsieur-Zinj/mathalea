@@ -138,9 +138,9 @@ export default class EtudeSuiteRecurrence extends Exercice {
           texteCorr += '<br><br>Soit $n$ un entier naturel. Supposons que : $0 \\leqslant u_{n+1} \\leqslant u_{n}$.'
           texteCorr += '<br><br> Montrons alors que : $0 \\leqslant u_{n+2} \\leqslant u_{n+1}$.'
           texteCorr += `<br><br>$0 \\leqslant u_{n+1} \\leqslant u_{n} \\qquad$ ${texteEnCouleur('Par hypothèse de récurrence.', 'forestgreen')}`
-          texteCorr += `<br><br>$10\\times0 \\leqslant 10u_{n+1} \\leqslant 10u_{n} \\qquad$ ${texteEnCouleur('Multiplication par un nombre strictement positif.', 'forestgreen')}`
-          texteCorr += `<br><br>$0 + ${b} \\leqslant 10u_{n+1} + ${b} \\leqslant 10u_{n} + ${b} \\qquad$ ${texteEnCouleur(`On ajoute ${b}.`, 'forestgreen')}`
-          texteCorr += `<br><br>$ \\sqrt{${b}} \\leqslant \\sqrt{10u_{n+1} + ${b}} \\leqslant \\sqrt{10u_{n} + ${b}} \\qquad$ ${texteEnCouleur('La fonction racine est strictement croissante sur $]0 ; +\\infty[$.', 'forestgreen')}`
+          texteCorr += `<br><br>$${a}\\times0 \\leqslant ${a}u_{n+1} \\leqslant ${a}u_{n} \\qquad$ ${texteEnCouleur('Multiplication par un nombre strictement positif.', 'forestgreen')}`
+          texteCorr += `<br><br>$0 + ${b} \\leqslant ${a}u_{n+1} + ${b} \\leqslant ${a}u_{n} + ${b} \\qquad$ ${texteEnCouleur(`On ajoute ${b}.`, 'forestgreen')}`
+          texteCorr += `<br><br>$ \\sqrt{${b}} \\leqslant \\sqrt{${a}u_{n+1} + ${b}} \\leqslant \\sqrt{${a}u_{n} + ${b}} \\qquad$ ${texteEnCouleur('La fonction racine est strictement croissante sur $]0 ; +\\infty[$.', 'forestgreen')}`
           texteCorr += `<br><br>$\\sqrt{${b}} \\leqslant u_{n+2} \\leqslant u_{n+1}$`
           texteCorr += `<br><br>Comme $0 \\leqslant \\sqrt{${b}}$, on a bien :`
           texteCorr += '<br><br>$0 \\leqslant u_{n+2} \\leqslant u_{n+1}$.'
