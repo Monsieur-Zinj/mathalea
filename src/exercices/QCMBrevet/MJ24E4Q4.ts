@@ -12,7 +12,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM Lecture graphique d\'antécédent (issu du brevet 202 Métropole)'
 
-class MetropoleJuin24Exo4Q4 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q4 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -31,4 +31,3 @@ class MetropoleJuin24Exo4Q4 extends ExerciceQcm {
     this.correction = 'L\'antécédent de 3 est 0, on note $f(0) = 3$.'
   }
 }
-export default MetropoleJuin24Exo4Q4

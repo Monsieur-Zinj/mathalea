@@ -1,5 +1,6 @@
 import qcmCamExport from '../lib/amc/qcmCam'
 import { propositionsQcm } from '../lib/interactif/qcm'
+import { context } from '../modules/context'
 import Exercice from './Exercice'
 
 // export const uuid = 'UUID à modifier'
@@ -10,6 +11,32 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
+
+function ajouteLettres (texte: string) {
+  const separateur = context.isHtml ? '<label' : !context.isAmc ? '\\square' : '\\AMCBox'
+  // Pour AMC ça ne marche pas parce que texte est vide : c'est AMC qui crée le qcm... je ne sais pas comment faire pour le moment
+  // Mais ça reste compatible...
+  const chunks = texte.split(separateur)
+  let texteAvecLettres = chunks[0]
+  const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+  for (let i = 0; i < chunks.length - 1; i++) {
+    texteAvecLettres += `${lettres[i]} : ${separateur}${chunks[i + 1]}`
+  }
+  return texteAvecLettres
+}
+
+function retrouveLaBonneReponse (texte: string) {
+  const separateur = context.isHtml ? '<label' : !context.isAmc ? '\\square' : '\\AMCBox'
+  const matcher = context.isHtml ? 'checked' : '\\blacksquare'
+  const chunks = texte.split(separateur)
+  for (let i = 0; i < chunks.length - 1; i++) {
+    if (chunks[i].includes(matcher)) {
+      return i
+    }
+  }
+  return -1
+}
+
 // class à utiliser pour fabriquer des Qcms sans aléatoirisation (en cas d'aléatoirisation, on utilisera ExerciceQcmA à la place)
 export default class ExerciceQcm extends Exercice {
   enonce: string
@@ -67,12 +94,14 @@ export default class ExerciceQcm extends Exercice {
         statut: this.bonneReponse === i
       })
     }
+    const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
 
     const monQcm = propositionsQcm(this, 0)
-    texte += monQcm.texte
+    texte += `<br>${ajouteLettres(monQcm.texte)}`
 
+    const laBonneLettre = lettres[retrouveLaBonneReponse(monQcm.texteCorr)]
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-    const texteCorr = `${monQcm.texteCorr}${this.correction}`
+    const texteCorr = `${ajouteLettres(monQcm.texteCorr)}<br>${this.correction}<br>La bonne réponse est la réponse ${laBonneLettre}.`
 
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr

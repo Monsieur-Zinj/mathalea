@@ -7,7 +7,7 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul d\'image par une fonction (issu du brevet 2024 Métropole)'
 
-class MetropoleJuin24Exo4Q1 extends ExerciceQcm {
+export default class MetropoleJuin24Exo4Q1 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
@@ -20,4 +20,3 @@ class MetropoleJuin24Exo4Q1 extends ExerciceQcm {
     this.correction = '$f(x) = 3x - 2$, donc $f(-4) = 3\\times (- 4) - 2 = -12 - 2 = - 14$.'
   }
 }
-export default MetropoleJuin24Exo4Q1
