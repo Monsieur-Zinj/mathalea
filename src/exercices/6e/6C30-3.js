@@ -213,12 +213,4 @@ export default function MultiplicationMentalDecimaux () {
     }
     listeQuestionsToContenu(this) // On envoie l'exercice à la fonction de mise en page
   }
-
-  // Si les variables suivantes sont définies, elles provoquent l'affichage des formulaires des paramètres correspondants
-  // Il peuvent être de 3 types : _numerique, _case_a_cocher ou _texte.
-  // Il sont associés respectivement aux paramètres sup, sup2 et sup3.
-
-  // this.besoinFormulaireCaseACocher = ['Mode QCM',true]
-  //  this.besoinFormulaire2Numerique = ["Type de cahier",3,`1 : Cahier à petits carreaux\n 2 : Cahier à gros carreaux (Seyes)\n 3 : Feuille blanche`];
-  // this.besoinFormulaire3CaseACocher =['figure à main levée',true]
-} // Fin de l'exercice.
+}
