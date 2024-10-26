@@ -1,14 +1,17 @@
+import { choice } from '../../../lib/outils/arrayOutils'
+import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { texNombre } from '../../../lib/outils/texNombre'
 import { randint } from '../../../modules/outils.js'
 import Exercice from '../../deprecatedExercice.js'
-export const titre = 'Recomposer un entier*'
+export const titre = 'Déterminer un nombre à partir de son nombre de centaines, dizaines, unités'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCNum'
-
+export const dateDePublication = '01/07/2021'
+export const dateDeModifImportante = '26/10/2024'
 /*!
- * @author Jean-Claude Lhote
+ * @author Jean-Claude Lhote +Gilles Mora pour modif (intégration du can6N02)
  * Créé pendant l'été 2021
  * Référence can6N03
  */
@@ -25,11 +28,38 @@ export default function RecomposerEntierMoinsSimple () {
   this.tailleDiaporama = 2
   this.formatChampTexte = 'largeur01 inline'
   this.nouvelleVersion = function () {
-    const a = randint(20, 70)
-    const b = randint(20, 70, a)
-    this.reponse = a * 100 + b * 10
-    this.question = `Calculer $${a}$ centaines et $${b}$ dizaines.`
-    this.correction = `$${a} \\times 100 + ${b} \\times 10 = ${texNombre(a * 100)} + ${b * 10}=${texNombre(a * 100 + b * 10)}$`
+    const c = randint(2, 30)
+    const d = randint(2, 30, c)
+    const u = randint(2, 30, [c, d])
+    switch (choice([1, 2, 3])) { //
+      case 1:
+        this.reponse = c * 100 + d * 10
+        this.question = `Écrire le nombre égal à $${c}$ centaines et $${d}$ dizaines.`
+        this.correction = `$\\begin{aligned}
+        ${c} \\times 100 + ${d} \\times 10 &= ${texNombre(c * 100)} + ${d * 10}\\\\
+        &=${miseEnEvidence(texNombre(c * 100 + d * 10))}
+        \\end{aligned}$`
+        break
+
+      case 2:
+        this.reponse = c * 100 + u
+        this.question = `Écrire le nombre égal à $${texNombre(c)}$ centaines et $${texNombre(u)}$ unités. `
+        this.correction = `$\\begin{aligned}
+        ${texNombre(c)} \\times 100 + ${texNombre(u)}\\times 1 &=${texNombre(c * 100)}+${u}\\\\
+        &= ${miseEnEvidence(texNombre(c * 100 + u))}
+        \\end{aligned}$`
+        break
+
+      case 3:
+        this.reponse = d * 10 + u
+        this.question = `Écrire le nombre égal à $${texNombre(d)}$ dizaines et $${texNombre(u)}$ unités. `
+        this.correction = `$\\begin{aligned}
+        ${texNombre(d)} \\times 10 + ${texNombre(u)}\\times 1 &=${texNombre(d * 10)}+${u}\\\\
+        &= ${miseEnEvidence(texNombre(d * 10 + u))}
+        \\end{aligned}$`
+        break
+    }
+    if (this.interactif) { this.question += '<br>' }
     this.canEnonce = this.question
     this.canReponseACompleter = ''
   }
