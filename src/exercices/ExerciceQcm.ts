@@ -1,4 +1,4 @@
-import qcmCamExport from '../lib/amc/qcmCam'
+import{ qcmCamExport } from '../lib/amc/qcmCam'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
 import { context } from '../modules/context'

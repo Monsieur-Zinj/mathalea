@@ -221,17 +221,18 @@ export function exerciceInteractif (
           nbQuestionsNonValidees +=
             result.score.nbReponses - result.score.nbBonnesReponses
           if (result.feedback !== '') {
-            const spanFeedback = document.querySelector(
+            const divFeedback = document.querySelector(
               `#feedbackEx${exercice.numeroExercice}Q${i}`
             )
-            if (spanFeedback != null) {
-              spanFeedback.innerHTML = `💡 ${result.feedback}`
-              spanFeedback.classList.add(
+            if (divFeedback != null) {
+              divFeedback.innerHTML = `💡 ${result.feedback}`
+              divFeedback.classList.add(
                 'py-2',
                 'italic',
                 'text-coopmaths-warn-darkest',
                 'dark:text-coopmathsdark-warn-darkest'
-              )
+              );
+              (divFeedback as HTMLDivElement).style.display = 'block'
             }
           }
         }

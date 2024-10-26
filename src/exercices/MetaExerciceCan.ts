@@ -1,6 +1,6 @@
 import { handleAnswers, setReponse } from '../lib/interactif/gestionInteractif'
 import Exercice from './Exercice'
-import { ajouteChampTexteMathLive, ajouteFeedback, remplisLesBlancs } from '../lib/interactif/questionMathLive'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../lib/interactif/questionMathLive'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
@@ -93,7 +93,7 @@ export default class MetaExercice extends Exercice {
         Question.nouvelleVersion()
         //* ************ Question Exo simple *************//
         if (Question.listeQuestions.length === 0) { // On est en présence d'un exo simple
-          const consigne = Question.consigne === '' ? '' : Question.consigne + '<br>'
+          const consigne = Question.consigne === '' ? '' : `${Question.consigne}<br>`
           this.listeCorrections[indexQuestion] = (Question.correction)
           this.listeCanEnonces[indexQuestion] = (Question.canEnonce)
           this.listeCanReponsesACompleter[indexQuestion] = (Question.canReponseACompleter)
@@ -162,14 +162,11 @@ export default class MetaExercice extends Exercice {
                 window.notify('Erreur avec cette question qui contient une reponse au format inconnu', { reponse: Question.reponse })
               }
             }
-            this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte) + ajouteFeedback(this, indexQuestion)
+            this.listeQuestions[indexQuestion] = consigne + Question.question + ajouteChampTexteMathLive(this, indexQuestion, formatChampTexte, optionsChampTexte)
           }
         } else {
         //* ***************** Question Exo classique *****************//
           this.listeQuestions[indexQuestion] = Question.listeQuestions[0]
-          if (!this.listeQuestions[indexQuestion].includes('feedback')) {
-            this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion] + ajouteFeedback(this, indexQuestion)
-          }
           this.listeCorrections[indexQuestion] = (Question.listeCorrections[0])
           this.autoCorrection[indexQuestion] = Question.autoCorrection[0]
           this.listeQuestions[indexQuestion] = this.listeQuestions[indexQuestion].replaceAll('champTexteEx0Q0', `champTexteEx0Q${indexQuestion}`)
@@ -190,7 +187,7 @@ export default class MetaExercice extends Exercice {
         // qcm
           const monQcm = propositionsQcm(this, indexQuestion) // update les références HTML
           this.listeCanReponsesACompleter[indexQuestion] = monQcm.texte
-          const consigne = (this.consigne === null || this.consigne === '') ? '' : this.consigne + '<br>'
+          const consigne = (this.consigne === null || this.consigne === '') ? '' : `${this.consigne}<br>`
           const objetReponse = this.autoCorrection[indexQuestion]
           const enonce = 'enonce' in objetReponse ? objetReponse.enonce : ''
           this.listeQuestions[indexQuestion] = consigne + enonce + monQcm.texte

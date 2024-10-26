@@ -11,7 +11,7 @@ import {
   randint
 } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
-import { ajouteChampTexteMathLive, ajouteFeedback } from '../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
 import {
   handleAnswers
 } from '../../lib/interactif/gestionInteractif'
@@ -192,13 +192,8 @@ export default function LireAbscisseEntiere2d () {
           }
         })
         texte += `<br>${ajouteChampTexteMathLive(this, 3 * i, 'largeur01 ' + KeyboardType.numbersSpace, { texteAvant: `${l1}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i)
-
         texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 1, 'largeur01 ' + KeyboardType.numbersSpace, { texteAvant: `${l2}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i + 1)
-
         texte += `<br>${ajouteChampTexteMathLive(this, 3 * i + 2, 'largeur01 ' + KeyboardType.numbersSpace, { texteAvant: `${l3}(`, texteApres: ')' })}`
-        texte += ajouteFeedback(this, 3 * i + 2)
       } else if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

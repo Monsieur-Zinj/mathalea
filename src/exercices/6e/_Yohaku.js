@@ -149,6 +149,7 @@ export default function FabriqueAYohaku () {
       resultat = 'KO'
     }
     divFeedback.innerHTML = feedback
+    divFeedback.style.display = 'block'
     return [
       resultats.Ligne1 ? 'OK' : 'KO',
       resultats.Ligne2 ? 'OK' : 'KO',

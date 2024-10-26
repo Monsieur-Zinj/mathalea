@@ -489,6 +489,8 @@ export default class Pythagore2DBlockly extends Exercice {
       spanResultat.innerHTML = '☹️'
       result = 'KO'
       if (divFeedback) divFeedback.innerHTML = feedback
+      divFeedback.style.display = 'block'
+
       return result
     }
 
