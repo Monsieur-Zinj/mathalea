@@ -1,5 +1,5 @@
 import Exercice from '../../Exercice.js'
-import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
 import { handleAnswers } from '../../../lib/interactif/gestionInteractif.js'
@@ -14,14 +14,14 @@ export const uuid = 'ae1a7'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['canT1AN01'],
+  'fr-fr': ['canTSpeAN01'],
   'fr-ch': []
 }
 
 /**
  * Exprimer un nombre en fonction de ln(2), ln(3), ln(5)...
  * @autor  Jean-Claude Lhote
- * Référence canT1AN01
+ * Référence canTSpeAN01
  */
 export default class ExpressionsLog extends Exercice {
   version: string

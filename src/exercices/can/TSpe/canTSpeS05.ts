@@ -2,13 +2,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite $u_n\\times v_n$'
+export const titre = 'Limite de $u_n\\times v_n$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const uuid = 'bf67b'
 export const refs = {
-  'fr-fr': ['canT1S05'],
+  'fr-fr': ['canTSpeS05'],
   'fr-ch': []
 }
 export const dateDePublication = '13/08/2024'
@@ -36,7 +36,7 @@ class UnFoisVn extends Exercice {
         const pm = choice([true, false])
         const vn = `\\dfrac{${a}}{n}${pm ? '+' : '-'}${b}`
         const un = `${c}n+${d}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $(${un})(${vn})$`
+        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\left(${un}\\right)\\left(${vn}\\right)$`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${pm ? '' : '-'}${b}$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} (${un})(${vn})=${miseEnEvidence(`${pm ? '+' : '-'}\\infty`)}$.`

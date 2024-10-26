@@ -1,10 +1,12 @@
-import Question1 from '../can/T1/canT1S01'
-import Question2 from '../can/T1/canT1S02'
-import Question3 from '../can/T1/canT1S03'
-import Question4 from '../can/T1/canT1S04'
-import Question5 from '../can/T1/canT1S05'
-import Question6 from '../can/T1/canT1S06'
-import Question7 from '../can/T1/canT1S07'
+import Question1 from '../can/TSpe/canTSpeS01'
+import Question2 from '../can/TSpe/canTSpeS02'
+import Question3 from '../can/TSpe/canTSpeS03'
+import Question4 from '../can/TSpe/canTSpeS04'
+import Question5 from '../can/TSpe/canTSpeS05'
+import Question6 from '../can/TSpe/canTSpeS06'
+import Question7 from '../can/TSpe/canTSpeS07'
+import Question8 from '../can/TSpe/canTSpeS08'
+import Question9 from '../can/TSpe/canTSpeS09'
 
 import Exercice from '../Exercice'
 import { combinaisonListes } from '../../lib/outils/arrayOutils'
@@ -17,10 +19,11 @@ export const interactifReady = true
 export const interactifType = 'mathLive'
 export const uuid = 'ff9d1'
 export const refs = {
-  'fr-fr': ['TSpeS1-0'],
+  'fr-fr': ['TSpeS10'],
   'fr-ch': []
 }
 export const dateDePublication = '16/08/2024'
+export const dateDeModifImportante = '26/10/2024'
 
 /**
  * compilation des cans de terminale sur les suites
@@ -34,7 +37,9 @@ const exercices = [
   Question4,
   Question5,
   Question6,
-  Question7
+  Question7,
+  Question8,
+  Question9
 ] as unknown
 
 const questions = exercices as Exercice[]
@@ -43,13 +48,14 @@ export default class LimitesSuites extends Exercice {
   constructor () {
     super()
     this.nbQuestions = 5
+    this.comment = 'Il y a 9 types de questions différentes correspondant aux exercices canTSpeS01 à canTSpeS09.'
   }
 
   nouvelleVersion () {
-    this.reinit()
-    const exos = combinaisonListes(questions, this.nbQuestions * 2)
+    const exos = combinaisonListes(questions, this.nbQuestions)
     for (let i = 0, index = 0; i < this.nbQuestions;) {
       const Exo = exos[index]
+      // @ts-expect-error : le constructeur de Exo est bien un Exercice
       const question = new Exo()
       question.nouvelleVersion()
       const texte = question.question as string

@@ -26,7 +26,7 @@ export const amcType = 'AMCHybride'
 export const amcReady = true
 
 export const dateDePublication = '13/04/2022'
-export const dateModification = '27/03/2024'
+export const dateDeModifImportante = '27/03/2024'
 
 /**
  * Nommer un angle

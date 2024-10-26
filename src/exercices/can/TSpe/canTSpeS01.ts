@@ -2,13 +2,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite $n^m+\\sqrt{n}$'
+export const titre = 'Limite de $n^m+\\sqrt{n}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const uuid = '61ef0'
 export const refs = {
-  'fr-fr': ['canT1S01'],
+  'fr-fr': ['canTSpeS01'],
   'fr-ch': []
 }
 export const dateDePublication = '12/08/2024'

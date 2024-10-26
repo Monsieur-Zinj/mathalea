@@ -2,13 +2,13 @@ import { choice } from '../../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite $e^{-n}\\pm kn$'
+export const titre = 'Limite de $e^{-n}\\pm kn$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const uuid = '9c60f'
 export const refs = {
-  'fr-fr': ['canT1S03'],
+  'fr-fr': ['canTSpeS03'],
   'fr-ch': []
 }
 export const dateDePublication = '12/08/2024'

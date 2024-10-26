@@ -1,7 +1,7 @@
 import Exercice from '../../Exercice.js'
-import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils'
+import { choice, combinaisonListes } from '../../../lib/outils/arrayOutils.js'
 import { gestionnaireFormulaireTexte, listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { texNombre } from '../../../lib/outils/texNombre'
+import { texNombre } from '../../../lib/outils/texNombre.js'
 import { lettreDepuisChiffre } from '../../../lib/outils/outilString.js'
 import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
 import { KeyboardType } from '../../../lib/interactif/claviers/keyboard.js'
@@ -16,7 +16,7 @@ export const uuid = 'ce764'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const refs = {
-  'fr-fr': ['canT1AN03'],
+  'fr-fr': ['canTSpeAN03'],
   'fr-ch': []
 }
 /**

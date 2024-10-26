@@ -4,13 +4,13 @@ import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import FractionEtendue from '../../../modules/FractionEtendue'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite $\\dfrac{u_n}{v_n}$'
+export const titre = 'Limite de $\\dfrac{u_n}{v_n}$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const uuid = '10d04'
 export const refs = {
-  'fr-fr': ['canT1S06'],
+  'fr-fr': ['canTSpeS06'],
   'fr-ch': []
 }
 export const dateDePublication = '13/08/2024'

@@ -63,10 +63,10 @@
       "can1S": {}
     },
     "Terminale": {
-      "T1": {
-        "canT1AN": {},
-        "canT1S": {},
-        "canT1E": {}
+      "TSpe": {
+        "canTSpeAN": {},
+        "canTSpeS": {},
+        "canTSpeE": {}
       },
       "TEx": {
         "canTExC": {}

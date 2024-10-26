@@ -12,7 +12,7 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { setReponse } from '../../lib/interactif/gestionInteractif'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const dateModification = '27/03/2024'
+export const dateDeModifImportante = '27/03/2024'
 export const titre = 'Résoudre des problèmes de calcul de pourcentage par complément à 100%'
 export const interactifReady = true
 export const interactifType = 'mathLive'
