@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
-import CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
+import type CircleFractionDiagram from 'apigeom/src/elements/diagrams/CircleFractionDiagram.js'
 export const titre = 'Représenter des fractions'
 export const amcReady = true
 export const interactifReady = true

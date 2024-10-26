@@ -3,9 +3,9 @@ import { texteCentre } from '../../../lib/format/miseEnPage.js'
 import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive } from '../../../lib/interactif/questionMathLive.js'
+import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
 
-import { setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer les coordonnées du sommet d\'une parabole à partir de la forme canonique'
 export const interactifReady = true
@@ -39,12 +39,13 @@ export default function CoordonneesSommetParabole () {
       a = randint(-10, 10, [0, -1, 1])
       b = randint(-5, 5, 0)
       c = randint(-5, 5)
+      const mathfield = remplisLesBlancs(this, i, '\\Bigg(~~%{champ1}~~;~~%{champ2}~~\\Bigg)')
+      const statique = '$\\Bigg(~~~~~;~~~~~\\Bigg)$'
       if (c === 0) {
         texte = `Les coordonnées du sommet de la parabole représentant
     la fonction $f$ définie sur $\\mathbb{R}$
     par $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+    ${texteCentre(this.interactif ? mathfield : statique)}`
         if (b > 0) {
           texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')}Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
@@ -66,8 +67,7 @@ export default function CoordonneesSommetParabole () {
         texte = `Les coordonnées du sommet de la parabole représentant
     la fonction $f$ définie sur $\\mathbb{R}$
     par     $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$ sont  :
-    ${texteCentre(`$\\Bigg($ ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + sp(2) : sp(5)} ;
-    ${this.interactif ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + sp(2) : sp(5)} $\\Bigg)$`)}`
+     ${texteCentre(this.interactif ? mathfield : statique)}`
         if (b > 0) {
           texteCorr = `On reconnaît la forme canonique d'une fonction polynôme du second degré :
         ${texteCentre('$f(x)=a(x-\\alpha)^2+\\beta$')} Sous cette forme les coordonnées du sommet de la parabole qui représente la fonction $f$ sont :
@@ -87,8 +87,7 @@ export default function CoordonneesSommetParabole () {
         par  $f(x)=${reduireAxPlusB(0, a)}(${reduireAxPlusB(1, b)})^2${ecritureAlgebrique(c)}$.`
         this.canReponseACompleter = ''
       }
-      setReponse(this, 2 * i, -b)
-      setReponse(this, 2 * i + 1, c)
+      handleAnswers(this, i, { champ1: { value: String(-b) }, champ2: { value: String(c) } })
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

@@ -165,6 +165,7 @@ export default function DivisibleDiviseurMultiple () {
     if (feedback !== '') {
       const divFeedback = document.querySelector(`div#feedbackEx${this.numeroExercice}Q${2 * i + 1}`)
       divFeedback.innerHTML = feedback
+      divFeedback.style.display = 'block'
     }
     return isOk ? 'OK' : 'KO'
   }
