@@ -1,5 +1,6 @@
 import qcmCamExport from '../lib/amc/qcmCam'
 import { propositionsQcm } from '../lib/interactif/qcm'
+import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
 import { context } from '../modules/context'
 import Exercice from './Exercice'
 
@@ -41,7 +42,6 @@ function retrouveLaBonneReponse (texte: string) {
 export default class ExerciceQcm extends Exercice {
   enonce: string
   reponses: string[]
-  bonneReponse: number
   correction: string
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
   qcmAleatoire: boolean
@@ -62,16 +62,15 @@ export default class ExerciceQcm extends Exercice {
     this.options = { vertical: false, ordered: false }
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
-    // Ici, on colle les différentes réponses prise dans le latex et on renseigne le statut (bonne réponse = true)
+    // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
     this.reponses = [
-      'réponse A',
+      'réponse A', // La bonne réponse !
       'réponse B',
       'réponse C',
       'réponse D'
     ]
 
     this.correction = 'La correction'
-    this.bonneReponse = 0 // index de la bonne réponse dans l'array this.reponses
     this.qcmAleatoire = false
 
     // ####################################################
@@ -91,7 +90,7 @@ export default class ExerciceQcm extends Exercice {
     for (let i = 0; i < this.reponses.length; i++) {
       this.autoCorrection[0].propositions.push({
         texte: this.reponses[i],
-        statut: this.bonneReponse === i
+        statut: i === 0
       })
     }
     const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'].slice(0, this.reponses.length)
@@ -101,7 +100,7 @@ export default class ExerciceQcm extends Exercice {
 
     const laBonneLettre = lettres[retrouveLaBonneReponse(monQcm.texteCorr)]
     // Ici on colle le texte de la correction à partir du latex d'origine (vérifier la compatibilité Katex et doubler les \)s
-    const texteCorr = `${ajouteLettres(monQcm.texteCorr)}<br>${this.correction}<br>La bonne réponse est la réponse ${laBonneLettre}.`
+    const texteCorr = `${this.correction}<br>La bonne réponse est la réponse ${texteEnCouleurEtGras(laBonneLettre)}.`
 
     this.listeQuestions[0] = texte
     this.listeCorrections[0] = texteCorr

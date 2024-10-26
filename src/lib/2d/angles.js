@@ -333,10 +333,10 @@ export function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (this.couleurDeRemplissage === 'none') result = polyline([a, o, b], this.color)
+    if (this.couleurDeRemplissage[0] === 'none') result = polyline([a, o, b], this.color)
     else {
       result = polygone([this.sommet, a, o, b], this.color)
-      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.couleurDeRemplissage = [this.couleurDeRemplissage[0], this.couleurDeRemplissage[1]]
       result.opaciteDeRemplissage = this.opaciteDeRemplissage
     }
     result.isVisible = false
@@ -355,10 +355,10 @@ export function CodageAngleDroit (A, O, B, color = 'black', d = 0.4, epaisseur =
     } else {
       o = rotation(this.sommet, a, 90)
     }
-    if (this.couleurDeRemplissage === 'none') return polyline([a, o, b], this.color).tikz()
+    if (this.couleurDeRemplissage[1] === '') return polyline([a, o, b], this.color).tikz()
     else {
       result = polygone([this.sommet, a, o, b], this.color)
-      result.couleurDeRemplissage = this.couleurDeRemplissage
+      result.couleurDeRemplissage = [this.couleurDeRemplissage[0], this.couleurDeRemplissage[1]]
       result.opaciteDeRemplissage = this.opaciteDeRemplissage
       result.isVisible = false
       result.epaisseur = epaisseur

@@ -1,10 +1,15 @@
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'PJE2Q3'
+export const uuid = '6f117'
+export const refs = {
+  'fr-fr': ['TQCM1-3'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
+export const titre = 'QCM intégrale calcul (issu du bac juin 2024 Polynésie)'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
@@ -15,12 +20,11 @@ class PolynesieJuin2024Ex2Q3 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
-      '$4{,}9$',
       '$8{,}3$',
+      '$4{,}9$',
       '$1{,}7$',
       '$7{,}5$'
     ]
-    this.bonneReponse = 1
     this.enonce = ` On considère la fonction $g$ définie sur $\\R$ par $g(x) = x^2 \\ln \\left(x^2 + 4\\right) $.
 Alors $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x$ vaut, à $10^{-1}$ près :
 <br>`

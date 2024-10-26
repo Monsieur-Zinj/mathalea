@@ -1,13 +1,19 @@
 import { repere } from '../../lib/2d/reperes'
 import { Spline } from '../../lib/mathFonctions/Spline'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { fixeBordures, mathalea2d } from '../../modules/2dGeneralites'
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'PJE2Q2'
+export const uuid = '3ca11'
+export const refs = {
+  'fr-fr': ['TQCM1-2'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
+export const titre = 'QCM encadrement intégrale (issu du bac juin 2024 Polynésie)'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
@@ -18,9 +24,9 @@ class PolynesieJuin2024Ex2Q2 extends ExerciceQcm {
   constructor () {
     super()
     this.reponses = [
+      '$5 \\leqslant I \\leqslant 10$',
       '$0 \\leqslant I \\leqslant 4$',
       '$1 \\leqslant I \\leqslant 5$',
-      '$5 \\leqslant I \\leqslant 10$',
       '$10 \\leqslant I \\leqslant 15$'
     ]
     let texte = 'La courbe d\'une fonction $f$ définie sur $[~0~;~+\\infty~[$ est donnée ci-dessous.:<br>'
@@ -42,8 +48,10 @@ class PolynesieJuin2024Ex2Q2 extends ExerciceQcm {
     texte += mathalea2d(Object.assign({ pixelsParCm: 40, scale: 2 }, fixeBordures(objets)), objets)
     texte += 'Un encadrement de l\'intégrale $I = \\displaystyle\\int_1^5 f(x) \\:\\text{d}x$ est :<br>'
     this.enonce = texte
-    this.correction = `Le dessin est clair : la fonction est positive sur l'intervalle $[~1~;~5~]$.<br>L'intégrale est (en unités d'aire) la mesure de la surface limitée par la représentation graphique de $f$, l'axe des abscisses et les droites d'équations $x = 1$ et $x = 5$.<br>
-La surface grise contient les 5 carreaux hachurés et est inscrite dans le polygone de 10 unités en bleu.<br>`
+    this.correction = `Le dessin est clair : la fonction est positive sur l'intervalle $[~1~;~5~]$.<br>
+    L'intégrale est (en unités d'aire) la mesure de la surface limitée par la représentation graphique de $f$, l'axe des abscisses et les droites d'équations $x = 1$ et $x = 5$.<br>
+La surface grise contient les 5 carreaux hachurés et est inscrite dans le polygone de 10 unités en bleu.<br>
+Le bon encadrement est : $${miseEnEvidence('5 \\leqslant I \\leqslant 10')}$.`
   }
 }
 export default PolynesieJuin2024Ex2Q2

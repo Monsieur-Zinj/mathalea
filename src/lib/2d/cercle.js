@@ -1,6 +1,6 @@
 import {
   colorToLatexOrHTML,
-  ObjetMathalea2D,
+  ObjetMathalea2D
 } from '../../modules/2dGeneralites.js'
 import { arrondi } from '../outils/nombres'
 import { angleModulo, angleOriente } from './angles.js'
@@ -46,7 +46,7 @@ import { radians } from '../mathFonctions/trigo.js'
  * @class
  */
 // JSDOC Validee par EE Juin 2022
-export function Cercle(
+export function Cercle (
   O,
   r,
   color = 'black',
@@ -57,7 +57,7 @@ export function Cercle(
   opacite = 1,
   opaciteDeRemplissage = 1.1,
   epaisseurDesHachures = 1,
-  distanceDesHachures = 10,
+  distanceDesHachures = 10
 ) {
   ObjetMathalea2D.call(this, {})
   this.color = colorToLatexOrHTML(color)
@@ -108,7 +108,7 @@ export function Cercle(
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[0],
           couleurDeRemplissage: this.couleurDeRemplissage[0],
-          opaciteDeRemplissage: this.opaciteDeRemplissage,
+          opaciteDeRemplissage: this.opaciteDeRemplissage
         }) +
         `<circle cx="${O.xSVG(coeff)}" cy="${O.ySVG(coeff)}" r="${r * coeff}" stroke="${this.color[0]}" ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
       )
@@ -167,7 +167,7 @@ export function Cercle(
       this.couleurDeRemplissage[1] !== ''
     ) {
       tableauOptions.push(
-        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`,
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]}}`
       )
     }
 
@@ -180,8 +180,8 @@ export function Cercle(
           epaisseurDesHachures: this.epaisseurDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage,
-        }),
+          opaciteDeRemplissage: this.opaciteDeRemplissage
+        })
       )
     }
 
@@ -211,7 +211,7 @@ export function Cercle(
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(
-      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`
     )
     optionsDraw = '[' + tableauOptions.join(',') + ']'
 
@@ -243,7 +243,7 @@ export function Cercle(
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercle(
+export function cercle (
   O,
   r,
   color = 'black',
@@ -254,7 +254,7 @@ export function cercle(
   opacite = 1,
   opaciteDeRemplissage = 1.1,
   epaisseurDesHachures = 1,
-  distanceDesHachures = 10,
+  distanceDesHachures = 10
 ) {
   return new Cercle(
     O,
@@ -267,7 +267,7 @@ export function cercle(
     opacite,
     opaciteDeRemplissage,
     epaisseurDesHachures,
-    distanceDesHachures,
+    distanceDesHachures
   )
 }
 
@@ -294,7 +294,7 @@ export function cercle(
  * @author Rémi Angot
  */
 // JSDOC Validee par EE Juin 2022
-export function cercleCentrePoint(
+export function cercleCentrePoint (
   O,
   M,
   color = 'black',
@@ -305,7 +305,7 @@ export function cercleCentrePoint(
   opacite = 1,
   opaciteDeRemplissage = 1.1,
   epaisseurDesHachures = 1,
-  distanceDesHachures = 10,
+  distanceDesHachures = 10
 ) {
   return new Cercle(
     O,
@@ -318,7 +318,7 @@ export function cercleCentrePoint(
     opacite,
     opaciteDeRemplissage,
     epaisseurDesHachures,
-    distanceDesHachures,
+    distanceDesHachures
   )
 }
 
@@ -349,7 +349,7 @@ export function cercleCentrePoint(
  * @class
  **/
 // JSDOC Validee par EE Juin 2022
-export function Arc(
+export function Arc (
   M,
   Omega,
   angle,
@@ -357,7 +357,7 @@ export function Arc(
   couleurDeRemplissage = 'none',
   color = 'black',
   opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none',
+  couleurDesHachures = 'none'
 ) {
   ObjetMathalea2D.call(this, {})
   this.typeObjet = 'arc'
@@ -401,7 +401,7 @@ export function Arc(
     Math.min(M.x, N.x, ...medX) - 0.1,
     Math.min(M.y, N.y, ...medY) - 0.1,
     Math.max(M.x, N.x, ...medX) + 0.1,
-    Math.max(M.y, N.y, ...medY) + 0.1,
+    Math.max(M.y, N.y, ...medY) + 0.1
   ]
   if (rayon) {
     this.svg = function (coeff) {
@@ -439,7 +439,7 @@ export function Arc(
             epaisseurDesHachures: this.epaisseurDesHachures,
             couleurDesHachures: this.couleurDesHachures[0],
             couleurDeRemplissage: this.couleurDeRemplissage[0],
-            opaciteDeRemplissage: this.opaciteDeRemplissage,
+            opaciteDeRemplissage: this.opaciteDeRemplissage
           }) +
           `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}"  ${this.style} id="${this.id}" fill="url(#pattern${this.id})" />`
         )
@@ -457,7 +457,7 @@ export function Arc(
           this.style += ` fill-opacity="${this.opaciteDeRemplissage}" `
         }
         return `<path d="M${M.xSVG(coeff)} ${M.ySVG(coeff)} A ${l * coeff} ${l * coeff} 0 ${large} ${sweep} ${N.xSVG(coeff)} ${N.ySVG(coeff)} L ${Omega.xSVG(coeff)} ${Omega.ySVG(coeff)} Z" stroke="${this.color[0]}" ${this.style}/>`
-      }         
+      }
     }
   } else {
     this.svg = function (coeff) {
@@ -533,7 +533,7 @@ export function Arc(
       this.couleurDeRemplissage !== ''
     ) {
       tableauOptions.push(
-        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`,
+        `preaction={fill,color = ${this.couleurDeRemplissage[1]},opacity = ${this.opaciteDeRemplissage}}`
       )
     }
 
@@ -545,17 +545,14 @@ export function Arc(
           distanceDesHachures: this.distanceDesHachures,
           couleurDesHachures: this.couleurDesHachures[1],
           couleurDeRemplissage: this.couleurDeRemplissage[1],
-          opaciteDeRemplissage: this.opaciteDeRemplissage,
-        }),
+          opaciteDeRemplissage: this.opaciteDeRemplissage
+        })
       )
     }
     if (tableauOptions.length > 0) {
       optionsDraw = '[' + tableauOptions.join(',') + ']'
     }
-    if (rayon)
-      return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
-    else
-      return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;`
+    if (rayon) { return `\\draw  ${optionsDraw} (${N.x},${N.y}) -- (${Omega.x},${Omega.y}) -- (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;` } else { return `\\draw${optionsDraw} (${M.x},${M.y}) arc (${azimut}:${anglefin}:${longueur(Omega, M)}) ;` }
   }
   let code
 
@@ -574,7 +571,7 @@ export function Arc(
       height,
       start > end ? end : start,
       start > end ? start : end,
-      closed,
+      closed
     )
     mainLevee.destroy()
     return code
@@ -596,7 +593,7 @@ export function Arc(
       tableauOptions.push(`opacity = ${this.opacite}`)
     }
     tableauOptions.push(
-      `decorate,decoration={random steps , amplitude = ${amp}pt}`,
+      `decorate,decoration={random steps , amplitude = ${amp}pt}`
     )
 
     optionsDraw = '[' + tableauOptions.join(',') + ']'
@@ -622,7 +619,7 @@ export function Arc(
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arc(
+export function arc (
   M,
   Omega,
   angle,
@@ -630,7 +627,7 @@ export function arc(
   couleurDeRemplissage = 'none',
   color = 'black',
   opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none',
+  couleurDesHachures = 'none'
 ) {
   return new Arc(
     M,
@@ -640,7 +637,7 @@ export function arc(
     couleurDeRemplissage,
     color,
     opaciteDeRemplissage,
-    couleurDesHachures,
+    couleurDesHachures
   )
 }
 
@@ -661,7 +658,7 @@ export function arc(
  * @author Jean-Claude Lhote
  */
 // JSDOC Validee par EE Juin 2022
-export function arcPointPointAngle(
+export function arcPointPointAngle (
   M,
   N,
   angle,
@@ -669,7 +666,7 @@ export function arcPointPointAngle(
   couleurDeRemplissage = 'none',
   color = 'black',
   opaciteDeRemplissage = 0.2,
-  couleurDesHachures = 'none',
+  couleurDesHachures = 'none'
 ) {
   let anglerot
   if (angle < 0) anglerot = (angle + 180) / 2
@@ -692,7 +689,7 @@ export function arcPointPointAngle(
     couleurDeRemplissage,
     color,
     opaciteDeRemplissage,
-    couleurDesHachures,
+    couleurDesHachures
   )
 }
 
@@ -700,14 +697,14 @@ export function arcPointPointAngle(
  * m = traceCompas(O, A, 20) trace un arc de cercle de centre O qui commence 10° avant A et finit 10° après.
  *@author Jean-Claude Lhote
  */
-export function traceCompas(
+export function traceCompas (
   O,
   A,
   angle = 20,
   color = 'gray',
   opacite = 1.1,
   epaisseur = 1,
-  pointilles = '',
+  pointilles = ''
 ) {
   const B = rotation(A, O, -angle / 2)
   const a = arc(B, O, angle, false)

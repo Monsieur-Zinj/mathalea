@@ -8,7 +8,7 @@ import { arc } from './cercle.js'
 import { droite, mediatrice } from './droites.js'
 import { milieu, Point, point, pointSurSegment, tracePointSurDroite } from './points.js'
 import { longueur, Segment, segment, vecteur } from './segmentsVecteurs.js'
-import { latexParCoordonnees, latexParPoint, TexteParPoint, texteParPoint } from './textes.ts'
+import { latex2d, latexParCoordonnees, TexteParPoint, texteParPoint } from './textes.ts'
 import { rotation, similitude, translation } from './transformations.js'
 
 /**
@@ -904,8 +904,8 @@ export function CodageAngle (debut, centre, angle, taille = 0.8, mark = '', colo
   } else if (texteACote !== '') {
     if (texteACote.includes('$')) {
       M.positionLabel = 'center'
-      const label = latexParPoint(texteACote.substring(1, texteACote.length - 1), M, this.color)
-      label.colorBackground = colorToLatexOrHTML('transparent') // transparent
+      const label = latex2d(texteACote.substring(1, texteACote.length - 1), M.x, M.y, { color: this.color, backgroundColor: 'none' })
+      //  label.colorBackground = colorToLatexOrHTML('transparent') // transparent
       objets.push(label)
     } else objets.push(texteParPoint(texteACote, M, 0, this.color, this.tailleTexte))
   }

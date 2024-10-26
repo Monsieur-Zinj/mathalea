@@ -55,7 +55,10 @@ async function readInfos (
           file !== 'deprecatedExercice.js' &&
           file !== 'MetaExerciceCan.ts' &&
           file !== 'Exercice.ts' &&
-          file !== 'exerciseMethods.ts'
+          file !== 'exerciseMethods.ts' &&
+          file !== 'ExerciceQcm.ts' &&
+          file !== 'ExerciceQcmA.ts'
+
         ) {
           const infos = {}
           const data = await fs.readFile(filePath, 'utf8')

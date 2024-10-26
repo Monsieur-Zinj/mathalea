@@ -2,8 +2,13 @@ import ExerciceQcmA from '../ExerciceQcmA'
 import { choice } from '../../lib/outils/arrayOutils'
 import { randint } from '../../modules/outils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
-export const uuid = 'MS23E1Q3'
+export const uuid = '80f6a'
+export const refs = {
+  'fr-fr': ['3QCM2-3'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
@@ -27,12 +32,11 @@ export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
       `$${String(-(c ** 2) + a * c + b)}$`,
       `$${String(c * c - a * c + b)}$`
     ]
-    this.bonneReponse = 0
     this.enonce = `Quelle est la valeur de l'expression<br>$x^2+${String(a)}x${ecritureAlgebrique(b)}$ pour $x=${c}$ ?`
     this.correction = ` $\\begin{aligned}
      x^2+${String(a)}x${ecritureAlgebrique(b)} &= (${String(c)})^2+${String(a)}\\times (${String(c)})${ecritureAlgebrique(b)} \\\\
                                                         &=${String(c * c)}${ecritureAlgebrique(a * c)}${ecritureAlgebrique(b)} \\\\
-                                                        &= ${resultat} \\\\
+                                                        &= ${miseEnEvidence(String(resultat))} \\\\
                                                         \\end{aligned} $`
   }
 }
