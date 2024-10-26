@@ -1,7 +1,7 @@
 import type Exercice from '../../exercices/Exercice'
 import { lettreDepuisChiffre } from '../outils/outilString'
 
-export default function qcmCamExport (exercice: Exercice): string {
+export function qcmCamExport (exercice: Exercice): string {
   const laQuestion = exercice.listeQuestions[0]
   const [enonce, qcm] = laQuestion.split('<br>')
   const correction = exercice.listeCorrections[0]
@@ -10,7 +10,7 @@ export default function qcmCamExport (exercice: Exercice): string {
   const propsCorr = qcmCorr.split('<label id="labelEx')
   const listeElements:{bonneReponse:boolean, prop:string}[] = []
   let question = `<h3 data-translate="{&quot;html&quot;:&quot;questions.defaultquestion&quot;}">${enonce.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')}</h3><ol>`
-  let reponse: string = ''
+  let reponse = ''
   for (let i = 0; i < props.length - 1; i++) {
     if (exercice.autoCorrection != null && exercice.autoCorrection[0] != null && exercice.autoCorrection[0].propositions != null) {
       const prop = exercice.autoCorrection[0]?.propositions[i]?.texte.replaceAll(/\$([^$]*)\$/g, '<span class="math-tex">$1</span>')
@@ -23,4 +23,15 @@ export default function qcmCamExport (exercice: Exercice): string {
   question += '</ol>'
   const sortie = JSON.stringify({ question, reponse })
   return sortie
+}
+
+export function qcmCamExportAll (exercices: Exercice[]): string {
+  const questionnaire: Array<[string, string]> = []
+  let index = 0
+  for (const exercice of exercices) {
+    const question = qcmCamExport(exercice)
+    const questionNumber = String(index++)
+    questionnaire.push([questionNumber, question])
+  }
+  return JSON.stringify(Object.fromEntries(questionnaire))
 }
