@@ -6,7 +6,7 @@ import { fonctionComparaison } from '../lib/interactif/comparisonFunctions'
 import Grandeur from '../modules/Grandeur'
 import Decimal from 'decimal.js'
 import FractionEtendue from '../modules/FractionEtendue'
-import { gestionnaireFormulaireTexte, randint } from '../modules/outils'
+import { gestionnaireFormulaireTexte } from '../modules/outils'
 import { combinaisonListes, shuffle } from '../lib/outils/arrayOutils'
 import { range1 } from '../lib/outils/nombres'
 
@@ -43,9 +43,8 @@ export default class MetaExercice extends Exercice {
       listeDeQuestions = this.sup2
       ExercicesRef = this.Exercices
     }
-    console.log('titi', this.sup2)
+
     if (this.sup2) {
-      console.log('toto' + randint(1, 245))
       listeTypeDeQuestions = gestionnaireFormulaireTexte({
         saisie: listeDeQuestions,
         min: 1,
@@ -155,7 +154,7 @@ export default class MetaExercice extends Exercice {
                     }
                   }, { formatInteractif: 'mathlive' })
                 } else if (reponse instanceof Grandeur) {
-                  handleAnswers(this, indexQuestion, { reponse: { value: reponse, compare, options } }, { formatInteractif: 'mathlive' })
+                  handleAnswers(this, indexQuestion, { reponse: { value: reponse.toString(), compare, options } }, { formatInteractif: 'mathlive' })
                 } else {
                   handleAnswers(this, indexQuestion, reponse, { formatInteractif: 'mathlive' }) // EE : Pourquoi ce handleAnswers n'est pas au même format que les autres ?
                 }
