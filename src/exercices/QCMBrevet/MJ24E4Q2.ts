@@ -1,6 +1,11 @@
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import ExerciceQcm from '../ExerciceQcm'
 
-export const uuid = 'MJ24E4Q2'
+export const uuid = 'cccb1'
+export const refs = {
+  'fr-fr': ['3QCM1-2'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
@@ -15,8 +20,7 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
       '$-15$',
       '$125$'
     ]
-    this.bonneReponse = 0
     this.enonce = 'Combien vaut $(-5)^3$ ?'
-    this.correction = '$(- 5)^3 = (- 5) \\times (- 5) \\times (- 5) = - 125$.'
+    this.correction = `$(- 5)^3 = (- 5) \\times (- 5) \\times (- 5) = ${miseEnEvidence('-125')}$.`
   }
 }

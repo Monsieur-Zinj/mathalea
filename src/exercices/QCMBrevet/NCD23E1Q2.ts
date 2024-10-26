@@ -1,8 +1,13 @@
 import ExerciceQcmA from '../ExerciceQcmA'
 import { choice } from '../../lib/outils/arrayOutils'
 import { fraction } from '../../modules/fractions'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const uuid = '64ccf'
+export const refs = {
+  'fr-fr': ['3QCM3-2'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
@@ -30,12 +35,11 @@ export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
       `$\\dfrac{${(num1 - num2) * num3}}{20}$`,
       `$\\dfrac{${num2 * num3 - num1}}{15}$`
     ]
-    this.bonneReponse = 0
     this.enonce = `$${frac1.texFraction}-${frac2.texFraction} \\times ${frac3.texFraction}$`
     this.correction = ` $\\begin{aligned}
      ${frac1.texFraction}-${frac2.texFraction} \\times ${frac3.texFraction} &=  ${frac1.texFraction}-${produit.texFraction} \\\\
                                                         &=${frac1Bis.texFraction}-${produit.reduire(0.5).texFraction} \\\\
-                                                        &= ${resultat} \\\\
+                                                        &= ${miseEnEvidence(String(resultat))} \\\\
                                                         \\end{aligned} $`
   }
 }

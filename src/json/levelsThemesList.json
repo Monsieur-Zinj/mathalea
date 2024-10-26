@@ -760,6 +760,10 @@
     "titre": "Algorithmique",
     "sousThemes": {}
   },
+  "3QCM": {
+    "titre": "Qcm du brevet",
+    "sousThemes": {}
+  },
   "200": {
     "titre": "Automatismes"
   },
@@ -951,6 +955,10 @@
   },
   "TExC1": {
     "titre": "Calculs avec nombres complexes",
+    "sousThemes": {}
+  },
+  "TQCM": {
+    "titre": "Qcm du bac",
     "sousThemes": {}
   },
   "ExE1": {

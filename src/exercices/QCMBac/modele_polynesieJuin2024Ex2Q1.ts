@@ -1,15 +1,21 @@
 import { choice } from '../../lib/outils/arrayOutils'
 import { ecritureAlgebrique } from '../../lib/outils/ecritures'
+import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { premierAvec } from '../../lib/outils/primalite'
 import { fraction } from '../../modules/fractions'
 import { randint } from '../../modules/outils'
 import ExerciceQcmA from '../ExerciceQcmA'
 
-export const uuid = 'PJE2Q1'
+export const uuid = '89dc7'
+export const refs = {
+  'fr-fr': ['TQCM1-1'],
+  'fr-ch': []
+}
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
+export const titre = 'QCM équation différentielle (issu du bac juin 2024 Polynésie)'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcmA qui définit les contours de l'exo (avec une version aléatoire : voir la méthode aleatoire ci-dessous)
@@ -36,14 +42,13 @@ class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
     La fonction $x \\longmapsto \\alpha$, avec $\\alpha \\in \\R$ est solution de l'équation différentielle $y' = ${String(a)}y ${ecritureAlgebrique(b)}$ si et seulement si $y' = 0 = ${String(a)}\\alpha ${ecritureAlgebrique(b)}\\iff ${String(-a)}\\alpha = ${String(b)} \\iff \\alpha = ${alpha.texFSD}$.<br>
     On sait qu'alors les solutions de l'équation différentielle $y' = ${String(a)}y ${ecritureAlgebrique(b)}$ sont les fonctions $x \\longmapsto K \\mathrm{e}^{${String(a)}x} ${texAlpha}$.<br>
     En particulier la fonction $f$ solution telle que $f(0) = ${String(c)} \\iff K ${texAlpha} = ${String(c)} \\iff K = ${K}$.<br>
-    La seule solution est donc la fonction définie par $f(x) = ${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}$ <br>`
+    La seule solution est donc la fonction définie par $f(x) = ${miseEnEvidence(`${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}`)}$<br>`
     this.reponses = [
-      `$f(x) = \\mathrm{e}^{${String(a)}x}$`,
       `$f(x) = ${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
-      `$f(x) = \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
+      `$f(x) = \\mathrm{e}^{${String(a)}x}$`,
+       `$f(x) = \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
        `$f(x) = ${fauxK} \\mathrm{e}^{${String(a)}x} ${texMoinsAlpha}$`
     ]
-    this.bonneReponse = 1
   }
 }
 export default PolynesieJuin2024Ex2Q1
