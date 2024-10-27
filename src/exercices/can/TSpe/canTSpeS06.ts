@@ -37,9 +37,9 @@ class UnSurVn extends Exercice {
         const pm = choice([true, false])
         const vn = `\\dfrac{${a}}{n}${pm ? '+' : '-'}${b}`
         const un = `e^{${c === 1 ? '' : '-'}n}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
+        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier $n$, strictement positif, par : <br> $u_n = \\dfrac{${un}}{${vn}}$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${c === -1 ? '0' : '+\\infty'}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${pm ? '' : '-'}${b}$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
+        this.correction += 'Ainsi, par quotient, '
         this.correction += c === -1
           ? `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
           : `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(`${pm ? '+' : '-'}\\infty`)}$.`
@@ -57,7 +57,7 @@ class UnSurVn extends Exercice {
         const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e * pm}$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
+        this.correction += 'Ainsi, par quotient, '
         const limite = new FractionEtendue(a, e * pm).simplifie()
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(limite.texFSD)}$.`
         this.reponse = limite.texFSD
@@ -72,7 +72,7 @@ class UnSurVn extends Exercice {
         const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=0$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un quotient, '
+        this.correction += 'Ainsi, par quotient, '
         const limite = a > 0 ? '+\\infty' : '-\\infty'
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(limite)}$.`
         this.reponse = limite
@@ -85,7 +85,7 @@ class UnSurVn extends Exercice {
         const un = `${rienSi1(a)}n`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
         this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${rienSi1(a)}n^{(1-${b})}=${a === 1 ? '' : `${a}\\times`}\\dfrac{1}{n^${b - 1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b - 1}}=0$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
+        this.correction += 'Ainsi, par produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
         this.reponse = '0'
       }

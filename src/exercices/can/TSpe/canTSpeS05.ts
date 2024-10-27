@@ -36,9 +36,9 @@ class UnFoisVn extends Exercice {
         const pm = choice([true, false])
         const vn = `\\dfrac{${a}}{n}${pm ? '+' : '-'}${b}`
         const un = `${c}n+${d}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\left(${un}\\right)\\left(${vn}\\right)$`
+        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier $n$, strictement positif, par : <br> $u_n = \\left(${un}\\right)\\left(${vn}\\right)$`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${pm ? '' : '-'}${b}$.<br>`
-        this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
+        this.correction += 'Ainsi, par produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} (${un})(${vn})=${miseEnEvidence(`${pm ? '+' : '-'}\\infty`)}$.`
         this.reponse = `${pm ? '+' : '-'}\\infty`
       }
@@ -52,10 +52,10 @@ class UnFoisVn extends Exercice {
         const pm = choice([-1, 1])
         const vn = `\\dfrac{${c}}{n^${d}}${pm === 1 ? '+' : '-'}${e}`
         const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
-        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $(${un})(${vn})$.`
+        this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\left(${un}\\right)\\left(${vn}\\right)$.`
         this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=${e * pm}$.<br>`
         this.correction += 'Ainsi, d\'après les règles des limites d\'un produit, '
-        this.correction += `$\\lim\\limits_{n\\to\\infty} (${un})(${vn})=${miseEnEvidence(String(e * a * pm))}$.`
+        this.correction += `$\\lim\\limits_{n\\to\\infty} \\left(${un}\\right)\\left(${vn}\\right)=${miseEnEvidence(String(e * a * pm))}$.`
         this.reponse = `${String(e * a * pm)}`
       }
         break

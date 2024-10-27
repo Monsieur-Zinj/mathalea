@@ -30,10 +30,10 @@ class APlusbBnSurN extends Exercice {
     const b = randint(1, 9)
     const pm = choice([true, false])
     const vn = `${a}${pm ? '+' : '-'}${b}n`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif n par : $\\dfrac{${vn}}{n}$.`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif $n$ par :<br> $u_n = \\dfrac{${vn}}{n}$.`
     this.correction = `Pour tout entier n strictement positif, on a : $\\dfrac{${vn}}{n}=\\dfrac{${a}}{n}${pm ? '+' : '-'}${b}$.<br>`
     this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n}=0$ et $\\lim\\limits_{n\\to\\infty} ${pm ? '' : '-'}${b}=${pm ? '' : '-'}${b}$.<br>`
-    this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
+    this.correction += 'Ainsi, par somme, '
     this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${vn}}{n}=${miseEnEvidence(`${pm ? '' : '-'}${b}`)}$.`
     this.reponse = `${pm ? '+' : '-'}${b}`
   }

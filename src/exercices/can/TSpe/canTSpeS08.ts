@@ -33,9 +33,9 @@ export default class LimiteFormeIndeterminee extends Exercice {
     const choix = choice([true, false])
     const un = choix ? `${rienSi1(a)}\\sqrt{n}` : `n^${m}\\sqrt{n}`
     const vn = !choix ? `${rienSi1(a)}\\sqrt{n}` : `n^${m}\\sqrt{n}`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier $n$, strictement positif, par : <br> $u_n = ${un}-${vn}$.`
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
-    this.correction += 'Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $\\sqrt{n}$ :<br> '
+    this.correction += 'Nous avons donc une forme indeterminée du type « $\\infty - \\infty$ », donc nous allons factoriser $\\sqrt{n}$ :<br> '
     if (choix) {
       this.correction += `$${un}-${vn}=\\sqrt{n}(${a}-n^${m})$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\sqrt{n}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${a}-n^${m}=-\\infty$.<br>`
       this.reponse = '-\\infty'
@@ -44,7 +44,7 @@ export default class LimiteFormeIndeterminee extends Exercice {
       this.reponse = '+\\infty'
     }
     this.correction +=
-            "Ainsi, d'après les règles des limites d'un produit, "
+            'Ainsi, par produit, '
     this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
   }
 }

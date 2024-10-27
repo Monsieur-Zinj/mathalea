@@ -30,10 +30,10 @@ class ExpNPmKn extends Exercice {
     const pm = choice([true, false])
     const vn = 'e^{-n}'
     const wn = `${k}n`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif ou nul n par : $${vn}${pm ? '+' : '-'}${wn}$.`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif ou nul $n$ par : <br> $u_n = ${vn}${pm ? '+' : '-'}${wn}$.`
 
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${vn}=0$ et $\\lim\\limits_{n\\to\\infty} ${wn}=+\\infty$.<br>`
-    this.correction += 'Ainsi, d\'après les règles des limites de la somme, '
+    this.correction += 'Ainsi, par somme, '
     this.correction += pm
       ? `$\\lim\\limits_{n\\to\\infty} ${vn}+${wn}=${miseEnEvidence('+\\infty')}$.`
       : `$\\lim\\limits_{n\\to\\infty} ${vn}-${wn}=${miseEnEvidence('-\\infty')}$.`

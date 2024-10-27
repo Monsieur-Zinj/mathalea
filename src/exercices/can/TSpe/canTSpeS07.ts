@@ -31,9 +31,9 @@ export default class LimiteFormeIndeterminee extends Exercice {
     const diff = m - p
     const un = `n^${m}`
     const vn = `n^${p}`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $${un}-${vn}$.`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier $n$, strictement positif, par : <br> $u_n = ${un}-${vn}$.`
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
-    this.correction += `Nous avons donc une forme indeterminée du type "$\\infty - \\infty$", donc nous allons factoriser $${m > p ? `n^${m}` : `n^${p}`}$ :<br>`
+    this.correction += `Nous avons donc une forme indeterminée du type « $\\infty - \\infty$ », donc nous allons factoriser $${m > p ? `n^${m}` : `n^${p}`}$ :<br>`
     if (m > p) {
       this.correction += `$${un}-${vn}=n^${m}(1-n^{${-diff}})=n^${m}(1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`})$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${m}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} 1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`}=1$.<br>`
       this.reponse = '+\\infty'
@@ -42,7 +42,7 @@ export default class LimiteFormeIndeterminee extends Exercice {
       this.reponse = '-\\infty'
     }
     this.correction +=
-            "Ainsi, d'après les règles des limites d'un produit, "
+            'Ainsi, par produit, '
     this.correction += `$\\lim\\limits_{n\\to\\infty} ${un}-${vn}=${miseEnEvidence(this.reponse)}$.`
   }
 }

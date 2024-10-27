@@ -33,9 +33,9 @@ export default class LimiteFormeIndeterminee extends Exercice {
     const pm = choice(['+', '-'])
     const un = `${a}${pm}n^${m}`
     const vn = `n^${p}`
-    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
+    this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier $n$, strictement positif, par : <br> $u_n=\\dfrac{${un}}{${vn}}$.`
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${pm === '+' ? '+' : '-'}\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
-    this.correction += `Nous avons donc une forme indeterminée du type "$\\dfrac{\\infty}{\\infty}$", donc nous allons factoriser $n^${m > p ? m : p}$ :<br> `
+    this.correction += `Nous avons donc une forme indeterminée du type « $\\dfrac{\\infty}{\\infty}$ », donc nous allons factoriser $n^${m > p ? m : p}$ :<br> `
     if (p === m) {
       this.correction += `$\\dfrac{${un}}{${vn}}=\\dfrac{n^${p}(\\dfrac{${a}}{n^${p}}${pm}1)}{n^${p}}=\\dfrac{${a}}{n^${p}}${pm}1$ en simplifiant par $n^${p}$.<br>Or, $\\lim\\limits_{n\\to\\infty} \\dfrac{${a}}{n^${p}}=0$.<br>`
       this.reponse = pm === '+' ? '1' : '-1'

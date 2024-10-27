@@ -35,7 +35,7 @@ class N2PlusUnSurN extends Exercice {
     const wn = p === 1
       ? 'n'
       : `n^${p}`
-    this.question = 'Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif n par : $'
+    this.question = 'Déterminer la limite de la suite $(u_n)$ définie pour tout entier positif $n$ par :<br> $u_n = '
     this.question += m === -1
       ? '\\dfrac{1}{n}'
       : `\\dfrac{1}{n^${-m}}`
