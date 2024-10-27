@@ -39,7 +39,6 @@ async function test (page: Page) {
     await inputAnswer(page, question, reponse)
   }
   await checkFeedback(page, questions)
-  console.log('Toutes les réponses sont correctes')
   return true
 }
 
