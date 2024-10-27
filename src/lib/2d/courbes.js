@@ -391,7 +391,7 @@ export function Integrale (f, {
   p.epaisseur = epaisseur
   p.couleurDeRemplissage = colorToLatexOrHTML(this.couleurDeRemplissage)
   p.opaciteDeRemplissage = opacite
-  p.hachures = motifs(hachures)
+  p.hachures = hachures !== -1 ? motifs(hachures) : false
   objets.push(p)
   this.bordures = repere.bordures
   this.svg = function (coeff) {

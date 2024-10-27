@@ -18,8 +18,7 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM Lecture graphique d\'antécédent (issu du brevet 202 Métropole)'
 
 export default class MetropoleJuin24Exo4Q4 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale: () => void = () => {
     this.reponses = [
       '$0$',
       '$3$',
@@ -33,5 +32,10 @@ export default class MetropoleJuin24Exo4Q4 extends ExerciceQcm {
     const objets = [...theRepere, cF, labelF]
     this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 0.5 }, fixeBordures(objets)), objets)
     this.correction = `L'antécédent de 3 est $${miseEnEvidence('0')}$, on note $f(0) = 3$.`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }

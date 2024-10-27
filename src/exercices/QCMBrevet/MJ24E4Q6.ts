@@ -18,8 +18,7 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM cosinus dans le triangle rectangle (issu du brevet 2023 Métropole)'
 
 export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale: () => void = () => {
     this.reponses = [
       '$0{,}8$',
       '$0{,}75$',
@@ -37,5 +36,10 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
     const objets = [triangle, labels, angleDroit, angleAlpha]
     this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures(objets)), objets)
     this.correction = `$\\cos\\alpha=\\dfrac{AB}{BC}=\\dfrac45=${miseEnEvidence('0{,}8')}$.`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }

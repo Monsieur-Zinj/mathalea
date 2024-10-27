@@ -1,4 +1,4 @@
-import{ qcmCamExport } from '../lib/amc/qcmCam'
+import { qcmCamExport } from '../lib/amc/qcmCam'
 import { propositionsQcm } from '../lib/interactif/qcm'
 import { texteEnCouleurEtGras } from '../lib/outils/embellissements'
 import { context } from '../modules/context'
@@ -21,7 +21,7 @@ function ajouteLettres (texte: string) {
   let texteAvecLettres = chunks[0]
   const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
   for (let i = 0; i < chunks.length - 1; i++) {
-    texteAvecLettres += `${lettres[i]} : ${separateur}${chunks[i + 1]}`
+    texteAvecLettres += `${lettres[i]}:${separateur}${chunks[i + 1]}`
   }
   return texteAvecLettres
 }
@@ -40,26 +40,12 @@ function retrouveLaBonneReponse (texte: string) {
 
 // class à utiliser pour fabriquer des Qcms sans aléatoirisation (en cas d'aléatoirisation, on utilisera ExerciceQcmA à la place)
 export default class ExerciceQcm extends Exercice {
-  enonce: string
-  reponses: string[]
-  correction: string
+  enonce!: string
+  reponses!: string[]
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
   qcmAleatoire: boolean
-  aleatoire?: ()=>void
-  constructor () {
-    super()
-    // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
-    this.nbQuestions = 1
-    this.nbQuestionsModifiable = false
-
-    // #####################################################################
-    // #### Les propriétés à modifier dans l'instance se trouvent ici ! ####
-    // ####                    Ne pas modifier ce moule !               ####
-    // #####################################################################
-    this.spacing = 1 // à adapter selon le contenu de l'énoncé
-    this.spacingCorr = 3 // idem pour la correction
-    // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
-    this.options = { vertical: false, ordered: false }
+  versionAleatoire?: ()=>void
+  versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
     this.enonce = 'Enoncé de la question'
     // Ici, on colle les différentes réponses prise dans le latex : attention !!! mettre la bonne en premier (elles seront brassées par propositionsQcm)
@@ -69,17 +55,27 @@ export default class ExerciceQcm extends Exercice {
       'réponse C',
       'réponse D'
     ]
-
     this.correction = 'La correction'
-    this.qcmAleatoire = false
+  }
 
-    // ####################################################
-    // #### à partir d'ici, il n'y a rien à modifier ! ####
-    // ####################################################
+  constructor () {
+    super()
+    // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
+    this.nbQuestions = 1
+    this.nbQuestionsModifiable = false
+    this.spacing = 1 // à adapter selon le contenu de l'énoncé
+    this.spacingCorr = 3 // idem pour la correction
+    // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
+    this.options = { vertical: false, ordered: false }
+    this.qcmAleatoire = false
+    this.versionOriginale()
   }
 
   nouvelleVersion () {
-    if (this.aleatoire != null) this.aleatoire()
+    if (this.qcmAleatoire && this.versionAleatoire != null) {
+      if (this.sup) this.versionOriginale()
+      else this.versionAleatoire()
+    } // il n'y a pas de else car si qcmAleatoire est faux, on reste sur la version originale qui est définie depuis le constructeur
     let texte = this.enonce
     this.autoCorrection[0] = {}
     if (this.options != null) {
