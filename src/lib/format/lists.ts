@@ -83,6 +83,7 @@ export function isDescriptionItem (
  * @param {NestedList} list Objet décrivant la liste
  * @returns {string} chaîne représentant le code HTML ou LaTeX à afficher suivant la variable `context.isHtml`
  * @author sylvain, Jean-Léon Henry
+ * @link https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Numérotation-et-listes
  */
 export function createList (
   list: NestedList,

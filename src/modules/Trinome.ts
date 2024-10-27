@@ -58,6 +58,10 @@ export default class Trinome {
     this.c = a.produitFraction(alpha).produitFraction(alpha).sommeFraction(beta)
   }
 
+  get derivee () {
+    return new Trinome(0, this.a.produitFraction(2), this.b)
+  }
+
   /** Renvoie la somme de ce trinome et d'un autre trinome */
   add (trinome: Trinome) {
     return new Trinome(this.a.sommeFraction(trinome.a), this.b.sommeFraction(trinome.b), this.c.sommeFraction(trinome.c))
