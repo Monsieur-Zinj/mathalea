@@ -23,12 +23,22 @@ export const titre = 'QCM équation différentielle (issu du bac juin 2024 Polyn
  * Il est interactif et dispose d'un export AMC d'office
  */
 class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
-  constructor () {
-    super()
-    this.aleatoire()
+  versionOriginale: () => void = () => {
+    this.enonce = 'La solution $f$ de l\'équation différentielle $y^{\\prime}=-3y+7$ telle que $f(0) =1$ est la fonction définie sur $\\R$ par :<br>'
+    this.correction = `L'équation différentielle $y' = -3y$ a pour solutions les fonctions $x \\longmapsto f(x) = K \\mathrm{e}^{-3x}$, avec $K \\in \\R$.<br>
+    La fonction $x \\longmapsto \\alpha$, avec $\\alpha \\in \\R$ est solution de l'équation différentielle $y' = -3y+7$ si et seulement si $y' = 0 = -3\\alpha+7 \\iff 3\\alpha = 7 \\iff \\alpha = \\dfrac73$.<br>
+    On sait qu'alors les solutions de l'équation différentielle $y' = -3y+7$ sont les fonctions $x \\longmapsto K \\mathrm{e}^{-3x}+\\dfrac73$.<br>
+    En particulier la fonction $f$ solution telle que $f(0) = 1  \\iff K +\\dfrac73 = 1 \\iff K = -\\dfrac43$.<br>
+    La seule solution est donc la fonction définie par $f(x) = -\\dfrac43\\mathrm{e}^{-3x}+\\dfrac73$`
+    this.reponses = [
+      '$f(x) = -\\dfrac43\\mathrm{e}^{-3x}+\\dfrac73$',
+      '$f(x) = \\mathrm{e}^{-3x}$',
+      '$f(x) = -\\dfrac{10}{3}\\mathrm{e}^{-3x}-\\dfrac73$',
+      '$f(x) = \\mathrm{e}^{-3x}+\\dfrac73$'
+    ]
   }
 
-  aleatoire = () => {
+  versionAleatoire = () => {
     const a = this.sup ? -3 : randint(-5, 5, [1, 0, -1]) // En premier, ce sont les valeurs originales et en deuxième, les valeurs aléatoires
     const b = this.sup ? 7 : premierAvec(Math.abs(a), [], false) * choice([-1, 1])
     const c = this.sup ? 1 : randint(1, 3) * choice([-1, 1])
@@ -42,13 +52,18 @@ class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
     La fonction $x \\longmapsto \\alpha$, avec $\\alpha \\in \\R$ est solution de l'équation différentielle $y' = ${String(a)}y ${ecritureAlgebrique(b)}$ si et seulement si $y' = 0 = ${String(a)}\\alpha ${ecritureAlgebrique(b)}\\iff ${String(-a)}\\alpha = ${String(b)} \\iff \\alpha = ${alpha.texFSD}$.<br>
     On sait qu'alors les solutions de l'équation différentielle $y' = ${String(a)}y ${ecritureAlgebrique(b)}$ sont les fonctions $x \\longmapsto K \\mathrm{e}^{${String(a)}x} ${texAlpha}$.<br>
     En particulier la fonction $f$ solution telle que $f(0) = ${String(c)} \\iff K ${texAlpha} = ${String(c)} \\iff K = ${K}$.<br>
-    La seule solution est donc la fonction définie par $f(x) = ${miseEnEvidence(`${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}`)}$<br>`
+    La seule solution est donc la fonction définie par $f(x) = ${miseEnEvidence(`${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}`)}$`
     this.reponses = [
       `$f(x) = ${K} \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
       `$f(x) = \\mathrm{e}^{${String(a)}x}$`,
        `$f(x) = \\mathrm{e}^{${String(a)}x} ${texAlpha}$`,
        `$f(x) = ${fauxK} \\mathrm{e}^{${String(a)}x} ${texMoinsAlpha}$`
     ]
+  }
+
+  constructor () {
+    super()
+    this.versionAleatoire()
   }
 }
 export default PolynesieJuin2024Ex2Q1

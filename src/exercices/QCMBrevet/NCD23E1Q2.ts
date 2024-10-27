@@ -15,15 +15,24 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM calcul avec des fractions (issu du brevet décembre 2023 Nouvelle Calédonie)'
 
 export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
-  constructor () {
-    super()
-    this.aleatoire()
+  versionOriginale: () => void = () => {
+    this.reponses = [
+      '$-\\dfrac{1}{10}$',
+      '$\\dfrac{7}{20}$',
+      '$\\dfrac{2}{10}$'
+    ]
+    this.enonce = 'Calculer $\\dfrac{3}{5}-\\dfrac{2}{5} \\times \\dfrac{7}{4}$'
+    this.correction = ` $\\begin{aligned}
+    \\dfrac{3}{5}-\\dfrac{2}{5} \\times \\dfrac{7}{4} &=  \\dfrac{3}{5}-\\dfrac{14}{20} \\\\
+                                                       &=\\dfrac{6}{10}-\\dfrac{7}{10} \\\\
+                                                       &= -\\dfrac{1}{10} \\\\
+                                                       \\end{aligned} $`
   }
 
-  aleatoire = () => {
-    const num2 = this.sup ? 2 : choice([2, 6, 10])
+  versionAleatoire = () => {
+    const num2 = choice([2, 6, 10])
     const num1 = num2 + 1
-    const num3 = this.sup ? 7 : choice([3, 7, 9])
+    const num3 = choice([3, 7, 9])
     const frac1 = fraction(num1, 5)
     const frac2 = fraction(num2, 5)
     const frac3 = fraction(num3, 4)
@@ -41,5 +50,10 @@ export default class NouvelleCaledonieDec23Exo1Q2 extends ExerciceQcmA {
                                                         &=${frac1Bis.texFraction}-${produit.reduire(0.5).texFraction} \\\\
                                                         &= ${miseEnEvidence(String(resultat))} \\\\
                                                         \\end{aligned} $`
+  }
+
+  constructor () {
+    super()
+    this.versionAleatoire()
   }
 }

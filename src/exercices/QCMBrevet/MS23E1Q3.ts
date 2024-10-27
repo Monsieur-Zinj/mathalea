@@ -16,15 +16,24 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM calcul expression 2nd degré (issu du brevet septembre 2023 Métropole)'
 
 export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
-  constructor () {
-    super()
-    this.aleatoire()
+  versionOriginale: () => void = () => {
+    this.enonce = 'Quelle est la valeur de l\'expression $x^2+3x-5$ pour $x=-2$ ?'
+    this.reponses = [
+      '$-7$',
+      '$-15$',
+      '$5$'
+    ]
+    this.correction = ` $\\begin{aligned}
+    x^2+3x-5 &= (-2)^2+3\\times(-2)-5 \\\\
+             &=4-6-5 \\\\
+             &= -7 \\\\
+             \\end{aligned} $`
   }
 
-  aleatoire = () => {
-    const a = this.sup ? 3 : choice([2, 4, 5, 6])
-    const b = this.sup ? -5 : -(randint(2, 6))
-    const c = this.sup ? -2 : choice([-3, -4, -5])
+  versionAleatoire = () => {
+    const a = choice([2, 4, 5, 6])
+    const b = -(randint(2, 6))
+    const c = choice([-3, -4, -5])
 
     const resultat = c ** 2 + a * c + b
     this.reponses = [
@@ -38,5 +47,10 @@ export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
                                                         &=${String(c * c)}${ecritureAlgebrique(a * c)}${ecritureAlgebrique(b)} \\\\
                                                         &= ${miseEnEvidence(String(resultat))} \\\\
                                                         \\end{aligned} $`
+  }
+
+  constructor () {
+    super()
+    this.versionAleatoire()
   }
 }

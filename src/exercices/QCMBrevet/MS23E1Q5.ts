@@ -17,8 +17,7 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM rapport d\'homothétie (issu du brevet 2023 Métropole)'
 
 export default class MetropoleSeptembre23Exo1Q5 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale = () => {
     this.reponses = [
       '$-2$',
       '$2$',
@@ -47,5 +46,10 @@ une homothétie de centre O. Quel est son rapport?`
     this.correction = `Les deux figures sont de part et d'autres de $O$, donc le rapport est négatif.<br>
     De plus, DEF est plus grand que ABC donc le rapport n'est pas compris entre -1 et 1.<br>
     Le rapport est donc $${miseEnEvidence('-2')}$.`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }

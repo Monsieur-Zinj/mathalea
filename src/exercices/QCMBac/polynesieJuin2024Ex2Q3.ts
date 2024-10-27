@@ -17,8 +17,7 @@ export const titre = 'QCM intégrale calcul (issu du bac juin 2024 Polynésie)'
  * Il est interactif et dispose d'un export AMC d'office
  */
 class PolynesieJuin2024Ex2Q3 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale: () => void = () => {
     this.reponses = [
       '$8{,}3$',
       '$4{,}9$',
@@ -31,6 +30,11 @@ Alors $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x$ vaut, à $10^{-1}$ près :
     this.correction = `On sait que si $g'$ est la dérivée de $g$, alors $g$ est une primitive de la fonction $g'$, donc :
 $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x = \\left[x^2 \\ln \\left(x^2 + 4\\right)\\right]_0^2 = 2^2\\ln \\left(2^2 + 2 \\right) = 4\\ln(4 + 4)  = 4\\ln 8$ ou $4\\ln 2^3 = 3 \\times 4 \\ln 2 = 12\\ln 2 \\approx 8,31$ soit 8,3 au dixième près. \\\\ \\textbf{Réponse B.}
 \\smallskip`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }
 export default PolynesieJuin2024Ex2Q3

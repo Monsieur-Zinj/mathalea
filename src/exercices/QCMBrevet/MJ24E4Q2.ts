@@ -13,8 +13,7 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM calcul de puissance (issu du brevet 202 Métropole)'
 
 export default class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale: () => void = () => {
     this.reponses = [
       '$-125$',
       '$-15$',
@@ -22,5 +21,10 @@ export default class MetropoleJuin24Exo4Q2 extends ExerciceQcm {
     ]
     this.enonce = 'Combien vaut $(-5)^3$ ?'
     this.correction = `$(- 5)^3 = (- 5) \\times (- 5) \\times (- 5) = ${miseEnEvidence('-125')}$.`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }

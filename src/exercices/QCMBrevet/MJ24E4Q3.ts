@@ -16,8 +16,7 @@ export const amcType = 'qcmMono'
 export const titre = 'QCM image par translation (issu du brevet 202 Métropole)'
 
 export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
-  constructor () {
-    super()
+  versionOriginale: () => void = () => {
     this.reponses = [
       '$E$',
       '$H$',
@@ -44,5 +43,10 @@ export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
     const labels = labelPoint(...nuage)
     this.enonce += mathalea2d(Object.assign({ pixelsParCm: 20, scale: 1 }, fixeBordures([points, labels])), points, labels)
     this.correction = `Si $C$ a pour image $A$ par $t_{\\overrightarrow{CA}}$, alors $J$ a pour image $${miseEnEvidence('E')}$.`
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
   }
 }

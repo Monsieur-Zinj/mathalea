@@ -1,4 +1,5 @@
 import type Exercice from '../../exercices/Exercice'
+import ExerciceQcm from '../../exercices/ExerciceQcm'
 import { lettreDepuisChiffre } from '../outils/outilString'
 
 export function qcmCamExport (exercice: Exercice): string {
@@ -26,12 +27,6 @@ export function qcmCamExport (exercice: Exercice): string {
 }
 
 export function qcmCamExportAll (exercices: Exercice[]): string {
-  const questionnaire: Array<[string, string]> = []
-  let index = 0
-  for (const exercice of exercices) {
-    const question = qcmCamExport(exercice)
-    const questionNumber = String(index++)
-    questionnaire.push([questionNumber, question])
-  }
+  const questionnaire = exercices.filter(exo => exo instanceof ExerciceQcm).map((exercice, index) => [String(index), qcmCamExport(exercice)])
   return JSON.stringify(Object.fromEntries(questionnaire))
 }
