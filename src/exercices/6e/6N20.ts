@@ -46,8 +46,6 @@ export default class ExerciceFractionsDecomposer extends Exercice {
     if (this.sup4) {
       const figure = getDynamicFractionDiagram()
       this.introduction = figureApigeom({ exercice: this, i: 0, figure })
-      figure.isDynamic = true
-      figure.divButtons.style.display = 'grid'
       if (figure.ui) figure.ui.send('FILL')
     } else {
       this.introduction = ''
