@@ -15,11 +15,13 @@ export const refs = {
   'fr-fr': ['4G40'],
   'fr-ch': []
 }
-export default function CalculDeLongueur4e () {
-  CalculDeLongueur.call(this)
-  this.titre = titre
-  this.level = 4
-  this.sup = 1
-  this.sup2 = '3'
-  this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
+export default class CalculDeLongueur4e extends CalculDeLongueur {
+  constructor () {
+    super()
+    this.titre = titre
+    this.level = 4
+    this.sup = 1
+    this.sup2 = '3'
+    this.besoinFormulaire2Texte = ['Types de questions', '(nombre séparés par des tirets)\n1 : Côté adjacent (cosinus)\n2 : Hypoténuse (cosinus)\n3 : Mélange']
+  }
 }
