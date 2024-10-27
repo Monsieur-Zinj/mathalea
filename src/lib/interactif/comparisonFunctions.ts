@@ -28,6 +28,8 @@ export type OptionsComparaisonType = {
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
+  toutesLesPuissances? :boolean
+  exposant1Accepte? :boolean
   suiteDeNombres ?:boolean
   suiteRangeeDeNombres?:boolean
   HMS?: boolean
@@ -463,6 +465,8 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
+    toutesLesPuissances,
+    exposant1Accepte,
     suiteDeNombres,
     suiteRangeeDeNombres,
     HMS,
@@ -491,6 +495,8 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
+    toutesLesPuissances: true,
+    exposant1Accepte: true,
     suiteDeNombres: false,
     suiteRangeeDeNombres: false,
     HMS: false,
@@ -521,7 +527,8 @@ export function fonctionComparaison (
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
   if (ecritureScientifique) return scientificCompare(input, goodAnswer)
   if (unite) { return unitsCompare(input, goodAnswer, { precision: precisionUnite }) }
-  if (puissance) return powerCompare(input, goodAnswer)
+  // if (puissance) return powerCompare(input, goodAnswer)
+  if (puissance) return comparaisonPuissances(input, goodAnswer, { toutesLesPuissances, exposant1Accepte })
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
@@ -1098,13 +1105,12 @@ export function equalFractionCompareSansRadical (
   return { isOk: false }
 }
 
-/**
  * comparaison d'expression de puissances
  * @param {string} input
  * @param {string} goodAnswer
  * @return ResultType
  * @author Jean-Claude Lhote
- */
+
 function powerCompare (input: string, goodAnswer: string): ResultType {
   const clean = generateCleaner(['virgules', 'puissances'])
   let formatOK = false
@@ -1192,6 +1198,72 @@ function powerCompare (input: string, goodAnswer: string): ResultType {
   if (formatKO) return { isOk: false, feedback: 'essaieEncorePuissance' }
 
   return { isOk: false }
+}
+*/
+
+/**
+ * Comparaison de puissances
+ * @param {string} input
+ * @param {string} goodAnswer
+ * @param {Object} [options={}] - Options pour la comparaison.
+ * @param {boolean} [options.toutesLesPuissances=true] - Si true, toutes les formes de puissances seront acceptées.
+ * @param {boolean} [options.exposant1Accepte=true] - Si true, l'exposant 1 sera accepté comme valide.
+ * @return ResultType
+ * @author Eric Elter
+*/
+function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPuissances = true, exposant1Accepte = true } = {}): ResultType {
+  const clean = generateCleaner(['virgules', 'puissances'])
+  const nombreSaisi = clean(input).split('^')
+
+  // input n'est pas une puissance
+  if (nombreSaisi.length === 1) return { isOk: false, feedback: 'Une puissance est attendue.' }
+
+  // input n'est pas une puissance de puissance
+  if (!toutesLesPuissances && nombreSaisi.length > 2) return { isOk: false, feedback: 'Un seul exposant est attendu.' }
+
+  let mantisseSaisie = nombreSaisi[0]
+  mantisseSaisie = mantisseSaisie.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses afin que (-4)^2 soit acceptée
+  mantisseSaisie = mantisseSaisie.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+
+  // La mantisse saisie est-elle un nombre ?
+  if (isNaN(Number(mantisseSaisie))) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
+
+  let exposantSaisi = nombreSaisi[1]
+  exposantSaisi = exposantSaisi.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
+  exposantSaisi = exposantSaisi.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+  const exposantSaisiNumber = Number(exposantSaisi)
+  // L'exposnat saisi est-il un nombre ?
+  if (isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
+
+  const goodAnswerSplit = clean(goodAnswer).split('^')
+
+  // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte
+  if (goodAnswerSplit.length === 1) {
+    console.log(goodAnswer, goodAnswerSplit)
+    const isOk = engine.parse(input).isEqual(engine.parse(goodAnswer))
+    return { isOk: !!isOk, feedback: isOk ? '' : 'La puissance n\'est pas égale au résultat attendu.' }
+  }
+
+  // goodAnswer et input sont des puissances alors deux cas se présentent.
+  if (!exposant1Accepte) {
+  // On accepte un input avec un exposant de 1 que si goodAnswer en a un aussi.
+    let exposantGoodAnswer = goodAnswerSplit[1]
+    exposantGoodAnswer = exposantGoodAnswer.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
+    exposantGoodAnswer = exposantGoodAnswer.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+    const exposantGoodAnswerNumber = Number(exposantGoodAnswer)
+    if (exposantSaisiNumber === 1) {
+      if (exposantGoodAnswerNumber !== 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' }
+    }
+  }
+  // Ou bien on n'accepte que si goodAnswer et input sont parfaitement identiques : toutesLesPuissances = false
+  // Ou bien on n'accepte toute égalité entre goodAnswer et input : toutesLesPuissances = true
+  const isOk = toutesLesPuissances ? engine.parse(input).isEqual(engine.parse(goodAnswer)) : engine.parse(input).isSame(engine.parse(goodAnswer))
+  if (!isOk) {
+    console.log('toto', input, goodAnswer)
+    if (engine.parse(input).isEqual(engine.parse(goodAnswer))) return { isOk: false, feedback: 'La puissance est égale au résultat attendu mais ne correspond pas à l\'énoncé.' }
+    return { isOk: false, feedback: 'La puissance n\'est pas égale au résultat attendu.' }
+  }
+  return { isOk: true }
 }
 
 /**
