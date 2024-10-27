@@ -1748,7 +1748,7 @@ export function numberWithSpaceCompare (
   if (inputCleanFirst !== goodAnswerNew && inputClean === goodAnswerClean) {
     feedback = 'Le nombre est mal écrit, il faut faire attention aux espaces.'
   }
-  return { isOk: inputCleanFirst === goodAnswer, feedback }
+  return { isOk: inputCleanFirst === goodAnswerNew, feedback }
 }
 
 export function exprCompare (
