@@ -44,10 +44,9 @@ export default function LireAbscisseEntiere2d () {
   this.nbQuestionsModifiable = true
   this.sup = 4
   this.interactif = false
-  this.consigne = "Lire l'abscisse de chacun des points suivants."
 
   this.nouvelleVersion = function () {
-    // numeroExercice est 0 pour l'exercice 1
+    this.consigne = "Lire l'abscisse de chacun des points suivants."
     if (this.interactif) { this.consigne += texteGras(' Penser à mettre les espaces nécessaires.') }
     let typesDeQuestions
     this.listeQuestions = []
@@ -259,7 +258,7 @@ export default function LireAbscisseEntiere2d () {
         }
       }
 
-      if (this.questionJamaisPosee(i, texte)) {
+      if (this.questionJamaisPosee(i, abs0, x1, x2, x3)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
