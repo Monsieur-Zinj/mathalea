@@ -71,7 +71,7 @@ class UnSurVn extends Exercice {
         const vn = `\\dfrac{${c}}{n^${d}}`
         const un = `${a}${choice([true, false]) ? '+' : '-'}\\dfrac{${b}}{n}`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=0$.<br>`
+        this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=${a}$ et $\\lim\\limits_{n\\to\\infty} ${vn}=0^{+}$.<br>`
         this.correction += 'Ainsi, par quotient, '
         const limite = a > 0 ? '+\\infty' : '-\\infty'
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence(limite)}$.`
@@ -84,7 +84,7 @@ class UnSurVn extends Exercice {
         const vn = `n^${b}`
         const un = `${rienSi1(a)}n`
         this.question = `Déterminer la limite de la suite $(u_n)$ définie pour tout entier n, strictement positif, par : $\\dfrac{${un}}{${vn}}$.`
-        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${rienSi1(a)}n^{(1-${b})}=${a === 1 ? '' : `${a}\\times`}\\dfrac{1}{n^${b - 1}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{n^${b - 1}}=0$.<br>`
+        this.correction = `On sait que $\\dfrac{${un}}{${vn}}=${rienSi1(a)}n^{(1-${b})}=${a === 1 ? '' : `${a}\\times`}\\dfrac{1}{${b === 2 ? 'n' : `n^{${b - 1}}`}}$ et $\\lim\\limits_{n\\to\\infty} \\dfrac{1}{${b === 2 ? 'n' : `n^{${b - 1}}`}}=0^{+}$.<br>`
         this.correction += 'Ainsi, par produit, '
         this.correction += `$\\lim\\limits_{n\\to\\infty} \\dfrac{${un}}{${vn}}=${miseEnEvidence('0')}$.`
         this.reponse = '0'
