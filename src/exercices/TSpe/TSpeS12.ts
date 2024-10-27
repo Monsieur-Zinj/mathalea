@@ -129,7 +129,7 @@ class TrinomeStable extends Trinome {
     const newTrinome = new TrinomeStable(1000, 1000, 1000)
     do {
       // i1 et i2 doivent être après le sommet de la parabole qui est (x1 + x2) / 2
-      const x1 = i1 + randint(-4, -1)
+      const x1 = i1 + randint(-5, -2)
       const alpha = randint(x1 + 1, i1 - 1)
       const x2 = x1 + (alpha - x1) * 2
       const denA = randint(2, 4)
