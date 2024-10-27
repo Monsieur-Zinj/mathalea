@@ -1,0 +1,44 @@
+import ExerciceQcm from '../ExerciceQcm'
+
+export const uuid = 'M092024Q1'
+export const refs = {
+  'fr-fr': ['TQCME-1'],
+  'fr-ch': []
+}
+export const interactifReady = true
+export const interactifType = 'qcm'
+export const amcReady = 'true'
+export const amcType = 'qcmMono'
+export const titre = 'Bac Métropole septembre 2024 E4Q1'
+/**
+ * Ceci est un exo construit à partir d'une question de qcm de Bac.
+ * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
+ * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
+ * Il est interactif et dispose d'un export AMC d'office
+ */
+export default class metropoleSept2024Ex4Q1 extends ExerciceQcm {
+  versionOriginale: () => void = () => {
+    this.reponses = [
+      '$T(1~;~0~;~1)$',
+      '$R(1~;~-3~;~1)$',
+      '$S(1~;~2~;~-1)$',
+      '$U(2~;~-1~;~1)$'
+
+    ]
+
+    this.enonce = `L'espace est rapporté à un repère orthonormé $(O;\\vec{\\imath};\\vec{\\jmath};\\vec{k})$.<br>
+On considère :<br>
+$\\bullet~~$ Les points A$(-1~;~-2~;~3)$, B$(1~;~-2~;~7)$ et C$(1~;~0~;~2)$;<br>
+$\\bullet~~$ La droite $(\\Delta)$ de représentation paramétrique :  $\\left\\{\\begin{array}{l}x=1-t \\\\ y=2 \\\\ z=-4+3 t\\end{array}\\right.$, où $t \\in \\mathbb{R}$;<br>
+$\\bullet~~$ Le plan $\\mathcal{P}$ d'équation cartésienne : $3 x+2 y+z-4=0$;<br>
+$\\bullet~~$ Le plan $\\mathcal{Q}$ d'équation cartésienne : $-6 x-4 y-2 z+7=0$.<br>
+Lequel des points suivants appartient au plan $\\mathcal{P}$ ?`
+
+    this.correction = '$3x_{T} +2y_{T} +z_{T}-4= 3+0+1-4=0$ donc $\\text T \\in \\mathcal{P}$'
+  }
+
+  constructor () {
+    super()
+    this.versionOriginale()
+  }
+}

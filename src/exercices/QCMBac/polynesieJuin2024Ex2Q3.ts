@@ -2,7 +2,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = '6f117'
 export const refs = {
-  'fr-fr': ['TQCM1-3'],
+  'fr-fr': ['TQCMAN-3'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -16,7 +16,7 @@ export const titre = 'QCM intégrale calcul (issu du bac juin 2024 Polynésie)'
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam.
  * Il est interactif et dispose d'un export AMC d'office
  */
-class PolynesieJuin2024Ex2Q3 extends ExerciceQcm {
+export default class PolynesieJuin2024Ex2Q3 extends ExerciceQcm {
   versionOriginale: () => void = () => {
     this.reponses = [
       '$8{,}3$',
@@ -37,4 +37,3 @@ $\\displaystyle\\int_0^2 g'(x)\\:\\text{d}x = \\left[x^2 \\ln \\left(x^2 + 4\\ri
     this.versionOriginale()
   }
 }
-export default PolynesieJuin2024Ex2Q3
