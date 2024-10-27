@@ -1105,102 +1105,6 @@ export function equalFractionCompareSansRadical (
   return { isOk: false }
 }
 
- * comparaison d'expression de puissances
- * @param {string} input
- * @param {string} goodAnswer
- * @return ResultType
- * @author Jean-Claude Lhote
-
-function powerCompare (input: string, goodAnswer: string): ResultType {
-  const clean = generateCleaner(['virgules', 'puissances'])
-  let formatOK = false
-  let formatKO = false
-  const nombreSaisi = clean(input).split('^')
-  const mantisseSaisie = nombreSaisi[0].replace(/\\lparen(.*?)\\rparen/g, '$1')
-  // const mantisseS = Number(mantisseSaisie)
-  const expoSaisi = nombreSaisi[1] ? nombreSaisi[1].replace(/[{}]/g, '') : '1'
-  // const expoS = Number(expoSaisi)
-  const nombreAttendu = clean(goodAnswer).split('^')
-  if (nombreAttendu.length !== 2) {
-    console.error('Erreur dans la réponse attendue : un string avec ^ est attendu')
-    if (!Number.isNaN(goodAnswer)) {
-      const reponse = Number(goodAnswer)
-      if (Number(mantisseSaisie) ** Number(expoSaisi) === reponse) {
-        return { isOk: true }
-      }
-      return { isOk: false }
-    }
-    return { isOk: false }
-  }
-  const mantisseReponse = nombreAttendu[0].replace(/[()]/g, '')
-  const mantisseR = Number(mantisseReponse)
-  const expoReponse = nombreAttendu[1]
-    ? nombreAttendu[1].replace(/[{}]/g, '')
-    : '1'
-  const expoR = Number(expoReponse)
-  if (input.indexOf('^') !== -1) {
-    if (mantisseReponse === mantisseSaisie && expoReponse === expoSaisi) {
-      formatOK = true
-    }
-    // gérer le cas mantisse négative a et exposant impair e, -a^e est correct mais pas du format attendu
-    // si la mantisse attendue est négative on nettoie la chaine des parenthèses
-    if (mantisseR < 0 && expoR % 2 === 1) {
-      if (
-        input === `${mantisseReponse}^{${expoReponse}}` ||
-          input === `${mantisseReponse}^${expoReponse}`
-      ) {
-        formatKO = true
-      }
-    }
-    // si l'exposant est négatif, il se peut qu'on ait une puissance au dénominateur
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (
-        input === `\\frac{1}{${mantisseR}^{${-expoR}}` ||
-          input === `\\frac{1}{${mantisseR}^${-expoR}}`
-      ) {
-        formatKO = true
-      }
-    }
-  } else {
-    // Dans tous ces cas on est sûr que le format n'est pas bon
-    // Toutefois la valeur peut l'être donc on vérifie
-    if (expoR < 0) {
-      // Si la mantisse est positive
-      if (nombreSaisi[0] === `\\frac{1}{${mantisseR ** -expoR}}`) {
-        formatKO = true
-      }
-      // Si elle est négative, le signe - peut être devant la fraction ou au numérateur  ou au dénominateur
-      if (mantisseR < 0 && -expoR % 2 === 1) {
-        if (
-          nombreSaisi[0] === `-\\frac{1}{${(-mantisseR) ** -expoR}}` ||
-            nombreSaisi[0] === `\\frac{-1}{${(-mantisseR) ** -expoR}}` ||
-            nombreSaisi[0] === `\\frac{1}{-${(-mantisseR) ** -expoR}}`
-        ) {
-          formatKO = true
-        }
-      }
-    } else if (expoR > 0) {
-      if (nombreSaisi[0] === `${mantisseR ** expoR}`) {
-        if (expoR !== 1) formatKO = true
-        else formatOK = true // Au cas où l'exposant soit 1
-      }
-    }
-    if (expoR === 0) {
-      if (nombreSaisi[0] === '1') {
-        formatKO = true
-      }
-    }
-  }
-  if (formatOK) {
-    return { isOk: true }
-  }
-  if (formatKO) return { isOk: false, feedback: 'essaieEncorePuissance' }
-
-  return { isOk: false }
-}
-*/
-
 /**
  * Comparaison de puissances
  * @param {string} input
@@ -1226,14 +1130,14 @@ function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPu
   mantisseSaisie = mantisseSaisie.replace(/--/g, '') // Pour accepter les deux - consécutifs.
 
   // La mantisse saisie est-elle un nombre ?
-  if (isNaN(Number(mantisseSaisie))) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
+  if (Number.isNaN(mantisseSaisie)) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
 
   let exposantSaisi = nombreSaisi[1]
   exposantSaisi = exposantSaisi.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
   exposantSaisi = exposantSaisi.replace(/--/g, '') // Pour accepter les deux - consécutifs.
   const exposantSaisiNumber = Number(exposantSaisi)
   // L'exposnat saisi est-il un nombre ?
-  if (isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
+  if (Number.isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
 
   const goodAnswerSplit = clean(goodAnswer).split('^')
 
