@@ -299,7 +299,7 @@ export default function AdditionnerSoustrairesDecimaux () {
           break
       }
       setReponse(this, i, reponse)
-      if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (this.interactif && context.isHtml) texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

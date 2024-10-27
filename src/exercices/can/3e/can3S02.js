@@ -23,7 +23,7 @@ export default function ProbaEvenementContraire () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatInteractif = 'fractionEgale'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const listeFractions = [
       [1, 2], [1, 3], [2, 3], [1, 4], [3, 4], [1, 5], [2, 5], [3, 5], [4, 5], [1, 6], [5, 6], [1, 7],

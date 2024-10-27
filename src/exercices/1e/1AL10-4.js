@@ -162,7 +162,7 @@ export default function TermeDUneSuiteDefinieParRecurrence () {
           handleAnswers(this, i, { reponse: { value: reponse, compare: calculCompare } })
           break
       }
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${s}_{${k}}=$` })
+      texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${s}_{${k}}=$` })
       if (this.questionJamaisPosee(i, a, u, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions
         this.listeCorrections.push(texteCorr) // On fait pareil pour la correction

@@ -344,7 +344,7 @@ export default function PuissancesDunRelatif1 () {
 
       if (this.interactif && !context.isAmc) {
         handleAnswers(this, i, { reponse: { value: reponseInteractive, compare: fonctionComparaison, options: { puissance: true } } })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ' + KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: ' $=$' })
       }
       if (context.isAmc) {
         setReponse(this, i, reponseInteractive, {

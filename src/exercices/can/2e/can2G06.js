@@ -29,7 +29,7 @@ export default function CoeffDirecteurDroite () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let xA, yA, xB, yB, n, d, a, b, rep
     switch (choice([1, 2, 3, 4])) {

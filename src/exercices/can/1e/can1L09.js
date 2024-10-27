@@ -27,7 +27,7 @@ export const refs = {
 export default function EquationSecondDegreParticuliere () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -45,9 +45,9 @@ export default function EquationSecondDegreParticuliere () {
       texte = `Donner l'ensemble des solutions $\\mathscr{S}$ de l'équation : $${reduirePolynomeDegre3(0, a, b, c)}=${c}$.`
       if (this.interactif) {
         texte += 'Écrire les solutions dans l\'ordre croissant :<br> $\\mathscr{S}=\\bigg\\{$'
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i, '')
         texte += ' ; '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + '$\\bigg\\}$'
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '') + '$\\bigg\\}$'
         if (-b / a > 0) {
           setReponse(this, 2 * i, 0)
           setReponse(this, 2 * i + 1, f, { formatInteractif: 'fractionEgale' })

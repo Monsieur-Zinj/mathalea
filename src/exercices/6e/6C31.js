@@ -148,7 +148,7 @@ export default function DivisionDecimale () {
         texte += (this.interactif) ? '\\approx$' : '$'
       }
       setReponse(this, i, q)
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

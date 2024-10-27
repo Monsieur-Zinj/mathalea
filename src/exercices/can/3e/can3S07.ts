@@ -27,7 +27,7 @@ export default class EnFonctionDe extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteAvant: '$a=$' }
   }
 

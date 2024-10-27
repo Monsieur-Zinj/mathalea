@@ -179,7 +179,7 @@ export default function PrioritesEtRelatifsEtPuissances () {
         // Si la question n'a jamais été posée, on en créé une autre
         if (!context.isAmc && this.interactif) { // On vérifie qu'on est pas en AMC pour vérifier qu'on ne casse rien à ce qui a été fait pour AMC
           setReponse(this, i, reponse)
-          texte += ' =' + ajouteChampTexteMathLive(this, i, 'inline largeur 25')
+          texte += ' =' + ajouteChampTexteMathLive(this, i, '')
         } else if (context.isAmc) {
           this.autoCorrection[i] = {
             enonce: texte,

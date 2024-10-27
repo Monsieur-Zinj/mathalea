@@ -107,7 +107,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du carré ci-dessus.' : `d'un carré de côté${sp()}$${texNombre(c)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}+${c}${sp()}\\text{cm}=${4 * c
                             }${sp()}\\text{cm}$<br>`
@@ -137,7 +137,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
               texteAMC += this.sup3 ? 'du carré ci-dessus.' : `d'un carré de côté${sp()}$${texNombre(c)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[0] + nom[1] + nom[2] + nom[3]}}=${c}${sp()}\\text{cm}\\times${c}${sp()}\\text{cm}=${c * c}${sp()}\\text{cm}^2$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(c * c, 'cm^2'), { formatInteractif: 'unites' })
@@ -168,7 +168,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}+${L}${sp()}\\text{cm}+${l}${sp()}\\text{cm}=${2 * L + 2 * l
                             }${sp()}\\text{cm}$<br>`
@@ -198,7 +198,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
               texteAMC += this.sup3 ? 'du rectangle ci-dessus.' : `d'un rectangle de longueur${sp()}$${texNombre(L > l ? L : l)}$${sp()}cm et de largeur${sp()}$${texNombre(L > l ? l : L)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[4] + nom[5] + nom[6] + nom[7]}}=${L}${sp()}\\text{cm}\\times${l}${sp()}\\text{cm}=${L * l
                             }${sp()}\\text{cm}^2$<br>`
@@ -230,7 +230,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 2) {
               texteAMC = numAlpha(nbPuces) + 'Calculer le périmètre, en cm, '
               texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{P}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}+${b}${sp()}\\text{cm}+${texNombre(c2, 1)}${sp()}\\text{cm}=${texNombre(pIJK)}${sp()}\\text{cm}$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(pIJK, 'cm'), { formatInteractif: 'unites' })
@@ -259,7 +259,7 @@ export default function PerimetreOuAireDeCarresRectanglesTriangles () {
             if (this.sup2 !== 1) {
               texteAMC = numAlpha(nbPuces) + 'Calculer l\'aire, en cm$^2$, '
               texteAMC += this.sup3 ? 'du triangle rectangle ci-dessus.' : `d'un triangle rectangle dont l'hypoténuse mesure $${texNombre(c2, 1)}$${sp()}cm et les côtés de l'angle droit mesurent respectivement $${texNombre(a)}$${sp()}cm et $${texNombre(b)}$${sp()}cm.`
-              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, 'inline unites[longueurs,aires]') + '<br>'
+              texte += texteAMC + ajouteChampTexteMathLive(this, incrementation * i + nbPuces, ' unites[longueurs,aires]') + '<br>'
 
               texteCorr += numAlpha(nbPuces) + `$\\mathcal{A}_{${nom[8] + nom[9] + nom[10]}}=${a}${sp()}\\text{cm}\\times${b}${sp()}\\text{cm}\\div2=${texNombre(calculANePlusJamaisUtiliser((a * b) / 2))}${sp()}\\text{cm}^2$<br>`
               setReponse(this, incrementation * i + nbPuces, new Grandeur(calculANePlusJamaisUtiliser((a * b) / 2), 'cm^2'), { formatInteractif: 'unites' })

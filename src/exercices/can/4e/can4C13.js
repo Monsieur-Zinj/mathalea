@@ -29,7 +29,7 @@ export default function CalculFractionDecimal () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatInteractif = 'calcul'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const n = randint(1, 9)
     const a = choice([2, 4, 8])

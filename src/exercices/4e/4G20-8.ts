@@ -53,16 +53,16 @@ export default class CalculMentalPythagore extends Exercice {
             reponse0 = `\\sqrt{${BC ** 2 - AB ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AB ** 2))
             texteCorr = RedactionPythagore(`${sommetA}`, `${sommetC}`, `${sommetB}`, 2, reponse, AB, BC)[0]
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetC} = `, texteApres: ('cm (Racine carrée)') })
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore ' + KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetC} $\\approx$ `, texteApres: ('cm (Partie entière)') })
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetC} = `, texteApres: ('cm (Racine carrée)') })
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetC} $\\approx$ `, texteApres: ('cm (Partie entière)') })
           } else {
             texte = `On considère le triangle $${sommetA}${sommetB}${sommetC}$ rectangle en $${sommetA}$ tel que $${sommetA}${sommetC} = ${AC}$ cm et $${sommetB}${sommetC} = ${BC}$ cm.<br>`
             texte += `Calculer $${sommetA}${sommetB}$.`
             reponse0 = `\\sqrt{${BC ** 2 - AC ** 2}}`
             reponse = Math.floor(Math.sqrt(BC ** 2 - AC ** 2))
             texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 2, AC, reponse, BC)[0]
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetB} = `, texteApres: ('cm (Racine carrée)') })
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore ' + KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetB} $\\approx$ `, texteApres: ('cm (Partie entière)') })
+            texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetA}${sommetB} = `, texteApres: ('cm (Racine carrée)') })
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetA}${sommetB} $\\approx$ `, texteApres: ('cm (Partie entière)') })
           }
           break
 
@@ -73,8 +73,8 @@ export default class CalculMentalPythagore extends Exercice {
           reponse0 = `\\sqrt{${AB ** 2 + AC ** 2}}`
           reponse = Math.floor(Math.sqrt(AB ** 2 + AC ** 2))
           texteCorr = RedactionPythagore(`${sommetA}`, `${sommetB}`, `${sommetC}`, 1, AB, AC, reponse)[0]
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetB}${sommetC} = `, texteApres: ('cm (Racine carrée)') })
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'inline nospacebefore ' + KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetB}${sommetC} $\\approx$ `, texteApres: ('cm (Partie entière)') })
+          texte += ajouteChampTexteMathLive(this, 2 * i, KeyboardType.clavierFullOperations, { texteAvant: `<br> ${sommetB}${sommetC} = `, texteApres: ('cm (Racine carrée)') })
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, KeyboardType.clavierNumbers, { texteAvant: `<br> ${sommetB}${sommetC} $\\approx$ `, texteApres: ('cm (Partie entière)') })
           break
       }
       handleAnswers(this, 2 * i, { reponse: { value: reponse0, compare: fonctionComparaison } })

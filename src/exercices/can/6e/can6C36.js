@@ -26,7 +26,7 @@ export default function PetitsProblemePartage2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const listeProportion1 = [['au quart du', 4], [' au tiers du', 3], ['à la moitié du', 2], ['au cinquième du', 5], ['à la moitié du', 2]]
     const listeProportion2 = [['au double du', 2], ['au triple du', 3], ['au triple du ', 3], ['quatre fois le ', 4], ['cinq fois le ', 5]]

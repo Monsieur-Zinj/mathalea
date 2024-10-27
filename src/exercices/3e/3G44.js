@@ -498,7 +498,7 @@ export default function CalculPythagoreEspace () {
           break
       }
       setReponse(this, i, new Grandeur(reponse, listeUnites[j]), { formatInteractif: 'unites' })
-      if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline unites[longueurs]', { texteApres: ' (Il faut penser à indiquer une unité.)' })
+      if (this.interactif && context.isHtml) texte += `<br>$${longueurATrouver}\\approx$` + ajouteChampTexteMathLive(this, i, '  unites[longueurs]', { texteApres: ' (Il faut penser à indiquer une unité.)' })
 
       if (context.isAmc) {
         this.autoCorrection[i] = {

@@ -100,7 +100,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
             ajouteChampTexteMathLive(
               this,
               i,
-              `inline nospacebefore ${KeyboardType.grecTrigo}`,
+              `  ${KeyboardType.grecTrigo}`,
               { texteAvant: '<br>$f(t)=$' }
             )
         )

@@ -422,7 +422,7 @@ export default function PuissancesDeDix () {
       }
       if (this.interactif && !context.isAmc) {
         setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance' })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}$=$${sp(2)}` })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `${sp(2)}$=$${sp(2)}` })
       }
       if (context.isAmc) {
         // setReponse(this, i, reponseInteractive, { formatInteractif: 'puissance', basePuissance: 10, exposantPuissance: exposantInteractif })

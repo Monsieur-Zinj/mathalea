@@ -125,7 +125,7 @@ export default function AntecedentParCalcul () {
       texteCorr += '\\end{aligned}$'
       if (this.questionJamaisPosee(i, a, b, listeTypeDeQuestions[i])) {
         if (this.interactif) {
-          texte += `<br>${ajouteChampTexteMathLive(this, i, 'largeur01')}`
+          texte += `<br>${ajouteChampTexteMathLive(this, i, '')}`
           handleAnswers(this, i, { reponse: { value: ante.simplifie().texFSD, compare: fonctionComparaison, options: { fractionEgale: true } } })
         }
         // Si la question n'a jamais été posée, on la stocke dans la liste des questions

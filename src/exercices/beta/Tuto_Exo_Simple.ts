@@ -127,7 +127,7 @@ $    Le this indique que ces paramétrages sont liés à l'objet Exercice.
     Ces lignes concernent l'interactivité.
     Conseil : Laisser ainsi pour l'instant. Coder l'exercice sans interactivité et rajouter l'interactivité quand l'exercice HTML ou PDF sera fonctionnel.
     Conseil : Donc, ne pas décommenter tout de suite.
-    this.formatChampTexte = 'largeur01 nospacebefore ' + KeyboardType.clavierDeBase // Format du champ de réponse + type de clavier virtuel de l'exercice.
+    this.formatChampTexte = KeyboardType.clavierDeBase // Format du champ de réponse + type de clavier virtuel de l'exercice.
     this.optionsChampTexte = { texteAvant: 'Pour écrire quelque chose avant le champ de réponse', texteApres: "ben, là, c'est après" }
     this.compare = fonctionComparaison // Type de fonction de comparaison utilisée. Voir wiki : https://forge.apps.education.fr/coopmaths/mathalea/-/wikis/Choisir-sa-fonction-de-comparaison-dans-handleAnwsers()#2-pour-comparer-des-nombres-entiers-d%C3%A9cimaux-et-pas-forc%C3%A9ment-fractionnaires-exclusivement-sous-leur-forme-num%C3%A9rique
     this.optionsDeComparaison = { fractionEgale: true } // Option possible de la fonction de comparaison utilisée

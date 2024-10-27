@@ -226,7 +226,7 @@ export default function CanNoteLaCouleur6 () {
         texte += `N'hésitez pas à vous rendre sur le site ${createLink({ url: 'https://www.monclasseurdemaths.fr', text: 'Mon classeur de Maths.fr' })} de Jean-Yves pour y découvrir la multitude de ressources qu'il propose.<br>`
         texte += `Pour jouer, regarder les ${createLink({ url: 'https://coopmaths.fr/alea/assets/pdf/reglesnlc.pdf', text: 'Règles du jeu' })} .<br>`
       } else { texte = '' }
-      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric largeur01 inline')}<br><br>`
+      texte += `Exécuter le programme et trouver la couleur à noter. ${ajouteChampTexteMathLive(this, q, 'alphanumeric ')}<br><br>`
       if (context.isHtml) {
         texte += '<table><tr><td>' +
                     scratchblock(pion.codeScratch) + '</td><td>' + mathalea2d(Object.assign({}, fixeBordures([rose])), rose) +

@@ -207,9 +207,9 @@ export default function desTestsPourInteractivité () {
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
-      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, 'inline15 college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
-      texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations)
-      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction)
+      // texte = `$${enonce}=$` + ajouteChampTexteMathLive(this, i, '  college6eme ' + KeyboardType.clavierDeBaseAvecFraction)
+      texte = `$${enonce}$` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
+      // texte += `$${enonce}$` + ajouteChampTexteMathLive(this, i + 1, KeyboardType.clavierDeBaseAvecFraction)
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })

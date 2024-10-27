@@ -26,7 +26,7 @@ export default function ExprimerVariable () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline nospacebefore'
+  this.formatChampTexte = ' '
   // this.compare = fonctionComparaison
   this.nouvelleVersion = function () {
     { const a = randint(-9, 9, 0)

@@ -45,7 +45,7 @@ export default function ConversionHeuresDecimalesMinutes () {
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
           } else {
             texte = `Convertir en heures/minutes : <br>$${texNombre(a + b)}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline')
+            texte += ajouteChampTexteMathLive(this, i, 'clavierHms ')
             setReponse(this, i, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
             texteCorr = `$${texNombre(a + b)}$ h $ = ${a}$ h $ +$ $ ${texNombre(b)} \\times 60$ min $  = ${a}$ h $${d}$ min`
             nbChamps = 2
@@ -65,7 +65,7 @@ export default function ConversionHeuresDecimalesMinutes () {
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
           } else {
             texte = `Compléter par un nombre décimal : <br>$${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$`
-            texte += ajouteChampTexteMathLive(this, index, 'inline', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: sp(5) + 'h' })
             texteCorr = `$${texNombre(b * 60)}$ min  $=   \\dfrac{${texNombre(b * 60)}}{60}$ h $=${texFractionReduite(b * 60, 60)}$ h $=   ${texNombre(b)}$ h. <br>
           Ainsi, $${texNombre(a)}$ h $${texNombre(b * 60)}$ min  $=$ $${texNombre(a + b)}$ h.`
             setReponse(this, index, a + b)

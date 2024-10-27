@@ -97,7 +97,7 @@ export default function EvolutionsSuccesives () {
             nom = 'baisse'
           }
           texte = `Le prix d'un article subit une ${nom1} de $${t1}~\\%$ puis une ${nom2} de $${t2}~\\%$.<br>Déterminer le taux d'évolution global du prix de cet article.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
           texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
@@ -164,7 +164,7 @@ export default function EvolutionsSuccesives () {
             nom = 'diminué'
           }
           texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $${t2}~\\%$ en $2022$.<br>Quel est le taux d'évolution global ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
           texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br>
@@ -231,7 +231,7 @@ export default function EvolutionsSuccesives () {
             nom = 'diminué'
           }
           texte = `Le nombre d'adhérents d'une association a ${nom1} de $${t1}~\\%$ entre $2020$ et $2021$ puis a ${nom2} de $${t2}~\\%$ entre $2021$ et $2022$.<br>Quel est le taux d'évolution global du nombre d'adhérents ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
           texteCorr = 'Pour déterminer le taux d\'évolution global, on commence par calculer le coefficient multiplicateur global.'
           texteCorr += '<br>Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution :'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
@@ -305,7 +305,7 @@ export default function EvolutionsSuccesives () {
           texte = `Le prix d'un article subit une ${nom1} $${t1}~\\%$ puis une ${nom2} de $t\\,\\%$.<br>
           Globalement, le prix de cet article a ${nom3} de $${texNombre(t, 2)} \\,\\%$.<br>
           Quelle est la valeur de $t$ ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
           texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
@@ -379,7 +379,7 @@ export default function EvolutionsSuccesives () {
           texte = `La population d'une ville a ${nom1} de $${t1}~\\%$ en $2021$ puis a ${nom2} de $t~\\%$ en $2022$.<br>
           Globalement, sur ces deux années, la population de cette ville a ${nom3} de $${texNombre(t, 2)} \\,\\%$.<br>
           Quelle est la valeur de $t$ ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
           texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `
@@ -454,7 +454,7 @@ export default function EvolutionsSuccesives () {
           Globalement, entre 2021 et 2023, le  nombre d'adhérents a ${nom3} de $${texNombre(t, 2)}\\,\\%$.<br>
           Déterminer la valeur de $t$.
           `
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '%' })
 
           texteCorr = 'Si une grandeur subit des évolutions successives, le coefficient multiplicateur global est le produit des coefficients multiplicateurs de chaque évolution.'
           texteCorr += `<br><br>${texteGras('Première évolution :')} <br> ${verbe1} de $${t1}~\\%$ revient à multiplier par `

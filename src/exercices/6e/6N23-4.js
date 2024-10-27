@@ -139,7 +139,7 @@ export default function NombreDecimalOraliseDeDifferentesManieres () {
 
       // Fin de cette uniformisation
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.clavierNumbers)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       handleAnswers(this, i, { reponse: { value: reponseAMC, compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
 
       if (this.questionJamaisPosee(i, a, b, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

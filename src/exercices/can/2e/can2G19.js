@@ -30,7 +30,7 @@ export const refs = {
 export default function CoeffDirDroite () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline nospacebefore'
+  this.formatChampTexte = ' '
   this.formatInteractif = 'fractionEgale'
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

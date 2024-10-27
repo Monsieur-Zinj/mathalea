@@ -239,7 +239,7 @@ class ReperageEntiersOuDecimaux extends Exercice {
         label
       ]
       // fin fabrication droite graduée
-      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `inline nospacebefore ${KeyboardType.numbersSpace}`)}.<br>`
+      let texte = `Donner l'abscisse du point $${lettreDepuisChiffre(i + 1)}$${ajouteChampTexteMathLive(this, i, `  ${KeyboardType.numbersSpace}`)}.<br>`
       texte += mathalea2d(
         Object.assign(
           { pixelsParCm: 30, scale: 1 },

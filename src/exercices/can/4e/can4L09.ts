@@ -28,7 +28,7 @@ export default class ReduireDecimaux extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 nospacebefore' + KeyboardType.clavierDeBaseAvecVariable
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecVariable
   }
 
   nouvelleVersion () {

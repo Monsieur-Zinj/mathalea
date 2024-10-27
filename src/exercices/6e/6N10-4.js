@@ -60,7 +60,7 @@ export default function ÉcrireNombresEntiersFormates () {
         if (tranche[2] === 0) nombre = 0
       }
       nombrestring = zeroSuperflus(nombre)
-      texte = `$${nombrestring}$` + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.numbersSpace, { espace: true, texteAvant: '$=$' })
+      texte = `$${nombrestring}$` + ajouteChampTexteMathLive(this, i, KeyboardType.numbersSpace, { espace: true, texteAvant: '$=$' })
       if (context.vue !== 'diap') texteCorr = `$${nombrestring}$ s'écrit plus lisiblement $${texNombre(nombre, 0)}$.`
       else texteCorr = `${texNombre(nombre, 0)}`
       if (context.isAmc) {

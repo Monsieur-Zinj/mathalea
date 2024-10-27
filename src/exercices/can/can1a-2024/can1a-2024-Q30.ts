@@ -20,7 +20,7 @@ export default class SommetParabole extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
   }
 

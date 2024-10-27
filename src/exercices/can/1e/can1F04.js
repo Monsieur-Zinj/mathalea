@@ -29,7 +29,7 @@ export const refs = {
 export default function LectureGraphiqueParaboleB () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

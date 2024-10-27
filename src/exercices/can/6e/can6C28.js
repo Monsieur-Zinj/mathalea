@@ -26,7 +26,7 @@ export default function PetitsProblemeDeFraction () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = choice([12, 24, 36, 48])
     const b = choice([15, 20, 25, 30, 35, 40, 45])

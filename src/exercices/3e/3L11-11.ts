@@ -113,7 +113,7 @@ export default class NomExercice extends Exercice {
           }
           const t = new PolynomePlusieursVariables(monomesListe)
           rep = PolynomePlusieursVariables.PolynomeReduit(monomesListe)
-          texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` + ajouteChampTexteMathLive(this, i, 'largeur01', { texteAvant: '$=$' })
+          texte = `$${lettreDepuisChiffre(i + 1)}=${t.toString()}$` + ajouteChampTexteMathLive(this, i, '', { texteAvant: '$=$' })
           texteCorr = `$${lettreDepuisChiffre(i + 1)}=${miseEnEvidence(rep.toString())}$`
         }
       }

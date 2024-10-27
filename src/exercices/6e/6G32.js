@@ -185,13 +185,13 @@ export default function SymetrieAxialeProprietes () {
         if (this.interactif) {
           if (reponse.indexOf('cm') !== -1) {
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 0.1 } } })
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 unites[longueurs]')
+            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]')
           } else if (reponse.indexOf('°') !== -1) {
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { unite: true, precisionUnite: 1 } } })
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 angles college6eme')
+            texte += ajouteChampTexteMathLive(this, i, ' angles college6eme')
           } else {
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { texteSansCasse: true } } })
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric')
+            texte += ajouteChampTexteMathLive(this, i, ' alphanumeric')
           }
         }
         this.listeQuestions.push(texte)

@@ -21,7 +21,7 @@ export default class CoutBDEtRomansCM2 extends Exercice {
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: '€' }
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.canOfficielle = false
   }
 

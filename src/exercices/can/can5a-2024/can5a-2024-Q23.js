@@ -21,7 +21,7 @@ export default class NomExercice extends Exercice {
     super()
     this.typeExercice = 'simple'
     context.anglePerspective = 40
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.compare = fonctionComparaison
     this.nbQuestions = 1
     this.canOfficielle = false

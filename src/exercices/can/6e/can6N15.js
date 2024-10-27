@@ -22,7 +22,7 @@ export const refs = {
 export default function EcrirePetitsNombresEntiersCan () {
   EcrirePetitsNombresEntiers.call(this)
   this.tailleDiaporama = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nbQuestions = 1 // on en fait un exo qui n'aura qu'une question
   this.nbQuestionsModifiable = false // on fait disparaitre le paramètre nombre de questions
   this.sup = choice(['4', '5', '6']) // on calibre l'exo comme on veut.

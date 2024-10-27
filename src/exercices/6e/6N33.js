@@ -182,7 +182,7 @@ export default function FractionDUnNombre () {
       if (n * a % b !== 0 && !context.isAmc) {
         setReponse(this, i, [calculANePlusJamaisUtiliser(n * a / b), texFractionFromString(n * a, b)])
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

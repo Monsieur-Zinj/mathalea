@@ -361,7 +361,7 @@ export default function IntervallesDeR () {
             reponse = texteCorr.match(/\$(.*)\$/g)[0] // On prend ce qui est entre les $ $.
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
-          texte += ajouteChampTexteMathLive(this, i, `largeur01 ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
+          texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierEnsemble} ${KeyboardType.clavierCompare}`)
         }
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

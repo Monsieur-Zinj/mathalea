@@ -44,7 +44,7 @@ export default class ComparerFraction extends Exercice {
       [13, 10, 12, 13], [27, 12, 35, 12], [21, 11, 25, 11],
       [14, 5, 11, 5], [7, 3, 11, 3]
     ]
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     this.formatInteractif = 'texte'
 
     for (let i = 0, cpt = 0; i < this.nbQuestions && cpt < 50;) {

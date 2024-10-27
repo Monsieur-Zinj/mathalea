@@ -280,9 +280,9 @@ export default function CalculsImagesFonctions () {
       }
       if (this.interactif) {
         if (tagImage) {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$f(${ant})=$` })
+          texte = enonce + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$f(${ant})=$` })
         } else {
-          texte = enonce + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', {
+          texte = enonce + ajouteChampTexteMathLive(this, i, ' ', {
             texteAvant: '$f($',
             texteApres: `$)=${img}$`
           })

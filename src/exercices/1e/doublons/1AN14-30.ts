@@ -94,7 +94,7 @@ class DerivationSimple extends Exercice {
           break
       }
       // Une seule consigne @todo à améliorer ?
-      const texte = `Donner l'expression de la dérivée de la fonction $${nomF}$ définie sur $${df}$ par $${nomF}(x)=${laFonctionEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const texte = `Donner l'expression de la dérivée de la fonction $${nomF}$ définie sur $${df}$ par $${nomF}(x)=${laFonctionEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       // Pratique : les 'Polynome' ont leur méthode derivee() !
 
       // La correction commune

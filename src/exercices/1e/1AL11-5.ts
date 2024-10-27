@@ -177,7 +177,7 @@ export default class SuitesRaison extends Exercice {
           break
       }
 
-      if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2) { texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$r=$' }) } else { texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$q=$' }) }
+      if (listeTypeDeQuestions[i] === 1 || listeTypeDeQuestions[i] === 2) { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$r=$' }) } else { texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$q=$' }) }
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

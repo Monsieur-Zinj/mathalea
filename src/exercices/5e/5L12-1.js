@@ -84,9 +84,9 @@ export default function ReduireDinstinctionSommeProduit () {
       const correctionSommeFinale = `$${sp()}${miseEnEvidence(reponseSomme)}$` + (listeTypeDeQuestions[i] % 2 === 0 ? '.' : '')
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
+        texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Somme : ' : '<br>Produit : ' })
         handleAnswers(this, 2 * i, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseProduit : reponseSomme, compare: fonctionComparaison } })
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteAvant: listeTypeDeQuestions[i] > 1 ? '<br>Produit : ' : '<br>Somme : ' })
         handleAnswers(this, 2 * i + 1, { reponse: { value: listeTypeDeQuestions[i] < 2 ? reponseSomme : reponseProduit, compare: fonctionComparaison } })
       }
       texteCorr = listeTypeDeQuestions[i] > 1 ? enonces[listeTypeDeQuestions[i]].correction_somme : enonces[listeTypeDeQuestions[i]].correction_produit

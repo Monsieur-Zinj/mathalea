@@ -26,7 +26,7 @@ export const refs = {
 export default function RacinesPoly () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -49,16 +49,16 @@ export default function RacinesPoly () {
       } else {
         if (x1 < x2) {
           texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+          texte += ajouteChampTexteMathLive(this, 2 * i, '')
           texte += ' et '
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           setReponse(this, 2 * i, x1)
           setReponse(this, 2 * i + 1, x2)
         } else {
           texte += 'Donner les racines de $f$ dans l\'ordre croissant.'
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+          texte += ajouteChampTexteMathLive(this, 2 * i, '')
           texte += ' et '
-          texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+          texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           setReponse(this, 2 * i, x2)
           setReponse(this, 2 * i + 1, x1)
         }

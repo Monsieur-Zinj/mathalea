@@ -254,7 +254,7 @@ export default function VocabulaireDivisionEuclidienne () {
             ajouteChampTexteMathLive(
               this,
               i,
-              'largeur 20 inline ' + KeyboardType.alphanumeric
+              KeyboardType.alphanumeric
             )
         }
         setReponse(this, i, ReponsesCorrectes, {

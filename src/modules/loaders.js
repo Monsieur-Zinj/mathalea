@@ -167,28 +167,29 @@ export async function loadMathLive (divExercice) {
       if (mf.getAttribute('data-space') === 'true') {
         mf.mathModeSpace = '\\,'
       }
-      if (mf.classList.contains('inline')) {
-        if (mf.classList.contains('nospacebefore')) {
-          style += 'margin-left:5px;'
-        } else {
-          style += 'margin-left: 25px;'
-        }
-        style +=
+      // if (mf.classList.contains('inline')) { // EE : Tous inline maintenant
+      /* if (mf.classList.contains('nospacebefore')) {
+        style += 'margin-left:5px;'
+      } else {
+        style += 'margin-left: 25px;'
+      } */
+      style += 'margin-left:5px;' // EE : Tous nospacebefore maintenant
+      style +=
           ' display: inline-block; vertical-align: middle; padding-left: 5px; padding-right: 5px; border-radius: 4px; border: 1px solid rgba(0, 0, 0, .3);  '
-        if (!mf.classList.contains('fillInTheBlanks') &&
+      /* if (!mf.classList.contains('fillInTheBlanks') &&
           !mf.classList.contains('largeur01') &&
           !mf.classList.contains('largeur10') &&
           !mf.classList.contains('largeur25') &&
           !mf.classList.contains('largeur50') &&
           !mf.classList.contains('largeur75')
-        ) {
-          style += ' width: 25%;'
-        }
-      } else {
+      ) {
+        style += ' width: 25%;'
+      } */
+      /* }  else {
         style +=
           ' margin-top: 10px; padding: 10px; border: 1px solid rgba(0, 0, 0, .3); border-radius: 4px;'
-      }
-      if (mf.classList.contains('largeur10')) {
+      } */
+      /* if (mf.classList.contains('largeur10')) {
         style += ' width: 10%;'
       } else if (mf.classList.contains('largeur25')) {
         style += ' width: 25%;'
@@ -201,7 +202,10 @@ export async function loadMathLive (divExercice) {
         style += ' min-width: 80px'
       } else {
         style += ' min-width: 200px'
-      }
+      } */
+
+      style += ' min-width: 80px' // EE : Style par défaut
+
       if (!mf.classList.contains('tableauMathlive')) mf.setAttribute('style', style)
       if (mf.classList.contains('fillInTheBlanks')) {
         mf.style.border = 'none'

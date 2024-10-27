@@ -26,7 +26,7 @@ export default class PolyTableauSignes extends Exercice {
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'
     this.compare = factorisationCompare
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.spacingCorr = 2
   }
 

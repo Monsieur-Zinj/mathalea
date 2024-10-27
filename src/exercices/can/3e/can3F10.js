@@ -28,7 +28,7 @@ export const refs = {
 export default function OrdonneeAbscisseFonctionLineaire () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nbQuestions = 1
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   this.tailleDiaporama = 2

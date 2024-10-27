@@ -65,7 +65,7 @@ export default function SimplifierUneSommeDeRacinesCarrees () {
                 $${lettreDepuisChiffre(i + 1)}=(${f1}${ecritureAlgebrique(f2)}${ecritureAlgebrique(f3)})\\times \\sqrt{${c}} = ${f}\\sqrt{${c}}$`
 
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: `$${lettreDepuisChiffre(i + 1)}=$` })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: `$${lettreDepuisChiffre(i + 1)}=$` })
         setReponse(this, i, `${f}\\sqrt{${c}}`)
       }
 

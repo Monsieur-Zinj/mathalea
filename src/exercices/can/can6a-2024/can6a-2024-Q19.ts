@@ -21,7 +21,7 @@ export default class SoustractionPasFacile extends Exercice {
     this.formatInteractif = 'calcul'
     this.canOfficielle = false
     this.optionsChampTexte = { texteAvant: ' $=$' }
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

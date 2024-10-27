@@ -99,7 +99,7 @@ export default function SimplifierFractions () {
           break
       }
       const f = new FractionEtendue(numerateur, denominateur)
-      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: ' =' })}`
+      texte = `$${f.texFraction}$${ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' =' })}`
       texteCorr = `$${f.texFraction}${f.texSimplificationAvecEtapes(true, '#f15929')}$`
       handleAnswers(this, i, { reponse: { value: f.simplifie().toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
 

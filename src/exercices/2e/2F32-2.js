@@ -129,10 +129,10 @@ export default class BetaModeleSpline extends Exercice {
       Déterminer les extremums de la fonction et préciser en quelles valeurs ils sont atteints.<br>`
       texteEnonce += mathalea2d(Object.assign({ scale: 0.7 }, fixeBordures(objetsEnonce)), objetsEnonce, o)
       if (this.interactif) {
-        texteEnonce += '<br>Le maximum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i, 'inline largeur01 nospacebefore')
-        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 1, 'inline largeur01 nospacebefore')
-        texteEnonce += '<br>Le minimum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i + 2, 'inline largeur01 nospacebefore')
-        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, 'inline largeur01 nospacebefore')
+        texteEnonce += '<br>Le maximum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i, ' ')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 1, ' ')
+        texteEnonce += '<br>Le minimum de $f$ est : ' + ajouteChampTexteMathLive(this, 4 * i + 2, ' ')
+        texteEnonce += '. Il est atteint en $x=$ ' + ajouteChampTexteMathLive(this, 4 * i + 3, ' ')
       }
       // on ajoute les tracés pour repérer les antécédents et on en profite pour rendre les autres noeuds invisibles
       const solsMax = maSpline.solve(Math.max(...nuage.map(el => el.y)), 0)

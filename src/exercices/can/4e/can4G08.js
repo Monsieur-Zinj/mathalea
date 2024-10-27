@@ -29,7 +29,7 @@ export const refs = {
 export default function QuestionsAiresEtPerimetres () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -50,7 +50,7 @@ export default function QuestionsAiresEtPerimetres () {
           this.reponse = 'V'
         }
         this.ignoreCasse = true
-        this.formatChampTexte = 'largeur01 inline ' + KeyboardType.vFON
+        this.formatChampTexte = KeyboardType.vFON
         if (this.interactif) { this.question += '<br> Vrai (V) ou Faux (F)' }
         this.canEnonce = this.question// 'Compléter'
         this.canReponseACompleter = ''

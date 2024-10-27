@@ -24,7 +24,7 @@ export default function DecomposerFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline nospacebefore'
+  this.formatChampTexte = ' '
   this.nouvelleVersion = function () {
     const listeFractions = [[8, 7], [10, 3], [20, 3], [11, 4], [31, 4], [29, 5], [27, 5], [38, 5], [41, 5],
       [11, 6], [57, 7], [19, 7], [29, 7], [30, 7], [40, 7], [50, 7], [60, 7], [13, 8], [35, 8], [51, 8], [79, 8], [7, 2],

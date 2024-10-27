@@ -349,7 +349,7 @@ export function ExoRose () {
       texte += mathalea2d(Object.assign({ scale: 0.6 }, fixeBordures(objets)), objets)
       if (this.interactif) {
         if (this.type.substring(0, 3) === 'can') {
-          texte += ajouteChampTexteMathLive(this, i, 'nospacebefore largeur01 ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=` })
+          texte += ajouteChampTexteMathLive(this, i, '   ' + this.clavier, { texteAvant: `${lettreMinusculeDepuisChiffre(this.indexInconnue[i] + 1)}=` })
         } else {
           let question = ''
           for (let k = 0; k < this.nombreDeValeurs; k++) {

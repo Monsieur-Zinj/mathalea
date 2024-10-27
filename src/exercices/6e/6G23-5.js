@@ -328,7 +328,7 @@ export default function CalculerUnAngle () {
       if (QuestionsDisponibles[i] !== 14) texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre([8, 13].indexOf(QuestionsDisponibles[i]) !== -1 ? numB : numC) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
       else texte += ` est la mesure, en degrés, de l'angle $\\widehat{${lettreDepuisChiffre(numE) + lettreDepuisChiffre(numA) + lettreDepuisChiffre(numD)}}$ ?`
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline', { texteApres: ' °' })
+      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' °' })
       setReponse(this, i, abs(reponse), { digits: 3, decimals: 0, signe: false }) // abs indispensable à cause du cas 8
 
       // Correction selon les cas

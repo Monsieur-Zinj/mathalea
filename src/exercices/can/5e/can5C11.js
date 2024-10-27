@@ -23,7 +23,7 @@ export default function DifferenceNegative () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(8, 15)
     const b = randint(18, 30)

@@ -86,7 +86,7 @@ class DerivationGRondF extends Exercice {
           domaine = a < 0 ? [-b / a - 10, -b / a - 1] : [-b / a + 1, -b / a + 10]
           break
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       let texteCorr = ''
       if (this.correctionDetaillee) {
         texteCorr += `La fonction $f$ est de la forme $${formeGenerale}$ et donc que la dérivée est de la forme $${formeGeneraleDerivee}$.<br>`

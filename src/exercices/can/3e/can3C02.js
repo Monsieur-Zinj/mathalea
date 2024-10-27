@@ -25,7 +25,7 @@ export default function MoyenneEntiereDeDecimaux () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     this.reponse = randint(7, 15) // la moyenne attendue on la multiplie par 10 pour l'avoir en 1/10e
     const a = randint(4, this.reponse, [10, 20]) * 10 + randint(1, 9) // premier nombre à ajouter multiplié par 10 pour l'avoir en 1/10e

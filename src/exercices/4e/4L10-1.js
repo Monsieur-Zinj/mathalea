@@ -154,7 +154,7 @@ export default function ReductionsPiegesClassiques () {
       if (this.interactif) {
         reponse = [reponse, `${lettreDepuisChiffre(i + 1, saufD)}=${reponse}`.replace('D=', 'd=')]
         setReponse(this, i, reponse)
-        texte += ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       }
 
       if (this.listeQuestions.indexOf(texte) === -1) {

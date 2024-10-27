@@ -699,7 +699,7 @@ Ainsi,    $S=${miseEnEvidence('\\emptyset')}$.<br>
           break
       }
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
-      texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
+      texte = enonce + '<br>' + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
       texteCorr = correction
       if (this.interactif) { texte += '<br>$\\textit{Respecter les notations}$.' }
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], a, b, k)) {

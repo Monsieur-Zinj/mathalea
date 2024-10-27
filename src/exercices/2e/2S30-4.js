@@ -169,7 +169,7 @@ export default function CalculProbaExperience2Epreuves2e () {
     texte += ` et ${n2[2]} boule${n2[2] > 1 ? 's' : ''} ${boules[2]}${n2[2] > 1 ? 's' : ''}.<br>`
     texte += sup ? 'On a représenté l\'expérience par l\'arbre ci-dessous<br>' : ''
     texte += sup ? mathalea2d({ xmin: -0.1, xmax: 16, ymin: 0, ymax: 12, zoom: 1.5, scale: 0.6 }, ...objets) : ''
-    texte += `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, 'largeur01 inline')
+    texte += `<br>Donner la probabilité d'obtenir une boule ${boules[choix]}.` + ajouteChampTexteMathLive(exercice, i, '')
     setReponse(exercice, i, new FractionEtendue(p[choix].n, p[choix].d), { formatInteractif: 'fractionEgale' })
     texteCorr = "La probabilité que la pièce tombe sur 'Pile' est de $\\dfrac{1}{2}$ et "
     texteCorr += `la probabilité de tirer une boule ${boules[choix]} dans la première urne est de $${texProba(urne1.getProba(B[choix], true))}$.<br>`
@@ -300,13 +300,13 @@ export default function CalculProbaExperience2Epreuves2e () {
     let texte = `Dans une urne, il y a ${nbBoule1} boule${nbBoule1 > 1 ? 's' : ''} ${b1Color}${nbBoule1 > 1 && b1Char !== 'O' ? 's' : ''} et ${nbBoule2} boule${nbBoule2 > 1 ? 's' : ''} ${b2Color}${nbBoule2 > 1 && b2Char !== 'O' ? 's' : ''} indiscernables au toucher.<br>`
     texte += 'On tire successivement et avec remise deux boules.<br>'
     texte += `${numAlpha(0)} Déterminer la probabilité d'obtenir deux boules ${choix[1]}${choix[2] !== 'O' ? 's' : ''}.`
-    texte += ajouteChampTexteMathLive(exercice, i, 'largeur01 inline') + '<br>'
+    texte += ajouteChampTexteMathLive(exercice, i, '') + '<br>'
     setReponse(exercice, i, probaChoix, { formatInteractif: 'fractionEgale' })
     texte += `${numAlpha(1)} Déterminer la probabilité d'obtenir deux boules de la même couleur.`
-    texte += ajouteChampTexteMathLive(exercice, i + 1, 'largeur01 inline') + '<br>'
+    texte += ajouteChampTexteMathLive(exercice, i + 1, '') + '<br>'
     setReponse(exercice, i + 1, proba1et2, { formatInteractif: 'fractionEgale' })
     texte += `${numAlpha(2)} Déterminer la probabilité d'obtenir deux boules de couleurs différentes.`
-    texte += ajouteChampTexteMathLive(exercice, i + 2, 'largeur01 inline') + '<br>'
+    texte += ajouteChampTexteMathLive(exercice, i + 2, '') + '<br>'
     setReponse(exercice, i + 2, proba4, { formatInteractif: 'fractionEgale' })
     let texteCorr = ''
     texteCorr += 'On a représenté l\'expérience par le tableau ci-dessous :<br>'

@@ -152,15 +152,15 @@ export default function TableDoubleDistributivite () {
       }
       if (this.interactif) {
         const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', ''])
-        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, 3 * i, tableauVide, 'nospacebefore', this.interactif, { L0C0: 'red' })
+        const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, 3 * i, tableauVide, ' ', this.interactif, { L0C0: 'red' })
         texte += tabMathlive.output
       } else {
         texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i, false, { L0C0: 'red' })
       }
       texte += context.isHtml ? '<br> Développement : ' : '\\par\\medskip Développement : '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01')
+      texte += ajouteChampTexteMathLive(this, 3 * i + 1, '')
       texte += context.isHtml ? '<br> Développement réduit : ' : '\\par\\medskip Développement réduit: '
-      texte += ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01')
+      texte += ajouteChampTexteMathLive(this, 3 * i + 2, '')
       texteCorr += context.isHtml ? '<br>' : '\\par\\medskip'
       if (typesDeQuestions === 1) {
         texteCorr += tableauColonneLigne(['\\times', 'x', `${b}`], ['x', `${d}`], [`${termesRectangles[0] === 1 ? '' : termesRectangles[0]}x^2`, `${termesRectangles[2]}x`, `${termesRectangles[1]}x`, `${termesRectangles[3]}`], 1, true, this.numeroExercice, i, false, { L0C0: 'red' })

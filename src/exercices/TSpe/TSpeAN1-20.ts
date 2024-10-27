@@ -131,7 +131,7 @@ class EquaDiffs extends Exercice {
       // C'est fini... sauf pour la correction détaillée ci-dessous.
       if (this.questionJamaisPosee(i, a)) {
         if (this.interactif && context.isHtml) {
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore', { texteAvant: '$y=$ ' })
+          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$y=$ ' })
           handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)

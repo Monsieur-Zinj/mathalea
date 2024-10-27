@@ -92,7 +92,7 @@ export default function SujetCAN20215ieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -120,7 +120,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -138,7 +138,7 @@ export default function SujetCAN20215ieme () {
           reponse = calculANePlusJamaisUtiliser(a - b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -155,7 +155,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -176,7 +176,7 @@ export default function SujetCAN20215ieme () {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -196,7 +196,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -234,7 +234,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -259,7 +259,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -280,7 +280,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01' + KeyboardType.clavierNumbers, { texteApres:' €' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres:' €' })
           }
           nbChamps = 1
           break
@@ -296,7 +296,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -327,7 +327,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -343,7 +343,7 @@ export default function SujetCAN20215ieme () {
           texteCorr = `Le produit de $${a}$ par la somme de $${b}$ et de $${c}$ est égal à : $${a}\\times \\underbrace{(${b}+${c})}_{\\text{Somme de } ${b} \\text{ et } ${c}}=${a}\\times ${b + c}=${miseEnEvidence(a * b + a * c)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -362,7 +362,7 @@ export default function SujetCAN20215ieme () {
           reponse = fraction1[0] - Math.floor(fraction1[0] / fraction1[1]) * fraction1[1]
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -533,7 +533,7 @@ export default function SujetCAN20215ieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$\\mathscr{P}=$'
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01' + KeyboardType.clavierNumbers, {texteApres:  'cm'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
           }
           nbChamps = 1
           break
@@ -547,7 +547,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${miseEnEvidence(a * 100)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'cm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm$^2$'})
             } else {
               texte += ' $\\ldots$ cm$^2$'
             }
@@ -558,7 +558,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
             } else {
               texte += ' $\\ldots$ dm$^2$'
             }
@@ -569,7 +569,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
             } else {
               texte += '$\\ldots$ dm$^2$'
             }
@@ -580,7 +580,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ dm$^2= 0,01$ m$^2$, donc $${a}$ dm$^2=${a}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(a / 100))}$ m$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'm$^2$'})
             } else {
               texte += '$\\ldots$ m$^2$'
             }
@@ -619,7 +619,7 @@ export default function SujetCAN20215ieme () {
           Seule la longueur $${miseEnEvidence(texNombre(c))}$ est possible pour $BC$. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -656,7 +656,7 @@ export default function SujetCAN20215ieme () {
           texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
           }
           nbChamps = 1
 
@@ -675,7 +675,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           } else {
             a = randint(-15, -7)
@@ -691,7 +691,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'texte' })
             if (this.interactif) {
               texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           }
           nbChamps = 1
@@ -706,7 +706,7 @@ export default function SujetCAN20215ieme () {
           Le montant de la remise est $${texNombre(0.1 * a)}$ €. La brioche coûtera donc après remise : $${a}-${texNombre(0.1 * a)}=${miseEnEvidence(texNombre(0.9 * a))}$ €.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  ' €'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  ' €'})
           }
           nbChamps = 1
           break
@@ -721,7 +721,7 @@ export default function SujetCAN20215ieme () {
 
           texteCorr = ` $${a}$ h $${b}$ min + $1$ h $${c}$ min est égal à $${miseEnEvidence(a + 2)}$ h $${miseEnEvidence(b + c - 60)}$ min.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
           }
 
           setReponse(this, index, new Hms({ hour: a + 2, minute: b + c - 60 }), { formatInteractif: 'hms' })
@@ -743,7 +743,7 @@ export default function SujetCAN20215ieme () {
             
             if (this.interactif) {
               texte += 'Pour VRAI, écrire V et pour FAUX : F'
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, ' ')
             }
           } else {
             a = randint(2, 6)
@@ -757,7 +757,7 @@ export default function SujetCAN20215ieme () {
           Donc l'égalité est vérifiée (${texteEnCouleurEtGras('V')}).`
             if (this.interactif) {
               texte += 'Pour VRAI, écrire V et pour FAUX : F'
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, ' ')
             }
           }
           nbChamps = 1
@@ -775,7 +775,7 @@ export default function SujetCAN20215ieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$ \\ldots=$'
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -798,7 +798,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           } else {
             texte += '$\\ldots$'
           }
@@ -867,7 +867,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  '°'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  '°'})
           } else {
             texte += ' $\\ldots °$'
           }
@@ -912,7 +912,7 @@ export default function SujetCAN20215ieme () {
           }
           if (this.interactif) {
             texte += '<br>Indique le symbole qui convient : $<$, $>$ ou $=$'
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierCompare)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierCompare)
           }
           nbChamps = 1
           break
@@ -951,7 +951,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
           }
           nbChamps = 1
           break
@@ -1002,7 +1002,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$CD=$'
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'cm'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
             } else {
               texte += '<br>$CD=\\ldots$ cm'
             }
@@ -1027,7 +1027,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'cm'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
             } else {
               texte += '<br>$AE=\\ldots$ cm'
             }
@@ -1059,7 +1059,7 @@ export default function SujetCAN20215ieme () {
           reponse = a.sommeFraction(b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecFraction)
           } else {
             texte += '$\\ldots$ '
           }
@@ -1078,7 +1078,7 @@ export default function SujetCAN20215ieme () {
           reponse = printlatex(`${a + c}*a+(${b + d})`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecVariable)
+            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecVariable)
           }
           nbChamps = 1
           break
@@ -1103,7 +1103,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ' + KeyboardType.clavierNumbers, {texteApres:  'cm$^3$'})
+            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm$^3$'})
           }
           nbChamps = 1
           break

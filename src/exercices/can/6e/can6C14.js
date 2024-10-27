@@ -21,7 +21,7 @@ export const refs = {
 export default function Somme4EntiersQuiSeMarient () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

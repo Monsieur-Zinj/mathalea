@@ -217,7 +217,7 @@ export default class FractionEtPriorites extends Exercice {
           // dernière étape on simplifie si c'est nécessaire après le switch car étape commune
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
 
       // La dernière étape de réduction est commune on la fait maintenant si besoin
       if (!reponse.estIrreductible) {

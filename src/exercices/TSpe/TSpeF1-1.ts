@@ -90,7 +90,7 @@ class DerivationLnU extends Exercice {
         formeGeneraleDerivee = '(\\ln(u))^\\prime=\\dfrac{u^\\prime}{u}'
         domaine = [1, 10]
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par :<br>$f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par :<br>$f(x)=${laFonctionFEnLatex}$.<br>` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       let texteCorr = ''
       if (this.correctionDetaillee) {
         texteCorr += `La fonction $f$ est de la forme $${formeGenerale}$ et donc que la dérivée est de la forme $${formeGeneraleDerivee}$.<br>`

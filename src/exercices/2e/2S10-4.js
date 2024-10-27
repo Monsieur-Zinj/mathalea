@@ -98,7 +98,7 @@ export default function TableauProportion () {
           texte += '<br> Compléter le tableau suivant :<br><br>'
           if (this.interactif) {
             const tableauVide = AddTabDbleEntryMathlive.convertTclToTableauMathlive(entetesCol, entetesLgn, ['', '', '', '', '', '', '', '', ''])
-            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, 'nospacebefore', this.interactif)
+            const tabMathlive = AddTabDbleEntryMathlive.create(this.numeroExercice, index, tableauVide, ' ', this.interactif)
             texte += tabMathlive.output
           } else {
             texte += tableauColonneLigne(entetesCol, entetesLgn, contenu, 1, true, this.numeroExercice, i)
@@ -133,26 +133,26 @@ export default function TableauProportion () {
           texte += `<br><br>${numAlpha(0)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée ?<br>`
           handleAnswers(this, index, { reponse: { value: choix ? new FractionEtendue(FetT, total).texFraction : new FractionEtendue(GAetT, total).texFraction, compare: fonctionComparaison } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
-          texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index, '')
           handleAnswers(this, index + 1, { reponse: { value: choix ? texNombre(FetT * 100 / total, 0) : texNombre(GAetT * 100 / total, 0), compare: fonctionComparaison } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
-          texte += ajouteChampTexteMathLive(this, index + 1, 'inline largeur01', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, index + 1, '', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(1)} Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves en première technologique ?<br>`
           handleAnswers(this, index + 2, { reponse: { value: choix ? new FractionEtendue(FetT, totalT).texFraction : new FractionEtendue(GAetT, totalT).texFraction, compare: fonctionComparaison } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
-          texte += ajouteChampTexteMathLive(this, index + 2, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index + 2, '')
           handleAnswers(this, index + 3, { reponse: { value: choix ? arrondi(FetT * 100 / totalT, 0) : arrondi(GAetT * 100 / totalT, 0), compare: fonctionComparaison } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
-          texte += ajouteChampTexteMathLive(this, index + 3, 'inline largeur01', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, index + 3, '', { texteApres: '%' })
 
           texte += `<br><br>${numAlpha(2)}  Quelle est la proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les ${choix ? 'filles' : 'garçons'} ?<br>`
           handleAnswers(this, index + 4, { reponse: { value: choix ? new FractionEtendue(FetT, totalF).texFraction : new FractionEtendue(GAetT, totalGA).texFraction, compare: fonctionComparaison } })
           texte += `Sous la forme d'une fraction : ${this.interactif ? '' : '$\\ldots$'}`
-          texte += ajouteChampTexteMathLive(this, index + 4, 'inline largeur01')
+          texte += ajouteChampTexteMathLive(this, index + 4, '')
           handleAnswers(this, index + 5, { reponse: { value: choix ? arrondi(FetT * 100 / totalF, 0) : arrondi(GAetT * 100 / totalGA, 0), compare: fonctionComparaison } })
           texte += `<br>Sous la forme d'un pourcentage (arrondir à l'unité si besoin) : ${this.interactif ? '' : '$\\ldots\\,\\%$'}`
-          texte += ajouteChampTexteMathLive(this, index + 5, 'inline largeur01', { texteApres: '%' })
+          texte += ajouteChampTexteMathLive(this, index + 5, '', { texteApres: '%' })
 
           texteCorr = `${numAlpha(0)} La proportion de ${choix ? 'filles' : 'garçons'} en première technologique parmi les élèves de ce lycée est donnée par le quotient : 
           ${choix ? ` $${miseEnEvidence(`\\dfrac{${FetT}}{${total}}`)}$.` : ` $${miseEnEvidence(`\\dfrac{${GAetT}}{${total}}`)}$.`} <br>

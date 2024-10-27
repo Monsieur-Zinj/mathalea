@@ -23,7 +23,7 @@ export default class NomExercice extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.keyboard = ['hms']
-    this.formatChampTexte = 'largeur01 inline nospacebefore inline ' + KeyboardType.clavierHms
+    this.formatChampTexte = KeyboardType.clavierHms
     this.formatInteractif = 'hms'
 
     this.canOfficielle = false

@@ -33,7 +33,7 @@ export const refs = {
 export default function LectureGraphiqueVecteurRepere () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 1
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -88,9 +88,9 @@ export default function LectureGraphiqueVecteurRepere () {
       texte += ''
 
       if (this.interactif) {
-        texte += '<br>$\\vec{u}\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+        texte += '<br>$\\vec{u}\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, '')
         texte += ` ${sp(1)} ;  `
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + '$\\Bigg)$'
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '') + '$\\Bigg)$'
         setReponse(this, 2 * i, k1)
         setReponse(this, 2 * i + 1, k2)
       }

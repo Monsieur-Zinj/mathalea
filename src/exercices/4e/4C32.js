@@ -102,7 +102,7 @@ export default function NotationScientifique () {
       }
       texte = texteAMC + `$${sp()}=$`
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + (this.sup === 2 ? KeyboardType.clavierDeBase : KeyboardType.clavierFullOperations))
+        texte += ajouteChampTexteMathLive(this, i, '  ' + (this.sup === 2 ? KeyboardType.clavierDeBase : KeyboardType.clavierFullOperations))
       } else {
         texte += `$${sp()}\\dots$`
       }

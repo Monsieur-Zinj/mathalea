@@ -248,12 +248,12 @@ export default function TesterUneEgalite () {
         setReponse(this, 6 * i + 3, rep3)
         setReponse(this, 6 * i + 4, rep4)
         setReponse(this, 6 * i + 5, rep3 === rep4 ? ['Oui', 'oui', 'OUI'] : ['Non', 'non', 'NON'], { formatInteractif: 'texte' })
-        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i, 'inline nospacebefore largeur01')
-        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 1, 'inline nospacebefore largeur01')
-        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x1}${sp(1)}$ ? (Oui/Non) ` + ajouteChampTexteMathLive(this, 6 * i + 2, 'inline largeur01 alphanumeric')
-        texte += `<br><br> ${sp(10)}Pour $x=${x2}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i + 3, 'inline nospacebefore largeur01')
-        texte += `<br> ${sp(10)}Pour $x=${x2}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 4, 'inline nospacebefore largeur01')
-        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x2}${sp(1)}$ ? (Oui/Non)  ` + ajouteChampTexteMathLive(this, 6 * i + 5, 'inline largeur01 alphanumeric')
+        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i, ' ')
+        texte += `<br> ${sp(10)}Pour $x=${x1}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 1, ' ')
+        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x1}${sp(1)}$ ? (Oui/Non) ` + ajouteChampTexteMathLive(this, 6 * i + 2, ' alphanumeric')
+        texte += `<br><br> ${sp(10)}Pour $x=${x2}$, d'une part, ${sp(5)} ${expression.split('=')[0]}$ = ` + ajouteChampTexteMathLive(this, 6 * i + 3, ' ')
+        texte += `<br> ${sp(10)}Pour $x=${x2}$, d'autre part, ${sp(6)} $${expression.split('=')[1]} = ` + ajouteChampTexteMathLive(this, 6 * i + 4, ' ')
+        texte += `<br> Conclure : l'égalité ${expression} est-elle vérifiée pour $${sp(1)}x=${x2}${sp(1)}$ ? (Oui/Non)  ` + ajouteChampTexteMathLive(this, 6 * i + 5, ' alphanumeric')
       }
 
       if (context.isAmc) {

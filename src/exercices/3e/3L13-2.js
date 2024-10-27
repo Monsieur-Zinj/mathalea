@@ -184,7 +184,7 @@ $${inc}=${miseEnEvidence(texNombre(b.mul(a).div(c), 4))}$`,
 
       const correctionInteractif = enonces[listeTypeDeQuestions[i]].correctionInteractif[0].replace('{', '').replace('}', '')
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `<br> ${inc} = ` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br> ${inc} = ` })
       reponse = new FractionEtendue(Number(correctionInteractif))
       if (context.isAmc) setReponse(this, i, reponse)
       else setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })

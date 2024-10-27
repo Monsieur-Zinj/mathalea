@@ -192,7 +192,7 @@ export default function DevelopperReduireExprComplexe () {
         handleAnswers(this, i, { reponse: { value: { expr: reponse, strict: true }, compare: fonctionComparaison } })
         texte += this.interactif
           ? `<br>$${lettreDepuisChiffre(i + 1)} = $` +
-                    ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+                    ajouteChampTexteMathLive(this, i, ' ')
           : ''
       } else {
         this.autoCorrection[i] = {

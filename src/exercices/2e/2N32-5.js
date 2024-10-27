@@ -80,7 +80,7 @@ export default function DoubleDistributiviteAvecRacineCarree () {
           break
       }
       texte = `$${texte}$`
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$=$' })
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a1, a2, a, b1, b2)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

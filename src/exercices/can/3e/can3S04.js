@@ -26,7 +26,7 @@ export default function Etendue () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let min, max
     const nombreNotes = randint(4, 7)

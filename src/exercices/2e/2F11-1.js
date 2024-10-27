@@ -109,7 +109,7 @@ export default function ImageFonctionsRefs () {
       texte = `Soit $${nom}$ la fonction ${listeTypeQuestions[i]}.<br>
       
       Calculer ${phrase}.`
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
+      texte += ajouteChampTexteMathLive(this, i, '')
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, listeTypeQuestions[i], nombre)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

@@ -19,7 +19,7 @@ export default class additionnerFrac extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { fractionIrreductible: true }
 

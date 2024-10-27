@@ -43,7 +43,7 @@ export default function HeuresFractionHeuresMinutes2 () {
             texte = `Compléter : <br>$\\dfrac{${a}}{${b}}$ h $=$ ..... min`
           } else {
             texte = `Compléter : <br>$\\dfrac{${a}}{${b}}$ h $=$`
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: sp(5) + 'min' })
+            texte += ajouteChampTexteMathLive(this, i, '', { texteApres: sp(5) + 'min' })
             texteCorr = `$${texNombre(a + b)}$h$ = ${a}$ h $ + ${texNombre(b)} \\times 60  = ${a}$ h $${d}$ min`
             setReponse(this, i, a * 60 / b)
           }
@@ -60,7 +60,7 @@ export default function HeuresFractionHeuresMinutes2 () {
             texte = `Compléter par une fraction irréductible : <br>$${a}$ min  $=$ ..... h`
           } else {
             texte = `Compléter par une fraction irréductible : <br>$${a}$ min  $=$ `
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: sp(5) + 'h' })
+            texte += ajouteChampTexteMathLive(this, i, '', { texteApres: sp(5) + 'h' })
             setReponse(this, i, [`${texFractionReduite(a, 60)}`])
           }
           texteCorr = `$${a}$ min  $= \\dfrac{${a}}{60}$ h$=${texFractionReduite(a, 60)}$ h`

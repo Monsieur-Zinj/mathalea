@@ -26,7 +26,7 @@ export default class InequationTableau extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+    this.formatChampTexte = KeyboardType.clavierEnsemble
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { texteSansCasse: true }
   }

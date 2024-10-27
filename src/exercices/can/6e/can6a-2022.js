@@ -73,7 +73,7 @@ export default function SujetCAN2022Sixieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -90,7 +90,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '\\ldots'
           }
@@ -107,7 +107,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -125,7 +125,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, ' nospacebefore inline largeur01 nospacebefore', { texteApres: '€.' })
+            texte += ajouteChampTexteMathLive(this, index, '    ', { texteApres: '€.' })
           } else {
             texte += '$\\ldots$ €'
           }
@@ -143,7 +143,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 nospacebefore', { texteApres: 'min' })
+            texte += ajouteChampTexteMathLive(this, index, '   ', { texteApres: 'min' })
           } else {
             texte += '$\\ldots$ min'
           }
@@ -181,7 +181,7 @@ export default function SujetCAN2022Sixieme () {
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
@@ -203,7 +203,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -237,7 +237,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'groupes.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'groupes.' })
           } else {
             texte += '$\\ldots$ groupes.'
           }
@@ -267,7 +267,7 @@ export default function SujetCAN2022Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$ '
           }
@@ -284,7 +284,7 @@ export default function SujetCAN2022Sixieme () {
           texteCorr = `Le nombre cherché est : $${a}+${b}-${c}=${miseEnEvidence(reponse)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
@@ -300,7 +300,7 @@ export default function SujetCAN2022Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -318,7 +318,7 @@ export default function SujetCAN2022Sixieme () {
 
           texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - b}$ min, et il faut ajouter $1$ heure et $${d}$ min pour arriver à $${c}$ h $${d}$, soit au total $${miseEnEvidence(1)}$ h $${miseEnEvidence(60 - b + d)}$ min.`
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
           }
 
           setReponse(this, index, new Hms({ hour: 1, minute: 60 - b + d }), { formatInteractif: 'hms' })
@@ -335,7 +335,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `$${a}=\\dfrac{${4 * a}}{4}=${4 * a}\\times \\dfrac{1}{4}$, donc $${miseEnEvidence(4 * a)}$ quarts $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'quarts' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'quarts' })
             } else {
               texte += '$\\ldots$ quarts'
             }
@@ -347,7 +347,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `$${a}=\\dfrac{${3 * a}}{3}=${3 * a}\\times \\dfrac{1}{3}$, donc $${miseEnEvidence(3 * a)}$ tiers $=${a}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'tiers' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'tiers' })
             } else {
               texte += '$\\ldots$ tiers'
             }
@@ -367,7 +367,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
             $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
             }
 
             setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
@@ -380,7 +380,7 @@ export default function SujetCAN2022Sixieme () {
             texteCorr = `Pour aller à $${a + 1}$ h, il faut $${60 - c}$ min, et il reste $${b - 60 + c}$ min à ajouter, ce qui donne
 $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
             }
 
             setReponse(this, index, new Hms({ hour: a + 1, minute: reponse }), { formatInteractif: 'hms' })
@@ -404,7 +404,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
@@ -430,7 +430,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'billes.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'billes.' })
           } else {
             texte += '$\\ldots$ billes.'
           }
@@ -477,7 +477,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>$\\text{?}=$'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
           } else {
             texte += '  $\\text{?}=\\ldots$ cm'
           }
@@ -496,7 +496,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
       Comme : $${texNombre(a)}\\div ${texNombre(1000)} =${texNombre(a / 1000, 2)}$, alors $${texNombre(a)}$ g$=${miseEnEvidence(texNombre(reponse, 2))}$ kg.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'kg' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'kg' })
             } else {
               texte += '  $\\ldots$ kg'
             }
@@ -508,7 +508,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             Comme : $${texNombre(a, 1)}\\times ${texNombre(1000)} =${texNombre(a * 1000)}$, alors $${texNombre(a, 1)}$ kg$=${miseEnEvidence(reponse)}$ g.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'g' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'g' })
             } else {
               texte += '  $\\ldots$ g'
             }
@@ -531,7 +531,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -543,7 +543,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -555,7 +555,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -567,7 +567,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
           }
           nbChamps = 1
@@ -652,7 +652,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'unité' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'unité' })
           } else {
             texte += ' <br>$\\ldots$ unité'
           }
@@ -671,7 +671,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteApres: 'h' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'h' })
           } else {
             texte += '$\\ldots$ h'
           }
@@ -689,7 +689,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'min' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'min' })
           } else {
             texte += '$\\ldots$ min'
           }
@@ -730,7 +730,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           nbChamps = 1
@@ -797,7 +797,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
@@ -811,7 +811,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texteCorr = ` $${texNombre(a)}+${texNombre(b)}=${miseEnEvidence(texNombre(a + b))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$ '
           }
@@ -831,7 +831,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texteCorr = `La taille d'une ${taille1[a][0]} est ${b} ${taille1[a][3]}`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueur]')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
           }
           nbChamps = 1
           break
@@ -844,7 +844,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
           texteCorr = `Le double de $${texNombre(a, 1)}$ est $2\\times ${texNombre(a, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: '.' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: '.' })
           } else {
             texte += '$\\ldots$'
           }
@@ -866,7 +866,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           break
@@ -883,7 +883,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
           } else {
             texte += '$\\ldots$ cm'
           }
@@ -902,7 +902,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'h' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
             }
           }
           if (choix === 'b') {
@@ -915,7 +915,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'min' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'min' })
             }
           }
           if (choix === 'c') {
@@ -927,7 +927,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = c * b
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: '€' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: '€' })
             }
           }
 
@@ -941,7 +941,7 @@ $${miseEnEvidence(a + 1)}$ h et $${miseEnEvidence(reponse)}$ min.`
             reponse = c * a
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'h' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'h' })
             }
           }
           nbChamps = 1

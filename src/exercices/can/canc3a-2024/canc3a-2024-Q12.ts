@@ -21,7 +21,7 @@ export default class SoustractionDecimauxCM2 extends Exercice {
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = false
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

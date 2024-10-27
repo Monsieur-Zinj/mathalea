@@ -320,7 +320,7 @@ export default function CalculsDeDureesOuHoraires () {
       }
       if (this.interactif) {
         texte += '<br><br>'
-        texte += ajouteChampTexteMathLive(this, i, 'clavierHms inline', { texteAvant: texteInteractif + ' : ' })
+        texte += ajouteChampTexteMathLive(this, i, 'clavierHms ', { texteAvant: texteInteractif + ' : ' })
       }
 
       if (this.questionJamaisPosee(i, texte)) {

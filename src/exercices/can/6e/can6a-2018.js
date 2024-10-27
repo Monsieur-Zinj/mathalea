@@ -83,7 +83,7 @@ export default function SujetCAN20186ieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -105,7 +105,7 @@ export default function SujetCAN20186ieme () {
           reponse = a + b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -147,7 +147,7 @@ export default function SujetCAN20186ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -166,7 +166,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -195,7 +195,7 @@ export default function SujetCAN20186ieme () {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -210,7 +210,7 @@ export default function SujetCAN20186ieme () {
 
           texteCorr = `Un quart d'heure est égal à $15$ minutes. Ainsi $${a}$ h $${b}$ min + $15$ min est égal à $${miseEnEvidence(a)}$ h $${miseEnEvidence(b + 15)}$ min.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
           }
 
           setReponse(this, index, new Hms({ hour: a, minute: reponse }), { formatInteractif: 'hms' })
@@ -232,7 +232,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -276,7 +276,7 @@ export default function SujetCAN20186ieme () {
           texteCorr = `L'unité est divisée en $${a}$. Ainsi, le point d'interrogation est   $\\dfrac{${miseEnEvidence(b)}}{${miseEnEvidence(a)}}$.`
           handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: true } } })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -298,7 +298,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + ' g'
+            texte += `$${a * k}$ ${truc} pèsent ` + ajouteChampTexteMathLive(this, index, ' ') + ' g'
           } else {
             texte += `$${a * k}$ ${truc} pèsent ....... g.`
           }
@@ -320,7 +320,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -339,7 +339,7 @@ export default function SujetCAN20186ieme () {
           reponse = arrondi(10 * a + b / 100, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.canEnonce = texte
@@ -358,7 +358,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -402,7 +402,7 @@ export default function SujetCAN20186ieme () {
           texteCorr = `L'unité est divisée en $5$. Ainsi, l'abscisse du point $A$ est $\\dfrac{${a}}{5}=${miseEnEvidence(texNombre(reponse))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.canEnonce = texte
@@ -427,7 +427,7 @@ export default function SujetCAN20186ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           } else {
             texte += '$\\ldots$'
           }
@@ -452,7 +452,7 @@ export default function SujetCAN20186ieme () {
           On a $${a}\\div ${b}=${k}$. Ainsi, le fleuriste pourra composer $${miseEnEvidence(k)}$ bouquets identiques.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -482,7 +482,7 @@ export default function SujetCAN20186ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           } else {
             texte += '$\\ldots$'
           }
@@ -504,7 +504,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -557,7 +557,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' cm$^2$'
+            texte += ajouteChampTexteMathLive(this, index, '') + ' cm$^2$'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\mathscr{A}=\\ldots\\ldots$ cm$^2$'
@@ -574,7 +574,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -599,7 +599,7 @@ export default function SujetCAN20186ieme () {
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
             texte += '<br>Écrire les entiers dans l’ordre croissant, séparés par un point-virgule.'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = 'Encadre la fraction par deux entiers consécutifs.'
           this.canReponseACompleter = `$\\ldots < \\dfrac{${n1}}{${d1}} < \\ldots$`
@@ -623,7 +623,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + ' œufs.'
+            texte += ajouteChampTexteMathLive(this, index, ' ') + ' œufs.'
           } else {
             texte += ' ....  œufs.'
           }
@@ -650,7 +650,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01') + ' g.'
+            texte += ajouteChampTexteMathLive(this, index, ' ') + ' g.'
           } else {
             texte += ' ....  g.'
           }
@@ -677,7 +677,7 @@ export default function SujetCAN20186ieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -689,7 +689,7 @@ export default function SujetCAN20186ieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -701,7 +701,7 @@ export default function SujetCAN20186ieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           }
 
@@ -713,7 +713,7 @@ export default function SujetCAN20186ieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
           }
           this.canEnonce = texte
@@ -736,7 +736,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' €'
+            texte += ajouteChampTexteMathLive(this, index, '') + ' €'
           }
 
           this.canEnonce = texte
@@ -796,7 +796,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'cm'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ cm'
@@ -814,7 +814,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += '$\\ldots$'
           }
@@ -837,7 +837,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -854,7 +854,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'L'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'L'
           } else {
             texte += '$\\ldots$ L'
           }
@@ -879,7 +879,7 @@ export default function SujetCAN20186ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -898,7 +898,7 @@ export default function SujetCAN20186ieme () {
           reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''

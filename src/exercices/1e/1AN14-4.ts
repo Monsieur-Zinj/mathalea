@@ -106,7 +106,7 @@ class DerivationSommesSimples extends Exercice {
         }
         laDerivee += f.derivee
       }
-      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction}$.<br>` + ajouteChampTexteMathLive(this, i, 'nospacebefore inline largeur01 ' + KeyboardType.clavierDeBaseAvecX + ' ' + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
+      const texte = `Donner l'expression de la dérivée de la fonction $f$ définie sur $${df}$ par $f(x)=${laFonction}$.<br>` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX + KeyboardType.clavierFullOperations, { texteAvant: '$f\'(x)=$' })
       let texteCorr = ''
       if (this.correctionDetaillee) {
         for (const f of fonctionsMelangees) {

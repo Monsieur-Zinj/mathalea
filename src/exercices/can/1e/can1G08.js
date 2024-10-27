@@ -26,7 +26,7 @@ export const refs = {
 export default function VecteurNormEqCart () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -44,9 +44,9 @@ export default function VecteurNormEqCart () {
  Donner les coordonnées d'un vecteur normal $\\vec{u}$ de la droite $d$.<br>`
 
       if (this.interactif) {
-        texte += '$\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+        texte += '$\\Bigg($' + ajouteChampTexteMathLive(this, 2 * i, '')
         texte += ` ${sp(1)} ;  `
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline') + '$\\Bigg)$'
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '') + '$\\Bigg)$'
 
         setReponse(this, 2 * i, a)
         setReponse(this, 2 * i + 1, b)

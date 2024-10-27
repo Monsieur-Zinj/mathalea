@@ -168,7 +168,7 @@ export default class ExerciceAdditionnerDesFractions extends Exercice {
       // Fin de cette uniformisation
 
       reponse = fraction(num, den).simplifie()
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
 
       if (context.isAmc) {

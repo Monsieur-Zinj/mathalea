@@ -26,7 +26,7 @@ export default function RecomposerEntierSimple () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const c = randint(2, 30)
     const d = randint(2, 30)

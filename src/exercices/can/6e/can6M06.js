@@ -32,7 +32,7 @@ export default function Perimetre () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
 
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const nom = creerNomDePolygone(4, ['QD'])
     const a = randint(3, 6)//

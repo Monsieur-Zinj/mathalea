@@ -161,7 +161,7 @@ export default function ExerciceDecomposerEnFacteursPremiers () {
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+      texte += ajouteChampTexteMathLive(this, i, ' ')
       if (!context.isAmc) {
         setReponse(this, i, [reponse, produitAvecPuissances])
       }

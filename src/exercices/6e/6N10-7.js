@@ -597,14 +597,14 @@ export default function RecomposerEntierC3 () {
           break
       }
       if (listeTypeDeQuestions[i] < 12 && listeTypeDeQuestions[i] > 8) {
-        texte += ajouteChampTexteMathLive(this, i, `largeur01 nospacebefore ${KeyboardType.numbersSpace}`, { espace: true, texteAvant: ' $=$ ' })
+        texte += ajouteChampTexteMathLive(this, i, `  ${KeyboardType.numbersSpace}`, { espace: true, texteAvant: ' $=$ ' })
         handleAnswers(this, i, { reponse: { value: listeReponses[0][1], compare: fonctionComparaison, options: { nombreAvecEspace: true } } })
       } else {
         texte += remplisLesBlancs(
           this,
           i,
           formule.substring(0, formule.length - 1),
-          'inline largeur01 nospacebefore ' + KeyboardType.numbersSpace,
+          KeyboardType.numbersSpace,
           blanc
         )
         // bareme est une fonction qui retourne [nbBonnesReponses, nbReponses]

@@ -85,7 +85,7 @@ export default function CalculerDesMoyennes () {
       }
       if (this.interactif) {
         texte += ' Si besoin, on arrondira au dixième.<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, '')
         setReponse(this, i, reponse, {
           digits: 5,
           digitsNum: 3,

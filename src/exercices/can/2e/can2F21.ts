@@ -25,7 +25,7 @@ export default class seuilFctAff extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
   }

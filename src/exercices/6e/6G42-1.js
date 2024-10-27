@@ -193,7 +193,7 @@ export default function LireFacePaveDroit () {
           texte += propositionsQcm(this, indiceQuestion).texte
         } else {
           setReponse(this, indiceQuestion, resultatsPossibles, { formatInteractif: 'texte' })
-          texte += ajouteChampTexteMathLive(this, indiceQuestion, 'largeur01 inline ') + KeyboardType.alphanumeric + '<br>'
+          texte += ajouteChampTexteMathLive(this, indiceQuestion, ' ') + KeyboardType.alphanumeric + '<br>'
         }
         if (context.isAmc) {
           this.autoCorrection[i].propositions.push(

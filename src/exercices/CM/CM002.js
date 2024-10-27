@@ -66,17 +66,17 @@ export default function TablesDeDivisions (tablesParDefaut = '2-3-4-5-6-7-8-9') 
       if (typeDeQuestions === 'classique') {
         // classique
         texte = '$ ' + a * b + ' \\div ' + a + ' =$'
-        if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div ${a} = $` + ajouteChampTexteMathLive(this, i, '')
         setReponse(this, i, b)
       } else {
         // a trous
         if (choice([true, false])) {
           texte = `$ ${a * b} \\div \\ldots\\ldots = ${b}$`
-          if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline') + `$ = ${b} $`
+          if (this.interactif && context.isHtml) texte = `$ ${a * b} \\div $` + ajouteChampTexteMathLive(this, i, '') + `$ = ${b} $`
           setReponse(this, i, a)
         } else {
           texte = `$ \\ldots\\ldots \\div ${a}  = ${b}$`
-          if (this.interactif && context.isHtml) texte = ajouteChampTexteMathLive(this, i, 'largeur01 inline') + `$ \\div ${b} = ${a} $`
+          if (this.interactif && context.isHtml) texte = ajouteChampTexteMathLive(this, i, '') + `$ \\div ${b} = ${a} $`
           setReponse(this, i, a * b)
         }
       }

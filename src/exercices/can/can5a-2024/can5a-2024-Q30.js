@@ -26,10 +26,10 @@ export default class NomExercice extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.formatInteractif = 'calcul'
     this.canOfficielle = false
-    // this.question += ajouteChampTexteMathLive(this, 0, 'inline largeur01 nospacebefore', { texteAvant: '$=$' })
+    // this.question += ajouteChampTexteMathLive(this, 0, ' ', { texteAvant: '$=$' })
   }
 
   nouvelleVersion () {

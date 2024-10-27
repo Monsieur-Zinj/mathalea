@@ -237,7 +237,7 @@ export default function DecompositionFacteursPremiers () {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
+      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: `<br> <b>Écrire les facteurs premiers dans l'ordre croissant et la décomposition à l'aide de puissances lorsque l'exposant est supérieur ou égal à deux.</b> <br> La décomposition de $${texNombre(nombre)}$ est : ` })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

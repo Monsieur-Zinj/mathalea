@@ -31,7 +31,7 @@ export const refs = {
 export default function EncadrerTableau () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -97,7 +97,7 @@ export default function EncadrerTableau () {
         question1 += `  <br>
       Encadrer le plus précisément possible $f(x)$ lorsque $x\\in[${x1}\\,;\\,${x3}]$.`
         if (this.interactif) {
-          question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + '$\\leqslant f(x)\\leqslant$ ' + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur01 nospacebefore')
+          question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + '$\\leqslant f(x)\\leqslant$ ' + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
         }
         this.canEnonce += `<br>
         Encadrer le plus précisément possible $f(x)$  lorsque  $x\\in[${x1};${x3}]$.`
@@ -134,7 +134,7 @@ export default function EncadrerTableau () {
       } else {
         question1 += `<br>Encadrer le plus précisément possible $f(x)$ lorsque $x\\in[${x2}\\,;\\,${x4}]$.`
         if (this.interactif) {
-          question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + '$\\leqslant f(x)\\leqslant$ ' + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur01 nospacebefore')
+          question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + '$\\leqslant f(x)\\leqslant$ ' + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
         }
         this.canEnonce += `<br>Encadrer le plus précisément possible $f(x)$ lorsque $x\\in[${x2}\\,;\\,${x4}]$.`
         this.canReponseACompleter = '$\\ldots \\leqslant f(x)\\leqslant \\ldots$'

@@ -318,7 +318,7 @@ export default function SimplifierEcritureLitterale () {
       reponse = reponse.replace(/\s/g, '') // En retirant les espaces
       reponse = reponse.replace(/\\timesx/g, '\\times x') // Et en les remettant entre les times et les x
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$ ' })
+        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$ ' })
       }
       if (!this.sup2) {
         handleAnswers(this, i, { reponse: { value: reponse }, compare: fonctionComparaison })

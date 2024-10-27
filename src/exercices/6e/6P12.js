@@ -189,7 +189,7 @@ function questionAchat (exo, i) { // questions d'origine du 6P11 : achat.
   }
   const texte = `${prenoms[0]} a repéré, ${listeDeLieux[index1]}, des ${objet} qui l'intéressent.<br>
   Elle lit que $${n}$ ${objet} coûtent $${texPrix(x)}$ €. Elle veut en acheter $${y}$.<br>
-  Combien va-t-elle dépenser ?` + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' €' })
+  Combien va-t-elle dépenser ?` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' €' })
   const texteCorr = `Commençons par trouver le prix d'${listeDeChose[index1][index2]}. <br>` +
         `Si $${n}$ ${objet} coûtent $${texPrix(x)}$ €, alors ${listeDeChose[index1][index2]} coûte $${miseEnCouleur(n)}$ fois moins cher.<br>` +
         `$${texPrix(x)}$ € $ \\div ${miseEnCouleur(n)} = ${texPrix(x / n)} $ € <br>` +
@@ -243,7 +243,7 @@ function questionRecette (exo, i) { // questions avec des masses pour un nombre 
   const prenoms = [prenomF(), prenomM()] // Choix de prénoms pour l'énoncé
   const texte = `${prenoms[0]} lit sur sa recette de ${liste[alea1].recettes[alea2]} pour ${nbPersonneInit} personnes qu'il faut ${stringNombre(quantite)} g de ${liste[alea1].ingredient}. <br>` +
         `Elle veut adapter sa recette pour ${nbPersonneFinal} personnes.` +
-        `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' g' })
+        `<br> Quelle masse de ${liste[alea1].ingredient} doit-elle prévoir ?` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' g' })
   const texteCorr = `Commençons par trouver la masse de ${liste[alea1].ingredient} pour une personne. <br>` +
         ` ${nbPersonneInit} personnes, c'est ${texteEnCouleur(nbPersonneInit)} fois 1 personne. ` +
         `il faut donc ${texteEnCouleur(nbPersonneInit)} fois moins que ${stringNombre(quantite)} g pour 1 personne.<br>` +
@@ -312,7 +312,7 @@ function questionDillution (exo, i) { // questions de mélange de volumes
   const texte = `Il est indiqué sur la bouteille de ${liste[alea1].solute} qu'il faut ` +
         ` ${stringNombre(quantite)} ${liste[alea1].unite_solute} de  ${liste[alea1].solute} pour ${volumeInitialAff} ${liste[alea1].unite_solvant[1]} d'eau.<br> ` +
         `On veut utiliser ${volumeFinalAff} ${uniteSolvantVolumeFinal} d'eau.` +
-        `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' ' + liste[alea1].unite_solute })
+        `<br> Quel volume de ${liste[alea1].solute} doit-on prévoir ? ` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite_solute })
 
   const texteCorr = `Commençons par trouver combien est-ce qu'il faut de ${liste[alea1].solute} pour 1 ${liste[alea1].unite_solvant[0]} d'eau. <br>` +
         ` ${volumeInitial} ${liste[alea1].unite_solvant[1]} d'eau, c'est ${texteEnCouleur(volumeInitial)} fois 1 ${liste[alea1].unite_solvant[0]} d'eau. ` +
@@ -364,7 +364,7 @@ function questionDistance (exo, i) { // questions de distance parcourue à une v
   const dureeR = couplePremiersEntreEux[indexN][1]
   const alea2 = randint(0, liste[alea1].vitesse.length - 1) // pour le facteur de distance parcourue
   const texte = `Un ${liste[alea1].locomotion} parcourt en moyenne $${stringNombre(liste[alea1].vitesse[alea2] * dureeQ * facteur)}$ km en ${dureeQ} heures.
-  <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' km' })
+  <br> Quelle distance va-t-il parcourir, à la même vitesse, en ${dureeR} heures ?` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' km' })
 
   const texteCorr = `Commençons par trouver quelle est la distance parcourue en 1h. <br>
   1 h, c'est ${texteEnCouleur(dureeQ)} fois moins que ${dureeQ} h.
@@ -394,7 +394,7 @@ function questionEchelle (exo, i) { // X cm sur une carte correspond à x km dan
   const prenoms = [prenomF(), prenomM()]
   const texte = `Sur une carte sur laquelle ${distanceCarte} cm représente ${stringNombre(distanceReel)} km dans la réalité, <br>
   ${prenoms[0]} mesure son trajet et elle trouve une distance de ${distanceCarte2} cm. <br>` +
-        'À quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' km' })
+        'À quelle distance cela correspond dans la réalité ?' + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' km' })
 
   const texteCorr = `Commençons par trouver à combien de km dans la réalité, 1 cm sur la carte correspond. <br>
   1 cm, c'est ${texteEnCouleur(distanceCarte)} fois moins que ${distanceCarte} cm.<br>` +
@@ -456,7 +456,7 @@ function questionRecouvrirSurface (exo, i) { // peinture, gazon, carrelage pour 
   const qttaffichage = stringNombre(quantite) // Pour affichage avec virgule en séparateur.
   const texte = `${prenoms[0]} doit acheter ${liste[alea1].matiere}. <br>` +
         `Sur la notice, il est indiqué de prévoir ${qttaffichage} ${liste[alea1].unite} pour ${stringNombre(surfaceInitiale)} m$^2$. <br> ` +
-        `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)} m$^2$ ?` + ajouteChampTexteMathLive(exo, i, 'largeur01 inline', { texteApres: ' ' + liste[alea1].unite })
+        `Combien doit-elle en acheter pour une surface de ${stringNombre(surfaceFinale)} m$^2$ ?` + ajouteChampTexteMathLive(exo, i, '', { texteApres: ' ' + liste[alea1].unite })
 
   const texteCorr = `Commençons par trouver combien de ${liste[alea1].unite} il faut prévoir pour 1 m$^2$. <br>
   1 m$^2$, c'est ${texteEnCouleur(stringNombre(surfaceInitiale))} fois moins que ${stringNombre(surfaceInitiale)} m$^2$.<br>` +

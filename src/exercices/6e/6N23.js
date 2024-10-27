@@ -56,7 +56,7 @@ export default function ExerciceEcritureDecimaleApartirDeFractionDecimale () {
       this.autoCorrection[i].reponse.param.decimals = 3
       texte = context.isAmc ? 'Donner l\'écriture décimale de ' : ''
       texte += `$${texFractionFromString(texNombre(a), texNombre(b))}$`
-      texte += context.isAmc ? '.' : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, 'largeur01 inline')}`
+      texte += context.isAmc ? '.' : `${!this.interactif ? '$ = \\dotfill $' : '$=$' + ajouteChampTexteMathLive(this, i, '')}`
       texteCorr =
                 '$ ' +
                 texFractionFromString(texNombre(a), texNombre(b)) +

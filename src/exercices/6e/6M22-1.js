@@ -155,11 +155,11 @@ export default function PerimetreAireDisques (pa = 3) {
           if (context.isHtml && this.interactif) {
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 2 * i : i, [stringNombre(reponseL1) + '\\pi', stringNombre(reponseL1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseL1)], { formatInteractif: 'texte' })
-              texte += 'Valeur exacte du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, 'largeur01 inline nospacebefore', { texteApres: ' cm' })
+              texte += 'Valeur exacte du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, ' ', { texteApres: ' cm' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 2 * i + 1 : i, [reponseL2, reponseL2bis], { formatInteractif: 'calcul' })
-              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, 'largeur01 inline nospacebefore nospacebefore', { texteApres: ' cm' })
+              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, '   ', { texteApres: ' cm' })
             }
           } else {
             this.autoCorrection[i] = {
@@ -208,11 +208,11 @@ export default function PerimetreAireDisques (pa = 3) {
           if (context.isHtml && this.interactif) {
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 2 * i : i, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
-              texte += 'Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, 'largeur01 inline nospacebefore', { texteApres: ' cm²' })
+              texte += 'Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i : i, ' ', { texteApres: ' cm²' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 2 * i + 1 : i, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
-              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, 'largeur01 inline nospacebefore nospacebefore', { texteApres: ' cm²' })
+              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 2 * i + 1 : i, '   ', { texteApres: ' cm²' })
             }
           } else {
             this.autoCorrection[i] = {
@@ -261,19 +261,19 @@ export default function PerimetreAireDisques (pa = 3) {
           if (context.isHtml && this.interactif) {
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 4 * i : 2 * i, [stringNombre(reponseL1) + '\\pi', stringNombre(reponseL1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseL1)], { formatInteractif: 'texte' })
-              texte += 'Valeur exacte du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i : 2 * i, 'largeur01 inline nospacebefore', { texteApres: ' cm' })
+              texte += 'Valeur exacte du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i : 2 * i, ' ', { texteApres: ' cm' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 4 * i + 1 : i, [reponseL2, reponseL2bis], { formatInteractif: 'calcul' })
-              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 1 : 2 * i, 'largeur01 inline nospacebefore', { texteApres: ' cm' })
+              texte += (this.sup3 === 4 ? '<br>' : '') + 'Valeur approchée du périmètre : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 1 : 2 * i, ' ', { texteApres: ' cm' })
             }
             if (choixValeurExacte) {
               setReponse(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, [stringNombre(reponseA1) + '\\pi', stringNombre(reponseA1) + '\\times\\pi', '\\pi\\times' + stringNombre(reponseA1)], { formatInteractif: 'texte' })
-              texte += '<br>Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, 'largeur01 inline nospacebefore', { texteApres: ' cm²' })
+              texte += '<br>Valeur exacte de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 2 : 2 * i + 1, ' ', { texteApres: ' cm²' })
             }
             if (choixValeurApprochee) {
               setReponse(this, this.sup3 === 4 ? 4 * i + 3 : i, [reponseA2, reponseA2bis], { formatInteractif: 'calcul' })
-              texte += '<br>Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 3 : 2 * i + 1, 'largeur01 inline nospacebefore', { texteApres: ' cm²' })
+              texte += '<br>Valeur approchée de l\'aire : ' + ajouteChampTexteMathLive(this, this.sup3 === 4 ? 4 * i + 3 : 2 * i + 1, ' ', { texteApres: ' cm²' })
             }
           } else {
             this.autoCorrection[i] = {

@@ -257,8 +257,8 @@ export default function UnitesDeVolumesEtDeCapacite () {
       } else if (this.interactif && this.interactifType === 'mathLive') {
         uniteFinale = listeTypeDeQuestions[i].split('to')[1]
         uniteFinale = uniteFinale === 'L' ? sp() + '$\\text{L}$' : sp() + `$ \\text{${uniteFinale.split('3')[0]}}^3$`
-        // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, 'inline', {
-        texte = texte.split('\\dotfill')[0] + `$${ajouteChampTexteMathLive(this, i, 'inline largeur01', {
+        // texte = texte.replace('\\dotfill', `$${ajouteChampTexteMathLive(this, i, '', {
+        texte = texte.split('\\dotfill')[0] + `$${ajouteChampTexteMathLive(this, i, '', {
 
                     texteApres: uniteFinale
                 })}`

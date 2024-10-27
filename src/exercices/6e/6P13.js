@@ -169,7 +169,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           enonceInit = texte
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de la réduction est :` : `${numAlpha(0)} Calculer le montant de la réduction.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteApres: ' €.' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc && this.interactif) {
             handleAnswers(this, 2 * i, { reponse: { value: String(montantReduction), compare: fonctionComparaison } })
@@ -198,7 +198,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           }
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Finalement, ${prenom1} paiera ${situation.quoiReponse} :` : `${numAlpha(1)} Calculer le prix de ${situation.quoiReponse}.`
           texte += enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteApres: ' €.' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
             handleAnswers(this, 2 * i + 1, { reponse: { value: String(prixFinal), compare: fonctionComparaison } })
           } else {
@@ -240,7 +240,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           enonceInit = `${situation.quoi} ${prenom2} coûte $${prixIntial}$${sp()}€. Au 1er janvier, ${situation.verbe} de $${texNombre(pourcent, 1)}${sp()}\\%$.`
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(0)} Le montant de l'augmentation est :` : `${numAlpha(0)} Calculer le montant de l'augmentation.`
           texte = enonceInit + '<br>' + enonceAMC
-          texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline nospacebefore', { texteApres: ' €.' })
+          texte += ajouteChampTexteMathLive(this, 2 * i, ' ', { texteApres: ' €.' })
           texte += '<br>'
           if (!context.isAmc) {
             handleAnswers(this, 2 * i, { reponse: { value: texNombre(montantAugmentation, 2), compare: fonctionComparaison } })
@@ -269,7 +269,7 @@ export default function AugmenterEtReduireDunPourcentage () {
           }
           enonceAMC = (this.interactif && context.isHtml) ? `${numAlpha(1)} Au 1er janvier, ${prenom2} paiera ${situation.quoiReponse} :` : `${numAlpha(1)} Calculer le montant au 1er janvier de ${situation.quoiReponse}.`
           texte += enonceAMC
-          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore', { texteApres: ' €.' }) : ''
+          texte += (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, 2 * i + 1, ' ', { texteApres: ' €.' }) : ''
           if (!context.isAmc) {
             handleAnswers(this, 2 * i + 1, { reponse: { value: texNombre(prixFinal, 2), compare: fonctionComparaison } })
           } else {

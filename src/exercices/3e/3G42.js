@@ -128,7 +128,7 @@ export default function VolumeBoule () {
           break
       }
       setReponse(this, i, new Grandeur(reponse.toNumber(), `${choixUnites}^3`), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueurs,Aires,Volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à préciser l\'unité dans le volume-réponse : ' })
+      texte += ajouteChampTexteMathLive(this, i, ' unites[Longueurs,Aires,Volumes]', { texteAvant: '<br>' + sp(12) + 'Il faut penser à préciser l\'unité dans le volume-réponse : ' })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte,

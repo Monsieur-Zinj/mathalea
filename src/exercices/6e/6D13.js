@@ -48,11 +48,11 @@ export default function ConversionHeuresMinutesOuMinutesEtSecondes (can = false)
       b = randint(10, 59)
       d = calculANePlusJamaisUtiliser(a * 60 + b)
       if (listeTypeQuestions[i] === 'min vers h et min') {
-        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
+        texte = `Convertir $${d}$ minutes en heures (h) et minutes (min).` + ajouteChampTexteMathLive(this, i, ' clavierHms')
         this.canEnonce = `Convertir $${d}$ minutes en heures et minutes.`
         this.canReponseACompleter = '$\\ldots$ h $\\ldots$ min'
       } else {
-        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, 'inline clavierHms')
+        texte = `Convertir $${d}$ secondes en minutes (min) et secondes (s).` + ajouteChampTexteMathLive(this, i, ' clavierHms')
         this.canEnonce = `Convertir $${d}$ secondes en minutes et secondes.`
         this.canReponseACompleter = '$\\ldots$ min $\\ldots$ s'
       }

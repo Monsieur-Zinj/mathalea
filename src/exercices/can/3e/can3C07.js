@@ -27,7 +27,7 @@ export default function MilieuEntre1EtFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(1, 5)
     const c = randint(1, 9)

@@ -55,7 +55,7 @@ export default function EcritureDecimalePuissanceDe10 () {
         case '+':
           n = randint(1, 10)
           texte = this.interactif
-            ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+            ? `$10^{${n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, '')
             : `$10^{${n}}${sp()}=${sp()}\\dots$`
           setReponse(this, i, Decimal.pow(10, n))
           if (n < 2) {
@@ -71,7 +71,7 @@ export default function EcritureDecimalePuissanceDe10 () {
         case '-':
           n = randint(1, 10)
           texte = this.interactif
-            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+            ? `$10^{${-n}}${sp()}=$` + ajouteChampTexteMathLive(this, i, ' ')
             : `$10^{${-n}}${sp()}=${sp()}\\dots$`
           handleAnswers(this, i, { reponse: { value: texNombre(Decimal.pow(10, -n), n), compare: fonctionComparaison, options: { nombreDecimalSeulement: true } } })
           if (context.isHtml) {

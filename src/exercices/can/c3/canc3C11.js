@@ -26,7 +26,7 @@ export default function CalculMoitieImpair () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierNumbers
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(3, 48) * 2 + 1
 

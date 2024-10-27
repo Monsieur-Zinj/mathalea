@@ -127,7 +127,7 @@ export default function FactoriserIdentitesRemarquables3 () {
           texteCorr += etape === lettreDepuisChiffre(i + 1) ? '' : `$${lettreDepuisChiffre(i + 1)} = ${etape}$ <br>`
         })
       }
-      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
+      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, a, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

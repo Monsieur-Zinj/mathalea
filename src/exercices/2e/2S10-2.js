@@ -293,7 +293,7 @@ export default function Proportions () {
         this.autoCorrection[i].reponse.textePosition = 'left'
         this.autoCorrection[i].reponse.texte = '\\\\En \\% : '
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : '' })
+      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: listeTypeDeQuestions[i] === 'proportion' ? ' %' : '' })
       // à cause de ajouteChampTexteMathLive qui inclus un Id unique, toutes les questions sont différentes, comparer les textes ne suffit plus
       if (this.questionJamaisPosee(i, taux, totale, sous)) { // on utilise donc cette fonction basée sur les variables aléatoires pour éviter les doublons
         this.listeQuestions.push(texte)

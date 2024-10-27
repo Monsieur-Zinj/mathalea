@@ -440,7 +440,7 @@ export default function TrouverChiffre () {
       }
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { suiteDeNombres: true } } })
 
-      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierEnsemble)) : ''
+      texte += this.interactif ? ('<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)) : ''
       if (this.questionJamaisPosee(i, nbAvecChiffreCache)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

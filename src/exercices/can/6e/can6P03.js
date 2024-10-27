@@ -23,7 +23,7 @@ export default function QuestionDeVitesse () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.optionsChampTexte = { texteApres: ' km' }
   this.nouvelleVersion = function () {
     const a = randint(2, 6) * 20

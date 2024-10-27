@@ -110,7 +110,7 @@ export default class AnglesEtVocabulaire extends Exercice {
           texte += ajouteChampTexteMathLive(
             this,
             i,
-            `inline ${KeyboardType.nombresEtDegre}`
+            ` ${KeyboardType.nombresEtDegre}`
           )
         }
         this.listeQuestions.push(texte)

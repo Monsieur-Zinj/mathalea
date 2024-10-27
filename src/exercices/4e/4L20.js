@@ -292,7 +292,7 @@ export default function ExerciceEquation1 () {
           break
       }
       texteCorr += `<br> La solution de l'équation ${texte} est $${miseEnEvidence(reponse.texFSD)}$.`
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: `<br>$ ${inconnue} = $ ` })
+      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: `<br>$ ${inconnue} = $ ` })
       setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
       if (this.questionJamaisPosee(i, a, b, c, listeTypeDeQuestions[i])) {

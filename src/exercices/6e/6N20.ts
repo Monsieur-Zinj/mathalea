@@ -154,7 +154,7 @@ export default class ExerciceFractionsDecomposer extends Exercice {
                 '$ ' + texFraction(a, b) + ' = ' + n + '+' + texFraction(c, b) + ' $'
 
       if (this.interactif) {
-        texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`, 'inline clavierDeBaseAvecFraction fillInTheBlank')
+        texte = remplisLesBlancs(this, i, `\\dfrac{${a}}{${b}}~=~%{champ1} + \\dfrac{%{champ2}}{%{champ3}}`, ' clavierDeBaseAvecFraction fillInTheBlank')
         handleAnswers(this, i, {
           champ1: { value: String(n) },
           champ2: { value: String(c) },

@@ -65,7 +65,7 @@ export default function MultiplierDecimaux () {
         type: 'multiplication',
         style: 'display: inline'
       })
-      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (context.isHtml && this.interactif) texte += '$~=$' + ajouteChampTexteMathLive(this, i, '')
       setReponse(this, i, reponse)
       this.autoCorrection[i].options = {
         digits: 0,

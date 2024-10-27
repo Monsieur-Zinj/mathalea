@@ -28,7 +28,7 @@ export default function MultiplierParPuissanceDixNeg () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.besoinFormulaireNumerique = ['Multiplier ou diviser', 3, '1 : Multiplier\n2 : Diviser\n3 : Mélange']
   this.sup = 3
   this.nouvelleVersion = function () {

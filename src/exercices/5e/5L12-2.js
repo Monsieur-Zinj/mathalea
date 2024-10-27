@@ -134,7 +134,7 @@ export default function ReduireUneExpressionLitterale () {
       */
       texteCorr += `=${miseEnEvidence(reponse)}$`
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: sp() + '= ' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: sp() + '= ' })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

@@ -814,7 +814,7 @@ export default function UnionEtIntersectionIntervallesDeR () {
       }, listeObjets)
       if (this.questionJamaisPosee(i, a, b, c)) { // Si la question n'a jamais été posée, on en créé une autre
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, `largeur01 ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`)
+          texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.clavierCompare} ${KeyboardType.clavierEnsemble}`)
           handleAnswers(this, i, { reponse: { value: aRemplacer, compare: fonctionComparaison, options: { intervalle: true } } })
         }
         this.listeQuestions.push(texte)

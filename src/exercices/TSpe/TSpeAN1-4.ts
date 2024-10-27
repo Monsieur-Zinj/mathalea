@@ -68,8 +68,8 @@ export default class EquationsLog extends Exercice {
       let intervalle: [FractionEtendue, FractionEtendue]
       if (listeTypeQuestions[i] === 1) { // log(ax+b)=n
         texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${n}$.<br>`
-        texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` + ajouteChampTexteMathLive(this, 2 * i, `inline largeur01 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
-        texte += `<br>${numAlpha(1)} Donner la solution de cette équation.` + ajouteChampTexteMathLive(this, 2 * i + 1, `inline largeur01 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
+        texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.` + ajouteChampTexteMathLive(this, 2 * i, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
+        texte += `<br>${numAlpha(1)} Donner la solution de cette équation.` + ajouteChampTexteMathLive(this, 2 * i + 1, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+^{*}$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ doit être strictement positif.<br>`
         const f1 = new FractionEtendue(-b, a)
         const fracMoinsBsurA = f1.texFractionSimplifiee
@@ -96,8 +96,8 @@ export default class EquationsLog extends Exercice {
         }
       } else { // log(ax+b)=log(cx+d)
         texte = `On demande de résoudre l'équation suivante : $${logString}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${logString}(${rienSi1(c)}x${ecritureAlgebrique(d)})$.<br>`
-        texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i, `inline largeur01 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
-        texte += `${numAlpha(1)} Donner la solution de cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i + 1, `inline largeur01 ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
+        texte += `${numAlpha(0)} Déterminer le domaine sur lequel on peut résoudre cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{D}_f=$' })
+        texte += `${numAlpha(1)} Donner la solution de cette équation.<br>` + ajouteChampTexteMathLive(this, 2 * i + 1, ` ${KeyboardType.lycee} ${KeyboardType.clavierEnsemble}`, { texteAvant: '$\\mathcal{S}=$' })
         texteCorr = `${numAlpha(0)} Tout d'abord, la fonction $${logString}$ est définie sur $\\R_+$, donc $${rienSi1(a)}x${ecritureAlgebrique(b)}$ et $${rienSi1(c)}x${ecritureAlgebrique(d)}$ doivent être strictement positifs.<br>`
         const f2 = new FractionEtendue(-b, a)
         const f3 = new FractionEtendue(-d, c)

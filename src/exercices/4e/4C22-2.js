@@ -166,7 +166,7 @@ export default function ExerciceDiviserFractions () {
 
       reponse = fraction((signe === '-' ? -1 : 1) * a * d, b * c).simplifie()
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+        texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
         handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: true } } })
 
         if (context.isAmc) {

@@ -189,7 +189,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParExpression':
           texte += `Soit $${nomFonction}(x)=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}${ecritureAlgebrique(ordonneeOrigine)}$<br>`
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? coefficient.multiplieEntier(antecedent).texFraction : texNombre(coefficient * antecedent, 0)}${coeffRationnel ? fraction(ordonneeOrigine * coefficient.den, coefficient.den).ecritureAlgebrique : ecritureAlgebrique(ordonneeOrigine)}$<br>`
           texteCorr += `$\\phantom{f(${texNombre(antecedent, 0)})}=${coeffRationnel ? image.texFSD : texNombre(image, 0)}$`
@@ -202,7 +202,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(0)=${ordonneeOrigine}$, la fonction $${nomFonction}(x)=ax+b$ vérifie $a\\times 0 + b = b = ${ordonneeOrigine}$ et par suite $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$ vérifie $a\\times ${antecedent0}${ecritureAlgebrique(ordonneeOrigine)} = ${image0}$ soit $${antecedent0}a=${image0 - ordonneeOrigine}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0 - ordonneeOrigine, 0)}}{${antecedent0}}`
@@ -223,7 +223,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -253,7 +253,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coeffRationnel ? coefficient.texFSD : texNombre(coefficient)}x${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b${ecritureAlgebrique(ordonneeOrigine)}=${imageString}$.<br>`
           texteCorr += `On en déduit $${coefficientString}b=${imageString}${ecritureAlgebrique(-ordonneeOrigine)}`
           if (coeffRationnel) {
@@ -276,7 +276,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(0)=${ordonneeOrigine}$, la fonction $${nomFonction}(x)=ax+b$ vérifie $a\\times 0 + b = b = ${ordonneeOrigine}$ et par suite $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$ vérifie $a\\times ${antecedent0}${ecritureAlgebrique(ordonneeOrigine)} = ${image0}$ soit $${antecedent0}a=${image0 - ordonneeOrigine}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0 - ordonneeOrigine, 0)}}{${antecedent0}}`
@@ -307,7 +307,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -346,7 +346,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'expressionParValeurs':
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(0)=${ordonneeOrigine}$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           texteCorr += `Comme $${nomFonction}(0)=${ordonneeOrigine}$, la fonction $${nomFonction}(x)=ax+b$ vérifie $a\\times 0 + b = b = ${ordonneeOrigine}$ et par suite $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$.<br>`
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax${ecritureAlgebrique(ordonneeOrigine)}$ vérifie $a\\times ${antecedent0}${ecritureAlgebrique(ordonneeOrigine)} = ${image0}$ soit $${antecedent0}a=${image0 - ordonneeOrigine}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0 - ordonneeOrigine, 0)}}{${antecedent0}}`
@@ -368,7 +368,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'expressionParGraphique':
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$ et coupe l'axe des ordonnées en $(0;${ordonneeOrigine})$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -484,7 +484,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             : latexParPoint(`(${antecedent2};${image2String})`, point(positionCoord, N.y), 'black', 12, 20, '')
           texte += `La droite représentant la fonction affine $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0String})$ et par le point de coordonnées $(${stringNombre(antecedent2)};${image2String})$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -519,7 +519,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'expressionParValeurs2': {
           texte += `Soit $${nomFonction}$ la fonction affine telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$ et $${nomFonction}(${antecedent})=${imageString}$.<br>`
           texte += `Donner l'expression de  $${nomFonction}(x)$.`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+          texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           texteCorr += `La fonction $${nomFonction}(x)=ax+b$ est telle que `
           if (antecedent - antecedent0 > 0) {
             if (coeffRationnel) {

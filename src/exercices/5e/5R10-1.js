@@ -84,7 +84,7 @@ export default function DevinerNombreRelatif () {
           break
       }
       texteCorr = `Je suis $${texNombre(signe * (unite + dixieme / 10 + centieme / 100))}$.`
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline' + KeyboardType.clavierCompare)
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare)
 
       setReponse(this, i, arrondi(signe * (unite + dixieme / 10 + centieme / 100), 3), { signe: true })
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)

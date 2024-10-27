@@ -106,7 +106,7 @@ export default function MultiplierEntierPar101001000 () {
           texteCorr = `$${texNombre(a * b)}\\div${texNombre(b)}=${texNombre(a)}$`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: `${sp(2)}=` })
+      texte += ajouteChampTexteMathLive(this, i, ' college6eme', { texteAvant: `${sp(2)}=` })
       if (context.isAmc) {
         const nbDigitsSupplementaires = randint(0, 2)
         this.autoCorrection[i] = {

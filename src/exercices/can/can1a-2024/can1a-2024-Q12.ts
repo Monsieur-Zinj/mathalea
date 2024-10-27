@@ -21,7 +21,7 @@ export default class Fatorisation1 extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFractionPuissanceCrochets
     this.formatInteractif = 'calcul'
     this.compare = factorisationCompare
   }

@@ -457,8 +457,8 @@ export default function ExprimerCosSinTan () {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
           if (!context.isAmc) {
-            // texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric)
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
+            // texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, KeyboardType.alphanumeric)
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + ee, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
             setReponse(this, fonctionsTrigonometriques.length * i + ee, correctionTrigo[fonctionsTrigonometriques[ee]],
               { formatInteractif: 'texte' })
           } else {
@@ -476,12 +476,12 @@ export default function ExprimerCosSinTan () {
         for (let ee = 0; ee < fonctionsTrigonometriques.length; ee++) {
           if (!context.isAmc) {
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
             setReponse(this, 2 * fonctionsTrigonometriques.length * i + ee * 2, correctionTrigo[fonctionsTrigonometriques[ee]],
               { formatInteractif: 'texte' })
 
             texte += `<br>$${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + C.nom + B.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
             setReponse(this, 2 * fonctionsTrigonometriques.length * i + ee * 2 + 1, correctionTrigo[fonctionsTrigonometriques[ee] === 3 ? 4 : fonctionsTrigonometriques[ee] === 1 ? 2 : 1],
               { formatInteractif: 'texte' })
           } else {
@@ -505,11 +505,11 @@ export default function ExprimerCosSinTan () {
           texte += `Exprimer $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}(\\widehat{${A.nom + B.nom + C.nom}})$ de deux manières différentes.`
           if (!context.isAmc) {
             texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus grand, $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
             setReponse(this, fonctionsTrigonometriques.length * i + 2 * ee, correctionTrigo[fonctionsTrigonometriques[ee]],
               { formatInteractif: 'texte' })
             texte += `<br>Parmi deux triangles, dans le triangle rectangle le plus petit, $${nomFonctionsTrigonometriques[fonctionsTrigonometriques[ee]]}\\left(\\widehat{${A.nom + B.nom + C.nom}}\\right)=$`
-            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, 'inline nospacebefore largeur01 ' + KeyboardType.alphanumeric + ' ' + KeyboardType.clavierDeBaseAvecFraction)
+            texte += !this.interactif ? ' $\\ldots$' : ajouteChampTexteMathLive(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, KeyboardType.alphanumeric + KeyboardType.clavierDeBaseAvecFraction)
             texte += '<br>'
             setReponse(this, fonctionsTrigonometriques.length * i + 2 * ee + 1, correctionTrigoPointH[fonctionsTrigonometriques[ee]],
               { formatInteractif: 'texte' })

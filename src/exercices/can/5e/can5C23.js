@@ -25,7 +25,7 @@ export const refs = {
 export default function MultiplierPar () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {

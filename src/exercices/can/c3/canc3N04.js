@@ -25,7 +25,7 @@ export default function ArrondiUnite () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierDeBase
+  this.formatChampTexte = KeyboardType.clavierDeBase
   this.consigne = ''
 
   this.nouvelleVersion = function () {

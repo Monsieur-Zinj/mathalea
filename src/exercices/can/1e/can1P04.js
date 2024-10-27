@@ -106,7 +106,7 @@ export default function CalculProbaArbre2e () {
       texte += mathalea2d(Object.assign({ style: 'inline' }, fixeBordures(objets)), objets)
       texte += `<br>
       
-      $x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, 'largeur01 inline') : '\\ldots'}`
+      $x=$ ${(this.interactif || !context.isHtml) ? ajouteChampTexteMathLive(this, i, '') : '\\ldots'}`
       texteCorr = 'Comme $A$ et $\\bar A$ forment une partition de l\'univers, d\'après la loi des probabilités totales :<br>'
       texteCorr += '$P(C)=P(A \\cap C)+P(\\bar{A} \\cap C)$.<br>'
       texteCorr += `Or $P(\\bar{A} \\cap C)=P(\\bar{A}) \\times P_{\\bar{A}}(C)=${texProba(pB, false)}x$.<br>`

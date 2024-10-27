@@ -29,7 +29,7 @@ export default class esperance extends Exercice {
     this.nbQuestions = 1
     // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

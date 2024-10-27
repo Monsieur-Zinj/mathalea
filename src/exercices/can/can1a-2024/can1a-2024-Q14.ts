@@ -25,7 +25,7 @@ export default class EquationReduite extends Exercice {
     super()
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.canOfficielle = false
   }
 

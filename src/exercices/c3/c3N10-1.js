@@ -132,8 +132,8 @@ export default function RecomposerEntierC3 () {
             if (this.morceaux[i][k] !== '0') {
               if (this.interactif) {
                 texte += enLettre
-                  ? `${ajouteChampTexteMathLive(this, indexChamp, 'largeur01 ' + KeyboardType.clavierDeBase)}~${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}+`
-                  : `($${ajouteChampTexteMathLive(this, indexChamp, 'largeur01 ' + KeyboardType.clavierDeBase)}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
+                  ? `${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase)}~${glossaire[this.exposantMorceaux[i][k]][this.morceaux[i][k] > 1 ? 1 : 0]}+`
+                  : `($${ajouteChampTexteMathLive(this, indexChamp, KeyboardType.clavierDeBase)}$\\times${texNombre(10 ** this.exposantMorceaux[i][k], 0)})+`
                 setReponse(this, indexChamp, this.morceaux[i][k])
                 indexChamp++
               } else {
@@ -180,7 +180,7 @@ export default function RecomposerEntierC3 () {
           for (let k = 0; k < this.morceaux[i].length; k++) {
             if (this.interactif) {
               if (this.morceaux[i][k] !== '0') {
-                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, 'largeur01 ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}$)+`
+                texte += `(${this.morceaux[i][k]}\\times $${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}$)+`
 
                 setReponse(
                   this,
@@ -248,7 +248,7 @@ export default function RecomposerEntierC3 () {
             texte += '= \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, 'largeur01 ' + `${enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${enLettre ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
             indexChamp++
           }
           this.nombreDeChamps[i] = indexChamp - this.premierChamp[i]
@@ -305,7 +305,7 @@ export default function RecomposerEntierC3 () {
             texte += ' = \\ldots\\ldots\\ldots$'
           } else {
             setReponse(this, indexChamp, nombre)
-            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, 'largeur01 ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
+            texte += `=$${ajouteChampTexteMathLive(this, indexChamp, ' ' + `${this.sup ? KeyboardType.numeration : KeyboardType.clavierDeBase}`)}`
             indexChamp++
           }
           texteCorr += `=${texNombre(nombre, 0)}$`

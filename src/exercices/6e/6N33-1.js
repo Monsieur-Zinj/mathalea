@@ -101,7 +101,7 @@ $${p}~\\%~\\text{de }${n}= ${calculANePlusJamaisUtiliser(p / 10)} \\times ${n}\\
             }
           }
       }
-      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (context.isHtml && this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
       setReponse(this, i, calculANePlusJamaisUtiliser(n * p / 100))
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte + '='
