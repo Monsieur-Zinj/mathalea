@@ -3,7 +3,7 @@ import { rienSi1 } from '../../../lib/outils/ecritures'
 import { miseEnEvidence } from '../../../lib/outils/embellissements'
 import { randint } from '../../../modules/outils'
 import Exercice from '../../Exercice'
-export const titre = 'Limite de $sqrt(n)-n^p$'
+export const titre = 'Limite de $\\sqrt(n)-n^p$'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
