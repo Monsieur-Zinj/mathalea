@@ -244,7 +244,6 @@ const shortcutsByKeyboards = {
     '<=': '\\leq',
     '(': '\\lparen',
     ')': '\\rparen',
-    ' ': '\\,',
 
     alpha: { mode: 'math', value: '\\alpha' },
     beta: { mode: 'math', value: '\\beta' },
@@ -337,5 +336,9 @@ const shortcutsByKeyboards = {
 
   numbersOperations: {
     '/': { mode: 'math', value: '\\div' }
+  },
+
+  numbersSpace: {
+    ' ': '\\,'
   }
 } as ShortcutsByKeyboards
