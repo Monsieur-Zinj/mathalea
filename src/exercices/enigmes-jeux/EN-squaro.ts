@@ -210,8 +210,8 @@ class squaro extends Exercice {
     }
     for (let j = 0; j <= this.largeur; j++) {
       for (let i = 0; i <= this.longueur; i++) {
-        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white' }) // Il ne faut pas qu'ils soient bleus.
-        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1 })
+        const center = this.figure.create('Point', { x: i, y: j, isVisible: false, color: 'white', isSelectable: false }) // Il ne faut pas qu'ils soient bleus.
+        this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1, isSelectable: false })
       }
     }
 
