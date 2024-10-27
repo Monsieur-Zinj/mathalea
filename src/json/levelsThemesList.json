@@ -761,8 +761,26 @@
     "sousThemes": {}
   },
   "3QCM": {
-    "titre": "Qcm du brevet",
-    "sousThemes": {}
+    "titre": "Qcms en version aléatoire ou pas",
+    "sousThemes": {
+      "3QCMF": "Fonctions",
+      "3QCMG": "Géométrie",
+      "3QCMN": "Nombres et calculs",
+      "3QCMS": "Statistiques",
+      "3QCMProb": "Probabilités",
+      "3QCMA": "Arithmétique",
+      "3QCMR": "Relatifs",
+      "3QCML": "Calcul littéral",
+      "3QCMProp": "Proportionnalité",
+      "3QCMThal": "Théorème de Thalès",
+      "3QCMPyth": "Théorème de Pythagore",
+      "3QCMTrig": "Trigonométrie",
+      "3QCMH": "Homothétie",
+      "3QCME": "Espace",
+      "3QCMP": "Puissances",
+      "3QCMAlgo": "Algorithmique",
+      "3QCMO": "Opérations"
+    }
   },
   "200": {
     "titre": "Automatismes"
