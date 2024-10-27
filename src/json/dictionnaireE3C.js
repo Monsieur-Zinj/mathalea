@@ -1867,30 +1867,6 @@ export const dictionnaireE3C = {
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_4_cor.tex',
     tags: ['']
   },
-  e3c_2020_00_sujet33_5: {
-    annee: '2020',
-    lieu: 'sujet33',
-    mois: '',
-    numeroInitial: '5',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet33_5.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet33_5_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_5.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_5_cor.tex',
-    tags: ['']
-  },
-  e3c_2020_00_sujet33_6: {
-    annee: '2020',
-    lieu: 'sujet33',
-    mois: '',
-    numeroInitial: '6',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet33_6.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet33_6_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet33_6.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet33_6_cor.tex',
-    tags: ['']
-  },
   e3c_2020_00_sujet34_1: {
     annee: '2020',
     lieu: 'sujet34',
