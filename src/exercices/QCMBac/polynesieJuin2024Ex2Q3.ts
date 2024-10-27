@@ -1,22 +1,15 @@
 import ExerciceQcm from '../ExerciceQcm'
 
-<<<<<<< src/exercices/QCMBac/polynesieJuin2024Ex2Q3.ts
-export const uuid = 'PJE2Q3'
-=======
 export const uuid = '6f117'
 export const refs = {
   'fr-fr': ['TQCM1-3'],
   'fr-ch': []
 }
->>>>>>> src/exercices/QCMBac/polynesieJuin2024Ex2Q3.ts
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-<<<<<<< src/exercices/QCMBac/polynesieJuin2024Ex2Q3.ts
-=======
 export const titre = 'QCM intégrale calcul (issu du bac juin 2024 Polynésie)'
->>>>>>> src/exercices/QCMBac/polynesieJuin2024Ex2Q3.ts
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcm qui définit les contours de l'exo (sans version aléatoire)
