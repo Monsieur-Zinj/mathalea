@@ -99,7 +99,7 @@ export default function ProblemeCourse () {
         this.autoCorrection[i].reponse.param.decimals = 2
       }
       if (this.interactif) {
-        texte += `<br> ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', {
+        texte += `<br> ${ajouteChampTexteMathLive(this, i, '', {
                 texteApres: ' €',
                 texte: 'Le prix total à payer sera de '
             })}`

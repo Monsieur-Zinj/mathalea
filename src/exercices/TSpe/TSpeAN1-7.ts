@@ -168,7 +168,7 @@ export default class EquationsLog extends Exercice {
       if (this.interactif) {
         handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
         texte += '<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '$S=$' })
       }
       if (this.questionJamaisPosee(i, a, b)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

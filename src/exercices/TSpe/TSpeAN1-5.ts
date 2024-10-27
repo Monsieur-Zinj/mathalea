@@ -80,7 +80,7 @@ export default class ExpressionsLogX extends Exercice {
       if (this.questionJamaisPosee(i, a, b, c, expA, expB, expC)) {
         texte = `$${texte}$` // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         if (this.interactif) {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore' + KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFonctionsTerminales, { texteAvant: '=' })
           handleAnswers(this, i, { reponse: { value: answer, compare: fonctionComparaison } })
         }
         this.listeQuestions.push(texte)

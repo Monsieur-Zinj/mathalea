@@ -468,7 +468,7 @@ Les  abscisses de ces points sont : $-\\sqrt{${abs}}$ et $\\sqrt{${abs}}$. `
       }
 
       texte = enonce
-      texte += ' ' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierEnsemble)
+      texte += ' ' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble)
       texteCorr = correction
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], x, y, sousChoix[i])) {

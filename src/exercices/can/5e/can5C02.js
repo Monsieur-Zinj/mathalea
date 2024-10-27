@@ -23,7 +23,7 @@ export default function SommeEntiers5e () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const b = randint(51, 89, [60, 70, 80])
     const a = randint(2, 39, [10, 20, 30]) + 100

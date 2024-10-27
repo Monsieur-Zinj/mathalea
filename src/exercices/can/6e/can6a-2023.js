@@ -81,7 +81,7 @@ export default function SujetCAN2023Sixieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push(texte)
@@ -119,7 +119,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push(texte)
@@ -153,7 +153,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots$ boules noires')
@@ -169,7 +169,7 @@ export default function SujetCAN2023Sixieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
             nbChamps = 1
           } else {
@@ -180,7 +180,7 @@ export default function SujetCAN2023Sixieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
             }
             nbChamps = 1
           }
@@ -242,7 +242,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(a)}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('? $=\\ldots$')
@@ -309,7 +309,7 @@ export default function SujetCAN2023Sixieme () {
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
             texte += '<br>Écrire les deux nombres dans l\'ordre croissant séparés par un point-virgule.'
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'largeur01 inline')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -347,7 +347,7 @@ export default function SujetCAN2023Sixieme () {
           }
 
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline nospacebefore')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms  ')
           }
 
           setReponse(this, index, new Hms({ hour: 1, minute: reponse }), { formatInteractif: 'hms' })
@@ -386,7 +386,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' boîtes' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: ' boîtes' })
           }
 
           this.listeCanEnonces.push(texte)
@@ -408,7 +408,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `La taille d'une ${taille1[a][0]} est $${miseEnEvidence(b)}$ ${taille1[a][3]}.`
           setReponse(this, index, new Grandeur(b, taille1[a][3]), { formatInteractif: 'unites' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueur]')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
           }
           this.listeCanEnonces.push(`Entoure la réponse possible.<br> La hauteur d'une ${taille1[a][0]} est :`)
           this.listeCanReponsesACompleter.push(`${propositions[0]} ${sp(8)} ${propositions[1]} \\\\ ${propositions[2]}${sp(8)} ${propositions[3]}`)
@@ -460,7 +460,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -481,7 +481,7 @@ export default function SujetCAN2023Sixieme () {
             texteCorr = `Puisque ${prenom1} en  a $${b}$ fois plus, sa sœur en a $${b}$ fois moins, soit  : $${a}\\div ${b}=${miseEnEvidence(a / b)}$. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: sp(1) + 'billes.' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: sp(1) + 'billes.' })
             }
 
             this.listeCanEnonces.push(`${prenom1} a $${a}$ billes. <br>
@@ -495,7 +495,7 @@ export default function SujetCAN2023Sixieme () {
             texteCorr = `Puisque ${prenom2} est deux fois plus âgé que ${prenom1}, son âge est  : $${b}\\times 2=${miseEnEvidence(2 * b)}$ ${texteEnCouleur('ans')}. `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore', { texteApres: sp(1) + 'ans.' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: sp(1) + 'ans.' })
             } else {
               texte += '$\\ldots$ ans'
             }
@@ -527,7 +527,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(texte)
@@ -593,7 +593,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `Le nombre écrit sous le point d'interrogation est : $${miseEnEvidence(texNombre(a, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(texte)
@@ -611,7 +611,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `Le nombre cherché est donné par : $${res}-${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push('Complète.')
@@ -628,7 +628,7 @@ export default function SujetCAN2023Sixieme () {
           texteCorr = `La moitié de $${texNombre(a, 2)}$ est $ ${texNombre(a, 2)}\\div 2=${miseEnEvidence(texNombre(reponse, 2))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' est égal à ' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' est égal à ' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push(texte)
@@ -664,7 +664,7 @@ export default function SujetCAN2023Sixieme () {
           reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('')
@@ -681,7 +681,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push('Complète.')
@@ -702,7 +702,7 @@ export default function SujetCAN2023Sixieme () {
 
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'mm.' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'mm.' })
             } else {
               texte += ' $\\ldots$ mm.'
             }
@@ -722,7 +722,7 @@ export default function SujetCAN2023Sixieme () {
             this.listeCanEnonces.push(`Si $${a}$ cahiers coûtent $${b}$ €,`)
             this.listeCanReponsesACompleter.push(`alors $${b}$ cahiers coûtent $\\ldots$ €.`)
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteApres: '€' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: '€' })
             } else {
               texte += '$\\ldots$ €'
             }
@@ -869,7 +869,7 @@ export default function SujetCAN2023Sixieme () {
           this.canReponseACompleter = '$\\ldots$ u.l.'
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'u.l.' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'u.l.' })
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -889,7 +889,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push(texte)
@@ -916,7 +916,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'km' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
           }
 
           this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
@@ -950,7 +950,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'km' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'km' })
           }
           this.listeCanEnonces.push(`Une voiture roule à $${c}$ km/h.`)
           this.listeCanReponsesACompleter.push(`Elle parcourt $\\ldots$ km en $${d}$ h et $${b * e}$ min à cette vitesse.`)
@@ -968,7 +968,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(texte)
@@ -1010,7 +1010,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '')
           }
 
           nbChamps = 1
@@ -1085,7 +1085,7 @@ export default function SujetCAN2023Sixieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'petits carreaux.' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'petits carreaux.' })
           }
           this.listeCanEnonces.push(`${prenom1} veut construire une figure d'aire $\\dfrac{${f[a][0]}}{${f[a][1]}}$ ${f[a][0] / f[a][1] > 2 ? 'unités' : 'unité'} d'aire (uA).<br>` +
                         mathalea2d({ xmin: -1, ymin: -0.1, xmax: 12.1, ymax: 6, scale: 0.3 }, A, C, B))
@@ -1162,7 +1162,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(texte)
@@ -1184,7 +1184,7 @@ export default function SujetCAN2023Sixieme () {
              de ces mêmes stylos coûtent  $${k}$ fois plus, soit $${k}\\times ${texPrix(prix)}=${texNombre(k * prix)}$ € $=${miseEnEvidence(texNombre(k * prix * 100))}$ centimes.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' centimes'
+              texte += ajouteChampTexteMathLive(this, index, '') + ' centimes'
             }
           } else {
             prix = choice([new Decimal('1.20'), new Decimal('1.80'), new Decimal('2.40')])
@@ -1198,7 +1198,7 @@ export default function SujetCAN2023Sixieme () {
                de ces mêmes cahiers coûtent  $${k}$ fois moins, soit $ ${texPrix(prix)}\\div${k}=${texPrix(prix / k)}$ € $=${miseEnEvidence(texNombre(100 * prix / k, 0))}$ centimes.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'centimes' })
+              texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'centimes' })
             }
           }
           this.listeCanEnonces.push(texte)
@@ -1308,7 +1308,7 @@ export default function SujetCAN2023Sixieme () {
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots$ cm')
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: 'cm' })
           }
           nbChamps = 1
           break
@@ -1323,7 +1323,7 @@ export default function SujetCAN2023Sixieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $ =$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $ =$' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           this.listeCanEnonces.push(texte)
@@ -1354,7 +1354,7 @@ export default function SujetCAN2023Sixieme () {
           this.listeCanEnonces.push(texte)
           this.listeCanReponsesACompleter.push('$\\ldots$ repas')
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: 'repas' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: 'repas' })
           } else {
             texte += ''
           }

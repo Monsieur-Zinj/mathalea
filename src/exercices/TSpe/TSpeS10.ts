@@ -62,7 +62,7 @@ export default class LimitesSuites extends Exercice {
       const texteCorr = question.correction as string
       const reponse = question.reponse as string
       if (this.questionJamaisPosee(i, texte)) {
-        this.listeQuestions.push(texte + ajouteChampTexteMathLive(this, i, 'inline ' + KeyboardType.lycee))
+        this.listeQuestions.push(texte + ajouteChampTexteMathLive(this, i, KeyboardType.lycee))
         this.listeCorrections.push(texteCorr)
         handleAnswers(this, i, { reponse: { value: reponse } })
         i++

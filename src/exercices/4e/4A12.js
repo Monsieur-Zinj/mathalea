@@ -365,12 +365,12 @@ export default function ProblemesEvenementsRecurrents () {
       if (this.interactif && !context.isAmc) { // Si l'exercice est interactif
         if (typeDeQuestion > 1) {
           if (saveurs[i] === 'engrenages') {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' tours' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' tours' })
           } else {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' fois' })
+            texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' fois' })
           }
         } else {
-          texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers, { texteApres: ' ' + unite })
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ' ' + unite })
         }
       }
       if (context.isAmc) {

@@ -27,7 +27,7 @@ export default function PlusOuMoins6ieme () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b, c, prenom1, prenom2, choix1, reponse1, reponse2, choix, prix1, prix2, choix2, m1, m2
     switch (choice([1, 1, 1, 2, 3, 3, 3])) { //

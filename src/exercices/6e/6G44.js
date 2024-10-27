@@ -36,7 +36,7 @@ export const refs = {
 export default function NombreDeFacesEtDAretes () {
   Exercice.call(this)
   this.nbQuestions = 4
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.sup = 3
   this.listeAvecNumerotation = false
 
@@ -344,7 +344,7 @@ export default function NombreDeFacesEtDAretes () {
       }
       if (this.questionJamaisPosee(j, choix, n)) {
         setReponse(this, j, this.reponse)
-        this.question += ajouteChampTexteMathLive(this, j, 'largeur01 inline')
+        this.question += ajouteChampTexteMathLive(this, j, '')
         this.listeQuestions.push(this.question)
         this.listeCorrections.push(this.correction)
         j++

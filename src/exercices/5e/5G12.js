@@ -245,7 +245,7 @@ export default function PavageEtDemiTour2D () {
     for (let i = 0; i < this.nbQuestions; i++) {
       texte += `Donner le numéro de l'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$.`
       setReponse(this, i, couples[i][1])
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01') + '<br>'
+      texte += ajouteChampTexteMathLive(this, i, '') + '<br>'
       texteCorr += `L'image de la figure $${couples[i][0]}$ dans la symétrie de centre $A$ est la figure $${miseEnEvidence(couples[i][1])}$.<br>`
       if (this.correctionDetaillee) {
         t = this.nbQuestions * 3

@@ -120,7 +120,7 @@ export default function ExerciceConversions (niveau = 1) {
         }
 
         resultat = val.mul(prefixeMulti[k][1])
-        texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
+        texte = '$ ' + texNombre(val, nbChiffreArrondi) + texTexte(prefixeMulti[k][0] + unite) + ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: '$' + texTexte(unite) + '$' })}` : `\\dotfill ${texTexte(unite)}$`)
 
         texteCorr =
                     '$ ' +
@@ -144,7 +144,7 @@ export default function ExerciceConversions (niveau = 1) {
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
-                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
@@ -163,7 +163,7 @@ export default function ExerciceConversions (niveau = 1) {
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
                     texTexte(prefixeDiv[k][0] + unite) +
-                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                    ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
         texteCorr =
                     '$ ' +
                     texNombre(val, nbChiffreArrondi) +
@@ -198,7 +198,7 @@ export default function ExerciceConversions (niveau = 1) {
                         '$ ' +
                         texNombre(val, nbChiffreArrondi) +
                         texTexte(listeUniteInfo[unite2]) +
-                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
                         texNombre(val, nbChiffreArrondi) +
@@ -219,7 +219,7 @@ export default function ExerciceConversions (niveau = 1) {
           texte = '$ ' +
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +
                         texTexte(listeUniteInfo[unite2]) +
-                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
+                        ' = ' + (this.interactif && context.isHtml ? `$ ${ajouteChampTexteMathLive(this, i, '', { texteApres: ' $' + texTexte(unite) + '$' })}` : ` \\dotfill ${texTexte(unite)}$`)
           texteCorr =
                         '$ ' +
                         texNombre(val, nbChiffreArrondi + 3 * ecart) +

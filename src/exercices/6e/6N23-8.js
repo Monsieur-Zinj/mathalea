@@ -71,7 +71,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
         case 2: // fraction décimale -> écriture décimale
           consi[1] = true
           handleAnswers(this, i, { reponse: { value: texNombre(n, 3), compare: fonctionComparaison } })
-          texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          texte = `$${texFraction(String(a), String(b))}  ${(!this.interactif ? '=\\ldots\\ldots\\ldots\\ldots' : '=')} $` + ajouteChampTexteMathLive(this, i, '')
           texteCorr = '$ ' + texFraction(String(a), String(b)) + ' = ' + texNombre(n, 3) + ' $'
           this.autoCorrection[i].reponse.param.digits = 5
           this.autoCorrection[i].reponse.param.decimals = 3
@@ -105,7 +105,7 @@ export default function ExerciceEcritureDecimaleOuFractionDecimale () {
           if (this.interactif) {
             texte = this.sup2
               ? remplisLesBlancs(this, i, `${texNombre(n, precision, this.sup3)} = \\dfrac{%{champ1}}{${texNombre(b)}}`, 'fillInTheBlanks')
-              : ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${texNombre(n, precision, this.sup3)} = $` })
+              : ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${texNombre(n, precision, this.sup3)} = $` })
 
             if (!this.sup2) {
               handleAnswers(this, i, { reponse: { value: n, compare: fonctionComparaison, options: { fractionDecimale: true } } })

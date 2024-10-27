@@ -27,7 +27,7 @@ export default function CoefficientFonctionAffine () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const b = randint(-3, 3, 0)
     const c = randint(1, 5)

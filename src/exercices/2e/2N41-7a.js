@@ -139,7 +139,7 @@ export default function FactoriserIdentitesRemarquables2 () {
           break
       }
       reponseAttendue = reponseAttendue.replaceAll('dfrac', 'frac')
-      texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
+      texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
 
       handleAnswers(this, i, { reponse: { value: reponseAttendue, compare: factorisationCompare } }, { formatInteractif: 'mathlive' })
       if (this.questionJamaisPosee(i, a, b, typesDeQuestions)) {

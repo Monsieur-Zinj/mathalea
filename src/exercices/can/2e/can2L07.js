@@ -24,7 +24,7 @@ export default function Factoriser () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.compare = factorisationCompare
   this.nouvelleVersion = function () {
     const r = choice([2, 3, 5])

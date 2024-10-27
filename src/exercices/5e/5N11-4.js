@@ -59,9 +59,9 @@ export default function ValeurApprocheeDePourcentages () {
         num = randint(1, den - 8)
       }
       texte = `$\\dfrac{${num}}{${den}}\\approx$`
-      texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}\\%', 'inline50', '\\ldots\\ldots\\ldots')
+      texte += remplisLesBlancs(this, i, '%{champ1}\\text{ soit environ }%{champ2}\\%', '', '\\ldots\\ldots\\ldots')
       // this.interactif ? '$' : '\\ldots\\ldots\\ldots $ soit environ $\\ldots\\ldots\\ldots~\\%$'
-      // texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres: ' %' })
+      // texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' %' })
 
       if (this.sup === 1) {
         texteCorr = `$\\dfrac{${num}}{${den}}\\approx ${texNombre(num / den, 2)} $ soit environ $${miseEnEvidence(texNombre(num / den * 100, 0))}~\\%$ $\\left(\\text{car } ${texNombre(num / den, 2)}=\\dfrac{${arrondi(num / den * 100, 0)}}{100}\\right)$.`

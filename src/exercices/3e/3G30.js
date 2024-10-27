@@ -474,7 +474,7 @@ export default class CalculDeLongueur extends Exercice {
         }
       }
       if (context.isHtml && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[Longueur]')
+        texte += ajouteChampTexteMathLive(this, i, ' unites[Longueur]')
         setReponse(this, i, new Grandeur(reponse, unite), { formatInteractif: 'unites' })
       }
       this.listeQuestions.push(texte)

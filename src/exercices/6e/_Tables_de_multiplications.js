@@ -62,21 +62,21 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
         reponse = a * b
         if (choix) {
           texte = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} =`
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(a, 0)}\\times ${texNombre(b, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         } else {
           texte = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = `
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
           texteCorr = `$ ${texNombre(b, 0)}\\times ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(reponse, 0))}$`
         }
         handleAnswers(this, i, { reponse: { value: a * b, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
       } else if (typeDeQuestion === 'a_trous') {
         if (choix) {
           texte = '$' + a.toString() + '\\times '
-          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierNumbers, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
+          texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ` $=${(a * b).toString()}$` }) : ` \\ldots\\ldots =${(a * b).toString()}$`
           reponse = b
         } else {
-          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierNumbers, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
+          texte = (this.interactif && context.isHtml) ? ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers, { texteApres: ` $\\times ${b.toString()} = ${(a * b).toString()}$` }) : `$ \\ldots\\ldots \\times ${b.toString()} =${(a * b).toString()}$`
           reponse = a
         }
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })
@@ -85,7 +85,7 @@ export default function TablesDeMultiplications (tablesParDefaut = '2-3-4-5-6-7-
           : `$${miseEnEvidence(reponse.toString())}\\times ${b.toString()} =${(a * b).toString()}$`
       } else { // typeDeQuestion === 'quotient'
         texte = `$${texNombre(a * b, 0)} \\div ${texNombre(a, 0)} = `
-        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
+        texte += (this.interactif && context.isHtml) ? '$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers) : '\\ldots\\ldots$'
         texteCorr = `$ ${texNombre(a * b, 0)}\\div ${texNombre(a, 0)} = ${miseEnEvidence(texNombre(b, 0))}$`
         reponse = b
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { calculSeulementEtNonOperation: true } } })

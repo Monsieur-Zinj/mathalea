@@ -459,7 +459,7 @@ export default function Transformations () {
         }
 
         handleAnswers(this, i, { reponse: { value: images[i], compare: fonctionComparaison } })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, '')
       }
       const graphique = mathalea2d({
         xmin: -4.5,

@@ -51,7 +51,7 @@ export default function Soustraire11 () {
       texte = `$${a}-11$`
       texteCorr = `$${a}-11=${a - 11}$`
       setReponse(this, i, a - 11)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

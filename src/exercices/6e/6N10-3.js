@@ -320,7 +320,7 @@ export default function ChiffreNombreDe () {
       }
 
       if (this.questionJamaisPosee(i, listeTypeDeQuestions[i], nb)) { // Si la question n'a jamais été posée, on en crée une autre
-        texte += ajouteChampTexteMathLive(this, i, `largeur01 inline ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
+        texte += ajouteChampTexteMathLive(this, i, ` ${KeyboardType.numbersSpace}`, { texteAvant: `${sp(5)}` })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++

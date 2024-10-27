@@ -158,7 +158,7 @@ export default function VocabulaireEtOperations () {
           expf = 'l' + expf.substring(1)
           texte += `${expf}.`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, i, '')
             handleAnswers(this, i, { reponse: { value: resultat } }, { formatInteractif: 'mathlive' })
           }
           expf = 'L' + expf.substring(1)

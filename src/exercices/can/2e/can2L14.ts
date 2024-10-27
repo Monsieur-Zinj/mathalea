@@ -26,7 +26,7 @@ export default class EquationsCarree extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.lycee
+    this.formatChampTexte = KeyboardType.lycee
     this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison
     this.optionsDeComparaison = { ensembleDeNombres: true }

@@ -124,7 +124,7 @@ export default class nomExercice extends Exercice {
 
     i = 12
     this.listeQuestions[i] = 'Comparer $0,7$ et $0,7^2$.<br>'
-    this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' largeur01') + '$0,7^2$'
+    this.listeQuestions[i] += '$0,7$' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierCompare + ' ') + '$0,7^2$'
     this.listeCorrections[i] = `$0,7 \\lt 1$ donc $0{,}7~${miseEnEvidence('\\gt')}~0{,}7^2 $`
     handleAnswers(this, i, { reponse: { value: '>', compare: calculCompare } })
 

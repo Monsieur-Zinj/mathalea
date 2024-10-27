@@ -23,7 +23,7 @@ export default function PrioriteOperatoire5e () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(5, 9)
     const b = 20 - a

@@ -25,7 +25,7 @@ export default function DeveloppementNiveau1 () {
   this.tailleDiaporama = 2
   this.date = 1635092507483
   this.nouvelleVersion = function () {
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     let a, b, k, inconnue
     switch (randint(1, 2)) {
       case 1:// developpement k*(a+b)

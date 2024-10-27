@@ -212,7 +212,7 @@ export default function Equationspresqueproduitnulle () {
       }
       texteCorr += `$S=\\left\\{${valeursSolution}\\right\\}$`
       if (this.interactif) {
-        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, 'inline nospacebefore largeur01')
+        texte += '<br>$S=$' + ajouteChampTexteMathLive(this, i, ' ')
       }
       handleAnswers(this, i, {
         reponse: {

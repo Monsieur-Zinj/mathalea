@@ -24,7 +24,7 @@ export default class SuitesRep extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'texte'
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.alphanumeric
+    this.formatChampTexte = KeyboardType.alphanumeric
   }
 
   nouvelleVersion () {

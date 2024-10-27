@@ -60,7 +60,7 @@ export default function CalculerDiscriminant () {
 
       texte = `$${lettreDepuisChiffre(i + 1)}(x) = ${p.tex}$.`
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline', { texteAvant: '$\\Delta = $' })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: '$\\Delta = $' })
         setReponse(this, i, p.discriminant)
       }
       texteCorr = `$\\Delta_${lettreDepuisChiffre(i + 1)} = ${p.texCalculDiscriminantSansResultat}$`

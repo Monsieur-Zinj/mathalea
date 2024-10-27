@@ -29,7 +29,7 @@ export default class ResolEquationDerivee extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 nospacebefore ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.optionsChampTexte = { texteApres: 'solution(s)' }
     // this.formatInteractif = 'calcul'
     this.compare = fonctionComparaison

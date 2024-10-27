@@ -54,9 +54,9 @@ export default function RelationRec () {
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '')
             texte += ' et $b=$'
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           } else {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }
@@ -84,9 +84,9 @@ export default function RelationRec () {
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '')
             texte += ' et $b=$'
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           } else {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }
@@ -114,9 +114,9 @@ export default function RelationRec () {
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '')
             texte += ' et $b=$'
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           } else {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }
@@ -145,9 +145,9 @@ export default function RelationRec () {
           if (this.interactif) {
             texte += ` On a alors $${s}_{n+1}=a\\times ${s}_{n}+b$ avec :<br>
             $a=$  `
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '')
             texte += ' et $b=$'
-            texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
           } else {
             texte += ` Donner le premier terme de cette suite et l'expression de $${s}_{n+1}$ en fonction de $${s}_{n}$.  `
           }

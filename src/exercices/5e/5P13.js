@@ -100,7 +100,7 @@ export default function EchellesProblemes () {
           reponse = new FractionEtendue(nb1, nb2)
           texte += `Sur le plan ${echelleQ[1]} de  ${quidam[1]} ${quidam[0]}, ${quidam2} constate que $${texNombre(nb1Unite1)}$ ${unite1} sur le plan correspond à $${texNombre(nb2Unite2)}$ ${unite2} dans la réalité.`
           texte += ' Quelle est l\'échelle du plan ? '
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          texte += ajouteChampTexteMathLive(this, i, '')
           setReponse(this, i, reponse, { formatInteractif: 'fractionEgale' })
 
           if (this.sup2) {
@@ -202,7 +202,7 @@ export default function EchellesProblemes () {
           texte += context.isAmc ? (' (en ' + unite2 + ')') : ''
           texte += ', ce segment correspond-il ?'
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[longueurs]', { texteAvant: ' (Il faut penser à indiquer une unité.)' })
+            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', { texteAvant: ' (Il faut penser à indiquer une unité.)' })
             setReponse(this, i, new Grandeur(reponse, unite2), { formatInteractif: 'unites' })
           } else if (context.isAmc) {
             setReponse(this, i, reponse)
@@ -304,7 +304,7 @@ export default function EchellesProblemes () {
           texte += context.isAmc ? (' (en ' + unite1 + ')') : ''
           texte += ` du segment tracé sur le plan par ${quidam2} ?`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline unites[longueurs]', { texteAvant: ' (Il faut penser à indiquer une unité.)' })
+            texte += ajouteChampTexteMathLive(this, i, ' unites[longueurs]', { texteAvant: ' (Il faut penser à indiquer une unité.)' })
             setReponse(this, i, new Grandeur(reponse, unite1), { formatInteractif: 'unites' })
           } else if (context.isAmc) {
             setReponse(this, i, reponse)

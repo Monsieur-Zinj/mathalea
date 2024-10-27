@@ -28,7 +28,7 @@ export default function MultiplierDiviserPar10Par100Par1000 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b, den, resultat
     switch (choice([1, 2, 3])) { //, 2, 3

@@ -73,7 +73,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = produit.texteCorr
           setReponse(this, index, produit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           this.listeCanEnonces.push(produit.canEnonce)
@@ -87,7 +87,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = somme.texteCorr
           setReponse(this, index, somme.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           this.listeCanEnonces.push(somme.canEnonce)
@@ -101,7 +101,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = figureProduit.texteCorr
           setReponse(this, index, figureProduit.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(figureProduit.canEnonce)
@@ -115,7 +115,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = moitieDouble.texteCorr
           setReponse(this, index, moitieDouble.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ' est ' + ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')
+            texte += ' est ' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           this.listeCanEnonces.push(moitieDouble.canEnonce)
@@ -129,7 +129,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = axe.texteCorr
           setReponse(this, index, axe.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(axe.canEnonce)
@@ -144,7 +144,7 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, facteursDUnProduit.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
             texte += '<br>Écris les deux nombres séparés par un point-virgule.'
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(facteursDUnProduit.canEnonce)
@@ -161,7 +161,7 @@ export default function SujetCAN2023CM2 () {
             minute: sommeDeDurees.reponse
           }), { formatInteractif: 'hms' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
           }
           nbChamps = 1
           this.listeCanEnonces.push(sommeDeDurees.canEnonce)
@@ -175,7 +175,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = partages.texteCorr
           setReponse(this, index, partages.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(partages.canEnonce)
@@ -189,7 +189,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ordreDeGrandeur.texteCorr
           setReponse(this, index, new Grandeur(ordreDeGrandeur.reponse, ordreDeGrandeur.reponseUnite), { formatInteractif: 'unites' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueurs]')
+            texte += ajouteChampTexteMathLive(this, index, ' unites[Longueurs]')
           }
           nbChamps = 1
           this.listeCanEnonces.push(ordreDeGrandeur.canEnonce)
@@ -203,7 +203,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ecrireUnNombreEnChiffre.texteCorr
           setReponse(this, index, ecrireUnNombreEnChiffre.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(ecrireUnNombreEnChiffre.canEnonce)
@@ -222,7 +222,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = dePlusDeMoins.texteCorr
           setReponse(this, index, dePlusDeMoins.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline', dePlusDeMoins.champTexteApres)
+            texte += ajouteChampTexteMathLive(this, index, '', dePlusDeMoins.champTexteApres)
           } else {
             texte += dePlusDeMoins.texteApres
           }
@@ -238,7 +238,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ecritureDecimaleProduitEntierParDixiemesOuCentiemes.texteCorr
           setReponse(this, index, ecritureDecimaleProduitEntierParDixiemesOuCentiemes.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(ecritureDecimaleProduitEntierParDixiemesOuCentiemes.canEnonce)
@@ -252,7 +252,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = lectureAbscisseEntiereOrigineZero.texteCorr
           setReponse(this, index, lectureAbscisseEntiereOrigineZero.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(lectureAbscisseEntiereOrigineZero.canEnonce)
@@ -266,7 +266,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = trouverUnTermeDecimalInconnu.texteCorr
           setReponse(this, index, trouverUnTermeDecimalInconnu.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(trouverUnTermeDecimalInconnu.canEnonce)
@@ -281,7 +281,7 @@ export default function SujetCAN2023CM2 () {
           setReponse(this, index, decomposerUnNombreATroisChiffresEnDizainesUnites.reponse, { formatInteractif: 'texte' })
           if (this.interactif && !context.isAmc) {
             texte += '<br>Écris le nombre de dizaines puis d\'unités dans cet ordre séparés par un point-virgule. '
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(decomposerUnNombreATroisChiffresEnDizainesUnites.canEnonce)
@@ -295,7 +295,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = determinerUneFractionAPartirDUneFigure.texteCorr
           setReponse(this, index, determinerUneFractionAPartirDUneFigure.reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(determinerUneFractionAPartirDUneFigure.canEnonce)
@@ -309,7 +309,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = determinerUnQuotient.texteCorr
           setReponse(this, index, determinerUnQuotient.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(determinerUnQuotient.canEnonce)
@@ -328,7 +328,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = proportionnaliteParAddition.texteCorr
           setReponse(this, index, proportionnaliteParAddition.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore')} ${proportionnaliteParAddition.uniteInteractif} .`
+            texte += `${ajouteChampTexteMathLive(this, index, ' ')} ${proportionnaliteParAddition.uniteInteractif} .`
           } else {
             texte += ` $\\ldots$ ${proportionnaliteParAddition.uniteInteractif}.`
           }
@@ -344,7 +344,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = determinerUnNombreDUnitesDeLongueur.texteCorr
           setReponse(this, index, determinerUnNombreDUnitesDeLongueur.reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif && !context.isAmc) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'ul'
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '') + 'ul'
           }
           nbChamps = 1
           this.listeCanEnonces.push(determinerUnNombreDUnitesDeLongueur.canEnonce)
@@ -358,7 +358,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = multiplierParCinq.texteCorr
           setReponse(this, index, multiplierParCinq.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(multiplierParCinq.canEnonce)
@@ -372,7 +372,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = proportionnaliteEtVitesse.texteCorr
           setReponse(this, index, proportionnaliteEtVitesse.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'km'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'km'
           }
           nbChamps = 1
           this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
@@ -386,7 +386,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = proportionnaliteEtVitesse.texteCorr
           setReponse(this, index, proportionnaliteEtVitesse.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'km'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'km'
           }
           nbChamps = 1
           this.listeCanEnonces.push(proportionnaliteEtVitesse.canEnonce)
@@ -400,7 +400,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = dansNCombienDeFoisP.texteCorr
           setReponse(this, index, dansNCombienDeFoisP.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(dansNCombienDeFoisP.canEnonce)
@@ -414,7 +414,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = determinerUnNombreDeDizainesDansUnEntierATroisChiffres.texteCorr
           setReponse(this, index, determinerUnNombreDeDizainesDansUnEntierATroisChiffres.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           nbChamps = 1
           this.listeCanEnonces.push(determinerUnNombreDeDizainesDansUnEntierATroisChiffres.canEnonce)
@@ -428,7 +428,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = tracerUneFigureAireDonneeEnFonctionUniteAire.texteCorr
           setReponse(this, index, tracerUneFigureAireDonneeEnFonctionUniteAire.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: sp(5) + 'petits carreaux' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: sp(5) + 'petits carreaux' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(tracerUneFigureAireDonneeEnFonctionUniteAire.canEnonce)
@@ -442,7 +442,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = nombreDeDixiemesDansUnDecimal.texteCorr
           setReponse(this, index, nombreDeDixiemesDansUnDecimal.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += `${ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', {
+            texte += `${ajouteChampTexteMathLive(this, index, ' ', {
                             texteAvant: `<br>Dans $${texNombre(nombreDeDixiemesDansUnDecimal.nombre, 2)}$ il y a`,
                             texteApres: sp(5) + 'dixièmes en tout.'
                         })}`
@@ -459,7 +459,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = proportionnaliteEtDiviseur.texteCorr
           setReponse(this, index, proportionnaliteEtDiviseur.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' centimes' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: ' centimes' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(proportionnaliteEtDiviseur.canEnonce)
@@ -473,7 +473,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = trouverUneDimensionAgrandieOuReduite.texteCorr
           setReponse(this, index, trouverUneDimensionAgrandieOuReduite.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: ' cm' })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: ' cm' })
           }
           nbChamps = 1
           this.listeCanEnonces.push(trouverUneDimensionAgrandieOuReduite.canEnonce)
@@ -487,7 +487,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = ajouterDeuxDecimaux.texteCorr
           setReponse(this, index, ajouterDeuxDecimaux.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 nospacebefore', { texteAvant: `${sp(2)} $=$` })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteAvant: `${sp(2)} $=$` })
           }
           nbChamps = 1
           this.listeCanEnonces.push(ajouterDeuxDecimaux.canEnonce)
@@ -501,7 +501,7 @@ export default function SujetCAN2023CM2 () {
           texteCorr = nombreDeCombinaisons.texteCorr
           setReponse(this, index, nombreDeCombinaisons.reponse, { formatInteractif: 'calcul' })
           if (this.interactif && !context.isAmc) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01', { texteApres: `${sp(2)} repas` })
+            texte += ajouteChampTexteMathLive(this, index, '', { texteApres: `${sp(2)} repas` })
           }
           nbChamps = 1
           this.listeCanEnonces.push(nombreDeCombinaisons.canEnonce)

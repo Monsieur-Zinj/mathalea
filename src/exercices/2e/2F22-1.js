@@ -159,11 +159,11 @@ export default class LecturesGraphiquesSurSplines extends Exercice {
       }
 
       let enonceSousRepere = 'Répondre aux questions en utilisant le graphique.<br>'
-      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+      enonceSousRepere += `<br>${numAlpha(0)}Quel est le nombre de solutions de l'équation $f(x)=${y0}$ ?` + ajouteChampTexteMathLive(this, 3 * i, KeyboardType.clavierNumbers)
       enonceSousRepere += `<br><br>${numAlpha(1)}Résoudre l'équation $f(x)=${y1}$. Donner l'ensemble solution` + (this.interactif ? ' : ' : '.')
-      enonceSousRepere += ajouteChampTexteMathLive(this, 3 * i + 1, 'nospacebefore inline largeur01 ' + KeyboardType.clavierEnsemble, { texteAvant: '$S=$' }) + '<br>'
+      enonceSousRepere += ajouteChampTexteMathLive(this, 3 * i + 1, KeyboardType.clavierEnsemble, { texteAvant: '$S=$' }) + '<br>'
       enonceSousRepere += `<br>${numAlpha(2)}Déterminer une valeur entière de $k$ telle que $f(x)=k$ admette exactement $${nombreAntecedentsCherches2}$ solution${nombreAntecedentsCherches2 > 1 ? 's' : ''}` +
-      (this.interactif ? ' : ' : '.') + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 nospacebefore')
+      (this.interactif ? ' : ' : '.') + ajouteChampTexteMathLive(this, 3 * i + 2, ' ')
 
       handleAnswers(this, 3 * i, { reponse: { value: nombreAntecedentCherches0, compare: fonctionComparaison } })
       handleAnswers(this, 3 * i + 1, { reponse: { value: reponse1, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })

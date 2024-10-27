@@ -169,7 +169,7 @@ export default function DevelopperIdentitesRemarquables4 () {
       // Fin de cette uniformisation
 
       texteCorr += texteCorr2
-      if (this.interactif) texte += '$=$' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
+      if (this.interactif) texte += '$=$' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, a, b, ns, ds, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

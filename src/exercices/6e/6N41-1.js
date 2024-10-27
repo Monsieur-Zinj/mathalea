@@ -97,9 +97,9 @@ export default function ExerciceLabyrintheFractionsEgales () {
       texte += '<br>' + mathalea2d(params, laby.murs2d, laby.nombres2d)
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.interactif) {
-        texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 nospacebefore inline clavierDeBase')
+        texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, '  clavierDeBase')
         handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: fonctionComparaison } })
-        texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 nospacebefore inline clavierDeBase')
+        texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, '  clavierDeBase')
         handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: fonctionComparaison } })
         texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.`
       }

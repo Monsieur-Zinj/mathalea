@@ -128,13 +128,13 @@ export default function CalculEffectifFrequence () {
       let texte0, texte1, texte2, texte3
       const texteAMC = texte
       texte0 = numAlpha(0) + ' Quel est l\'effectif des ' + lstAnimauxExo[0] + ' ?'
-      texte0 += ajouteChampTexteMathLive(this, 4 * ee, 'largeur01 inline') + '<br>'
+      texte0 += ajouteChampTexteMathLive(this, 4 * ee, '') + '<br>'
       texte1 = numAlpha(1) + ' Calculer la fréquence des ' + lstAnimauxExo[1] + `. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
-      texte1 += ajouteChampTexteMathLive(this, 4 * ee + 1, 'largeur01 inline', { texteApres: '%' }) + '<br>'
+      texte1 += ajouteChampTexteMathLive(this, 4 * ee + 1, '', { texteApres: '%' }) + '<br>'
       texte2 = numAlpha(2) + ' Calculer l\'effectif des quadrupèdes.'
-      texte2 += ajouteChampTexteMathLive(this, 4 * ee + 2, 'largeur01 inline') + '<br>'
+      texte2 += ajouteChampTexteMathLive(this, 4 * ee + 2, '') + '<br>'
       texte3 = numAlpha(3) + ` Calculer la fréquence des oiseaux. Donner le résultat sous la forme d'un pourcentage arrondi, si besoin, à 0,1${symbolePourCent} près.`
-      texte3 += ajouteChampTexteMathLive(this, 4 * ee + 3, 'largeur01 inline', { texteApres: '%' }) + '<br>'
+      texte3 += ajouteChampTexteMathLive(this, 4 * ee + 3, '', { texteApres: '%' }) + '<br>'
       texte += texte0 + texte1 + texte2 + texte3
 
       // début de la correction

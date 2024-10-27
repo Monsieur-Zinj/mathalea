@@ -204,7 +204,7 @@ export default function ListeDesDiviseurs5e () {
           propositions: [{ texte: texteCorr, statut: 5, sanscadre: false, pointilles: true, feedback: '' }]
         }
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline ' + KeyboardType.clavierFullOperations, { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations, { texteAvant: `<br> Les diviseurs de $${texNombre(M)}$ sont : ` })
 
       if (this.questionJamaisPosee(i, texte)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

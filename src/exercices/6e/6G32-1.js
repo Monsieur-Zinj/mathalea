@@ -318,7 +318,7 @@ export default function SymetrieAxialeConservation1 () {
               }
             }
           }
-          texteAMC += ajouteChampTexteMathLive(this, i * this.sup3 + ii, 'inline largeur01 angles')
+          texteAMC += ajouteChampTexteMathLive(this, i * this.sup3 + ii, ' angles')
           handleAnswers(this, i * this.sup3 + ii, { reponse: { value: reponse }, callback })
         }
         if (context.isAmc) {

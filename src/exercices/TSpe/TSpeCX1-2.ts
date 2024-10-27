@@ -164,7 +164,7 @@ export default class AcosOmegaTPlusBSinOmegaT extends Exercice {
             ajouteChampTexteMathLive(
               this,
               i,
-              `inline nospacebefore ${KeyboardType.lycee}`,
+              `  ${KeyboardType.lycee}`,
               { texteAvant: '<br>$z=$' }
             )
         )

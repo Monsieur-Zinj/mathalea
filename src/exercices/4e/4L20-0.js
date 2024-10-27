@@ -222,7 +222,7 @@ export default function ExerciceEquationASolutionEntiere () {
           texteCorr += `<br> La solution est $${reponse}$.`
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: sp(10) + '<br>La solution est $x=$' })
+      texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: sp(10) + '<br>La solution est $x=$' })
       this.sup ? setReponse(this, i, reponse, { signe: true }) : setReponse(this, i, reponse, { signe: false })
       if (this.questionJamaisPosee(i, a, b, c)) {
         // Si la question n'a jamais été posée, on en créé une autre

@@ -87,7 +87,7 @@ export default function SujetCAN20205ieme () {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
 
@@ -111,7 +111,7 @@ export default function SujetCAN20205ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -125,7 +125,7 @@ export default function SujetCAN20205ieme () {
           texteCorr = ` $${texNombre(a, 2)}+${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$ '
           }
@@ -142,7 +142,7 @@ export default function SujetCAN20205ieme () {
           texteCorr = ` $${texNombre(a, 2)}-${texNombre(b, 2)}=${miseEnEvidence(texNombre(reponse, 2))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$ '
           }
@@ -162,7 +162,7 @@ export default function SujetCAN20205ieme () {
           reponse = new Decimal(a).div(100).mul(b)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -182,7 +182,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -201,7 +201,7 @@ export default function SujetCAN20205ieme () {
           et $${d - 60 + b}$ min, soit une arrivée à  $${miseEnEvidence(a + c + 1)}$ h $${miseEnEvidence(b + d - 60)}$ min.`
 
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'clavierHms ')
           }
 
           setReponse(this, index, new Hms({ hour: a + c + 1, minute: b + d - 60 }), { formatInteractif: 'hms' })
@@ -224,7 +224,7 @@ export default function SujetCAN20205ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -245,7 +245,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: '€' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ', { texteApres: '€' })
           }
           nbChamps = 1
           break
@@ -262,7 +262,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -301,7 +301,7 @@ export default function SujetCAN20205ieme () {
         Ainsi, l'abscisse du point $A$ est $${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -364,7 +364,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'cm' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm' })
           } else {
             texte += ' $\\ldots$ cm'
           }
@@ -390,7 +390,7 @@ export default function SujetCAN20205ieme () {
           reponse = new FractionEtendue(c * d + e * f - e * d, a * b)
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -405,7 +405,7 @@ export default function SujetCAN20205ieme () {
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -428,7 +428,7 @@ export default function SujetCAN20205ieme () {
             On vérifie avec la dernière valeur : $2\\times ${texNombre(reponse, 1)}=${texNombre(new Decimal(a).mul(8), 1)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, ' ')
             } else {
               texte += ' $\\ldots$'
             }
@@ -444,7 +444,7 @@ export default function SujetCAN20205ieme () {
             On vérifie avec la dernière valeur : $${texNombre(reponse, 1)}+${b}=${texNombre(new Decimal(a).add(3 * b), 1)}$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, ' ')
             } else {
               texte += ' $\\ldots$'
             }
@@ -495,7 +495,7 @@ export default function SujetCAN20205ieme () {
           texteCorr = `Le nombre total d'animaux est : $${50 * a}+${50 * b}+${50 * c}=${miseEnEvidence(texNombre(reponse))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -533,7 +533,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: '$\\%$' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ', { texteApres: '$\\%$' })
           }
           nbChamps = 1
 
@@ -549,7 +549,7 @@ export default function SujetCAN20205ieme () {
           } else {
             texte = `Convertis en heures/minutes : <br>$${texNombre(new Decimal(a).add(b), 2)}\\text{ h}=$`
 
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline largeur01 nospacebefore')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms  ')
 
             setReponse(this, index, new Hms({ hour: a, minute: d }), { formatInteractif: 'hms' })
           }
@@ -587,7 +587,7 @@ export default function SujetCAN20205ieme () {
 
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline nospacebefore')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -607,7 +607,7 @@ export default function SujetCAN20205ieme () {
 
           if (this.interactif) {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'largeur01 inline', { texteApres: ' cm' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '', { texteApres: ' cm' })
           } else {
             texte += 'Périmètre $=\\ldots$ cm'
           }
@@ -637,7 +637,7 @@ export default function SujetCAN20205ieme () {
           }
           if (this.interactif) {
             texte += '<br>Pour VRAI, écrire V et pour FAUX : F'
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
 
           nbChamps = 1
@@ -652,7 +652,7 @@ export default function SujetCAN20205ieme () {
         ${mathalea2d({ xmin: -2, ymin: -2, xmax: 10, ymax: 0.5 * h + l }, pav)}`
           reponse = L * l * h
           texteCorr = `Le volume de ce pavé droit est : $${L}\\text{ cm}\\times ${l} \\text{ cm}\\times ${h}\\text{ cm}=${miseEnEvidence(reponse)}$ cm$^3$.`
-          texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: ' cm$^3$' })
+          texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: ' cm$^3$' })
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           nbChamps = 1
           break
@@ -667,7 +667,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -685,7 +685,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -732,7 +732,7 @@ export default function SujetCAN20205ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'g' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'g' })
           }
           nbChamps = 1
           break
@@ -752,7 +752,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, ' ')
           }
           nbChamps = 1
           break
@@ -766,7 +766,7 @@ export default function SujetCAN20205ieme () {
             texteCorr = `$1$ dm$^3= ${texNombre(1000)}$ cm$^3$, donc $${a}$ dm$^3=${a}\\times ${texNombre(1000)}$ cm$^3=${miseEnEvidence(texNombre(a * 1000))}$ cm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'cm$^3$' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'cm$^3$' })
             } else {
               texte += ' $\\ldots$ cm$^3$'
             }
@@ -777,7 +777,7 @@ export default function SujetCAN20205ieme () {
             texteCorr = `$1$ cm$^3= 0,001$ dm$^3$, donc $${a}$ cm$^3=${a}\\times 0,001$ dm$^3=${miseEnEvidence(texNombre(a / 1000))}$ dm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'dm$^3$' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'dm$^3$' })
             } else {
               texte += ' $\\ldots$ dm$^3$'
             }
@@ -788,7 +788,7 @@ export default function SujetCAN20205ieme () {
             texteCorr = `$1$ m$^3= ${texNombre(1000)}$ dm$^3$, donc $${a}$ m$^3=${a}\\times ${texNombre(1000)}$ dm$^3=${miseEnEvidence(texNombre(a * 1000))}$ dm$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'dm$^3$' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'dm$^3$' })
             } else {
               texte += ' $\\ldots$ dm$^3$'
             }
@@ -799,7 +799,7 @@ export default function SujetCAN20205ieme () {
             texteCorr = `$1$ dm$^3= 0,001$ m$^3$, donc $${a}$ dm$^3=${a}\\times 0,001$ m$^3=${miseEnEvidence(texNombre(a / 1000))}$ m$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: 'm$^3$' })
+              texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: 'm$^3$' })
             } else {
               texte += ' $\\ldots$ m$^3$'
             }
@@ -849,7 +849,7 @@ export default function SujetCAN20205ieme () {
           texte += '<br> Aire $= $'
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01', { texteApres: ' cm$^2$' })
+            texte += ajouteChampTexteMathLive(this, index, ' ', { texteApres: ' cm$^2$' })
           } else {
             texte += ' $\\ldots $ cm$^2$<br>'
           }
@@ -870,7 +870,7 @@ export default function SujetCAN20205ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -893,7 +893,7 @@ export default function SujetCAN20205ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           } else {
             texte += ' $\\ldots$ '
           }

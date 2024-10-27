@@ -25,7 +25,7 @@ export default function DoubleOuBienMoitie () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierNumbers
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     let a = randint(2, 4) * 10 + randint(1, 9)
     if (choice([true, false])) {

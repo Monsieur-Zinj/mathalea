@@ -135,15 +135,15 @@ export default function CalculDAngleFigureComplexe () {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - BAC)
             setReponse(this, 3 * i + 2, 90 - ACD)
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
               texteAvant: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
               texteApres: '$^\\circ$'
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
               texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
               texteApres: '$^\\circ$'
             })
@@ -204,15 +204,15 @@ export default function CalculDAngleFigureComplexe () {
             setReponse(this, 3 * i, ACD)
             setReponse(this, 3 * i + 1, 90 - ACB)
             setReponse(this, 3 * i + 2, 90 - ACD)
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i, ' ', {
               texteAvant: `$\\widehat{${A.nom + C.nom + D.nom}}=$`,
               texteApres: '$^\\circ$'
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 1, ' ', {
               texteAvant: `$\\widehat{${B.nom + C.nom + A.nom}}=$`,
               texteApres: '$^\\circ$'
             })
-            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, 'inline largeur01 nospacebefore', {
+            texte += '<br><br>' + ajouteChampTexteMathLive(this, 3 * i + 2, ' ', {
               texteAvant: `$\\widehat{${C.nom + D.nom + A.nom}}=$`,
               texteApres: '$^\\circ$'
             })

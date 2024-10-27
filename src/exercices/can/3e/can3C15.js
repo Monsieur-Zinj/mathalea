@@ -26,7 +26,7 @@ export default function CalculPuissance10B () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let reponse, n1, n2, n3
     switch (choice([1, 2, 3])) {

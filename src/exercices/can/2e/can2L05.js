@@ -29,7 +29,7 @@ export default function SolutionInequation () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 3
-  this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+  this.formatChampTexte = KeyboardType.clavierEnsemble
   this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   this.nouvelleVersion = function () {

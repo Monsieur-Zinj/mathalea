@@ -117,7 +117,7 @@ export default function LectureProbabilite () {
       texte += mathalea2d({ xmin: -0.1, xmax: 14, ymin: 0, ymax: 7, style: 'inline', scale: 0.5 }, ...objets)
       texte += '<br>Compléter avec la notation qui convient : '
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierProbabilite)
+        texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierProbabilite)
       } else {
         texte += `${sp(7)}$\\ldots\\ldots $`
       }

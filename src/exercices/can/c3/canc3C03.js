@@ -26,7 +26,7 @@ export default function TableMultiplicationTrous () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierNumbers
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const a = randint(2, 9)
     const b = randint(4, 10)

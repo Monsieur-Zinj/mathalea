@@ -120,7 +120,7 @@ export default class ResoudreEquationDegre2 extends Exercice {
         texteCorr += `<br>D'après le cours, il n'est ${texteEnCouleurEtGras('pas factorisable')}.`
         handleAnswers(this, i, { reponse: { value: '\\text{Pas factorisable}' } })
       }
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline ' + KeyboardType.clavierDeBaseAvecX)
+      texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierDeBaseAvecX)
 
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)

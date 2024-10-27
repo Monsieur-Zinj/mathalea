@@ -58,7 +58,7 @@ export default function ÉcrireUneExpressionMathador () {
         this.interactifType = 'mathLive'
       } else this.interactifType = 'custom'
 
-      texte += 'Écrire la succession d\'opérations en une seule expression.' + (this.interactif ? ajouteChampTexteMathLive(this, i, 'inLine largeur01 nospacebefore', { texteAvant: sp(10) + '$E=$' }) : '')
+      texte += 'Écrire la succession d\'opérations en une seule expression.' + (this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: sp(10) + '$E=$' }) : '')
       texteCorr = ''
       if (this.sup) {
         texteCorr += `${quidam} a proposé les calculs suivants :<br>`

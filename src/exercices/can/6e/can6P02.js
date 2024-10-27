@@ -27,7 +27,7 @@ export default function ProportionnaliteCompliquee () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline '
+  this.formatChampTexte = ' '
   this.optionsChampTexte = { texteApres: ' €' }
   this.consigne = ''
   const fruits = [

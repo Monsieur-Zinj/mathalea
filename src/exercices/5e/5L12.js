@@ -116,7 +116,7 @@ export default function ReduireUneExpressionLitterale () {
           break
       }
       texteCorr += `${sp()}${miseEnEvidence(reponse)}$`
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${sp()} = $` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()} = $` })
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
       if (this.questionJamaisPosee(i, a, b, c, d)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)

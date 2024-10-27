@@ -27,7 +27,7 @@ export const refs = {
 export default function EncadrerDizaine () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -46,7 +46,7 @@ export default function EncadrerDizaine () {
             question1 = `Encadrer $${texNombre(N)}$ entre deux dizaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur01 nospacebefore')
+              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
             }
 
             correction1 = `$${miseEnEvidence(`${texNombre(um + c + d)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + d + 10)}`)}$ `
@@ -68,7 +68,7 @@ export default function EncadrerDizaine () {
             question1 = `Encadrer $${texNombre(N)}$ entre deux centaines consécutives.`
 
             if (this.interactif) {
-              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, 'inline largeur01 nospacebefore')
+              question1 += '<br>' + ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${texNombre(N)} < $` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
             }
 
             correction1 = `$${miseEnEvidence(`${texNombre(um + c)}`)} < ${texNombre(N)}< ${miseEnEvidence(`${texNombre(um + c + 100)}`)}$ `

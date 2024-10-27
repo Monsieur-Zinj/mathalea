@@ -29,7 +29,7 @@ export default function LectureGraphiqueNombreDerivee () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
   const listeFractions = [[1, 1], [1, 2], [1, 3], [1, 4], [2, 1], [2, 3], [3, 4], [3, 2], [4, 3], [5, 3], [5, 4]]

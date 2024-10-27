@@ -401,7 +401,7 @@ export default function SerieDeTransformations () {
         texteCorr += transfos[etape].texteCorr + '<br>'
       }
       if (context.isHtml) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, '')
         texte = deuxColonnes(texte, mathalea2d(paramsEnonce, objetsEnonce), 50)
         texteCorr = deuxColonnes(texteCorr, mathalea2d(paramsCorrection, objetsCorrection), 50)
       } else {

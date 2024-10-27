@@ -109,7 +109,7 @@ export default function SujetCAN2022cinquieme () {
           reponse = a * b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '$\\ldots$'
           }
@@ -162,7 +162,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
 
           nbChamps = 1
@@ -177,7 +177,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '$\\ldots$'
           }
@@ -196,7 +196,7 @@ export default function SujetCAN2022cinquieme () {
           Comme : $${a}\\div 100 =${texNombre(a / 100, 2)}$, alors $${a}$ cm$=${texNombre(a / 100, 2)}$ m.  `
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + 'm'
+              texte += ajouteChampTexteMathLive(this, index, '  ') + 'm'
             } else {
               texte += '  $\\ldots$ m'
             }
@@ -208,7 +208,7 @@ export default function SujetCAN2022cinquieme () {
                 Comme : $${texNombre(a, 1)}\\times 100 =${texNombre(a * 100, 0)}$, alors $${texNombre(a, 2)}$ m$=${texNombre(reponse, 0)}$ cm.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + 'cm'
+              texte += ajouteChampTexteMathLive(this, index, '  ') + 'cm'
             } else {
               texte += '  $\\ldots$ cm'
             }
@@ -248,7 +248,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '  $\\ldots$'
           }
@@ -270,7 +270,7 @@ export default function SujetCAN2022cinquieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -285,7 +285,7 @@ export default function SujetCAN2022cinquieme () {
                                    `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -301,7 +301,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '$\\ldots$'
           }
@@ -346,7 +346,7 @@ export default function SujetCAN2022cinquieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -382,7 +382,7 @@ export default function SujetCAN2022cinquieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '  $\\ldots$ '
           }
@@ -406,7 +406,7 @@ export default function SujetCAN2022cinquieme () {
           reponse = a * b * c
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -422,7 +422,7 @@ export default function SujetCAN2022cinquieme () {
           } else {
             texte = `Écrire en heures/minutes : <br>$${d}$ min $=$ `
 
-            texte += ajouteChampTexteMathLive(this, index, 'clavierHms inline')
+            texte += ajouteChampTexteMathLive(this, index, 'clavierHms ')
 
             setReponse(this, index, new Hms({ hour: a, minute: b }), { formatInteractif: 'hms' })
 
@@ -445,7 +445,7 @@ export default function SujetCAN2022cinquieme () {
           reponse = arrondi(a * b * 10, 0)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -505,7 +505,7 @@ export default function SujetCAN2022cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += ' <br>?$= $'
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + '$^\\circ$'
+            texte += ajouteChampTexteMathLive(this, index, '  ') + '$^\\circ$'
           } else {
             texte += '<br> ? $=\\ldots ^°$'
           }
@@ -525,7 +525,7 @@ export default function SujetCAN2022cinquieme () {
           reponse = arrondi((2 * a + 1) / 20, 2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -571,7 +571,7 @@ export default function SujetCAN2022cinquieme () {
           setReponse(this, index, new Grandeur(2 * a + 5 * b, 'cm'), { formatInteractif: 'unites' })
           if (this.interactif) {
             texte += ' Recopie la réponse correcte (nombre et unité à recopier).'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 unites[Longueur]')
+            texte += ajouteChampTexteMathLive(this, index, ' unites[Longueur]')
           }
           nbChamps = 1
           break
@@ -599,7 +599,7 @@ export default function SujetCAN2022cinquieme () {
             setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '$\\ldots$'
           }
@@ -619,7 +619,7 @@ export default function SujetCAN2022cinquieme () {
           reponse = b
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -639,7 +639,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
 
           nbChamps = 1
@@ -710,7 +710,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -736,7 +736,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -767,7 +767,7 @@ export default function SujetCAN2022cinquieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -783,7 +783,7 @@ export default function SujetCAN2022cinquieme () {
           Ainsi, $0,5\\times ${2 * a}=${2 * a}\\div 2=${a}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -871,7 +871,7 @@ export default function SujetCAN2022cinquieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '<br>? $=$'
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + '$^\\circ$'
+            texte += ajouteChampTexteMathLive(this, index, '  ') + '$^\\circ$'
           }
           nbChamps = 1
           break
@@ -890,7 +890,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break
@@ -909,7 +909,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += ' $\\ldots$'
           }
@@ -977,7 +977,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + 'cm'
+            texte += ajouteChampTexteMathLive(this, index, '  ') + 'cm'
           } else {
             texte += ' $\\ldots$ cm'
           }
@@ -996,7 +996,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           } else {
             texte += '$\\ldots$'
           }
@@ -1015,7 +1015,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ') + '$\\pi$ cm$^2$'
+            texte += ajouteChampTexteMathLive(this, index, '  ') + '$\\pi$ cm$^2$'
           } else {
             texte += '$\\ldots \\pi$ cm$^2$'
           }
@@ -1042,7 +1042,7 @@ export default function SujetCAN2022cinquieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'nospacebefore inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, '  ')
           }
           nbChamps = 1
           break

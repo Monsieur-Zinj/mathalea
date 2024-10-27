@@ -70,7 +70,7 @@ export default function EquationReduiteDeDroites () {
       }
 
       const nomDroite = this.sup === 1 ? 'AB' : 'd'
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$(${nomDroite}) : y=$` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$(${nomDroite}) : y=$` })
 
       reponse = reduireAxPlusB(new FractionEtendue(n, d).simplifie(), new FractionEtendue(d * yA - n * xA, d).simplifie())
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })

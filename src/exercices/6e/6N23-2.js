@@ -209,16 +209,16 @@ export default function LireAbscisseDecimaleTroisFormes () {
         })
       }
       const texte1 = `${numAlpha(0)} Donner l'abscisse de $${noms[0]}$ en écriture décimale.`
-      texte = texte1 + ajouteChampTexteMathLive(this, i * 3, 'largeur01 inline nospacebefore', {
+      texte = texte1 + ajouteChampTexteMathLive(this, i * 3, ' ', {
         texteAvant: `${sp(10)} $${noms[0]}($`,
         texteApres: `$${sp(1)})$`
       })
-      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 3 + 1, 'largeur01 inline nospacebefore', {
+      texte += `<br>${numAlpha(1)} Donner l'abscisse de $${noms[1]}$ comme la somme d'un nombre entier et d'une fraction décimale inférieure à 1.` + ajouteChampTexteMathLive(this, i * 3 + 1, ' ', {
         texteAvant: `${sp(10)} $${noms[1]}($`,
         texteApres: `$${sp(1)})$`// `$${sp(2)}+$`
-      }) // + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur01 inline nospacebefore', { texteApres: `$${sp(1)})$` })
+      }) // + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', { texteApres: `$${sp(1)})$` })
       let texte3 = `Donner l'abscisse de $${noms[2]}$ sous la forme d'une fraction décimale.`
-      texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 3 + 2, 'largeur01 inline nospacebefore', {
+      texte += `<br>${numAlpha(2)} ` + texte3 + ajouteChampTexteMathLive(this, i * 3 + 2, ' ', {
         texteAvant: `${sp(10)} $${noms[2]}($`,
         texteApres: `$${sp(1)})$`
       })

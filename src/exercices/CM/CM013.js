@@ -42,7 +42,7 @@ export default function ComplementAUneDizaine () {
       texte = `$${a}-${b}=$`
       texteCorr = `$${a}-${b}=${a - b}$`
       setReponse(this, i, a - b)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

@@ -148,7 +148,7 @@ export default function ExerciceMultiplierFractions () {
       }
       if (this.questionJamaisPosee(i, a, b, c, d, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 nospacebefore inline ', { texteAvant: '$=$' })
+        texte += ajouteChampTexteMathLive(this, i, '  ', { texteAvant: '$=$' })
         handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: fractionIrreductibleDemandee } } })
 
         if (context.isAmc) {

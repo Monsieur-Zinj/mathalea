@@ -19,7 +19,7 @@ export default class AbscisseEnDemis extends Exercice {
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
     this.formatInteractif = 'calcul'
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.optionsChampTexte = { texteApres: ' km' }
     this.canOfficielle = false
   }

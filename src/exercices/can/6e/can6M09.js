@@ -25,7 +25,7 @@ export default function PerimetreCarreRectangle () {
   this.tailleDiaporama = 2
   this.optionsChampTexte = { texteApres: ' cm' }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b
     switch (choice(['a', 'b'])) {

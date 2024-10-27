@@ -57,7 +57,7 @@ export default class PuissancesEtPrefixe extends Exercice {
         texteCorr = `$10^{${exposant}}$, c'est ${description} donc le préfixe correspondant est ${texteEnCouleurEtGras(prefixe)}.`
       } else {
         texte = this.interactif
-          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore ' + KeyboardType.clavierFullOperations)
+          ? `Le préfixe ${prefixe} est associé à : ` + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations)
           : `${prefixe}`
         handleAnswers(this, i, { reponse: { value: `10^{${exposant}}`, compare: fonctionComparaison } })
         texteCorr = `Le préfixe ${prefixe} est associé à ${description}, soit $${miseEnEvidence(`10^{${exposant}}`)}$ ou $${miseEnEvidence(texNombre(reponseDecimale, 9))}$.`

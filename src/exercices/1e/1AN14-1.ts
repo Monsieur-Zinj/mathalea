@@ -185,7 +185,7 @@ class DerivationFonctionsUsuelles extends Exercice {
           break
       }
       const passageDeLigneCorr = laDerivee.includes('frac') || laFonction.includes('frac') ? '<br><br>' : '<br>'
-      let texte = `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` + ajouteChampTexteMathLive(this, i, 'inline largeur01')
+      let texte = `Donner la dérivée de la fonction $${nameF}$, dérivable ${df}, définie par  $${nameF}(x)=${laFonction}$.` + ajouteChampTexteMathLive(this, i, '')
       const reponse = laDerivee
       let texteCorr = ''
       if (this.correctionDetaillee) texteCorr += correctionDetaillee.replace('<br>', passageDeLigneCorr)

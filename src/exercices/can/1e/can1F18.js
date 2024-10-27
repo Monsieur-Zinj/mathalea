@@ -31,7 +31,7 @@ export default function CalculFonctionDeriveeAsurU () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline nospacebefore'
+  this.formatChampTexte = ' '
   this.tailleDiaporama = 2
   this.compare = functionCompare
 

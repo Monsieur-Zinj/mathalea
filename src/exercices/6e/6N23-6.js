@@ -131,7 +131,7 @@ export default function DivisionFraction () {
         } else {
           texte += '~\\approx$'
         }
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore')
+        texte += ajouteChampTexteMathLive(this, i, ' ')
       } else {
         texte += '$'
       }

@@ -69,7 +69,7 @@ export default function PerimetreCarreRectangle () {
         a = randint(5, 20) * 4
         this.interactifType = 'mathLive'
         question = `Le périmètre d'un carré est $${a}$ cm.<br>Quelle est la longueur du côté du carré ? `
-        question += ajouteChampTexteMathLive(this, 0, 'largeur 10 inline', { texteApres: ' cm' })
+        question += ajouteChampTexteMathLive(this, 0, '', { texteApres: ' cm' })
         reponse = calculANePlusJamaisUtiliser(a / 4)
         correction = `Le côté du carré est $${a}\\div 4=${reponse}$ cm.`
         setReponse(this, 0, reponse)
@@ -80,12 +80,12 @@ export default function PerimetreCarreRectangle () {
         this.interactifType = 'mathLive'
         if (choice([true, false])) {
           question = `Le périmètre d'un rectangle de largeur $${b}$ cm est $${(a + b) * 2}$ cm.<br>Quelle est sa longueur ? `
-          question += ajouteChampTexteMathLive(this, 0, 'largeur 10 inline', { texteApres: ' cm' })
+          question += ajouteChampTexteMathLive(this, 0, '', { texteApres: ' cm' })
           reponse = a
           correction = `Le demi-périmètre de ce rectangle est $${b}+L=${a + b}$ cm. Donc $L=${a}$ cm.`
         } else {
           question = `Le périmètre d'un rectangle de longueur $${a}$ cm est $${(a + b) * 2}$ cm.<br>Quelle est sa largeur ? `
-          question += ajouteChampTexteMathLive(this, 0, 'largeur 10 inline', { texteApres: ' cm' })
+          question += ajouteChampTexteMathLive(this, 0, '', { texteApres: ' cm' })
           reponse = b
           correction = `Le demi-périmètre de ce rectangle est $${a}+l=${a + b}$ cm. Donc $l=${b}$ cm.`
         }

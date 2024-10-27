@@ -196,7 +196,7 @@ export default function EquationsProduitsNuls2 () {
           }
           break
       }
-      texte += sp(4) + ajouteChampTexteMathLive(this, i, 'inline lycee nospacebefore largeur01', { texteAvant: ' $S=$' })
+      texte += sp(4) + ajouteChampTexteMathLive(this, i, ' lycee   ', { texteAvant: ' $S=$' })
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { ensembleDeNombres: true } } })
 
       // Uniformisation : Mise en place de la réponse attendue en interactif en orange et gras

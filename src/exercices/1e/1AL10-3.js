@@ -120,7 +120,7 @@ u_{${k}}&=\\dfrac{${a === 1 ? '' : a === -1 ? '-' : `${a} \\times`} ${k} ${ecrit
 
           break
       }
-      texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$u_{${k}}=$` })
+      texte += '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$u_{${k}}=$` })
 
       if (this.questionJamaisPosee(i, a, b, k)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte) // Sinon on enregistre la question dans listeQuestions

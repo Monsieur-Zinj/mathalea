@@ -81,7 +81,7 @@ export default function RecompositionDecimale () {
       }
       xDecal += m * 0.8
       texte += mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, 'largeur01')
+      if (!context.isAmc) texte += ajouteChampTexteMathLive(this, q, '')
 
       if (this.correctionDetaillee) {
         if (e === 1) texteCorr += 'Il y a 1 cube unité.<br>'

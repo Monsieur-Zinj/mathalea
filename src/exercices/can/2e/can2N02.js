@@ -25,7 +25,7 @@ export default function PlusPetitEnsemble () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.formatInteractif = 'texte'
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierEnsemblePredefini
+  this.formatChampTexte = KeyboardType.clavierEnsemblePredefini
 
   this.nouvelleVersion = function () {
     let a, b, c, d, listeFractions1, listeFractions2, fraction1, fraction2, choix, choix2, N

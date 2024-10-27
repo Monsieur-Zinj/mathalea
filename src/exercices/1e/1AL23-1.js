@@ -98,7 +98,7 @@ export default function Formacanonique () {
         }
       }
 
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteAvant: `$${sp()}=${sp()}$` })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${sp()}=${sp()}$` })
       if (this.questionJamaisPosee(i, a, b, c)) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

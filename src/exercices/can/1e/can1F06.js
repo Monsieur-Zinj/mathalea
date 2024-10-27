@@ -32,7 +32,7 @@ export const refs = {
 export default function LectureGraphiqueParaboleB () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 1
 
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
@@ -123,7 +123,7 @@ export default function LectureGraphiqueParaboleB () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$b=$' })
             setReponse(this, i, b)
           }
 
@@ -213,7 +213,7 @@ export default function LectureGraphiqueParaboleB () {
               }, r, o, courbe(f, { repere: r, color: 'blue', epaisseur: 2 }))
           }
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '$b=$' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '$b=$' })
             setReponse(this, i, b)
           }
 

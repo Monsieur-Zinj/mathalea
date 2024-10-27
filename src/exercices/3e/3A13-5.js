@@ -91,7 +91,7 @@ export default function DivisionEuclidienneEtAjout () {
 
       if (this.interactif) {
         setReponse(this, i, reponse)
-        texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01 ' + KeyboardType.clavierNumbers)
+        texte += '<br>' + ajouteChampTexteMathLive(this, i, KeyboardType.clavierNumbers)
       }
       if (context.isAmc) {
         this.autoCorrection[i] = this.sup

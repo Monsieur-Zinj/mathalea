@@ -23,7 +23,7 @@ export default class EncadreParDeuxEntiers extends Exercice {
     this.typeExercice = 'simple'
     this.nbQuestions = 1
     this.formatInteractif = 'fillInTheBlank'
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
     this.canOfficielle = false
   }
 

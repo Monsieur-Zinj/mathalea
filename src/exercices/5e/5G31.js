@@ -509,17 +509,17 @@ export default function ExerciceAnglesTriangles () {
         }
       }
       if (this.interactif) {
-        texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, 'inline nospacebefore largeur01', {
+        texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse, ' ', {
           texteAvant: `$\\widehat{${nomAngles[choixAngle[0]]}} = $`,
           texteApres: '$^\\circ$'
         })
         if (reponseInteractive.length > 1) {
-          texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, 'inline nospacebefore largeur01', {
+          texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 1, ' ', {
             texteAvant: `$\\widehat{${nomAngles[choixAngle[1]]}} = $`,
             texteApres: '$^\\circ$'
           })
           if (reponseInteractive.length > 2) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, 'inline nospacebefore largeur01', {
+            texte += '<br>' + ajouteChampTexteMathLive(this, indiceSetReponse + 2, ' ', {
               texteAvant: `$\\widehat{${nomAngles[choixAngle[2]]}} = $`,
               texteApres: '$^\\circ$'
             })

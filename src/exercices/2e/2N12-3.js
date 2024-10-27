@@ -52,7 +52,7 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           reponse = Math.floor(Math.sqrt(a))
           texte = `Encadrer $\\sqrt{${a}}$ par deux entiers consécutifs.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + `$< \\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< \\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
           }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
@@ -71,7 +71,7 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           reponse2 = b + c * Math.floor(Math.sqrt(a) + 1)
           texte = `En utilisant un encadrement  de $\\sqrt{${a}}$ par  deux entiers consécutifs, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
           }
           texteCorr = `Comme $${a}$ n'est pas le carré d'un nombre entier, on encadre $${a}$ par deux carrés d'entiers : <br>
           $${Math.floor(Math.sqrt(a)) ** 2} < ${a} < ${(Math.floor(Math.sqrt(a)) + 1) ** 2}$, soit $${Math.floor(Math.sqrt(a))}^2 < ${a} < ${(Math.floor(Math.sqrt(a)) + 1)}^2$.<br><br>
@@ -119,7 +119,7 @@ export default function EncadrerRacineCarreeEntre2Entiers () {
           reponse2 = a
           texte = `En utilisant l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, donner un encadrement de $${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}}$ le plus précis possible.<br>`
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline nospacebefore')
+            texte += ajouteChampTexteMathLive(this, 2 * i, '') + `$< ${b}${ecritureAlgebriqueSauf1(c)}\\sqrt{${a}} <$` + ajouteChampTexteMathLive(this, 2 * i + 1, ' ')
           }
           texteCorr = `À partir de l'encadrement $${texNombre(r1, 1)}<\\sqrt{${a}}<${texNombre(r2, 1)}$, on obtient successivement :<br>`
           if (c > 0) {

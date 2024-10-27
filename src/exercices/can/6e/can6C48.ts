@@ -26,7 +26,7 @@ export default class problemeEconomie extends Exercice {
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteApres: '€' }
     this.canOfficielle = true
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

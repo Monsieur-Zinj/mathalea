@@ -112,7 +112,7 @@ export default function DernierChiffre () {
           break
       }
 
-      if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (context.isHtml && this.interactif) texte += '<br>Le chiffre des unités est : ' + ajouteChampTexteMathLive(this, i, '')
       if (context.isAmc) {
         this.autoCorrection[i].enonce = texte.substring(0, texte.length - 1) + '~=$<br>Le chiffre des unités est : '
         this.autoCorrection[i].propositions = [{ texte: texteCorr, statut: '' }]

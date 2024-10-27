@@ -42,7 +42,7 @@ export default function HeuresDecimales () {
       partieEntiere = randint(1, 12)
       partieDecimale = choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 25, 75])
       texte = `$${partieEntiere},${partieDecimale}~\\text{h}=$`
-      texte += ajouteChampTexteMathLive(this, i, 'inline clavierHms')
+      texte += ajouteChampTexteMathLive(this, i, ' clavierHms')
       texte += '<br>'
 
       if (partieDecimale === 25) {

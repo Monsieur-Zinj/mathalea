@@ -203,7 +203,7 @@ export default function ExerciceAdditionnerOuSoustraireDesFractions () {
       }
       if (!(new FractionEtendue(num, den).estIrreductible)) texteCorr += ' (On a réduit le plus possible la fraction.)'
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '=' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '=' })
       reponse = this.sup3 ? fraction(num, den).simplifie() : fraction(num, den)
       handleAnswers(this, i, { reponse: { value: reponse.toLatex(), compare: fonctionComparaison, options: { fractionEgale: !this.sup3, fractionIrreductible: this.sup3 } } })
 

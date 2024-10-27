@@ -23,7 +23,7 @@ export default function FractionDecimaleEcritureDecimale2 () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b, c
     switch (choice(['a', 'b'])) { //,

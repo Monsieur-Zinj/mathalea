@@ -45,7 +45,7 @@ class LireImageParApiGeom extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     this.besoinFormulaireNumerique = ['Nombre d\'images à trouver (de 1 à 5)', 5]
     this.besoinFormulaire2CaseACocher = ['Utiliser des valeurs entières', false]
     this.sup = 3
@@ -124,7 +124,7 @@ class LireImageParApiGeom extends Exercice {
       index++
     }
     for (let i = 0; i < this.nbImages; i++) {
-    //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: '  ' }) + '<br>'
+    //  enonce += `${numAlpha(i)} $${texNombre(this.X[i], 1)}$ ?` + ajouteChampTexteMathLive(this, i, '', { texteApres: '  ' }) + '<br>'
       const image = spline.fonction(this.X[i]) as FractionEtendue
       this.Y[i] = Math.round(10 * Number(image)) / 10
     }

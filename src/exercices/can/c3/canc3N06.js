@@ -27,7 +27,7 @@ export default function ComparerDroiteGrad () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     this.listeQuestions = []
     this.listeCorrections = []

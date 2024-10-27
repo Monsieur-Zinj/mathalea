@@ -24,7 +24,7 @@ export default class NomExercice extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore blocCenter ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = '  blocCenter ' + KeyboardType.clavierDeBase
   }
 
   nouvelleVersion () {

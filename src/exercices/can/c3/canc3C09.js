@@ -25,7 +25,7 @@ export default function FoisPlusFoisMoins () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierNumbers
+  this.formatChampTexte = KeyboardType.clavierNumbers
   this.nouvelleVersion = function () {
     const listeObjets = [
       ['biscuits'], ['billes'], ['bonbons'], ['ballons'], ['vis'], ['clous']

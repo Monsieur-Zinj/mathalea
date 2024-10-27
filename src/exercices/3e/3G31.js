@@ -329,7 +329,7 @@ export default function CalculDAngle () {
       }
       texte += ' à $1 ^\\circ$ près.'
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' °' })
+      texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' °' })
 
       if (this.questionJamaisPosee(i, nom, choixRapportTrigo)) {
         this.listeQuestions.push(texte)

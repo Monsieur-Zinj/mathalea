@@ -181,7 +181,7 @@ export default function NotationPuissance () {
         }
       }
 
-      texte += this.interactif ? (this.sup === 3 ? ' : ' : ' = ') + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore ' + KeyboardType.clavierFullOperations) : ''
+      texte += this.interactif ? (this.sup === 3 ? ' : ' : ' = ') + ajouteChampTexteMathLive(this, i, KeyboardType.clavierFullOperations) : ''
       if (this.sup === 3) texte += '.'
 
       if (context.isAmc) {

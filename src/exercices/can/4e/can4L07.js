@@ -40,7 +40,7 @@ export default function ReduireExp () {
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
   this.nouvelleVersion = function () {
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     let a, b, c, choix, d, e
     let reponse
     switch (randint(1, 3)) {

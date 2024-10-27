@@ -20,7 +20,7 @@ export default class Equation1degre extends Exercice {
     this.canOfficielle = false
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBaseAvecFraction
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
   }
 

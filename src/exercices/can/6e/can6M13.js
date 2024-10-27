@@ -24,7 +24,7 @@ export default function CombienDeFois () {
   this.tailleDiaporama = 2
   this.typeExercice = 'simple'
   this.formatInteractif = 'calcul'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     switch (choice([1, 1, 2, 2, 3, 3, 4])) {
       case 0:{

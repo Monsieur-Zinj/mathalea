@@ -28,7 +28,7 @@ export const refs = {
 export default function CoordonneesSommetParabole () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   this.nouvelleVersion = function () {
     this.listeQuestions = [] // Liste de questions

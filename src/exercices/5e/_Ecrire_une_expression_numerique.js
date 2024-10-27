@@ -228,7 +228,7 @@ export default function EcrireUneExpressionNumerique () {
               ]
             }
           } else {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Résultat : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: ' Résultat : ' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
           }
         }
@@ -268,7 +268,7 @@ export default function EcrireUneExpressionNumerique () {
               ]
             }
           } else {
-            texte += '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: ' Calcul : ' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: ' Calcul : ' })
             handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
           }
         }

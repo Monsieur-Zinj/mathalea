@@ -224,7 +224,7 @@ export default function DevelopperIdentitesRemarquables2 () {
           handleAnswers(this, i, { reponse: { value: `${frac2}x^2-${a * a}`, compare: fonctionComparaison } })
           break
       }
-      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
+      if (this.interactif) texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       if (this.questionJamaisPosee(i, typesDeQuestions, a)) {
         // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

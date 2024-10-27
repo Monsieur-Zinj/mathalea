@@ -317,7 +317,7 @@ export default class ExerciceAdditionnerSoustraireFractions5e extends Exercice {
           }
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       if (!context.isAMC) {
         handleAnswers(this, i, { reponse: { value: new FractionEtendue(reponse.num, reponse.den).simplifie().texFSD, compare: reponse.compare } }, { formatInteractif: 'mathlive' })
       } else {

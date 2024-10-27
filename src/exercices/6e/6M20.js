@@ -135,7 +135,7 @@ export default function AireDeTriangles () {
                 calculANePlusJamaisUtiliser((cotes[i] * hauteurs[i]) / 2)
             ) + '~\\text{cm}^2')}$`
       setReponse(this, i, new Grandeur(arrondi(cotes[i] * hauteurs[i] / 2, 3), 'cm^2'), { formatInteractif: 'unites' })
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore unites[volumes]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`, texteApres: sp(6) + 'Il faut penser à indiquer l\'unité à la réponse.' })
+      texte += ajouteChampTexteMathLive(this, i, '  unites[volumes]', { texteAvant: `Aire du triangle ${A.nom}${B.nom}${C.nom} :`, texteApres: sp(6) + 'Il faut penser à indiquer l\'unité à la réponse.' })
       if (context.isAmc) {
         this.autoCorrection[i] = {
           enonce: texte + `<br>Aire de ${A.nom}${B.nom}${C.nom} en cm$^2$ :`, // Si vide, l'énoncé est celui de l'exercice.

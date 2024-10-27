@@ -30,7 +30,7 @@ export default function ProblemesDeLongueursEtPerimetre () {
   Exercice.call(this)
   this.nbQuestions = 1
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.optionsChampTexte = { texteApres: ' cm' }
   this.nouvelleVersion = function () {
     let choix; let a; let a2; let b2; let b; let A; let B; let C; let D; let objets = []; let s1; let s2; let s3; let s4

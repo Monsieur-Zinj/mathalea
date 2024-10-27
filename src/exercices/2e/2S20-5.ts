@@ -140,9 +140,9 @@ export default class Quartiles extends Exercice {
       objets2d.push(marque1, marque3, ecartIQ, iq)
       const figCorrection = mathalea2d(Object.assign({ pixelsParCm: 15, scale: 0.5 }, fixeBordures(objets2d)), objets2d)
       let texte = `On donne ci-dessus la représentation graphique des fréquences cumulées croissante ${situation.label}.<br>Les réponses seront données avec la précision permise par le graphique (à $${tolerance}$ près).<br>`
-      texte += `${numAlpha(0)} Donner la valeur du premier quartile.` + ajouteChampTexteMathLive(this, 3 * i, 'inlinde largeur01')
-      texte += `<br>${numAlpha(1)} Donner la valeur du troisième quartile.` + ajouteChampTexteMathLive(this, 3 * i + 1, 'inlinde largeur01')
-      texte += `<br>${numAlpha(2)} Donner la valeur de l'écart inter-quartile.` + ajouteChampTexteMathLive(this, 3 * i + 2, 'inlinde largeur01')
+      texte += `${numAlpha(0)} Donner la valeur du premier quartile.` + ajouteChampTexteMathLive(this, 3 * i, '')
+      texte += `<br>${numAlpha(1)} Donner la valeur du troisième quartile.` + ajouteChampTexteMathLive(this, 3 * i + 1, '')
+      texte += `<br>${numAlpha(2)} Donner la valeur de l'écart inter-quartile.` + ajouteChampTexteMathLive(this, 3 * i + 2, '')
       handleAnswers(this, 3 * i, { reponse: { value: String(q1), compare: approximatelyCompare, options: { tolerance } } })
       handleAnswers(this, 3 * i + 1, { reponse: { value: String(q3), compare: approximatelyCompare, options: { tolerance } } })
       handleAnswers(this, 3 * i + 2, { reponse: { value: String(q3 - q1), compare: approximatelyCompare, options: { tolerance } } })

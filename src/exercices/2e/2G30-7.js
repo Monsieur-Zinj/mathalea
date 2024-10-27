@@ -179,7 +179,7 @@ export default function Lecturegraphiquedeaetb () {
         }
       }
 
-      texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: '<br>L\'équation réduite de la droite est : $y=$' })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: '<br>L\'équation réduite de la droite est : $y=$' })
 
       if (this.questionJamaisPosee(i, a, b)) {
         // Si la question n'a jamais été posée, on en créé une autre

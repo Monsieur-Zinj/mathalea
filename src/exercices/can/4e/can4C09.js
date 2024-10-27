@@ -24,7 +24,7 @@ export default function PuissancesDe2345 () {
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let b, a
     switch (choice([2, 2, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10])) {

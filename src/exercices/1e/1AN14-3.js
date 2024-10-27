@@ -148,7 +148,7 @@ export default function DeriveePoly () {
       texte = texte.replaceAll('\\frac', '\\dfrac')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
       if (this.interactif) {
-        texte += `<br>${useFraction ? '<br>' : ''}` + ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: `$${nameF}'(x)=$` })
+        texte += `<br>${useFraction ? '<br>' : ''}` + ajouteChampTexteMathLive(this, i, '', { texteAvant: `$${nameF}'(x)=$` })
       }
       handleAnswers(this, i, { reponse: { value: poly.derivee().toLatex(), compare: functionCompare } })
 

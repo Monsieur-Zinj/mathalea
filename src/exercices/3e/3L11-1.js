@@ -123,7 +123,7 @@ export default function DoubleDistributivite () {
 
       if (!context.isAmc && this.interactif) {
         handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { expressionsForcementReduites: true } } })
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' $=$' })
+        texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' $=$' })
       } else {
         this.autoCorrection[i] = {
           enonce: '',

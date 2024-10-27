@@ -28,7 +28,7 @@ export default function CoordonneesPointIntersectionAxeAbscissesDroite () {
     const n = randint(-5, 5, 0)
     const b = n * a
 
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
 
     this.formatInteractif = 'texte'
     this.reponse = `${-b / a};0`

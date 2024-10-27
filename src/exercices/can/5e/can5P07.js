@@ -25,7 +25,7 @@ export default function Proportionnalite2 () {
   Exercice.call(this)
   this.typeExercice = 'simple'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.formatInteractif = 'fractionEgale'
 
   this.tailleDiaporama = 2

@@ -194,7 +194,7 @@ export default function CalculerDesFrequences () {
       }
       if (this.interactif) {
         texte += ' On donnera la valeur exacte en écriture fractionnaire ou décimale si elle existe.<br>'
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, '')
         setReponse(this, i, reponse, {
           formatInteractif: 'fractionEgale',
           digits: 5,

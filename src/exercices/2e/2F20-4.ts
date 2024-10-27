@@ -145,7 +145,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
     // Pour un exercice de type simple qui n'utilise pas le champ de réponse
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     this.exoCustomResultat = true
     this.answers = {}
     this.sup2 = 10
@@ -568,7 +568,7 @@ class resolutionEquationInequationGraphique extends Exercice {
     let indexQuestion = 0
     if (soluces != null) {
       if (this.sup === 1 || this.sup === 3) {
-        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
+        if (this.interactif) enonce += `L'ensemble de solutions de l'équation $${f1}(x)${miseEnEvidence('~=~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>' // '$\\{' + Array.from(soluces).join(' ; ') + '\\}$'//
         handleAnswers(this, indexQuestion, {
           reponse: {
             value: `\\{${Array.from(soluces).join(';')}\\}`,
@@ -583,7 +583,7 @@ class resolutionEquationInequationGraphique extends Exercice {
       enonce += `Résoudre graphiquement l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}].<br>`
       if (this.interactif) {
         enonce += 'On peut taper \'union\' au clavier ou utiliser le clavier virtuel pour le signe $\\cup$.<br>'
-        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, 'inline15 lycee ml-2') + '<br><br>'
+        enonce += `L'ensemble des solutions de l'inéquation $${f1}(x)${inferieur ? miseEnEvidence('\\leqslant', 'black') : miseEnEvidence('~\\geqslant~', 'black')}${f2}(x)$ sur [$${xMin};$${xMax + 1}] est : ` + ajouteChampTexteMathLive(this, indexQuestion, '  lycee ml-2') + '<br><br>'
       }
       const soluces2: string = chercheIntervalles(polyDiff, soluces, Boolean(inferieur), xMin, xMin + 10)
 

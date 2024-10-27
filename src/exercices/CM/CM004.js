@@ -64,7 +64,7 @@ export default function QuatreOperations () {
           }
           texte = `$${a}+${b} = $`
           texteCorr = `$${a}+${b}=${a + b}$`
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           setReponse(this, i, a + b)
           break
         case 2: // soustraction
@@ -83,7 +83,7 @@ export default function QuatreOperations () {
           texte = `$${a}-${b}=$`
           texteCorr = `$${a}-${b}=${a - b}$`
           setReponse(this, i, a - b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 3: // multiplication
           if (this.sup === 1) {
@@ -101,7 +101,7 @@ export default function QuatreOperations () {
           texte = `$${a}\\times${b}=$`
           texteCorr = `$${a}\\times${b}=${a * b}$`
           setReponse(this, i, a * b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
         case 4: // division
           if (this.sup === 1) {
@@ -119,7 +119,7 @@ export default function QuatreOperations () {
           texte = `$${a * b}\\div${a}=$`
           texteCorr = `$${a * b}\\div${a}=${b}$`
           setReponse(this, i, b)
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
           break
       }
 

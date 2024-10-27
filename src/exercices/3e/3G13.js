@@ -302,7 +302,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle}
           Calculer le rapport $k$ de cette homothétie`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :' })
 
           texte += '.<br>' + frapport.enonce
 
@@ -330,7 +330,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle} 
           Calculer $${O}${hA}$`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
 
           texte += '.<br>' + fImage.enonce
 
@@ -357,7 +357,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle} 
           Calculer $${O}${A}$`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
 
           texte += '.<br>' + fAntecedent.enonce
 
@@ -391,7 +391,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle} 
           Calculer $${O}${hB}$`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
 
           texte += '.<br>' + fImage2etapes.enonce
 
@@ -438,7 +438,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle2} 
           Calculer $${O}${B}$`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: '$ \\text{ cm}$' })
 
           texte += '.<br>' + fAntecedent2etapes.enonce
 
@@ -478,7 +478,7 @@ export default class CalculsHomothetie extends Exercice {
           texte = `Une figure a pour aire $ {${texNombre(Aire.valeurDecimale)}\\text{ cm}^2}$.<br>
           Calculer l'aire de son image par une homothétie de rapport $${signek}${this.sup3 === 1 ? texNombre(kAire.valeurDecimale) : kAire.texFSD}$`
 
-          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$ (arrondi au $\\text{ mm}^2$ si besoin)' })
+          if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$ (arrondi au $\\text{ mm}^2$ si besoin)' })
           else texte += ' (arrondir au $\\text{mm}^2$ près si besoin)'
 
           handleAnswers(this, i, { reponse: { value: hAireArrondie, compare: fonctionComparaison } })
@@ -501,7 +501,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           Calculer l'aire de la figure de départ`
 
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :', texteApres: ' $\\text{ cm}^2$' })
 
           texte += '.'
 
@@ -527,7 +527,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           Calculer le rapport de l'homothétie`
 
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :' })
 
           texte += '.'
 
@@ -555,7 +555,7 @@ export default class CalculsHomothetie extends Exercice {
           <br>
           ${illustrerParUneFigureAMainLevee} ${figurealechelle} 
           Calculer le rapport $k$ de cette homothétie`
-          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction nospacebefore', { texteAvant: ' :' })
+          texte += ajouteChampTexteMathLive(this, i, 'clavierDeBaseAvecFraction  ', { texteAvant: ' :' })
 
           texte += '.<br>' + frapport2.enonce
 

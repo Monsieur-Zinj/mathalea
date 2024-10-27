@@ -31,7 +31,7 @@ export default function ProblemeResteFraction () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.formatInteractif = 'fractionEgale'
   this.nouvelleVersion = function () {
     const listeFractions1 = [[1, 3], [1, 5], [2, 3], [3, 4], [2, 5], [4, 5],

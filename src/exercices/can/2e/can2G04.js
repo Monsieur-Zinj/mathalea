@@ -27,7 +27,7 @@ export default function CalculCoordonneesMilieu () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a, b, c, d
     const nom = creerNomDePolygone(2, 'MPQDO')

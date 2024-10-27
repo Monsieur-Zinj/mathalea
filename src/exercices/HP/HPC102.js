@@ -287,7 +287,7 @@ export default function CalculsLoiNormale () {
 
       texteCorr = texteCorr.replaceAll('frac', 'dfrac')
       if (this.interactif) {
-        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteAvant: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
+        texte += '<br><br>' + ajouteChampTexteMathLive(this, i, '', { texteAvant: `La probabilité est : $\\mathrm{P}(${bornec} < X < ${borned}) \\approx $` })
       }
 
       if (this.questionJamaisPosee(i, bornea, borneb, bornec, borned)) { // Si la question n'a jamais été posée, on en créé une autre

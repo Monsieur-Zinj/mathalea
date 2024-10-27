@@ -294,7 +294,7 @@ export default function SommeOuProduitFractions () {
 
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, texte)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, i, '')
         setReponse(this, i, fraction(num, den), { formatInteractif: 'fractionEgale' })
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)

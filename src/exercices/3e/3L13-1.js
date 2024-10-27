@@ -70,7 +70,7 @@ export default function ExerciceEquation1Tiret2 () {
         texte = `$${rienSi1(a)}x${ecritureAlgebrique(b)}=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x =$' + ajouteChampTexteMathLive(this, i, 'inline largeur01') + '<br><br>'
+          texte += '$x =$' + ajouteChampTexteMathLive(this, i, '') + '<br><br>'
           setReponse(this, i, new FractionEtendue(d - b, a - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
@@ -110,7 +110,7 @@ export default function ExerciceEquation1Tiret2 () {
         texte = `$${k}(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x = $' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') + '<br><br>'
+          texte += '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
           setReponse(this, i, new FractionEtendue(d - k * b, a * k - c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {
@@ -153,7 +153,7 @@ export default function ExerciceEquation1Tiret2 () {
         texte = `$${k}-(${rienSi1(a)}x${ecritureAlgebrique(b)})=${rienSi1(c)}x${ecritureAlgebrique(d)}$<br>`
         texteCorr = texte
         if (this.interactif) {
-          texte += '$x = $' + ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore') + '<br><br>'
+          texte += '$x = $' + ajouteChampTexteMathLive(this, i, ' ') + '<br><br>'
           setReponse(this, i, new FractionEtendue(k - b - d, a + c), { formatInteractif: 'fractionEgale' })
         }
         if (this.correctionDetaillee) {

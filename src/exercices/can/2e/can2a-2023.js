@@ -107,7 +107,7 @@ export default function SujetCAN2023Seconde () {
           texteCorr = `$${a} \\times ${texNombre(b, 1)}=${miseEnEvidence(texNombre(reponse, 1))}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = `$${a} \\times ${texNombre(b, 1)}$`
           this.canReponseACompleter = ''
@@ -133,7 +133,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -162,7 +162,7 @@ export default function SujetCAN2023Seconde () {
           this.canEnonce = texte
           this.canReponseACompleter = ''
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, index, '')
           //  setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           }
           this.listeCanEnonces.push(this.canEnonce)
@@ -191,7 +191,7 @@ export default function SujetCAN2023Seconde () {
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
             texte += '<br>Écrire V pour Vrai et F pour Faux.'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = `$\\dfrac{${a}}{${b}}\\times ${c}$ est un entier.`
           this.canReponseACompleter = `Entoure la bonne réponse : <br>
@@ -210,7 +210,7 @@ export default function SujetCAN2023Seconde () {
           texteCorr = `$${a} -${b}\\times ${c}=${a}-${b * c}=${miseEnEvidence(reponse)}$`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -239,7 +239,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -262,7 +262,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') +
+            texte += ajouteChampTexteMathLive(this, index, '') +
                             '€'
           }
           this.canEnonce = texte
@@ -283,7 +283,7 @@ export default function SujetCAN2023Seconde () {
          `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -301,7 +301,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -377,7 +377,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.listeCanEnonces.push(this.canEnonce)
           this.listeCanReponsesACompleter.push(this.canReponseACompleter)
@@ -404,7 +404,7 @@ export default function SujetCAN2023Seconde () {
           `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -422,7 +422,7 @@ export default function SujetCAN2023Seconde () {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = `$${a} \\times 0,5$ `
           this.canReponseACompleter = ''
@@ -471,7 +471,7 @@ export default function SujetCAN2023Seconde () {
           reponse = new Decimal(a + b).div(2)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte// 'Compléter'
           this.canReponseACompleter = `Abscisse de $A$ : <br>
@@ -490,7 +490,7 @@ export default function SujetCAN2023Seconde () {
           Ainsi, $${a} \\times 0,5=${miseEnEvidence(texNombre(reponse, 0))}$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ' $=$' + ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -510,7 +510,7 @@ export default function SujetCAN2023Seconde () {
             texte = `L${c[d][0]} de  $${a}^{${b}}$ `
             setReponse(this, index, [`${a}^{${b + 1}}`], { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `L${c[d][0]} de $${a}^{${b}}$ se calcule  par
            : <br>
@@ -520,7 +520,7 @@ export default function SujetCAN2023Seconde () {
 
             setReponse(this, index, [`${a}^{${b - 1}}`], { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
             texteCorr = `L${c[d][1]} de $${a}^{${b}}$ se calcule  par
        : <br>
@@ -542,7 +542,7 @@ export default function SujetCAN2023Seconde () {
             texteCorr = `Comme $1$ m$^3$= $1000$ L, $${texNombre(a, 1)}$ m$^3=${miseEnEvidence(texNombre(reponse, 0))}$ L.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'L'
+              texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'L'
             } else {
               texte += ' $=\\ldots$ L'
             }
@@ -555,7 +555,7 @@ export default function SujetCAN2023Seconde () {
             texteCorr = `Comme $1$ L = $0,001$ m$^3$, $${texNombre(a, 1)}$ L $=${miseEnEvidence(texNombre(reponse, 4))}$  m$^3$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ' $=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01') + ' m$^3$'
+              texte += ' $=$' + ajouteChampTexteMathLive(this, index, '') + ' m$^3$'
             } else {
               texte += ' $=\\ldots$ m$^3$'
             }
@@ -598,7 +598,7 @@ export default function SujetCAN2023Seconde () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -623,7 +623,7 @@ export default function SujetCAN2023Seconde () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -646,7 +646,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + '€'
+            texte += ajouteChampTexteMathLive(this, index, '') + '€'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ €'
@@ -680,7 +680,7 @@ export default function SujetCAN2023Seconde () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'm$^2$'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'm$^2$'
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -733,7 +733,7 @@ export default function SujetCAN2023Seconde () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
             this.canEnonce = '$(BE)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({
               xmin,
@@ -789,7 +789,7 @@ export default function SujetCAN2023Seconde () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$CE=$'
-              texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+              texte += ajouteChampTexteMathLive(this, index, '')
             }
             this.canEnonce = '$(AB)$ et $(DC)$ sont parallèles.<br>' + mathalea2d({
               xmin,
@@ -847,7 +847,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -868,7 +868,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '$=$' + ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'min'
+            texte += '$=$' + ajouteChampTexteMathLive(this, index, '') + 'min'
           } else {
             texte += '$=\\ldots$ min'
           }
@@ -1102,7 +1102,7 @@ export default function SujetCAN2023Seconde () {
           this.canReponseACompleter = '$\\ldots$ u.l.'
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'u.l.'
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, '') + 'u.l.'
           }
 
           this.listeCanEnonces.push(this.canEnonce)
@@ -1119,7 +1119,7 @@ export default function SujetCAN2023Seconde () {
           Le volume de cette pyramide est donc : $\\dfrac{${a}\\times ${b}}{3}=${miseEnEvidence(texNombre(reponse, 0))}$ cm$^3$.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01') + 'cm$^3$'
+            texte += ajouteChampTexteMathLive(this, index, '') + 'cm$^3$'
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$\\ldots$ cm$^3$'
@@ -1185,7 +1185,7 @@ export default function SujetCAN2023Seconde () {
           reponse = m
           setReponse(this, index, reponse, { formatInteractif: 'fractionEgale' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'largeur01 inline')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = mathalea2d({
             xmin,
@@ -1238,7 +1238,7 @@ export default function SujetCAN2023Seconde () {
           setReponse(this, index, reponse, { formatInteractif: 'texte' })
           if (this.interactif) {
             texte += '<br>Écrire V pour Vrai et F pour Faux.<br>'
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           this.canEnonce = `Cette question utilise le graphique de la question précédente.<br>
            Le point $M$ a pour coordonnées $(${a};${b})$.`
@@ -1306,7 +1306,7 @@ export default function SujetCAN2023Seconde () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$B$ est un point de la courbe. Compléter : <br>'
-            texte += `$B(${listeB[0]}\\,;$` + ajouteChampTexteMathLive(this, index, 'inline largeur01 ') + '$)$'
+            texte += `$B(${listeB[0]}\\,;$` + ajouteChampTexteMathLive(this, index, ' ') + '$)$'
           } else {
             texte += `$B$ est un point de la courbe. <br>
           Compléter : $B(${listeB[0]}\\,;\\, \\ldots)$`
@@ -1402,7 +1402,7 @@ export default function SujetCAN2023Seconde () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01 ')
+            texte += ajouteChampTexteMathLive(this, index, ' ')
           }
           this.canEnonce = texte
           this.canReponseACompleter = ''
@@ -1429,7 +1429,7 @@ export default function SujetCAN2023Seconde () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, 'inline largeur01')
+            texte += ajouteChampTexteMathLive(this, index, '')
           }
           this.canEnonce = texte
           this.canReponseACompleter = '$n=\\ldots$'

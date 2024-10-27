@@ -98,7 +98,7 @@ export default function ProblemesDePlusEtDeMoins () {
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?'
             texte += '<br>Les deux filles possèdent,  en tout, '
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteApres: ' €' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'
@@ -119,7 +119,7 @@ export default function ProblemesDePlusEtDeMoins () {
           texte = `${prenom2} dit à ${prenom1} : «${sp()}J'ai $${texPrix(r)}$ €, soit $${texPrix(e)}$ € de moins que toi.${sp()}»<br>`
           if (this.interactif && !context.isAmc) {
             texte += 'Combien d\'argent,  en tout, possèdent les deux filles ?<br>Les deux filles possèdent,  en tout, :'
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteApres: ' €' })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres: ' €' })
             setReponse(this, i, somme)
           } else {
             texte += 'Combien d\'argent en euros possèdent,  en tout, les deux filles ?<br>'

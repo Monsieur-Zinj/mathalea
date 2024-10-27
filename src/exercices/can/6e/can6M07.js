@@ -25,7 +25,7 @@ export default function CompleterVolumeAuLitre () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     let a
     switch (choice(['a', 'b', 'c', 'd'])) {

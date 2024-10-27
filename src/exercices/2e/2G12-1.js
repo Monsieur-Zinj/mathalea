@@ -78,7 +78,7 @@ export default function Distance () {
           texte = 'Dans un repère orthonormé $(O\\,;\\,I\\,,\\,J)$, on donne les points suivants :'
           texte += ` $${A.nom}\\left(${xA}\\,;\\,${yA}\\right)$ et $${B.nom}\\left(${xB}\\,;\\,${yB}\\right)$. <br>`
           texte += `Calculer la distance $${A.nom}${B.nom}$.`
-          texte += this.interactif ? '<br>' + ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `$${A.nom}${B.nom}=$` }) : ''
+          texte += this.interactif ? '<br>' + ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `$${A.nom}${B.nom}=$` }) : ''
           if (this.correctionDetaillee) {
             texteCorr = `${CorrD}<br>`
           } else { texteCorr = '' }

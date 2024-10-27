@@ -237,7 +237,7 @@ export default class ExerciceAdditionnerSoustraireFractions5ebis extends Exercic
           handleAnswers(this, i, { reponse: { value: new FractionEtendue(a * d - c * b, b * d).toLatex(), compare: fonctionComparaison, options: { fractionIrreductible: this.sup3, fractionEgale: !this.sup3 } } })
         }
       }
-      if (this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
+      if (this.interactifType === 'mathLive') texte += ajouteChampTexteMathLive(this, i, '  clavierDeBaseAvecFraction', { texteAvant: sp() + '$=$' })
       texte = texte.replaceAll('$$', ' ')
 
       texteCorr = texteCorr.replaceAll('$$', ' ')

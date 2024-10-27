@@ -123,7 +123,7 @@ export default function ExerciceSubstituer (difficulte = 1) {
           break
       }
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'largeur01', {
+        texte += ajouteChampTexteMathLive(this, i, '', {
           texteAvant: '$~=~$'
         })
       } else if (context.isAmc) texte = 'Calculer ' + texte + ` pour $x=${x}$, $y=${y}$ et $z=${z}$.`

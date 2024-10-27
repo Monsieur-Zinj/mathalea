@@ -302,13 +302,13 @@ export default function SommeFractionsDecimales () {
       }
       if (this.interactif) {
         if (this.sup2 === 3) {
-          texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', 'inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
-          //   texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
-        //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
+          texte += remplisLesBlancs(this, i, '= ~  %{champ1} ~ = ~ %{champ2}', KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
+          //   texte += ajouteChampTexteMathLive(this, 2 * i, '', { texteAvant: `${sp(6)}=` })
+        //  texte += ajouteChampTexteMathLive(this, 2 * i + 1, '', { texteAvant: `${sp(6)}=` })
         } else {
-          // texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
-          texte += remplisLesBlancs(this, i, '= ~ %{champ1}', 'inline nospacebefore ' + (this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction), '\\ldots\\ldots')
-          // texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteAvant: `${sp(6)}=` })
+          // texte += remplisLesBlancs(this, i, '= ~ %{champ1}', '  ' + this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction, '\\ldots\\ldots')
+          texte += remplisLesBlancs(this, i, '= ~ %{champ1}', '  ' + (this.sup2 === 1 ? KeyboardType.clavierNumbers : KeyboardType.clavierDeBaseAvecFraction), '\\ldots\\ldots')
+          // texte += ajouteChampTexteMathLive(this, i, '', { texteAvant: `${sp(6)}=` })
         }
       }
 

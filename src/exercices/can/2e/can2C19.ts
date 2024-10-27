@@ -24,7 +24,7 @@ export default class CalculAstucePourcentage extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple' // Cette ligne est très importante pour faire faire un exercice simple !
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierDeBase
+    this.formatChampTexte = KeyboardType.clavierDeBase
     this.correctionDetailleeDisponible = true
     this.correctionDetaillee = false
   }

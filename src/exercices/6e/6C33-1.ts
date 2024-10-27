@@ -242,7 +242,7 @@ $${miseEnCouleur(`${miseEnCouleur(`\\overset{${calcul1}}{${resultat1}}`, 'red')}
       const texte = `${prenom()} a obtenu le nombre ${nombreCible} à partir des nombres suivants : ${lister(nombresUtilises)}.<br>
 Voici ses calculs :<br>
 ${calculs}
-Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, 'inline largeur01 college6eme')}`
+Les écrire en une seule ligne. ${ajouteChampTexteMathLive(this, i, ' college6eme')}`
       const expressionReduite = engine.parse(redaction, { canonical: true }).latex
       handleAnswers(this, i, { reponse: { value: [expressionReduite, redaction], compare: exprCompare, options: { noUselessParen } } })
       if (!this.correctionDetaillee) texteCorr = ''

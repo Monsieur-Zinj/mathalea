@@ -130,7 +130,7 @@ export default function SommeDeDurees () {
       }
 
       if (this.interactif) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline clavierHms')
+        texte += ajouteChampTexteMathLive(this, i, ' clavierHms')
       }
 
       if (this.questionJamaisPosee(i, texte)) {

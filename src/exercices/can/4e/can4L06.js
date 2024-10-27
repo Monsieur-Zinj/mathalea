@@ -23,7 +23,7 @@ export default function CalculSubstitution () {
   this.tailleDiaporama = 2
   this.date = 1635092507483
   this.nouvelleVersion = function () {
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
     let a, b, d
     switch (randint(1, 4)) {
       case 1:

@@ -265,7 +265,7 @@ export default function ResoudreUneEquationProduitNul () {
       }
       if (listeTypeDeQuestions[i] !== 5 && listeTypeDeQuestions[i] !== 6) texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence(solution1)}$ et $${miseEnEvidence(solution2)}$.`
       else texteCorr += `<br>Les solutions de l'équation sont : $${miseEnEvidence('-' + texFractionReduite(b, a))}$ et $${miseEnEvidence((listeTypeDeQuestions[i] === 5 ? '-' : '') + texFractionReduite(d, c))}$.`
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01')
+      texte += ajouteChampTexteMathLive(this, i, '')
       this.introduction = (this.interactif && context.isHtml) ? "<em>S'il y a plusieurs réponses, les séparer par un point-virgule.</em>" : ''
       if (this.questionJamaisPosee(i, a, b, c, d)) { // Si la question n'a jamais été posée, on en créé une autre
         this.listeQuestions.push(texte)

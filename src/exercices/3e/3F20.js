@@ -170,7 +170,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `$${nomFonction}(${texNombre(antecedent, 0)})=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient, 0)} \\times ${ecritureParentheseSiNegatif(antecedent)}`
           texteCorr += `=${coefficient instanceof FractionEtendue ? image.texFSD : texNombre(image, 0)}$`
           if (context.isAmc) {
@@ -181,7 +181,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `On en déduit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -199,7 +199,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'imageParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'image de $${antecedent}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -218,7 +218,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParExpression':
           texte += `Soit $${nomFonction}(x)=${coefficient instanceof FractionEtendue ? coefficient.texFSD : texNombre(coefficient)}x$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Posons $b$ l'antécédent de $${imageString}$, alors $${nomFonction}(b)=${coefficientString}\\times b=${imageString}$.<br>`
           if (coefficient instanceof FractionEtendue) {
             texteCorr += `Donc $b=\\dfrac{${image.texFSD}}{${coefficientString}}=`
@@ -235,7 +235,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParValeurs':
           texte += `Soit $${nomFonction}$ la fonction linéaire telle que $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `$a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
           if (pgcd(image0, antecedent0) !== 1) {
@@ -256,7 +256,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
         case 'antecedentParGraphique':
           texte += `La droite représentant la fonction linéaire $${nomFonction}$ passe par le point de coordonnées $(${antecedent0};${image0})$.<br>`
           texte += `Calculer l'antécédent de $${imageString}$ par $${nomFonction}$`
-          texte += this.interactif ? ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: ' :' }) : '.'
+          texte += this.interactif ? ajouteChampTexteMathLive(this, i, ' ', { texteAvant: ' :' }) : '.'
           texte += '<br>'
           texte += mathalea2d({
             scale: 0.6,
@@ -287,7 +287,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
             texte += `Donner l'expression de  $${nomFonction}(x)$.`
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           }
           texteCorr += `Comme $${nomFonction}(${antecedent0})=${texNombre(image0, 0)}$, le coefficient $a$ tel que de $${nomFonction}(x)=ax$ vérifie $a\\times ${antecedent0} = ${image0}$.<br>`
           texteCorr += `Soit $a=\\dfrac{${texNombre(image0, 0)}}{${antecedent0}}`
@@ -309,7 +309,7 @@ Le choix a été fait d'un antécédent primaire entier positif, le coefficient 
             texte += `Donner le coefficient de  $${nomFonction}$.`
           } else {
             texte += `Donner l'expression de  $${nomFonction}(x)$.`
-            texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline nospacebefore', { texteAvant: `<br>$${nomFonction}(x)=$` })
+            texte += ajouteChampTexteMathLive(this, i, ' ', { texteAvant: `<br>$${nomFonction}(x)=$` })
           }
           texte += '<br>'
           texte += mathalea2d({

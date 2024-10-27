@@ -26,7 +26,7 @@ export default function CoordonneesPointDroite () {
     const b = randint(-10, 10, 0)
     const c = randint(-10, 10, 0)
 
-    this.formatChampTexte = 'largeur01 inline'
+    this.formatChampTexte = ''
 
     this.formatInteractif = 'texte'
     this.reponse = `${c};${a * c + b}`

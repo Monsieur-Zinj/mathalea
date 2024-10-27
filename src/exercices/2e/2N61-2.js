@@ -681,7 +681,7 @@ export default function ExerciceInequationProduit () {
       }
       if (this.interactif && !context.isAmc) {
         texte += `<br> ${texteGras('Saisir S, l\'ensemble des solutions de cette inéquation.')}${sp(10)}`
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 lycee nospacebefore', { texteAvant: '<br>S = ' })
+        texte += ajouteChampTexteMathLive(this, i, ' lycee  ', { texteAvant: '<br>S = ' })
         handleAnswers(this, i, {
           reponse: {
             value: correctionInteractif,

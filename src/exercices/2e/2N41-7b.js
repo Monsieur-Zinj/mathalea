@@ -124,7 +124,7 @@ $\\begin{aligned}${e ** 2}(${a}x${ecritureAlgebrique(b)})^2-${f ** 2}(${c}x${ecr
         } break
       }
       if (this.interactif) {
-        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, 'inline15 college6e ml-2')
+        texte += ' $=$ ' + ajouteChampTexteMathLive(this, i, '  college6e ml-2')
       }
       if (this.questionJamaisPosee(i, a, b, c, d, k, typesDeQuestions)) {
         // Si la question n'a jamais été posée, on en créé une autre

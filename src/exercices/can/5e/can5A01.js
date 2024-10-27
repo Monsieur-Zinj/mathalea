@@ -30,7 +30,7 @@ export default function RepetitionScratch () {
   this.listeCorrections = []
   this.typeExercice = 'Scratch'
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.listeAvecNumerotation = false
 
   this.nouvelleVersion = function () {
@@ -49,7 +49,7 @@ export default function RepetitionScratch () {
         prog += '} \n'
         prog += '\\end{scratch}'
         setReponse(this, 0, angleRot)
-        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, '')
         this.listeCorrections[0] = `Un ${b[1]} a des anlges de $${calculANePlusJamaisUtiliser(180 - angleRot)}^\\circ$. Le lutin doit tourner de $180-${calculANePlusJamaisUtiliser(180 - angleRot)}=${angleRot}^\\circ$ après avoir tracé un côté.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement on divise $360$ par $${nbRep}$ : $\\dfrac{360}{${nbRep}}=${angleRot}$.`)
         break
@@ -62,7 +62,7 @@ export default function RepetitionScratch () {
         prog += '} \n'
         prog += '\\end{scratch}'
         setReponse(this, 0, nbRep)
-        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, 'largeur01 inline')
+        this.listeQuestions[0] = `${scratchblock(prog)}<br>Quel nombre doit-on écrire à la place des pointillés pour tracer un ${b[1]} ?` + ajouteChampTexteMathLive(this, 0, '')
         this.listeCorrections[0] = `Un ${b[1]} a ${nbRep} côtés ($${nbRep}\\times ${angleRot}=360^\\circ$), il faut donc répéter ${nbRep} fois les instructions de la boucle.<br>`
         this.listeCorrections[0] += texteEnCouleur(`Mentalement, on divise $360$ par $${angleRot}$ : $\\dfrac{360}{${angleRot}}=${nbRep}$.`)
         break

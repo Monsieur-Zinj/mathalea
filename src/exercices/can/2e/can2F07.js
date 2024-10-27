@@ -32,7 +32,7 @@ export const refs = {
 export default function ExtremumsTableau () {
   Exercice.call(this)
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.tailleDiaporama = 2
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne
 
@@ -79,9 +79,9 @@ export default function ExtremumsTableau () {
       this.canEnonce = texte
       if (choice([true, false])) {
         texte += '   Le maximum de $f$ est  : '
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i, '')
         texte += '<br> Il est atteint en $x=$ '
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
         // this.canEnonce += 'Déterminer le maximum de $f$ et la valeur en laquelle il est atteint.'
         this.canReponseACompleter = `Le maximum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
@@ -286,10 +286,10 @@ export default function ExtremumsTableau () {
         // this.canReponseACompleter = 'Min $=\\ldots$ atteint en $x=\\ldots$'
         this.canReponseACompleter = `Le minimum de $f$ est $\\ldots$. <br>
         Il est atteint en $x=\\ldots$`
-        texte += ajouteChampTexteMathLive(this, 2 * i, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i, '')
         texte += '<br> Il est atteint en $x=$ '
 
-        texte += ajouteChampTexteMathLive(this, 2 * i + 1, 'largeur01 inline')
+        texte += ajouteChampTexteMathLive(this, 2 * i + 1, '')
 
         if (choix === 1) {
           if (m === y2) {

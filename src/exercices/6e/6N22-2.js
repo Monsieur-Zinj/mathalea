@@ -71,7 +71,7 @@ export default function AjouterDesFractionsDunite () {
         formatInteractif: 'fractionEgale'
       })
       if (this.interactif && !context.isAmc) {
-        texte += ajouteChampTexteMathLive(this, i, 'inline largeur 25')
+        texte += ajouteChampTexteMathLive(this, i, '')
       }
       texteCorr = 'Voici sur ces dessins, coloriés en rouge, les différents segments :<br>'
       for (let j = 0; j < 4; j++) {

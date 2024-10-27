@@ -424,8 +424,8 @@ ${nomV[0]}-${nomV[1]}${nomV[3]}-${nomV[2]}${nomV[3]}&= ${nomV[4]}(-${nomV[1]}-${
           break
       }
       const GilllesDAccord = true // EE : Quand Gilles sera d'accord, on pourra changer. ;-)
-      if (GilllesDAccord) texte += '<br>' + ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) + `$${varAExprimer} =$` })
-      else texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 alphanumeric nospacebefore', { texteAvant: sp(10) })
+      if (GilllesDAccord) texte += '<br>' + ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) + `$${varAExprimer} =$` })
+      else texte += ajouteChampTexteMathLive(this, i, ' alphanumeric  ', { texteAvant: sp(10) })
       // setReponse(this, i, reponse)
       handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 

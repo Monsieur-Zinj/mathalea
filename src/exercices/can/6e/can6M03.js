@@ -31,14 +31,14 @@ export default function ConvertirEnM () {
       this.reponse = calculANePlusJamaisUtiliser(a * 1000)
       this.question = `$${a}$ km font combien de mètres ?`
       this.correction = `Comme $1$ km $=1000$ m, $${a}$ km = $${texNombre(this.reponse)}$ m.`
-      this.formatChampTexte = 'largeur01 inline'
+      this.formatChampTexte = ''
       this.optionsChampTexte = { texteApres: ' m' }
     } else {
       a = randint(11, 24) * 10 + randint(0, 9)
       this.reponse = calculANePlusJamaisUtiliser(a / 100)
       this.question = `$${a}$ cm font combien de mètres ?`
       this.correction = `Comme $1$ cm $=0,01$ m, $${a}$ cm = $${texNombre(this.reponse)}$ m.`
-      this.formatChampTexte = 'largeur01 inline'
+      this.formatChampTexte = ''
       this.optionsChampTexte = { texteApres: ' m' }
     }
     this.canEnonce = this.question

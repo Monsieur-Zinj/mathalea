@@ -284,12 +284,12 @@ export default function VocabulaireDuCercle () {
                 reponses = ajouterAlternatives(segmentAlternatif, reponses)
                 break
             }
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur01 nospacebefore college6eme alphanumericAvecEspace')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, '  college6eme alphanumericAvecEspace')
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }
           if (question.sens === '[AB] est ...') {
             reponses = [question.nature]
-            texte += ajouteChampTexteMathLive(this, i * questions.length + j, 'inline largeur01 nospacebefore college6eme alphanumericAvecEspace')
+            texte += ajouteChampTexteMathLive(this, i * questions.length + j, '  college6eme alphanumericAvecEspace')
             //  setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'ignorerCasse' })
             setReponse(this, i * questions.length + j, reponses, { formatInteractif: 'texteAvecEspace' })
           }

@@ -23,7 +23,7 @@ export default function NombrePairFois5 () {
   this.typeExercice = 'simple'
   this.tailleDiaporama = 2
   this.nbQuestions = 1
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const a = randint(11, 49, [20, 30, 40, 15, 25, 35, 45]) * 2
     this.reponse = calculANePlusJamaisUtiliser(a * 5)

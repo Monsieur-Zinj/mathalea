@@ -23,7 +23,7 @@ export default function AjouterDesDurees () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline ' + KeyboardType.clavierHms
+  this.formatChampTexte = KeyboardType.clavierHms
   if (!this.interactif) {
     this.question += ' $\\ldots$ minutes'
   }

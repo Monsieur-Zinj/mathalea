@@ -62,7 +62,7 @@ export default function CalculerUnPourcentage () {
           
           `
           texte += `Quel est le pourcentage des élèves qui se déplacent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' %' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les élèves qui ${moy1} ou qui ${moy2} représentent $${p1}${sp(1)}\\%$ + $${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100 - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des élèves de ce collège se déplacent ${moy3}.<br>`
@@ -78,7 +78,7 @@ export default function CalculerUnPourcentage () {
           
           `
           texte += `Quel est le pourcentage des ados qui pratiquent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' %' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les ados qui pratiquent ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des ados de cette association sportive pratiquent ${moy3}.<br>`
@@ -94,7 +94,7 @@ export default function CalculerUnPourcentage () {
           
           `
           texte += `Quel est le pourcentage des membres qui préfèrent ${moy3} ?`
-          texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline', { texteApres: ' %' })
+          texte += ajouteChampTexteMathLive(this, i, '', { texteApres: ' %' })
           texteCorr = `Les membres qui préfèrent ${moy1} ou ${moy2} représentent $${p1}${sp(1)}\\% + ${p2}${sp(1)}\\% = ${p1 + p2}${sp(1)}\\%$.<br>`
           texteCorr += `Donc on calcule : $100${sp(1)}\\% - ${p1 + p2}${sp(1)}\\% = ${p3}${sp(1)}\\%$.<br>`
           texteCorr += `$${miseEnEvidence(p3)}${sp(1)}\\%$ des membres de cette association culturelle préfèrent ${moy3}.<br>`

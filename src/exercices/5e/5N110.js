@@ -51,7 +51,7 @@ export default function VariationEnPourcentages () {
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteApres: '€' }) + '<br>'
+            texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '€' }) + '<br>'
           }
         } else { // partie latex
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix diminue de $${taux}\\, \\%$.<br><br>`
@@ -66,7 +66,7 @@ export default function VariationEnPourcentages () {
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\ \\%$.<br><br>`
           if (this.interactif) {
             texte += '&ensp;&ensp;&ensp;&ensp;Le nouveau prix est :'
-            texte += ajouteChampTexteMathLive(this, i, 'inline largeur01', { texteApres: '€' }) + '<br>'
+            texte += ajouteChampTexteMathLive(this, i, '', { texteApres: '€' }) + '<br>'
           }
         } else { // partie latex
           texte = `Un article coûtait $${texPrix(prix)}$ € et son prix augmente de $${taux}\\, \\%$.<br><br>`

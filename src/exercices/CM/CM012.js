@@ -40,7 +40,7 @@ export default function ComplementA100 () {
       texte = `$100-${a}=$`
       texteCorr = `$100-${a}=${100 - a}$`
       setReponse(this, i, 100 - a)
-      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, 'largeur01 inline')
+      if (this.interactif) texte += ajouteChampTexteMathLive(this, i, '')
 
       if (this.listeQuestions.indexOf(texte) === -1) {
         // Si la question n'a jamais été posée, on en crée une autre

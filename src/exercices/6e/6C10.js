@@ -92,7 +92,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
                         randint(1, 9)
           b = randint(5, 9) * 100 + randint(7, 9) * 10 + randint(1, 9)
           texte = `$${texNombre(a, 0)}+${b}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = a + b
@@ -111,7 +111,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = a * 1000 + b * 100 + c * 10
           y = e * 100 + f * 10 + g
           texte = `$${texNombre(x, 0)}-${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
@@ -130,7 +130,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 1000 + a * 100 + b * 10 + c
           y = d * 100 + e * 10 + f
           texte = `$${texNombre(x, 0)}-${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x - y
@@ -148,7 +148,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 100 * a + 10 * b + c
           y = d * 100 + e
           texte = `$${texNombre(x, 0)}\\times${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y
@@ -166,7 +166,7 @@ export default function AdditionsSoustractionsMultiplicationsPosees () {
           x = 100 * a + 10 * b + c
           y = 10 * d + e
           texte = `$${x}\\times${y}`
-          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, 'inline clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
+          if (this.interactif && !context.isAmc) texte += '=$' + ajouteChampTexteMathLive(this, i, ' clavierDeBase') // fonction à utiliser pour la version en ligne afin d'ajouter le formulaire de réponse
           else texte += '$'
           texte += grilletxt
           reponse = x * y

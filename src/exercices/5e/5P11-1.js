@@ -169,7 +169,7 @@ export default class VitesseDistanceTemps extends Exercice {
           setReponse(this, i, d)
           break
       }
-      texte += ajouteChampTexteMathLive(this, i, 'inline largeur01 nospacebefore', { texteApres })
+      texte += ajouteChampTexteMathLive(this, i, ' ', { texteApres })
       if (this.questionJamaisPosee(i, v, t)) {
         // Si la question n'a jamais été posée, on en crée une autre
         this.listeQuestions.push(texte)

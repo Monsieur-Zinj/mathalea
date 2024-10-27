@@ -22,7 +22,7 @@ export default class SoustractionDecimaux extends Exercice {
     this.formatInteractif = 'calcul'
     this.optionsChampTexte = { texteAvant: ' $=$' }
     this.canOfficielle = false
-    this.formatChampTexte = 'largeur01'
+    this.formatChampTexte = ''
   }
 
   nouvelleVersion () {

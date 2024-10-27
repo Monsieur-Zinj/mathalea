@@ -130,7 +130,7 @@ export default function DeriveeComposee () {
           texteCorr += 'Correction non encore implémentée.'
           break
       }
-      texte = texte.replaceAll('\\frac', '\\dfrac') + ajouteChampTexteMathLive(this, i, 'inline largeur01')
+      texte = texte.replaceAll('\\frac', '\\dfrac') + ajouteChampTexteMathLive(this, i, '')
       texteCorr = texteCorr.replaceAll('\\frac', '\\dfrac')
 
       if (this.liste_valeurs.indexOf(expression) === -1) {

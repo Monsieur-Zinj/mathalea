@@ -29,7 +29,7 @@ export default function AdditionnerAstucieusement () {
   this.typeExercice = 'simple'
   this.nbQuestions = 1
   this.tailleDiaporama = 2
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nouvelleVersion = function () {
     const A = randint(2, 4) * 100
     const B = randint(1, 2) * 100

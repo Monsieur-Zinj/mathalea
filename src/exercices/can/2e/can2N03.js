@@ -25,7 +25,7 @@ export default function IntersectionIntervalles () {
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.spacing = 1
-  this.formatChampTexte = 'largeur01 ' + KeyboardType.clavierEnsemble
+  this.formatChampTexte = KeyboardType.clavierEnsemble
   this.compare = fonctionComparaison
   this.optionsDeComparaison = { texteSansCasse: true, intervalle: true }
   // Dans un exercice simple, ne pas mettre de this.listeQuestions = [] ni de this.consigne

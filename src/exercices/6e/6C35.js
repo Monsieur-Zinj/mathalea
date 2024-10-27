@@ -494,7 +494,7 @@ export default function ModelisationProblemes () {
         handleAnswers(this, i, { reponse: { value: correctionSansSchema, compare: fonctionComparaison, options: { operationSeulementEtNonCalcul: true } } })
         texteCorr += "L'opération qui peut résoudre le problème est : "
         texteCorr += `$${miseEnEvidence(correctionSansSchemaLatex)}$`
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline college6eme', { texteAvant: sp(5) + '<br>Opération :' })
+        colonne1 += ajouteChampTexteMathLive(this, i, ' college6eme', { texteAvant: sp(5) + '<br>Opération :' })
       } else if (this.sup3 === 2) {
         texteCorr += 'Cet énoncé peut être associé avec le schéma ci-dessous.<br>' + schemas[brouilleLesCartes[i]]
       } else {
@@ -503,7 +503,7 @@ export default function ModelisationProblemes () {
         if (this.correctionDetaillee) {
           texteCorr += '<br>' + schemas[brouilleLesCartes[i]]
         }
-        colonne1 += ajouteChampTexteMathLive(this, i, 'largeur01 inline alphanumeric', { texteAvant: sp(5) + '<br>Schéma :' })
+        colonne1 += ajouteChampTexteMathLive(this, i, ' alphanumeric', { texteAvant: sp(5) + '<br>Schéma :' })
       }
       this.listeQuestions.push(colonne1)
       this.listeCorrections.push(texteCorr)

@@ -28,7 +28,7 @@ export const refs = {
 export default function TripletsPythagoriciens () {
   Exercice.call(this)
   this.typeExercice = 'simple'
-  this.formatChampTexte = 'largeur01 inline'
+  this.formatChampTexte = ''
   this.nbQuestions = 1
   this.tailleDiaporama = 2
   this.sup = 1
@@ -89,7 +89,7 @@ export default function TripletsPythagoriciens () {
       this.optionsChampTexte = { texte: `$${nom[2 - index2]}${nom[1]}=$`, texteApres: `${sp(1)}cm` }
     }
     this.formatInteractif = 'calcul'
-    this.formatChampTexte = 'largeur01 inline nospacebefore'
+    this.formatChampTexte = ' '
     const figure = mathalea2d(Object.assign({ scale: 0.6, style: 'display: inline;' }, fixeBordures(objets)), objets)
     this.question += figure
   }

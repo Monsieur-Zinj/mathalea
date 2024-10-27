@@ -20,7 +20,7 @@ export default class calculProba extends Exercice {
     this.titre = titre
     this.typeExercice = 'simple'
     this.nbQuestions = 1
-    this.formatChampTexte = 'largeur01 inline nospacebefore ' + KeyboardType.clavierDeBaseAvecFraction
+    this.formatChampTexte = KeyboardType.clavierDeBaseAvecFraction
     this.formatInteractif = 'fractionEgale'
     this.canOfficielle = false
   }

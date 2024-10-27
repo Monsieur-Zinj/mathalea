@@ -111,18 +111,18 @@ export default function PenteEtOrdonneeOrigineDroite () {
       let correction1, correction2, correction3
       if (vocabulaire === 'affine') {
         question1 = numAlpha(indice) + `Quelle est l'ordonnée à l'origine de la fonction $${nomFonction}$ ?`
-        question1 += ajouteChampTexteMathLive(this, questionInteractif, 'largeur01 inline ')
+        question1 += ajouteChampTexteMathLive(this, questionInteractif, ' ')
         correction1 = consigneCorrection + '<br>'
         correction1 += numAlpha(indice) + `La droite coupe l'axe des ordonnées au point de coordonnées $(0;${b})$. L'ordonnée de $${nomFonction}$ à l'origine est donc $${b}$.`
         indice++
       }
       question2 = numAlpha(indice) + `Quel est le coefficient directeur de $${nomFonction}$ ?`
-      question2 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, 'largeur01 inline ')
+      question2 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 1 : 0) + questionInteractif, ' ')
       correction2 = numAlpha(indice) + `À chaque fois que l'on avance de 1 unité d'abscisses, on ${a > 0 ? 'monte' : 'descend'} de $${texNombre(Math.abs(a))}$ unité${Math.abs(a) >= 2 ? 's' : ''} d'ordonnées. `
       correction2 += `Le coefficient directeur de $${nomFonction}$ est donc $${texNombre(a)}$.`
       indice++
       question3 = numAlpha(indice) + `En déduire l'expression algébrique de $${nomFonction}$.`
-      question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, 'largeur01 inline nospacebefore', { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` })
+      question3 += ajouteChampTexteMathLive(this, (vocabulaire === 'affine' ? 2 : 1) + questionInteractif, ' ', { texteAvant: `$${sp(10)}${nomFonction} : x \\mapsto $` })
       correction3 = numAlpha(indice) + `$${nomFonction}$ étant une fonction ${vocabulaire}, on a $${nomFonction} : x \\mapsto $` +
                 ((vocabulaire === 'affine')
                   ? '$ax + b$ avec $a$ son coefficient directeur (ou pente) et $b$ son ordonnée à l\'origine.'
