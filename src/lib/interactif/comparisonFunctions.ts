@@ -1131,15 +1131,15 @@ function comparaisonPuissances (input: string, goodAnswer: string, { seulementCe
   mantisseSaisie = mantisseSaisie.replace(/--/g, '') // Pour accepter les deux - consécutifs.
 
   // La mantisse saisie est-elle un nombre ?
-  if (Number.isNaN(mantisseSaisie)) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
+  if (isNaN(Number(mantisseSaisie))) return { isOk: false, feedback: 'Avant l\'exposant, on attend un nombre unique.' } // Pour éviter 1\times4^2
 
   let exposantSaisi = nombreSaisi[1]
   exposantSaisi = exposantSaisi.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
   exposantSaisi = exposantSaisi.replace(/--/g, '') // Pour accepter les deux - consécutifs.
   exposantSaisi = exposantSaisi.replace(/[{}]/g, '') // Pour enlever les accolades (possible si exposant décimal ou négatif)
   const exposantSaisiNumber = Number(exposantSaisi)
-  // L'exposnat saisi est-il un nombre ?
-  if (Number.isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
+  // L'exposant saisi est-il un nombre ?
+  if (isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
 
   const goodAnswerSplit = clean(goodAnswer).split('^')
 
@@ -1195,19 +1195,27 @@ export function ensembleNombres (input: string, goodAnswer: string, {
     splitInput = cleanInput.replaceAll('\\{', '').replaceAll('\\}', '').split(';')
     splitGoodAnswer = clean(goodAnswer).replaceAll('\\{', '').replaceAll('\\}', '').split(';')
   } else {
+    if (cleanInput.includes('{') ||
+    cleanInput.includes('}') ||
+    cleanInput.includes('(') ||
+    cleanInput.includes(')') ||
+    cleanInput.includes('[') ||
+    cleanInput.includes(']') ||
+    cleanInput.includes('paren')) return { isOk: false, feedback: 'Résultat incorrect car cette suite ne doit comporter que des nombres et des points-virgules.' }
     splitInput = cleanInput.split(';')
     splitGoodAnswer = clean(goodAnswer).split(';')
   }
+  if (splitGoodAnswer.length > 1 && !cleanInput.includes(';')) return { isOk: false, feedback: 'Un point-virgule doit séparé chaque valeur.' }
 
   // Pour vérifier la présence de doublons
-  if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient des valeurs redondantes.' }
+  if (new Set(splitInput).size !== splitInput.length) return { isOk: false, feedback: 'Résultat incorrect car il y a des valeurs redondantes.' }
 
   // Pour vérifier si les tableaux sont de la même taille
   if (splitInput.length > splitGoodAnswer.length) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble contient trop de nombres.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il y a trop de nombres.' }
   }
   if (splitInput.length < splitGoodAnswer.length) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble ne contient pas assez de nombres.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il n\'y a pas assez de nombres.' }
   }
 
   const inputSorted = splitInput
@@ -1223,7 +1231,7 @@ export function ensembleNombres (input: string, goodAnswer: string, {
   })
 
   if (!AllExist) {
-    return { isOk: false, feedback: 'Résultat incorrect car cet ensemble n\'a pas toutes les valeurs attendues.' }
+    return { isOk: false, feedback: 'Résultat incorrect car il n\'y a pas toutes les valeurs attendues.' }
   }
   if (kUplet && !(splitInput.every((value, index) => engine.parse(value).isSame(engine.parse(goodAnswerSorted[index]))))) {
     return { isOk: false, feedback: 'Résultat incorrect car les nombres ne sont pas rangés dans le bon ordre.' }

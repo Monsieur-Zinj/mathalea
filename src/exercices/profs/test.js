@@ -203,7 +203,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = '16 ='
+      const enonce = 'Réponse : '
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
