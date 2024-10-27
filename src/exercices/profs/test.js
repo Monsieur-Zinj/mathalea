@@ -172,7 +172,7 @@ export default function desTestsPourInteractivité () {
   this.interactifReady = interactifReady
   this.interactifType = interactifType
   // this.consigne = 'Quel est le résultat des calculs suivants ?'
-  this.consigne = 'Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4. Ranger ces nombres par ordre croissant.'
+  this.consigne = 'Compléter l\'égalité par une puissance d\'un nombre avec un exposant autre que 1.'
   this.nouvelleVersion = function () {
     for (let i = 0, texte, texteCorr, cpt = 0, a, b; i < this.nbQuestions && cpt < 50;) {
       a = randint(1, 12)
@@ -199,7 +199,7 @@ export default function desTestsPourInteractivité () {
       // const reponse = '3x+2'
       // const enonce = 0.4
       // const reponse = new FractionEtendue(6, 8).toLatex()
-      const reponse = ['2^4', '4^2']
+      const reponse = '4^2'
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
@@ -213,7 +213,7 @@ export default function desTestsPourInteractivité () {
       // texte += ajouteFeedback(this, i + 1)
       // handleAnswers(this, i, { reponse: { value: reponse, compare: expressionDeveloppeeEtNonReduiteCompare } })
       // handleAnswers(this, i, { reponse: { value: reponse } })
-      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { puissance: true, toutesLesPuissances: false } } })
+      handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison, options: { puissance: true, exposant1Accepte: false } } })
       // handleAnswers(this, i, { reponse: { value: reponse, compare: fonctionComparaison } })
 
       if (this.questionJamaisPosee(i, a, b)) {

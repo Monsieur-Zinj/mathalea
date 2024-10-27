@@ -3,6 +3,7 @@ import {
   ComputeEngine,
   type BoxedExpression
 } from '@cortex-js/compute-engine'
+import type { Parser, ParseLatexOptions, LatexDictionaryEntry } from 'node_modules/@cortex-js/compute-engine/dist/types/compute-engine/latex-syntax/public.d.ts'
 // import FractionEtendue from '../../modules/FractionEtendue'
 import Grandeur from '../../modules/Grandeur'
 import Hms from '../../modules/Hms'
@@ -28,8 +29,8 @@ export type OptionsComparaisonType = {
   calculSeulementEtNonOperation?: boolean
   ensembleDeNombres ?:boolean
   kUplet ? :boolean
-  toutesLesPuissances? :boolean
-  exposant1Accepte? :boolean
+  seulementCertainesPuissances? :boolean
+  sansExposantUn? :boolean
   suiteDeNombres ?:boolean
   suiteRangeeDeNombres?:boolean
   HMS?: boolean
@@ -423,15 +424,15 @@ function hmsCompare (input: string, goodAnswer: string): ResultType {
 engine.latexDictionary = [
   ...engine.latexDictionary.filter((x) => x.name !== 'Subtract'),
   {
-    ...engine.latexDictionary.find((x) => x.name === 'Subtract'),
-    parse: (parser: Parser, lhs: Expression, terminator: ParserOptions) => {
-      // Go back one token: we'll parse the '-' as part of the rhs so we
-      // can keep the expression an 'Add'.
+    ...(engine.latexDictionary.find((x) => x.name === 'Subtract') as unknown as LatexDictionaryEntry),
+    parse: (parser: Parser, lhs: Expression, terminator: ParseLatexOptions) => {
+      // Reculer d'un jeton : nous allons analyser le '-' comme faisant partie du rhs afin de
+      // pouvoir conserver l'expression en tant que 'Add'.
       parser.index -= 1
       const rhs = parser.parseExpression({ ...terminator, minPrec: 275 + 3 })
       return ['Add', lhs, rhs]
     }
-  } as LatexDictionaryEntry // Pas réussi à faire mieux pour typer.
+  } as unknown as LatexDictionaryEntry // Conversion en 'unknown' puis en 'LatexDictionaryEntry'
 ]
 
 /****************************************************************************************************
@@ -465,17 +466,17 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation, // Documenté
     ensembleDeNombres, // Documenté
     kUplet, // Documenté
-    toutesLesPuissances,
-    exposant1Accepte,
     suiteDeNombres,
     suiteRangeeDeNombres,
+    puissance, // Documenté
+    seulementCertainesPuissances, // Documenté
+    sansExposantUn, // Documenté
     HMS,
     intervalle,
     estDansIntervalle,
     ecritureScientifique,
     unite,
     precisionUnite,
-    puissance,
     texteAvecCasse,
     texteSansCasse,
     nombreAvecEspace,
@@ -495,8 +496,8 @@ export function fonctionComparaison (
     calculSeulementEtNonOperation: false,
     ensembleDeNombres: false,
     kUplet: false,
-    toutesLesPuissances: true,
-    exposant1Accepte: true,
+    seulementCertainesPuissances: false,
+    sansExposantUn: false,
     suiteDeNombres: false,
     suiteRangeeDeNombres: false,
     HMS: false,
@@ -527,8 +528,7 @@ export function fonctionComparaison (
   if (estDansIntervalle) return intervalCompare(input, goodAnswer)
   if (ecritureScientifique) return scientificCompare(input, goodAnswer)
   if (unite) { return unitsCompare(input, goodAnswer, { precision: precisionUnite }) }
-  // if (puissance) return powerCompare(input, goodAnswer)
-  if (puissance) return comparaisonPuissances(input, goodAnswer, { toutesLesPuissances, exposant1Accepte })
+  if (puissance || seulementCertainesPuissances || sansExposantUn) return comparaisonPuissances(input, goodAnswer, { seulementCertainesPuissances, sansExposantUn })
   if (texteAvecCasse) return texteAvecCasseCompare(input, goodAnswer)
   if (texteSansCasse) return texteSansCasseCompare(input, goodAnswer)
   if (egaliteExpression) return egaliteCompare(input, goodAnswer)
@@ -962,7 +962,7 @@ function scientificCompare (input: string, goodAnswer: string): ResultType {
   }
   return { isOk: false }
 }
-
+/* Je commente en attendant de voir si on en a besoin
 function comparaisonExpressions (expr1: string, expr2: string): ResultType { // Dysfonctionnement de compute-engine : @ArnoG est sur le coup
   // Convertir les équations en MathJSON
   const mathJson1 = engine.parse(expr1) as BoxedExpression
@@ -970,6 +970,7 @@ function comparaisonExpressions (expr1: string, expr2: string): ResultType { // 
 
   return { isOk: mathJson1.isEqual(mathJson2) ?? false }
 }
+*/
 
 /**
  * comparaison de textes... ben parce qu'il en faut une
@@ -1110,12 +1111,12 @@ export function equalFractionCompareSansRadical (
  * @param {string} input
  * @param {string} goodAnswer
  * @param {Object} [options={}] - Options pour la comparaison.
- * @param {boolean} [options.toutesLesPuissances=true] - Si true, toutes les formes de puissances seront acceptées.
- * @param {boolean} [options.exposant1Accepte=true] - Si true, l'exposant 1 sera accepté comme valide.
+ * @param {boolean} [options.seulementCertainesPuissances=false] - Si false, toutes les formes de puissances seront acceptées.
+ * @param {boolean} [options.sansExposantUn=false] - Si false, l'exposant 1 sera accepté comme valide.
  * @return ResultType
  * @author Eric Elter
 */
-function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPuissances = true, exposant1Accepte = true } = {}): ResultType {
+function comparaisonPuissances (input: string, goodAnswer: string, { seulementCertainesPuissances = false, sansExposantUn = false } = {}): ResultType {
   const clean = generateCleaner(['virgules', 'puissances'])
   const nombreSaisi = clean(input).split('^')
 
@@ -1123,7 +1124,7 @@ function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPu
   if (nombreSaisi.length === 1) return { isOk: false, feedback: 'Une puissance est attendue.' }
 
   // input n'est pas une puissance de puissance
-  if (!toutesLesPuissances && nombreSaisi.length > 2) return { isOk: false, feedback: 'Un seul exposant est attendu.' }
+  if (seulementCertainesPuissances && nombreSaisi.length > 2) return { isOk: false, feedback: 'Un seul exposant est attendu.' }
 
   let mantisseSaisie = nombreSaisi[0]
   mantisseSaisie = mantisseSaisie.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses afin que (-4)^2 soit acceptée
@@ -1135,6 +1136,7 @@ function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPu
   let exposantSaisi = nombreSaisi[1]
   exposantSaisi = exposantSaisi.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
   exposantSaisi = exposantSaisi.replace(/--/g, '') // Pour accepter les deux - consécutifs.
+  exposantSaisi = exposantSaisi.replace(/[{}]/g, '') // Pour enlever les accolades (possible si exposant décimal ou négatif)
   const exposantSaisiNumber = Number(exposantSaisi)
   // L'exposnat saisi est-il un nombre ?
   if (Number.isNaN(exposantSaisiNumber)) return { isOk: false, feedback: 'On attend un nombre unique comme exposant.' } // Pour éviter 4^{1+1}
@@ -1143,13 +1145,12 @@ function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPu
 
   // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte
   if (goodAnswerSplit.length === 1) {
-    console.log(goodAnswer, goodAnswerSplit)
-    const isOk = engine.parse(input).isEqual(engine.parse(goodAnswer))
+    const isOk = engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))
     return { isOk: !!isOk, feedback: isOk ? '' : 'La puissance n\'est pas égale au résultat attendu.' }
   }
 
   // goodAnswer et input sont des puissances alors deux cas se présentent.
-  if (!exposant1Accepte) {
+  if (sansExposantUn) {
   // On accepte un input avec un exposant de 1 que si goodAnswer en a un aussi.
     let exposantGoodAnswer = goodAnswerSplit[1]
     exposantGoodAnswer = exposantGoodAnswer.replace(/\\lparen|\\rparen|\(|\)/g, '')// Pour enlever les parenthèses
@@ -1159,12 +1160,11 @@ function comparaisonPuissances (input: string, goodAnswer: string, { toutesLesPu
       if (exposantGoodAnswerNumber !== 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' }
     }
   }
-  // Ou bien on n'accepte que si goodAnswer et input sont parfaitement identiques : toutesLesPuissances = false
-  // Ou bien on n'accepte toute égalité entre goodAnswer et input : toutesLesPuissances = true
-  const isOk = toutesLesPuissances ? engine.parse(input).isEqual(engine.parse(goodAnswer)) : engine.parse(input).isSame(engine.parse(goodAnswer))
+  // Ou bien on n'accepte que si goodAnswer et input sont parfaitement identiques : seulementCertainesPuissances = true
+  // Ou bien on n'accepte toute égalité entre goodAnswer et input : seulementCertainesPuissances = false
+  const isOk = !seulementCertainesPuissances ? engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer))) : engine.parse(clean(input)).isSame(engine.parse(clean(goodAnswer)))
   if (!isOk) {
-    console.log('toto', input, goodAnswer)
-    if (engine.parse(input).isEqual(engine.parse(goodAnswer))) return { isOk: false, feedback: 'La puissance est égale au résultat attendu mais ne correspond pas à l\'énoncé.' }
+    if (engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))) return { isOk: false, feedback: 'La puissance est égale au résultat attendu mais ne correspond pas à l\'énoncé.' }
     return { isOk: false, feedback: 'La puissance n\'est pas égale au résultat attendu.' }
   }
   return { isOk: true }
