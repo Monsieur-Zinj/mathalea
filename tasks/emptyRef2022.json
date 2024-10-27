@@ -157,7 +157,24 @@
     "3P1": {},
     "3S1": {},
     "3S2": {},
-    "3QCM": {}
+    "3QCM": {
+      "3QCMF": {},
+      "3QCMP": {},
+      "3QCMProb": {},
+      "3QCML": {},
+      "3QCMA": {},
+      "3QCMS": {},
+      "3QCMThal": {},
+      "3QCMPyth": {},
+      "3QCMProp": {},
+      "3QCMG": {},
+      "3QCMO": {},
+      "3QCMN": {},
+      "3QCMR": {},
+      "3QCMH": {},
+      "3QCMTrigo": {},
+      "3QCMAlgo": {}
+    }
   },
   "2e": {
     "200": {},
