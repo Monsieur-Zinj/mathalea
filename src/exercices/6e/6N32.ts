@@ -98,7 +98,7 @@ export default class FractionsDunite extends Exercice {
       }
 
       if (this.interactif) {
-        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 40, width: 600 })
+        const figure = new Figure({ xMin: -0.5, yMin: -0.3, height: 60, width: 600 })
         this.figuresApigeom[i] = figure
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
