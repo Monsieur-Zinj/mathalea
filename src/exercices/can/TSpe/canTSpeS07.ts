@@ -35,10 +35,10 @@ export default class LimiteFormeIndeterminee extends Exercice {
     this.correction = `On sait que $\\lim\\limits_{n\\to\\infty} ${un}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${vn}=+\\infty$.<br>`
     this.correction += `Nous avons donc une forme indeterminée du type « $\\infty - \\infty$ », donc nous allons factoriser $${m > p ? `n^${m}` : `n^${p}`}$ :<br>`
     if (m > p) {
-      this.correction += `$${un}-${vn}=n^${m}(1-n^{${-diff}})=n^${m}(1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`})$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${m}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} 1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`}=1$.<br>`
+      this.correction += `$${un}-${vn}=n^${m}(1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`})$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${m}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} 1-${diff === 1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^${diff}}`}=1$.<br>`
       this.reponse = '+\\infty'
     } else {
-      this.correction += `$${un}-${vn}=n^${p}(${diff === 1 ? 'n' : `n^{${diff}}`}-1)=n^${p}(${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1)$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${p}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1=-1$.<br>`
+      this.correction += `$${un}-${vn}=n^${p}(${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1)$.<br>Or, $\\lim\\limits_{n\\to\\infty} n^${p}=+\\infty$ et $\\lim\\limits_{n\\to\\infty} ${diff === -1 ? '\\dfrac{1}{n}' : `\\dfrac{1}{n^{${-diff}}}`}-1=-1$.<br>`
       this.reponse = '-\\infty'
     }
     this.correction +=
