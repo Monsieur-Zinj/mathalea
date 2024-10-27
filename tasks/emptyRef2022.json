@@ -224,6 +224,11 @@
       "TExC1": {}
     },
     "TQCM": {
+      "TQCMF": {},
+      "TQCMProb": {},
+      "TQCMAN": {},
+      "TQCMS": {},
+      "TQCME": {}
     },
     "TermComplem": {},
     "TermTechno": {}

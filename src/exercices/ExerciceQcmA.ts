@@ -10,4 +10,6 @@ export default class ExerciceQcmA extends ExerciceQcm {
     this.qcmAleatoire = true
     this.versionAleatoire()
   }
+
+  aleatoire: ()=>void = () => {}
 }

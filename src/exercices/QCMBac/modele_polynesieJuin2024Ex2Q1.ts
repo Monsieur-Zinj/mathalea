@@ -8,7 +8,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = '89dc7'
 export const refs = {
-  'fr-fr': ['TQCM1-1'],
+  'fr-fr': ['TQCMAN-1'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -22,7 +22,7 @@ export const titre = 'QCM équation différentielle (issu du bac juin 2024 Polyn
  * Ce moule à exo dispose d'une méthode qcmCamExport qui permet de récupérer le JSON de la question et de la reponse pour qcmCam hérité de ExerciceQcm.
  * Il est interactif et dispose d'un export AMC d'office
  */
-class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
+export default class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
     this.enonce = 'La solution $f$ de l\'équation différentielle $y^{\\prime}=-3y+7$ telle que $f(0) =1$ est la fonction définie sur $\\R$ par :<br>'
     this.correction = `L'équation différentielle $y' = -3y$ a pour solutions les fonctions $x \\longmapsto f(x) = K \\mathrm{e}^{-3x}$, avec $K \\in \\R$.<br>
@@ -66,4 +66,3 @@ class PolynesieJuin2024Ex2Q1 extends ExerciceQcmA {
     this.versionAleatoire()
   }
 }
-export default PolynesieJuin2024Ex2Q1

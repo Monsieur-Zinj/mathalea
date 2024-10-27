@@ -977,7 +977,13 @@
   },
   "TQCM": {
     "titre": "Qcm du bac",
-    "sousThemes": {}
+    "sousThemes": {
+      "TQCMF": "Fonctions",
+      "TQCMS": "Statistiques",
+      "TQCMProb": "Probabilités",
+      "TQCMAN": "Analyse",
+      "TQCME": "Espace"
+    }
   },
   "ExE1": {
     "titre": "Équations",
