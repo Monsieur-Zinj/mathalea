@@ -3,7 +3,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = '481c6'
 export const refs = {
-  'fr-fr': ['3QCM1-5'],
+  'fr-fr': ['3QCMS4-5'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -11,6 +11,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul de médiane (issu du brevet 202 Métropole)'
+export const dateDePublication = '28/10/2024'
 
 export default class MetropoleJuin24Exo4Q5 extends ExerciceQcm {
   versionOriginale: () => void = () => {

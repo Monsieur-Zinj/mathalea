@@ -357,12 +357,12 @@ class Polygone3d {
     A = this.listePoints[0]
     this.listePoints2d = [A.c2d]
     for (let i = 1; i < this.listePoints.length; i++) {
-      segments3d.push(arete3d(A, this.listePoints[i], this.color))
+      segments3d.push(arete3d(A, this.listePoints[i], this.color, A.visible && this.listePoints[i].visible))
       segments.push(segments3d[i - 1].c2d)
       A = this.listePoints[i]
       this.listePoints2d.push(A.c2d)
     }
-    segments3d.push(arete3d(A, this.listePoints[0], this.color))
+    segments3d.push(arete3d(A, this.listePoints[0], this.color, A.visible && this.listePoints[0].visible))
     segments.push(segments3d[this.listePoints.length - 1].c2d)
     this.aretes = segments3d
     this.c2d = segments
@@ -1210,14 +1210,19 @@ export function prisme3d (base, vecteur, color = 'black') {
  * @class
  */
 class Prisme3d {
-  constructor (base, vecteur, color, affichageNom = false) {
+  constructor (base, vecteur, color, affichageNom = false, nomBase2, positionLabels2) {
     ObjetMathalea2D.call(this, {})
     this.affichageNom = affichageNom
     this.color = color
     base.color = colorToLatexOrHTML(this.color)
     this.vecteur = vecteur
-    this.base1 = this.vecteur.z >= 1 ? base : translation3d(base, vecteur3d(this.vecteur.x, this.vecteur.y, -this.vecteur.z))
-    this.base2 = this.vecteur.z < 1 ? base : translation3d(base, this.vecteur)
+    if (this.vecteur.y === 0 && this.vecteur.x === 0) {
+      this.base1 = this.vecteur.z >= 1 ? base : translation3d(base, vecteur3d(this.vecteur.x, this.vecteur.y, -this.vecteur.z))
+      this.base2 = this.vecteur.z < 1 ? base : translation3d(base, this.vecteur)
+    } else {
+      this.base1 = base
+      this.base2 = translation3d(base, vecteur)
+    }
     this.base2.color = this.base1.color
     this.c2d = []
     let s
@@ -1253,17 +1258,19 @@ class Prisme3d {
 
     if (this.affichageNom) {
       let p = polygone(this.base1.listePoints2d)
-      const nomBase1 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX')
+      const listeLettres = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX')
+      const nomBase1 = base.listePoints2d.map((el, index) => el.nom ?? listeLettres[index])
+
       renommePolygone(p, nomBase1)
       for (let ee = 0; ee < this.base1.listePoints2d.length; ee++) {
-        this.base1.listePoints2d[ee].positionLabel = 'above'
+        this.base1.listePoints2d[ee].positionLabel = base.listePoints2d[ee].positionLabel ?? 'above'
       }
       this.c2d.push(labelPoint(...p.listePoints))
       p = polygone(this.base2.listePoints2d)
-      const nomBase2 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX' + nomBase1)
-      renommePolygone(p, nomBase2)
+      const listeDeLettres2 = choisitLettresDifferentes(this.base1.listePoints.length, 'OQWX' + nomBase1)
+      renommePolygone(p, nomBase2 ?? listeDeLettres2)
       for (let ee = 0; ee < this.base2.listePoints2d.length; ee++) {
-        this.base2.listePoints2d[ee].positionLabel = 'below'
+        this.base2.listePoints2d[ee].positionLabel = positionLabels2[ee] ?? 'below'
       }
       this.c2d.push(labelPoint(...p.listePoints))
       this.nom = nomBase1 + nomBase2
@@ -1286,8 +1293,8 @@ class Prisme3d {
  * @author Eric Elter (d'après version précédente de Jean-Claude Lhote)
  * @return {Prisme3d}
  */
-export function prisme3d (base, vecteur, color = 'black', affichageNom = false) {
-  return new Prisme3d(base, vecteur, color, affichageNom)
+export function prisme3d (base, vecteur, color = 'black', affichageNom = false, nomBase2, positionLabels2) {
+  return new Prisme3d(base, vecteur, color, affichageNom, nomBase2, positionLabels2)
 }
 
 /**

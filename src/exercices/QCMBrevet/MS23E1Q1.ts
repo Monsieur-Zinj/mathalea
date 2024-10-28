@@ -5,7 +5,7 @@ import ExerciceQcmA from '../ExerciceQcmA'
 
 export const uuid = 'fde1e'
 export const refs = {
-  'fr-fr': ['3QCM2-1'],
+  'fr-fr': ['3QCMNM23-1'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -13,6 +13,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM divisibilité (issu du brevet Septembre 2023 Métropole)'
+export const dateDePublication = '28/10/2024'
 
 export default class MetropoleSept23Exo1Q1 extends ExerciceQcmA {
   versionOriginale: () => void = () => {
