@@ -244,7 +244,6 @@ const shortcutsByKeyboards = {
     '<=': '\\leq',
     '(': '\\lparen',
     ')': '\\rparen',
-    ' ': '\\,',
 
     alpha: { mode: 'math', value: '\\alpha' },
     beta: { mode: 'math', value: '\\beta' },
