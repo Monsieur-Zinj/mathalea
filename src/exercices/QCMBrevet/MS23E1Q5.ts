@@ -7,7 +7,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = 'c4da7'
 export const refs = {
-  'fr-fr': ['3QCM2-5'],
+  'fr-fr': ['3QCMHM23-5'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -15,6 +15,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM rapport d\'homothétie (issu du brevet 2023 Métropole)'
+export const dateDePublication = '28/10/2024'
 
 export default class MetropoleSeptembre23Exo1Q5 extends ExerciceQcm {
   versionOriginale = () => {

@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const uuid = '80f6a'
 export const refs = {
-  'fr-fr': ['3QCM2-3'],
+  'fr-fr': ['3QCMNM23-3'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -14,6 +14,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul expression 2nd degré (issu du brevet septembre 2023 Métropole)'
+export const dateDePublication = '28/10/2024'
 
 export default class MetropoleSep23Ex1Q3 extends ExerciceQcmA {
   versionOriginale: () => void = () => {

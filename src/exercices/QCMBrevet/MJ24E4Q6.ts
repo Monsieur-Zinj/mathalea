@@ -8,7 +8,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = '4e9ed'
 export const refs = {
-  'fr-fr': ['3QCM1-6'],
+  'fr-fr': ['3QCMTrig4-6'],
   'fr-ch': []
 }
 export const interactifReady = true
@@ -16,6 +16,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM cosinus dans le triangle rectangle (issu du brevet 2023 Métropole)'
+export const dateDePublication = '28/10/2024'
 
 export default class MetropoleJuin24Exo4Q3 extends ExerciceQcm {
   versionOriginale: () => void = () => {

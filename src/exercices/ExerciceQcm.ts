@@ -13,6 +13,11 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 
+export const nombreElementsDifferents = (liste: string[]) => {
+  const elements = new Set(liste)
+  return elements.size
+}
+
 function ajouteLettres (texte: string) {
   const separateur = context.isHtml ? '<label' : !context.isAmc ? '\\square' : '\\AMCBox'
   // Pour AMC ça ne marche pas parce que texte est vide : c'est AMC qui crée le qcm... je ne sais pas comment faire pour le moment

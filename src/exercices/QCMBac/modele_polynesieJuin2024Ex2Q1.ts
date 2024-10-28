@@ -16,6 +16,7 @@ export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM équation différentielle (issu du bac juin 2024 Polynésie)'
+export const dateDePublication = '28/10/2024'
 /**
  * Ceci est un exo construit à partir d'une question de qcm de Bac.
  * Il utilise la classe ExerciceQcmA qui définit les contours de l'exo (avec une version aléatoire : voir la méthode aleatoire ci-dessous)
