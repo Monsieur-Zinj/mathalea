@@ -48,6 +48,7 @@ import {
     fontOption: 'StandardFont',
     correctionOption: 'AvecCorrection',
     qrcodeOption: 'SansQrcode',
+    durationCanOption: '9 min',
     nbVersions: 1
   }
 
@@ -160,6 +161,7 @@ import {
       latexFileInfos.fontOption = latexFileInfos.fontOption
       latexFileInfos.correctionOption = latexFileInfos.correctionOption
       latexFileInfos.qrcodeOption = latexFileInfos.qrcodeOption
+      latexFileInfos.durationCanOption = latexFileInfos.durationCanOption
       promise = updateLatexWithAbortController().catch(err => {
         if (err.name === 'AbortError') {
           log('Promise Aborted')
@@ -288,6 +290,35 @@ import {
               }
             ]}
           />
+          {#if latexFileInfos.style === 'Can'}
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Options
+          </h6>
+          <FormRadio
+            title="durationCanOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.correctionOption}
+            labelsValues={[
+              { label: 'Avec correction', value: 'AvecCorrection' },
+              { label: 'Sans correction', value: 'SansCorrection' }
+            ]}
+          />
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Durée
+          </h6>
+          <input
+            type="text"
+            id="export-latex-soustitre-input"
+            class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
+            placeholder= "9 min"
+            bind:value={latexFileInfos.durationCanOption}
+          />
+          {/if}
           {#if latexFileInfos.style === 'ProfMaquette'}
           <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
