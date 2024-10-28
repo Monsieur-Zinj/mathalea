@@ -197,11 +197,13 @@ export default function desTestsPourInteractivité () {
       // const reponse = '3x+2'
       // const enonce = 0.4
       // const reponse = new FractionEtendue(6, 8).toLatex()
-      const reponse = '4^2'
+      // console.log(fonctionComparaison('16^1', '16', { sansExposantUn: true }).isOk)
+
+      const reponse = '4096'
       // const reponse = new FractionEtendue(-20, 50).valeurDecimale
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 +' + reponse + '$ : $'
       // const enonce = '$Donner l\'ensemble des nombres entiers non nuls positifs inférieurs à 4 :$'
-      const enonce = 'Réponse : '
+      const enonce = '2^{12} = '
       // const enonce = '$Donner une valeur numér égale à 0.4 : $'
       // reponse = reponse.toString()
       texteCorr = ''
