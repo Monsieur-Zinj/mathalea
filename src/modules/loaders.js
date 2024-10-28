@@ -219,6 +219,12 @@ export async function loadMathLive (divExercice) {
       mf.classList.add('ml-1')
       mf.addEventListener('focus', handleFocusMathField)
       mf.addEventListener('focusout', handleFocusOutMathField)
+      mf.addEventListener('input', () => {
+        const content = mf.getValue()
+        // Remplace les espaces consécutifs par un seul espace
+        const filteredContent = content.replaceAll('\\,\\,', '\\,')
+        mf.setValue(filteredContent)
+      })
     }
   }
   // On envoie la hauteur de l'iFrame après le chargement des champs MathLive
