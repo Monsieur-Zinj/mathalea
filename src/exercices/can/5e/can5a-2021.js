@@ -280,7 +280,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres:' €' })
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' €' })
           }
           nbChamps = 1
           break
@@ -533,7 +533,7 @@ export default function SujetCAN20215ieme () {
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
             texte += '$\\mathscr{P}=$'
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
           }
           nbChamps = 1
           break
@@ -547,7 +547,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ dm$^2= 100$ cm$^2$, donc $${a}$ dm$^2=${a}\\times 100$ cm$^2=${miseEnEvidence(a * 100)}$ cm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm$^2$' })
             } else {
               texte += ' $\\ldots$ cm$^2$'
             }
@@ -558,7 +558,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ cm$^2= 0,01$ dm$^2$, donc $${a}$ cm$^2=${a}\\times 0,01$ dm$^2=${miseEnEvidence(texNombre(a / 100))}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'dm$^2$' })
             } else {
               texte += ' $\\ldots$ dm$^2$'
             }
@@ -569,7 +569,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ m$^2= 100$ dm$^2$, donc $${a}$ m$^2=${a}\\times 100$ dm$^2=${miseEnEvidence(a * 100)}$ dm$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'dm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'dm$^2$' })
             } else {
               texte += '$\\ldots$ dm$^2$'
             }
@@ -580,7 +580,7 @@ export default function SujetCAN20215ieme () {
             texteCorr = `$1$ dm$^2= 0,01$ m$^2$, donc $${a}$ dm$^2=${a}\\times 0,01$ m$^2=${miseEnEvidence(texNombre(a / 100))}$ m$^2$.`
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'm$^2$'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'm$^2$' })
             } else {
               texte += '$\\ldots$ m$^2$'
             }
@@ -619,7 +619,7 @@ export default function SujetCAN20215ieme () {
           Seule la longueur $${miseEnEvidence(texNombre(c))}$ est possible pour $BC$. `
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers)
           }
           nbChamps = 1
           break
@@ -706,7 +706,7 @@ export default function SujetCAN20215ieme () {
           Le montant de la remise est $${texNombre(0.1 * a)}$ €. La brioche coûtera donc après remise : $${a}-${texNombre(0.1 * a)}=${miseEnEvidence(texNombre(0.9 * a))}$ €.`
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  ' €'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: ' €' })
           }
           nbChamps = 1
           break
@@ -737,10 +737,10 @@ export default function SujetCAN20215ieme () {
             c = a + b + truc
             texte = `VRAI/FAUX<br>
           L' égalité $${a}x+${b}=${c}$ est vérifiée pour $x=${truc}$.<br>`
-          texteCorr = `Pour $x=${truc}$, $${a}x+${b}=${a}\\times ${truc}+${b}=${a * truc + b}$.<br>
+            texteCorr = `Pour $x=${truc}$, $${a}x+${b}=${a}\\times ${truc}+${b}=${a * truc + b}$.<br>
           Donc l'égalité n'est pas vérifiée (${texteEnCouleurEtGras('F')}).`
             setReponse(this, index, ['F', 'f'], { formatInteractif: 'texte' })
-            
+
             if (this.interactif) {
               texte += 'Pour VRAI, écrire V et pour FAUX : F'
               texte += ajouteChampTexteMathLive(this, index, ' ')
@@ -867,7 +867,7 @@ export default function SujetCAN20215ieme () {
 
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  '°'})
+            texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: '°' })
           } else {
             texte += ' $\\ldots °$'
           }
@@ -1002,7 +1002,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$CD=$'
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
             } else {
               texte += '<br>$CD=\\ldots$ cm'
             }
@@ -1027,7 +1027,7 @@ export default function SujetCAN20215ieme () {
             setReponse(this, index, reponse, { formatInteractif: 'calcul' })
             if (this.interactif) {
               texte += '<br>$AE=$'
-              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm'})
+              texte += ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm' })
             } else {
               texte += '<br>$AE=\\ldots$ cm'
             }
@@ -1078,7 +1078,7 @@ export default function SujetCAN20215ieme () {
           reponse = printlatex(`${a + c}*a+(${b + d})`)
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecVariable)
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierDeBaseAvecVariable)
           }
           nbChamps = 1
           break
@@ -1103,7 +1103,7 @@ export default function SujetCAN20215ieme () {
           }
           setReponse(this, index, reponse, { formatInteractif: 'calcul' })
           if (this.interactif) {
-            texte += '<br>' +ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, {texteApres:  'cm$^3$'})
+            texte += '<br>' + ajouteChampTexteMathLive(this, index, KeyboardType.clavierNumbers, { texteApres: 'cm$^3$' })
           }
           nbChamps = 1
           break

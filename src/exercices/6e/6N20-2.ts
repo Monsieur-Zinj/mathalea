@@ -13,7 +13,6 @@ import erase from 'apigeom/src/assets/svg/erase.svg'
 import { remplisLesBlancs } from '../../lib/interactif/questionMathLive'
 import { generateCleaner } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-import Element2D from 'apigeom/src/elements/Element2D'
 import TextByPosition from 'apigeom/src/elements/text/TextByPosition'
 
 export const titre = "Décomposer une fraction (partie entière + fraction inférieure à 1) puis donner l'écriture décimale"

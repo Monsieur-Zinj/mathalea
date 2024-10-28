@@ -1,10 +1,9 @@
 // import { ComputeEngine } from '@cortex-js/compute-engine'
 import Exercice from '../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
-import { ensembleNombres, fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions.ts'
 import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.js'
-import FractionEtendue from '../../modules/FractionEtendue'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { ComputeEngine } from '@cortex-js/compute-engine'
 
@@ -20,7 +19,6 @@ export const refs = {
 export const uuid = 'testEE'
 
 const engine = new ComputeEngine()
-console.log()
 /* // export engine
 
 function customCanonicalEE (expr) {

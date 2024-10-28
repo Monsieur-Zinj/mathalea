@@ -191,8 +191,8 @@ export default class nomExercice extends Exercice {
         listeTermesFactorises[0] = listeTermesFactorises[0].oppose()
       }
       const listeTermesFactorisesSigne = listeTermesFactorises.map((x, j) => signeGroupements[j] === -1 ? x.oppose() : x)
-      const ordreGroupementsApres = ordreGroupements.map(x => 'après')
-      const signeGroupementsPositif = signeGroupements.map(x => 1)
+      const ordreGroupementsApres = ordreGroupements.map(() => 'après')
+      const signeGroupementsPositif = signeGroupements.map(() => 1)
       const groupementFactorise = PolynomePlusieursVariables.PolynomeNonReduit(listeTermesFactorisesSigne)
       let developpe : boolean = false
       let melange : boolean = false

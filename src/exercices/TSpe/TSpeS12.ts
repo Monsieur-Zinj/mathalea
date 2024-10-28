@@ -6,7 +6,7 @@ import Trinome from '../../modules/Trinome'
 import { createList } from '../../lib/format/lists'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { choice } from '../../lib/outils/arrayOutils'
-import { tableauDeVariation, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
+import { tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 
 export const titre = 'Étude d\'une suite $u_{n+1}=f(u_n)$ par récurrence'
 export const dateDePublication = '25/10/2024'
@@ -83,7 +83,6 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
       step: new FractionEtendue(1, 100),
       tolerance: 0.001
     })
-
 
     let correction2 = `Démontrons par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`
     correction2 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`

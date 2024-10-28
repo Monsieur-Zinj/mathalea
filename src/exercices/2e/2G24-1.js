@@ -115,10 +115,10 @@ export default function Calculercoordonneesvecteurs () {
           texteCorr += `Ce qui donne au final : $\\overrightarrow{${nomsPoints[0]}${nomsPoints[1]}}\\begin{pmatrix}${miseEnEvidence(xABFraction.texFraction)}\\\\[0.7em]${miseEnEvidence(yABFraction.texFraction)}\\end{pmatrix}$.<br><br>`
         }
       }
-const xDeA = xA instanceof FractionEtendue ? xA.valeurDecimale : xA // On récupère la valeur décimale de xA
-const yDeA = yA instanceof FractionEtendue ? yA.valeurDecimale : yA // On récupère la valeur décimale de yA
-const xDeB = xB instanceof FractionEtendue ? xB.valeurDecimale : xB // On récupère la valeur décimale de xB
-const yDeB = yB instanceof FractionEtendue ? yB.valeurDecimale : yB // On récupère la valeur décimale de yB
+      const xDeA = xA instanceof FractionEtendue ? xA.valeurDecimale : xA // On récupère la valeur décimale de xA
+      const yDeA = yA instanceof FractionEtendue ? yA.valeurDecimale : yA // On récupère la valeur décimale de yA
+      const xDeB = xB instanceof FractionEtendue ? xB.valeurDecimale : xB // On récupère la valeur décimale de xB
+      const yDeB = yB instanceof FractionEtendue ? yB.valeurDecimale : yB // On récupère la valeur décimale de yB
 
       const A = point(xDeA, yDeA, nomsPoints[0]) // On définit et on trace le point A
       const B = point(xDeB, yDeB, nomsPoints[1]) // On définit et on trace le point B

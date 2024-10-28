@@ -26,9 +26,9 @@ function pointVersTex (A: Point): string {
   return `${A.nom}\\left(${A.x} ; ${A.y}\\right)`
 }
 
-function vecteurcoordVersTex (u: Vecteur): string {
-  return `\\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
-}
+// function vecteurcoordVersTex (u: Vecteur): string {
+//   return `\\begin{pmatrix} ${u.x} \\\\ ${u.y} \\end{pmatrix}`
+// }
 
 function vecteurVersTex (u: Vecteur): string {
   const fonctionLatex = u.nom.length >= 2 ? 'overrightarrow' : 'vec'
@@ -39,22 +39,22 @@ function vecteurNormal (u: Vecteur, nom: string = 'n'): Vecteur {
   return new Vecteur(-u.y, u.x, nom)
 }
 
-function equationCartesienne (d: Droite): string {
-  return engine.parse(`${d.a}x + ${d.b}y + ${d.c} = 0`)
-}
+// function equationCartesienne (d: Droite): string {
+//   return engine.parse(`${d.a}x + ${d.b}y + ${d.c} = 0`)
+// }
 
 function construireDroite (A: Point, { B = undefined, u = undefined, n = undefined }) : [Droite, string] {
   if (B instanceof Point) {
     const u = new Vecteur(A, B, `${A.nom}${B.nom}`)
     const [d, details] = construireDroite(A, { u })
     return [d,
-		`Un vecteur directeur de la droite $(${A.nom}${B.nom})$ est $${vecteurVersTex(u)}$. ` + details]
+`Un vecteur directeur de la droite $(${A.nom}${B.nom})$ est $${vecteurVersTex(u)}$. ` + details]
   }
   if (u instanceof Vecteur) {
     const n = vecteurNormal(u)
     const [d, details] = construireDroite(A, { n })
     return [d,
-		`Un vecteur normal à la droite $(d)$ est $${vecteurVersTex(n)}$. ` + details]
+`Un vecteur normal à la droite $(d)$ est $${vecteurVersTex(n)}$. ` + details]
   }
   if (n instanceof Vecteur) {
     const c = -(A.x * n.x + A.y * n.y)
@@ -62,7 +62,7 @@ function construireDroite (A: Point, { B = undefined, u = undefined, n = undefin
     const Aind = engine.parse(`${n.x}*(${A.x}) + ${n.y}* (${A.y}) + c = 0`)
     const equa = engine.parse(`${n.x}x + ${n.y}y + ${c} = 0`).simplify()
     return [new Droite(n.x, n.y, c),
-		`La droite de vecteur normal $${vecteurVersTex(n)}$ admet pour équation cartésienne $${partial.latex}$, pour un certain nombre réel $c$. Comme $${A.nom}$ appartient à la droite, $${Aind.latex}$. Ainsi, $c = ${c}$, l'équation cartésienne de la droite est donc $${equa.latex}$.`]
+`La droite de vecteur normal $${vecteurVersTex(n)}$ admet pour équation cartésienne $${partial.latex}$, pour un certain nombre réel $c$. Comme $${A.nom}$ appartient à la droite, $${Aind.latex}$. Ainsi, $c = ${c}$, l'équation cartésienne de la droite est donc $${equa.latex}$.`]
   }
   return ''
 }
@@ -73,7 +73,7 @@ function hauteur (A: Point, B: Point, C: Point): [Droite, string] {
 
   return [
     d,
-	`La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le point $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` + details
+`La hauteur $(h)$ issue de $${A.nom}$ dans le triangle $${A.nom}${B.nom}${C.nom}$ passe par le point $${A.nom}$ et est perpendiculaire à la droite $(${B.nom}${C.nom}$). Ainsi le vecteur $${vecteurVersTex(n)}$ est un vecteur normal à la droite $(h)$. ` + details
   ]
 }
 
@@ -81,7 +81,7 @@ function mediatrice (A: Point, B: Point): [Droite, string] {
   const I = milieu(A, B, 'I')
   const n = new Vecteur(A, B, 'AB')
   const [d, details] = construireDroite(I, { n })
-  const equa = equationCartesienne(d)
+  // const equa = equationCartesienne(d)
 
   return [
     d,

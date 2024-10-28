@@ -1,11 +1,10 @@
 import { ecritureAlgebrique, reduireAxPlusB } from '../../../lib/outils/ecritures'
 import { texteCentre } from '../../../lib/format/miseEnPage.js'
-import { sp } from '../../../lib/outils/outilString.js'
 import Exercice from '../../deprecatedExercice.js'
 import { listeQuestionsToContenu, randint } from '../../../modules/outils.js'
-import { ajouteChampTexteMathLive, remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
+import { remplisLesBlancs } from '../../../lib/interactif/questionMathLive.js'
 
-import { handleAnswers, setReponse } from '../../../lib/interactif/gestionInteractif'
+import { handleAnswers } from '../../../lib/interactif/gestionInteractif'
 
 export const titre = 'Déterminer les coordonnées du sommet d\'une parabole à partir de la forme canonique'
 export const interactifReady = true

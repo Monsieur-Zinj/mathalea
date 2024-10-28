@@ -8,7 +8,6 @@ import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive.
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { string } from 'mathjs'
-import { createList } from '../../lib/format/lists'
 /**
  * Problème à résoudre en utilisant les nombres relatifs
  * La dernière question est ouverte (et difficile pour prouver que l'on a trouvé toutes les solutions)
