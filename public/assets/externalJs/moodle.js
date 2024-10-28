@@ -142,10 +142,11 @@ if (typeof window.iMathAlea === 'undefined') {
         iframe.setAttribute('height', '400')
         if (VERSION === 3) {
           let exoUrl = this.getAttribute('url')
+          const ES = this.getAttribute('titre') === 'false' ? '0110100' : '0110101'
           // uuid=XXX&id=XXX&cols=2 => uuid=XXX&id=XXX[&alea=XX]&cols=2
           // uuid=XXX&id=XXX => uuid=XXX&id=XXX[&alea=XX]
           exoUrl = exoUrl.replaceAll(/(uuid=[A-Za-z0-9]+(?:&id=[A-Za-z0-9-]+)?)(&|$)/g, '$1&alea=' + questionSeed + '$2') // on ajoute la graine
-          iframe.setAttribute('src', SERVEUR_URL + '?' + exoUrl + '&i=1&v=eleve&recorder=moodle&title=&es=011010&iframe=' + iMoodle + (this.getAttribute('correction') !== null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&answers=' + answer : ''))
+          iframe.setAttribute('src', SERVEUR_URL + '?' + exoUrl + '&i=1&v=eleve&recorder=moodle&title=&es=' + ES + '&iframe=' + iMoodle + (this.getAttribute('correction') !== null ? '&done=1' : '') + (typeof answer !== 'undefined' ? '&answers=' + answer : ''))
         } else {
           // 4A11-0,s\=3,s2\=true,s3\=false,s4\=false,n\=4,video\=0,cc\=1,cd\=1
           // => (les slashs ne sont que dans le gift)
