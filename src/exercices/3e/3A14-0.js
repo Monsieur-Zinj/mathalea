@@ -51,21 +51,32 @@ export default function DesChocolatsDansDesBoites () {
     const nbTruffesCafe = nbBoites * nbTruffesCafeParBoite
     const nbTruffesCoco = nbBoites * nbTruffesCocoParBoite
     const nbTruffes = nbTruffesCafe + nbTruffesCoco
-    let texte = 'Pour fêter les 25 ans de sa boutique, un chocolatier souhaite offrir aux premiers clients de la journée une boîte contenant des truffes au chocolat.<br><br>'
-    texte += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
-
-    texte += createList({
-      items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-        'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
+    const intro = 'Pour fêter les 25 ans de sa boutique, un chocolatier souhaite offrir aux premiers clients de la journée une boîte contenant des truffes au chocolat.'
+    const donneesTruffes = createList({
+      items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte ;',
+        'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte ;',
         'Toutes les truffes soient utilisées.'],
       style: 'fleches',
-      classOptions: 'style="color: red; backgroundColor: red"'
+      classOptions: 'w-3/4 py-2 px-4'
+    })
+    // question 1
+    let texteQuestion1 = ''
+    texteQuestion1 += `Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
+
+    texteQuestion1 += donneesTruffes
+    texteQuestion1 += createList({
+      items: [
+        `Décomposer $${nbTruffesCafe}$ et $${nbTruffesCoco}$ en produit de facteurs premiers.`,
+        `En déduire la liste des diviseurs communs à $${nbTruffesCafe}$ et $${nbTruffesCoco}$.`,
+        'Quel nombre maximal de boîtes pourra-t-il réaliser ?',
+        'Dans ce cas, combien y aura-t-il de truffes de chaque sorte dans chaque boîte ?'
+      ],
+      style: 'alpha',
+      classOptions: 'py-4'
     })
 
-    texte += `${numAlpha(0)} Décomposer $${nbTruffesCafe}$ et $${nbTruffesCoco}$ en produit de facteurs premiers.<br>`
-    texte += `${numAlpha(1)} En déduire la liste des diviseurs communs à $${nbTruffesCafe}$ et $${nbTruffesCoco}$.<br>`
-    texte += `${numAlpha(2)} Quel nombre maximal de boîtes pourra-t-il réaliser ?<br>`
-    texte += `${numAlpha(3)} Dans ce cas, combien y aura-t-il de truffes de chaque sorte dans chaque boîte ?<br><br>`
+    // question 2
+    let texteQuestion2 = ''
     const largeurCadre = 30
     const hauteurCadre = 20
     const cadrePrincipal = polygone([point(0, 0), point(largeurCadre, 0), point(largeurCadre, hauteurCadre), point(0, hauteurCadre)])
@@ -120,28 +131,42 @@ export default function DesChocolatsDansDesBoites () {
     const textB3 = texteParPosition(`de largeur ${stringNombre(largeurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 3, 'milieu', 'black', 1.5)
     const textB4 = texteParPosition(`et de hauteur ${stringNombre(hauteurPave, 1)} cm`, 3 * largeurCadre / 4, hauteurCadre / 3 - 4, 'milieu', 'black', 1.5)
     const objets = [cadrePrincipal, ligne1, ligne2, text1, text2, pyramide.c2d, pave.c2d, textA1, textA2, textA3, textB1, textB2, textB3, textB4]
-    texte += `${texteGras('2.')} Le chocolatier souhaite fabriquer des boîtes contenant $${nbTruffesParBoite}$ truffes. Pour cela, il a le choix entre deux types de boites qui peuvent contenir les $${nbTruffesParBoite}$ truffes, et dont les caractéristiques sont données ci-dessous:`
-    texte += '<br>' + mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    texte += `Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
-    texte += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
-    texte += 'Quel(s) type(s) de boîte le chocolatier doit-il choisir pour que cette condition soit respectée?'
-    this.listeQuestions[0] = texte
-    let texteCorr = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
-    texteCorr += `${texteGras('1.')} Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
-    texteCorr += createList({
-      items: ['Le nombre de truffes parfumées au café soit le même dans chaque boîte;',
-        'Le nombre de truffes enrobées de noix de coco soit le même dans chaque boîte;',
-        'Toutes les truffes soient utilisées.'],
-      style: 'fleches',
-      classOptions: 'style="backGroundColor: red";'
+
+    texteQuestion2 += `Le chocolatier souhaite fabriquer des boîtes contenant $${nbTruffesParBoite}$ truffes. Pour cela, il a le choix entre deux types de boites qui peuvent contenir les $${nbTruffesParBoite}$ truffes, et dont les caractéristiques sont données ci-dessous:`
+    texteQuestion2 += '<br>' + mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    texteQuestion2 += `Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
+    texteQuestion2 += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
+    texteQuestion2 += 'Quel(s) type(s) de boîte le chocolatier doit-il choisir pour que cette condition soit respectée?'
+
+    // toute les questions dans une liste numérotée
+    this.listeQuestions[0] = intro + createList({
+      items: [texteQuestion1, texteQuestion2],
+      style: 'nombres',
+      classOptions: 'pt-4'
     })
-    texteCorr += `${numAlpha(0)} $${nbTruffesCafe}=${decompositionFacteursPremiers(nbTruffesCafe)}$ et $${nbTruffesCoco}=${decompositionFacteursPremiers(nbTruffesCoco)}$.<br>`
-    texteCorr += `${numAlpha(1)} On cherche le plus grand diviseur commun de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$.<br>`
-    texteCorr += `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.<br>`
-    texteCorr += `${numAlpha(2)} Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.<br>`
-    texteCorr += `${numAlpha(3)} Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
-    texteCorr += `${texteGras('2.')} Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
-    texteCorr += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
+
+    // correction
+    const texteCorr = mathalea2d(Object.assign({ scale: 0.5 }, fixeBordures(objets)), objets)
+    // question 1
+    let correctionQuestion1 = ''
+    correctionQuestion1 += `Il a confectionné $${nbTruffes}$ truffes: $${nbTruffesCafe}$ truffes parfumées au café et $${nbTruffesCoco}$ truffes enrobées de noix de coco. Il souhaite fabriquer ces boîtes de sorte que :`
+    correctionQuestion1 += donneesTruffes
+    correctionQuestion1 += createList({
+      items: [
+        `$${nbTruffesCafe}=${decompositionFacteursPremiers(nbTruffesCafe)}$ et $${nbTruffesCoco}=${decompositionFacteursPremiers(nbTruffesCoco)}$.`,
+        `On cherche le plus grand diviseur commun de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$.<br>` +
+        `Dans les décompositions en facteurs premiers de $${nbTruffesCafe}$ et de $${nbTruffesCoco}$, on retrouve $${decompositionFacteursPremiers(nbBoites)}$, donc leur plus grand diviseur commun est $${decompositionFacteursPremiers(nbBoites)}=${nbBoites}$.`,
+        `Le nombre maximal de boites qu'il pourra réaliser est donc $${nbBoites}$.`,
+        `Il y aura donc $\\dfrac{${nbTruffesCafe}}{${nbBoites}}=${nbTruffesCafeParBoite}$ truffes au café par boite et $\\dfrac{${nbTruffesCoco}}{${nbBoites}}=${nbTruffesCocoParBoite}$ truffes à la noix de coco par boite.<br><br>`
+      ],
+      style: 'alpha',
+      classOptions: 'py-2'
+    })
+
+    // correction question 2
+    let correctionQuestion2 = ''
+    correctionQuestion2 += `Dans cette question, chacune des $${nbTruffesParBoite}$ truffes est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm.<br>`
+    correctionQuestion2 += 'À l\'intérieur d\'une boîte, pour que les truffes ne s\'abîment pas pendant le transport, le volume occupé par les truffes doit être supérieur au volume non occupé par les truffes.<br>'
     const sousListe1 = {
       items: [`La pyramide a une base carrée de côté $${texNombre(basePyramide, 1)}$ cm, l'aire de sa base est donc en cm$^2$ : $${texNombre(basePyramide, 1)}\\times ${texNombre(basePyramide, 1)} = ${texNombre(basePyramide ** 2, 2)}$cm$^2$.`,
       `Son volume en cm$^3$ est : $\\dfrac{\\text{aire de la base}\\times\\text{hauteur}}{3}=\\dfrac{${texNombre(basePyramide ** 2, 2)}\\times ${hauteurPyramide}}{3}${egalOuApprox(volumePyramide, 1)}${texNombre(volumePyramide, 1)}$ cm$^3$.`,
@@ -163,7 +188,7 @@ export default function DesChocolatsDansDesBoites () {
       style: 'fleches',
       introduction: 'Le pavé droit :'
     }
-    const liste = createList({
+    correctionQuestion2 += createList({
       items: [`Une truffe est assimilée à une boule de diamètre $${texNombre(diametreTruffes, 1)}$ cm, donc de rayon $${texNombre(diametreTruffes / 2, 2)}$ cm et son voulme en cm$^3$ est : $\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3$.`,
       `Le volume occupé par $${nbTruffesParBoite}$ truffes est donc de : $${nbTruffesParBoite}\\times\\dfrac{4}{3}\\times\\pi\\times${texNombre(diametreTruffes / 2, 2)}^3=\\dfrac{${texNombre(nbTruffesParBoite * 4 * (diametreTruffes / 2) ** 3, 4)}}{3}\\pi$ soit environ $${texNombre(nbTruffesParBoite * 4 * Math.PI * (diametreTruffes / 2) ** 3 / 3, 1)}$cm$^3$.`,
       sousListe1,
@@ -171,8 +196,11 @@ export default function DesChocolatsDansDesBoites () {
       ],
       style: 'puces'
     })
-    texteCorr += liste
-    this.listeCorrections[0] = texteCorr
+
+    this.listeCorrections[0] = texteCorr + createList({
+      items: [correctionQuestion1, correctionQuestion2],
+      style: 'nombres'
+    })
     listeQuestionsToContenu(this)
   }
 }
