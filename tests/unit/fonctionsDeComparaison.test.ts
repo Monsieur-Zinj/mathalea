@@ -212,15 +212,29 @@ describe('fonctionComparaison', () => {
     // expect(result.feedback).toBe('Comparaison réussie')
   })
 
-  it('Vérifie le fonctionnement de l\'option puissance', () => {
+  it('Vérifie le fonctionnement de l\'option puissance, sansExposantUn et seulementCertainesPuissances', () => {
     const result = fonctionComparaison('2^35', '2^35', { puissance: true })
     expect(result.isOk).toBe(true)
-    // Attention, normalement on doit passer un string de la forme ###^### pour que ça fonctionne bien.
-    // J'ai ajouté le traitement des goodAnswer mal formées pour que ça fonctionne si quelqu'un passe un number. (JCL)
     const result2 = fonctionComparaison('2^12', '4096', { puissance: true })
-    expect(result2.isOk).toBe(true)
+    expect(result2.isOk).toBe(false)
+    const result2bis = fonctionComparaison('2^{12}', '4096', { puissance: true })
+    expect(result2bis.isOk).toBe(true)
     const result3 = fonctionComparaison('4^6', '2^12', { puissance: true })
     expect(result3.isOk).toBe(false)
+    const result3bis = fonctionComparaison('4^6', '2^{12}', { puissance: true })
+    expect(result3bis.isOk).toBe(true)
+    const result4 = fonctionComparaison('2^4', '16', { puissance: true })
+    expect(result4.isOk).toBe(true)
+    const result4bis = fonctionComparaison('4^2', '2^4', { puissance: true })
+    expect(result4bis.isOk).toBe(true)
+    const result5 = fonctionComparaison('16', '2^4', { puissance: true })
+    expect(result5.isOk).toBe(false)
+    const result6 = fonctionComparaison('16^1', '16', { puissance: true })
+    expect(result6.isOk).toBe(true)
+    const result7 = fonctionComparaison('16^1', '16', { sansExposantUn: true })
+    expect(result7.isOk).toBe(false)
+    const result8 = fonctionComparaison('4^2', '2^4', { seulementCertainesPuissances: true })
+    expect(result8.isOk).toBe(false)
   })
 
   it('Vérifie le fonctionnement de l\'option texteAvecCasse', () => {

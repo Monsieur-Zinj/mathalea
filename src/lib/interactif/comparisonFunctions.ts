@@ -1143,8 +1143,9 @@ function comparaisonPuissances (input: string, goodAnswer: string, { seulementCe
 
   const goodAnswerSplit = clean(goodAnswer).split('^')
 
-  // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte
+  // goodAnswer n'est pas une puissance donc toute puissance égale à goodAnswer est correcte (modulo sansExposantUn)
   if (goodAnswerSplit.length === 1) {
+    if (sansExposantUn && exposantSaisiNumber === 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' }
     const isOk = engine.parse(clean(input)).isEqual(engine.parse(clean(goodAnswer)))
     return { isOk: !!isOk, feedback: isOk ? '' : 'La puissance n\'est pas égale au résultat attendu.' }
   }
@@ -1157,7 +1158,7 @@ function comparaisonPuissances (input: string, goodAnswer: string, { seulementCe
     exposantGoodAnswer = exposantGoodAnswer.replace(/--/g, '') // Pour accepter les deux - consécutifs.
     const exposantGoodAnswerNumber = Number(exposantGoodAnswer)
     if (exposantSaisiNumber === 1) {
-      if (exposantGoodAnswerNumber !== 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' }
+      if (exposantGoodAnswerNumber !== 1) return { isOk: false, feedback: 'On attend un exposant différent de 1.' } // Très important car parfois, par le calcul, on attend 4^1
     }
   }
   // Ou bien on n'accepte que si goodAnswer et input sont parfaitement identiques : seulementCertainesPuissances = true
