@@ -1,10 +1,12 @@
 import Exercice from '../Exercice'
-import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { listeQuestionsToContenu } from '../../modules/outils.js'
 import { texteEnCouleur, texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { context } from '../../modules/context'
 import Trinome from '../../modules/Trinome'
 import { createList } from '../../lib/format/lists'
 import FractionEtendue from '../../modules/FractionEtendue'
+import { choice } from '../../lib/outils/arrayOutils'
+import { tableauDeVariation, tableauVariationsFonction } from '../../lib/mathFonctions/etudeFonction'
 
 export const titre = 'Étude d\'une suite $u_{n+1}=f(u_n)$ par récurrence'
 export const dateDePublication = '25/10/2024'
@@ -34,11 +36,22 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     let texte = ''
     let texteCorr = ''
 
-    const i1 = randint(-5, -3)
-    const i2 = i1 + randint(3, 6)
-    const f = TrinomeStable.generateStable(i1, i2)
-    const alpha = f.alpha.texFractionSimplifiee
+    const i1 = 1
+    const i2 = 3
 
+    const [a, b, c] = choice([
+      [frac(1, 3), frac(-1, 3), frac(1, 1)],
+      [frac(1, 3), frac(-2, 3), frac(4, 3)],
+      [frac(1, 3), frac(-1, 1), frac(2, 1)],
+      [frac(1, 4), frac(-1, 2), frac(5, 4)],
+      [frac(1, 4), frac(-2, 3), frac(17, 12)],
+      [frac(1, 4), frac(-1, 4), frac(1, 1)],
+      [frac(1, 5), frac(-1, 5), frac(1, 1)],
+      [frac(1, 5), frac(1, 5), frac(3, 5)]
+    ])
+
+    const f = new Trinome(a, b, c)
+    const alpha = f.alpha.texFractionSimplifiee
     texte = `On considère la fonction définie sur $\\R$ par $f(x)=${f.tex}$ et la suite $(u_n)$ définie par $u_0 = ${i2}$ et pour tout $n\\in\\N$,&nbsp;&nbsp;$u_{n+1} = f(u_n)$. `
     const questions = [
       `Étudier le sens de variation de $f$ sur $[${i1}\\;;\\;${i2}]$.`,
@@ -53,9 +66,24 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
       classOptions
     })
     let correction1 = 'La fonction $f$ est une fonction polynôme du second degré. Elle est donc dérivable sur $\\R$ et pour tout $x$ de $\\R$ :'
-    correction1 += `<br> $f'(x)=${f.derivee.tex}$.`
-    correction1 += `<br> $f'(x)=0 \\Leftrightarrow x=${alpha}$.`
-    correction1 += `<br>Or $${alpha} < ${i1}$ donc $f$ est croissante sur $[${i1}\\;;\\;${i2}]$.`
+    correction1 += `<br><br> $f'(x)=${f.derivee.tex}$.`
+    correction1 += `<br><br> $f'(x)=0 \\Leftrightarrow x=${alpha}$.`
+    correction1 += `<br><br>Or $${alpha} \\geqslant ${i1}$ donc $f$ est croissante sur $[${i1}\\;;\\;${i2}]$.`
+
+    const fonction = (x: number) => f.image(x).toNumber()
+    const derivee = (x: number) => f.derivee.image(x).toNumber()
+    correction1 += '<br><br>' + tableauVariationsFonction(fonction, derivee, i1, i2, {
+      ligneDerivee: true,
+      substituts: [
+        // @ts-expect-error typage de tableauVariationsFonction
+        { antVal: 3, antTex: '3', imgTex: '$ $' },
+        // @ts-expect-error typage de tableauVariationsFonction
+        { antVal: 1, antTex: '1', imgTex: '$ $' }
+      ],
+      step: new FractionEtendue(1, 100),
+      tolerance: 0.001
+    })
+
 
     let correction2 = `Démontrons par récurrence que, pour tout entier naturel $n$, $${i1} \\leqslant u_n \\leqslant ${i2}$`
     correction2 += `<br><br>${texteEnCouleurEtGras('Initialisation :', bleuMathalea)}`
@@ -69,7 +97,7 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
     correction2 += `<br><br>$${i1} \\leqslant u_n \\leqslant ${i2}\\qquad$ ${texteEnCouleur('Hypothèse de récurrence', 'forestgreen')}`
     correction2 += `<br><br>$f(${i1}) \\leqslant f(u_n) \\leqslant f(${i2})\\qquad$ ${texteEnCouleur(`Car $f$ est croissante sur $[${i1}\\;;\\;${i2}]$`, 'forestgreen')}`
     correction2 += `<br><br>$${f.image(i1).texFractionSimplifiee} \\leqslant f(u_n) \\leqslant ${f.image(i2).texFractionSimplifiee}$`
-    correction2 += `<br><br>Or $${i1} \\leqslant ${f.image(i1).texFractionSimplifiee}$ et $${f.image(i2).texFractionSimplifiee} \\leqslant ${i2}$.`
+    correction2 += `<br><br>Or $${f.image(i2).texFractionSimplifiee} \\leqslant ${i2}$.`
     correction2 += '<br><br>Donc la propriété est vraie au rang $n+1$.'
 
     correction2 += `<br><br>${texteEnCouleurEtGras('Conclusion :', bleuMathalea)}`
@@ -108,42 +136,6 @@ export default class EtudeSuiteFonctionRecurrence extends Exercice {
   }
 }
 
-class TrinomeStable extends Trinome {
-  /** Sur un intervalle [i1, i2] où la fonction est monotone
-   *  teste si i1 <= f(i1) <= i2 et i1 <= f(i2) <= i2
-   */
-  isStable (i1: number, i2: number) {
-    if ((i1 < this.alpha.toNumber() && this.alpha.toNumber() > i2) || (i1 > i2)) {
-      throw new Error('Intervalle mal défini')
-    }
-    if (this.image(i1).toNumber() < i1 || this.image(i2).toNumber() > i2) {
-      return false
-    }
-    return true
-  }
-
-  /** Génère un trinome stable et croissant sur l'intervalle [i1 ; i2] */
-  static generateStable (i1: number, i2: number) {
-    const MAX_ATTEMPTS = 100
-    let attempts = 0
-    const newTrinome = new TrinomeStable(1000, 1000, 1000)
-    do {
-      // i1 et i2 doivent être après le sommet de la parabole qui est (x1 + x2) / 2
-      const x1 = i1 + randint(-5, -2)
-      const alpha = randint(x1 + 1, i1 - 1)
-      const x2 = x1 + (alpha - x1) * 2
-      const denA = randint(2, 4)
-      const numA = randint(-denA + 1, denA - 1, [0])
-      const a = new FractionEtendue(numA, denA)
-      newTrinome.defFormeFactorisee(a, x1, x2)
-      newTrinome.a = newTrinome.a.simplifie()
-      newTrinome.b = newTrinome.b.simplifie()
-      newTrinome.c = newTrinome.c.simplifie()
-      attempts++
-    } while (!newTrinome.isStable(i1, i2) && attempts < MAX_ATTEMPTS)
-    if (attempts === MAX_ATTEMPTS) {
-      throw new Error('Impossible de générer un trinôme stable')
-    }
-    return newTrinome
-  }
+function frac (a: number, b: number) {
+  return new FractionEtendue(a, b)
 }
