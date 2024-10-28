@@ -7,7 +7,7 @@ import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { fraction } from '../../modules/fractions.js'
 import Figure from 'apigeom'
 import figureApigeom from '../../lib/figureApigeom.js'
-import type LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
+import LineFractionDiagram from 'apigeom/src/elements/diagrams/LineFractionDiagram'
 export const titre = 'Représenter une fraction de l\'unité'
 export const amcReady = true
 export const amcType = 'AMCHybride'
@@ -28,7 +28,6 @@ export const refs = {
 }
 export default class FractionsDunite extends Exercice {
   goodAnswers: number[] = []
-  diagrams: LineFractionDiagram[] = []
   figuresApigeom: Figure[] = []
   constructor () {
     super()
@@ -102,7 +101,7 @@ export default class FractionsDunite extends Exercice {
         this.figuresApigeom[i] = figure
         figure.setToolbar({ position: 'top', tools: ['FILL'] })
         figure.options.color = 'blue'
-        this.diagrams[i] = figure.create('LineFractionDiagram', { denominator: unit, max: 3, width: 6 })
+        figure.create('LineFractionDiagram', { denominator: unit, max: 3, width: 6 })
         texte += figureApigeom({ exercice: this, figure, defaultAction: 'FILL', i })
         figure.divButtons.style.display = 'none'
         figure.divUserMessage.style.display = 'none'
@@ -150,7 +149,12 @@ export default class FractionsDunite extends Exercice {
     figure.divButtons.style.display = 'none'
     figure.divUserMessage.style.display = 'none'
     const divFeedback = document.querySelector(`#feedback${`Ex${this.numeroExercice}Q${i}`}`)
-    const result = (this.diagrams[i].numerator === this.goodAnswers[i] && this.diagrams[i].numerator === this.diagrams[i].indiceLastInColor)
+    let result = false
+    figure.elements.forEach((ele) => {
+      if (ele.type === 'LineFractionDiagram' && ele instanceof LineFractionDiagram) {
+        result = (ele.numerator === this.goodAnswers[i] && ele.numerator === ele.indiceLastInColor)
+      }
+    })
     if (divFeedback != null) {
       if (result) {
         divFeedback.innerHTML = '😎'
