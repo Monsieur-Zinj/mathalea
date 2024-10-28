@@ -10,6 +10,7 @@ import { texteEnCouleurEtGras } from '../../lib/outils/embellissements'
 import { choice } from '../../lib/outils/arrayOutils'
 import { context } from '../../modules/context'
 import Element2D from 'apigeom/src/elements/Element2D'
+import Circle from 'apigeom/src/elements/lines/Circle'
 
 export const dateDePublication = '15/07/2024'
 export const titre = 'Résoudre une grille de SquarO'
@@ -214,6 +215,11 @@ class squaro extends Exercice {
         this.figure.create('Circle', { center, radius: 0.2, fillColor: 'white', color: 'black', fillOpacity: 1, isSelectable: false })
       }
     }
+    this.figure.elements.forEach((ele) => {
+      if (ele instanceof Circle) {
+        ele.isDeletable = false
+      }
+    })
 
     let nbPointsAide = 0
     switch (this.sup4) {
