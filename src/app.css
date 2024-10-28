@@ -555,59 +555,43 @@ div[id^="xcas-results-"] {
  */
 
  ul.none {
-  @apply list-none list-inside
+  @apply list-none list-outside
  }
 
  ul.puces {
-  @apply list-none list-inside ml-4
- }
- ul.puces   li::marker {
-  content: "\1F784\00A0";
-  @apply text-coopmaths-struct
+  @apply list-["\1F784\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
 
  ul.carres {
-  @apply list-none list-inside ml-4
- }
- ul.carres  li::marker {
-  content: "\25AA\00A0";
-  @apply text-coopmaths-struct
+  @apply list-["\25AA\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
 
  ul.qcm {
-  @apply list-none list-inside ml-4
- }
- ul.qcm li::marker {
-  content: "\25A1\00A0";
-  @apply text-coopmaths-struct
+  @apply list-["\25A1\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
 
  ul.fleches {
-  @apply list-none list-inside ml-4
- }
- ul.fleches li::marker {
-  content: "\25B8\00A0";
-  @apply text-coopmaths-struct
+  @apply list-["\25B8\00A0"] list-outside ml-4 marker:text-coopmaths-struct
  }
 
  ol.nombres {
-  @apply list-decimal list-inside ml-4 marker:text-coopmaths-struct
+  @apply list-decimal list-outside ml-4 marker:text-coopmaths-struct
  }
 
  ol.alpha {
-  @apply list-[lower-alpha] list-inside ml-4  marker:text-coopmaths-struct
+  @apply list-[lower-alpha] list-outside ml-4  marker:text-coopmaths-struct
  }
 
  ol.Alpha {
-  @apply list-[upper-alpha] list-inside ml-4  marker:text-coopmaths-struct
+  @apply list-[upper-alpha] list-outside ml-4  marker:text-coopmaths-struct
  }
 
 ol.roman {
- @apply list-[lower-roman] list-inside ml-4  marker:text-coopmaths-struct
+ @apply list-[lower-roman] list-outside ml-4  marker:text-coopmaths-struct
 }
 
 ol.Roman {
- @apply list-[upper-roman] list-inside ml-4  marker:text-coopmaths-struct
+ @apply list-[upper-roman] list-outside ml-4  marker:text-coopmaths-struct
 }
 
 @keyframes shake {
