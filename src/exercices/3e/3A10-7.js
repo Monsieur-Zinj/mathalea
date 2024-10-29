@@ -1,11 +1,20 @@
-import { choice, combinaisonListes } from '../../lib/outils/arrayOutils'
+import { combinaisonListes } from '../../lib/outils/arrayOutils'
 import { miseEnEvidence } from '../../lib/outils/embellissements'
 import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { orangeMathalea } from 'apigeom/src/elements/defaultValues'
+
 export const dateDePublication = '12/10/2022'
+export const dateDeModifImportante = '29/10/2024'
 export const titre = 'Explorer un labyrinthe de nombres premiers'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 /** Explorer un labyrinthe de nombres premiers
  * @author Eric Elter // Sur la base d'autres labyrinthes déjà créés
@@ -60,25 +69,25 @@ export default function ExerciceLabyrinthePremiers3e () {
       laby.niveau = this.sup2
       monChemin = laby.choisitChemin(laby.niveau) // On choisit un chemin
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
-      laby.chemin2d = laby.traceChemin(monChemin, choice(['blue', 'green', 'red'])) // On trace le chemin solution
+      laby.chemin2d = laby.traceChemin(monChemin, orangeMathalea) // On trace le chemin solution
 
       texte = 'Trouver la sortie en ne passant que par les cases contenant un nombre premier.<br>'
-      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
+      texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
 
       const bonnesReponses = combinaisonListes(nbPremiers, nbC * nbL)
       let mauvaisesReponses = Array.from({ length: nbMax - 1 }, (_, i) => i + 2).filter((number) => !nbPremiers.includes(number))
-      // MGu bug car randint n'arrive pas forcément à trouver une valeur, car seulement 50 essaies
-      // let mauvaisesReponses = []
-      // for (let i = 0; i <= nbMax - nbPremiers.length - 2; i++) {
-      //  mauvaisesReponses.push(randint(2, nbMax, nbPremiers.concat(mauvaisesReponses)))
-      // }
       mauvaisesReponses = combinaisonListes(mauvaisesReponses, nbC * nbL)
       // Le tableau de nombre étant fait, on place les objets nombres.
       laby.nombres2d = laby.placeNombres(monChemin, bonnesReponses, mauvaisesReponses, tailleChiffre)
       const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
+      texte += ajouteChampTexteMathLive(this, 2 * q, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
+      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}`, compare: fonctionComparaison } })
+      texte += ajouteChampTexteMathLive(this, 2 * q + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
+      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
+
       if (this.questionJamaisPosee(q, bonnesReponses[0], mauvaisesReponses[0])) {
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
