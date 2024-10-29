@@ -39,7 +39,12 @@ if (typeof window.iMathAlea === 'undefined') {
           const moodleScore = compatibleScore.reduce((prev, curr) => {
             return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
           })
-          question.querySelector('[name$="_answer"]').value = moodleScore + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
+          let seedData = ''
+          if (iframe.getAttribute('graine') === '-1') {
+            // On est en mode aléatoire, il faut enregistrer la graine avec le score
+            seedData = '|' + iframe.aleaSeed
+          }
+          question.querySelector('[name$="_answer"]').value = moodleScore + seedData + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
           question.querySelector('[name$="_-submit"]')?.click()
         }
       }
@@ -118,6 +123,7 @@ if (typeof window.iMathAlea === 'undefined') {
       }
       if (questionSeed === '-1') {
         questionSeed = Math.random().toString(36).substring(2, 15)
+        this.aleaSeed = questionSeed
       }
       if (questionDiv === null) {
         // début compatibilité moodle 3.5
@@ -182,7 +188,14 @@ if (typeof window.iMathAlea === 'undefined') {
             questionDiv.querySelector('.formulation ').style.display = 'none'
           }
           answer = questionDiv.querySelector('[name$="_answer"]').value
-          answer = answer.substring(answer.indexOf('|') + 1)
+          if (this.getAttribute('graine') === '-1') {
+            // On est en mode aléatoire, il faut récupérer la graine présent avec la réponse
+            answer = answer.slice(answer.indexOf('|') + 1)
+            questionSeed = answer.slice(0, answer.indexOf('|'))
+            answer = answer.slice(answer.indexOf('|') + 1)
+          } else {
+            answer = answer.slice(answer.indexOf('|') + 1)
+          }
           answer = encodeURIComponent(answer)
           addIframe()
         })
