@@ -4,14 +4,20 @@ import { labyrinthe } from '../../modules/Labyrinthe.js'
 import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint, gestionnaireFormulaireTexte } from '../../modules/outils.js'
-export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
+
+export const dateDePublication = '7/12/2020'
+export const dateDeModifImportante = '29/10/2024'
+export const interactifReady = true
+export const interactifType = 'mathLive'
 
 export const titre = 'Parcourir un labyrinthe de multiples basé sur les critères de divisibilité'
 
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
- * Publié le 7/12/2020
- * Ref 5A11-1
  * Sortir du labyrinthe en utilisant les critères de divisibilité.
  */
 export const uuid = 'a3870'
@@ -22,25 +28,16 @@ export const refs = {
 }
 export default function ExerciceLabyrintheDivisibilite1 () {
   Exercice.call(this)
-  this.titre = titre
-  this.consigne = ''
   this.niveau = '5e'
   this.nbQuestions = 5
   this.nbCols = 1
   this.nbColsCorr = 1
-  this.pasDeVersionLatex = false
-  this.pas_de_version_HMTL = false
   this.sup = '2-5-10'
   this.sup3 = 1
   this.sup4 = 1
-  if (this.niveau === 'CM') {
-    this.sup2 = 3
-  } else {
-    this.sup2 = 4
-  }
+  this.sup2 = this.niveau === 'CM' ? 3 : 4
   // this.consigne=`Trouver la sortie en ne passant que par les cases contenant un nombre divisible par $${parseInt(this.sup)}$.`
   this.nouvelleVersion = function () {
-    this.sup2 = Number(this.sup2)
     const tailleChiffre = 0.8
 
     this.listeCorrections = []
@@ -68,8 +65,6 @@ export default function ExerciceLabyrintheDivisibilite1 () {
       laby.murs2d = laby.construitMurs(monChemin) // On construit le labyrinthe
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
       texte = `Trouver la sortie en ne passant que par les cases contenant un nombre divisible par ${tables[q]}.<br>`
-      texteCorr = `Voici le chemin en couleur et la sortie est le numéro $${nbL - 1 - monChemin[monChemin.length - 1][1] + 1}$.<br>`
-      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction du tableau de nombres : S'ils sont sur monChemin et seulement si, ils doivent vérifier la consigne
       let listeMultiples = []
       const listeNonMultiples = []
@@ -84,6 +79,11 @@ export default function ExerciceLabyrintheDivisibilite1 () {
       laby.nombres2d = laby.placeNombres(monChemin, listeMultiples, listeNonMultiples, tailleChiffre)
       const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       texte += mathalea2d(params, laby.murs2d, laby.nombres2d)
+      texte += ajouteChampTexteMathLive(this, 2 * q, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
+      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}`, compare: fonctionComparaison } })
+      texte += ajouteChampTexteMathLive(this, 2 * q + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
+      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
+      texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.questionJamaisPosee(q, listeMultiples[0], listeNonMultiples[0])) {
         this.listeQuestions.push(texte)

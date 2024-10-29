@@ -2,7 +2,8 @@ import ExerciceLabyrintheMultiples from '../6e/6C10-5.js'
 export const titre = 'Parcourir un labyrinthe de multiples'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const dateDeModifImportante = '30/03/2023'
 /**
  * Lire des nombres déciamux sur une portion de droite graduée

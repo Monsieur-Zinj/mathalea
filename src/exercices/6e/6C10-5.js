@@ -5,12 +5,17 @@ import Exercice from '../deprecatedExercice.js'
 import { mathalea2d } from '../../modules/2dGeneralites.js'
 import { listeQuestionsToContenu, randint } from '../../modules/outils.js'
 import { context } from '../../modules/context.js'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
+import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
+import { handleAnswers } from '../../lib/interactif/gestionInteractif'
+import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 export const amcReady = true
 export const amcType = 'AMCOpen'
-export const interactifReady = false
+export const interactifReady = true
+export const interactifType = 'mathLive'
 export const titre = 'Parcourir un labyrinthe de multiples'
 export const dateDePublication = '06/12/2020'
-export const dateDeModifImportante = '05/10/2022' // Le nb de lignes et celui de colonnes du labyrinthe sont paramétrables.
+export const dateDeModifImportante = '29/10/2024'
 
 /**
  * @author Jean-Claude Lhote (remaniée par EE pour la prise en compte du nb de lignes et de colonnes du labyrinthe)
@@ -65,8 +70,6 @@ export default function ExerciceLabyrintheMultiples () {
       laby.chemin2d = laby.traceChemin(monChemin) // On trace le chemin solution
 
       texte = `Trouver la sortie en ne passant que par les cases contenant un multiple de $${table[q]}$.<br>`
-      // texteCorr = `${texteEnCouleurEtGras(`Voici le chemin en couleur et la sortie était le numéro $${2 - monChemin[monChemin.length - 1][1] + 1}$.`, 'black')}<br>`
-      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       // Zone de construction des tableaux de nombres
       listeMultiples = []
       const listeNonMultiples = []
@@ -86,6 +89,11 @@ export default function ExerciceLabyrintheMultiples () {
       if ((1 + q) % 3 === 0 && !context.isHtml && !context.isAmc && this.nbQuestions > 3) { // en contexte Latex, on évite que la consigne soit sur un page différente du labyrinthe
         texte += '\\newpage'
       }
+      texte += ajouteChampTexteMathLive(this, 2 * q, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
+      handleAnswers(this, 2 * q, { reponse: { value: `${nbL - monChemin[monChemin.length - 1][1]}`, compare: fonctionComparaison } })
+      texte += ajouteChampTexteMathLive(this, 2 * q + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
+      handleAnswers(this, 2 * q + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
+      texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monChemin[monChemin.length - 1][1])}$.<br>`
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
 
       /** ********************** AMC Open *****************************/

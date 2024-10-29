@@ -11,12 +11,13 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import FractionEtendue from '../../modules/FractionEtendue'
 import { abs, rangeMinMax } from '../../lib/outils/nombres'
+import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 export const amcReady = true
 export const amcType = 'AMCHybride'
 export const dateDePublication = '11/12/2020'
-export const dateDeModifImportante = '02/04/2024'
+export const dateDeModifImportante = '29/10/2024'
 
 export const titre = 'Parcourir un labyrinthe de fractions égales'
 
@@ -71,7 +72,6 @@ export default function ExerciceLabyrintheFractionsEgales () {
 
       const maximum = this.sup
       texte = `Trouver la sortie en ne passant que par les cases contenant des fractions égales à $${new FractionEtendue(num, table).simplifie().texFSD}$.`
-      texteCorr = `Voici le chemin en couleur et la sortie était le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
 
       // Zone de construction du tableau de nombres : S'ils sont sur monchemin et seulement s'ils doivent vérifier la consigne
       let listeMultiples = rangeMinMax(2, maximum, [table])
@@ -95,13 +95,18 @@ export default function ExerciceLabyrintheFractionsEgales () {
       const params = { xmin: -4, ymin: 0, xmax: 5 + 3 * nbC, ymax: 2 + 3 * nbL, pixelsParCm: 20, scale: 0.7 }
       if (context.isAmc) texte += ' Laisser dans le labyrinthe les traces du chemin parcouru.'
       texte += '<br>' + mathalea2d(params, laby.murs2d, laby.nombres2d)
+      texteCorr = `Voici le chemin en couleur ($${miseEnEvidence(laby.chemin2d.length - 1)}$ nombres rencontrés avant la sortie) et la sortie est le numéro $${miseEnEvidence(nbL - monchemin[monchemin.length - 1][1])}$.<br>`
       texteCorr += mathalea2d(params, laby.murs2d, laby.nombres2d, laby.chemin2d)
       if (this.interactif) {
-        texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, '  clavierDeBase')
+        /* texte += '<br>La sortie porte le numéro : ' + ajouteChampTexteMathLive(this, 2 * i, '  clavierDeBase')
         handleAnswers(this, 2 * i, { reponse: { value: nbL - monchemin[monchemin.length - 1][1], compare: fonctionComparaison } })
         texte += `<br><br>Combien de cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ contient le chemin pour sortir ? ` + ajouteChampTexteMathLive(this, 2 * i + 1, '  clavierDeBase')
         handleAnswers(this, 2 * i + 1, { reponse: { value: monchemin.length, compare: fonctionComparaison } })
-        texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.`
+        texteCorr += `<br>Il y a $${miseEnEvidence(monchemin.length)}$ cases égales à $${new FractionEtendue(num, table).simplifie().texFSD}$ dans le chemin pour sortir.` */
+        texte += ajouteChampTexteMathLive(this, 2 * 0, KeyboardType.clavierNumbers, { texteAvant: 'Indiquer le numéro de la bonne sortie :' })
+        handleAnswers(this, 2 * 0, { reponse: { value: `${nbL - monchemin[monchemin.length - 1][1]}`, compare: fonctionComparaison } })
+        texte += ajouteChampTexteMathLive(this, 2 * 0 + 1, KeyboardType.clavierNumbers, { texteAvant: '<br>Combien de nombres rencontrés avant la sortie ?' })
+        handleAnswers(this, 2 * 0 + 1, { reponse: { value: `${laby.chemin2d.length - 1}`, compare: fonctionComparaison } })
       }
       if (context.isAmc) {
         this.autoCorrection[0] = {
