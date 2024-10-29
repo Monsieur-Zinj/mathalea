@@ -39,7 +39,12 @@ if (typeof window.iMathAlea === 'undefined') {
           const moodleScore = compatibleScore.reduce((prev, curr) => {
             return (Math.abs(curr - score) < Math.abs(prev - score) ? curr : prev)
           })
-          question.querySelector('[name$="_answer"]').value = moodleScore + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
+          let seedData = ''
+          if (iframe.getAttribute('graine') === '-1') {
+            // On est en mode aléatoire, il faut enregistrer la graine avec le score
+            seedData = '|' + iframe.aleaSeed
+          }
+          question.querySelector('[name$="_answer"]').value = moodleScore + seedData + '|' + JSON.stringify(event.data.resultsByExercice[0].answers)
           question.querySelector('[name$="_-submit"]')?.click()
         }
       }
@@ -118,6 +123,7 @@ if (typeof window.iMathAlea === 'undefined') {
       }
       if (questionSeed === '-1') {
         questionSeed = Math.random().toString(36).substring(2, 15)
+        this.aleaSeed = questionSeed
       }
       if (questionDiv === null) {
         // début compatibilité moodle 3.5
@@ -177,12 +183,32 @@ if (typeof window.iMathAlea === 'undefined') {
         // L'élève a répondu, on attend que la page charge pour récupérer ses réponses
         document.addEventListener('DOMContentLoaded', () => { // facultatif si le fichier est importé en mode module car l'exécution du script est deferred
           if (VERSION === 3) {
-            // En v3 la correction est mélangée à l'énoncé. On masque la question (qui contient l'énoncé)
-            // pour ne garder que la réponse (qui contient l'énoncé et la correction).
-            questionDiv.querySelector('.formulation ').style.display = 'none'
+            if (questionDiv.querySelector('.outcome')) {
+              // En v3 la correction est mélangée à l'énoncé. On masque la question (qui contient l'énoncé)
+              // pour ne garder que la réponse (qui contient l'énoncé et la correction).
+              questionDiv.querySelector('.formulation ').style.display = 'none'
+            } else {
+              // L'élève a déjà répondu à la question mais est encore en train de passer le test
+              // Il ne s'agit donc pas d'un affichage de la corrrection.
+              iframe.style.pointerEvents = 'none'
+              iframe.style.filter = 'blur(5px)'
+              iframe.style.userSelect = 'none'
+              const successMessage = document.createElement('div')
+              successMessage.textContent = 'Vous avez déjà effectué cet exercice'
+              successMessage.setAttribute('style', 'position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);background-color: lightgreen;padding: 10px;border: 1px solid green;color: green;z-index:1;')
+              shadow.appendChild(iframe)
+              shadow.appendChild(successMessage)
+            }
           }
           answer = questionDiv.querySelector('[name$="_answer"]').value
-          answer = answer.substring(answer.indexOf('|') + 1)
+          if (this.getAttribute('graine') === '-1') {
+            // On est en mode aléatoire, il faut récupérer la graine présent avec la réponse
+            answer = answer.slice(answer.indexOf('|') + 1)
+            questionSeed = answer.slice(0, answer.indexOf('|'))
+            answer = answer.slice(answer.indexOf('|') + 1)
+          } else {
+            answer = answer.slice(answer.indexOf('|') + 1)
+          }
           answer = encodeURIComponent(answer)
           addIframe()
         })
