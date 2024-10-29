@@ -116,6 +116,9 @@ if (typeof window.iMathAlea === 'undefined') {
         }
         questionDiv = questionDiv.parentNode
       }
+      if (questionSeed === '-1') {
+        questionSeed = Math.random().toString(36).substring(2, 15)
+      }
       if (questionDiv === null) {
         // début compatibilité moodle 3.5
         questionDiv = this.parentNode
