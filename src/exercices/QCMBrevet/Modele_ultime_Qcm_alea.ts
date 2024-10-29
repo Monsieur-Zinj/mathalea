@@ -15,9 +15,11 @@ export const amcReady = 'true'
 export const amcType = 'qcmMono'
 export const titre = 'QCM calcul d\'image par une fonction (issu du brevet 2024 Métropole)'
 export const dateDePublication = '28/10/2024'
-
+// Ceci est un exemple de QCM avec version originale et version aléatoire
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
-  private setCommonData (a: number, b: number, c: number): void {
+  // Ceci est la fonction qui s'occupe d'écrire l'énoncé, la correction et les réponses
+  // Elle factorise le code qui serait dupliqué dans versionAleatoire et versionOriginale
+  private appliquerLesValeurs (a: number, b: number, c: number): void {
     this.reponses = [
       `$${String(a * c - b)}$`,
       `$${String(a * c + b)}$`,
@@ -27,22 +29,26 @@ export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {
     this.correction = `$f(x) = ${reduireAxPlusB(a, -b)}$, donc $f(${c.toString()}) = ${a}\\times (${c.toString()}) - ${b.toString()} = ${miseEnEvidence((a * c - b).toString())}$.`
   }
 
+  // S'occupe de passser les données originales à la fonction appliquerLesValeurs
   versionOriginale: () => void = () => {
-    this.setCommonData(3, 2, -4)
+    this.appliquerLesValeurs(3, 2, -4) // valeurs originales pour f(x) = {a=3}x-{b=2} avec x={c=-4}
   }
 
+  // s'occupe d'aléatoiriser les valeurs à passer à la fonction appliquerLesValeurs en vérifiant qu'on a bien 3 réponses différentes
+  // Pour un qcm à n réponses, il faudrait vérifier que nombreElementsDifferents(this.reponses) < n
   versionAleatoire: () => void = () => {
+    const n = 3 // nombre de réponses différentes voulues (on rappelle que la première réponse est la bonne)
     do {
       const a = randint(2, 6)
       const b = randint(2, 9, [a])
       const c = -randint(2, 5)
-
-      this.setCommonData(a, b, c)
-    } while (nombreElementsDifferents(this.reponses) < 3)
+      this.appliquerLesValeurs(a, b, c)
+    } while (nombreElementsDifferents(this.reponses) < n)
   }
 
+  // Ici il n'y a rien à faire, on appelle juste la version aleatoire (pour un qcm aleatoirisé, c'est le fonctionnement par défaut)
   constructor () {
     super()
-    this.versionOriginale()
+    this.versionAleatoire()
   }
 }
