@@ -5,6 +5,7 @@
   import { mathaleaGetExercicesFromParams, mathaleaUpdateExercicesParamsFromUrl } from '../../../lib/mathalea.js'
   import type TypeExercice from '../../../exercices/Exercice'
   import ButtonToggleAlt from '../../shared/forms/ButtonToggleAlt.svelte'
+  import FormRadio from '../../shared/forms/FormRadio.svelte'
   import { referentielLocale } from '../../../lib/stores/languagesStore'
   import { onMount } from 'svelte'
   import { Tab, initTE } from 'tw-elements' // pour les tabs
@@ -147,14 +148,21 @@
         }
       }
       paramUrl = paramUrl.slice(0, -1)
-      const graine = useAlea ? '' : `graine\\="${param.alea}" `
+      let graine;
+      if (aleaType === 'alea') {
+        graine = ' graine\\="-1"'
+      } else if (aleaType === 'moodle') {
+        graine = ''
+      } else {
+        graine = ` graine\\="${param.alea}" `
+      }
       contentGift += `:: ${param.id} - ${exercices[i].titre} - ${exercices[i].nbQuestions} ${exercices[i].nbQuestions > 1 ? 'questions' : 'question'} ::\n`
       contentGift += '<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      contentGift += `<mathalea-moodle url\\="${paramUrl}"${showTitle?'':' titre="false"'} ${graine}/>\n`
+      contentGift += `<mathalea-moodle url\\="${paramUrl}"${showTitle?'':' titre="false"'}${graine}/>\n`
       contentGift += '{\n'
       contentGift += '=%100%100|*=%90%90|*=%80%80|*=%75%75|*=%66.66667%66.666|*=%60%60|*=%50%50|*=%40%40|*=%33.33333%33.333|*=%30%30|*=%25%25|*=%20%20|*=%16.66667%16.666|*=%14.28571%14.2857|*=%12.5%12.5|*=%11.11111%11.111|*=%10%10|*=%5%5|*=%0%0|*\n'
       contentGift += '####<script src\\="https\\:\/\/coopmaths.fr\/alea\/assets\/externalJs\/moodle.js" type\\="module"><\/script>\n'
-      contentGift += `<mathalea-moodle url\\="${paramUrl}"${showTitle?'':' titre="false"'} ${graine}correction />\n`
+      contentGift += `<mathalea-moodle url\\="${paramUrl}"${showTitle?'':' titre="false"'}${graine} correction />\n`
       contentGift += '}\n\n'
       let xmlItem = xmlScorm.createElement("item");
       xmlItem.setAttribute("identifier", `MathAlea-Exo${i + 1}`);
@@ -212,9 +220,12 @@
     // Fin Beautify XML
     contentScorm = '<?xml version="1.0" encoding="UTF-8"?>\n' + contentScorm;
   }
+
+  let aleaType = 'alea' // 'alea' | 'moodle' | 'graine'
   let useAlea = true
   let showTitle = true
   $: {
+    aleaType
     useAlea
     showTitle
     initExercices()
@@ -341,22 +352,33 @@
           
               <div class="flex flex-col justify-center items-center space-y-2">
                 <div class="pl-4 pt-4">
+                  <div
+                    class="pl-2 pb-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+                  >
+                    Aléatoire
+                  </div>
+                  <FormRadio
+                    title="Type d'aléatoire"
+                    bind:valueSelected={aleaType}
+                    labelsValues={[
+                      { label: 'L\'énoncé change à chaque actualisation de la page', value: 'alea' },
+                      { label: 'L\'énoncé change à chaque nouvelle tentative du test Moodle et est différente pour chaque élève', value: 'moodle' },
+                      { label: "Pas d'aléatoire (utiliser l'énoncé actuel')", value: 'graine' }
+                    ]}
+                  />
+                  <div
+                    class="pl-2 pb-2 mt-2 font-bold text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+                  >
+                    Autres options
+                  </div>
                   <ButtonToggleAlt
-                      title={'Utiliser des exercices aléatoires'}
-                      bind:value={useAlea}
-                      explanations={[
-                        'Chaque élève aura des exercices différents',
-                        'Tous les élèves auront le même exercice'
-                      ]}
-                    />
-                    <ButtonToggleAlt
-                      title={'Afficher le titre'}
-                      bind:value={showTitle}
-                      explanations={[
-                        'Le titre de l\'exercice sera affiché',
-                        'Le titre de l\'exercice ne sera pas affiché'
-                      ]}
-                    />
+                    title={'Afficher le titre'}
+                    bind:value={showTitle}
+                    explanations={[
+                      'Le titre de l\'exercice sera affiché',
+                      'Le titre de l\'exercice ne sera pas affiché'
+                    ]}
+                  />
                 </div>
                 <button
                   type="submit"
