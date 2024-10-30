@@ -8,7 +8,7 @@ import ExerciceQcm from '../ExerciceQcm'
 
 export const uuid = '4e9ed'
 export const refs = {
-  'fr-fr': ['3QCMTrig4-6'],
+  'fr-fr': ['3QCMTrigo-1'],
   'fr-ch': []
 }
 export const interactifReady = true
