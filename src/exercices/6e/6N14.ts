@@ -76,7 +76,7 @@ export default class RepresenterUneFraction extends Exercice {
       f = fraction(num, den)
       texte = `Sachant qu'un disque représente une unité, représenter la fraction $${f.texFraction}$ en coloriant la part correspondante.<br>`
       this.numerators[i] = num
-      const figure = new Figure({ xMin: -1.6, yMin: -1.6, width: 600, height: 95 })
+      const figure = new Figure({ xMin: -1.6, yMin: -1.6, width: 336, height: 95 })
       figure._scale = context.isHtml ? 1 : 0.6
       this.figures[i] = figure
       figure.create('CircleFractionDiagram', { denominator: den, numberOfCircle: 3, radius: 1.5 })

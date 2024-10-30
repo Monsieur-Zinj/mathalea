@@ -202,6 +202,11 @@
     window.addEventListener('scroll', () => updateBackToTopButtonVisibility())
   }
 
+  /* MGu empeche le zoom sur double touch sur IPAD*/
+  document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+  })
+
   function updateSelectedThirdApps () {
     const appsTierceReferentielArray: AppTierceGroup[] =
       Object.values(appsTierce)
@@ -391,7 +396,7 @@
         <!-- Affichage exercices -->
         <main
           id="exercisesPart"
-          class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-hidden overflow-y-auto
+          class="absolute right-0 top-0 flex flex-col w-full h-full px-6 overflow-x-auto overflow-y-auto
             {$globalOptions.recorder ? '!pl-[425px]' : '!pl-[400px]'}
             bg-coopmaths-canvas dark:bg-coopmathsdark-canvas"
         >

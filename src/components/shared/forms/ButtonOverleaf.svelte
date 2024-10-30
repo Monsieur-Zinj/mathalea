@@ -6,6 +6,8 @@
     getPicsNames,
     type latexFileType
   } from '../../../lib/Latex'
+
+  import ProfMaquette from '../../../lib/latex/ProfMaquette.sty?raw'
   import type TypeExercice from '../../../exercices/Exercice'
 
   export let disabled: boolean
@@ -13,6 +15,7 @@
   export let latexFile: latexFileType
 
   let textForOverleafInput: HTMLInputElement
+  let textForProfMaquette: string = ''
   let imagesUrls = [] as string[]
 
   /**
@@ -27,6 +30,7 @@
     imagesUrls = picsWanted
       ? buildImagesUrlsList(exosContentList, picsNames)
       : []
+    textForProfMaquette = latexFile.latexWithPreamble.includes('ProfMaquette') ? 'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(ProfMaquette))) : ''
     textForOverleafInput.value =
       'data:text/plain;base64,' + btoa(unescape(encodeURIComponent(latexFile.latexWithPreamble)))
   }
@@ -67,6 +71,20 @@
         autocomplete="off"
       />
     {/each}
+    {#if textForProfMaquette.length > 0 }
+    <input
+      type="hidden"
+      name="snip_uri[]"
+      value={textForProfMaquette}
+      autocomplete="off"
+    />
+    <input
+      type="hidden"
+      name="snip_name[]"
+      value="ProfMaquette.sty"
+      autocomplete="off"
+    />
+    {/if}
     <input
       type="hidden"
       name="snip_uri[]"
