@@ -30,7 +30,7 @@ export default function RecomposerEntierSimple () {
   this.nouvelleVersion = function () {
     const c = randint(2, 30)
     const d = randint(2, 30)
-    switch (choice([1, 2, 3])) { //
+    switch (choice([1, 2])) { //
       case 1:
         this.reponse = c * 100
         this.question = `Écrire le nombre égal à $${c}$ centaines.`
