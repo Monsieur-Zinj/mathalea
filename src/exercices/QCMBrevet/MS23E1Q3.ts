@@ -6,7 +6,7 @@ import { miseEnEvidence } from '../../lib/outils/embellissements'
 
 export const uuid = '80f6a'
 export const refs = {
-  'fr-fr': ['3QCMNM23-3'],
+  'fr-fr': ['3QCMN-2'],
   'fr-ch': []
 }
 export const interactifReady = true
