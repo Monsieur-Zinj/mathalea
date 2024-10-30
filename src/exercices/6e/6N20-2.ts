@@ -71,8 +71,7 @@ export default class ExerciceFractionsDifferentesEcritures extends Exercice {
 
     if (this.sup2) {
       const figure = getDynamicFractionDiagram()
-      this.introduction = figureApigeom({ exercice: this, i: 0, figure })
-      figure.isDynamic = true
+      this.introduction = figureApigeom({ exercice: this, i: 0, figure, isDynamic: true })
       figure.divButtons.style.display = 'grid'
       if (figure.ui) figure.ui.send('FILL')
     } else {

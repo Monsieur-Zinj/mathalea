@@ -30,6 +30,7 @@ export type LatexFileInfos = {
   fontOption: 'StandardFont'| 'DysFont'
   correctionOption: 'AvecCorrection' | 'SansCorrection'
   qrcodeOption: 'AvecQrcode' | 'SansQrcode'
+  titleOption: 'AvecTitre' | 'SansTitre'
   durationCanOption: string
   signal?: AbortSignal | undefined
 }
@@ -75,7 +76,7 @@ class Latex {
     latexFileInfos: LatexFileInfos,
     indiceVersion: number = 1
   ): { content: string; contentCorr: string } {
-    if (latexFileInfos.style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, latexFileInfos.qrcodeOption === 'AvecQrcode'), contentCorr: '' }
+    if (latexFileInfos.style === 'ProfMaquette') return { content: this.getContentForAVersionProfMaquette(1, latexFileInfos.qrcodeOption === 'AvecQrcode', latexFileInfos.titleOption === 'AvecTitre'), contentCorr: '' }
     if (latexFileInfos.style === 'ProfMaquetteQrcode') return { content: this.getContentForAVersionProfMaquette(1, true), contentCorr: '' }
     let content = ''
     let contentCorr = ''
@@ -180,7 +181,7 @@ class Latex {
     }
   }
 
-  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false): string {
+  getContentForAVersionProfMaquette (indiceVersion: number = 1, withQrcode = false, withTitle = false): string {
     this.loadExercicesWithVersion(indiceVersion)
     let content = ''
     for (const exercice of this.exercices) {
@@ -190,7 +191,7 @@ class Latex {
           content += '% Cet exercice n\'est pas disponible au format LaTeX'
         } else {
           content += '\n\\needspace{10\\baselineskip}'
-          content += '\n\\begin{exercice}\n'
+          content += `\n\\begin{exercice}${withTitle ? '[Titre={' + exercice.titre + '}]' : ''}\n`
           if (withQrcode) {
             content += `\\begin{wrapfigure}{r}{2cm}
 \\centering
@@ -208,7 +209,7 @@ Correction
         }
       } else {
         content += '\n\\needspace{10\\baselineskip}'
-        content += '\n\\begin{exercice}\n'
+        content += `\n\\begin{exercice}${withTitle ? '[Titre={' + exercice.titre + '}]' : ''}\n`
         if (withQrcode) {
           content += `\\begin{wrapfigure}{r}{2cm}
 \\centering
@@ -236,7 +237,7 @@ Correction
       if (latexFileInfos.style === 'ProfMaquette') {
         for (let i = 1; i < latexFileInfos.nbVersions + 1; i++) {
           if (latexFileInfos.signal?.aborted) { throw new DOMException('Aborted in getContents of Latex.ts', 'AbortError') }
-          const contentVersion = this.getContentForAVersionProfMaquette(i, latexFileInfos.qrcodeOption === 'AvecQrcode')
+          const contentVersion = this.getContentForAVersionProfMaquette(i, latexFileInfos.qrcodeOption === 'AvecQrcode', latexFileInfos.titleOption === 'AvecTitre')
           contents.content += `\n\\begin{Maquette}[Fiche]{Niveau=${latexFileInfos.subtitle || ' '},Classe=${latexFileInfos.reference || ' '},Date= ${latexFileInfos.nbVersions > 1 ? 'v' + i : ' '} ,Theme=${latexFileInfos.title || 'Exercices'}}\n`
           contents.content += contentVersion
           contents.content += '\n\\end{Maquette}'

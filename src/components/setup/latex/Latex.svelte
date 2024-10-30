@@ -49,6 +49,7 @@ import {
     correctionOption: 'AvecCorrection',
     qrcodeOption: 'SansQrcode',
     durationCanOption: '9 min',
+    titleOption: 'SansTitre',
     nbVersions: 1
   }
 
@@ -162,6 +163,7 @@ import {
       latexFileInfos.correctionOption = latexFileInfos.correctionOption
       latexFileInfos.qrcodeOption = latexFileInfos.qrcodeOption
       latexFileInfos.durationCanOption = latexFileInfos.durationCanOption
+      latexFileInfos.titleOption = latexFileInfos.titleOption
       promise = updateLatexWithAbortController().catch(err => {
         if (err.name === 'AbortError') {
           log('Promise Aborted')
@@ -333,6 +335,21 @@ import {
             labelsValues={[
               { label: 'Avec correction', value: 'AvecCorrection' },
               { label: 'Sans correction', value: 'SansCorrection' }
+            ]}
+          />
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Exercices
+          </h6>
+          <FormRadio
+            title="titlenOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.titleOption}
+            labelsValues={[
+              { label: 'Avec titre', value: 'AvecTitre' },
+              { label: 'Sans titre', value: 'SansTitre' }
             ]}
           />
           <h6
