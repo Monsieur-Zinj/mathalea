@@ -89,7 +89,7 @@ export default class resoudreProblemeRelatifs extends Exercice {
       texte += numAlpha(0) + 'Quel est le score maximal à ce jeu ? '
       texte += ajouteChampTexteMathLive(this, 8 * i, KeyboardType.clavierDeBase)
       handleAnswers(this, 8 * i, { reponse: { value: String(nombreQuestions * nombresPoints[0]) } })
-      texteCorr = '<br>' + numAlpha(0) + `On obtient le score maximal en répondant 
+      texteCorr = numAlpha(0) + `On obtient le score maximal en répondant 
           correctement aux ${nombreQuestions} questions et en marquant ${nombresPoints[0]} points
           à chaque fois. <br>
           Donc : <br>

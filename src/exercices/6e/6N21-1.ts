@@ -303,13 +303,24 @@ function apigeomGraduatedLine ({ xMin, xMax, scale = 1, points, step = 1, stepBi
   stepBis?: number,
   points?: Array<{ x: number, label: string }>
 }): { figure: Figure, latex: string} {
-  const width = 750
+  const width = Math.floor(((xMax - xMin) + 0.4) * 30 * scale * 3 * scale)
   const height = 80
   const figure = new Figure({ xMin: xMin - 0.2 / scale, yMin: -1.5, width, height, dy: 10, dx: stepBis, xScale: 3 * scale, snapGrid: true })
   figure.setToolbar({ tools: ['POINT', 'DRAG', 'REMOVE'], position: 'top' })
+  figure.create('GraduatedLine', { min: xMin, max: xMax, step, stepBis })
+  figure.options.gridWithTwoPointsOnSamePosition = false
+  figure.create('Grid', {
+    isVisible: false,
+    yMin: 0,
+    yMax: 0,
+    xMax,
+    xMin,
+    axeX: false,
+    axeY: false,
+    labelX: false,
+    labelY: false
+  })
 
-  const d = new GraduatedLine(figure, { min: xMin, max: xMax, step, stepBis })
-  d.draw()
   let latex = `\n\\bigskip
   \\begin{tikzpicture}[x=2.5mm]
   \\draw[-{Latex[round]},thick] (0,0) -- (61,0);
