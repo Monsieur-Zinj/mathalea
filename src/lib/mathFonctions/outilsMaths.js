@@ -223,15 +223,29 @@ export function regroupeTermesMemeDegre (exp, options) {
   const isColored = options?.isColored
   const clean = generateCleaner(['parentheses', 'espaces', 'virgules', 'fractions'])
   exp = clean(exp)
+  if (exp.length === 0) return ''
   const arbre = engine.parse(exp, { canonical: false })
   const parts = flattenAdd(arbre).ops
   const allTheTerms = []
   for (let index = 0; index < parts.length; index++) {
-    const deg = parts[index].getSubexpressions('Power')[0]
-      ? parts[index].getSubexpressions('Power')[0].op2
-      : parts[index].isAlgebraic
-        ? 0
-        : 1
+    let deg = 0
+    const terme = parts[index]
+    if (terme.getSubexpressions('Power')[0] != null) {
+      deg = terme.getSubexpressions('Power')[0].op2.numericValue
+    } else if (terme.head === 'Square') {
+      deg = 2
+    } else if (terme.head === 'Negate') {
+      if (terme.op1.isConstant) {
+        deg = 0
+      } else {
+        deg = 1
+      }
+    } else if (terme.isConstant) {
+      deg = 0
+    } else {
+      deg = 1
+    }
+
     const latex = parts[index].latex.startsWith('-')
       ? parts[index].latex
       : index === 0
@@ -243,7 +257,7 @@ export function regroupeTermesMemeDegre (exp, options) {
   const expressionFinale = []
   for (let i = allTheTerms.length; i > 0; i--) {
     const listOfTerm = allTheTerms[i - 1]
-    if (listOfTerm.length > 0) {
+    if (listOfTerm != null && listOfTerm.length > 0) {
       let parcel = ''
       for (let term of listOfTerm) {
         if (term.startsWith('+') && parcel === '') term = term.substring(1)
