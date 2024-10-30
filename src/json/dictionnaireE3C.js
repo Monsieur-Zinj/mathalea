@@ -1662,18 +1662,6 @@ export const dictionnaireE3C = {
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_4_cor.tex',
     tags: ['Suites', 'Python']
   },
-  e3c_2020_00_sujet29_5: {
-    annee: '2020',
-    lieu: 'sujet29',
-    mois: '',
-    numeroInitial: '5',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet29_5.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet29_5_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet29_5.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet29_5_cor.tex',
-    tags: ['Suites', 'Python']
-  },
   e3c_2020_00_sujet30_1: {
     annee: '2020',
     lieu: 'sujet30',
@@ -2370,7 +2358,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_2_cor.tex',
-    tags: ['QCM', 'Trigonométrie', 'Géométrie repérée', 'Second degré']
+    tags: ['Polynômes', 'Dérivation', 'Second degré']
   },
   e3c_2020_00_sujet44_3: {
     annee: '2020',
@@ -2382,7 +2370,7 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_3_cor.tex',
-    tags: ['Polynômes', 'Dérivation', 'Second degré']
+    tags: ['Probabilités conditionnelles']
   },
   e3c_2020_00_sujet44_4: {
     annee: '2020',
@@ -2394,18 +2382,6 @@ export const dictionnaireE3C = {
     typeExercice: 'e3c',
     url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4.tex',
     urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_4_cor.tex',
-    tags: ['Probabilités conditionnelles']
-  },
-  e3c_2020_00_sujet44_5: {
-    annee: '2020',
-    lieu: 'sujet44',
-    mois: '',
-    numeroInitial: '5',
-    png: 'static/e3c/2020/tex/png/e3c_2020_00_sujet44_5.png',
-    pngCor: 'static/e3c/2020/tex/png/e3c_2020_00_sujet44_5_cor.png',
-    typeExercice: 'e3c',
-    url: 'static/e3c/2020/tex/e3c_2020_00_sujet44_5.tex',
-    urlcor: 'static/e3c/2020/tex/e3c_2020_00_sujet44_5_cor.tex',
     tags: ['Suites', 'Python']
   },
   e3c_2020_00_sujet45_1: {
