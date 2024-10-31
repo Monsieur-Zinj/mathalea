@@ -104,12 +104,14 @@
             on:click={handleRecorder}
           />
         {/if}
-        <ButtonIconTooltip
-          icon="bx-cog text-3xl"
-          tooltip="Régler l'affichage du mode élève"
-          disabled={isExercisesListEmpty}
-          on:click={showSettingsDialog}
-        />
+        {#if isCapytale}
+          <ButtonIconTooltip
+            icon="bx-cog text-3xl"
+            tooltip="Régler l'affichage du mode élève"
+            disabled={isExercisesListEmpty}
+            on:click={showSettingsDialog}
+          />
+        {/if}
         <div>
           <ButtonIconTooltip
             icon="bx-log-out bx-rotate-180"
