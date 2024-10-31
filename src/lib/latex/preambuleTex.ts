@@ -11,14 +11,14 @@ export function loadFonts (latexFileInfos: LatexFileInfos) {
 \\setmainfont{TeX Gyre Schola}
 %\\setmainfont{OpenDyslexic}[Scale=1.0]
 \\setmathfont{TeX Gyre Schola Math}
-\\usepackage[fontsize=14]{scrextend}
+\\usepackage[fontsize=${latexFileInfos.dysTailleFontOption}]{scrextend}
 \\usepackage{setspace}
 \\setstretch{1.7}
 }{
 % POLICE STANDARD
 \\usepackage{fontenc}
 \\usepackage[scaled=1]{helvet}
-\\usepackage[fontsize=12]{scrextend}
+\\usepackage[fontsize=${latexFileInfos.tailleFontOption}]{scrextend}
 }`
 }
 
