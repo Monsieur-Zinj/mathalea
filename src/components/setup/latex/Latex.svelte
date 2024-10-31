@@ -292,6 +292,23 @@ import {
               }
             ]}
           />
+          {#if latexFileInfos.style === 'Coopmaths' || latexFileInfos.style === 'Classique' || latexFileInfos.style === 'ProfMaquetteQrcode'}
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Police de caractères
+          </h6>
+          <FormRadio
+            title="fontOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.fontOption}
+            labelsValues={[
+              { label: 'Standard', value: 'StandardFont' },
+              { label: 'Dys', value: 'DysFont' }
+            ]}
+          />
+          {/if}
           {#if latexFileInfos.style === 'Can'}
           <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
@@ -306,6 +323,21 @@ import {
             labelsValues={[
               { label: 'Avec correction', value: 'AvecCorrection' },
               { label: 'Sans correction', value: 'SansCorrection' }
+            ]}
+          />
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Police de caractères
+          </h6>
+          <FormRadio
+            title="fontOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.fontOption}
+            labelsValues={[
+              { label: 'Standard', value: 'StandardFont' },
+              { label: 'Dys', value: 'DysFont' }
             ]}
           />
           <h6
