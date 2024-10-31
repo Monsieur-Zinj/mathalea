@@ -227,7 +227,7 @@
           state: 'done',
           alea: exercise.seed,
           answers: exercise.answers,
-          numberOfPoints: bestScore,
+          numberOfPoints,
           numberOfQuestions,
           bestScore
         }

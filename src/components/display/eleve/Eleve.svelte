@@ -427,11 +427,11 @@
                   {#if $resultsByExercice[i] !== undefined}
                     <div
                       style="--nbPoints:{$resultsByExercice[i]
-                        .numberOfPoints}; --nbQuestions:{$resultsByExercice[i]
+                        .bestScore}; --nbQuestions:{$resultsByExercice[i]
                           .numberOfQuestions};"
                       class="absolute bottom-0 left-0 right-0 mx-auto text-xs font-bold progressbar dark:progressbardark text-coopmaths-canvas dark:text-coopmathsdark-canvas"
                     >
-                      {$resultsByExercice[i].numberOfPoints +
+                      {$resultsByExercice[i].bestScore +
                         '/' +
                         $resultsByExercice[i].numberOfQuestions}
                     </div>

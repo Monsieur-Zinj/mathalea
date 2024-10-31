@@ -177,6 +177,14 @@ export function sendToCapytaleSaveStudentAssignment ({ indiceExercice, assignmen
   if (currentMode === 'assignment') {
     // exerciceGraded est l'indice du dernier exercice évalué
     // L'information est envoyée à Capytale pour qu'ils sachent quel exercice ajouter en base de données
+    if (indiceExercice !== 'all') {
+      const bestScore = results[indiceExercice].bestScore
+      const newScore = results[indiceExercice].numberOfPoints
+      if (bestScore !== undefined && newScore !== undefined && newScore < bestScore) {
+        console.info('Exercice non sauvegardé car le score est inférieur au meilleur score')
+        return
+      }
+    }
     const data = {
       // Les réponses de l'élève
       // Le tableau fourni remplace complètement les réponses précédemment sauvegardées.
