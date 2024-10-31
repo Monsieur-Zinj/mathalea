@@ -28,6 +28,8 @@ export type LatexFileInfos = {
   style: 'Coopmaths' | 'Classique' | 'ProfMaquette' | 'ProfMaquetteQrcode' | 'Can'
   nbVersions: number
   fontOption: 'StandardFont'| 'DysFont'
+  tailleFontOption: number,
+  dysTailleFontOption: number,
   correctionOption: 'AvecCorrection' | 'SansCorrection'
   qrcodeOption: 'AvecQrcode' | 'SansQrcode'
   titleOption: 'AvecTitre' | 'SansTitre'

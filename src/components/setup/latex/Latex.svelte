@@ -46,6 +46,8 @@ import {
     subtitle: '',
     style: 'Coopmaths',
     fontOption: 'StandardFont',
+    tailleFontOption: 12,
+    dysTailleFontOption: 14,
     correctionOption: 'AvecCorrection',
     qrcodeOption: 'SansQrcode',
     durationCanOption: '9 min',
@@ -164,6 +166,8 @@ import {
       latexFileInfos.qrcodeOption = latexFileInfos.qrcodeOption
       latexFileInfos.durationCanOption = latexFileInfos.durationCanOption
       latexFileInfos.titleOption = latexFileInfos.titleOption
+      latexFileInfos.tailleFontOption = latexFileInfos.tailleFontOption
+      latexFileInfos.dysTailleFontOption = latexFileInfos.dysTailleFontOption
       promise = updateLatexWithAbortController().catch(err => {
         if (err.name === 'AbortError') {
           log('Promise Aborted')
@@ -308,6 +312,36 @@ import {
               { label: 'Dys', value: 'DysFont' }
             ]}
           />
+          {#if latexFileInfos.fontOption === 'StandardFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="tailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.tailleFontOption}
+          />
+          </span>
+          {/if}
+          {#if latexFileInfos.fontOption === 'DysFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-dys-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="dysTailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.dysTailleFontOption}
+          />
+          </span>
+          {/if}
           {/if}
           {#if latexFileInfos.style === 'Can'}
           <h6
@@ -323,6 +357,51 @@ import {
             labelsValues={[
               { label: 'Avec correction', value: 'AvecCorrection' },
               { label: 'Sans correction', value: 'SansCorrection' }
+            ]}
+          />
+          {#if latexFileInfos.fontOption === 'StandardFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="tailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.tailleFontOption}
+          />
+          </span>
+          {/if}
+          {#if latexFileInfos.fontOption === 'DysFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-dys-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="dysTailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.dysTailleFontOption}
+          />
+          </span>
+          {/if}
+          <h6
+            class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
+          >
+            Police de caractères
+          </h6>
+          <FormRadio
+            title="fontOption"
+            bgColor="bg-coopmaths-canvas-dark"
+            orientation={'col'}
+            bind:valueSelected={latexFileInfos.fontOption}
+            labelsValues={[
+              { label: 'Standard', value: 'StandardFont' },
+              { label: 'Dys', value: 'DysFont' }
             ]}
           />
           <h6
@@ -347,7 +426,7 @@ import {
           </h6>
           <input
             type="text"
-            id="export-latex-soustitre-input"
+            id="export-latex-duree-input"
             class="border-1 w-full disabled:opacity-20 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light placeholder:opacity-40"
             placeholder= "9 min"
             bind:value={latexFileInfos.durationCanOption}
@@ -399,6 +478,36 @@ import {
               { label: 'Dys', value: 'DysFont' }
             ]}
           />
+          {#if latexFileInfos.fontOption === 'StandardFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="tailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.tailleFontOption}
+          />
+          </span>
+          {/if}
+          {#if latexFileInfos.fontOption === 'DysFont'}
+          <span>
+          Taille: 
+          <input
+            type="number"
+            id="export-latex-dys-taille-input"
+            class="min-w-14 border-1 w-1/5 border-coopmaths-action dark:border-coopmathsdark-action focus:border-coopmaths-action-lightest dark:focus:border-coopmathsdark-action-lightest focus:outline-0 focus:ring-0 focus:border-1 bg-coopmaths-canvas dark:bg-coopmathsdark-canvas text-sm text-coopmaths-corpus-light dark:text-coopmathsdark-corpus-light"
+            name="dysTailleFontOption"
+            maxlength="2"
+            min="8"
+            max="20"
+            bind:value={latexFileInfos.dysTailleFontOption}
+          />
+          </span>
+          {/if}
           <h6
             class="mb-2 text-lg font-black leading-tight text-coopmaths-struct-light dark:text-coopmathsdark-struct-light"
           >
