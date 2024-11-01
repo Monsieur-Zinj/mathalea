@@ -36,7 +36,7 @@ export default function FactoriserParNombreOux () {
   this.tailleDiaporama = 3
   context.isHtml ? this.spacingCorr = 2 : this.spacingCorr = 1
   this.listeAvecNumerotation = false
-  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
+  this.besoinFormulaireNumerique = ['Niveau de difficulté', 4, '0 : Niveau 0\n1 : Niveau 1\n2 : Niveau 2\n3 : Niveau 3\n4 : Mélange']
 
   this.nouvelleVersion = function () {
     this.consigne = this.nbQuestions > 1 ? 'Factoriser les expressions suivantes.' : 'Factoriser l\'expression suivante.'
@@ -44,17 +44,20 @@ export default function FactoriserParNombreOux () {
 
     let typesDeQuestionsDisponibles
     switch (this.sup) {
-      case 1 :
+      case 1:
+        typesDeQuestionsDisponibles = ['nkx+mk', 'nkx-mk']
+        break
+      case 2:
         typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb']
         break
-      case 2 :
+      case 3:
         typesDeQuestionsDisponibles = ['nka+mkb', 'nka-mkb']
         break
-      case 3 :
+      case 4 :
         typesDeQuestionsDisponibles = ['nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx']
         break
       default :
-        typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb', 'nka+mkb', 'nka-mkb', 'nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx']
+        typesDeQuestionsDisponibles = ['ka+nkb', '-ka+nkb', 'nka+mkb', 'nka-mkb', 'nkx+mkx2', 'nkx-mkx2', 'nx2+x', 'nx2+mx', 'nkx+mk', 'nkx-mk']
         break
     }
     const listeTypeDeQuestions = combinaisonListes(typesDeQuestionsDisponibles, this.nbQuestions) // Tous les types de questions sont posées mais l'ordre diffère à chaque "cycle"
@@ -134,6 +137,20 @@ export default function FactoriserParNombreOux () {
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x\\times ${ecritureParentheseSiNegatif(n)}x+x\\times ${m}$`
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=x(${n}x+${m})$`
           reponse = [`x(${n}x+${m})`, `-x(${-n}x-${m})`]
+          break
+        case 'nkx+mk':
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x+${m * k}`)}$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}x+${k}\\times${m}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}x+${m})$`
+          reponse = [`${k}(${n}x+${m})`, `${-k}(${-n}x-${m})`]
+          break
+        case 'nkx-mk':
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-${m*k}`)}$`
+          texteCorr = texte
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}x-${k}\\times${m}$`
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}x-${m})$` 
+          reponse = [`${k}(${n}x-${m})`, `${-k}(${-n}x+${m})`]
           break
       }
       if (!context.isAmc) {
