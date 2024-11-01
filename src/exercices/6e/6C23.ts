@@ -13,7 +13,7 @@ export const refs = {
 class ExerciceAdditionnerFractions6e extends CalculsFractionsSimples {
   constructor () {
     super()
-    this.sup = '4'
+    this.sup = '1-2'
   }
 }
 export default ExerciceAdditionnerFractions6e

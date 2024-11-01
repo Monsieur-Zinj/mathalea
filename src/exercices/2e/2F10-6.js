@@ -16,7 +16,6 @@ export const titre = 'Déterminer le sens de variation d\'une fonction affine'
 export const dateDeModifImportante = '18/05/2023'
 /**
  * @author Stéphane Guyon mise à jour et ajout de cas Gilles Mora
- * 2F10-6
  */
 export const uuid = 'b72b0'
 export const ref = '2F10-6'
