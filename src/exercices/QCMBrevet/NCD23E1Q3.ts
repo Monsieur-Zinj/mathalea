@@ -6,14 +6,14 @@ import { texNombre } from '../../lib/outils/texNombre'
 
 export const uuid = 'e4292'
 export const refs = {
-  'fr-fr': ['3QCMNNC23-3'],
+  'fr-fr': ['3QCMN-10'],
   'fr-ch': []
 }
 export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM calcul d\'un pourcentage (issu du brevet décembre 2023 Nouvelle Calédonie)'
+export const titre = 'QCM calcul d\'un pourcentage (décembre 2023 Nouvelle Calédonie)'
 export const dateDePublication = '29/10/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {

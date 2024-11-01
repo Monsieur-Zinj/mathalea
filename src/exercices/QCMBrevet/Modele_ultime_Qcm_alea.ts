@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM calcul d\'image par une fonction (issu du brevet 2024 Métropole)'
+export const titre = 'QCM calcul d\'image par une fonction (2024 Métropole)'
 export const dateDePublication = '28/10/2024'
 // Ceci est un exemple de QCM avec version originale et version aléatoire
 export default class MetropoleJuin24Exo4Q1 extends ExerciceQcmA {

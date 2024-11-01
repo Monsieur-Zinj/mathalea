@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM problème de vitesse (issu du brevet 2013 Polynésie)'
+export const titre = 'QCM problème de vitesse (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
 export default class PolynesieJuin13Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (d: number, v: number): void {

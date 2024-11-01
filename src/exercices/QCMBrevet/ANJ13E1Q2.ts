@@ -13,7 +13,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM équation (issu du brevet 2013 Amérique du nord)'
+export const titre = 'QCM équation (2013 Amérique du nord)'
 export const dateDePublication = '30/10/2024'
 export default class AmeriqueJuin13Exo1Q2 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number, c: number, lea: string): void {

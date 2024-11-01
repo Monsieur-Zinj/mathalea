@@ -7,7 +7,6 @@ export default class ExerciceQcmA extends ExerciceQcm {
     super()
     this.besoinFormulaireCaseACocher = ['version originale', false]
     this.sup = false
-    this.qcmAleatoire = true
     this.versionAleatoire()
   }
 
