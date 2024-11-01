@@ -11,7 +11,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM calcul littéral factorisation (issu du brevet 2013 Centres étrangers)'
+export const titre = 'QCM calcul littéral factorisation (2013 Centres étrangers)'
 export const dateDePublication = '30/10/2024'
 export default class EtrangersJuin13Exo1Q4 extends ExerciceQcmA {
   private appliquerLesValeurs (a: number, b: number): void {

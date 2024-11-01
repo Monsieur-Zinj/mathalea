@@ -12,7 +12,7 @@ export const interactifReady = true
 export const interactifType = 'qcm'
 export const amcReady = 'true'
 export const amcType = 'qcmMono'
-export const titre = 'QCM aggrandissement volume (issu du brevet 2013 Polynésie)'
+export const titre = 'QCM aggrandissement volume (2013 Polynésie)'
 export const dateDePublication = '30/10/2024'
 export default class olynesieJuin13Exo1Q3 extends ExerciceQcmA {
   private appliquerLesValeurs (a: string, b: string, c: number): void {

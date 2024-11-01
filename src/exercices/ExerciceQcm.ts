@@ -48,7 +48,6 @@ export default class ExerciceQcm extends Exercice {
   enonce!: string
   reponses!: string[]
   options: {vertical?: boolean, ordered: boolean, lastchoice?: number}
-  qcmAleatoire: boolean
   versionAleatoire?: ()=>void
   versionOriginale:()=>void = () => {
     // Le texte récupéré avant le bloc des réponses (il ne faut pas oublier de doubler les \ du latex et de vérifier que les commandes latex sont supportées par Katex)
@@ -65,6 +64,8 @@ export default class ExerciceQcm extends Exercice {
 
   constructor () {
     super()
+    this.besoinFormulaire2CaseACocher = ['Consigne augmentée', false]
+    this.sup2 = false
     // Il n'est pas prévu d'avoir plus d'une question car ceci est prévu pour un seul énoncé statique à la base même si on pourra changer les valeurs et prévoir une aléatoirisation
     this.nbQuestions = 1
     this.nbQuestionsModifiable = false
@@ -72,15 +73,20 @@ export default class ExerciceQcm extends Exercice {
     this.spacingCorr = 3 // idem pour la correction
     // Les options pour le qcm à modifier éventuellement (vertical à true pour les longues réponses par exemple)
     this.options = { vertical: false, ordered: false }
-    this.qcmAleatoire = false
     this.versionOriginale()
   }
 
   nouvelleVersion () {
-    if (this.qcmAleatoire && this.versionAleatoire != null) {
+    if (this.versionAleatoire != null) {
       if (this.sup) this.versionOriginale()
       else this.versionAleatoire()
     } // il n'y a pas de else car si qcmAleatoire est faux, on reste sur la version originale qui est définie depuis le constructeur
+    if (this.sup2) {
+      this.consigne = `Parmi les ${this.reponses.length} réponses ci-dessous, une seule est correcte.<br>
+${this.interactif || context.isAmc ? 'Cocher la case correspondante.' : 'Donner la lettre correspondante.'}`
+    } else {
+      this.consigne = ''
+    }
     let texte = this.enonce
     this.autoCorrection[0] = {}
     if (this.options != null) {
