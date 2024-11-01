@@ -24,7 +24,7 @@ function ajouteLettres (texte: string) {
   // Mais ça reste compatible...
   const chunks = texte.split(separateur)
   let texteAvecLettres = chunks[0]
-  const lettres = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
+  const lettres = ['A  ', 'B  ', 'C  ', 'D  ', 'E  ', 'F  ', 'G  ', 'H  ', 'I  ', 'J  ']
   for (let i = 0; i < chunks.length - 1; i++) {
     texteAvecLettres += `${lettres[i]}:${separateur}${chunks[i + 1]}`
   }
