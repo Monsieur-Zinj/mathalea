@@ -74,10 +74,10 @@
    * constitué d'un titre (celui du paramètre) et soit d'un tableau
    * des options, soit d'un nombre correspond à la valeur maximale.
    * <i>Référence :</i> commentaire du fichier Exercice.ts sur la propriété
-   * <code>besoinFormulaireNumérique</code> (<code>false</code>
+   * <code>besoinFormulaireNumerique</code> (<code>false</code>
    * sinon this.besoinFormulaireNumerique = [texte, max, tooltip facultatif])
    * @param {string[]} entreesFormulaire Typiquement la valeur de la propriété
-   * <code>besoinFormulaireNumérique</code>
+   * <code>besoinFormulaireNumerique</code>
    * @author sylvain chambon
    */
   function parseFormNumerique (

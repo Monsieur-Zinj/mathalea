@@ -16,7 +16,6 @@ export const dateDeModifImportante = '25/08/2024'
  * Somme ou différence de deux fractions de même dénominateur simple, produit par un entier
  * @author Rémi Angot
  * refait en exercice classique par Jean-Claude Lhote
- * Référence c3c23
 */
 export const uuid = '3a087'
 export const ref = 'c3C23'
@@ -31,11 +30,11 @@ class CalculsFractionsSimples extends Exercice {
     super()
     this.formatInteractif = 'fractionEgale'
     this.nbQuestions = 6
-    this.sup = '4'
+    this.sup = '1-2'
     this.consigne = 'Calculer.'
     this.tailleDiaporama = 4
     this.version = 'c3'
-    this.besoinFormulaireTexte = ['Opérations', '1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
+    this.besoinFormulaireTexte = ['Opérations', 'Nombres séparés par des tirets\n1 : Additions\n2 : Soustractions\n3: Multiplications par un entier\n4: Mélange']
   }
 
   nouvelleVersion () {
