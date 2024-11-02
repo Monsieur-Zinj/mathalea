@@ -146,10 +146,10 @@ export default function FactoriserParNombreOux () {
           reponse = [`${k}(${n}x+${m})`, `${-k}(${-n}x-${m})`]
           break
         case 'nkx-mk':
-          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-${m*k}`)}$`
+          texte = `$${lettreDepuisChiffre(i + 1)}=${printlatex(`${n * k}*x-${m * k}`)}$`
           texteCorr = texte
           texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}\\times${ecritureParentheseSiNegatif(n)}x-${k}\\times${m}$`
-          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}x-${m})$` 
+          texteCorr += `<br>$\\phantom{${lettreDepuisChiffre(i + 1)}}=${k}(${n}x-${m})$`
           reponse = [`${k}(${n}x-${m})`, `${-k}(${-n}x+${m})`]
           break
       }
