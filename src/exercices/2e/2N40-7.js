@@ -31,7 +31,9 @@ export default class nomExercice extends Exercice {
 
     // this.besoinFormulaireTexte= ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
     this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
+    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: positifs\n2: négatifs\n3: Mélange']
     this.sup = 2 // Valeur du paramètre par défaut
+    this.sup2 = 3 // Valeur du paramètre par défaut
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
     //              il peut aussi être une case à cocher avec : this.besoinFormulaireCaseACocher = [texte] (dans ce cas, this.sup = true ou this.sup = false)
   }
@@ -41,21 +43,43 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const typesDeQuestionsDisponibles = [1, 2, 3]
+    const difficulteQuestion = [1, 2, 3]
+    const typeDeNombres = [1, 2]
+
     const listeTypeDeQuestions = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       defaut: 2,
-      listeOfCase: typesDeQuestionsDisponibles,
+      listeOfCase: difficulteQuestion,
       nbQuestions: this.nbQuestions,
       melange: 4
     })
 
+    const listeTypeDeNombres = gestionnaireFormulaireTexte({
+      saisie: this.sup2,
+      min: 1,
+      max: 2,
+      defaut: 3,
+      listeOfCase: typeDeNombres,
+      nbQuestions: this.nbQuestions,
+      melange: 3
+    })
+
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const
+      let signe = '+'
+      switch (listeTypeDeNombres[i]) {
+        case 1:
+          signe = '+'
+          break
+        case 2:
+          signe = '-'
+          break
+      }
       let NombreAAjouter // Comme la valeur sera modifiée, on la déclare avec let
       switch (listeTypeDeQuestions[i]) {
+        //
         case 1:
           NombreAAjouter = 2
           break
@@ -66,12 +90,16 @@ export default class nomExercice extends Exercice {
           NombreAAjouter = 100
           break
       }
-      texte = `$${a} + ${NombreAAjouter} $`
+      // texte = `$${a} + ${NombreAAjouter} $`
+      texte = `$${a} ${signe} ${NombreAAjouter} $`
       texte = `$${texte}$`
       texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
-      texteCorr = `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
-      handleAnswers(this, i, { reponse: { value: a + NombreAAjouter, compare: fonctionComparaison } })
-
+      // texteCorr = `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
+      texteCorr = signe === '+'
+        ? `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
+        : `$${a} - ${NombreAAjouter} = ${a - NombreAAjouter}$`
+      const reponseValue = signe === '+' ? a + NombreAAjouter : a - NombreAAjouter
+      handleAnswers(this, i, { reponse: { value: reponseValue, compare: fonctionComparaison } })
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, NombreAAjouter)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
