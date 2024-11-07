@@ -11,6 +11,21 @@ export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
 
+function garantirUnNegatifTuple (a, b, x) {
+  // Convertir les valeurs en tableau pour faciliter la manipulation
+  const valeurs = [a, b, x]
+
+  // Si aucune valeur n'est négative
+  if (!valeurs.some(v => v < 0)) {
+    // Choisir aléatoirement un index à rendre négatif
+    const indexAModifier = Math.floor(Math.random() * 3)
+    valeurs[indexAModifier] = randint(-10, -1)
+  }
+
+  // Retourner le tuple (sous forme de tableau destructurable)
+  return valeurs
+}
+
 /**
  * Description didactique de l'exercice
  * @author
@@ -30,8 +45,8 @@ export default class nomExercice extends Exercice {
     this.nbQuestions = 10
 
     // this.besoinFormulaireTexte= ['Difficulté', 3, '1 : Facile\n2 : Moyen\n3 : Difficile'] // le paramètre sera numérique de valeur max 3 (le 3 en vert)
-    this.besoinFormulaireTexte = ['Niveau de difficulté', 'Nombres séparés par des tirets\n1: k(ax+b)\n2: (ax+b)×k\n3: kx(ax+b)\n4: (ax+b)×kx\n5: k(ax+b)+c\n6: c+k(ax+b)\n7: Mélange']
-    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: positifs\n2: négatifs\n3: Mélange']
+    this.besoinFormulaireTexte = ['Type d\'expression', 'Nombres séparés par des tirets\n1: (a+b)x\n2: a+bx\n3: ax^2+bx+c']
+    this.besoinFormulaire2Texte = ['Type de nombres', 'Nombres séparés par des tirets\n1: entiers positifs\n2: entiers négatifs']
     this.sup = 2 // Valeur du paramètre par défaut
     this.sup2 = 3 // Valeur du paramètre par défaut
     // Remarques : le paramètre peut aussi être un texte avec : this.besoinFormulaireTexte = [texte, tooltip]
@@ -67,41 +82,66 @@ export default class nomExercice extends Exercice {
     })
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
-      const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const
-      let signe = '+'
-      switch (listeTypeDeNombres[i]) {
-        case 'positifs':
-          signe = '+'
-          break
-        case 'négatifs':
-          signe = '-'
-          break
-      }
-      let NombreAAjouter // Comme la valeur sera modifiée, on la déclare avec let
+      let [a, b, x, c] = []
       switch (listeTypeExpression[i]) {
-        //
         case '(a+b)x':
-          NombreAAjouter = 2
+          switch (listeTypeDeNombres[i]) {
+            case 'entiers positifs':
+              a = randint(1, 10)
+              b = randint(1, 10)
+              x = randint(1, 10)
+              break
+            case 'entiers négatifs':
+              [a, b, x] = garantirUnNegatifTuple(randint(-10, 10), randint(-10, 10), randint(-10, 10))
+              break
+          }
+          // a et b entre pare
+          texte = `$(${a}+${b})\\times x$ pour $x=${x}$`
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
+          texteCorr = `$(${a}+${b})\\times ${x} = ${a + b}\\times ${x} = ${(a + b) * x}$`
+          handleAnswers(this, i, { reponse: { value: (a + b) * x, compare: fonctionComparaison } })
           break
         case 'a+bx':
-          NombreAAjouter = 5
+          switch (listeTypeDeNombres[i]) {
+            case 'entiers positifs':
+              a = randint(1, 10)
+              b = randint(1, 10)
+              x = randint(1, 10)
+              break
+            case 'entiers négatifs':
+              a = randint(-10, -1)
+              b = randint(-10, -1)
+              x = randint(-10, -1)
+              break
+          }
+          texte = `$${a} + ${b}\\times ${x}$`
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
+          texteCorr = `$${a} + ${b}\\times ${x} = ${a} + ${b * x} = ${a + b * x}$`
+          handleAnswers(this, i, { reponse: { value: a + b * x, compare: fonctionComparaison } })
           break
         case 'ax^2+bx+c':
-          NombreAAjouter = 100
+          switch (listeTypeDeNombres[i]) {
+            case 'entiers positifs':
+              a = randint(1, 5)
+              b = randint(1, 10)
+              c = randint(1, 10)
+              x = randint(1, 5)
+              break
+            case 'entiers négatifs':
+              a = randint(-5, -1)
+              b = randint(-10, -1)
+              c = randint(-10, -1)
+              x = randint(-5, -1)
+              break
+          }
+          texte = `$${a}\\times ${x}^2 + ${b}\\times ${x} + ${c}$`
+          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
+          texteCorr = `$${a}\\times ${x}^2 + ${b}\\times ${x} + ${c} = ${a * x * x} + ${b * x} + ${c} = ${a * x * x + b * x + c}$`
+          handleAnswers(this, i, { reponse: { value: a * x * x + b * x + c, compare: fonctionComparaison } })
           break
       }
-      // texte = `$${a} + ${NombreAAjouter} $`
-      texte = `$${a} ${signe} ${NombreAAjouter} $`
-      texte = `$${texte}$`
-      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
-      // texteCorr = `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
-      texteCorr = signe === '+'
-        ? `$${a} + ${NombreAAjouter} = ${a + NombreAAjouter}$`
-        : `$${a} - ${NombreAAjouter} = ${a - NombreAAjouter}$`
-      const reponseValue = signe === '+' ? a + NombreAAjouter : a - NombreAAjouter
-      handleAnswers(this, i, { reponse: { value: reponseValue, compare: fonctionComparaison } })
       // Si la question n'a jamais été posée, on l'enregistre
-      if (this.questionJamaisPosee(i, a, NombreAAjouter)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
+      if (this.questionJamaisPosee(i, a, b, x, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
         this.listeCorrections.push(texteCorr)
         i++
