@@ -43,15 +43,15 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const difficulteQuestion = [1, 2, 3]
-    const typeDeNombres = [1, 2]
+    const typeExpression = ['(a+b)x', 'a+bx', 'ax^2+bx+c']
+    const typeDeNombres = ['entiers positifs', 'entiers négatifs'] // fractions positives et négatives, racines positives et négatives
 
-    const listeTypeDeQuestions = gestionnaireFormulaireTexte({
+    const listeTypeExpression = gestionnaireFormulaireTexte({
       saisie: this.sup,
       min: 1,
       max: 3,
       defaut: 2,
-      listeOfCase: difficulteQuestion,
+      listeOfCase: typeExpression,
       nbQuestions: this.nbQuestions,
       melange: 4
     })
@@ -70,23 +70,23 @@ export default class nomExercice extends Exercice {
       const a = randint(1, 12) // Comme la valeur ne sera pas modifiée, on la déclare avec const
       let signe = '+'
       switch (listeTypeDeNombres[i]) {
-        case 1:
+        case 'positifs':
           signe = '+'
           break
-        case 2:
+        case 'négatifs':
           signe = '-'
           break
       }
       let NombreAAjouter // Comme la valeur sera modifiée, on la déclare avec let
-      switch (listeTypeDeQuestions[i]) {
+      switch (listeTypeExpression[i]) {
         //
-        case 1:
+        case '(a+b)x':
           NombreAAjouter = 2
           break
-        case 2:
+        case 'a+bx':
           NombreAAjouter = 5
           break
-        case 3:
+        case 'ax^2+bx+c':
           NombreAAjouter = 100
           break
       }
