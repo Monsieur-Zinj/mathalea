@@ -4,28 +4,29 @@ import { handleAnswers } from '../../lib/interactif/gestionInteractif'
 import { ajouteChampTexteMathLive } from '../../lib/interactif/questionMathLive'
 import { fonctionComparaison } from '../../lib/interactif/comparisonFunctions'
 import { KeyboardType } from '../../lib/interactif/claviers/keyboard'
-
+import { calculer } from '../../modules/outilsMathjs'
+// import { rienSi1 } from '../../lib/outils/ecritures'
+import { simplify, parse, evaluate } from 'mathjs'
 export const titre = 'Calculer la valeur d\'une expression littérale'
 export const interactifReady = true
 export const interactifType = 'mathLive'
 
 export const dateDePublication = '4/5/2024'
 
-function garantirUnNegatifTuple (a, b, x) {
+function garantirUnNegatifTuple (...args) {
   // Convertir les valeurs en tableau pour faciliter la manipulation
-  const valeurs = [a, b, x]
+  const valeurs = args
 
   // Si aucune valeur n'est négative
   if (!valeurs.some(v => v < 0)) {
     // Choisir aléatoirement un index à rendre négatif
-    const indexAModifier = Math.floor(Math.random() * 3)
+    const indexAModifier = Math.floor(Math.random() * valeurs.length)
     valeurs[indexAModifier] = randint(-10, -1)
   }
 
-  // Retourner le tuple (sous forme de tableau destructurable)
+  // Retourner le tableau des valeurs
   return valeurs
 }
-
 /**
  * Description didactique de l'exercice
  * @author
@@ -58,7 +59,7 @@ export default class nomExercice extends Exercice {
     this.listeCorrections = []
     this.autoCorrection = []
 
-    const typeExpression = ['(a+b)x', 'a+bx', 'ax^2+bx+c']
+    const typeExpression = ['(a+c*x)*b', 'a+b*x', 'a*x^2+bx+c']
     const typeDeNombres = ['entiers positifs', 'entiers négatifs'] // fractions positives et négatives, racines positives et négatives
 
     const listeTypeExpression = gestionnaireFormulaireTexte({
@@ -83,63 +84,57 @@ export default class nomExercice extends Exercice {
 
     for (let i = 0, texte, texteCorr, cpt = 0; i < this.nbQuestions && cpt < 50;) {
       let [a, b, x, c] = []
-      switch (listeTypeExpression[i]) {
-        case '(a+b)x':
-          switch (listeTypeDeNombres[i]) {
-            case 'entiers positifs':
-              a = randint(1, 10)
-              b = randint(1, 10)
-              x = randint(1, 10)
-              break
-            case 'entiers négatifs':
-              [a, b, x] = garantirUnNegatifTuple(randint(-10, 10), randint(-10, 10), randint(-10, 10))
-              break
-          }
-          // a et b entre pare
-          texte = `$(${a}+${b})\\times x$ pour $x=${x}$`
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
-          texteCorr = `$(${a}+${b})\\times ${x} = ${a + b}\\times ${x} = ${(a + b) * x}$`
-          handleAnswers(this, i, { reponse: { value: (a + b) * x, compare: fonctionComparaison } })
+      const expression = listeTypeExpression[i]
+      // switch (expressionABCX) {
+      // case '(a+b)x': {
+      switch (listeTypeDeNombres[i]) {
+        case 'entiers positifs':
+          a = randint(1, 10)
+          b = randint(1, 10)
+          x = randint(1, 10)
+          c = randint(1, 10)
           break
-        case 'a+bx':
-          switch (listeTypeDeNombres[i]) {
-            case 'entiers positifs':
-              a = randint(1, 10)
-              b = randint(1, 10)
-              x = randint(1, 10)
-              break
-            case 'entiers négatifs':
-              a = randint(-10, -1)
-              b = randint(-10, -1)
-              x = randint(-10, -1)
-              break
-          }
-          texte = `$${a} + ${b}\\times ${x}$`
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
-          texteCorr = `$${a} + ${b}\\times ${x} = ${a} + ${b * x} = ${a + b * x}$`
-          handleAnswers(this, i, { reponse: { value: a + b * x, compare: fonctionComparaison } })
-          break
-        case 'ax^2+bx+c':
-          switch (listeTypeDeNombres[i]) {
-            case 'entiers positifs':
-              a = randint(1, 5)
-              b = randint(1, 10)
-              c = randint(1, 10)
-              x = randint(1, 5)
-              break
-            case 'entiers négatifs':
-              a = randint(-5, -1)
-              b = randint(-10, -1)
-              c = randint(-10, -1)
-              x = randint(-5, -1)
-              break
-          }
-          texte = `$${a}\\times ${x}^2 + ${b}\\times ${x} + ${c}$`
-          texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '=' }) + '<br>'
-          texteCorr = `$${a}\\times ${x}^2 + ${b}\\times ${x} + ${c} = ${a * x * x} + ${b * x} + ${c} = ${a * x * x + b * x + c}$`
-          handleAnswers(this, i, { reponse: { value: a * x * x + b * x + c, compare: fonctionComparaison } })
+        case 'entiers négatifs':
+          [a, b, x, c] = garantirUnNegatifTuple(randint(-10, 10), randint(-10, 10), randint(-10, 10), randint(-10, 10))
           break
       }
+
+      // let rules = simplify.rules
+      // const indexToRemove = [2, 39, 41, 42]
+      // remove rule 41 from the rules
+      // rules = rules.filter((rule, index) => !indexToRemove.includes(index))
+
+      const rules = [{
+        name: 'simplifyOneMultiplication',
+        l: '1 * n', // pattern à rechercher (left side)
+        r: 'n', // remplacement (right side)
+        context: { // contexte pour vérifier si n est une variable ou un nombre
+          n: node => node.isSymbolNode || node.isConstantNode
+        }
+      },
+      { l: 'n1 + -n2 * n3', r: 'n1 - n2 * n3' }, // Remplace `+ -` suivi d'une multiplication par `-`
+      { l: 'n1 - +n2 * n3', r: 'n1 - n2 * n3' }, // Remplace `- +` suivi d'une multiplication par `-`
+      { l: 'n1 + -n2', r: 'n1 - n2' } // Remplace `+ -` par `-`
+      ]
+
+      const node = simplify(expression, rules, { a, b, c }, { consoleDebug: true, context: undefined })
+      // const node = evaluate(expression, { a, b, c })
+      console.log('rules', simplify.rules)
+
+      // texte = '$\\ \\ \\ \\ \\ \\ ' + node.toString({ implicit: true }) + '\\ \\ \\ \\ \\ \\ $'
+      texte = '$\\ \\ \\ \\ \\ \\ ' + node.toTex({ implicit: true }) + '\\ \\ \\ \\ \\ \\ $'
+      // texte = node.toString({ implicit: true })
+      texte += `pour $x=${x}$`
+      texte += ajouteChampTexteMathLive(this, i, KeyboardType.clavierEnsemble, { texteAvant: '' }) + '<br>'
+      texteCorr = calculer(simplify(expression, [], { a, b, c, x }).toString()).texteCorr
+      // answer =
+      handleAnswers(this, i, {
+        reponse: {
+          value: evaluate(expression, { a, b, c, x }),
+          compare: fonctionComparaison
+        }
+      })
+      // }
       // Si la question n'a jamais été posée, on l'enregistre
       if (this.questionJamaisPosee(i, a, b, x, c)) { // <- laisser le i et ajouter toutes les variables qui rendent les exercices différents (par exemple a, b, c et d)
         this.listeQuestions.push(texte)
